@@ -12,6 +12,8 @@ This site is the backend engine to support e-commerce business, it could be able
   - A shopping cart
   - Payment interfaces with Alipay etc
 
+## Rails Environment
+
 ## The Design of URLs
 
 ### Product Display
@@ -32,3 +34,8 @@ This site is the backend engine to support e-commerce business, it could be able
 `POST /cart/add` add items to cart
 
 `POST /cart/change` update/delete items in cart
+
+## Environment Dependency
+
+`ENV["MANDRILL_USERNAME"]`: mandrill user name
+`ENV["MANDRILL_API_KEY"]`: mandrill API key
