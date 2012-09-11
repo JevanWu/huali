@@ -1,0 +1,7 @@
+<ul class="administrators">
+  <% @administrators.each do |administrator| %>
+    <li>
+  <%= link_to administrator.email, administrator %> signed up <%= administrator.created_at.to_date %>
+  </li>
+<% end %>
+</ul>

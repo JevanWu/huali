@@ -1,4 +1,12 @@
 Changanhua::Application.routes.draw do
+
+  devise_for :administrators
+
+  authenticated :administrators do
+    root :to => "home#index"
+  end
+
   root :to => "home#index"
-  devise_for :users
+
+  resources :administrators, :only => [:show, :index]
 end
