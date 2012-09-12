@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120912075042) do
+ActiveRecord::Schema.define(:version => 20120912131413) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -45,6 +45,18 @@ ActiveRecord::Schema.define(:version => 20120912075042) do
 
   add_index "administrators", ["email"], :name => "index_administrators_on_email", :unique => true
   add_index "administrators", ["reset_password_token"], :name => "index_administrators_on_reset_password_token", :unique => true
+
+  create_table "assets", :force => true do |t|
+    t.integer  "viewable_id"
+    t.string   "viewable_type"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+  end
+
+  add_index "assets", ["viewable_id"], :name => "index_assets_on_viewable_id"
+  add_index "assets", ["viewable_type"], :name => "index_assets_on_viewable_type"
 
   create_table "products", :force => true do |t|
     t.string   "name_cn",                                        :default => "", :null => false
