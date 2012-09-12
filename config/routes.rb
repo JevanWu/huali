@@ -1,5 +1,7 @@
 Changanhua::Application.routes.draw do
 
+  resources :products
+
   devise_for :administrators
 
   authenticated :administrators do
