@@ -1,5 +1,9 @@
 <p id="notice"><%= notice %></p>
-
+<p><%= @product.name_cn %><p>
+<p><%= @product.name_en %><p>
+<p><%= @product.description %><p>
+<p><%= @product.count_on_hand %><p>
+<p><%= @product.price %><p>
 
 <%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %>

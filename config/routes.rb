@@ -2,7 +2,7 @@ Changanhua::Application.routes.draw do
 
   ActiveAdmin.routes(self)
 
-  resources :products
+  resources :products, :only => [:show, :index]
 
   devise_for :administrators
 
