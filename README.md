@@ -13,6 +13,31 @@ This site is the backend engine to support e-commerce business, it could be able
   - Payment interfaces with Alipay etc
 
 ## Rails Environment
+### Ruby on Rails
+
+This application requires:
+
+* Ruby version 1.9.3
+* Rails version 3.2.8
+
+Learn more about "Installing Rails":http://railsapps.github.com/installing-rails.html.
+
+### Database
+
+This application uses PostgreSQL with ActiveRecord.
+
+### Development
+
+* Template Engine: ERB
+* Testing Framework: RSpec and Factory Girl and Cucumber
+* Front-end Framework: Normalized CSS
+* Form Builder: None
+* Authentication: Devise
+* Authorization: None
+
+### Email
+
+The application is configured to send email using a Mandrill account.
 
 ## The Design of URLs
 
