@@ -11,6 +11,10 @@
     <% end %>
       <%= builder.hidden_field :_destroy %>
       <%= link_to "Remove Image", "#", :class => "remove_fields" %>
+    <li class="file input">
+      <label class="label">Add Image</label>
+      <%= link_to_add_fields "Add Image", f, :assets %>
+    </li>
   <% end %>
 
   <%= f.inputs "SKU Info" do %>
@@ -31,4 +35,3 @@
 
   <%= f.actions %>
 <% end %>
-

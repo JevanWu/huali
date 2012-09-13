@@ -1,4 +1,9 @@
 ActiveAdmin.register Product do
+
+  controller do
+    helper :products
+  end
+
   index do
     column "Chinese Name" do |product|
       link_to product.name_cn, admin_product_path(product)
