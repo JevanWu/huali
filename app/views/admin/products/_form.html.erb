@@ -9,6 +9,8 @@
       <% end %>
       <%= builder.input :image, :label => "Change Image" %>
     <% end %>
+      <%= builder.hidden_field :_destroy %>
+      <%= link_to "Remove Image", "#", :class => "remove_fields" %>
   <% end %>
 
   <%= f.inputs "SKU Info" do %>
