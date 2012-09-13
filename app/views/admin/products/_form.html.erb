@@ -3,8 +3,11 @@
     <%= f.input :name_cn, :label => "Chinese Name", :required => true %>
     <%= f.input :name_en, :label => "English Name", :required => true %>
     <%= f.input :description, :hint => "Use Markdown to write the content" %>
-    <%= f.semantic_fields_for :assets do |asset| %>
-      <%= asset.inputs :image, :as => :file, :name => "File" %>
+    <%= f.inputs :for => :assets, :class => 'image_field' do |builder, i| %>
+      <% if @product.assets[i - 1].image.url(:medium) %> 
+        <%= image_tag @product.assets[i - 1].image.url(:medium)%>
+      <% end %>
+      <%= builder.input :image, :label => "Change Image" %>
     <% end %>
   <% end %>
 
