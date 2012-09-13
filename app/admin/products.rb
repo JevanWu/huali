@@ -19,4 +19,39 @@ ActiveAdmin.register Product do
   end
 
   form :partial => "form"
+
+  show do |product|
+
+    attributes_table do
+      row :name_cn
+      row :name_en
+      row :description
+
+      row :pictures do
+        product.assets.map do |asset|
+          image_tag asset.image.url(:medium)
+        end.join(' ').html_safe
+      end
+
+      row :thumbnails do
+        product.assets.map do |asset|
+          image_tag asset.image.url(:thumb)
+        end.join(' ').html_safe
+      end
+
+      row :meta_description
+      row :meta_keywords
+      row :count_on_hand
+      row :price
+      row :cost_price
+      row :height
+      row :width
+      row :depth
+      row :available_on
+      row :deleted_at
+      row :created_at
+      row :updated_at
+
+    end
+  end
 end
