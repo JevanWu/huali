@@ -227,6 +227,7 @@ DEPENDENCIES
   devise (>= 2.1.2)
   email_spec (>= 1.2.1)
   factory_girl_rails (>= 4.0.0)
+  formtastic
   hominid (>= 3.0.5)
   jquery-rails
   launchy (>= 2.1.2)

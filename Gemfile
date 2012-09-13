@@ -9,6 +9,7 @@ gem "devise", ">= 2.1.2"
 gem "activeadmin"
 gem "meta_search", '>= 1.1.0.pre'
 gem "paperclip", "~> 3.0"
+gem "formtastic"
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
