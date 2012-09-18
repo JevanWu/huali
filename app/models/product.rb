@@ -4,6 +4,8 @@ class Product < ActiveRecord::Base
   has_many :assets, :as => :viewable, :dependent => :destroy
   accepts_nested_attributes_for :assets, :reject_if => lambda { |a| a[:image].blank? }, :allow_destroy => true
 
+  belongs_to :collection
+
   validates :name_en, :name_cn, :count_on_hand, :presence => true
 
   before_save do |product|
