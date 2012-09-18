@@ -1,4 +1,4 @@
-class ProductsController < ApplicationController
+class productscontroller < applicationcontroller
   # GET /products
   # GET /products.json
   def index

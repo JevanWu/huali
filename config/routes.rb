@@ -1,8 +1,11 @@
 Changanhua::Application.routes.draw do
 
+
   ActiveAdmin.routes(self)
 
   resources :products, :only => [:show, :index]
+
+  resources :collections, :only => [:show, :index]
 
   devise_for :administrators
 
@@ -12,5 +15,4 @@ Changanhua::Application.routes.draw do
 
   root :to => "home#index"
 
-  resources :administrators, :only => [:show, :index]
 end
