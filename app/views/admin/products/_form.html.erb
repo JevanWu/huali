@@ -24,8 +24,7 @@
     <%= f.input :height %>
     <%= f.input :width %>
     <%= f.input :depth %>
-    <%= f.input :available_on, :as => :date_select %>
-    <%= f.input :deleted_at, :as => :date_select %>
+    <%= f.input :available, :as => :boolean %>
   <% end %>
 
   <%= f.inputs "SEO" do %>

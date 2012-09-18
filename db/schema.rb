@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120912131413) do
+ActiveRecord::Schema.define(:version => 20120918070224) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -59,25 +59,22 @@ ActiveRecord::Schema.define(:version => 20120912131413) do
   add_index "assets", ["viewable_type"], :name => "index_assets_on_viewable_type"
 
   create_table "products", :force => true do |t|
-    t.string   "name_cn",                                        :default => "", :null => false
-    t.string   "name_en",                                        :default => "", :null => false
+    t.string   "name_cn",                                        :default => "",   :null => false
+    t.string   "name_en",                                        :default => "",   :null => false
     t.text     "description"
     t.string   "meta_description"
     t.string   "meta_keywords"
-    t.integer  "count_on_hand",                                  :default => 0,  :null => false
+    t.integer  "count_on_hand",                                  :default => 0,    :null => false
     t.decimal  "cost_price",       :precision => 8, :scale => 2
     t.decimal  "price",            :precision => 8, :scale => 2
     t.decimal  "height",           :precision => 8, :scale => 2
     t.decimal  "width",            :precision => 8, :scale => 2
     t.decimal  "depth",            :precision => 8, :scale => 2
-    t.datetime "available_on"
-    t.datetime "deleted_at"
-    t.datetime "created_at",                                                     :null => false
-    t.datetime "updated_at",                                                     :null => false
+    t.datetime "created_at",                                                       :null => false
+    t.datetime "updated_at",                                                       :null => false
+    t.boolean  "available",                                      :default => true
   end
 
-  add_index "products", ["available_on"], :name => "index_products_on_available_on"
-  add_index "products", ["deleted_at"], :name => "index_products_on_deleted_at"
   add_index "products", ["name_en"], :name => "index_products_on_name_en"
 
 end

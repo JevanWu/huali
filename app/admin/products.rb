@@ -52,8 +52,7 @@ ActiveAdmin.register Product do
       row :height
       row :width
       row :depth
-      row :available_on
-      row :deleted_at
+      row :available
       row :created_at
       row :updated_at
 
