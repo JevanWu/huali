@@ -15,7 +15,11 @@ ActiveAdmin.register Product do
 
     column "Count", :count_on_hand
 
-    column "Collection", :collection
+    column "Collection" do |product|
+      if product.collection
+        link_to product.collection.name_cn, admin_collection_path(product.collection)
+      end
+    end
 
     column :price, :sortable => :price do |product|
       div :class => "price" do
