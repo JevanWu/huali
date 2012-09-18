@@ -2,6 +2,7 @@
   <%= f.inputs "Main Info" do %>
     <%= f.input :name_cn, :label => "Chinese Name", :required => true %>
     <%= f.input :name_en, :label => "English Name", :required => true %>
+    <%= f.input :collection %>
     <%= f.input :description, :hint => "Use Markdown to write the content" %>
     <%= f.inputs :for => :assets, :class => 'image_field' do |builder, i| %>
       <% if @product.assets[i - 1].image.url(:medium) %> 

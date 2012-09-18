@@ -15,6 +15,8 @@ ActiveAdmin.register Product do
 
     column "Count", :count_on_hand
 
+    column "Collection", :collection
+
     column :price, :sortable => :price do |product|
       div :class => "price" do
         number_to_currency product.price
@@ -31,6 +33,9 @@ ActiveAdmin.register Product do
       row :name_cn
       row :name_en
       row :description
+      row :collection do
+        product.collection.name_cn if product.collection
+      end
 
       row :pictures do
         product.assets.map do |asset|
