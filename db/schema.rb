@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120918082703) do
+ActiveRecord::Schema.define(:version => 20120918092702) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -59,10 +59,11 @@ ActiveRecord::Schema.define(:version => 20120918082703) do
   add_index "assets", ["viewable_type"], :name => "index_assets_on_viewable_type"
 
   create_table "collections", :force => true do |t|
-    t.string   "name"
+    t.string   "name_cn",     :null => false
     t.string   "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.string   "name_en",     :null => false
   end
 
   create_table "products", :force => true do |t|
@@ -80,6 +81,7 @@ ActiveRecord::Schema.define(:version => 20120918082703) do
     t.datetime "created_at",                                                       :null => false
     t.datetime "updated_at",                                                       :null => false
     t.boolean  "available",                                      :default => true
+    t.integer  "collection_id"
   end
 
   add_index "products", ["name_en"], :name => "index_products_on_name_en"
