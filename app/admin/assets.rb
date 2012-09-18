@@ -3,7 +3,7 @@ ActiveAdmin.register Asset do
   form :html => { :enctype => "multipart/form-data" } do |f|
     f.inputs "Details" do
       f.input :image, :as => :file
-      f.input :viewable_type
+      f.input :viewable_type, :label => "BelongsTo"
     end
     f.buttons
   end
