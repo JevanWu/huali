@@ -8,9 +8,9 @@
         <%= image_tag @product.assets[i - 1].image.url(:medium)%>
       <% end %>
       <%= builder.input :image, :label => "Change Image" %>
-    <% end %>
       <%= builder.hidden_field :_destroy %>
       <%= link_to "Remove Image", "#", :class => "remove_fields" %>
+    <% end %>
     <li class="file input">
       <label class="label">Add Image</label>
       <%= link_to_add_fields "Add Image", f, :assets %>
