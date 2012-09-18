@@ -31,7 +31,7 @@ This application uses PostgreSQL with ActiveRecord.
 * Template Engine: ERB
 * Testing Framework: RSpec and Factory Girl and Cucumber
 * Front-end Framework: Normalized CSS
-* Form Builder: None
+* Form Builder: Formtastic
 * Authentication: Devise
 * Authorization: None
 
@@ -59,6 +59,9 @@ The application is configured to send email using a Mandrill account.
 `POST /cart/add` add items to cart
 
 `POST /cart/change` update/delete items in cart
+
+### Admin Panel
+`GET /admin/:model` to access the model management panel
 
 ## Environment Dependency
 
