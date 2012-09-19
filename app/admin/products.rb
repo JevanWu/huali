@@ -2,13 +2,6 @@ ActiveAdmin.register Product do
 
   controller do
     helper :products
-
-    def new
-      @product = Product.new
-      @product.product_parts.build
-      @product.product_parts.first.build_asset
-    end
-
   end
 
   index do

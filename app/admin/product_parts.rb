@@ -6,8 +6,9 @@ ActiveAdmin.register ProductPart do
 
   index do
     selectable_column
+
     column "Image" do |product_part|
-      image_tag product_part.asset.image.url(:thumb)
+      product_part.asset ? image_tag(product_part.asset.image.url(:thumb)) : ''
     end
 
     column "Chinese Name" do |product_part|
@@ -41,11 +42,11 @@ ActiveAdmin.register ProductPart do
       end
 
       row :pictures do
-        image_tag product_part.asset.image.url(:medium).html_safe
+        product_part.asset ? image_tag(product_part.asset.image.url(:medium).html_safe): ''
       end
 
       row :thumbnails do
-        image_tag product_part.asset.image.url(:thumb).html_safe
+        product_part.asset ? image_tag(product_part.asset.image.url(:thumb).html_safe): ''
       end
     end
   end
