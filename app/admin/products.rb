@@ -26,6 +26,15 @@ ActiveAdmin.register Product do
         number_to_currency product.price
       end
     end
+
+    column "usage" do |product|
+      link_to product.usage, admin_product_path(product)
+    end
+
+    column "place" do |product|
+      link_to product.place, admin_product_path(product)
+    end
+
   default_actions
   end
 
@@ -64,6 +73,8 @@ ActiveAdmin.register Product do
       row :available
       row :created_at
       row :updated_at
+      row :place
+      row :usage
 
     end
   end
