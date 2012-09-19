@@ -2,12 +2,21 @@ ActiveAdmin.register Product do
 
   controller do
     helper :products
+
+    def new
+      @product = Product.new
+      @product.product_parts.build
+      @product.product_parts.first.build_asset
+    end
+
   end
 
   index do
     selectable_column
     column "Image" do |product|
-      image_tag product.assets.first.image.url(:thumb)
+      unless product.assets.first.nil? or product.assets.first.image.nil?
+        image_tag product.assets.first.image.url(:thumb)
+      end
     end
 
     column "Chinese Name" do |product|
