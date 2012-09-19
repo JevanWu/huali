@@ -1,5 +1,7 @@
 ActiveAdmin.register Collection do
+
   index do
+    selectable_column
     column :name_cn
     column :name_en
     column :description

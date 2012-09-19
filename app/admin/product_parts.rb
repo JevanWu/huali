@@ -5,6 +5,7 @@ ActiveAdmin.register ProductPart do
   end
 
   index do
+    selectable_column
     column "Image" do |product_part|
       image_tag product_part.asset.image.url(:thumb)
     end
