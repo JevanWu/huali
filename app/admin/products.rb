@@ -38,7 +38,8 @@ ActiveAdmin.register Product do
       row :name_en
       row :description
       row :collection do
-        product.collection.name_cn if product.collection
+        collection = product.collection
+        link_to collection.name_cn, admin_collection_path(collection) if collection
       end
 
       row :pictures do
