@@ -5,6 +5,10 @@ ActiveAdmin.register Product do
   end
 
   index do
+    column "Image" do |product|
+      image_tag product.assets.first.image.url(:thumb)
+    end
+
     column "Chinese Name" do |product|
       link_to product.name_cn, admin_product_path(product)
     end
