@@ -1,0 +1,23 @@
+<!-- There is a temporary hack here: mannualy create the file upload fields  -->
+<!-- Because f.fields_for :asset cannot generate the nested fields automatically -->
+<!-- The `id` is passed in from products_helper.rb -->
+<!-- FIXME -->
+
+<li class="input">
+  <fieldset class="part_field">
+    <ol>
+      <li class="file input optional">
+      <%= f.input :name_cn, :label => "Part Name - CN" %>
+      <%= f.input :name_en, :label => "Part Name - EN" %>
+
+      <li id="product_product_parts_attributes_<%= "#{id}" %>_asset_attributes_image_input" class="file input optional">
+      <label for="product_product_parts_attributes_<%= "#{id}" %>_asset_attributes_image" class=" label">Change Image</label>
+      <input type="file" name="product[product_parts_attributes][<%= "#{id}" %>][asset_attributes][image]" id="product_product_parts_attributes_<%= "#{id}" %>_asset_attributes_image">
+      </li>
+
+      <%= f.hidden_field :_destroy %>
+      <%= link_to "Remove Above Part", "#", class: "remove_fields" %>
+      </li>
+    </ol>
+  </fieldset>
+</li>
