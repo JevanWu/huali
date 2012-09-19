@@ -1,8 +1,17 @@
 <p id="notice"><%= notice %></p>
 <p><%= @product.name_cn %><p>
 <p><%= @product.name_en %><p>
+<p><%= @product.meta_description %><p>
 <p><%= @product.description %><p>
 <p><%= @product.count_on_hand %><p>
+<p><%= @product.cost_price %><p>
 <p><%= @product.price %><p>
+<p><%= @product.height %><p>
+<p><%= @product.width %><p>
+<p><%= @product.depth %><p>
+<p><%= @product.meta_keywords %><p>
+<% @product.assets.each do |asset| %>
+  <%= image_tag asset.image.url(:medium)%>
+<% end %>
 
 <%= link_to 'Back', products_path %>
