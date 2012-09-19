@@ -13,13 +13,12 @@ class Product < ActiveRecord::Base
     product.name_en.downcase!
   end
 
-
   def has_stock?
-
+    @count_on_hand
   end
 
   def available?
-
+    @available
   end
 
 end

@@ -51,4 +51,14 @@ Changanhua::Application.configure do
 
   # Paperclip path
   Paperclip.options[:command_path] = "/usr/local/bin/"
+
+  # use pry as default irb
+  silence_warnings do
+    begin
+      require 'pry'
+      IRB = Pry
+    rescue
+      LoadError
+    end
+  end
 end

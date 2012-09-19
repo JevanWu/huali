@@ -10,4 +10,21 @@ ActiveAdmin.register Collection do
     end
     default_actions
   end
+
+  show do
+    attributes_table do
+      row :name_cn
+      row :name_en
+      row :description
+
+      row :product do
+        collection.products.map do |product|
+          link_to product.name_cn, admin_product_path(product)
+        end.join(', ').html_safe
+      end
+
+      row :created_at
+      row :updated_at
+    end
+  end
 end
