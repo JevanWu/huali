@@ -26,7 +26,7 @@ Learn more about "Installing Rails":http://railsapps.github.com/installing-rails
 
 This application uses PostgreSQL with ActiveRecord.
 
-### Development
+##evelopment
 
 * Template Engine: ERB
 * Testing Framework: RSpec and Factory Girl and Cucumber
