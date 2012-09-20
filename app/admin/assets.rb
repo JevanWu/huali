@@ -1,5 +1,9 @@
 ActiveAdmin.register Asset do
 
+  filter :viewable_type, :as => :select, :collection => Asset.types
+  filter :image_file_name
+  filter :image_updated_at
+
   form :html => { :enctype => "multipart/form-data" } do |f|
     f.inputs "Details" do
       f.input :image, :as => :file
@@ -23,7 +27,6 @@ ActiveAdmin.register Asset do
       row :content_type do
         asset.image_content_type
       end
-
 
       row :image_updated_at
 
