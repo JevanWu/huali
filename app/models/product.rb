@@ -31,4 +31,8 @@ class Product < ActiveRecord::Base
     @available
   end
 
+  def to_s
+    "#{self.id} #{self.name_cn}"
+  end
+
 end

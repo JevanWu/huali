@@ -9,4 +9,8 @@ class ProductPart < ActiveRecord::Base
 
   validates :name_cn, :name_en, :presence => true
 
+  def to_s
+    "#{self.id} #{self.name_cn}"
+  end
+
 end
