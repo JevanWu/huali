@@ -28,11 +28,15 @@ ActiveAdmin.register Product do
     end
 
     column "usage" do |product|
-      link_to product.usage, admin_product_path(product)
+      unless product.usage.nil?
+        product.usage.slice(1..-1).join(", ")
+      end
     end
 
     column "place" do |product|
-      link_to product.place, admin_product_path(product)
+      unless product.place.nil?
+        product.place.slice(1..-1).join(", ")
+      end
     end
 
   default_actions
