@@ -73,8 +73,17 @@ ActiveAdmin.register Product do
       row :available
       row :created_at
       row :updated_at
-      row :place
-      row :usage
+      row :place do
+        if product.place.length
+          product.place.slice(1..-1).join(", ")
+        end
+      end
+
+      row :usage do
+        if product.usage.length
+          product.usage.slice(1..-1).join(", ")
+        end
+      end
 
     end
   end

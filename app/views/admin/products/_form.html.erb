@@ -10,7 +10,7 @@
     <%= f.input :description, :hint => "Use Markdown to write the content" %>
 
     <%= f.inputs :for => :assets, :class => 'image_field' do |builder, i| %>
-      <% if @product.assets[i - 1].image.url(:medium) %> 
+      <% if @product.assets[i - 1].image.url(:medium) %>
         <%= image_tag @product.assets[i - 1].image.url(:medium)%>
       <% end %>
       <%= builder.input :image, :label => "Change Image" %>
@@ -32,8 +32,8 @@
     <%= f.input :width %>
     <%= f.input :depth %>
     <%= f.input :height %>
-    <%= f.input :usage %>
-    <%= f.input :place %>
+    <%= f.input :place, :as => :check_boxes, :collection => ['1','2','3'] %>
+    <%= f.input :usage, :as => :check_boxes, :collection => ['1','2','3'] %>
     <%= f.input :available, :as => :boolean %>
   <% end %>
 
