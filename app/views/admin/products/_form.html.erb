@@ -9,18 +9,39 @@
 
     <%= f.input :description, :hint => "Use Markdown to write the content" %>
 
+    <%= f.inputs :for => :product_parts, :class => 'part_field' do |part_builder, i| %>
+
+      <%= part_builder.input :name_cn, :label => "Part Name - CN" %>
+      <%= part_builder.input :name_en, :label => "Part Name - EN" %>
+
+      <%= part_builder.inputs :for => :asset do |asset_builder| %>
+        <% unless part_builder.object.asset.nil? or part_builder.object.asset.image.nil? %> 
+          <%= image_tag part_builder.object.asset.image.url(:thumb) %> 
+        <% end %>
+        <%= asset_builder.input :image, :label => "Change Image" %>
+      <% end %>
+
+      <%= part_builder.hidden_field :_destroy %>
+      <%= link_to "Remove Above Part", "#", :class => "remove_fields" %>
+    <% end %>
+
+    <li class="file input">
+      <label class="label">Add Part</label>
+      <%= link_to_add_parts "Add Part", f, :product_parts %>
+    </li>
+
     <%= f.inputs :for => :assets, :class => 'image_field' do |builder, i| %>
-      <% if @product.assets[i - 1].image.url(:medium) %> 
-        <%= image_tag @product.assets[i - 1].image.url(:medium)%>
+      <% if @product.assets[i - 1].image %> 
+        <%= image_tag @product.assets[i - 1].image.url(:thumb)%>
       <% end %>
       <%= builder.input :image, :label => "Change Image" %>
       <%= builder.hidden_field :_destroy %>
-      <%= link_to "Remove Image", "#", :class => "remove_fields" %>
+      <%= link_to "Remove Above Image", "#", :class => "remove_fields" %>
     <% end %>
 
     <li class="file input">
       <label class="label">Add Image</label>
-      <%= link_to_add_fields "Add Image", f, :assets %>
+      <%= link_to_add_assets "Add Image", f, :assets %>
     </li>
 
   <% end %>

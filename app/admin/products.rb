@@ -5,6 +5,13 @@ ActiveAdmin.register Product do
   end
 
   index do
+    selectable_column
+    column "Image" do |product|
+      unless product.assets.first.nil? or product.assets.first.image.nil?
+        image_tag product.assets.first.image.url(:thumb)
+      end
+    end
+
     column "Chinese Name" do |product|
       link_to product.name_cn, admin_product_path(product)
     end
@@ -37,8 +44,16 @@ ActiveAdmin.register Product do
       row :name_cn
       row :name_en
       row :description
+
       row :collection do
-        product.collection.name_cn if product.collection
+        collection = product.collection
+        link_to collection.name_cn, admin_collection_path(collection) if collection
+      end
+
+      row :parts do
+        product.product_parts.map do |product_part|
+          link_to product_part.name_cn, admin_product_part_path(product_part)
+        end.join(', ').html_safe
       end
 
       row :pictures do
