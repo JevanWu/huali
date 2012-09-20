@@ -30,7 +30,7 @@ ActiveAdmin.register Product do
 
     column :price, :sortable => :price do |product|
       div :class => "price" do
-        number_to_currency product.price
+        number_to_currency product.price, :unit => '&yen;'
       end
     end
   default_actions
@@ -71,11 +71,21 @@ ActiveAdmin.register Product do
       row :meta_description
       row :meta_keywords
       row :count_on_hand
-      row :price
-      row :cost_price
-      row :height
-      row :width
-      row :depth
+      row :price do
+        number_to_currency product.price, :unit => '&yen;'
+      end
+      row :cost_price do
+        number_to_currency product.cost_price, :unit => '&yen;'
+      end
+      row :height do
+        "#{product.height} cm"
+      end
+      row :width do
+        "#{product.width} cm"
+      end
+      row :depth do
+        "#{product.depth} cm"
+      end
       row :available
       row :created_at
       row :updated_at
