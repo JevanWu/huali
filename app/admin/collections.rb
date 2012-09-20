@@ -1,9 +1,15 @@
 ActiveAdmin.register Collection do
 
+  filter :name_cn
+  filter :description
+  filter :created_at
+  filter :updated_at
+
   index do
     selectable_column
-    column :name_cn
-    column :name_en
+    column :name do |collection|
+      collection.name_cn
+    end
     column :description
     column :products_count do |collection|
       div :class => 'count' do
@@ -16,7 +22,9 @@ ActiveAdmin.register Collection do
   show do
     attributes_table do
       row :name_cn
-      row :name_en
+      row :slug do
+        collection.name_en
+      end
       row :description
 
       row :product do
