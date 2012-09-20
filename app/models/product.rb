@@ -1,5 +1,5 @@
 class Product < ActiveRecord::Base
-  attr_accessible :name_cn, :name_en, :description, :meta_description, :meta_keywords, :count_on_hand, :cost_price, :price, :height, :width, :depth, :available
+  attr_accessible :name_cn, :name_en, :description, :meta_description, :meta_keywords, :count_on_hand, :cost_price, :price, :height, :width, :depth, :available, :assets, :assets_attributes, :collection_id, :place, :usage
 
   # collection
   belongs_to :collection
@@ -18,6 +18,9 @@ class Product < ActiveRecord::Base
     :reject_if => lambda { |a| a[:name_cn].blank? or a[:name_en].blank? }, :allow_destroy => true
 
   validates :name_en, :name_cn, :count_on_hand, :presence => true
+
+  serialize :place
+  serialize :usage
 
   before_save do |product|
     product.name_en.downcase!

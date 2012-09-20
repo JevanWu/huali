@@ -33,6 +33,19 @@ ActiveAdmin.register Product do
         number_to_currency product.price, :unit => '&yen;'
       end
     end
+
+    column "usage" do |product|
+      unless product.usage.nil?
+        product.usage.slice(1..-1).join(", ")
+      end
+    end
+
+    column "place" do |product|
+      unless product.place.nil?
+        product.place.slice(1..-1).join(", ")
+      end
+    end
+
   default_actions
   end
 
@@ -89,6 +102,17 @@ ActiveAdmin.register Product do
       row :available
       row :created_at
       row :updated_at
+      row :place do
+        if product.place.length
+          product.place.slice(1..-1).join(", ")
+        end
+      end
+
+      row :usage do
+        if product.usage.length
+          product.usage.slice(1..-1).join(", ")
+        end
+      end
 
     end
   end

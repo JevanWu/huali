@@ -91,6 +91,8 @@ ActiveRecord::Schema.define(:version => 20120919080052) do
     t.datetime "updated_at",                                                       :null => false
     t.boolean  "available",                                      :default => true
     t.integer  "collection_id"
+    t.string   "place"
+    t.string   "usage"
   end
 
   add_index "products", ["name_en"], :name => "index_products_on_name_en"
