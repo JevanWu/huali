@@ -1,3 +1,5 @@
+require 'kramdown'
+
 class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
@@ -14,6 +16,9 @@ class ProductsController < ApplicationController
   # GET /products/1.json
   def show
     @product = Product.find(params[:id])
+    @product.description = Kramdown::Document.new(@product.description).to_html
+    puts "this is fucking good"
+    puts @product.description
 
     respond_to do |format|
       format.html # show.html.erb
