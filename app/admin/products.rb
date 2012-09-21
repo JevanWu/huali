@@ -91,25 +91,25 @@ ActiveAdmin.register Product do
         number_to_currency product.cost_price, :unit => '&yen;'
       end
       row :height do
-        "#{product.height} cm"
+        "#{product.height} cm" if product.height
       end
       row :width do
-        "#{product.width} cm"
+        "#{product.width} cm" if product.width
       end
       row :depth do
-        "#{product.depth} cm"
+        "#{product.depth} cm" if product.depth
       end
       row :available
       row :created_at
       row :updated_at
       row :place do
-        if product.place.length
+        unless product.place.nil?
           product.place.slice(1..-1).join(", ")
         end
       end
 
       row :usage do
-        if product.usage.length
+        unless product.usage.nil?
           product.usage.slice(1..-1).join(", ")
         end
       end
