@@ -19,9 +19,6 @@ class Product < ActiveRecord::Base
 
   validates :name_en, :name_cn, :count_on_hand, :presence => true
 
-  serialize :place
-  serialize :usage
-
   before_save do |product|
     product.name_en.downcase!
   end

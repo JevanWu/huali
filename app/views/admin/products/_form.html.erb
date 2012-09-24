@@ -15,8 +15,8 @@
       <%= part_builder.input :name_en, :label => "Part Name - EN" %>
 
       <%= part_builder.inputs :for => :asset do |asset_builder| %>
-        <% unless part_builder.object.asset.nil? or part_builder.object.asset.image.nil? %> 
-          <%= image_tag part_builder.object.asset.image.url(:thumb) %> 
+        <% unless part_builder.object.asset.nil? or part_builder.object.asset.image.nil? %>
+          <%= image_tag part_builder.object.asset.image.url(:thumb) %>
         <% end %>
         <%= asset_builder.input :image, :label => "Change Image" %>
       <% end %>
@@ -31,7 +31,7 @@
     </li>
 
     <%= f.inputs :for => :assets, :class => 'image_field' do |builder, i| %>
-      <% if @product.assets[i - 1].image %> 
+      <% if @product.assets[i - 1].image %>
         <%= image_tag @product.assets[i - 1].image.url(:thumb)%>
       <% end %>
       <%= builder.input :image, :label => "Change Image" %>
@@ -53,8 +53,8 @@
     <%= f.input :width %>
     <%= f.input :depth %>
     <%= f.input :height %>
-    <%= f.input :place, :as => :check_boxes, :collection => ['1','2','3'] %>
-    <%= f.input :usage, :as => :check_boxes, :collection => ['1','2','3'] %>
+    <%= f.input :place %>
+    <%= f.input :usage %>
     <%= f.input :available, :as => :boolean %>
   <% end %>
 
