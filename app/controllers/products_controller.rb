@@ -1,5 +1,3 @@
-require 'kramdown'
-
 class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
@@ -16,8 +14,6 @@ class ProductsController < ApplicationController
   # GET /products/1.json
   def show
     @product = Product.find(params[:id])
-    md2html = Kramdown::Document.new(@product.description).to_html.html_safe
-    @product.description = md2html
 
     respond_to do |format|
       format.html # show.html.erb
