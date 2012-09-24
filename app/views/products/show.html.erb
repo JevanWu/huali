@@ -2,7 +2,7 @@
 <p><%= @product.name_cn %><p>
 <p><%= @product.name_en %><p>
 <p><%= @product.meta_description %><p>
-<p><%= @product.description %><p>
+<p><%= markdown @product.description %><p>
 <p><%= @product.count_on_hand %><p>
 <p><%= @product.cost_price %><p>
 <p><%= @product.price %><p>

@@ -56,7 +56,9 @@ ActiveAdmin.register Product do
     attributes_table do
       row :name_cn
       row :name_en
-      row :description
+      row :description do
+        Kramdown::Document.new(product.description).to_html.html_safe
+      end
 
       row :collection do
         collection = product.collection
