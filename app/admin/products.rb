@@ -104,18 +104,9 @@ ActiveAdmin.register Product do
       row :available
       row :created_at
       row :updated_at
-      row :place do
-        unless product.place.nil?
-          product.place.slice(1..-1).join(", ")
-        end
-      end
-
-      row :usage do
-        unless product.usage.nil?
-          product.usage.slice(1..-1).join(", ")
-        end
-      end
-
+      row :place
+      row :usage
+      row :info_source
     end
   end
 end

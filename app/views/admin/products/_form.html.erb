@@ -9,6 +9,8 @@
 
     <%= f.input :description, :hint => "Use Markdown to write the content" %>
 
+    <%= f.input :info_source %>
+
     <%= f.inputs :for => :product_parts, :class => 'part_field' do |part_builder, i| %>
 
       <%= part_builder.input :name_cn, :label => "Part Name - CN" %>

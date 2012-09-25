@@ -35,7 +35,10 @@ ActiveAdmin.register ProductPart do
     attributes_table do
       row :name_cn
       row :name_en
-      row :description
+      row :description do
+        Kramdown::Document.new(product.description).to_html.html_safe
+      end
+      row :info_source
       row :belong_to do
         product = product_part.product
         link_to product.name_cn, admin_product_path(product) if product
