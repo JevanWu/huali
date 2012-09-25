@@ -1,6 +1,8 @@
 Changanhua::Application.routes.draw do
 
 
+  resources :pages
+
   ActiveAdmin.routes(self)
 
   resources :products, :only => [:show, :index]
