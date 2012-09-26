@@ -12,16 +12,15 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <div id="container" class="container">
+    <div id="wrapper" class="container">
       <header>
-        <%= render 'layouts/navigation' %>
         <%= render 'layouts/messages' %>
+        <%= render 'layouts/header' %>
       </header>
       <div id="main" role="main">
         <%= yield %>
       </div>
-      <footer>
-      </footer>
+      <%= render 'layouts/footer' %>
     </div> <!--! end of #container -->
   </body>
     <%= javascript_include_tag "application" %>
