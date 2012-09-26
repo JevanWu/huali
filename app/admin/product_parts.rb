@@ -1,3 +1,5 @@
+require 'kramdown'
+
 ActiveAdmin.register ProductPart do
 
   controller do
