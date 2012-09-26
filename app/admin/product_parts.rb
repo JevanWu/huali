@@ -33,6 +33,7 @@ ActiveAdmin.register ProductPart do
   form :partial => "form"
 
   show do |product_part|
+    product = product_part.product
 
     attributes_table do
       row :name_cn
@@ -42,7 +43,6 @@ ActiveAdmin.register ProductPart do
       end
       row :info_source
       row :belong_to do
-        product = product_part.product
         link_to product.name_cn, admin_product_path(product) if product
       end
 
