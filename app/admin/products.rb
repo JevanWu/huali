@@ -1,4 +1,4 @@
-require 'Kramdown'
+require 'kramdown'
 
 ActiveAdmin.register Product do
 
