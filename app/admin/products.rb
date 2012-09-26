@@ -1,3 +1,5 @@
+require 'Kramdown'
+
 ActiveAdmin.register Product do
 
   controller do

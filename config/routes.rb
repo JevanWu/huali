@@ -1,7 +1,7 @@
 Changanhua::Application.routes.draw do
 
-
-  resources :pages
+  resources :pages, only: :show
+  get ':id', to: 'pages#show', as: :page
 
   ActiveAdmin.routes(self)
 
