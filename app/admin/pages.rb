@@ -20,7 +20,7 @@ ActiveAdmin.register Page do
     def update
       @page = Page.find_by_permalink!(params[:id])
       if @page.update_attributes(params[:page])
-        redirect_to admin_page_path 
+        redirect_to admin_page_path
       else
         render "edit"
       end
@@ -36,4 +36,15 @@ ActiveAdmin.register Page do
       redirect_to admin_pages_path
     end
   end
+
+  show do |page|
+
+    attributes_table do
+      row :content do
+        Kramdown::Document.new(page.content).to_html.html_safe
+      end
+    end
+  end
+
+  form :partial => "form"
 end

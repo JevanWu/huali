@@ -2,10 +2,8 @@
   <%= f.inputs do %>
     <%= f.input :name %>
     <%= f.input :permalink %>
-    <%= f.input :content %>
+    <%= f.input :content, :hint => "Use Markdown to write the content"  %>
   <% end %>
 
-  <%= f.actions do %>
-    <%= f.action :submit, :as => :input %>
-  <% end %>
+  <%= f.actions %>
 <% end %>
