@@ -48,6 +48,9 @@ ActiveAdmin.register Product do
         Kramdown::Document.new(product.description).to_html.html_safe
       end
 
+      row :info_source do
+        Kramdown::Document.new(product.info_source).to_html.html_safe
+      end
       row :collection do
         collection = product.collection
         link_to collection.name_cn, admin_collection_path(collection) if collection
@@ -94,7 +97,6 @@ ActiveAdmin.register Product do
       row :updated_at
       row :place
       row :usage
-      row :info_source
     end
   end
 end

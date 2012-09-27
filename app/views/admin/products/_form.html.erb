@@ -7,9 +7,9 @@
     <!-- the last option :collection takes an hash for each check options-->
     <%= f.input :collection, :collection => Hash[Collection.all.map { |col| [col.name_cn, col.id] }] %>
 
-    <%= f.input :description, :hint => "Use Markdown to write the content" %>
+    <%= f.input :description, :hint => "Use Markdown to write the content" , :input_html => {:rows => 10} %>
 
-    <%= f.input :info_source %>
+    <%= f.input :info_source, :hint => "Use Markdown to write the content" , :input_html => {:rows => 10} %>
 
     <%= f.inputs :for => :product_parts, :class => 'part_field' do |part_builder, i| %>
 
