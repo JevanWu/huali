@@ -1,6 +1,5 @@
 ActiveAdmin.register Page do
   controller do
-    
     def new
       @page = Page.new
     end
@@ -16,6 +15,7 @@ ActiveAdmin.register Page do
 
     def show
       @page = Page.find_by_permalink!(params[:id])
+      @page.content = Kramdown::Document.new(@page.content).to_html.html_safe
     end
 
     def update
@@ -38,14 +38,4 @@ ActiveAdmin.register Page do
     end
   end
 
-  show do |page|
-
-    attributes_table do
-      row :content do
-        Kramdown::Document.new(page.content).to_html.html_safe
-      end
-    end
-  end
-
-  form :partial => "form"
 end
