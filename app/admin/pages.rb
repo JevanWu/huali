@@ -1,5 +1,6 @@
 ActiveAdmin.register Page do
   controller do
+    
     def new
       @page = Page.new
     end
