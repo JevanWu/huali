@@ -1,5 +1,5 @@
 class ProductPart < ActiveRecord::Base
-  attr_accessible :description, :name_cn, :name_en, :asset_attributes, :product_id
+  attr_accessible :description, :name_cn, :name_en, :asset_attributes, :product_id, :info_source
 
   belongs_to :product
 

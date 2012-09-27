@@ -39,7 +39,7 @@ ActiveAdmin.register ProductPart do
       row :name_cn
       row :name_en
       row :description do
-        Kramdown::Document.new(product.description).to_html.html_safe
+        Kramdown::Document.new(product_part.description).to_html.html_safe
       end
       row :info_source
       row :belong_to do
