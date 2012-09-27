@@ -1,7 +1,7 @@
 Changanhua::Application.routes.draw do
 
   ActiveAdmin.routes(self)
-
+  
   resources :products, :only => [:show, :index]
 
   resources :collections, :only => [:show, :index]
@@ -13,7 +13,8 @@ Changanhua::Application.routes.draw do
   end
 
   root :to => "home#index"
-
+  
   get ':id', to: 'pages#show', as: :page
+ 
 
 end
