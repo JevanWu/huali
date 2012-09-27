@@ -1,55 +1,44 @@
-<div class="std"><div class="iosSlider" style="position: relative; top: 0px; left: 0px; overflow: hidden; z-index: 1; width: 960px; height: 400px; "><!-- slider -->
-<div class="slider" style="-webkit-perspective: 1000px; -webkit-backface-visibility: hidden; position: relative; cursor: -webkit-grab; width: 11520px; overflow: hidden; -webkit-transform: translateX(-6720px); "><div class="slide" style="float: left; width: 960px; "><img class="royalImage" src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/slide.jpg" alt="">
-<div class="text1" style=""><img src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/new_in1.png" alt=""></div>
-<div class="text2" style=""><img src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/text1.png" alt=""><br> <br> <a class="tintButton" style="margin-left: 90px; background-color: rgb(76, 198, 255); " href="/demo/blanco/furniture.html">Button Example</a></div>
-</div><div class="slide" style="float: left; width: 960px; "><img class="royalImage" src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/slide1.jpg" alt="">
-<div class="text1" style=""><img src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/new_in2.png" alt=""></div>
-<div class="text2" style=""><img src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/text2.png" alt=""><br> <br> <a class="tintButton" style="margin-left: 90px; background-color: rgb(76, 198, 255); " href="/demo/blanco/furniture.html">Button Example</a></div>
-</div><div class="slide" style="float: left; width: 960px; "><img class="royalImage" src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/slide2.jpg" alt="">
-<div class="text1" style=""><img src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/new_in3.png" alt=""></div>
-<div class="text2" style=""><img src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/text3.png" alt=""><br> <br> <a class="tintButton" style="margin-left: 90px; background-color: rgb(76, 198, 255); " href="/demo/blanco/furniture.html">Button Example</a></div>
-</div><div class="slide" style="float: left; width: 960px; "><img class="royalImage" src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/slide3.jpg" alt="">
-<div class="text1" style=""><img src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/new_in4.png" alt=""></div>
-<div class="text2" style=""><img src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/text4.png" alt=""><br> <br> <a class="tintButton" style="margin-left: 90px; background-color: rgb(76, 198, 255); " href="/demo/blanco/furniture.html">Button Example</a></div>
-</div><!-- slides -->
-<div class="slide" style="float: left; width: 960px; "><img class="royalImage" src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/slide.jpg" alt="">
-<div class="text1" style=""><img src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/new_in1.png" alt=""></div>
-<div class="text2" style=""><img src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/text1.png" alt=""><br> <br> <a class="tintButton" style="margin-left: 90px; background-color: rgb(76, 198, 255); " href="/demo/blanco/furniture.html">Button Example</a></div>
+<div class="std">
+                <div class = 'iosSlider'>
+                        <div class = 'slider'>
+        <% 4.times do |index| %>
+          <div class = 'slide'>
+          <%= image_tag "slide#{index}.png" %>
+          <div class = 'bg'></div>
+          <div class = 'text1'>
+                                                <div class = 'title'>
+                                                        <span>Touch Me.</span>
+                                                </div>
+                                                <div class = 'desc'>
+                                                        <span>Hardware accelerated using CSS3 for supported iOS, Android and WebKit</span>
+                                                </div>
+          </div>
+
+                                        <div class = 'text2'>
+                                                <div>
+              <a class="tintButton" href="">Button Example</a>
+                                                </div>
+                                        </div>
+                                </div>
+        <% end %>
+                        </div>
+      <div class="sliderNavi">
+        <span class="naviItem">1</span>
+        <span class="naviItem">2</span>
+        <span class="naviItem">3</span>
+        <span class="naviItem">4</span>
+      </div>
+                        <div class = 'prev'></div>
+                        <div class = 'next'></div>
+                </div>
 </div>
-<div class="slide" style="float: left; width: 960px; "><img class="royalImage" src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/slide1.jpg" alt="">
-<div class="text1" style=""><img src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/new_in2.png" alt=""></div>
-<div class="text2" style=""><img src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/text2.png" alt=""><br> <br> <a class="tintButton" style="margin-left: 90px; background-color: rgb(76, 198, 255); " href="/demo/blanco/furniture.html">Button Example</a></div>
-</div>
-<div class="slide" style="float: left; width: 960px; "><img class="royalImage" src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/slide2.jpg" alt="">
-<div class="text1" style=""><img src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/new_in3.png" alt=""></div>
-<div class="text2" style=""><img src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/text3.png" alt=""><br> <br> <a class="tintButton" style="margin-left: 90px; background-color: rgb(76, 198, 255); " href="/demo/blanco/furniture.html">Button Example</a></div>
-</div>
-<div class="slide" style="float: left; width: 960px; "><img class="royalImage" src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/slide3.jpg" alt="">
-<div class="text1" style="right: 70px; opacity: 1; "><img src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/new_in4.png" alt=""></div>
-<div class="text2" style="right: 70px; opacity: 1; "><img src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/text4.png" alt=""><br> <br> <a class="tintButton" style="margin-left: 90px; background-color: rgb(76, 198, 255); " href="/demo/blanco/furniture.html">Button Example</a></div>
-</div>
-<div class="slide" style="float: left; width: 960px; "><img class="royalImage" src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/slide.jpg" alt="">
-<div class="text1" style=""><img src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/new_in1.png" alt=""></div>
-<div class="text2" style=""><img src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/text1.png" alt=""><br> <br> <a class="tintButton" style="margin-left: 90px; background-color: rgb(76, 198, 255); " href="/demo/blanco/furniture.html">Button Example</a></div>
-</div><div class="slide" style="float: left; width: 960px; "><img class="royalImage" src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/slide1.jpg" alt="">
-<div class="text1" style=""><img src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/new_in2.png" alt=""></div>
-<div class="text2" style=""><img src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/text2.png" alt=""><br> <br> <a class="tintButton" style="margin-left: 90px; background-color: rgb(76, 198, 255); " href="/demo/blanco/furniture.html">Button Example</a></div>
-</div><div class="slide" style="float: left; width: 960px; "><img class="royalImage" src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/slide2.jpg" alt="">
-<div class="text1" style=""><img src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/new_in3.png" alt=""></div>
-<div class="text2" style=""><img src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/text3.png" alt=""><br> <br> <a class="tintButton" style="margin-left: 90px; background-color: rgb(76, 198, 255); " href="/demo/blanco/furniture.html">Button Example</a></div>
-</div><div class="slide" style="float: left; width: 960px; "><img class="royalImage" src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/slide3.jpg" alt="">
-<div class="text1" style=""><img src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/new_in4.png" alt=""></div>
-<div class="text2" style=""><img src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/text4.png" alt=""><br> <br> <a class="tintButton" style="margin-left: 90px; background-color: rgb(76, 198, 255); " href="/demo/blanco/furniture.html">Button Example</a></div>
-</div></div>
-<div class="sliderNavi"><span class="naviItem" style="cursor: pointer; ">1</span> <span class="naviItem" style="cursor: pointer; ">2</span> <span class="naviItem" style="cursor: pointer; ">3</span> <span class="naviItem selected" style="cursor: pointer; ">4</span></div>
-<div class="prev" style="cursor: pointer; ">&nbsp;</div>
-<div class="next" style="cursor: pointer; ">&nbsp;</div>
-</div>
+
 <div class="row">
   <div class="home-text span6"><img src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/b1.jpg" alt=""><a class="readmore" href="/demo/blanco/man.html" style="background-color: rgb(76, 198, 255); ">Shop Now</a></div>
   <div class="home-text span6 last"><img src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/b2.jpg" alt=""><a class="readmore" href="/demo/blanco/accessories.html" style="background-color: rgb(76, 198, 255); ">Shop Now</a></div>
 </div>
 <div class="clear">
+
 <h5 style="float: left; border: 1px solid #EFEFEF; padding: 4px 15px; margin: 13px 0 0 20px; border-bottom: 0;">NEW PRODUCTS</h5>
 <div class="clear" style="border-top: 1px solid #EFEFEF; height: 13px;">&nbsp;</div>
     <div class="newproducts">
@@ -764,25 +753,6 @@
             </div>
     <div style="clear: both;"></div>
             <script type="text/javascript">
-            jQuery('.new-arrow.prev').addClass('disabled');
-            jQuery('.carousel').iosSlider({
-                desktopClickDrag: true,
-                snapToChildren: true,
-                infiniteSlider: false,
-                navNextSelector: '.new-arrow.next',
-                navPrevSelector: '.new-arrow.prev',
-                lastSlideOffset: 3,
-                onFirstSlideComplete: function(){
-                    jQuery('.new-arrow.prev').addClass('disabled');
-                },
-                onLastSlideComplete: function(){
-                    jQuery('.new-arrow.next').addClass('disabled');
-                },
-                onSlideChange: function(){
-                    jQuery('.new-arrow.prev').removeClass('disabled');
-                    jQuery('.new-arrow.next').removeClass('disabled');
-                }
-            });
         </script>
     </div>
 <div class="clear">
@@ -1714,24 +1684,5 @@
             </div>
     <div style="clear: both;"></div>
             <script type="text/javascript">
-            jQuery('.sale-arrow.prev').addClass('disabled');
-            jQuery('.carousel').iosSlider({
-                desktopClickDrag: true,
-                snapToChildren: true,
-                infiniteSlider: false,
-                navNextSelector: '.sale-arrow.next',
-                navPrevSelector: '.sale-arrow.prev',
-                lastSlideOffset: 3,
-                onFirstSlideComplete: function(){
-                    jQuery('.sale-arrow.prev').addClass('disabled');
-                },
-                onLastSlideComplete: function(){
-                    jQuery('.sale-arrow.next').addClass('disabled');
-                },
-                onSlideChange: function(){
-                    jQuery('.sale-arrow.prev').removeClass('disabled');
-                    jQuery('.sale-arrow.next').removeClass('disabled');
-                }
-            });
         </script>
     </div></div>
