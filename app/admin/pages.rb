@@ -9,7 +9,7 @@ ActiveAdmin.register Page do
       if @page.save
         redirect_to admin_pages_path
       else
-        render action: "new"
+        render "new"
       end
     end
 
@@ -22,7 +22,7 @@ ActiveAdmin.register Page do
       if @page.update_attributes(params[:page])
         redirect_to admin_page_path 
       else
-        render action: "edit"
+        render "edit"
       end
     end
 
