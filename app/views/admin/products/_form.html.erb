@@ -9,7 +9,7 @@
 
     <%= f.input :description, :hint => "Use Markdown to write the content" %>
 
-    <%= f.input :info_source %>
+    <%= f.input :info_source, :as => :text, :hint => "Use Markdown to write the content" %>
 
     <%= f.inputs :for => :product_parts, :class => 'part_field' do |part_builder, i| %>
 

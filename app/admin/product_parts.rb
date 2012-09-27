@@ -41,7 +41,9 @@ ActiveAdmin.register ProductPart do
       row :description do
         Kramdown::Document.new(product_part.description).to_html.html_safe
       end
-      row :info_source
+      row :info_source do
+        Kramdown::Document.new(product_part.info_source).to_html.html_safe
+      end
       row :belong_to do
         link_to product.name_cn, admin_product_path(product) if product
       end

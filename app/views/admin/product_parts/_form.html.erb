@@ -7,7 +7,7 @@
 
     <%= f.input :description %>
 
-    <%= f.input :info_source %>
+    <%= f.input :info_source, :as => :text %>
 
     <%= f.inputs :for => :asset, :class => 'image_field' do |builder, i| %>
       <% if @product_part.asset.image.url(:medium) %>
