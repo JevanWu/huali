@@ -58,7 +58,8 @@ a.readmore
 .footer-social-container
   border-top: 1px solid #efefef
   padding: 12px 0 0 0
-  margin-top: 30px
+  margin-top: 25px
+  margin-bottom: 15px
 
 #footer-social
 
@@ -91,3 +92,108 @@ a.readmore
 #footer-phone
   color: #111
   font-size: 16px
+
+#main-footer
+  background: transparent image-url('line.png') top repeat-x
+
+
+  h4
+    color: #111
+    line-height: 1.35
+    font-family: $serifFontFamily
+    font-weight: normal
+
+  ul
+    list-style: none
+    padding: 0
+    margin: 0
+
+  .policy li
+    font-size: 12px
+    margin-left: 2px
+    padding-left: 10px
+    line-height: 1.5
+    background: image-url('footer_li.png') no-repeat left top
+
+    &:hover
+      background-position: left bottom
+
+    a
+      color: #666669
+      font-size: 11px
+
+      &:hover
+        color: $buttonColor
+
+
+  #newletter-registration
+    +clearfix()
+
+    .input-box
+      float: left
+      border: 1px solid #EFEFEF
+
+    .input-text
+      width: 180px
+      border: none
+      padding: 0
+      padding-left: 8px
+      float: left
+      height: 27px
+      line-height: 27px
+
+  #opening-time
+    address span
+      color: #888
+      font-size: 11px
+
+#back-top
+  font-size: 12px
+  display: block
+  z-index: 999
+  position: fixed
+  bottom: 70px
+  margin-top: -35px
+  right: 15px
+  margin-left: -70px
+  width: 140px
+  color: $buttonColor
+
+  a
+    font-size: 11px
+    color: #666669
+    display: block
+    padding: 12px 11px 14px 20px
+    background: image-url('top.png') no-repeat top left
+    text-align: center
+    text-transform: lowercase
+
+    &:hover
+      color: white!important
+      text-decoration: none
+      background-position: bottom left
+
+/* UI Elements ================================================================================
+
+input, select, textarea, button
+  font: 12px Arial, $sansFontFamily
+  vertical-align: middle
+  color: #818181
+
+.button
+  overflow: visible
+  border: none
+  width: auto
+  height: 27px
+  padding: 0 17px
+  background: $buttonColor
+  white-space: nowrap
+  color: white
+  text-align: center
+  text-transform: uppercase
+  font: normal 11px $sansFontFamily
+  margin: 0
+  cursor: pointer
+
+.clear
+  +clearfix()
