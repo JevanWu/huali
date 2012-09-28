@@ -1,0 +1,112 @@
+<div class="footer-social-container row">
+  <div id="footer-social" class="span4">
+    <span>Follow Us:</span>
+    <a class="social-link facebook" href=" http://feedburner.com">&nbsp;</a>
+    <a class="social-link twitter" href="http://twitter.com">&nbsp;</a>
+    <a class="social-link rss" href="http://www.facebook.com">&nbsp;</a>
+  </div>
+  <div id="footer-banner" class="span4"><img src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/gift.png" alt=""></div>
+  <div id="footer-phone" class="span4"><img src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/telephone.png" alt=""></div>
+</div>
+
+  <div id="main-footer" class="row">
+    <div class="footer-left span8">
+      <div class="shippingreturns">
+        <div class="shippingpolicy">
+          <h4>Our Offers</h4>
+          <ul class="policy">
+            <li><a href="#">New products</a></li>
+            <li><a href="#">Top sellers</a></li>
+            <li><a href="#">Specials</a></li>
+            <li><a href="#">Manufacturers</a></li>
+            <li><a href="#">Suppliers</a></li>
+            <li><a href="#">Specials</a></li>
+            <li><a href="#">Service</a></li>
+          </ul>
+        </div>
+        <div class="shippingpolicy">
+          <h4>Shipping Info</h4>
+          <ul class="policy">
+            <li><a href="#">Returns</a></li>
+            <li><a href="#">Delivery</a></li>
+            <li><a href="#">Service</a></li>
+            <li><a href="#">Gift Cards</a></li>
+            <li><a href="#">Mobile</a></li>
+            <li><a href="#">Gift Cards</a></li>
+            <li><a href="#">Manufacturers</a></li>
+          </ul>
+        </div>
+        <div class="shippingpolicy">
+          <h4>Our Account</h4>
+          <ul class="policy">
+            <li><a href="#">Your Account</a></li>
+            <li><a href="#">information</a></li>
+            <li><a href="#">Addresses</a></li>
+            <li><a href="#">Discount</a></li>
+            <li><a href="#">Orders history</a></li>
+            <li><a href="#">Addresses</a></li>
+            <li><a href="#">Search Terms</a></li>
+          </ul>
+        </div>
+        <div class="shippingpolicy">
+          <h4>Our Support</h4>
+          <ul class="policy">
+            <li><a href="#">Site Map</a></li>
+            <li><a href="#">Search Terms</a></li>
+            <li><a href="#">Advanced Search</a></li>
+            <li><a href="#">Mobile</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Mobile</a></li>
+            <li><a href="#">Addresses</a></li>
+          </ul>
+        </div>
+    </div>
+  </div>
+
+  <div class="footer-right span4">
+    <div id="newletter-registration">
+      <h4>Sign up for our newsletter</h4>
+      <form action="/" method="post" id="newsletter-detail">
+        <div class="input-box">
+          <input type="text" name="email" id="newsletter" title="Sign up for our newsletter" class="input-text">
+          <button type="submit" title="Submit" class="button"><span>Submit</span></button>
+        </div>
+      </form>
+    </div>
+
+    <div id="opening-time">
+      <h4>Opening time:</h4>
+      <% 3.times do %>
+        <address>
+          <span>Mon-Fri: .......................... 8.00 to 18.00</span>
+        </address>
+      <% end %>
+    </div>
+  </div>
+  </div>
+
+  <div id="back-top" style="display: block; "><a href="#top" id="top-link">Back to top</a></div>
+
+<div id="bottom-footer" class="row">
+  <div class="span7">
+    <ul class="links">
+      <li class="first"> <a title="Site Map">Site Map</a> </li>
+      <span>|</span>
+      <li> <a title="Search Terms">Search Terms</a></li>
+      <span>|</span>
+      <li> <a title="Advanced Search">Advanced Search</a></li>
+      <span>|</span>
+      <li> <a title="Orders and Returns">Orders and Returns</a></li>
+      <span>|</span>
+      <li> <a title="Contact Us">Contact Us</a></li>
+    </ul>
+    <p class='copyright'> © 2012 ChanganFlowers.com. All Rights Reserved.&nbsp;&nbsp;</p>
+  </div>
+  <div class="span5">
+    <div class="badges">
+      <% ['paypal', 'discover', 'visa_straight', 'aex', 'mastercard', 'maestro'].each do |badge| %>
+        <%= image_tag "#{badge}.png", alt: badge %>
+      <% end %>
+    </div>
+  </div>
+</div>

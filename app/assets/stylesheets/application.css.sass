@@ -1,0 +1,241 @@
+// This is a manifest file that'll be compiled into application.css, which will include all the files
+// listed below.
+//
+// Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+// or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+//
+// You're free to add application-wide styles to this file and they'll appear at the top of the
+// compiled file, but it's generally better to create a new file per style scope.
+//
+//= require formtastic
+//= require slider
+
+// Core variables and mixins
+@import "settings/variables"
+@import "settings/mixins"
+
+// CSS Reset
+@import "bootstrap/reset"
+
+// Grid system and page structure
+@import "bootstrap/scaffolding"
+@import "bootstrap/grid"
+@import "bootstrap/layouts"
+
+header
+  padding: 25px 0
+
+body
+  background-image: image-url("pattern7.png")
+
+#flash_notice, #flash_alert
+  padding: 5px 8px
+  margin: 10px 0
+
+#flash_notice
+  background-color: #CFC
+  border: solid 1px #6C6
+
+#flash_alert
+  background-color: #FCC
+  border: solid 1px #C66
+
+.home-banner
+  position: relative
+  height: 170px
+
+a.readmore
+  background-color: $buttonColor
+  padding: 3px 15px
+  position: absolute
+  color: white
+  +opacity(0.9)
+  display: block
+  bottom: 20px
+  right: 20px
+
+/* Footer ================================================================================
+
+.footer-social-container
+  border-top: 1px solid #efefef
+  padding: 12px 0 0 0
+  margin-top: 25px
+  margin-bottom: 15px
+
+#footer-social
+
+  .follow_us
+    font-size: 16px
+    margin: 0
+    color: #111
+
+  .social-link
+    margin-left: 5px
+    text-indent: -9999px
+    display: inline-block
+    background-repeat: no-repeat
+    background-position: top center
+    height: 24px
+    width: 30px
+
+    &:hover
+      background-position: bottom center
+
+  .twitter
+    background-image: image-url("twitter.png")
+  .rss
+    background-image: image-url("rss.png")
+  .facebook
+    background-image: image-url("facebook.png")
+
+#footer-banner
+
+#footer-phone
+  color: #111
+  font-size: 16px
+
+#main-footer
+  background: transparent image-url('line.png') top repeat-x
+
+
+  .shippingpolicy
+    width: 140px
+    float: left
+
+  h4
+    color: #111
+    line-height: 1.35
+    font-family: $serifFontFamily
+    font-weight: normal
+
+  ul
+    list-style: none
+    padding: 0
+    margin: 0
+
+  .policy li
+    font-size: 12px
+    margin-left: 2px
+    padding-left: 10px
+    line-height: 1.5
+    background: image-url('footer_li.png') no-repeat left top
+
+    &:hover
+      background-position: left bottom
+
+    a
+      color: #666669
+      font-size: 11px
+
+      &:hover
+        color: $buttonColor
+
+
+  #newletter-registration
+    +clearfix()
+
+    .input-box
+      float: left
+      border: 1px solid #EFEFEF
+
+    .input-text
+      width: 180px
+      border: none
+      padding: 0
+      padding-left: 8px
+      float: left
+      height: 27px
+      line-height: 27px
+
+  #opening-time
+    address span
+      color: #888
+      font-size: 11px
+
+#back-top
+  font-size: 12px
+  display: block
+  z-index: 999
+  position: fixed
+  bottom: 70px
+  margin-top: -35px
+  right: 15px
+  margin-left: -70px
+  width: 140px
+  color: $buttonColor
+
+  a
+    font-size: 11px
+    color: #666669
+    display: block
+    padding: 12px 11px 14px 20px
+    background: image-url('top.png') no-repeat top left
+    text-align: center
+    text-transform: lowercase
+
+    &:hover
+      color: white!important
+      text-decoration: none
+      background-position: bottom left
+
+#bottom-footer
+  margin-top: 30px
+
+  ul
+    display: inline
+    padding: 0
+
+    li
+      display: inline
+      padding: 0 3px 0 3px
+      margin: 0 3px 0 3px
+
+      a
+        font-size: 12px
+        color: #353535
+        text-decoration: none
+
+        &:hover
+          color: $buttonColor
+          text-decoration: underline
+
+    li.first
+      padding-left: 0
+      margin-left: 0
+
+  .copyright
+    margin: 0
+    color: #818181
+    font-size: 12px
+
+  .badges
+    text-align: right
+    padding-top: 2px
+    letter-spacing: .7em
+
+
+
+/* UI Elements ================================================================================
+
+input, select, textarea, button
+  font: 12px Arial, $sansFontFamily
+  vertical-align: middle
+  color: #818181
+
+.button
+  overflow: visible
+  border: none
+  width: auto
+  height: 27px
+  padding: 0 17px
+  background: $buttonColor
+  white-space: nowrap
+  color: white
+  text-align: center
+  text-transform: uppercase
+  font: normal 11px $sansFontFamily
+  margin: 0
+  cursor: pointer
+
+.clear
+  +clearfix()
