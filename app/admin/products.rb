@@ -47,11 +47,11 @@ ActiveAdmin.register Product do
       row :name_cn
       row :name_en
       row :description do
-        Kramdown::Document.new(product.description).to_html.html_safe
+        markdown(product.description)
       end
 
       row :info_source do
-        Kramdown::Document.new(product.info_source).to_html.html_safe
+        markdown(product.info_source)
       end
       row :collection do
         collection = product.collection
