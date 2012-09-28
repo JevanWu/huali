@@ -108,5 +108,10 @@
     <p class='copyright'> © 2012 ChanganFlowers.com. All Rights Reserved.&nbsp;&nbsp;</p>
   </div>
   <div class="span5">
-    <div style="padding-top: 2px;"><img src="http://8theme.com/demo/blanco/media/wysiwyg/mercado/paypal.png" alt="paypal">&nbsp;&nbsp; &nbsp;<img src="http://8theme.com/demo/blanco/media/wysiwyg/mercado/discover.png" alt="discover">&nbsp; &nbsp;&nbsp;<img src="http://8theme.com/demo/blanco/media/wysiwyg/mercado/visa_straight.png" alt="visa_straight">&nbsp; &nbsp;&nbsp;<img src="http://8theme.com/demo/blanco/media/wysiwyg/mercado/aex.png" alt="aex">&nbsp; &nbsp;&nbsp;<img src="http://8theme.com/demo/blanco/media/wysiwyg/mercado/mastercard.png" alt="mastercard">&nbsp;&nbsp; &nbsp;<img src="http://8theme.com/demo/blanco/media/wysiwyg/mercado/maestro.png" alt="maestro"></div>        </div>
+    <div class="badges">
+      <% ['paypal', 'discover', 'visa_straight', 'aex', 'mastercard', 'maestro'].each do |badge| %>
+        <%= image_tag "#{badge}.png", alt: badge %>
+      <% end %>
+    </div>
+  </div>
 </div>
