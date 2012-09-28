@@ -1,0 +1,105 @@
+@import "settings/variables"
+@import "settings/mixins"
+
+
+.iosSlider
+  overflow: hidden
+  width: 100%
+  height: 400px
+  margin: auto 0 15px
+
+  .slider
+    width: 100%
+    height: 100%
+
+    .slide
+      width: 100%
+      height: 100%
+      padding: 0
+      position: relative
+
+      // elements for each slides
+
+      .tintButton
+        color: #fff!important
+        background-color: $buttonColor
+        cursor: pointer
+        padding: 5px 12px
+        font-size: 12px
+        font-weight: normal
+        text-decoration: none
+
+      .bg
+        position: absolute
+        bottom: 0
+        right: 0
+        width: 100%
+        height: 38.2%
+        background: black
+        +opacity(0.5)
+
+      .text1
+        position: absolute
+        bottom: 40px
+        left: 10px
+        +opacity(0)
+
+      .text2
+        position: absolute
+        bottom: 70px
+        right: 10px
+        +opacity(0)
+
+      .title
+        span
+          color: #fff
+          font: bold 40px / 40px $sansFontFamily
+          text-shadow: 0 -1px 1px black
+
+      .desc
+        margin: 10px 0 0 0
+        span
+          color: #fff
+          font: normal 16px / 22px $sansFontFamily
+          text-shadow: 0 -1px 1px black
+
+  // the slider navi button (squares)
+  .sliderNavi
+    position: absolute
+    right: 15px
+    bottom: 15px
+    .naviItem
+      background: transparent image-url('controls-sprite.png') 0 -164px
+      margin-left: 5px
+      display: inline-block
+      text-indent: -9999px
+      float: left
+      width: 18px
+      height: 18px
+      +opacity(80)
+      &.selected
+        background-position: 0 -182px !important
+      &:hover
+        +opacity(100)
+
+  // the slider navi arrows
+  .sliderArrow
+    display: block
+    position: absolute
+    top: 165px
+    width: 56px
+    height: 70px
+    cursor: pointer
+    z-index: 25
+    &:hover, &:focus
+      background-position: -56px 0
+    &:active
+      background-position: -112px 0
+
+  .prev
+    left: 15px
+    background: transparent image-url("slide_prev.png") no-repeat 0 0
+
+  .next
+    right: 15px
+    background: transparent image-url("slide_next.png") no-repeat 0 0

@@ -1,1 +1,46 @@
-<h1>Home</h1>
+<div class="showcase">
+		<div class = 'iosSlider'>
+			<div class = 'slider'>
+        <% 4.times do |index| %>
+          <div class = 'slide'>
+          <%= image_tag "slide#{index}.png" %>
+          <div class = 'bg'></div>
+          <div class = 'text1'>
+						<div class = 'title'>
+							<span>Touch Me.</span>
+						</div>
+						<div class = 'desc'>
+							<span>Hardware accelerated using CSS3 for supported iOS, Android and WebKit</span>
+						</div>
+          </div>
+
+					<div class = 'text2'>
+						<div>
+              <%= link_to 'Add To Cart', '#', class: 'tintButton' %>
+						</div>
+					</div>
+				</div>
+        <% end %>
+			</div>
+      <div class="sliderNavi">
+        <span class="naviItem">1</span> 
+        <span class="naviItem">2</span> 
+        <span class="naviItem">3</span> 
+        <span class="naviItem">4</span>
+      </div>
+			<div class = 'prev sliderArrow'></div>
+			<div class = 'next sliderArrow'></div>
+		</div>
+</div>
+
+<div class="row">
+  <div class="home-banner span6">
+    <%= image_tag "http://8theme.com/demo/blanco/media/wysiwyg/blanco/b1.jpg" %>
+    <%= link_to 'Shop Now', '/', class: 'readmore' %>
+  </div>
+  <div class="home-banner span6">
+    <%= image_tag "http://8theme.com/demo/blanco/media/wysiwyg/blanco/b2.jpg" %>
+    <%= link_to 'Shop Now', '/', class: 'readmore' %>
+  </div>
+</div>
+<div class="clear"></div>

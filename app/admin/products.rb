@@ -69,7 +69,7 @@ ActiveAdmin.register Product do
           image_tag asset.image.url(:medium)
         end.join(' ').html_safe
       end
-
+      
       row :thumbnails do
         product.assets.map do |asset|
           image_tag asset.image.url(:thumb)
