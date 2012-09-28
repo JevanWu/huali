@@ -5,7 +5,7 @@ class Page < ActiveRecord::Base
     'jobs', 'translations', 'signup', 'status', 'styleguide', 'tour', 'wiki', 'stories', 'organizations',
     'restaurant', 'codereview', 'better', 'compare', 'hosting' ]
 
-  attr_accessible :content, :name, :permalink
+  attr_accessible :content, :title, :permalink, :meta_description, :meta_keywords
 
   validates :permalink, :exclusion => { :in => reserved_words, :message => "%{value} is reserved" }
 

@@ -15,9 +15,9 @@ ActiveAdmin.register Page do
 
     def show
       @page = Page.find_by_permalink!(params[:id])
-      @page.content = Kramdown::Document.new(@page.content).to_html.html_safe
     end
 
+    # FIXME
     def update
       @page = Page.find_by_permalink!(params[:id])
       if @page.update_attributes(params[:page])
@@ -38,4 +38,34 @@ ActiveAdmin.register Page do
     end
   end
 
+  show do |page|
+
+    attributes_table do
+      row :permalink
+      row :title
+      row :content do
+        markdown(page.content)
+      end
+      row :meta_keywords
+      row :meta_description
+    end
+  end
+
+  index do
+    selectable_column
+
+    column "Title" do |page|
+      page.title
+    end
+
+    column "meta_description Name" do |page|
+      link_to page.meta_description, admin_page_path(page)
+    end
+
+    column "meta_keywords" do |page|
+      link_to page.meta_keywords, admin_page_path(page)
+    end
+
+    default_actions
+  end
 end
