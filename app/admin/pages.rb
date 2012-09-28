@@ -17,7 +17,7 @@ ActiveAdmin.register Page do
       @page = Page.find_by_permalink!(params[:id])
     end
 
-    # FIXME
+    # FIXME cannot update permalink fields
     def update
       @page = Page.find_by_permalink!(params[:id])
       if @page.update_attributes(params[:page])
@@ -58,11 +58,15 @@ ActiveAdmin.register Page do
       page.title
     end
 
-    column "meta_description Name" do |page|
+    column "Link" do |page|
+      page.permalink
+    end
+
+    column "Meta description" do |page|
       link_to page.meta_description, admin_page_path(page)
     end
 
-    column "meta_keywords" do |page|
+    column "Meta keywords" do |page|
       link_to page.meta_keywords, admin_page_path(page)
     end
 
