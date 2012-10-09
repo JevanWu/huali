@@ -1,5 +1,9 @@
 module ApplicationHelper
   def markdown(text)
-    Kramdown::Document.new(text).to_html.html_safe
+    if text
+      Kramdown::Document.new(text).to_html.html_safe
+    else
+      ''
+    end
   end
 end

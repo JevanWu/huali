@@ -1,15 +1,24 @@
-<p id="notice"><%= notice %></p>
+<div class="collection-wrapper">
+  <div class="products row">
+    <% @collection.products.each do |product| %>
+      <div class="product span3">
+        <div class="product-image">
+          <a href=<%= product_path(product.id) =%> title="Nice Flowers"><%= image_tag product.assets.first.image.url(:medium) %></a>
+        </div>
+        <div class="new-description">
+          <h3><a href=<%= product_path(product.id) =%> title="Fashion Demo Flowers"><%= product.name_cn %></a></h3>
+          <div class="price-box">
+          <button type="button" class="button btn-cart"><span>点击购买</span></button>
+            <p class="old-price">
+              <span class="price" id="old-price-298"> ￥559.90 </span>
+            </p>
+            <p class="special-price">
+              <span class="price" id="product-price-298">￥<%= product.price %> </span>
+            </p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
 
-<p>
-  <b>Name:</b>
-  <%= @collection.name %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @collection.description %>
-</p>
-
-
-<%= link_to 'Edit', edit_collection_path(@collection) %> |
-<%= link_to 'Back', collections_path %>
