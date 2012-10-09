@@ -241,6 +241,7 @@ input, select, textarea, button
   +clearfix()
 
 /* Collection Show ================================================================================
+
 .old-price .price
   font-size: 12px
   color: #818181
@@ -250,19 +251,15 @@ input, select, textarea, button
   color: #FF4A4A!important
   font-size: 16px
 
+.special-price, .old-price
+  margin: 0
+  
 a
   color: #353535
   text-decoration: none
 
 .product-image
   height: 300px
-
-.newproducts button.button
-  float: right
-
-
-.newproducts .price-box
-  float: left
 
 .btn-cart
   overflow: visible
@@ -280,16 +277,12 @@ a
   cursor: pointer
   float: right
 
-.btn-cart:hover
-  background-color: #FF4A4A
+  &:hover
+    background-color: #FF4A4A
 
 h3
   color: #111
   font-family: Georgia
   line-height: 1.25
   font-weight: normal
-
-.special-price, .old-price
-  margin: 0
-
 
