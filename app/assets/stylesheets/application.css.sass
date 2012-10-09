@@ -57,6 +57,102 @@ a.readmore
   bottom: 20px
   right: 20px
 
+/* Product Page ================================================================================
+.product-view
+
+  // img-box
+  .product-img-box
+    img
+      border: 1px solid #EFEFEF
+
+  .zoom-container, .main-image
+    position: relative
+
+  .lightbox-btn
+    position: absolute
+    bottom: 10px
+    left: 10px
+
+    a
+      text-indent: -9999px
+      display: block
+      width: 93px
+      height: 26px
+      background: image-url('zoom_img.png') no-repeat top center
+
+      &:hover
+        background-position: bottom
+
+  .newproduct_grid, .saleproduct
+    margin-left: 18px
+    padding-top: 10px
+    width: 40px
+    height: 20px
+    position: absolute
+    text-indent: -9999em
+    font-size: 14px
+    z-index: 4
+
+  .saleproduct
+    margin: 20px 0 0 10px
+    background: image-url('sale.png') no-repeat center center
+
+  .newproduct_grid
+    margin: 4px 0 0 10px
+    color: #333
+    background: image-url('new.png') no-repeat center center
+
+  // img-slider
+
+  $mv-arrow-width: 22px
+  $mv-slide-width: 70px
+  $mv-slide-gutter: 14px
+  $mv-height: 70px
+
+  .more-views
+    position: relative
+    top: 0
+    left: 0
+    overflow: hidden
+    height: $mv-height
+    margin: 10px $mv-arrow-width 0
+    // one view contains 4 slides
+    width: 4 * ($mv-slide-width + $mv-slide-gutter) !important
+
+    .zoom-gallery
+      list-style-type: none
+
+    .slider
+      margin: 0 auto
+
+    .slide
+      width: $mv-slide-width
+      margin: 0 $mv-slide-gutter
+
+
+  .more-views-arrow
+    display: block
+    position: absolute
+    z-index: 25
+    width: 22px
+    height: 70px
+    bottom: 0
+    background-color: transparent
+    background-position: 0 0
+
+    &:hover
+      background-position: -22px 0
+
+  .prev
+    background-image: image-url('product_prev.png')
+    left: 0
+
+  .next
+    background-image: image-url('product_next.png')
+    right: 0
+
+
+
 /* Footer ================================================================================
 
 .footer-social-container
