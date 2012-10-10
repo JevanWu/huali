@@ -1,16 +1,15 @@
 Necessary Before Release:
 
 Potential Features:
- ☐ Product Page
+ ☐ Product Page @nouh
    ☐ HTML Layout
    ☐ mini slides and photo switch
    ☐ easyzoom photos
  ☐ Static Page Style
  ☐ A 404 page @nouh
- ☐ Header Nav - categories @nouh
+ ☐ Header Nav - categories @yangchenyun
  ☐ Correct footer links @nouh
  ☐ Hide Shopping Cart @nouh
- ☐ Insert Google Analysis Code @nouh
  ☐ Edit Robot.txt to enable Search Engine
  ☐ Optimize Chinese Font
 
@@ -25,6 +24,7 @@ Content Preparation:
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ Insert Google Analysis Code @done (12-10-10 16:14)
  ✔ Hide the secondary footer @nouh @done (12-10-10 12:14)
  ✔ Chinesify texts on footer / links @nouh @done (12-10-10 12:13)
  ✔ Collection Page @nouh @done (12-10-10 10:55)
