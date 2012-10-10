@@ -5,10 +5,8 @@ Potential Features:
    ☐ HTML Layout
    ☐ mini slides and photo switch
    ☐ easyzoom photos
- ☐ Static Page Style
  ☐ A 404 page @nouh
  ☐ Correct footer links @nouh
- ☐ Hide Shopping Cart @nouh
  ☐ Edit Robot.txt to enable Search Engine
  ☐ Optimize Chinese Font
 
@@ -23,6 +21,8 @@ Content Preparation:
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ Static Page Style @done (12-10-10 19:27)
+ ✔ Hide Shopping Cart @nouh @done (12-10-10 22:37)
  ✔ Header Nav - categories @yangchenyun @done (12-10-10 16:52)
  ✔ Insert Google Analysis Code @done (12-10-10 16:14)
  ✔ Hide the secondary footer @nouh @done (12-10-10 12:14)
