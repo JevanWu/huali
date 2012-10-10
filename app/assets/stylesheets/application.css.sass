@@ -241,33 +241,29 @@ input, select, textarea, button
   +clearfix()
 
 /* Collection Show ========================================
-.old-price
-  .price
+.collection-wrapper
+  .old-price
     font-size: 12px
     color: #818181
     text-decoration: line-through
 
-.special-price
-  .price
+  .special-price
     font-size: 16px
     color: #FF4A4A!important
 
-a
-  color: #353535
-  text-decoration: none
+  a
+    color: #353535
+    line-height: 1.25
 
-.product-image
-  height: 300px
+    &:hover
+      text-decoration: underline
 
-.btn-cart
-  @extend .button
-  float: right
-  &:hover
-    text-decoration: underline
+  .product-image
+    height: 300px
 
-h3
-  color: #111
-  font-family: Georgia
-  line-height: 1.25
-
-
+  .btn-cart
+    @extend .button
+    background-color: #e1e1e1
+    float: right
+    &:hover
+      background-color: $buttonColor
