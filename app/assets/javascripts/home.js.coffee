@@ -1,6 +1,7 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+#= require jquery-ui
 #= require jquery.iosslider
 
 $ ->
@@ -9,7 +10,7 @@ $ ->
     touchMoveThreshold : 4
     snapToChildren     : true
     infiniteSlider     : true
-    autoSlide          : true
+    autoSlide          : false
     autoSlideTimer     : 5000
     navSlideSelector   : '.sliderNavi .naviItem'
     navNextSelector    : '.iosSlider .next'
