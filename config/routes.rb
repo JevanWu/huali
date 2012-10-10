@@ -1,5 +1,9 @@
 Changanhua::Application.routes.draw do
 
+  get "errors/error_404"
+
+  get "errors/error_500"
+
   ActiveAdmin.routes(self)
   
   resources :products, :only => [:show, :index]
