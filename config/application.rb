@@ -75,7 +75,14 @@ module Changanhua
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
-    config.assets.precompile += ['home.js', 'collections.js', 'products.js', 'pages.js']
-
+    config.assets.precompile += 
+        [
+            'home.js', 
+            'collections.js', 
+            'products.js', 
+            'pages.js', 
+            'ga.js'
+        ]
+        
   end
 end
