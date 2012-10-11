@@ -60,11 +60,6 @@ a.readmore
 /* Product Page ================================================================================
 .product-view
 
-  // img-box
-  .product-img-box
-    img
-      border: 1px solid #EFEFEF
-
   .zoom-container, .main-image
     position: relative
 
@@ -371,3 +366,80 @@ input, select, textarea, button
     float: right
     &:hover
       background-color: $buttonColor
+
+
+/* Product Show ========================================
+#easy_zoom
+  width: 600px
+  height: 400px
+  border: 5px solid #fff
+  background: #fff
+  color: #333
+  position: absolute
+  top: 144px
+  left: 580px
+  overflow: hidden
+  +box-shadow(0 0 10px #555)
+  /* vertical and horizontal alignment used for preloader text */
+  line-height: 400px
+  text-align: center
+
+.zoom-image
+  display: block
+  margin-left: auto
+  margin-right: auto
+  border: 0
+
+.main-image
+  background: #fff
+  border: 1px solid #EFEFEF
+
+.zoom-thumbnail
+  vertical-align: center
+  border: 0
+
+.slide
+  height: 70px
+  background: #fff
+  border: 1px solid #EFEFEF
+
+.product-view
+  .old-price
+    .price
+      color: #818181
+      text-decoration: line-through
+      font-size: 20px
+      font-weight: normal
+
+  .special-price
+    .price
+      color: #FF4A4A!important
+      font-size: 20px
+      font-weight: normal
+
+  .add-to-cart
+    button.button
+      float: left
+      margin: 5px 0 0 0
+      height: 48px
+      padding-right: 25px
+      padding-left: 25px
+      background-color: #FD2527
+      text-decoration: underline
+    .btn-cart
+      font-weight: bold
+      font-size: 16px
+      font-family: arial
+
+
+  .product-view .product-shop .quanitybox
+    float: left
+    margin: 0 30px 0 0
+
+
+  .short-description
+    margin: 5px 0 0
+    border-top: 1px solid #EFEFEF
+    border-bottom: 1px solid #EFEFEF
+    padding-top: 10px
+    padding-bottom: 15px

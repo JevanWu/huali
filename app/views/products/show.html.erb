@@ -1,22 +1,24 @@
-<div class="product-view layout_default">
+<div class="product-view">
   <div class="product-essential row">
-    <div class="span5 product-img-box">
+    <div class="product-img-box span5 ">
       <div class="zoom-container layout_default">
-        <div class="newproduct_grid">New</div>
-        <div class="saleproduct " style="color: rgb(76, 198, 255); ">Sale</div>
         <div class="main-image">
-          <%= link_to image_tag('product1-medium.jpg', class: 'zoom-image', width: '398', height: '398', alt: 'Demo Jacket', title: 'Demo Jacket'), '/assets/product1-large.jpg', id: 'zoom', class: 'main-thumbnail' %>
-          <div class="lightbox-btn">
-            <%= link_to 'Enlarge', '/assets/product1-large.jpg', id: 'zoom', class: 'lightbox' %>
-          </div>
+          <%= link_to image_tag(@product.assets.first.image.url(:medium), class: 'zoom-image'), @product.assets.first.image.url, id: 'zoom', title:@product.name_cn %>
         </div>
 
         <div class="more-views">
           <div class="zoom-gallery slider">
-            <% 8.times do |i| %>
+            <% @product.assets.each do |asset| %>
               <div class="slide">
                 <a href="" class="zoom-thumbnail">
-                  <%= image_tag "product#{i % 2 + 1}-thumb.jpg", alt: "product image" %>
+                  <%= image_tag asset.image.url(:thumb), alt: "product image" %>
+                </a>
+              </div>
+            <% end %>
+            <% @product.product_parts.each do |part| %>
+              <div class="slide">
+                <a href="" class="zoom-thumbnail">
+                  <%= image_tag part.asset.image.url(:thumb), alt: "product image" %>
                 </a>
               </div>
             <% end %>
@@ -32,434 +34,40 @@
     <div class="product-info span7">
       <div class="white-back">
         <div class="product-name">
-          <h2>Nice Demo Jacket</h2>
+          <h2><%= @product.name_cn %></h2>
         </div>
-
-        <div class="ratings">
-          <div class="rating-box">
-            <div class="rating" style="width:57%"></div>
-          </div>
-          <p class="rating-links">
-          <a href="#product_tabs_product_review">2 Review(s)</a>
-          <span class="separator">|</span>
-          <a href="#product_tabs_product_review">Add Your Review</a>
-          </p>
-        </div>
-
-
 
         <div class="price-box">
-
           <p class="old-price">
-          <span class="price-label">Regular Price:</span>
-          <span class="price" id="old-price-329">$4,400.00</span>
+            <span class="price-label">日常价:</span>
+            <span class="price" id="old-price-329">￥4,400.00</span>
           </p>
 
           <p class="special-price">
-          <span class="price-label">Special Price:</span>
-          <span class="price" id="product-price-329" style="color: rgb(76, 198, 255); ">$4,299.00</span>
+            <span class="price-label">特惠价:</span>
+            <span class="price" id="product-price-329" style="color: rgb(76, 198, 255); ">￥<%= @product.price %></span>
           </p>
-
-
+          <p class="availability in-stock">库存: <span><%= @product.available ? "有货" : "无货" %></span></p>
         </div>
-
-
-        <div class="addtocont">
-          <span class="product-code">Product code: <strong>329</strong></span>
-
-          <p class="availability in-stock">Availability: <span>In stock</span></p>
-
-        </div>
-        <div class="clear"></div>
-
         <div class="short-description">
-          <p>Quick Overview:</p>
-          <div class="std">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.</div>
-        </div>
-        <div id="container1"><div class="product-options" id="product-options-wrapper">
-            <form action='' method='post' id='product_addtocart_form' enctype='multipart/form-data'>
-            <dl class="last">
-
-              <dt><label class="required"><em>*</em>Size</label></dt>
-              <dd>
-              <div class="input-box">
-                <select name="options[29]" id="select_29" class=" required-entry product-custom-option" title="" onchange="opConfig.reloadPrice()"><option value="">-- Please Select --</option><option value="84" price="0">40 </option><option value="85" price="0">42 </option><option value="86" price="0">44 </option></select>                                </div>
-              </dd>
-
-              <dt><label class="required"><em>*</em>Color</label></dt>
-              <dd class="last">
-              <div class="input-box">
-                <select name="options[28]" id="select_28" class=" required-entry product-custom-option" title="" onchange="opConfig.reloadPrice()"><option value="">-- Please Select --</option><option value="82" price="28">Blue +$28.00</option><option value="81" price="25">Grey +$25.00</option><option value="83" price="31">White +$31.00</option></select>                                </div>
-              </dd>
-            </dl>
-
-            <p class="required">* Required Fields</p>
-            <div style="clear: both;"></div>
+          <p>简短描述</p>
+          <div class="std">
+            It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
           </div>
-          <div class="product-options-bottom">
-            <div class="add-to-cart">
-              <div class="quanitybox">
-                <label for="qty">Quantity:</label>
-                <input type="button" class="quantity_box_button_down" onclick="qtyDown()" style="visibility: hidden; ">
-                <input type="text" name="qty" id="qty" maxlength="12" value="1" title="Qty" class="input-text qty">
-                <input type="button" class="quantity_box_button_up" onclick="qtyUp()">
-              </div>
-
-              <button type="submit" title="Add to Cart" class="button btn-cart" style="background-color: rgb(76, 198, 255); "><span><span>Add to Cart</span></span></button>
-            </div>
-
-            <ul class="add-to-links">
-              <li class="wishlist-li"><a href="http://8theme.com/demo/blanco/wishlist/index/add/product/329/" onclick="productAddToCartForm.submitLight(this, 'http://8theme.com/demo/blanco/wishlist/index/add/product/329/'); return false;" class="link-wishlist">Add to Wishlist</a></li>
-              <li class="compare-li"><span class="separator">|</span> <a href="http://8theme.com/demo/blanco/catalog/product_compare/add/product/329/uenc/aHR0cDovLzh0aGVtZS5jb20vZGVtby9ibGFuY28vbmljZS1kZW1vLWphY2tldC00MTAuaHRtbA,,/" class="link-compare">Add to Compare</a></li>
-              <li class="email-friend"><span class="separator">|</span> <a href="http://8theme.com/demo/blanco/sendfriend/product/send/id/329/">Email to a Friend</a></li>
-          </ul></div>
-          <div class="clear"></div>
-       </form>
+        </div>
+        <div class="product-options" id="product-options-wrapper">
+          <div class="add-to-cart">
+            <button type="submit"  class="button btn-cart" >点击购买</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="product-collateral">
-
-    <ul class="product-tabs">
-      <li id="product_tabs_description" class="first active"><div class="tab-left"></div><a href="javascript:void(0)" style="color: rgb(76, 198, 255); ">Product Description</a><div class="tab-right"></div></li>
-      <li id="product_tabs_additional" class=""><div class="tab-left"></div><a href="javascript:void(0)">Additional Information</a><div class="tab-right"></div></li>
-      <li id="product_tabs_product_review" class=""><div class="tab-left"></div><a href="javascript:void(0)">Reviews</a><div class="tab-right"></div></li>
-      <li id="product_tabs_product.tags" class="last"><div class="tab-left"></div><a href="javascript:void(0)">Product Tags</a><div class="tab-right"></div></li>
-      <li id="product_tabs_custom" class="last"><div class="tab-left"></div><a href="javascript:void(0)">Custom tab</a><div class="tab-right"></div></li>
-
-
-    </ul>
-    <div class="product-tabs-content" id="product_tabs_description_contents" style="">    <h2>Details</h2>
-      <div class="std">
-        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
-        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
-        <ul class="disc">
-          <li> 6.1 oz. 100% preshrunk heavyweight cotton </li>
-          <li> Shoulder-to-shoulder taping</li>
-          <li>Double-needle sleeves and bottom hem</li>
-        </ul>
-        <p> There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</p>     </div>
-    </div>
-    <div class="product-tabs-content" id="product_tabs_additional_contents" style="display: none; ">    <h2>Additional Information</h2>
-      <table class="data-table" id="product-attribute-specs-table">
-        <colgroup><col width="25%">
-          <col>
-        </colgroup><tbody>
-        <tr class="first last odd">
-          <th class="label">Model</th>
-          <td class="data last">Jacket</td>
-        </tr>
-        </tbody>
-      </table>
-      <script type="text/javascript">decorateTable('product-attribute-specs-table')</script>
-    </div>
-    <div class="product-tabs-content" id="product_tabs_product_review_contents" style="display: none; "><div class="box-collateral box-reviews" id="customer-reviews">
-        <h2>Customer Reviews</h2>
-        <dl>
-          <dt>
-          Review by <span>test</span>            </dt>
-          <dd>
-          <table class="ratings-table">
-            <colgroup><col width="1">
-              <col>
-            </colgroup><tbody>
-            <tr>
-              <th>Quality</th>
-              <td>
-                <div class="rating-box">
-                  <div class="rating" style="width:80%;"></div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <th>Price</th>
-              <td>
-                <div class="rating-box">
-                  <div class="rating" style="width:80%;"></div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <th>Value</th>
-              <td>
-                <div class="rating-box">
-                  <div class="rating" style="width:80%;"></div>
-                </div>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-          test                <small class="date">(Posted on 5/24/12)</small>
-          </dd>
-          <dt>
-          Review by <span>wfw</span>            </dt>
-          <dd>
-          <table class="ratings-table">
-            <colgroup><col width="1">
-              <col>
-            </colgroup><tbody>
-            <tr>
-              <th>Quality</th>
-              <td>
-                <div class="rating-box">
-                  <div class="rating" style="width:20%;"></div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <th>Price</th>
-              <td>
-                <div class="rating-box">
-                  <div class="rating" style="width:40%;"></div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <th>Value</th>
-              <td>
-                <div class="rating-box">
-                  <div class="rating" style="width:40%;"></div>
-                </div>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-          hhthth                <small class="date">(Posted on 5/23/12)</small>
-          </dd>
-        </dl>
-        <div class="form-add">
-          <h2>Write Your Own Review</h2>
-          <form action="http://8theme.com/demo/blanco/review/product/post/id/329/" method="post" id="review-form">
-            <fieldset>
-              <h3>You're reviewing: <span>Nice Demo Jacket</span></h3>
-              <h4>How do you rate this product? <em class="required">*</em></h4>
-              <span id="input-message-box"></span>
-              <table class="data-table" id="product-review-table">
-                <colgroup><col>
-                  <col width="1">
-                  <col width="1">
-                  <col width="1">
-                  <col width="1">
-                  <col width="1">
-                </colgroup><thead>
-                  <tr class="first last">
-                    <th>&nbsp;</th>
-                    <th><span class="nobr">1 star</span></th>
-                    <th><span class="nobr">2 stars</span></th>
-                    <th><span class="nobr">3 stars</span></th>
-                    <th><span class="nobr">4 stars</span></th>
-                    <th><span class="nobr">5 stars</span></th>
-                  </tr>
-                </thead>
-                <tbody>
-                <tr class="first odd">
-                  <th>Quality</th>
-                  <td class="value"><input type="radio" name="ratings[1]" id="Quality_1" value="1" class="radio"></td>
-                  <td class="value"><input type="radio" name="ratings[1]" id="Quality_2" value="2" class="radio"></td>
-                  <td class="value"><input type="radio" name="ratings[1]" id="Quality_3" value="3" class="radio"></td>
-                  <td class="value"><input type="radio" name="ratings[1]" id="Quality_4" value="4" class="radio"></td>
-                  <td class="value last"><input type="radio" name="ratings[1]" id="Quality_5" value="5" class="radio"></td>
-                </tr>
-                <tr class="even">
-                  <th>Price</th>
-                  <td class="value"><input type="radio" name="ratings[3]" id="Price_1" value="11" class="radio"></td>
-                  <td class="value"><input type="radio" name="ratings[3]" id="Price_2" value="12" class="radio"></td>
-                  <td class="value"><input type="radio" name="ratings[3]" id="Price_3" value="13" class="radio"></td>
-                  <td class="value"><input type="radio" name="ratings[3]" id="Price_4" value="14" class="radio"></td>
-                  <td class="value last"><input type="radio" name="ratings[3]" id="Price_5" value="15" class="radio"></td>
-                </tr>
-                <tr class="last odd">
-                  <th>Value</th>
-                  <td class="value"><input type="radio" name="ratings[2]" id="Value_1" value="6" class="radio"></td>
-                  <td class="value"><input type="radio" name="ratings[2]" id="Value_2" value="7" class="radio"></td>
-                  <td class="value"><input type="radio" name="ratings[2]" id="Value_3" value="8" class="radio"></td>
-                  <td class="value"><input type="radio" name="ratings[2]" id="Value_4" value="9" class="radio"></td>
-                  <td class="value last"><input type="radio" name="ratings[2]" id="Value_5" value="10" class="radio"></td>
-                </tr>
-                </tbody>
-              </table>
-              <input type="hidden" name="validate_rating" class="validate-rating" value="">
-              <script type="text/javascript">decorateTable('product-review-table')</script>
-              <ul class="form-list">
-                <li>
-                <label for="nickname_field" class="required"><em>*</em>Nickname</label>
-                <div class="input-box">
-                  <input type="text" name="nickname" id="nickname_field" class="input-text required-entry" value="">
-                </div>
-                </li>
-                <li>
-                <label for="summary_field" class="required"><em>*</em>Summary of Your Review</label>
-                <div class="input-box">
-                  <input type="text" name="title" id="summary_field" class="input-text required-entry" value="">
-                </div>
-                </li>
-                <li>
-                <label for="review_field" class="required"><em>*</em>Review</label>
-                <div class="input-box">
-                  <textarea name="detail" id="review_field" cols="5" rows="3" class="required-entry"></textarea>
-                </div>
-                </li>
-              </ul>
-            </fieldset>
-            <div class="buttons-set">
-              <button type="submit" title="Submit Review" class="button"><span><span>Submit Review</span></span></button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-    <div class="product-tabs-content" id="product_tabs_product.tags_contents" style="display: none; "><div class="box-collateral box-tags">
-        <h2>Product Tags</h2>
-        <form id="addTagForm" action="http://8theme.com/demo/blanco/tag/index/save/product/329/uenc/aHR0cDovLzh0aGVtZS5jb20vZGVtby9ibGFuY28vbmljZS1kZW1vLWphY2tldC00MTAuaHRtbA,,/" method="get">
-          <div class="form-add">
-            <label for="productTagName">Add Your Tags:</label>
-            <div class="input-box">
-              <input type="text" class="input-text required-entry" name="productTagName" id="productTagName">
-            </div>
-            <button type="button" title="Add Tags" class="button" onclick="submitTagForm()" style="background-color: rgb(76, 198, 255); ">
-              <span>
-                <span>Add Tags</span>
-              </span>
-            </button>
-          </div>
-        </form>
-        <p class="note">Use spaces to separate tags. Use single quotes (') for phrases.</p>
-      </div>
-    </div>
-    <div class="product-tabs-content" id="product_tabs_custom_contents" style="display: none; "><div class="left" style="width: 425px; padding-right: 20px; margin-right: 20px; border-right: 1px solid #efefef;">
-        <h3 style="margin-top: -5px;">Custom HTML</h3>
-        <img style="float: left; margin: 0 20px 10px 0;" src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/magento.png" alt="">Ultricies sociis ut vel parturient! Tempor! Nec quis turpis placerat ac hac tincidunt, velit, vel sit mauris a, dolor, natoque enim! Etiam risus? Elit, adipiscing dignissim ut et risus sit placerat, penatibus tincidunt, diam sed dignissim rhoncus mus lectus, penatibus arcu sit in mattis porta placerat. Ultricies velit odio. Vel? Aliquam nunc dolor! Nisi, cras, nunc, et auctor? Augue facilisis! Augue eu dis platea sed, placerat hac pid, lectus dapibus turpis in tincidunt arcu rhoncus auctor. Sit duis nascetur vut! Pulvinar egestas, aenean, sagittis odio enim magna, etiam platea nec lundium, nisi, mauris porttitor elementum a, tempor turpis.</div>
-      <div class="right" style="width: 460px;">
-        <h3 style="margin-top: -5px;">Custom HTML</h3>
-        <img style="float: left; margin: 0 20px 10px 0;" src="http://8theme.com/demo/blanco/media/wysiwyg/blanco/magento2.png" alt="">Ultricies sociis ut vel parturient! Tempor! Nec quis turpis placerat ac hac tincidunt, velit, vel sit mauris a, dolor, natoque enim! Etiam risus? Elit, adipiscing dignissim ut et risus sit placerat, penatibus tincidunt, diam sed dignissim rhoncus mus lectus, penatibus arcu sit in mattis porta placerat. Ultricies velit odio. Vel? Aliquam nunc dolor! Nisi, cras, nunc, et auctor? Augue facilisis! Augue eu dis platea sed, placerat hac pid, lectus dapibus turpis in tincidunt arcu rhoncus auctor. Sit duis nascetur vut! Pulvinar egestas, aenean, sagittis odio enim magna, etiam platea nec lundium, nisi, mauris porttitor elementum a, tempor turpis.</div>
-      <div class="clear">&nbsp;</div></div>
-  </div>
-
-  <div class="block-related">
-    <h5>You may also be interested in the following product(s)</h5>
-    <p class="related-block-subtitle">Check items to add to the cart or&nbsp;<a href="#" onclick="selectAllRelated(this); return false;">select all</a></p>
-    <div class="clear"></div>
-    <div id="mycarousel" class="related related-slider" style="position: relative; top: 0px; left: 0px; overflow: hidden; z-index: 1; width: 960px; height: 318px; ">
-      <div class="slider" style="-webkit-perspective: 1000px; -webkit-backface-visibility: hidden; position: relative; cursor: -webkit-grab; width: 1204px; overflow: hidden; -webkit-transform: translateX(0px); ">
-        <div class="slide " style="float: left; width: 228px; ">
-          <div class="product">
-            <a href="http://8theme.com/demo/blanco/nice-demo-dress-421.html" title="Nice Demo Dress" class="product-image"><img src="http://8theme.com/demo/blanco/media/catalog/product/cache/1/thumbnail/228x/9df78eab33525d08d6e5fb8d27136e95/6/_/6.2_3_1_1_1_1_1_2_1_1.jpg" width="228" height="228" alt="Nice Demo Dress"></a>
-            <div class="product-details">
-              <p class="product-name"><a href="http://8theme.com/demo/blanco/nice-demo-dress-421.html">Nice Demo Dress</a></p>
-
-
-
-              <div class="price-box">
-
-                <p class="old-price">
-                <span class="price-label">Regular Price:</span>
-                <span class="price" id="old-price-339-related">
-                  $4,059.90                </span>
-                </p>
-
-                <p class="special-price">
-                <span class="price-label">Special Price:</span>
-                <span class="price" id="product-price-339-related" style="color: rgb(76, 198, 255); ">
-                  $3,999.00                </span>
-                </p>
-
-
-              </div>
-
-              <!--a href="http://8theme.com/demo/blanco/wishlist/index/add/product/339/" class="link-wishlist">Add to Wishlist</a-->
-            </div>
-          </div>
-        </div>
-        <div class="slide " style="float: left; width: 228px; ">
-          <div class="product">
-            <a href="http://8theme.com/demo/blanco/fashion-dress-503.html" title="Fashion Dress" class="product-image"><img src="http://8theme.com/demo/blanco/media/catalog/product/cache/1/thumbnail/228x/9df78eab33525d08d6e5fb8d27136e95/8/_/8.1_3_1_1_1_1_1_2.jpg" width="228" height="228" alt="Fashion Dress"></a>
-            <div class="product-details">
-              <p class="product-name"><a href="http://8theme.com/demo/blanco/fashion-dress-503.html">Fashion Dress</a></p>
-
-
-
-              <div class="price-box">
-                <span class="regular-price" id="product-price-336-related">
-                  <span class="price">$4,199.00</span>                                    </span>
-
-              </div>
-
-              <!--a href="http://8theme.com/demo/blanco/wishlist/index/add/product/336/" class="link-wishlist">Add to Wishlist</a-->
-            </div>
-          </div>
-        </div>
-        <div class="slide " style="float: left; width: 228px; ">
-          <div class="product">
-            <a href="http://8theme.com/demo/blanco/simple-demo-dress.html" title="Simple Demo Dress" class="product-image"><img src="http://8theme.com/demo/blanco/media/catalog/product/cache/1/thumbnail/228x/9df78eab33525d08d6e5fb8d27136e95/5/_/5.1_3_1_1_1_1_1_2_1_1_1.jpg" width="228" height="228" alt="Simple Demo Dress"></a>
-            <div class="product-details">
-              <p class="product-name"><a href="http://8theme.com/demo/blanco/simple-demo-dress.html">Simple Demo Dress</a></p>
-
-
-
-              <div class="price-box">
-                <span class="regular-price" id="product-price-340-related">
-                  <span class="price">$3,890.00</span>                                    </span>
-
-              </div>
-
-              <!--a href="http://8theme.com/demo/blanco/wishlist/index/add/product/340/" class="link-wishlist">Add to Wishlist</a-->
-            </div>
-          </div>
-        </div>
-        <div class="slide " style="float: left; width: 228px; ">
-          <div class="product">
-            <a href="http://8theme.com/demo/blanco/simple-dress-505.html" title="Simple Dress" class="product-image"><img src="http://8theme.com/demo/blanco/media/catalog/product/cache/1/thumbnail/228x/9df78eab33525d08d6e5fb8d27136e95/7/_/7.1_3_1_1_1_1_1_2_1.jpg" width="228" height="228" alt="Simple Dress"></a>
-            <div class="product-details">
-              <p class="product-name"><a href="http://8theme.com/demo/blanco/simple-dress-505.html">Simple Dress</a></p>
-
-
-
-              <div class="price-box">
-                <span class="regular-price" id="product-price-338-related">
-                  <span class="price">$4,099.00</span>                                    </span>
-
-              </div>
-
-              <!--a href="http://8theme.com/demo/blanco/wishlist/index/add/product/338/" class="link-wishlist">Add to Wishlist</a-->
-            </div>
-          </div>
-        </div>
-        <div class="slide last" style="float: left; width: 228px; ">
-          <div class="product">
-            <a href="http://8theme.com/demo/blanco/fashion-dress-504.html" title="Fashion Dress" class="product-image"><img src="http://8theme.com/demo/blanco/media/catalog/product/cache/1/thumbnail/228x/9df78eab33525d08d6e5fb8d27136e95/4/_/4.1_3_1_1_1_1_1_2_1_1_1_1.jpg" width="228" height="228" alt="Fashion Dress"></a>
-            <div class="product-details">
-              <p class="product-name"><a href="http://8theme.com/demo/blanco/fashion-dress-504.html">Fashion Dress</a></p>
-
-
-
-              <div class="price-box">
-
-                <p class="old-price">
-                <span class="price-label">Regular Price:</span>
-                <span class="price" id="old-price-341-related">
-                  $4,500.00                </span>
-                </p>
-
-                <p class="special-price">
-                <span class="price-label">Special Price:</span>
-                <span class="price" id="product-price-341-related" style="color: rgb(76, 198, 255); ">
-                  $4,299.00                </span>
-                </p>
-
-
-              </div>
-
-              <!--a href="http://8theme.com/demo/blanco/wishlist/index/add/product/341/" class="link-wishlist">Add to Wishlist</a-->
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="prev disabled" style="cursor: pointer; ">&nbsp;</div>
-      <div class="next" style="cursor: pointer; ">&nbsp;</div>
-
-      <div class="clear"></div>
-    </div>
+  <div class="product-tabs-content row" id="product_tabs_description_contents" >
+    <h2>详细信息</h2>
+    <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
+    <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
+    <p> There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</p>
   </div>
 </div>
