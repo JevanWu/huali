@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  caches_page :order
   # GET /pages/1
   # GET /pages/1.json
   def show
@@ -10,4 +11,8 @@ class PagesController < ApplicationController
     end
   end
 
+  def order
+  end
+
 end
+

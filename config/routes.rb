@@ -15,11 +15,12 @@ Changanhua::Application.routes.draw do
   devise_for :administrators
 
   authenticated :administrators do
-    root :to => "home#index"
+    root :to => "admin#index"
   end
 
   root :to => "home#index"
   
+  get 'order', to: 'pages#order', as: :page
   get ':id', to: 'pages#show', as: :page
  
 
