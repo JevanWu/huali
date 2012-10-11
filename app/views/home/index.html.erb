@@ -34,13 +34,12 @@
 </div>
 
 <div class="row">
-  <div class="home-banner span6">
-    <%= image_tag "http://8theme.com/demo/blanco/media/wysiwyg/blanco/b1.jpg" %>
-    <%= link_to 'Shop Now', '/', class: 'readmore' %>
-  </div>
-  <div class="home-banner span6">
-    <%= image_tag "http://8theme.com/demo/blanco/media/wysiwyg/blanco/b2.jpg" %>
-    <%= link_to 'Shop Now', '/', class: 'readmore' %>
-  </div>
+  <% 3.times do |index| %>
+    <div class="home-banner span4">
+      <%= image_tag "banner#{index}.png" %>
+      <%= link_to '购买', '/order', class: 'readmore' %>
+    </div>
+  <% end %>
+ </div>
 </div>
 <div class="clear"></div>
