@@ -8,7 +8,6 @@ Potential Features:
  ☐ Edit Robot.txt to enable Search Engine
  ☐ Optimize Chinese Font
  ☐ Add a phone banner on layout
- ☐ embed the wufoo page in static page
 
 SEO:
  ☐ generate sitemap.xml with sitemap
@@ -23,6 +22,8 @@ Content Preparation:
      ☐ banner 700 X 400
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ render the static page @done (12-10-11 16:47)
+ ✔ embed the wufoo page in static page @done (12-10-11 15:41)
  ✔ four slides 940 X 400 @done (12-10-11 15:05)
  ✔ set a collection all method @done (12-10-11 14:35)
  ✔ Correct footer links @yangchenyun @done (12-10-11 12:32)

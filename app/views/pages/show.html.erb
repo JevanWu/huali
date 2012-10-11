@@ -1,17 +1,1 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Name:</b>
-  <%= @page.name %>
-</p>
-
-<p>
-  <b>Permalink:</b>
-  <%= @page.permalink %>
-</p>
-
-<p>
-  <b>Content:</b>
-  <%= @page.content %>
-</p>
-
+<%= markdown @page.content %>

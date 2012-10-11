@@ -62,8 +62,8 @@ ActiveAdmin.register Page do
       page.permalink
     end
 
-    column "Meta description" do |page|
-      link_to page.meta_description, admin_page_path(page)
+    column "Content" do |page|
+      markdown(page.content).gsub( %r{</?[^>]+?>}, '' )[0, 40] + '...'
     end
 
     column "Meta keywords" do |page|
