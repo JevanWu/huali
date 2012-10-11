@@ -12,6 +12,7 @@ Potential Features:
 SEO:
  ☐ generate sitemap.xml with sitemap
  ☐ add meta data for each individual page
+ ☐ Render Different Title in different controller
 
 Content Preparation:
    Fill in static page:
