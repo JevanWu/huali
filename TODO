@@ -10,17 +10,21 @@ Potential Features:
  ☐ Add a phone banner on layout
  ☐ embed the wufoo page in static page
 
+SEO:
+ ☐ generate sitemap.xml with sitemap
+ ☐ add meta data for each individual page
+
 Content Preparation:
    Fill in static page:
      ☐ Help Center
      ☐ FAQ
      ☐ About Us
    Product Photos:
-     ☐ four slides 940 X 400
      ☐ banner 700 X 400
-
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ four slides 940 X 400 @done (12-10-11 15:05)
+ ✔ set a collection all method @done (12-10-11 14:35)
  ✔ Correct footer links @yangchenyun @done (12-10-11 12:32)
  ✔ A 404 page @yangchenyun @done (12-10-11 12:11)
  ✔ Static Page Style @done (12-10-10 19:27)
