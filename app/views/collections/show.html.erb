@@ -1,6 +1,6 @@
 <div class="collection-wrapper">
   <div class="products row">
-    <% @collection.products.each do |product| %>
+    <% products.each do |product| %>
       <div class="product span3">
         <div class="product-image">
           <a href=<%= product_path(product.id) =%> title="Nice Flowers"><%= image_tag product.assets.first.image.url(:medium) %></a>

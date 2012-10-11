@@ -8,6 +8,8 @@ Changanhua::Application.routes.draw do
   
   resources :products, :only => [:show, :index]
 
+  # non-individual collections routes
+  match '/collections/all', :to => 'collections#all'
   resources :collections, :only => [:show, :index]
 
   devise_for :administrators
