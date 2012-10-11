@@ -5,9 +5,10 @@ Potential Features:
    ☐ HTML Layout
    ☐ mini slides and photo switch
    ☐ easyzoom photos
- ☐ Correct footer links @nouh
  ☐ Edit Robot.txt to enable Search Engine
  ☐ Optimize Chinese Font
+ ☐ Add a phone banner on layout
+ ☐ embed the wufoo page in static page
 
 Content Preparation:
    Fill in static page:
@@ -20,6 +21,7 @@ Content Preparation:
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ Correct footer links @yangchenyun @done (12-10-11 12:32)
  ✔ A 404 page @yangchenyun @done (12-10-11 12:11)
  ✔ Static Page Style @done (12-10-10 19:27)
  ✔ Hide Shopping Cart @nouh @done (12-10-10 22:37)
