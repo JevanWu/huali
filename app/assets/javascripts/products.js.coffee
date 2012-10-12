@@ -13,5 +13,11 @@ $ ->
       navPrevSelector: '.more-views-arrow.prev'
   })
 
+  $('.zoom-thumbnail').on 'click', (e) ->
+    e.preventDefault()
+    $(this).addClass('thumbnail-active')
+    $('.main-image').html($(this).attr('data_url'))
+    $('#zoom').easyZoom()
 
   $('#zoom').easyZoom()
+

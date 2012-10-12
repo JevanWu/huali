@@ -63,6 +63,10 @@ a.readmore
   .zoom-container, .main-image
     position: relative
 
+  .main-image
+    img
+      height: 300px
+
   .lightbox-btn
     position: absolute
     bottom: 10px
@@ -123,6 +127,9 @@ a.readmore
     .slide
       width: $mv-slide-width
       margin: 0 $mv-slide-gutter
+
+    .thumbnail-active
+      border-color: #FF4A4A
 
 
   .more-views-arrow
@@ -430,12 +437,6 @@ input, select, textarea, button
       font-weight: bold
       font-size: 16px
       font-family: arial
-
-
-  .product-view .product-shop .quanitybox
-    float: left
-    margin: 0 30px 0 0
-
 
   .short-description
     margin: 5px 0 0

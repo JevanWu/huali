@@ -14,8 +14,31 @@ class ProductsController < ApplicationController
   # GET /products/1.json
   def show
     @product = Product.find(params[:id])
+    @product_assets  = @product.assets
+
     @product_parts = @product.product_parts
-    @assets  = @product.assets
+    @parts_assets = @product_parts.collect do |part|
+      part.asset
+    end
+
+    @assets = [@product_assets, @parts_assets].flat_map do |asset|
+      asset
+    end
+
+    @first_medium_url = @assets.first.image.url(:medium)
+    @first_url = @assets.first.image.url
+
+    @full_urls = @assets.map do |asset|
+      asset.image.url
+    end
+
+    @medium_urls = @assets.map do |asset|
+      asset.image.url(:medium)
+    end
+
+    @thumb_urls = @assets.map do |asset|
+      asset.image.url(:thumb)
+    end
 
     respond_to do |format|
       format.html # show.html.erb
