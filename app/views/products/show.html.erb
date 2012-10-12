@@ -3,19 +3,20 @@
     <div class="product-img-box span5 ">
       <div class="zoom-container layout_default">
         <div class="main-image">
-          <%= link_to image_tag(@product.assets.first.image.url(:medium), class: 'zoom-image'), @product.assets.first.image.url, id: 'zoom', title:@product.name_cn %>
+          <%= link_to image_tag(@assets.first.image.url(:medium), class: 'zoom-image'),
+            @assets.first.image.url, id: 'zoom', title:@product.name_cn %>
         </div>
 
         <div class="more-views">
           <div class="zoom-gallery slider">
-            <% @product.assets.each do |asset| %>
+            <% @assets.each do |asset| %>
               <div class="slide">
                 <a href="" class="zoom-thumbnail">
                   <%= image_tag asset.image.url(:thumb), alt: "product image" %>
                 </a>
               </div>
             <% end %>
-            <% @product.product_parts.each do |part| %>
+            <% @product_parts.each do |part| %>
               <div class="slide">
                 <a href="" class="zoom-thumbnail">
                   <%= image_tag part.asset.image.url(:thumb), alt: "product image" %>
