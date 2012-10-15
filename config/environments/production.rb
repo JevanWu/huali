@@ -76,7 +76,8 @@ Changanhua::Application.configure do
       :password  => ENV["MANDRILL_API_KEY"]
     }
 
-
+  # ImageMagick Process path
+  Paperclip.options[:command_path] = "/usr/bin/"
 
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
