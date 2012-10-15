@@ -15,18 +15,22 @@ class ProductsController < ApplicationController
   def show
     @product = Product.find(params[:id])
 
-    product_assets  = @product.assets
-    parts_assets = @product.product_parts.collect do |part|
-      part.asset
-    end
+    product_assets  = @product.assets || []
 
+    parts_assets = @product.product_parts.map { |part| part.asset }
+
+    # FIXME cannot use concat here, Raise ActiveRecord::AssociationTypeMismatch
+    # might be caused by ActiveRecord Lazy reading
     assets = product_assets + parts_assets
+
+    # filter empty assets
+    assets.compact!
 
     @asset_urls = assets.map do |asset|
       {
-        url: asset.image.url,
-        medium_url: asset.image.url(:medium),
-        thumbnail_url: asset.image.url(:thumbnail)
+        :full_url => asset.image.url,
+        :medium_url => asset.image.url(:medium),
+        :thumb_url => asset.image.url(:thumb)
       }
     end
 

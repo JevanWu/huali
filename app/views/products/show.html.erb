@@ -4,7 +4,7 @@
       <div class="zoom-container layout_default">
         <div class="main-image">
           <%= link_to image_tag(@asset_urls.first[:medium_url], class: 'zoom-image'),
-            @asset_urls.first[:url], id: 'zoom', title:@product.name_cn %>
+            @asset_urls.first[:full_url], id: 'zoom', title:@product.name_cn %>
         </div>
 
         <div class="more-views">
@@ -12,7 +12,7 @@
             <% @asset_urls.each do |asset_url| %>
               <div class="slide">
                 <a href="" class="zoom-thumbnail"
-                  data_url='<%= link_to image_tag(asset_url[:medium_url], class: 'zoom-image'), asset_url[:url], id:'zoom', title:@product.name_cn %>'>
+                  data_url='<%= link_to image_tag(asset_url[:medium_url], class: 'zoom-image'), asset_url[:full_url], id:'zoom', title:@product.name_cn %>'>
                   <%= image_tag asset_url[:medium_url], alt: "product image" %>
                 </a>
               </div>
