@@ -1,30 +1,38 @@
 Necessary Before Release:
 
 Potential Features:
- ☐ Product Page
-   ☐ HTML Layout
-   ☐ mini slides and photo switch
-   ☐ easyzoom photos
- ☐ Static Page Style
- ☐ A 404 page @nouh
- ☐ Header Nav - categories @nouh
- ☐ Correct footer links @nouh
- ☐ Insert Google Analysis Code
  ☐ Edit Robot.txt to enable Search Engine
  ☐ Optimize Chinese Font
+ ☐ Add a phone banner on layout
+
+SEO:
+ ☐ generate sitemap.xml with sitemap
+ ☐ add meta data for each individual page
+ ☐ Render Different Title in different controller
 
 Content Preparation:
    Fill in static page:
-     ☐ Help Center
-     ☐ FAQ
-     ☐ About Us
    Product Photos:
-     ☐ four slides 940 X 400
-     ☐ banner 700 X 400
-
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
- ✔ Hide Shopping Cart @nouh @done (12-10-10 14:47)
+ ✔ Help Center @done (12-10-17 00:17)
+ ✔ FAQ @done (12-10-17 00:17)
+ ✔ About Us @done (12-10-17 00:17)
+ ✔ Product Page @nouh @done (12-10-17 00:17)
+ ✔ HTML Layout @done (12-10-17 00:17)
+ ✔ mini slides and photo switch @done (12-10-17 00:17)
+ ✔ easyzoom photos @done (12-10-17 00:17)
+ ✔ banner 700 X 400 @done (12-10-11 17:42)
+ ✔ render the static page @done (12-10-11 16:47)
+ ✔ embed the wufoo page in static page @done (12-10-11 15:41)
+ ✔ four slides 940 X 400 @done (12-10-11 15:05)
+ ✔ set a collection all method @done (12-10-11 14:35)
+ ✔ Correct footer links @yangchenyun @done (12-10-11 12:32)
+ ✔ A 404 page @yangchenyun @done (12-10-11 12:11)
+ ✔ Static Page Style @done (12-10-10 19:27)
+ ✔ Hide Shopping Cart @nouh @done (12-10-10 22:37)
+ ✔ Header Nav - categories @yangchenyun @done (12-10-10 16:52)
+ ✔ Insert Google Analysis Code @done (12-10-10 16:14)
  ✔ Hide the secondary footer @nouh @done (12-10-10 12:14)
  ✔ Chinesify texts on footer / links @nouh @done (12-10-10 12:13)
  ✔ Collection Page @nouh @done (12-10-10 10:55)

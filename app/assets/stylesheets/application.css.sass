@@ -25,11 +25,46 @@
 header
   padding: 25px 0
 
-.minicart
-  display: none
+  .minicart
+    display: none
 
 body
   background-image: image-url("pattern7.png")
+
+/* UI Elements ================================================================================
+
+input, select, textarea, button
+  font: 12px Arial, $sansFontFamily
+  vertical-align: middle
+  color: #818181
+
+.button
+  overflow: visible
+  border: none
+  width: auto
+  height: 27px
+  padding: 0 17px
+  background: $buttonColor
+  white-space: nowrap
+  color: white
+  text-align: center
+  text-transform: uppercase
+  font: normal 11px $sansFontFamily
+  margin: 0
+  cursor: pointer
+
+a.readmore
+  background-color: $buttonColor
+  padding: 3px 15px
+  position: absolute
+  color: white
+  +opacity(0.9)
+  display: block
+  bottom: 20px
+  right: 20px
+
+.clear
+  +clearfix()
 
 #flash_notice, #flash_alert
   padding: 5px 8px
@@ -43,19 +78,51 @@ body
   background-color: #FCC
   border: solid 1px #C66
 
+/* Header & Nav ================================================================================
+
 .home-banner
   position: relative
   height: 170px
 
-a.readmore
-  background-color: $buttonColor
-  padding: 3px 15px
-  position: absolute
-  color: white
-  +opacity(0.9)
-  display: block
-  bottom: 20px
-  right: 20px
+.nav-container
+  margin-top: 10px
+  padding-bottom: 1px
+  border-bottom: 4px solid #acacac
+
+#nav
+  margin: 0
+  padding: 0
+  padding-left: 10px
+  position: relative
+  border-bottom: 1px solid #acacac
+  height: 30px
+  list-style: none
+
+  li
+    margin: 0
+    padding: 0
+    margin-left: 20px
+    text-align: left
+    float: left
+    margin: 0 5px 0 0
+    padding: 8px 10px 8px
+
+    &:hover, &.active, &.over
+      background-color: white
+      border: 1px solid #acacac
+      height: 15px
+      border-bottom: 1px solid white
+      padding: 7px 9px 7px
+
+  a
+    float: left
+    display: block
+    line-height: 1.3em
+    text-decoration: none
+    color: #353535
+
+    &:hover 
+      color: $buttonColor
 
 /* Product Page ================================================================================
 .product-view
@@ -164,6 +231,7 @@ a.readmore
   margin-bottom: 15px
   display: none
 
+
 #footer-social
 
   .follow_us
@@ -198,9 +266,6 @@ a.readmore
 
 #main-footer
   background: transparent image-url('line.png') top repeat-x
-  display: none
-
-#credit-card
   display: none
 
 
@@ -321,30 +386,6 @@ a.readmore
 
 
 
-/* UI Elements ================================================================================
-
-input, select, textarea, button
-  font: 12px Arial, $sansFontFamily
-  vertical-align: middle
-  color: #818181
-
-.button
-  overflow: visible
-  border: none
-  width: auto
-  height: 27px
-  padding: 0 17px
-  background: $buttonColor
-  white-space: nowrap
-  color: white
-  text-align: center
-  text-transform: uppercase
-  font: normal 11px $sansFontFamily
-  margin: 0
-  cursor: pointer
-
-.clear
-  +clearfix()
 
 /* Collection and Product Show ========================================
 .old-price

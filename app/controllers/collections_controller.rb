@@ -5,7 +5,16 @@ class CollectionsController < ApplicationController
     @collection = Collection.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html { render 'show', :locals => { :products => @collection.products } }
+      format.json { render json: @collection }
+    end
+  end
+
+  def all
+    @products = Product.all
+
+    respond_to do |format|
+      format.html { render 'show', :locals => { :products => @products } }
       format.json { render json: @collection }
     end
   end
