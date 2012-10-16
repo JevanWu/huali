@@ -1,4 +1,5 @@
 set :application, "changanhua"
+set :domain, "www.changanflowers.com changanflowers.com"
 
 # Use Git as Version Control System
 set :scm, :git
@@ -22,7 +23,7 @@ after "deploy:restart", "deploy:cleanup"
 set :keep_releases, 10
 
 namespace :unicorn do
- after "deploy:setup", "unicorn:config"
+ # after "deploy:setup", "unicorn:config"
 end
 
 namespace :check do
