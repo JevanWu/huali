@@ -9,9 +9,7 @@ namespace :deploy do
     run "#{sudo} apt-get -y update"
     run "#{sudo} apt-get -y install python-software-properties"
   end
-  after "deploy:install", "nginx:install"
-  after "deploy:install", "nodejs:install"
-  after "deploy:install", "rbenv:install"
+  after "deploy:install", "nginx:install", "nodejs:install", "rbenv:install", "dev_lib:install"
 
   # after "deploy:setup", "nginx:setup"
 end
