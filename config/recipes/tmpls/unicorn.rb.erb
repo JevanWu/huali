@@ -1,6 +1,9 @@
+rails_env = ENV['RAILS_ENV'] || 'production'
+
 # unicorn workers
 worker_processes <%= unicorn_workers %>
 
+# FIXME problems here
 working_directory "<%= current_path %>"
 
 # Load rails+github.git into the master before forking workers
@@ -63,7 +66,7 @@ after_fork do |server, worker|
 
     begin
         uid, gid = Process.euid, Process.egid
-        user, group = 'yangchenyun', 'admin'
+        user, group = 'deploy', 'deploy'
         target_uid = Etc.getpwnam(user).uid
         target_gid = Etc.getgrnam(group).gid
         worker.tmp.chown(target_uid, target_gid)
