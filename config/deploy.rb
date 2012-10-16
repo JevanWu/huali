@@ -1,3 +1,11 @@
+load "config/recipes/base"
+load "config/recipes/nginx"
+load "config/recipes/unicorn"
+# load "config/recipes/postgresql"
+load "config/recipes/nodejs"
+load "config/recipes/rbenv"
+load "config/recipes/check"
+
 set :application, "changanhua"
 set :domain, "www.changanflowers.com changanflowers.com"
 
@@ -17,25 +25,6 @@ set :deploy_to, "/home/#{user}/repositories/#{application}"
 # access github.com using as the local user
 ssh_options[:forward_agent] = true
 
-# if you want to clean up old releases on each deploy uncomment this:
+# keep only last 5 commit
+# set :keep_releases, 5
 after "deploy:restart", "deploy:cleanup"
-
-set :keep_releases, 10
-
-namespace :unicorn do
- # after "deploy:setup", "unicorn:config"
-end
-
-namespace :check do
-  desc "Make sure local git is in sync with remote."
-  task :revision, roles: :web do
-    unless `git rev-parse HEAD` == `git rev-parse origin/#{branch}`
-      puts "WARNING: HEAD is not the same as origin/#{branch}"
-      puts "Run `git push` to sync changes."
-      exit
-    end
-  end
-  before "deploy", "check:revision"
-  before "deploy:migrations", "check:revision"
-  before "deploy:cold", "check:revision"
-end
