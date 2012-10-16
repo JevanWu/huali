@@ -22,8 +22,6 @@ BASHRC
     run "rbenv #{rbenv_bootstrap}"
     run "rbenv install #{ruby_version}"
     run "rbenv global #{ruby_version}"
-    run "gem install bundler --no-ri --no-rdoc"
-    run "rbenv rehash"
   end
 
   task :patch, roles: :app do
@@ -36,6 +34,8 @@ BASHRC
     when "1.9.3-p286"
       run "curl https://raw.github.com/gist/3885178/rbenv.sh | sh ; rbenv global 1.9.3-p286-perf"
     end
+    run "gem install bundler --no-ri --no-rdoc"
+    run "rbenv rehash"
   end
   after "rbenv:install", "rbenv:patch"
 end
