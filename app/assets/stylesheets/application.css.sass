@@ -346,17 +346,20 @@ input, select, textarea, button
 .clear
   +clearfix()
 
-/* Collection Show ========================================
-.collection-wrapper
-  .old-price
-    font-size: 12px
+/* Collection and Product Show ========================================
+.old-price
+  .price
     color: #818181
     text-decoration: line-through
+    font-size: 20px
 
-  .special-price
-    font-size: 16px
+.special-price
+  .price
     color: #FF4A4A!important
+    font-size: 20px
 
+/* Collection Show ========================================
+.collection-wrapper
   a
     color: #353535
     line-height: 1.25
@@ -411,32 +414,14 @@ input, select, textarea, button
   border: 1px solid #EFEFEF
 
 .product-view
-  .old-price
-    .price
-      color: #818181
-      text-decoration: line-through
-      font-size: 20px
-      font-weight: normal
-
-  .special-price
-    .price
-      color: #FF4A4A!important
-      font-size: 20px
-      font-weight: normal
 
   .add-to-cart
-    button.button
-      float: left
-      margin: 5px 0 0 0
+    .btn-cart
+      @extend .button
       height: 48px
-      padding-right: 25px
-      padding-left: 25px
+      font-size: 16px
       background-color: #FD2527
       text-decoration: underline
-    .btn-cart
-      font-weight: bold
-      font-size: 16px
-      font-family: arial
 
   .short-description
     margin: 5px 0 0
