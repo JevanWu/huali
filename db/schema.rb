@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120928040057) do
+ActiveRecord::Schema.define(:version => 20121017070347) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -70,8 +70,8 @@ ActiveRecord::Schema.define(:version => 20120928040057) do
     t.string   "title"
     t.string   "permalink"
     t.text     "content"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
     t.string   "meta_keywords"
     t.string   "meta_description"
   end
@@ -107,6 +107,7 @@ ActiveRecord::Schema.define(:version => 20120928040057) do
     t.string   "place"
     t.string   "usage"
     t.text     "info_source"
+    t.decimal  "original_price"
   end
 
   add_index "products", ["name_en"], :name => "index_products_on_name_en"
