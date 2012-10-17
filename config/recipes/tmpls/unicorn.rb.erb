@@ -1,10 +1,10 @@
-rails_env = ENV['RAILS_ENV'] || 'production'
+RAILS_ENV = ENV['RAILS_ENV'] || 'production'
 
 # unicorn workers
 worker_processes <%= unicorn_workers %>
 
 # FIXME problems here
-working_directory "<%= current_path %>"
+# working_directory "<%= current_path %>"
 
 # Load rails+github.git into the master before forking workers
 # for super-fast worker spawn times
