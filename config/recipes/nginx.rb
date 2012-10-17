@@ -14,7 +14,7 @@ namespace :nginx do
     restart
   end
 
-  %w[start stop restart].each do |command|
+  %w[start stop restart reload].each do |command|
     desc "#{command} nginx"
     task command, roles: :web do
       run "#{sudo} service nginx #{command}"
