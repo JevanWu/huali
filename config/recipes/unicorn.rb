@@ -1,4 +1,5 @@
 _cset(:unicorn_user) { user }
+_cset(:unicorn_group) { 'admin' }
 _cset(:unicorn_pid) { "#{current_path}/tmp/pids/unicorn.pid" }
 _cset(:unicorn_config) { "#{shared_path}/config/unicorn.rb" }
 _cset(:unicorn_log) { "#{shared_path}/log/unicorn.log" }
