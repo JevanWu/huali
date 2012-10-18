@@ -5,9 +5,7 @@ Necessary Before Release:
  ☐ Render product_part in a production  @yangchenyun
  ☐ Add intro field in product model
  ☐ 首页图片 click into detailed product page
- ✔ add a scope for available for product @yangchenyun @done (12-10-18 11:19)
  ☐ hide paypal
- ☐ update slides button color @yangchenyun ->
  ☐ hide back to top
  ☐ Optimize Chinese Font
  ☐ Add a phone banner on layout @yangchenyun ->
@@ -27,6 +25,8 @@ Content Preparation:
    Product Photos:
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ add a scope for available for product @yangchenyun @done (12-10-18 11:19)
+ ✔ update slides button color @yangchenyun -> @done (12-10-18 11:45)
  ✔ Help Center @done (12-10-17 00:17)
  ✔ FAQ @done (12-10-17 00:17)
  ✔ About Us @done (12-10-17 00:17)
