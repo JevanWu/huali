@@ -62,14 +62,31 @@
   <div class="product-tabs-content row" id="product_tabs_description_contents" >
     <div class="span12">
     <h2>详细信息</h2>
-    <p>
-      <%= markdown @product.description %>
-      <% @product_parts.each do |part| %>
-        <%= image_tag part.asset.image(:thumb), :alt => 'product part image' %>
-        <%= part.name_cn %>
-        <%= part.description %>
+    <%= markdown @product.description %>
+    <div id="product-part-details">
+      <% @product_parts.each_with_index do |part, index| %>
+        <% if index % 2 == 0 %>
+        <div class="row">
+        <% end %>
+
+          <div class="span6 product-part-single">
+            <%= image_tag part.asset.image(:thumb), :alt => 'product part image' %>
+            <div class="product-part-text">
+              <h4>
+                <%= part.name_cn %>
+                <%= part.name_en %>
+              </h4>
+              <p>
+                <%= part.description %>
+              </p>
+            </div>
+          </div>
+
+        <% if index % 2 == 1 || index == @product_parts.length - 1 %>
+        </div>
+        <% end %>
       <% end %>
-    </p>
+    </div>
   </div>
   </div>
 </div>
