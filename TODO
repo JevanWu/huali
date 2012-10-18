@@ -1,4 +1,8 @@
 Necessary Before Release:
+ ☐ github two issues
+ ☐ footnote add helpcenter page, remove sitemap
+ ☐ original_price don't showup
+ ☐ add description2 field to product and ajust view order
  ☐ Render product_part in a production  @yangchenyun
  ☐ Optimize Chinese Font
  ☐ Add a phone banner on layout @yangchenyun ->
