@@ -17,7 +17,11 @@ $ ->
     e.preventDefault()
     $(this).addClass('thumbnail-active')
     $('.main-image').html($(this).attr('data_url'))
-    $('#zoom').easyZoom()
+    $('#zoom').easyZoom({
+      parent: '.product-essential'
+    })
 
-  $('#zoom').easyZoom()
+  $('#zoom').easyZoom({
+    parent: '.product-essential'
+  })
 

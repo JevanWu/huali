@@ -47,7 +47,7 @@
         <div class="short-description">
           <p>简短描述</p>
           <div class="std">
-            It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
+            <%= @product.intro %>
           </div>
         </div>
         <div class="product-options" id="product-options-wrapper">
@@ -60,9 +60,11 @@
   </div>
 
   <div class="product-tabs-content row" id="product_tabs_description_contents" >
+    <div class="span12">
     <h2>详细信息</h2>
     <p>
       <%= markdown @product.description %>
     </p>
+  </div>
   </div>
 </div>

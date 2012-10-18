@@ -1,16 +1,7 @@
 Necessary Before Release:
-
- ☐ 瓶花和盆花换位置
- ☐ 购买后进入产品详情页面
  ☐ Render product_part in a production  @yangchenyun
- ☐ Add intro field in product model
- ☐ 首页图片 click into detailed product page
- ☐ hide paypal
- ☐ hide back to top
  ☐ Optimize Chinese Font
  ☐ Add a phone banner on layout @yangchenyun ->
- ☐ easyzoom enlarge window position change
- ☐ product page content margin -> add span12 within row
 
 Potential Features:
  ☐ Edit Robot.txt to enable Search Engine
@@ -27,6 +18,14 @@ Content Preparation:
 Archive:
  ✔ add a scope for available for product @yangchenyun @done (12-10-18 11:19)
  ✔ update slides button color @yangchenyun -> @done (12-10-18 11:45)
+ ✔ 购买后进入产品详情页面 @done (12-10-18 14:09)
+ ✔ 首页图片 click into detailed product page @done (12-10-18 13:19)
+ ✔ easyzoom enlarge window position change @done (12-10-18 12:14)
+ ✔ product page content margin -> add span12 within row @done (12-10-18 11:13)
+ ✔ hide paypal @done (12-10-18 11:13)
+ ✔ hide back to top @done (12-10-18 11:13)
+ ✔ Add intro field in product model @done (12-10-18 00:36)
+ ✔ 瓶花和盆花换位置 @done (12-10-18 00:22)
  ✔ Help Center @done (12-10-17 00:17)
  ✔ FAQ @done (12-10-17 00:17)
  ✔ About Us @done (12-10-17 00:17)

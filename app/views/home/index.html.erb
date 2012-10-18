@@ -15,7 +15,7 @@
 
           <div class = 'text2'>
             <div>
-              <%= link_to '点击购买', '#', class: 'tintButton' %>
+              <%= link_to '产品详情', product_path(12), class: 'tintButton' %>
             </div>
           </div>
         </div>
@@ -35,7 +35,7 @@
 
           <div class = 'text2'>
             <div>
-              <%= link_to '点击购买', '#', class: 'tintButton' %>
+              <%= link_to '产品详情', product_path(13), class: 'tintButton' %>
             </div>
           </div>
         </div>
@@ -54,7 +54,7 @@
 
         <div class = 'text2'>
           <div>
-            <%= link_to '点击购买', '#', class: 'tintButton' %>
+            <%= link_to '产品详情', product_path(14), class: 'tintButton' %>
           </div>
         </div>
       </div>
@@ -73,7 +73,7 @@
 
       <div class = 'text2'>
         <div>
-          <%= link_to '点击购买', '#', class: 'tintButton' %>
+          <%= link_to '产品详情', product_path(16), class: 'tintButton' %>
         </div>
       </div>
     </div>
@@ -91,11 +91,17 @@
 </div>
 
 <div class="row">
-  <% 3.times do |index| %>
-    <div class="home-banner span4">
-      <%= image_tag "banner#{index}.png" %>
-      <%= link_to '购买', '/order', class: 'readmore' %>
-    </div>
-  <% end %>
+  <div class="home-banner span4">
+    <%= image_tag "banner0.png" %>
+    <%= link_to '产品详情', product_path(19), class: 'readmore' %>
+  </div>
+  <div class="home-banner span4">
+    <%= image_tag "banner1.png" %>
+    <%= link_to '产品详情', product_path(18), class: 'readmore' %>
+  </div>
+  <div class="home-banner span4">
+    <%= image_tag "banner2.png" %>
+    <%= link_to '产品详情', product_path(15), class: 'readmore' %>
+  </div>
 </div>
 <div class="clear"></div>

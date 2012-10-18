@@ -121,7 +121,7 @@ a.readmore
     text-decoration: none
     color: #353535
 
-    &:hover 
+    &:hover
       color: $buttonColor
 
 /* Product Page ================================================================================
@@ -231,6 +231,9 @@ a.readmore
   margin-bottom: 15px
   display: none
 
+#credit-card
+  display: none
+
 
 #footer-social
 
@@ -325,7 +328,7 @@ a.readmore
 
 #back-top
   font-size: 12px
-  display: block
+  display: none
   z-index: 999
   position: fixed
   bottom: 70px
@@ -420,15 +423,19 @@ a.readmore
 
 
 /* Product Show ========================================
+.product-essential
+  position: relative
+
+  
 #easy_zoom
-  width: 600px
-  height: 400px
+  width: 530px
+  height: 370px
   border: 5px solid #fff
   background: #fff
   color: #333
   position: absolute
-  top: 144px
-  left: 580px
+  top: 0px
+  left: 420px
   overflow: hidden
   +box-shadow(0 0 10px #555)
   /* vertical and horizontal alignment used for preloader text */
