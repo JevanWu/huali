@@ -17,7 +17,11 @@ class Product < ActiveRecord::Base
   accepts_nested_attributes_for :product_parts,
     :reject_if => lambda { |a| a[:name_cn].blank? or a[:name_en].blank? }, :allow_destroy => true
 
+  # validations
   validates :name_en, :name_cn, :count_on_hand, :presence => true
+
+  # scopes
+  scope :available, where(available: true)
 
   before_save do |product|
     product.name_en.downcase!

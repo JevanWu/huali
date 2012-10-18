@@ -1,16 +1,12 @@
 Changanhua::Application.routes.draw do
 
-  get "errors/error_404"
-
-  get "errors/error_500"
-
   ActiveAdmin.routes(self)
-  
-  resources :products, :only => [:show, :index]
+
+  match '/products/:id', :to => 'products#show'
 
   # non-individual collections routes
   match '/collections/all', :to => 'collections#all'
-  resources :collections, :only => [:show, :index]
+  match '/collections/:id', :to => 'collections#show'
 
   devise_for :administrators
 
@@ -19,9 +15,10 @@ Changanhua::Application.routes.draw do
   end
 
   root :to => "home#index"
-  
+
   get 'order', to: 'pages#order', as: :page
   get ':id', to: 'pages#show', as: :page
- 
+  get "errors/error_404"
+  get "errors/error_500"
 
 end
