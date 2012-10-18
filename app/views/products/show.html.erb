@@ -64,6 +64,11 @@
     <h2>详细信息</h2>
     <p>
       <%= markdown @product.description %>
+      <% @product_parts.each do |part| %>
+        <%= image_tag part.asset.image(:thumb), :alt => 'product part image' %>
+        <%= part.name_cn %>
+        <%= part.description %>
+      <% end %>
     </p>
   </div>
   </div>

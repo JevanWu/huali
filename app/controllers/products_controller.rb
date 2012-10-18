@@ -4,10 +4,11 @@ class ProductsController < ApplicationController
   # GET /products/1.json
   def show
     @product = Product.available.find(params[:id])
+    @product_parts = @product.product_parts
 
     product_assets  = @product.assets || []
 
-    parts_assets = @product.product_parts.map { |part| part.asset }
+    parts_assets = @product_parts.map { |part| part.asset }
 
     # FIXME cannot use concat here, Raise ActiveRecord::AssociationTypeMismatch
     # might be caused by ActiveRecord Lazy reading
