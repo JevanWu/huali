@@ -45,6 +45,12 @@
           <p class="meta_info">特惠价格包含运费, 运送范围仅限上海城区</p>
         
           <p class="availability in-stock">库存: <span><%= @product.available ? "有货" : "无货" %></span></p>
+          <p class="size">
+            <span>大小: </span>
+            <span> 高 <%= @product.height %> </span> x
+            <span> 宽 <%= @product.width %> </span> x
+            <span> 长 <%= @product.depth %> </span>
+          </p>
         </div>
         <div class="short-description">
           <p >简短描述</p>
