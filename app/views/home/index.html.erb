@@ -2,7 +2,7 @@
 		<div class = 'iosSlider'>
 			<div class = 'slider'>
         <div class = 'slide'>
-          <%= image_tag "slide0.png" %>
+          <%= link_to image_tag("slide0.png"), product_path(12) %>
           <div class = 'bg'></div>
           <div class = 'text1'>
             <div class = 'title'>
@@ -22,7 +22,7 @@
 
 
         <div class = 'slide'>
-          <%= image_tag "slide1.png" %>
+          <%= link_to image_tag("slide1.png"), product_path(13) %>
           <div class = 'bg'></div>
           <div class = 'text1'>
             <div class = 'title'>
@@ -40,36 +40,36 @@
           </div>
         </div>
 
-      <div class = 'slide'>
-        <%= image_tag "slide2.png" %>
-        <div class = 'bg'></div>
-        <div class = 'text1'>
-          <div class = 'title'>
-            <span>因为爱情</span>
+        <div class = 'slide'>
+          <%= link_to image_tag("slide2.png"), product_path(14) %>
+          <div class = 'bg'></div>
+          <div class = 'text1'>
+            <div class = 'title'>
+              <span>因为爱情</span>
+            </div>
+            <div class = 'desc'>
+              <span>不论时间，不论空间，继续，只因爱情</span>
+            </div>
           </div>
-          <div class = 'desc'>
-            <span>不论时间，不论空间，继续，只因爱情</span>
+
+          <div class = 'text2'>
+            <div>
+              <%= link_to '产品详情', product_path(14), class: 'tintButton' %>
+            </div>
           </div>
         </div>
 
-        <div class = 'text2'>
-          <div>
-            <%= link_to '产品详情', product_path(14), class: 'tintButton' %>
+        <div class = 'slide'>
+          <%= link_to image_tag("slide3.png"), product_path(16) %>
+          <div class = 'bg'></div>
+          <div class = 'text1'>
+            <div class = 'title'>
+              <span>童话王国的盛典</span>
+            </div>
+            <div class = 'desc'>
+              <span>童话般的梦境，总是充满了缤纷的色彩，丰收的喜悦和自由的灵魂</span>
+            </div>
           </div>
-        </div>
-      </div>
-
-    <div class = 'slide'>
-      <%= image_tag "slide3.png" %>
-      <div class = 'bg'></div>
-      <div class = 'text1'>
-        <div class = 'title'>
-          <span>童话王国的盛典</span>
-        </div>
-        <div class = 'desc'>
-          <span>童话般的梦境，总是充满了缤纷的色彩，丰收的喜悦和自由的灵魂</span>
-        </div>
-      </div>
 
       <div class = 'text2'>
         <div>
@@ -92,15 +92,15 @@
 
 <div class="row">
   <div class="home-banner span4">
-    <%= image_tag "banner0.png" %>
+    <%= link_to image_tag("banner0.png"), product_path(19) %>
     <%= link_to '产品详情', product_path(19), class: 'readmore' %>
   </div>
   <div class="home-banner span4">
-    <%= image_tag "banner1.png" %>
+    <%= link_to image_tag("banner1.png"), product_path(18) %>
     <%= link_to '产品详情', product_path(18), class: 'readmore' %>
   </div>
   <div class="home-banner span4">
-    <%= image_tag "banner2.png" %>
+    <%= link_to image_tag("banner2.png"), product_path(15) %>
     <%= link_to '产品详情', product_path(15), class: 'readmore' %>
   </div>
 </div>
