@@ -109,7 +109,7 @@ ActiveRecord::Schema.define(:version => 20121018090649) do
     t.text     "info_source"
     t.decimal  "original_price"
     t.string   "intro"
-    t.string   "description2"
+    t.text     "description2"
   end
 
   add_index "products", ["name_en"], :name => "index_products_on_name_en"
