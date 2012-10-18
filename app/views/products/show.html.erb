@@ -61,6 +61,7 @@
     <div class="span12">
     <h2>详细信息</h2>
     <%= markdown @product.description %>
+    <h2>花材信息</h2>
     <div id="product-part-details">
       <% @product_parts.each_with_index do |part, index| %>
         <% if index % 2 == 0 %>
