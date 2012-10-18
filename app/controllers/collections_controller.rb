@@ -13,7 +13,7 @@ class CollectionsController < ApplicationController
   end
 
   def all
-    @products = Product.all
+    @products = Product.available.all
 
     respond_to do |format|
       format.html { render 'show' }
