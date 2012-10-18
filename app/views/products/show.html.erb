@@ -42,10 +42,18 @@
             <span class="price-label">特惠价:</span>
             <span class="price" id="product-price-329">￥<%= @product.price %></span>
           </p>
+          <p class="meta_info">特惠价格包含运费, 运送范围仅限上海城区</p>
+        
           <p class="availability in-stock">库存: <span><%= @product.available ? "有货" : "无货" %></span></p>
+          <p class="size">
+            <span>大小: </span>
+            <span> 高 <%= @product.height %> </span> x
+            <span> 宽 <%= @product.width %> </span> x
+            <span> 长 <%= @product.depth %> </span>
+          </p>
         </div>
         <div class="short-description">
-          <p>简短描述</p>
+          <p >简短描述</p>
           <div class="std">
             <%= @product.intro %>
           </div>
@@ -53,6 +61,8 @@
         <div class="product-options" id="product-options-wrapper">
           <button type="submit"  class="readmore button" >点击购买</button>
         </div>
+        <p class="extra_info meta_info"> 长安花针对所有的货品提供订阅服务。您可以在订单中选取多个产品，我们会根据您的选择，定期上门进行产品的更换。订阅细节会在我们收到订单后跟您具体沟通。 </p>
+
       </div>
     </div>
   </div>
