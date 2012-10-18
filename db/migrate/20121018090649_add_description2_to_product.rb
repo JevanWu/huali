@@ -1,5 +1,5 @@
 class AddDescription2ToProduct < ActiveRecord::Migration
   def change
-    add_column :products, :description2, :string
+    add_column :products, :description2, :text
   end
 end
