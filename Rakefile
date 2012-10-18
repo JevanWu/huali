@@ -5,3 +5,9 @@
 require File.expand_path('../config/application', __FILE__)
 
 Changanhua::Application.load_tasks
+
+# pull in remote database
+# taps pull postgres://yangchenyun@localhost/changanhua_development http://httpuser:httppassword@changanflowers.com:5000
+#
+# pull in remote assets
+#rsync -avz deploy@emoo:/home/deploy/repositories/changanhua/shared/system/ public/system
