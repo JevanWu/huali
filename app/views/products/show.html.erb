@@ -36,10 +36,12 @@
         </div>
 
         <div class="price-box">
+          <% unless @product.original_price.nil? %>
           <p class="old-price">
             <span class="price-label">日常价:</span>
             <span class="price" id="old-price-329">￥<%= @product.original_price %></span>
           </p>
+          <% end %>
 
           <p class="special-price">
             <span class="price-label">特惠价:</span>
