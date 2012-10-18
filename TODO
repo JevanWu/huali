@@ -1,11 +1,5 @@
 Necessary Before Release:
- ☐ github two issues
- ☐ footnote add helpcenter page, remove sitemap
- ☐ original_price don't showup
- ☐ add description2 field to product and ajust view order
- ☐ Render product_part in a production  @yangchenyun
  ☐ Optimize Chinese Font
- ☐ Add a phone banner on layout @yangchenyun ->
 
 Potential Features:
  ☐ Edit Robot.txt to enable Search Engine
@@ -20,6 +14,12 @@ Content Preparation:
    Product Photos:
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ github two issues @yangchenyun @done (12-10-18 18:02)
+ ✔ footnote add helpcenter page, remove sitemap @done (12-10-18 18:02)
+ ✔ Add a phone banner on layout @yangchenyun -> @done (12-10-18 17:52)
+ ✔ Render product_part in a production  @yangchenyun @done (12-10-18 17:52)
+ ✔ original_price don't showup @done (12-10-18 17:52)
+ ✔ add description2 field to product and ajust view order @done (12-10-18 17:52)
  ✔ add a scope for available for product @yangchenyun @done (12-10-18 11:19)
  ✔ update slides button color @yangchenyun -> @done (12-10-18 11:45)
  ✔ 购买后进入产品详情页面 @done (12-10-18 14:09)
