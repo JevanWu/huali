@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121017162821) do
+ActiveRecord::Schema.define(:version => 20121018090649) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -109,6 +109,7 @@ ActiveRecord::Schema.define(:version => 20121017162821) do
     t.text     "info_source"
     t.decimal  "original_price"
     t.string   "intro"
+    t.string   "description2"
   end
 
   add_index "products", ["name_en"], :name => "index_products_on_name_en"

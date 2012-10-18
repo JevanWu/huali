@@ -30,6 +30,12 @@ ActiveAdmin.register Product do
       end
     end
 
+    column :original_price, :sortable => :price do |product|
+      div :class => "price" do
+        number_to_currency product.original_price, :unit => '&yen;'
+      end
+    end
+
     column :price, :sortable => :price do |product|
       div :class => "price" do
         number_to_currency product.price, :unit => '&yen;'
@@ -48,6 +54,10 @@ ActiveAdmin.register Product do
       row :name_en
       row :description do
         markdown(product.description)
+      end
+
+      row :description2 do
+        markdown(product.description2)
       end
 
       row :info_source do
@@ -69,7 +79,7 @@ ActiveAdmin.register Product do
           image_tag asset.image.url(:medium)
         end.join(' ').html_safe
       end
-      
+
       row :thumbnails do
         product.assets.map do |asset|
           image_tag asset.image.url(:thumb)
@@ -79,6 +89,9 @@ ActiveAdmin.register Product do
       row :meta_description
       row :meta_keywords
       row :count_on_hand
+      row :original_price do
+        number_to_currency product.price, :unit => '&yen;'
+      end
       row :price do
         number_to_currency product.price, :unit => '&yen;'
       end
