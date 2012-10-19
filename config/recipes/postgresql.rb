@@ -3,7 +3,7 @@ _cset(:postgresql_user) { application }
 _cset(:postgresql_password) { Capistrano::CLI.password_prompt "PostgreSQL Password: " }
 _cset(:postgresql_database) { "#{application}_production" }
 
-namespace :postgresql do
+namespace :pg do
   desc "Install the latest stable release of PostgreSQL."
   task :install, roles: :db, only: {primary: true} do
     run "#{sudo} add-apt-repository ppa:pitti/postgresql"
