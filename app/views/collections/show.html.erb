@@ -8,7 +8,7 @@
         <div class="new-description">
           <h3><a href=<%= product_path(product.id) =%> title="Fashion Demo Flowers"><%= product.name_cn %></a></h3>
           <div class="price-box">
-          <button type="button" class="button btn-cart"><span>点击购买</span></button>
+            <a href='/order'><button type="button" class="button btn-cart"><span>点击购买</span></button></a>
             <p class="old-price">
             <span class="price" id="old-price-298"> ￥<%= product.original_price %> </span>
             </p>
