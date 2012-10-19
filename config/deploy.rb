@@ -22,6 +22,7 @@ set :branch, 'master'
 server '74.207.254.157:1982', :web, :app, :db, :primary => true
 
 set :user, 'deploy'
+set :group, 'deploy'
 set :deploy_to, "/home/#{user}/repositories/#{application}"
 
 # enable prompt for password

@@ -1,5 +1,5 @@
 _cset(:unicorn_user) { user }
-_cset(:unicorn_group) { 'deploy' }
+_cset(:unicorn_group) { group }
 _cset(:unicorn_pid) { "#{current_path}/tmp/pids/unicorn.pid" }
 _cset(:unicorn_config) { "#{shared_path}/config/unicorn.rb" }
 _cset(:unicorn_log) { "#{shared_path}/log/unicorn.log" }
@@ -10,7 +10,7 @@ namespace :unicorn do
   task :setup, roles: :app do
     run "mkdir -p #{shared_path}/config"
     template "unicorn.rb.erb", unicorn_config
-    template "unicorn_init.erb", "/tmp/unicorn_init"
+    template "unicorn_init.erb", "/tmp/unicorn_ijnit"
     run "chmod +x /tmp/unicorn_init"
     run "#{sudo} mv /tmp/unicorn_init /etc/init.d/unicorn_#{application}"
     run "#{sudo} update-rc.d -f unicorn_#{application} defaults"
