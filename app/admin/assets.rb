@@ -1,6 +1,6 @@
 ActiveAdmin.register Asset do
 
-  filter :viewable_type, :as => :select, :collection => Asset.types
+  filter :viewable_type, :as => :select, :collection =>  Asset.pluck(:viewable_type).uniq
   filter :image_file_name
   filter :image_updated_at
 
