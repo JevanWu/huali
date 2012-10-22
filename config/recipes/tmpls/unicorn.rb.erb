@@ -13,6 +13,10 @@ preload_app true
 # Restart any workers that haven't responded in 30 seconds
 timeout 30
 
+pid "<%= unicorn_pid %>"
+stderr_path "<%= current_path %>/log/unicorn.stderr.log"
+stdout_path "<%= current_path %>/log/unicorn.stdout.log"
+
 # Listen on a Unix data socket
 listen '/tmp/unicorn.<%= application %>.sock', :backlog => 2048
 
