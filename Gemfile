@@ -26,6 +26,10 @@ group :development, :test do
   gem 'factory_girl_rails', '>= 4.0.0'
 end
 
+group :production do
+  gem 'unicorn'
+end
+
 group :development do
   gem 'guard'
   gem 'rb-fsevent', :require => false
