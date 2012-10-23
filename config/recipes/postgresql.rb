@@ -1,7 +1,13 @@
+require 'yaml'
+DB_FILE_PATH = "#{app_root_path}/config/database.yml"
+dbconfig = YAML.load_file(DB_FILE_PATH)
+
 _cset(:postgresql_host, "localhost")
-_cset(:postgresql_user) { application }
-_cset(:postgresql_password) { Capistrano::CLI.password_prompt "PostgreSQL Password: " }
-_cset(:postgresql_database) { "#{application}_production" }
+_cset(:postgresql_user) { dbconfig['production']['username'] }
+_cset(:postgresql_password) { dbconfig['production']['password'] }
+_cset(:postgresql_database) { dbconfig['production']['database'] }
+
+puts File.dirname(__FILE__)
 
 namespace :pg do
   desc "Install the latest stable release of PostgreSQL."
@@ -27,5 +33,4 @@ namespace :pg do
   task :symlink, roles: :app do
     run "ln -nfs #{shared_path}/config/database.yml #{current_path}/config/database.yml"
   end
-  after "pg:setup", "pg:symlink"
 end
