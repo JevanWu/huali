@@ -16,12 +16,6 @@ namespace :unicorn do
     run "#{sudo} update-rc.d -f unicorn_#{application} defaults"
   end
 
-  desc "Symlink the unicorn.rb file into latest release"
-  task :symlink, roles: :app do
-    run "ln -nfs #{shared_path}/config/unicorn.rb #{current_path}/config/unicorn.rb"
-  end
-  after "unicorn:setup", "unicorn:symlink"
-
   %w[start stop restart].each do |command|
     desc "#{command} unicorn"
     task command, roles: :app do
