@@ -28,6 +28,10 @@ set :deploy_to, "/home/#{user}/repositories/#{application}"
 # enable prompt for password
 default_run_options[:pty] = true
 
+# try_sudo will not use sudo by default
+#
+set :use_sudo, false
+
 # access github.com using as the local user
 ssh_options[:forward_agent] = true
 
