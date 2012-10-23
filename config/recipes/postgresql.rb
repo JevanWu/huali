@@ -13,8 +13,8 @@ namespace :pg do
 
   desc "Create a database for this application."
   task :create_database, roles: :db, only: {primary: true} do
-    run %Q{#{sudo} -u postgres psql -c "create user #{postgresql_user} with password '#{postgresql_password}';"}
-    run %Q{#{sudo} -u postgres psql -c "create database #{postgresql_database} owner #{postgresql_user};"}
+    run %Q{#{sudo} -u postgres psql -c "CREATE USER #{postgresql_user} WITH PASSWORD '#{postgresql_password}';"}
+    run %Q{#{sudo} -u postgres psql -c "CREATE DATABASE #{postgresql_database} OWNER #{postgresql_user};"}
   end
 
   desc "Generate the database.yml configuration file."
@@ -25,6 +25,7 @@ namespace :pg do
 
   desc "Symlink the database.yml file into latest release"
   task :symlink, roles: :app do
-    run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+    run "ln -nfs #{shared_path}/config/database.yml #{current_path}/config/database.yml"
   end
+  after "pg:setup", "pg:symlink"
 end
