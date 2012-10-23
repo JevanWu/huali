@@ -2,6 +2,7 @@
 
 _cset :ruby_version, "1.9.3-p194"
 _cset :rbenv_bootstrap, "bootstrap-ubuntu-12-04"
+_cset(:root_password) { Capistrano::CLI.password_prompt "Root Password: " }
 
 namespace :rbenv do
   desc "Install rbenv, Ruby, and the Bundler gem"
@@ -18,8 +19,11 @@ BASHRC
     put bashrc, "/tmp/rbenvrc"
     run "cat /tmp/rbenvrc ~/.bashrc > ~/.bashrc.tmp"
     run "mv ~/.bashrc.tmp ~/.bashrc"
-    run "exec $SHELL"
-    run "rbenv #{rbenv_bootstrap}"
+    run "rm /tmp/rbenvrc"
+    run "rbenv #{rbenv_bootstrap}" do |channel, stream, data|
+      puts data if data.length >= 3
+      channel.send_data("#{root_password}\n") if data.include? 'password'
+    end
     run "rbenv install #{ruby_version}"
     run "rbenv global #{ruby_version}"
   end
