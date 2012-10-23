@@ -20,4 +20,5 @@ namespace :deploy do
   # after "deploy:setup", "postgresql:create_database"
   # after "deploy:setup", "postgresql:setup"
   # after "deploy:finalize_update", "postgresql:symlink"
+  # after "deploy:setup", "unicorn:setup"
 end
