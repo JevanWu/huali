@@ -9,16 +9,19 @@ namespace :deploy do
     run "#{sudo} apt-get -y update"
     run "#{sudo} apt-get -y install python-software-properties"
   end
-  after "deploy:install",
-    "nginx:install",
-    "nodejs:install",
-    "rbenv:install",
-    "dev_lib:install"
-    "postgresql:install"
-
-  # after "deploy:setup", "nginx:setup"
-  # after "deploy:setup", "postgresql:create_database"
-  # after "deploy:setup", "postgresql:setup"
-  # after "deploy:finalize_update", "postgresql:symlink"
-  # after "deploy:setup", "unicorn:setup"
 end
+
+after "deploy:install",
+  "nginx:install",
+  "nodejs:install",
+  "rbenv:install",
+  "dev_lib:install",
+  "pg:install"
+
+after "deploy:setup", 
+  "nginx:setup", 
+  "pg:setup",
+  "pg:create_database",
+  "unicorn:setup"
+  
+after "deploy:finalize_update", "pg:symlink"
