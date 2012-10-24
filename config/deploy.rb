@@ -35,6 +35,17 @@ set :use_sudo, false
 # access github.com using as the local user
 ssh_options[:forward_agent] = true
 
-# keep only last 5 commit
-# set :keep_releases, 5
-after "deploy:restart", "deploy:cleanup"
+# start/stop/restart application
+namespace :deploy do
+  task :start, :roles => :app, :except => { :no_release => true } do
+  	unicorn.start
+  end
+
+  task :stop, :roles => :app, :except => { :no_release => true } do
+  	unicorn.stop
+  end
+
+  task :restart, :roles => :app, :except => { :no_release => true } do
+  	unicorn.upgrade
+  end
+end
