@@ -16,7 +16,7 @@ namespace :unicorn do
     run "#{sudo} update-rc.d -f unicorn_#{application} defaults"
   end
 
-  %w[start stop restart].each do |command|
+  %w[start stop restart upgrade force-stop].each do |command|
     desc "#{command} unicorn"
     task command, roles: :app do
       run "service unicorn_#{application} #{command}"
