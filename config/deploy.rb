@@ -49,8 +49,8 @@ task :staging do
   set :deploy_to, "/home/#{user}/repositories/#{application}-staging"
 end
 
-# start/stop/restart application
 namespace :deploy do
+  # start/stop/restart application
   task :start, :roles => :app, :except => { :no_release => true } do
   	unicorn.start
   end
@@ -62,4 +62,9 @@ namespace :deploy do
   task :restart, :roles => :app, :except => { :no_release => true } do
   	unicorn.upgrade
   end
+
+  task :bundle, :roles => :app, :except => { :no_release => true } do
+    run "cd #{release_path} && bundle install"
+  end
+  after "deploy:finalize_update", "deploy:bundle"
 end
