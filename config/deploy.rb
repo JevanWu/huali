@@ -1,4 +1,5 @@
 load "config/recipes/base"
+load "config/recipes/dev_lib"
 load "config/recipes/nginx"
 load "config/recipes/unicorn"
 load "config/recipes/postgresql"
@@ -42,7 +43,7 @@ task :staging do
 
   # lua - 42.121.3.105, aliyun - steven
   server '42.121.3.105:1982', :web, :app, :db, :primary => true
-  
+
   set :user, 'deployer'
   set :group, 'admin'
   set :deploy_to, "/home/#{user}/repositories/#{application}-staging"
