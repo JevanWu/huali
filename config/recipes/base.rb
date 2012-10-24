@@ -21,7 +21,7 @@ after "deploy:install",
 after "deploy:setup", 
   "nginx:setup", 
   "pg:setup",
-  "pg:create_database",
+  "pg:init",
   "unicorn:setup"
   
 after "deploy:finalize_update", "pg:symlink"
