@@ -8,7 +8,7 @@ db_password = dbconfig["development"]["password"]
 namespace :db do
 
   desc "pull the production database from the changanflowers.com server"
-  task :pull => :environment do
+  task :pull do
     table_cmd = "taps pull postgres://#{db_username}:#{db_password}@localhost/#{db_name} http://httpuser:httppassword@changanflowers.com:5000"
     unless ENV['table'].nil?
       table_cmd << " --tables " << ENV['table']
@@ -17,7 +17,7 @@ namespace :db do
   end
 
   desc "push the development database to the changanflowers.com server"
-  task :push => :environment do
+  task :push do
     table_cmd = "taps push postgres://#{db_username}:#{db_password}@localhost/#{db_name} http://httpuser:httppassword@changanflowers.com:5000"
     unless ENV['table'].nil?
       table_cmd << " --tables " << ENV['table']
