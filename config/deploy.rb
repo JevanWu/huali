@@ -68,3 +68,18 @@ namespace :deploy do
   end
   after "deploy:finalize_update", "deploy:bundle"
 end
+
+after "deploy:install",
+  "nginx:install",
+  "nodejs:install",
+  "rbenv:install",
+  "dev_lib:install",
+  "pg:install"
+
+after "deploy:setup", 
+  "nginx:setup", 
+  "pg:setup",
+  "pg:init",
+  "unicorn:setup"
+  
+after "deploy:finalize_update", "pg:symlink"
