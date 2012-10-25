@@ -13,7 +13,7 @@ namespace :db do
     unless ENV['table'].nil?
       table_cmd << " --tables " << ENV['table']
     end
-    exec(table_cmd)
+    system(table_cmd)
   end
 
   desc "push the development database to the changanflowers.com server"
@@ -22,6 +22,24 @@ namespace :db do
     unless ENV['table'].nil?
       table_cmd << " --tables " << ENV['table']
     end
-    exec(table_cmd)
+    system(table_cmd)
+  end
+end
+
+
+namespace :taps do
+
+  desc "open remote server taps service"
+  task :open do
+    system('ssh -f deploy@easymoo "taps server postgres://changanhua:hananokorunrun@localhost/changanhua_production httpuser httppassword"')
+    $?.exitstatus ? puts("succeeded") : puts("failed")
+    #p code ? "taps opened" : "failed to open taps"
+  end
+
+  desc "close remote server taps service"
+  task :close do
+    system('ssh -f deploy@easymoo "pkill taps"')
+    $?.exitstatus ? puts("succeeded") : puts("failed")
+    #p code ? "taps closed" : "failed to close taps"
   end
 end
