@@ -47,14 +47,14 @@ namespace :assets do
 
   desc "pull the assets from the changanflowers.com server"
   task :pull do
-    system("rsync -rvz #{deploy_user}@#{ssh_host}:/home/deploy/repositories/changanhua/shared/system/ public/system")
-    system("rsync -rvz --include '*.txt' --include '*.ico' --exclude '*' #{deploy_user}@#{ssh_host}:/home/deploy/repositories/changanhua/shared/ public/")
+    system("rsync -rvz deploy@easymoo:/home/deploy/repositories/changanhua/shared/system/ public/system")
+    system("rsync -rvz --include '*.txt' --include '*.ico' --exclude '*' deploy@easymoo:/home/deploy/repositories/changanhua/shared/ public/")
   end
 
 
   desc "push the assets to the changanflowers.com server"
   task :push do
-    system("rsync -rvz public/system #{deploy_user}@#{ssh_host}:/home/deploy/repositories/changanhua/shared/system/")
-    system("rsync -rvz --include '*.txt' --include '*.ico' --exclude '*' public/ #{deploy_user}@#{ssh_host}:/home/deploy/repositories/changanhua/shared/")
+    system("rsync -rvz public/system deploy@easymoo:/home/deploy/repositories/changanhua/shared/system/")
+    system("rsync -rvz --include '*.txt' --include '*.ico' --exclude '*' public/ deploy@easymoo:/home/deploy/repositories/changanhua/shared/")
   end
 end
