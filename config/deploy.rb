@@ -1,3 +1,5 @@
+set :config_path, File.expand_path(File.dirname(__FILE__))
+
 require 'capistrano-zen/base'
 require 'capistrano-zen/check'
 require 'capistrano-zen/dev_lib'
@@ -24,6 +26,7 @@ set :use_sudo, false
 ssh_options[:forward_agent] = true
 
 set :application, "changanhua"
+
 
 # multistage settings
 task :production do
