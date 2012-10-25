@@ -1,3 +1,11 @@
+require 'capistrano-zen/base'
+require 'capistrano-zen/check'
+require 'capistrano-zen/dev_lib'
+require 'capistrano-zen/nginx'
+require 'capistrano-zen/postgresql'
+require 'capistrano-zen/rbenv'
+require 'capistrano-zen/unicorn'
+
 # Use Git as Version Control System
 set :scm, :git
 set :repository, "git@github.com:zenhacks/changanhua.git"
@@ -74,3 +82,4 @@ after "deploy:setup",
   "unicorn:setup"
 
 after "deploy:finalize_update", "pg:symlink"
+
