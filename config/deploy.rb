@@ -1,12 +1,3 @@
-load "config/recipes/base"
-load "config/recipes/dev_lib"
-load "config/recipes/nginx"
-load "config/recipes/unicorn"
-load "config/recipes/postgresql"
-load "config/recipes/nodejs"
-load "config/recipes/rbenv"
-load "config/recipes/check"
-
 # Use Git as Version Control System
 set :scm, :git
 set :repository, "git@github.com:zenhacks/changanhua.git"
@@ -76,10 +67,10 @@ after "deploy:install",
   "dev_lib:install",
   "pg:install"
 
-after "deploy:setup", 
-  "nginx:setup", 
+after "deploy:setup",
+  "nginx:setup",
   "pg:setup",
   "pg:init",
   "unicorn:setup"
-  
+
 after "deploy:finalize_update", "pg:symlink"
