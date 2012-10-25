@@ -1,3 +1,10 @@
+GIT
+  remote: git@github.com:yangchenyun/capistrano-zen.git
+  revision: 12fd7fc00a894c9d63b95ef6b7c55f964e37e724
+  specs:
+    capistrano-zen (0.0.1)
+      capistrano (>= 2.5.3)
+
 GEM
   remote: http://ruby.taobao.org/
   specs:
@@ -270,6 +277,7 @@ DEPENDENCIES
   activeadmin
   bootstrap-sass (~> 2.1.0.0)
   capistrano (~> 2.0)
+  capistrano-zen!
   capybara (>= 1.1.2)
   coffee-rails (~> 3.2.1)
   cucumber-rails (>= 1.3.0)

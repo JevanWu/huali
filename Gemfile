@@ -10,6 +10,7 @@ gem 'formtastic'
 gem 'pry'
 gem 'kramdown', '~>0.13'
 gem 'capistrano', '~>2.0'
+gem 'capistrano-zen', git: 'git@github.com:yangchenyun/capistrano-zen.git'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
