@@ -8,13 +8,13 @@ db_password = dbconfig["development"]["password"]
 
 production_username = dbconfig["production"]["username"]
 production_password = dbconfig["production"]["password"]
+production_db_name = dbconfig["production"]["database"]
 ssh_host = dbconfig["production"]["host"]
 
-taps_user = "httpuser"
-taps_password = "httppassword"
+taps_user = "changanhua"
+taps_password = "3EBhzuiqrN8tSR"
 deploy_user = "deploy"
 repo_name = "changanhua"
-server_db_name = "changanhua_production"
 
 namespace :db do
 
@@ -39,7 +39,7 @@ namespace :taps do
 
   desc "open remote server taps service"
   task :open do
-    system("ssh -f #{deploy_user}@#{ssh_host} \"taps server postgres://#{production_username}:#{production_password}@localhost/#{server_db_name} #{taps_user} #{taps_password}\"")
+    system("ssh -f #{deploy_user}@#{ssh_host} \"taps server postgres://#{production_username}:#{production_password}@localhost/#{production_db_name} #{taps_user} #{taps_password}\"")
     p $?.exitstatus ? "succeeded" : "failed"
   end
 
@@ -65,5 +65,6 @@ namespace :assets do
     system("rsync -rvz public/system #{deploy_user}@#{ssh_host}:~/repositories/#{repo_name}/shared/system/")
     system("rsync -rvz --include '*.txt' --include '*.ico' --exclude '*' public/ #{deploy_user}@#{ssh_host}:~/repositories/#{repo_name}/shared/")
   end
+
 end
 
