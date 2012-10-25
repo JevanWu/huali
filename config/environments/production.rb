@@ -76,7 +76,7 @@ Changanhua::Application.configure do
       :password  => ENV["MANDRILL_API_KEY"]
     }
 
-  # ImageMagick Process path
+  # ImageMagick Process path on production server (Ubuntu 12.04 LTS)
   Paperclip.options[:command_path] = "/usr/bin/"
 
   # Log the query plan for queries taking more than this (works
