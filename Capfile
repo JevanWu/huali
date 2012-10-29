@@ -1,11 +1,9 @@
 load 'deploy'
 load 'deploy/assets'
 
-set :config_path, File.expand_path(File.dirname(__FILE__), 'config')
+set :pg_config_path, File.expand_path(File.dirname(__FILE__), 'config')
 
-require 'capistrano-zen/base'
-require 'capistrano-zen/check'
-require 'capistrano-zen/dev_lib'
+require 'capistrano-zen/utils'
 require 'capistrano-zen/nginx'
 require 'capistrano-zen/postgresql'
 require 'capistrano-zen/rbenv'
@@ -83,7 +81,7 @@ after "deploy:install",
   "pg:install"
 
 after "deploy:setup",
-  "nginx:setup",
+  "nginx:setup:unicorn",
   "pg:setup",
   "pg:init",
   "unicorn:setup"
