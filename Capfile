@@ -33,12 +33,11 @@ set :application, "changanhua"
 task :production do
   set :domain, "www.changanflowers.com changanflowers.com"
 
-  # emoo - 74.207.254.157, linode tokyo
-  server '74.207.254.157:1982', :web, :app, :db, :primary => true
+  # maxwell - 42.121.119.155:1982', aliyun
+  server '42.121.119.155:1982', :web, :app, :db, :primary => true
 
-
-  set :user, 'deploy'
-  set :group, 'deploy'
+  set :user, 'deployer'
+  set :group, 'admin'
   set :deploy_to, "/home/#{user}/repositories/#{application}-production"
 end
 
@@ -75,7 +74,6 @@ end
 
 after "deploy:install",
   "nginx:install",
-  "nodejs:install",
   "rbenv:install",
   "dev_lib:install",
   "pg:install"
