@@ -5,6 +5,7 @@ set :pg_config_path, File.expand_path(File.dirname(__FILE__), 'config')
 
 require 'capistrano-zen/utils'
 require 'capistrano-zen/nginx'
+require 'capistrano-zen/nodejs'
 require 'capistrano-zen/postgresql'
 require 'capistrano-zen/rbenv'
 require 'capistrano-zen/unicorn'
@@ -74,6 +75,7 @@ end
 
 after "deploy:install",
   "nginx:install",
+  "nodejs:install",
   "rbenv:install",
   "dev_lib:install",
   "pg:install"
