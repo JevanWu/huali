@@ -9,12 +9,12 @@ db_password = dbconfig["development"]["password"]
 production_username = dbconfig["production"]["username"]
 production_password = dbconfig["production"]["password"]
 production_db_name = dbconfig["production"]["database"]
-ssh_host = dbconfig["production"]["host"]
+ssh_host = 'maxwell'
 
 taps_user = "changanhua"
 taps_password = "3EBhzuiqrN8tSR"
-deploy_user = "deploy"
-repo_name = "changanhua"
+deploy_user = "deployer"
+repo_name = "changanhua-production"
 
 namespace :db do
 
@@ -62,7 +62,7 @@ namespace :assets do
 
   desc "push the assets to the server"
   task :push do
-    system("rsync -rvz public/system #{deploy_user}@#{ssh_host}:~/repositories/#{repo_name}/shared/system/")
+    system("rsync -rvz public/system #{deploy_user}@#{ssh_host}:~/repositories/#{repo_name}/shared/")
     system("rsync -rvz --include '*.txt' --include '*.ico' --exclude '*' public/ #{deploy_user}@#{ssh_host}:~/repositories/#{repo_name}/shared/")
   end
 
