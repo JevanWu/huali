@@ -1,6 +1,6 @@
 GIT
-  remote: git@github.com:yangchenyun/capistrano-zen.git
-  revision: 12fd7fc00a894c9d63b95ef6b7c55f964e37e724
+  remote: git@github.com:zenhacks/capistrano-zen.git
+  revision: 9f4a12366b7147d2622606912df389d1da2d591c
   specs:
     capistrano-zen (0.0.1)
       capistrano (>= 2.5.3)
