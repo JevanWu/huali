@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121102082057) do
+ActiveRecord::Schema.define(:version => 20121102094727) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -46,6 +46,14 @@ ActiveRecord::Schema.define(:version => 20121102082057) do
   add_index "administrators", ["email"], :name => "index_administrators_on_email", :unique => true
   add_index "administrators", ["reset_password_token"], :name => "index_administrators_on_reset_password_token", :unique => true
 
+  create_table "areas", :force => true do |t|
+    t.string  "name"
+    t.integer "post_code"
+    t.integer "parent_post_code"
+  end
+
+  add_index "areas", ["post_code"], :name => "index_areas_on_post_code"
+
   create_table "assets", :force => true do |t|
     t.integer  "viewable_id"
     t.string   "viewable_type"
@@ -57,6 +65,14 @@ ActiveRecord::Schema.define(:version => 20121102082057) do
 
   add_index "assets", ["viewable_id"], :name => "index_assets_on_viewable_id"
   add_index "assets", ["viewable_type"], :name => "index_assets_on_viewable_type"
+
+  create_table "cities", :force => true do |t|
+    t.string  "name"
+    t.integer "post_code"
+    t.integer "parent_post_code"
+  end
+
+  add_index "cities", ["post_code"], :name => "index_cities_on_post_code"
 
   create_table "collections", :force => true do |t|
     t.string   "name_cn",     :null => false
@@ -125,6 +141,13 @@ ActiveRecord::Schema.define(:version => 20121102082057) do
   end
 
   add_index "products", ["name_en"], :name => "index_products_on_name_en"
+
+  create_table "provinces", :force => true do |t|
+    t.string  "name"
+    t.integer "post_code"
+  end
+
+  add_index "provinces", ["post_code"], :name => "index_provinces_on_post_code"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
