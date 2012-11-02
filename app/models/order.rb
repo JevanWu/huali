@@ -3,7 +3,7 @@ class Order < ActiveRecord::Base
   attr_accessible :line_items, :address_attributes, :payments_attributes,
                   :line_items_attributes, :address, :number, :special_instructions
 
-  belongs_to :address
+  has_one :address
 
   belongs_to :user
 
