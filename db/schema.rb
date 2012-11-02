@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(:version => 20121102094727) do
     t.integer "parent_post_code"
   end
 
-  add_index "areas", ["post_code"], :name => "index_areas_on_post_code"
+  add_index "areas", ["post_code"], :name => "index_areas_on_post_code", :unique => true
 
   create_table "assets", :force => true do |t|
     t.integer  "viewable_id"
@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(:version => 20121102094727) do
     t.integer "parent_post_code"
   end
 
-  add_index "cities", ["post_code"], :name => "index_cities_on_post_code"
+  add_index "cities", ["post_code"], :name => "index_cities_on_post_code", :unique => true
 
   create_table "collections", :force => true do |t|
     t.string   "name_cn",     :null => false
@@ -147,7 +147,7 @@ ActiveRecord::Schema.define(:version => 20121102094727) do
     t.integer "post_code"
   end
 
-  add_index "provinces", ["post_code"], :name => "index_provinces_on_post_code"
+  add_index "provinces", ["post_code"], :name => "index_provinces_on_post_code", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
