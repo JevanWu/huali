@@ -35,6 +35,8 @@ class User < ActiveRecord::Base
 
   has_many :addresses
 
+  has_many :orders
+
   scope :registered, where("#{self.table_name}.email NOT LIKE ?", "%@changan.sample")
 
   def self.anonymous!
