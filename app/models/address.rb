@@ -6,6 +6,7 @@ class Address < ActiveRecord::Base
   belongs_to :area
 
   belongs_to :user
+  belongs_to :order
 
   validates :fullname, :address, :phone, :presence => true
   validate :phone_validate
