@@ -1,5 +1,5 @@
 class City < ActiveRecord::Base
-  attr_accessible :name, :post_code
+  # read-only Model
 
   belongs_to :province, :foreign_key => 'parent_post_code', :primary_key => 'post_code'
 
