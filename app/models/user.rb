@@ -5,9 +5,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :anonymous_token
-  # attr_accessible :title, :body
+
+  has_many :addresses
 
   scope :registered, where("#{self.table_name}.email NOT LIKE ?", "%@changan.sample")
 

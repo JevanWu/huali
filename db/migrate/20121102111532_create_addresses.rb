@@ -8,6 +8,7 @@ class CreateAddresses < ActiveRecord::Migration
       t.references :province
       t.references :city
       t.references :area
+      t.references :user
 
       t.timestamps
     end

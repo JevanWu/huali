@@ -1,8 +1,11 @@
 class Address < ActiveRecord::Base
+  attr_accessible :address, :fullname, :phone, :post_code
+
   belongs_to :province
   belongs_to :city
   belongs_to :area
-  attr_accessible :address, :fullname, :phone, :post_code
+
+  belongs_to :user
 
   validates :fullname, :address, :phone, :presence => true
   validate :phone_validate

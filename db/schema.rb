@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(:version => 20121102111532) do
     t.integer  "province_id"
     t.integer  "city_id"
     t.integer  "area_id"
+    t.integer  "user_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
