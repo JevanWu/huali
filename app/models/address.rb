@@ -5,6 +5,14 @@ class Address < ActiveRecord::Base
   attr_accessible :address, :fullname, :phone, :post_code
 
   validates :fullname, :address, :phone, :presence => true
+  validate :phone_validate
+
+  def phone_validate
+    return if phone.blank?
+    n_digits = phone.scan(/[0-9]/).size
+    valid_chars = (phone =~ /^[-+()\/\s\d]+$/)
+    errors.add :phone, :invalid unless (n_digits >= 8 && valid_chars)
+  end
 
   def to_s
     "#{full_name}: #{address}"
