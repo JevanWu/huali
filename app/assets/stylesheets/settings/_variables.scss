@@ -5,8 +5,7 @@
 
 // Global values
 // --------------------------------------------------
-$buttonColor: #ff594a;
-
+$tintColor: #ff594a;
 
 // Grays
 // -------------------------
@@ -39,7 +38,7 @@ $textColor:             $grayDark !default;
 
 // Links
 // -------------------------
-$linkColor:             #ff4a4a !default;
+$linkColor:             $tintColor !default;
 $linkColorHover:        darken($linkColor, 15%) !default;
 
 
