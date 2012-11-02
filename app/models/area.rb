@@ -3,6 +3,8 @@ class Area < ActiveRecord::Base
 
   belongs_to :city, :foreign_key => 'parent_post_code', :primary_key => 'post_code'
 
+  has_many :addresses
+
   validates :city, :name, :post_code, :presence => true
 
   def to_s
