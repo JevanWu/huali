@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>长安花</title>
+    <title>花里</title>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
     <%= stylesheet_link_tag "application", :media => "all" %>
@@ -16,19 +16,19 @@
       <%= render 'devise/menu/login_items' %>
       <%= render 'devise/menu/registration_items' %>
       <%= render 'layouts/messages' %>
-      <div id="sidebar">
-        <header>
-          <%= render 'layouts/header' %>
-        </header>
-        <%= render 'layouts/nav' %>
-        <%= yield :sidebar %>
+      <div id="main" class="row">
+        <div id="sidebar" class="span5">
+          <div id="sidebar_wrapper">
+            <%= render 'layouts/header' %>
+            <%= render 'layouts/nav' %>
+            <%= yield :sidebar %>
+          </div>
+        </div>
+        <div id="content" class="span7" role="main">
+          <%= yield %>
+        </div>
       </div>
-      <div id="main" role="main">
-        <%= yield %>
-      </div>
-      <footer>
-        <%= render 'layouts/footer' %>
-      </footer>
+      <%= render 'layouts/footer' %>
     </div> <!--! end of #container -->
   </body>
     <%= javascript_include_tag "application"  %>
