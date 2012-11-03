@@ -1,3 +1,8 @@
+<% content_for :sidebar do %>
+  <p>Product View</p>
+<% end %>
+
 <div class="product-view">
-  <%= markdown @product.name_cn %>
+  <%= markdown @product.description %>
 </div>
+
