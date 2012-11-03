@@ -1,7 +1,29 @@
+a.logo
+  vertical-align: bottom
+
+  &:hover
+    background-color: transparent
+
+a.button
+  background-color: $tintColor
+  color: $white
+  padding: 3px 8px
+
+  &:hover
+    text-decoration: underline
+
+a.button-alt
+  @extend a.button
+  color: $tintColor
+  background-color: $white
+
 ul.nav
   list-style: none outside none
   margin-left: 0px
   margin-bottom: 20px
+
+// mod: links
+// desc: use ul>li element as a list of links
 
 ul.links
   display: inline
