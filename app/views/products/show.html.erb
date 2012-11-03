@@ -25,10 +25,12 @@
     <%= image_tag('home-img1.png') %>
   </div>
   <ul id="image-slides" class="links">
-    <% @asset_urls.each do |asset_url| %>
-    <li class="slide">
-      <%= link_to image_tag(asset_url[:thumb_url], alt: "product image"), asset_url[:medium_url], :class => 'thumbnail', :title => @product.name_cn  %>
-    </li>
+    <% @asset_urls.each_with_index do |asset_url, index| %>
+      <% if index < 5 %>
+      <li class="slide">
+        <%= link_to image_tag('home-img1.png', alt: "product image"), asset_url[:medium_url], :class => 'thumbnail', :title => @product.name_cn  %>
+      </li>
+      <% end %>
     <% end %>
   </ul>
 
