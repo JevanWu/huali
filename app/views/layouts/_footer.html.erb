@@ -1,14 +1,13 @@
 <footer class="row">
   <div class="offset7 span5">
     <ul class="links">
-      <li> <a href="/about" title="About Us">关于我们</a></li>
-      <li> <a href="/faq" title="FAQ">常见问题</a> </li>
-      <li> <a href="/help-center" title="Help Center">帮助中心</a> </li>
-      <li> <a href="/procedure" title="Ordering Procedure">购物流程</a> </li>
-      <li> <a href="/copyright" title="copyright">版权及隐私声明</a></li>
-      <li> 
-        <%= link_to image_tag('logo-small.png'), home_path, class: 'logo', title: "Hua.li | 花里" %>
-      </li>
+      <li> <%= link_to "关于我们", "/about", title: "About Us" %> </li>
+      <li> <%= link_to "常见问题", "/faq", title: "FAQ" %> </li>
+      <li> <%= link_to "帮助中心", "/help-center", title: "Help Center" %> </li>
+      <li> <%= link_to "购物流程", "/procedure", title: "Ordering Procedure" %> </li>
+      <li> <%= link_to "版权及隐私声明", "/copyright", title: "Copyright" %> </li>
+      <li> <%= link_to image_tag('logo-small.png'),
+          home_path, class: 'logo', title: "Hua.li | 花里" %> </li>
     </ul>
     <p class='copyright'> 2012 ChanganFlowers.com. All Rights Reserved.&nbsp;&nbsp;</p>
   </div>
