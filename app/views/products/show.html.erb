@@ -34,15 +34,16 @@
     <% end %>
   </ul>
 
-  <p class="in-stock">库存: <span><%= @product.available ? "有货" : "无货" %></span></p>
-  <p class="size">
-    <span>大小: </span>
-  </p>
-  <p> 高 <%= @product.height %> cm </p>
-  <p> 宽 <%= @product.width %> cm </p>
-  <p> 长 <%= @product.depth %> cm </p>
 
   <div id="product-info">
+    <h3>产品信息</h3>
+    <p class="in-stock">库存: <span><%= @product.available ? "有货" : "无货" %></span></p>
+    <p class="size">
+      <span>大小: </span>
+      <span> 高 <%= @product.height %> cm </span>
+      <span> 宽 <%= @product.width %> cm </span>
+      <span> 长 <%= @product.depth %> cm </span>
+    </p>
     <%= markdown @product.description %>
   </div>
 
