@@ -3,7 +3,7 @@ source 'http://ruby.taobao.org'
 gem 'rails', '3.2.8'
 gem 'jquery-rails'
 gem 'pg', '>= 0.14.1'
-gem 'sqlite3'
+gem 'sqlite3', required: false
 gem 'devise', '>= 2.1.2'
 gem 'activeadmin'
 gem 'paperclip', '~> 3.0'
