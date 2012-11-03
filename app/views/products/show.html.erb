@@ -1,8 +1,48 @@
 <% content_for :sidebar do %>
-  <p>Product View</p>
+  <div id="product-side">
+    <h2 class="product-name"><span>得失</span></h2>
+
+    <% unless @product.original_price.nil? %>
+    <p class="price old-price"> <%= @product.original_price %> RMB </p>
+    <% end %>
+    <p class="price"> <%= @product.price %> RMB </p>
+
+    <p>
+      <%= link_to '放入购花篮', '/cart', :class => 'button', :method => :post %>
+    </p>
+    <p>
+      <%= link_to '查看购花篮', '/cart', :class => 'button-alt' %>
+    </p>
+
+  </div>
+  <div id="product-summary">
+
+  </div>
 <% end %>
 
-<div class="product-view">
-  <%= markdown @product.description %>
+<div id="product-wrapper">
+  <div id="image-showcase">
+    <%= image_tag('home-img1.png') %>
+  </div>
+  <ul id="image-slides" class="links">
+    <% @asset_urls.each do |asset_url| %>
+    <li class="slide">
+      <%= link_to image_tag(asset_url[:thumb_url], alt: "product image"), asset_url[:medium_url], :class => 'thumbnail', :title => @product.name_cn  %>
+    </li>
+    <% end %>
+  </ul>
+
+  <p class="in-stock">库存: <span><%= @product.available ? "有货" : "无货" %></span></p>
+  <p class="size">
+    <span>大小: </span>
+  </p>
+  <p> 高 <%= @product.height %> cm </p>
+  <p> 宽 <%= @product.width %> cm </p>
+  <p> 长 <%= @product.depth %> cm </p>
+
+  <div id="product-info">
+    <%= markdown @product.description %>
+  </div>
+
 </div>
 
