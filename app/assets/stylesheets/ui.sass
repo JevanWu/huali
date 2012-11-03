@@ -13,4 +13,16 @@ ul.links
     margin: 0 3px
 
     &:after
-      content: '|'
+      content: ''
+
+#flash_notice, #flash_alert
+  padding: 5px 8px
+  margin: 10px 0
+
+#flash_notice
+  background-color: $green
+  border: solid 1px darken($green, 30%)
+
+#flash_alert
+  background-color: $red
+  border: solid 1px darken($red, 30%)
