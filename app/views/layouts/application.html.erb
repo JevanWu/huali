@@ -13,17 +13,21 @@
   </head>
   <body>
     <div id="wrapper" class="container">
-      <header>
-        <%= render 'devise/menu/login_items' %>
-        <%= render 'devise/menu/registration_items' %>
-        <%= render 'layouts/messages' %>
-        <%= csrf_meta_tag %>
-      </header>
+      <%= render 'devise/menu/login_items' %>
+      <%= render 'devise/menu/registration_items' %>
+      <%= render 'layouts/messages' %>
+      <div id="sidebar">
+        <header>
+          <%= render 'layouts/header' %>
+        </header>
+        <%= render 'layouts/nav' %>
+        <%= yield :sidebar %>
+      </div>
       <div id="main" role="main">
         <%= yield %>
       </div>
       <footer>
-      <%= render 'layouts/footer' %>
+        <%= render 'layouts/footer' %>
       </footer>
     </div> <!--! end of #container -->
   </body>
