@@ -13,7 +13,6 @@ require 'capistrano-zen/unicorn'
 # Use Git as Version Control System
 set :scm, :git
 set :repository, "git@github.com:zenhacks/changanhua.git"
-set :branch, 'master'
 
 # keep a remote cache to avoid checking out everytime
 set :deploy_via, :remote_cache
@@ -39,6 +38,7 @@ task :production do
 
   set :user, 'deployer'
   set :group, 'admin'
+  set :branch, 'master'
   set :deploy_to, "/home/#{user}/repositories/#{application}-production"
 end
 
@@ -50,6 +50,7 @@ task :staging do
 
   set :user, 'deployer'
   set :group, 'admin'
+  set :branch, 'staging'
   set :deploy_to, "/home/#{user}/repositories/#{application}-staging"
 end
 
