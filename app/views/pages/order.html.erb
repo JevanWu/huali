@@ -1,17 +1,19 @@
-<div id="wufoo-s7x2z7">
-Fill out my <a href="http://easymoo.wufoo.com/forms/s7x2z7">online form</a>.
+<div id="order-wrapper">
+  <div id="wufoo-<%= @wufoo_id %>">
+  Fill out my <a href="http://easymoo.wufoo.com/forms/<%= @wufoo_id %>">online form</a>.
+  </div>
+  <script type="text/javascript">var <%= @wufoo_id %>;(function(d, t) {
+  var s = d.createElement(t), options = {
+  'userName':'easymoo', 
+  'formHash':'<%= @wufoo_id %>', 
+  'autoResize':true,
+  'height':'1089',
+  'async':true,
+  'header':'show'};
+  s.src = ('https:' == d.location.protocol ? 'https://' : 'http://') + 'wufoo.com/scripts/embed/form.js';
+  s.onload = s.onreadystatechange = function() {
+  var rs = this.readyState; if (rs) if (rs != 'complete') if (rs != 'loaded') return;
+  try { <%= @wufoo_id %> = new WufooForm();<%= @wufoo_id %>.initialize(options);<%= @wufoo_id %>.display(); } catch (e) {}};
+  var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s, scr);
+  })(document, 'script');</script>
 </div>
-<script type="text/javascript">var s7x2z7;(function(d, t) {
-var s = d.createElement(t), options = {
-'userName':'easymoo', 
-'formHash':'s7x2z7', 
-'autoResize':true,
-'height':'1089',
-'async':true,
-'header':'show'};
-s.src = ('https:' == d.location.protocol ? 'https://' : 'http://') + 'wufoo.com/scripts/embed/form.js';
-s.onload = s.onreadystatechange = function() {
-var rs = this.readyState; if (rs) if (rs != 'complete') if (rs != 'loaded') return;
-try { s7x2z7 = new WufooForm();s7x2z7.initialize(options);s7x2z7.display(); } catch (e) {}};
-var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s, scr);
-})(document, 'script');</script>
