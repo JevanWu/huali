@@ -1,14 +1,20 @@
 require 'yaml'
 
 DB_FILE_PATH = Rails.root + "config/database.yml"
-dbconfig = YAML.load_file(DB_FILE_PATH)
-db_name = dbconfig["development"]["database"]
-db_username = dbconfig["development"]["username"]
-db_password = dbconfig["development"]["password"]
 
-production_username = dbconfig["production"]["username"]
-production_password = dbconfig["production"]["password"]
-production_db_name = dbconfig["production"]["database"]
+dbconfig = YAML.load_file(DB_FILE_PATH)
+if dbconfig["development"]
+  db_name = dbconfig["development"]["database"]
+  db_username = dbconfig["development"]["username"]
+  db_password = dbconfig["development"]["password"]
+end
+
+if dbconfig["production"]
+  production_username = dbconfig["production"]["username"]
+  production_password = dbconfig["production"]["password"]
+  production_db_name = dbconfig["production"]["database"]
+end
+
 ssh_host = 'maxwell'
 
 taps_user = "changanhua"
