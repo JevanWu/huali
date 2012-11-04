@@ -12,7 +12,7 @@ class PagesController < ApplicationController
   end
 
   def order
+    @wufoo_id = 's7x2z7'
   end
 
 end
-
