@@ -12,6 +12,10 @@ ActiveAdmin.register Product do
       link_to product.id, product_path(product)
     end
 
+    column "Availability" do |product|
+      product.available ?  'yes' : 'no'
+    end
+
     column "Character" do |product|
       link_to "#{product.name_char || ''}", product_path(product)
     end
