@@ -12,3 +12,18 @@
 #
 #= require jquery
 #= require jquery_ujs
+#= require jquery-ui/core
+#= require jquery-ui/effect
+
+$ ->
+  $('.nav a').hover(arrowIn, arrowOut)
+
+arrowIn = ->
+  $(this).siblings('.arrow')
+    .addClass('near', 100)
+    .addClass('visible')
+
+arrowOut = ->
+  $(this).siblings('.arrow')
+    .removeClass('near', 100)
+    .removeClass('visible')

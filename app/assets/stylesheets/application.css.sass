@@ -32,10 +32,6 @@
   position: absolute
   top: 200px
 
-  li.active a
-    &:after
-      content: ' <<'
-
 #sidebar
   min-height: 1px
 
@@ -69,6 +65,17 @@ footer
   hr
     color: $grayLighter
 
+  .arrow
+    visibility: hidden
+    color: $tintColor
+    position: relative
+    left: 10px
+
+  .near
+    left: 5px
+
+  .active .arrow, .visible 
+    visibility: visible
 
 // PRODUCT PAGE
 
