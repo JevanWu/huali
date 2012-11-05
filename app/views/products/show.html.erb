@@ -6,6 +6,7 @@
     <p class="price old-price"> <%= @product.original_price %> RMB </p>
     <% end %>
     <p class="price"> <%= @product.price %> RMB </p>
+    <p class="meta">(免运费)</p>
 
     <p>
       <%= link_to '放入购花篮', '/cart', :class => 'button', :method => :post %>
@@ -16,7 +17,12 @@
 
   </div>
   <div id="product-summary">
-
+    <p>like a song, or a dream;</p>
+    <p>or a waste, </p>
+    <p>or a glimpse of wondering;</p>
+    <p>like all that did not yet happen.</p>
+    <p>还未丧失,</p>
+    <p>早已得到.</p>
   </div>
 <% end %>
 
@@ -48,4 +54,3 @@
   </div>
 
 </div>
-
