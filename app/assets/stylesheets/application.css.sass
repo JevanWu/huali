@@ -121,6 +121,20 @@ footer
   text-align: right
   margin-left: ($gridColumnWidth + $gridGutterWidth) * 2
 
+#image-showcase
+  position: relative
+  height: 600px
+  width: 620px
+
+#image-cover
+  position: absolute
+  height: 100%
+  width: 100%
+
+  &.loading
+    background: $white url('loading.gif') center center no-repeat
+    +opacity(0.6)
+
 #image-slides
   margin-top: 10px
   img // same proportion with the full-size image 
