@@ -120,11 +120,16 @@ footer
 #product-info
   text-align: right
   margin-left: ($gridColumnWidth + $gridGutterWidth) * 2
+
 #image-slides
   margin-top: 10px
   img // same proportion with the full-size image 
     width: 80px
     height: #{80 * 500 / 620}px  
+    +opacity(0.5)
+
+    &.hover, &:hover, &.current
+      +opacity(0.9)
 
 // ORDER PAGE
 
