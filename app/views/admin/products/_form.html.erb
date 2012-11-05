@@ -2,16 +2,17 @@
   <%= f.inputs "Main Info" do %>
     <%= f.input :name_cn, :label => "Chinese Name", :required => true %>
     <%= f.input :name_en, :label => "English Name", :required => true %>
+    <%= f.input :name_char, :label => "Chinese Character" %>
 
     <!-- use col.name_cn as checkboxname, col.id as checkbox id which is passed as params -->
     <!-- the last option :collection takes an hash for each check options-->
     <%= f.input :collection, :collection => Hash[Collection.all.map { |col| [col.name_cn, col.id] }] %>
 
-    <%= f.input :intro, :input_html => {:rows => 10} %>
+    <%= f.input :inspiration, :hint => "Use Markdown to write the content" , :input_html => {:rows => 10} %>
 
     <%= f.input :description, :hint => "Use Markdown to write the content" , :input_html => {:rows => 10} %>
 
-    <%= f.input :description2, :hint => "Use Markdown to write the content" , :input_html => {:rows => 10} %>
+    <%= f.input :related_text, :hint => "Use Markdown to write the content" , :input_html => {:rows => 10} %>
 
     <%= f.input :info_source, :hint => "Use Markdown to write the content" , :input_html => {:rows => 10} %>
 
@@ -62,8 +63,6 @@
     <%= f.input :width %>
     <%= f.input :depth %>
     <%= f.input :height %>
-    <%= f.input :place %>
-    <%= f.input :usage %>
     <%= f.input :available, :as => :boolean %>
   <% end %>
 
