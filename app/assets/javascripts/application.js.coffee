@@ -18,6 +18,8 @@
 $ ->
   $('.nav a').hover(arrowIn, arrowOut)
 
+  $('#image-slides img').toggle('hover')
+
 arrowIn = ->
   $(this).siblings('.arrow')
     .addClass('near', 100)
@@ -27,3 +29,4 @@ arrowOut = ->
   $(this).siblings('.arrow')
     .removeClass('near', 100)
     .removeClass('visible')
+
