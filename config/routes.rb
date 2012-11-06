@@ -20,12 +20,11 @@ Changanhua::Application.routes.draw do
     root :to => "admin#index"
   end
 
-  get 'order', to: 'pages#order', as: :page
-  get 'payment', to: 'pages#payment', as: :page
-  get 'alipay', to: 'pages#alipay', as: :page
-  get 'success', to: 'pages#show', as: :page
+  get 'order', to: 'pages#order', as: :order
+  get 'payment', to: 'pages#payment', as: :payment
+  post 'payment', to: 'pages#alipay', as: :alipay
+  get 'success', to: 'pages#success', as: :success
   get ':id', to: 'pages#show', as: :page
-  #post 'payment', to: 'pages#alipay', as: :page
   get "errors/error_404"
   get "errors/error_500"
 
