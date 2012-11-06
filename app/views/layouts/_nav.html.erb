@@ -1,8 +1,10 @@
 <ul id="product-nav" class="nav">
-  <li class="active"><a href="">what is a flowers</a></li>
-  <li><a href="">hello, it is a flowers</a></li>
-  <li><a href=""></a></li>
-  <li><a href=""></a></li>
+  <!-- TODO switch this to product related path -->
+  <li> <h4 class="leading"><span>在线精品花店</span></h3> </li> 
+  <li class='active'> <%= link_to '八十岁', '/', title: '八十岁' %> <span class="arrow"><<</span> </li>
+  <li> <%= link_to '明天日出时分', '/', title: '八十岁' %> <span class="arrow"><<</span></li>
+  <li> <%= link_to '春天夏天', '/', title: '八十岁' %> <span class="arrow"><<</span></li>
+  <hr>
   <%= render 'devise/menu/login_items' %>
   <%= render 'devise/menu/registration_items' %>
 </ul>

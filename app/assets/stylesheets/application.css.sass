@@ -26,14 +26,11 @@
 // Recurring UI Elements
 @import "ui"
 
-// Main layouts
+// LAYOUTS
+
 #product-nav
   position: absolute
   top: 200px
-
-  li.active a
-    &:after
-      content: ' <<'
 
 #sidebar
   min-height: 1px
@@ -51,9 +48,50 @@ footer
   margin-top: 10px
   text-align: right
 
+// HOME
+#home-intro
+  font-size: 90%
+  color: $grayLight
+  position: absolute
+  top: 450px
+
+// SIDEBAR NAV
+#product-nav
+  position: absolute
+  left: 0
+  top: 200px
+
+  h4 
+    margin: 0 0 5px 0
+
+    span
+      padding: 3px 2px
+      background-color: $tintColor
+      color: $white
+
+  .arrow
+    visibility: hidden
+    color: $tintColor
+    position: relative
+    left: 10px
+    font-size: 80%
+
+  .near
+    left: 5px
+
+  .active .arrow, .visible 
+    visibility: visible
+
 // PRODUCT PAGE
 
 #product-side
+  position: absolute
+  right: 0
+  top: 200px
+
+  h2
+    margin-top: 0
+
   h2 span
     font-weight: normal
     padding: 4px 8px
@@ -68,16 +106,47 @@ footer
     text-decoration: line-through
     color: $grayLight
 
+#product-summary
+  position: absolute
+  top: 460px
+  right: 0
+
+  p
+    margin: 0 0 2px 0
+    font-size: 90%
+    line-height: 1.2em
+    color: $gray
+
 #product-info
   text-align: right
   margin-left: ($gridColumnWidth + $gridGutterWidth) * 2
+
+#image-showcase
+  position: relative
+  height: 600px
+  width: 620px
+
+#image-cover
+  position: absolute
+  height: 100%
+  width: 100%
+
+  &.loading
+    background: $white url('loading.gif') center center no-repeat
+    +opacity(0.6)
+
 #image-slides
   margin-top: 10px
   img // same proportion with the full-size image 
     width: 80px
     height: #{80 * 500 / 620}px  
+    +opacity(0.5)
+
+    &.hover, &:hover, &.current
+      +opacity(0.9)
 
 // ORDER PAGE
 
 #order-wrapper
   margin-top: 60px
+

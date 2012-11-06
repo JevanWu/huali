@@ -17,7 +17,7 @@ class PagesController < ApplicationController
 
   def order
     product_id = params["product_id"]
-    product_wufoo_mapping = { 
+    product_wufoo_mapping = {
       "1" => 's7x2z7',
       "2" => 'x7x0k1',
       "3" => 'k7x0r9',
@@ -26,7 +26,6 @@ class PagesController < ApplicationController
     @wufoo_id = product_wufoo_mapping[product_id]
   end
 
-
   def payment
     product_id = params["product_id"]
     @product = Product.find(product_id)
@@ -34,15 +33,15 @@ class PagesController < ApplicationController
 
   def alipay
     product_id = params["product_id"]
-    order_num = Time.now.strftime("%Y%m%H%M%S") 
+    order_num = Time.now.strftime("%Y%m%H%M%S")
     product = Product.find(product_id)
-    options = { 
+    options = {
       :partner => ALIPAY_PID,
-      :out_trade_no => order_num, 
-      :total_fee => product.price.to_s, 
+      :out_trade_no => order_num,
+      :total_fee => product.price.to_s,
       :seller_email => ALIPAY_EMAIL,
       :subject => product.name_cn,
-      :body => product.description, 
+      :body => product.description,
       :return_url => "http://hua.li/success?product_id=#{product_id}",
       :key => ALIPAY_KEY
     }
@@ -52,7 +51,7 @@ class PagesController < ApplicationController
 
   def success
   end
-  
+
   private
   def redirect_to_alipay_gateway(options={})
     query_string = {
@@ -67,7 +66,7 @@ class PagesController < ApplicationController
       :payment_type => "1",
       :subject => options[:subject]
     }.sort.map do |key, value|
-      "#{key}=#{URI::encode(value)}" 
+      "#{key}=#{URI::encode(value)}"
       end.join("&")
     sign = Digest::MD5.hexdigest(query_string + options[:key])
     query_string += "&sign=#{sign}&sign_type=MD5"
