@@ -9,7 +9,6 @@ gem 'paperclip', '~> 3.0'
 gem 'formtastic'
 gem 'kramdown', '~>0.13'
 gem 'capistrano', '~>2.0'
-gem 'pry'
 gem 'capistrano-zen', git: 'git@github.com:zenhacks/capistrano-zen.git'
 
 group :assets do
@@ -36,6 +35,8 @@ group :development do
   gem 'guard-livereload'
   gem 'guard-bundler'
   gem 'guard-pow'
+  gem 'pry'
+  gem 'awesome_print'
 end
 
 group :test do

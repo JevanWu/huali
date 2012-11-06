@@ -51,6 +51,7 @@ GEM
     arbre (1.0.1)
       activesupport (>= 3.0.0)
     arel (3.0.2)
+    awesome_print (1.1.0)
     bcrypt-ruby (3.0.1)
     bootstrap-sass (2.1.0.0)
     bourbon (2.1.1)
@@ -275,6 +276,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin
+  awesome_print
   bootstrap-sass (~> 2.1.0.0)
   capistrano (~> 2.0)
   capistrano-zen!
