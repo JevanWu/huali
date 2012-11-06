@@ -1,7 +1,7 @@
 <%= semantic_form_for [:admin, @product] do |f| %>
   <%= f.inputs "Main Info" do %>
     <%= f.input :name_cn, :label => "Chinese Name", :required => true %>
-    <%= f.input :name_en, :label => "English Name", :required => true %>
+    <%= f.input :name_en, :label => "English Name" %>
     <%= f.input :name_char, :label => "Chinese Character" %>
 
     <!-- use col.name_cn as checkboxname, col.id as checkbox id which is passed as params -->
