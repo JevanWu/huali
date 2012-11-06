@@ -1,4 +1,4 @@
 <div>
   <p>you have ordered our product <%= @product.name_cn %></p>
-  <%= link_to "confirm", "/alipay?product_id=#{@product.id}" %>
+  <%= link_to "confirm", alipay_path(:product_id => @product.id), :method => :post %>
 </div>
