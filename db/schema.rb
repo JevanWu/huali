@@ -39,7 +39,6 @@ ActiveRecord::Schema.define(:version => 20121105104501) do
     t.integer  "user_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
-    t.integer  "order_id"
   end
 
   create_table "administrators", :force => true do |t|
@@ -107,24 +106,6 @@ ActiveRecord::Schema.define(:version => 20121105104501) do
 
   add_index "line_items", ["order_id"], :name => "index_line_items_on_order_id"
   add_index "line_items", ["product_id"], :name => "index_line_items_on_product_id"
-
-  create_table "orders", :force => true do |t|
-    t.string   "number"
-    t.decimal  "item_total",           :precision => 8, :scale => 2, :default => 0.0, :null => false
-    t.decimal  "total",                :precision => 8, :scale => 2, :default => 0.0, :null => false
-    t.decimal  "payment_total",        :precision => 8, :scale => 2, :default => 0.0
-    t.string   "state"
-    t.string   "payment_state"
-    t.string   "shipment_state"
-    t.text     "special_instructions"
-    t.integer  "address_id"
-    t.integer  "user_id"
-    t.datetime "completed_at"
-    t.datetime "created_at",                                                          :null => false
-    t.datetime "updated_at",                                                          :null => false
-  end
-
-  add_index "orders", ["number"], :name => "index_orders_on_number"
 
   create_table "pages", :force => true do |t|
     t.string   "title"
