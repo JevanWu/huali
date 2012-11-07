@@ -3,7 +3,7 @@
   <li> <h4 class="leading"><span>在线精品花店</span></h3> </li> 
   <% cache do %>
     <% Product.all.each do |product| %>
-      <% if @product.id == product.id %>
+      <% if @product && @product.id == product.id %>
         <li class="active"> <%= link_to product.name_cn, product_path(product), title: product.name_cn %> <span class="arrow"><<</span> </li>
       <% else %>
         <li> <%= link_to product.name_cn, product_path(product), title: product.name_cn %> <span class="arrow"><<</span> </li>
