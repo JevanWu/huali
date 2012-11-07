@@ -20,7 +20,7 @@ Changanhua::Application.routes.draw do
     root :to => "admin#index"
   end
 
-  get 'order', to: 'pages#order', as: :order
+  get 'order/:product_id', to: 'pages#order', as: :order
   get 'payment/:product_id', to: 'pages#payment', as: :payment
   post 'payment/:product_id', to: 'pages#alipay', as: :alipay
   get 'success/:product_id', to: 'pages#success', as: :success
