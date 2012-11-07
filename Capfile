@@ -47,6 +47,7 @@ task :staging do
 
   # lua - 42.121.3.105, aliyun - steven
   server '42.121.3.105:1982', :web, :app, :db, :primary => true
+  set :branch, 'staging'
 
   set :user, 'deployer'
   set :group, 'admin'

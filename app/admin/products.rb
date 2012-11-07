@@ -8,39 +8,49 @@ ActiveAdmin.register Product do
 
   index do
     selectable_column
+    column "ID" do |product|
+      link_to product.id, product_path(product)
+    end
+
+    column "Availability" do |product|
+      product.available ?  'yes' : 'no'
+    end
+
+    column "Character" do |product|
+      link_to "#{product.name_char || ''}", product_path(product)
+    end
+
+    column "Cn Name" do |product|
+      link_to product.name_cn, product_path(product)
+    end
+
+    column "En Name" do |product|
+      link_to product.name_en, product_path(product)
+    end
+
     column "Image" do |product|
       unless product.assets.first.nil? or product.assets.first.image.nil?
         image_tag product.assets.first.image.url(:thumb)
       end
     end
 
-    column "Chinese Name" do |product|
-      link_to product.name_cn, admin_product_path(product)
-    end
-
-    column "English Name" do |product|
-      link_to product.name_en, admin_product_path(product)
-    end
-
-    column "Count", :count_on_hand
-
     column "Collection" do |product|
       if product.collection
-        link_to product.collection.name_cn, admin_collection_path(product.collection)
+        link_to product.collection.name_cn, collection_path(product.collection)
       end
     end
 
-    column :original_price, :sortable => :price do |product|
-      div :class => "price" do
-        number_to_currency product.original_price, :unit => '&yen;'
-      end
-    end
+    # column :original_price, :sortable => :price do |product|
+      # div :class => "price" do
+        # number_to_currency product.original_price, :unit => '&yen;'
+      # end
+    # end
 
-    column :price, :sortable => :price do |product|
-      div :class => "price" do
-        number_to_currency product.price, :unit => '&yen;'
-      end
-    end
+    # column :price, :sortable => :price do |product|
+      # div :class => "price" do
+        # number_to_currency product.price, :unit => '&yen;'
+      # end
+    # end
 
     default_actions
   end
@@ -52,17 +62,24 @@ ActiveAdmin.register Product do
     attributes_table do
       row :name_cn
       row :name_en
+      row :name_char
+
+      row :inspiration do
+        markdown(product.description)
+      end
+
       row :description do
         markdown(product.description)
       end
 
-      row :description2 do
-        markdown(product.description2)
+      row :related_text do
+        markdown(product.description)
       end
 
       row :info_source do
         markdown(product.info_source)
       end
+
       row :collection do
         collection = product.collection
         link_to collection.name_cn, admin_collection_path(collection) if collection
@@ -110,8 +127,6 @@ ActiveAdmin.register Product do
       row :available
       row :created_at
       row :updated_at
-      row :place
-      row :usage
     end
   end
 end

@@ -18,7 +18,6 @@ end
 
 group :development, :test do
   gem 'rspec-rails', '>= 2.11.0'
-  gem 'cucumber-rails', '>= 1.3.0'
   gem 'factory_girl_rails', '>= 4.0.0'
 end
 
@@ -41,6 +40,7 @@ group :development do
 end
 
 group :test do
+  gem 'cucumber-rails', '>= 1.3.0'
   gem 'capybara', '>= 1.1.2'
   gem 'email_spec', '>= 1.2.1'
   gem 'database_cleaner', '>= 0.8.0'
