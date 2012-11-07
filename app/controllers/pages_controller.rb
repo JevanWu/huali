@@ -15,6 +15,10 @@ class PagesController < ApplicationController
     end
   end
 
+  def home
+    @products = Product.all
+  end
+
   def order
     product_id = params["product_id"]
     product_wufoo_mapping = {

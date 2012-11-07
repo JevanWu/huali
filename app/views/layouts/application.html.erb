@@ -32,7 +32,7 @@
   </body>
     <%= javascript_include_tag "application"  %>
     <!-- only include controller-specific js accordingly -->
-    <% if ['home', 'products','collections'].include? params[:controller] %>
+    <% if ['products','collections'].include? params[:controller] %>
       <%= javascript_include_tag params[:controller] %>
     <% end %>
     <%= javascript_include_tag "ga" %>
