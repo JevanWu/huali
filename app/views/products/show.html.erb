@@ -1,6 +1,6 @@
 <% content_for :sidebar do %>
   <div id="product-side">
-    <h2 class="product-name"><span>得失</span></h2>
+    <h2 class="product-name"><span><%= @product.name_cn %></span></h2>
 
     <% unless @product.original_price.nil? %>
     <p class="price old-price"> <%= @product.original_price %> RMB </p>
