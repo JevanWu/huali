@@ -19,9 +19,9 @@ class ProductsController < ApplicationController
 
     @asset_urls = assets.map do |asset|
       {
-        :full_url => asset.image.url,
-        :medium_url => asset.image.url(:medium),
-        :thumb_url => asset.image.url(:thumb)
+        :full => asset.image.url,
+        :medium => asset.image.url(:medium),
+        :thumb => asset.image.url(:thumb)
       }
     end
 

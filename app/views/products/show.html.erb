@@ -9,33 +9,25 @@
     <p class="meta">(免运费)</p>
 
     <p>
-      <%= link_to '放入购花篮', '/cart', :class => 'button', :method => :post %>
-    </p>
-    <p>
-      <%= link_to '查看购花篮', '/cart', :class => 'button-alt' %>
+      <%= link_to '放入购花篮', payment_path(@product), :class => 'button' %>
     </p>
 
   </div>
   <div id="product-summary">
-    <p>like a song, or a dream;</p>
-    <p>or a waste, </p>
-    <p>or a glimpse of wondering;</p>
-    <p>like all that did not yet happen.</p>
-    <p>还未丧失,</p>
-    <p>早已得到.</p>
+    <%= markdown @product.inspiration %>
   </div>
 <% end %>
 
 <div id="product-wrapper">
   <div id="image-showcase">
     <div id="image-cover"></div>
-    <%= image_tag('home-img1.png') %>
+    <%= image_tag @asset_urls.first[:full], alt: "#{@product.name_cn} Images" %>
   </div>
   <ul id="image-slides" class="links">
     <% @asset_urls.each_with_index do |asset_url, index| %>
       <% if index < 5 %>
       <li class="slide">
-        <%= link_to image_tag('home-img1.png', alt: "product image"), asset_url[:full_url], :class => 'thumbnail', :title => @product.name_cn  %>
+        <%= link_to image_tag(asset_url[:thumb], alt: "product image"), asset_url[:full], :class => 'thumbnail', :title => @product.name_cn  %>
       </li>
       <% end %>
     <% end %>
