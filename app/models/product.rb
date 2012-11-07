@@ -25,7 +25,7 @@ class Product < ActiveRecord::Base
   validates :name_en, :name_cn, :count_on_hand, :presence => true
 
   # scopes
-  scope :available, where(available: true)
+  default_scope where(available: true)
 
   before_save do |product|
     product.name_en.downcase!
