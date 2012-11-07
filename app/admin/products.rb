@@ -65,7 +65,7 @@ ActiveAdmin.register Product do
       row :name_char
 
       row :inspiration do
-        markdown(product.description)
+        markdown(product.inspiration)
       end
 
       row :description do
@@ -73,7 +73,7 @@ ActiveAdmin.register Product do
       end
 
       row :related_text do
-        markdown(product.description)
+        markdown(product.related_text)
       end
 
       row :info_source do
