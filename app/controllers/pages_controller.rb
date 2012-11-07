@@ -15,6 +15,9 @@ class PagesController < ApplicationController
     end
   end
 
+  def home
+  end
+
   def order
     product_id = params["product_id"]
     product_wufoo_mapping = {

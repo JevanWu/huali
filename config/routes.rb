@@ -12,7 +12,7 @@ Changanhua::Application.routes.draw do
 
   devise_for :users
 
-  root :to => "home#index", :as => :home
+  root :to => "pages#home", :as => :home
 
   ActiveAdmin.routes(self)
 
