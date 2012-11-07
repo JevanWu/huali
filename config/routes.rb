@@ -23,7 +23,7 @@ Changanhua::Application.routes.draw do
   get 'order', to: 'pages#order', as: :order
   get 'payment/:product_id', to: 'pages#payment', as: :payment
   post 'payment/:product_id', to: 'pages#alipay', as: :alipay
-  get 'success/:id', to: 'pages#success', as: :success
+  get 'success/:product_id', to: 'pages#success', as: :success
   get ':id', to: 'pages#show', as: :page
   get "errors/error_404"
   get "errors/error_500"

@@ -27,14 +27,12 @@ class PagesController < ApplicationController
   end
 
   def payment
-    product_id = params["product_id"]
-    @product = Product.find(product_id)
+    @product = Product.find(params[:product_id])
   end
 
   def alipay
-    product_id = params["product_id"]
     order_num = Time.now.strftime("%Y%m%H%M%S")
-    product = Product.find(product_id)
+    product = Product.find(params[:product_id])
     options = {
       :partner => ALIPAY_PID,
       :out_trade_no => order_num,
@@ -42,7 +40,7 @@ class PagesController < ApplicationController
       :seller_email => ALIPAY_EMAIL,
       :subject => product.name_cn,
       :body => product.description,
-      :return_url => "http://hua.li/success?product_id=#{product_id}",
+      :return_url => "http://hua.li/success/#{product.id}",
       :key => ALIPAY_KEY
     }
     redirect_to_alipay_gateway(options)
@@ -50,6 +48,7 @@ class PagesController < ApplicationController
 
 
   def success
+    @product = Product.find(params[:product_id])
   end
 
   private
