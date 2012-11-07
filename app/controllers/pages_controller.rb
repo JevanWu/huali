@@ -18,10 +18,10 @@ class PagesController < ApplicationController
   def order
     product_id = params["product_id"]
     product_wufoo_mapping = {
-      "1" => 's7x2z7',
-      "2" => 'x7x0k1',
-      "3" => 'k7x0r9',
-      "4" => 'z7p9w5'
+      "22" => 's7x2z7',
+      "23" => 'z7p9m3',
+      "24" => 'z7p8x1',
+      "25" => 'z7p8q9'
     }
     @wufoo_id = product_wufoo_mapping[product_id]
   end
