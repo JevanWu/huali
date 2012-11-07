@@ -8,7 +8,7 @@
       共计 <strong class="price-totle"><%= @product.price %></strong> 元。
     </p>
     <p>
-      <%= link_to "现在支付", alipay_path(:product_id => @product.id), :class => 'button', :method => :post %>
+      <%= link_to "现在支付", alipay_path(@product), :class => 'button', :method => :post %>
     </p>
   </div>
   <div id="notice-info">
