@@ -16,7 +16,6 @@ class PagesController < ApplicationController
   end
 
   def home
-    @products = Product.all
   end
 
   def order
