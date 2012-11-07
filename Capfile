@@ -58,7 +58,7 @@ task :easymoo do
 
   # lua - 74.207.254.157, emoo - linode
   server '74.207.254.157:1982', :web, :app, :db, :primary => true
-  set :branch, 'master'
+  set :branch, 'staging'
 
   set :user, 'deployer'
   set :group, 'admin'
