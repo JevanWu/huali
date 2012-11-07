@@ -47,12 +47,22 @@ task :staging do
 
   # lua - 42.121.3.105, aliyun - steven
   server '42.121.3.105:1982', :web, :app, :db, :primary => true
-  set :branch, 'staging'
 
   set :user, 'deployer'
   set :group, 'admin'
   set :branch, 'staging'
   set :deploy_to, "/home/#{user}/repositories/#{application}-staging"
+end
+task :easymoo do
+  set :domain, "hua.li www.hua.li"
+
+  # lua - 74.207.254.157, emoo - linode
+  server '74.207.254.157:1982', :web, :app, :db, :primary => true
+  set :branch, 'master'
+
+  set :user, 'deployer'
+  set :group, 'admin'
+  set :deploy_to, "/home/#{user}/repositories/#{application}"
 end
 
 namespace :deploy do

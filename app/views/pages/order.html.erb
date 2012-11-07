@@ -1,4 +1,16 @@
 <div id="order-wrapper">
+  <div class="row">
+    <%= image_tag('payment-title.png') %>
+  </div>
+  <div id="order-list">
+    <p>
+      您的花篮里已经有一盒 <span class="product-name"><%= @product.name_cn %></span> ，
+      共计 <strong class="price-totle"><%= @product.price %></strong> 元。
+    </p>
+  </div>
+  <h2> 请填写您的订单信息: </h2>
+  <hr />
+
   <div id="wufoo-<%= @wufoo_id %>">
   Fill out my <a href="http://easymoo.wufoo.com/forms/<%= @wufoo_id %>">online form</a>.
   </div>

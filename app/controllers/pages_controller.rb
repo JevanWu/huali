@@ -27,6 +27,7 @@ class PagesController < ApplicationController
       "25" => 'z7p8q9'
     }
     @wufoo_id = product_wufoo_mapping[product_id]
+    @product = Product.find(params[:product_id])
   end
 
   def payment
