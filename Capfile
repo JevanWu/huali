@@ -28,6 +28,7 @@ ssh_options[:forward_agent] = true
 
 set :application, "changanhua"
 
+set :unicorn_workers, 3
 
 # multistage settings
 task :production do
