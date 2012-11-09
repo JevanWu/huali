@@ -4,6 +4,9 @@ ActiveAdmin.register Product do
 
   controller do
     helper :products
+    def scoped_collection
+      Product.unscoped
+    end
   end
 
   index do
