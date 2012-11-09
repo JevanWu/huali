@@ -1,6 +1,7 @@
 require 'digest/md5'
 require 'open-uri'
 class PagesController < ApplicationController
+  caches_page :show, :home, :order, :payment, :alipay, :success
   ALIPAY_KEY = "ux04rwiwzqbuksk0xm70u1fvmoo2p32d"
   ALIPAY_PID = "2088801670489935"
   ALIPAY_EMAIL = "tzgbusiness@gmail.com"
