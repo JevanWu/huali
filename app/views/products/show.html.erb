@@ -8,9 +8,15 @@
     <p class="price"> <%= @product.price %> RMB </p>
     <p class="meta">(免运费)</p>
 
-    <p>
-      <%= link_to '放入购花篮', order_path(@product), :class => 'button' %>
-    </p>
+
+    <% if @product.count_on_hand > 0 %>
+      <p>
+        <%= link_to '放入购花篮', order_path(@product), :class => 'button' %>
+      </p>
+    <% else %>
+      <p> 已经售罄 </p>
+      <small class="meta">如需加入订购队列，请联系客服</small>
+    <% end %>
 
   </div>
   <div id="product-summary">
