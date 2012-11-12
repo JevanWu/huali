@@ -12,7 +12,7 @@ require 'capistrano-zen/unicorn'
 
 # Use Git as Version Control System
 set :scm, :git
-set :repository, "git@github.com:zenhacks/changanhua.git"
+set :repository, "git@github.com:zenhacks/huali.git"
 
 # keep a remote cache to avoid checking out everytime
 set :deploy_via, :remote_cache
