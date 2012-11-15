@@ -30,6 +30,8 @@ set :application, "changanhua"
 
 set :unicorn_workers, 3
 
+set :pg_backup_path, '/var/backups/postgresql'
+
 # multistage settings
 task :production do
   set :domain, "www.changanflowers.com changanflowers.com"
@@ -99,4 +101,6 @@ after "deploy:setup",
   "pg:init",
   "unicorn:setup"
 
+# dump database before a new successful release
+before "pg:symlink", "pg:dump"
 after "deploy:finalize_update", "pg:symlink"
