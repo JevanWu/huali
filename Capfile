@@ -34,7 +34,7 @@ set :pg_backup_path, '/var/backups/postgresql'
 
 # multistage settings
 task :production do
-  set :domain, "hua.li www.hua.li www.changanflowers.com changanflowers.com"
+  set :domain, "hua.li www.hua.li"
 
   # maxwell - 42.121.119.155:1982', aliyun
   server '42.121.119.155', :web, :app, :db, :primary => true
@@ -46,7 +46,7 @@ task :production do
 end
 
 task :staging do
-  set :domain, "staging.changanflowers.com"
+  set :domain, "staging.hua.li"
 
   # lua - 42.121.3.105, aliyun - steven
   server '42.121.3.105:1982', :web, :app, :db, :primary => true
