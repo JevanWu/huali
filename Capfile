@@ -99,9 +99,6 @@ after "deploy:setup",
   "pg:init",
   "unicorn:setup"
 
-after "deploy:update",
-  "deploy:restart"
-
 # dump database before a new successful release
 before "pg:symlink", "pg:dump"
 after "deploy:finalize_update", "pg:symlink"
