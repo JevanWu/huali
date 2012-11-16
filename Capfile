@@ -38,6 +38,7 @@ task :production do
 
   # maxwell - 42.121.119.155:1982', aliyun
   server '42.121.119.155', :web, :app, :db, :primary => true
+  set :rails_env, "production"
 
   set :user, 'deployer'
   set :group, 'admin'
@@ -51,6 +52,7 @@ task :staging do
   # lua - 42.121.3.105, aliyun - steven
   server '42.121.3.105:1982', :web, :app, :db, :primary => true
 
+  set :rails_env, "staging"
   set :user, 'deployer'
   set :group, 'admin'
   set :branch, 'staging'
