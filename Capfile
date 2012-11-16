@@ -26,7 +26,7 @@ set :use_sudo, false
 # access github.com using as the local user
 ssh_options[:forward_agent] = true
 
-set :application, "changanhua"
+set :application, "huali"
 
 set :unicorn_workers, 3
 
@@ -34,10 +34,10 @@ set :pg_backup_path, '/var/backups/postgresql'
 
 # multistage settings
 task :production do
-  set :domain, "www.changanflowers.com changanflowers.com"
+  set :domain, "hua.li www.hua.li www.changanflowers.com changanflowers.com"
 
   # maxwell - 42.121.119.155:1982', aliyun
-  server '42.121.119.155:1982', :web, :app, :db, :primary => true
+  server '42.121.119.155', :web, :app, :db, :primary => true
 
   set :user, 'deployer'
   set :group, 'admin'

@@ -17,10 +17,10 @@ end
 
 ssh_host = 'maxwell'
 
-taps_user = "changanhua"
+taps_user = "huali"
 taps_password = "3EBhzuiqrN8tSR"
 deploy_user = "deployer"
-repo_name = "changanhua-production"
+repo_name = "huali-production"
 
 namespace :db do
 
