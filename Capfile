@@ -13,6 +13,7 @@ require 'capistrano-zen/unicorn'
 # Use Git as Version Control System
 set :scm, :git
 set :repository, "git@github.com:zenhacks/huali.git"
+set :branch, 'master'
 
 # keep a remote cache to avoid checking out everytime
 set :deploy_via, :remote_cache
@@ -25,6 +26,8 @@ set :use_sudo, false
 
 # access github.com using as the local user
 ssh_options[:forward_agent] = true
+set :user, 'deployer'
+set :group, 'admin'
 
 set :application, "huali"
 
@@ -36,13 +39,10 @@ set :pg_backup_path, '/var/backups/postgresql'
 task :production do
   set :domain, "hua.li www.hua.li"
 
-  # maxwell - 42.121.119.155:1982', aliyun
+  # maxwell - 42.121.119.155', aliyun
   server '42.121.119.155', :web, :app, :db, :primary => true
   set :rails_env, "production"
 
-  set :user, 'deployer'
-  set :group, 'admin'
-  set :branch, 'master'
   set :deploy_to, "/home/#{user}/repositories/#{application}-production"
 end
 
@@ -51,10 +51,8 @@ task :staging do
 
   # lua - 42.121.3.105, aliyun - steven
   server '42.121.3.105:1982', :web, :app, :db, :primary => true
-
   set :rails_env, "staging"
-  set :user, 'deployer'
-  set :group, 'admin'
+
   set :branch, 'staging'
   set :deploy_to, "/home/#{user}/repositories/#{application}-staging"
 end
@@ -63,10 +61,8 @@ task :easymoo do
 
   # lua - 74.207.254.157, emoo - linode
   server '74.207.254.157:1982', :web, :app, :db, :primary => true
-  set :branch, 'master'
+  set :rails_env, "production"
 
-  set :user, 'deployer'
-  set :group, 'admin'
   set :deploy_to, "/home/#{user}/repositories/#{application}"
 end
 
@@ -102,6 +98,9 @@ after "deploy:setup",
   "pg:setup",
   "pg:init",
   "unicorn:setup"
+
+after "deploy:update",
+  "deploy:restart"
 
 # dump database before a new successful release
 before "pg:symlink", "pg:dump"
