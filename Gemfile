@@ -21,8 +21,9 @@ group :development, :test do
   gem 'factory_girl_rails', '>= 4.0.0'
 end
 
-group :production do
+group :production, :staging do
   gem 'unicorn'
+  gem 'newrelic_rpm'
 end
 
 group :development do
