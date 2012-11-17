@@ -1,5 +1,5 @@
 class Product < ActiveRecord::Base
-  attr_accessible :name_cn, :name_en, :intro, :description, :description2, :meta_description, :meta_keywords, :count_on_hand, :cost_price, :original_price, :price, :height, :width, :depth, :available, :assets, :assets_attributes, :collection_id, :place, :usage, :info_source
+  attr_accessible :name_cn, :name_en, :intro, :description, :description2, :meta_description, :meta_keywords, :count_on_hand, :cost_price, :original_price, :price, :height, :width, :depth, :available, :assets, :assets_attributes, :collection_id, :place, :usage, :info_source, :inspiration
 
   # collection
   belongs_to :collection
