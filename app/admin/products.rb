@@ -1,6 +1,19 @@
+# encoding: utf-8
 require 'kramdown'
 
 ActiveAdmin.register Product do
+
+  {
+    :'生效' => :enable!,
+    :'无效' => :disable!
+  }.each do |label, action|
+    batch_action label do |selection|
+      products = Product.unscoped.find(selection)
+      products.each { |product| product.send(action) }
+      redirect_to :back, :notice => "#{products.count}张订单已经更新"
+    end
+  end
+  batch_action :destroy, false
 
   controller do
     helper :products

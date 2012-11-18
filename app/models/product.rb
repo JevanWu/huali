@@ -39,6 +39,16 @@ class Product < ActiveRecord::Base
     @available
   end
 
+  def enable!
+    self.available = true
+    self.save
+  end
+
+  def disable!
+    self.available = false
+    self.save
+  end
+
   def to_s
     "#{self.id} #{self.name_cn}"
   end
