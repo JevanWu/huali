@@ -25,7 +25,11 @@ class PagesController < ApplicationController
       "22" => 's7x2z7',
       "23" => 'z7p9m3',
       "24" => 'z7p8x1',
-      "25" => 'z7p8q9'
+      "25" => 'z7p8q9',
+      "26" => 'z7p7k7',
+      "27" => 'z7p7s5',
+      "28" => 'z7p7z3',
+      "29" => 'z7p6p1'
     }
     @wufoo_id = product_wufoo_mapping[product_id]
     @product = Product.find(params[:product_id])
