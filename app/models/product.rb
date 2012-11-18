@@ -27,6 +27,9 @@ class Product < ActiveRecord::Base
   # scopes
   default_scope where(available: true)
 
+  extend FriendlyId
+  friendly_id :name_en, use: :slugged
+
   before_save do |product|
     product.name_en.downcase!
   end

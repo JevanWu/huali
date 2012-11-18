@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121105104501) do
+ActiveRecord::Schema.define(:version => 20121118130954) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -150,9 +150,11 @@ ActiveRecord::Schema.define(:version => 20121105104501) do
     t.text     "inspiration"
     t.string   "name_char"
     t.text     "related_text"
+    t.string   "slug"
   end
 
   add_index "products", ["name_en"], :name => "index_products_on_name_en"
+  add_index "products", ["slug"], :name => "index_products_on_slug", :unique => true
 
   create_table "provinces", :force => true do |t|
     t.string  "name"
