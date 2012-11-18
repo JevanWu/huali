@@ -20,7 +20,8 @@ class PagesController < ApplicationController
   end
 
   def order
-    product_id = params["product_id"]
+    name_en = params["name_en"]
+    @product = Product.find(params[:name_en])
     product_wufoo_mapping = {
       "22" => 's7x2z7',
       "23" => 'z7p9m3',
@@ -31,17 +32,16 @@ class PagesController < ApplicationController
       "28" => 'z7p7z3',
       "29" => 'z7p6p1'
     }
-    @wufoo_id = product_wufoo_mapping[product_id]
-    @product = Product.find(params[:product_id])
+    @wufoo_id = product_wufoo_mapping[@product.id.to_s]
   end
 
   def payment
-    @product = Product.find(params[:product_id])
+    @product = Product.find(params[:name_en])
   end
 
   def alipay
     order_num = Time.now.strftime("%Y%m%H%M%S")
-    product = Product.find(params[:product_id])
+    product = Product.find(params[:name_en])
     options = {
       :partner => ALIPAY_PID,
       :out_trade_no => order_num,
@@ -57,7 +57,7 @@ class PagesController < ApplicationController
 
 
   def success
-    @product = Product.find(params[:product_id])
+    @product = Product.find(params[:name_en])
   end
 
   private
