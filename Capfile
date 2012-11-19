@@ -50,7 +50,7 @@ task :staging do
   set :domain, "staging.hua.li"
 
   # lua - 42.121.3.105, aliyun - steven
-  server '42.121.3.105:1982', :web, :app, :db, :primary => true
+  server '42.121.3.105', :web, :app, :db, :primary => true
   set :rails_env, "staging"
 
   set :branch, 'staging'
@@ -59,7 +59,7 @@ end
 task :easymoo do
   set :domain, "hua.li www.hua.li"
 
-  # lua - 74.207.254.157, emoo - linode
+  # emoo - 74.207.254.157, emoo - linode
   server '74.207.254.157:1982', :web, :app, :db, :primary => true
   set :rails_env, "production"
 
