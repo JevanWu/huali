@@ -31,13 +31,13 @@ set :group, 'admin'
 
 set :application, "huali"
 
-set :unicorn_workers, 3
 
 set :pg_backup_path, '/var/backups/postgresql'
 
 # multistage settings
 task :production do
   set :domain, "hua.li www.hua.li"
+  set :unicorn_workers, 3
 
   # maxwell - 42.121.119.155', aliyun
   server '42.121.119.155', :web, :app, :db, :primary => true
@@ -48,6 +48,7 @@ end
 
 task :staging do
   set :domain, "staging.hua.li"
+  set :unicorn_workers, 1
 
   # lua - 42.121.3.105, aliyun - steven
   server '42.121.3.105', :web, :app, :db, :primary => true
