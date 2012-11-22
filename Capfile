@@ -10,6 +10,8 @@ require 'capistrano-zen/postgresql'
 require 'capistrano-zen/rbenv'
 require 'capistrano-zen/unicorn'
 
+require "whenever/capistrano"
+
 # Use Git as Version Control System
 set :scm, :git
 set :repository, "git@github.com:zenhacks/huali.git"
