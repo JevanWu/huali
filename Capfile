@@ -11,6 +11,7 @@ require 'capistrano-zen/rbenv'
 require 'capistrano-zen/unicorn'
 
 require "whenever/capistrano"
+set :whenever_roles, [:db, :app]
 
 # Use Git as Version Control System
 set :scm, :git
