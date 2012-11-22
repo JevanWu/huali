@@ -71,14 +71,15 @@ GEM
       thor (>= 0.15.4, < 2)
     bcrypt-ruby (3.0.1)
     binding_of_caller (0.6.8)
-    bootstrap-sass (2.1.0.1)
+    bootstrap-sass (2.2.1.1)
+      sass (~> 3.2)
     bourbon (2.1.3)
       sass (>= 3.2)
       thor
     bourne (1.1.2)
       mocha (= 0.10.5)
-    builder (3.0.4)
-    capistrano (2.13.5)
+    builder (3.0.3)
+    capistrano (2.13.4)
       highline
       net-scp (>= 1.0.0)
       net-sftp (>= 2.0.0)
@@ -362,7 +363,7 @@ DEPENDENCIES
   annotate!
   awesome_print
   backup
-  bootstrap-sass (~> 2.1.0.0)
+  bootstrap-sass (~> 2.2.1.1)
   capistrano (~> 2.0)
   capistrano-zen!
   capybara (>= 1.1.2)
