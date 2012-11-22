@@ -7,7 +7,9 @@ gem 'activeadmin'
 gem 'paperclip', '~> 3.0'
 gem 'formtastic'
 gem 'kramdown', '~>0.13'
-gem "friendly_id", "~> 4.0.1"
+gem 'friendly_id', '~> 4.0.1'
+gem 'backup', :require => false
+gem 'whenever', :require => false
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
