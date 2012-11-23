@@ -23,6 +23,6 @@ every :day, :at => '1:00 am', :roles => [:db] do
   command "backup perform -t db_backup"
 end
 
-every :day, :at => '1:00 am', :roles => [:app] do
+every :day, :at => '2:00 am', :roles => [:app] do
   command "backup perform -t asset_backup"
 end
