@@ -19,10 +19,10 @@
 
 # Learn more: http://github.com/javan/whenever
 #
-every :day, :at => '1:00 am', :roles => [:db] do
+every :day, :at => '1:00 am' do
   command "backup perform -t db_backup"
 end
 
-every :day, :at => '2:00 am', :roles => [:app] do
+every :day, :at => '2:00 am' do
   command "backup perform -t asset_backup"
 end
