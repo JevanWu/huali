@@ -48,7 +48,7 @@ class PagesController < ApplicationController
       :total_fee => product.price.to_s,
       :payment_type => "1",
       :defaultbank => "ICBCBTB",
-      :paymethod => "bankpay",
+      :paymethod => "bankPay",
       :seller_email => ALIPAY_EMAIL,
       :subject => product.name_cn,
       :body => product.description,
