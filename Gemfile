@@ -12,6 +12,7 @@ gem 'friendly_id', '~> 4.0.1'
 # backup, whenever probably should be isolated in a server setup script
 gem 'backup', :require => false
 gem 'whenever', :require => false
+gem 'state_machine', :require => 'state_machine/core'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
