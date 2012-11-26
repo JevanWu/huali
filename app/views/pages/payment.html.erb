@@ -11,25 +11,9 @@
   <div>
   <form action=<%= alipay_path(@product) %> method=post>
     <div>
-      <input type="radio" name="pay_bank" value="directPay" checked/><%= image_tag("alipay.gif") %>
+      <input type="radio" name="pay_bank" value="directPay" checked/><%= image_tag("alipay.gif", :height => "35", :width => "120") %>
     </div>
-    <ul class="bank-list">
-      <li><input type="radio" name="pay_bank" value="ICBCB2C"/><span class="icon ICBC"></span></li>
-      <li><input type="radio" name="pay_bank" value="CMB"/><span class="icon CMB"></span></li>
-      <li><input type="radio" name="pay_bank" value="CCB"/><span class="icon CCB"></span></li>
-      <li><input type="radio" name="pay_bank" value="BOCB2C"><span class="icon BOC"></span></li>
-      <li><input type="radio" name="pay_bank" value="ABC"/><span class="icon ABC"></span></li>
-      <li><input type="radio" name="pay_bank" value="COMM"/><span class="icon COMM"></span></li>
-      <li><input type="radio" name="pay_bank" value="CEBBANK"/><span class="icon CEB"></span></li>
-      <li><input type="radio" name="pay_bank" value="SPDB"/><span class="icon SPDB"></span></li>
-      <li><input type="radio" name="pay_bank" value="GDB"><span class="icon GDB"></span></li>
-      <li><input type="radio" name="pay_bank" value="CITIC"/><span class="icon CITIC"></span></li>
-      <li><input type="radio" name="pay_bank" value="CIB"/><span class="icon CIB"></span></li>
-      <li><input type="radio" name="pay_bank" value="SDB"><span class="icon SDB"></span></li>
-      <li><input type="radio" name="pay_bank" value="CMBC"/><span class="icon CMBC"></span></li>
-      <li><input type="radio" name="pay_bank" value="BJBANK"/><span class="icon BJBANK"></span></li>
-      <li><input type="radio" name="pay_bank" value="SHBANK"/><span class="icon SHBANK"></span></li>
-    </ul>
+    <%= display_banklist %>
     <%= submit_tag "确认支付" %>
   </form>
   </div>
