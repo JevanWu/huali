@@ -40,11 +40,19 @@ class PagesController < ApplicationController
   end
 
   def alipay
+    if params[:pay_bank] == "directPay"
+      paymethod = "directPay"
+    else
+      paymethod = "bankPay"
+      defaultbank = params[:pay_bank]
+    end
     order_num = Time.now.strftime("%Y%m%H%M%S")
     product = Product.find(params[:name_en])
     options = {
       :partner => ALIPAY_PID,
       :out_trade_no => order_num,
+      :defaultbank => defaultbank,
+      :paymethod => paymethod,
       :total_fee => product.price.to_s,
       :payment_type => "1",
       :seller_email => ALIPAY_EMAIL,
@@ -69,6 +77,8 @@ class PagesController < ApplicationController
       :total_fee => options[:total_fee],
       :seller_email => options[:seller_email],
       :return_url => options[:return_url],
+      :defaultbank => options[:defaultbank],
+      :paymethod => options[:paymethod],
       :"_input_charset" => 'utf-8',
       :service => "create_direct_pay_by_user",
       :payment_type => "1",

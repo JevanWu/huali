@@ -5,11 +5,25 @@
   <div id="order-list">
     <p>
       您的花篮里已经有一盒 <span class="product-name"><%= @product.name_cn %></span> ，
-      共计 <strong class="price-totle"><%= @product.price %></strong> 元。
+      共计 <strong class="price-totle"><%= @product.price %></strong> 元。请选择您的支付方式:
     </p>
-    <p>
-      <%= link_to "现在支付", alipay_path(@product), :class => 'button', :method => :post %>
-    </p>
+  </div>
+  <div>
+  <form action=<%= alipay_path(@product) %> method=post>
+    <div>
+      <input type="radio" name="pay_bank" value="directPay" checked/><%= image_tag("alipay.gif") %>
+    </div>
+    <ul class="bank-list">
+      <li><input type="radio" name="pay_bank" value="ICBCB2C"/><span class="icon ICBC"></span></li>
+      <li><input type="radio" name="pay_bank" value="CMB"/><span class="icon CMB"></span></li>
+      <li><input type="radio" name="pay_bank" value="CCB"/><span class="icon CCB"></span></li>
+      <li><input type="radio" name="pay_bank" value="BOCB2C"><span class="icon BOC"></span></li>
+      <li><input type="radio" name="pay_bank" value="ABC"/><span class="icon ABC"></span></li>
+      <li><input type="radio" name="pay_bank" value="COMM"/><span class="icon COMM"></span></li>
+      <li><input type="radio" name="pay_bank" value="PSBC-DEBIT"/><span class="icon PSBC"></span></li>
+    </ul>
+    <%= submit_tag "确认支付" %>
+  </form>
   </div>
   <div id="notice-info">
     <h3>购买注意</h3>
