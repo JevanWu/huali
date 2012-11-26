@@ -77,15 +77,18 @@ class PagesController < ApplicationController
       :total_fee => options[:total_fee],
       :seller_email => options[:seller_email],
       :return_url => options[:return_url],
-      :defaultbank => options[:defaultbank],
       :paymethod => options[:paymethod],
       :"_input_charset" => 'utf-8',
       :service => "create_direct_pay_by_user",
       :payment_type => "1",
       :subject => options[:subject]
-    }.sort.map do |key, value|
-      "#{key}=#{value}"
-      end.join("&")
+    }
+    if options[:defaultbank]
+      query_string[:defaultbank] = options[:defaultbank]
+    end
+    query_string = query_string.sort.map do |key, value|
+        "#{key}=#{value}"
+        end.join("&")
     sign = Digest::MD5.hexdigest(query_string + options[:key])
     query_string += "&sign=#{sign}&sign_type=MD5"
     query_string = URI::encode(query_string)
