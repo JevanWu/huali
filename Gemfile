@@ -21,6 +21,7 @@ end
 
 group :development, :test do
   gem 'rspec-rails', '>= 2.11.0'
+  gem 'rspec-instafail'
   gem 'factory_girl_rails', '>= 4.0.0'
 end
 
@@ -31,12 +32,14 @@ end
 
 group :development do
   gem 'thin', '>= 1.4.1'
-  gem 'guard'
   gem 'rb-fsevent', :require => false
   gem 'growl'
+  gem 'guard'
+  gem 'guard-rspec'
   gem 'guard-livereload'
   gem 'guard-bundler'
   gem 'guard-pow'
+  gem 'guard-spork'
   gem 'pry', :require => false
   gem 'awesome_print', :require => false
   gem 'capistrano', '~>2.0'
