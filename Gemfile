@@ -8,6 +8,7 @@ gem 'paperclip', '~> 3.0'
 gem 'formtastic'
 gem 'kramdown', '~>0.13'
 gem 'friendly_id', '~> 4.0.1'
+# backup, whenever probably should be isolated in a server setup script
 gem 'backup', :require => false
 gem 'whenever', :require => false
 
@@ -44,6 +45,7 @@ group :development do
   gem 'awesome_print', :require => false
   gem 'capistrano', '~>2.0'
   gem 'capistrano-zen', git: 'git@github.com:zenhacks/capistrano-zen.git', :require => false
+  gem 'railroady'
 end
 
 group :test do
@@ -52,5 +54,4 @@ group :test do
   gem 'spork', '~> 1.0rc'
   gem 'email_spec', '>= 1.2.1'
   gem 'database_cleaner', '>= 0.8.0'
-  gem 'launchy', '>= 2.1.2'
 end

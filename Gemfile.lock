@@ -152,8 +152,6 @@ GEM
       activesupport (>= 3.0.0)
     kgio (2.7.4)
     kramdown (0.13.7)
-    launchy (2.1.2)
-      addressable (~> 2.3)
     libwebsocket (0.1.5)
       addressable
     listen (0.5.3)
@@ -202,6 +200,7 @@ GEM
       rack
     rack-test (0.6.1)
       rack (>= 1.0)
+    railroady (1.1.0)
     rails (3.2.8)
       actionmailer (= 3.2.8)
       actionpack (= 3.2.8)
@@ -309,11 +308,11 @@ DEPENDENCIES
   guard-spork
   jquery-rails
   kramdown (~> 0.13)
-  launchy (>= 2.1.2)
   newrelic_rpm
   paperclip (~> 3.0)
   pg (>= 0.14.1)
   pry
+  railroady
   rails (= 3.2.8)
   rb-fsevent
   rspec-instafail
