@@ -1,0 +1,13 @@
+<%= form_tag(alipay_path(product), :method => "post") do %>
+  <%= radio_button_tag(:pay_bank, "directPay", :checked => "checked") %>
+  <%= image_tag("alipay.gif", :height => "35", :width => "120") %>
+  <ul class="bank-list">
+    <% banks.each do |bank| %>
+      <li>
+        <%= radio_button_tag(:pay_bank, bank) %>
+        <%= content_tag(:span, "", :class => "icon " + bank) %>
+      </li>
+    <% end %>
+  </ul>
+  <%= submit_tag "确认支付" %>
+<% end %>

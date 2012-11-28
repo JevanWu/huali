@@ -1,5 +1,6 @@
 module PagesHelper
-  def display_banklist
-    render :partial => "banklist"
+  def choose_payment_method
+    banks = ['ICBCB2C', 'CMB', 'CCB', 'BOCB2C', 'ABC', 'COMM', 'CEBBANK', 'SPDB', 'SHBANK']
+    render :partial => "choose_payment_method", :locals => { :product => @product, :banks => banks }
   end
 end

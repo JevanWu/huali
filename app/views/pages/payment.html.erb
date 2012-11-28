@@ -9,13 +9,7 @@
     </p>
   </div>
   <div>
-  <form action=<%= alipay_path(@product) %> method=post>
-    <div>
-      <input type="radio" name="pay_bank" value="directPay" checked/><%= image_tag("alipay.gif", :height => "35", :width => "120") %>
-    </div>
-    <%= display_banklist %>
-    <%= submit_tag "确认支付" %>
-  </form>
+    <%= choose_payment_method %>
   </div>
   <div id="notice-info">
     <h3>购买注意</h3>
