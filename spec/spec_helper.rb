@@ -30,6 +30,9 @@ Spork.prefork do
     # Devise Helper for sign_in and sign_out
     config.include Devise::TestHelpers, :type => :controller
 
+    # FactoryGirl
+    config.include FactoryGirl::Syntax::Methods
+
     config.include(EmailSpec::Helpers)
     config.include(EmailSpec::Matchers)
 
