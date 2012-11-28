@@ -52,6 +52,7 @@ group :test do
   gem "shoulda-matchers"
   gem 'capybara', '>= 1.1.2'
   gem 'spork', '~> 1.0rc'
+  gem 'simplecov', :require => false
   gem 'email_spec', '>= 1.2.1'
   gem 'database_cleaner', '>= 0.8.0'
 end
