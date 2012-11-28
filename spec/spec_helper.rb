@@ -30,8 +30,30 @@ Spork.prefork do
     # Devise Helper for sign_in and sign_out
     config.include Devise::TestHelpers, :type => :controller
 
-    # FactoryGirl
+    # FactoryGirl Syntax Mixins
     config.include FactoryGirl::Syntax::Methods
+
+    # FactoryGirl Logging
+    config.before(:suite) do
+      @factory_girl_results = {}
+      ActiveSupport::Notifications.subscribe("factory_girl.run_factory") do |name, start, finish, id, payload|
+        execution_time_in_seconds = finish - start
+
+        if execution_time_in_seconds >= 0.5
+          $stderr.puts "Slow factory: #{payload[:name]} using strategy #{payload[:strategy]}"
+        end
+
+        factory_name = payload[:name]
+        strategy_name = payload[:strategy]
+        @factory_girl_results[factory_name] ||= {}
+        @factory_girl_results[factory_name][strategy_name] ||= 0
+        @factory_girl_results[factory_name][strategy_name] += 1
+      end
+    end
+
+    config.after(:suite) do
+      puts @factory_girl_results
+    end
 
     config.include(EmailSpec::Helpers)
     config.include(EmailSpec::Matchers)
@@ -66,5 +88,5 @@ Spork.prefork do
 end
 
 Spork.each_run do
-  # FactoryGirl.reload
+  FactoryGirl.reload
 end
