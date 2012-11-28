@@ -44,8 +44,9 @@ group :development do
 end
 
 group :test do
-  gem 'cucumber-rails', '>= 1.3.0'
+  gem "shoulda-matchers"
   gem 'capybara', '>= 1.1.2'
+  gem 'spork', '~> 1.0rc'
   gem 'email_spec', '>= 1.2.1'
   gem 'database_cleaner', '>= 0.8.0'
   gem 'launchy', '>= 2.1.2'
