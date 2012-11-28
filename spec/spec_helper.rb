@@ -10,6 +10,17 @@ require 'rspec/autorun'
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
+  config.treat_symbols_as_metadata_keys_with_true_values = true
+  config.fail_fast = false
+
+  # only use the should configuration
+  config.expect_with :rspec do |c|
+    c.syntax = :should
+  end
+
+  # Devise Helper for sign_in and sign_out
+  config.include Devise::TestHelpers, :type => :controller
+
   config.include(EmailSpec::Helpers)
   config.include(EmailSpec::Matchers)
   # ## Mock Framework
@@ -21,12 +32,12 @@ RSpec.configure do |config|
   # config.mock_with :rr
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  # config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  config.use_transactional_fixtures = true
+  # config.use_transactional_fixtures = true
 
   # If true, the base class of anonymous controllers will be inferred
   # automatically. This will be the default behavior in future versions of
