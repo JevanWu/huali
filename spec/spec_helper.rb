@@ -28,8 +28,8 @@ Spork.prefork do
     end
 
     # Devise Helper for sign_in, sign_out, login_<user>
-    config.include Devise::TestHelpers, :type => :controller
-    config.extend ControllerMacros
+    config.include Devise::TestHelpers, :type => [:controller, :request]
+    config.extend ControllerMacros, :type => [:controller, :request]
 
     # FactoryGirl Syntax Mixins
     config.include FactoryGirl::Syntax::Methods
