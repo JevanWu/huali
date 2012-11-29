@@ -5,6 +5,9 @@ class PagesController < ApplicationController
   ALIPAY_KEY = "ux04rwiwzqbuksk0xm70u1fvmoo2p32d"
   ALIPAY_PID = "2088801670489935"
   ALIPAY_EMAIL = "tzgbusiness@gmail.com"
+  PAYPAL_EMAIL = "s@zenhacks.org"
+  PAYPAL_HOST = "www.sandbox.paypal.com"
+  #host = ActiveMerchant::Billing::Base.mode == "test" ? "www.sandbox.paypal.com" : "www.paypal.com"
   # GET /pages/1
   # GET /pages/1.json
   def show
@@ -37,22 +40,17 @@ class PagesController < ApplicationController
 
   def payment
     @product = Product.find(params[:name_en])
+    @product[:us_price] = exchange_to_dollar @product.price
   end
 
   def alipay
-    if params[:pay_bank] == "directPay"
-      paymethod = "directPay"
-    else
-      paymethod = "bankPay"
-      defaultbank = params[:pay_bank]
-    end
     order_num = Time.now.strftime("%Y%m%H%M%S")
     product = Product.find(params[:name_en])
     options = {
+      :item_name => product.name_en,
+      :amount => exchange_to_dollar(product.price).to_s,
       :partner => ALIPAY_PID,
       :out_trade_no => order_num,
-      :defaultbank => defaultbank,
-      :paymethod => paymethod,
       :total_fee => product.price.to_s,
       :payment_type => "1",
       :seller_email => ALIPAY_EMAIL,
@@ -60,8 +58,20 @@ class PagesController < ApplicationController
       :body => product.description,
       :return_url => "http://hua.li/success/#{product.id}",
       :key => ALIPAY_KEY
-    }
-    redirect_to_alipay_gateway(options)
+     }
+    if params[:pay_bank] == "paypal"
+      redirect_to_paypal_gateway(options)
+    elsif params[:pay_bank] == "directPay"
+      paymethod = "directPay"
+      options[:paymethod] = paymethod
+      redirect_to_alipay_gateway(options)
+    else
+      paymethod = "bankPay"
+      defaultbank = params[:pay_bank]
+      options[:paymethod] = paymethod
+      options[:defaultbank] = defaultbank
+      redirect_to_alipay_gateway(options)
+    end
   end
 
 
@@ -70,6 +80,10 @@ class PagesController < ApplicationController
   end
 
   private
+  def exchange_to_dollar(price)
+    (price/6)
+  end
+
   def redirect_to_alipay_gateway(options={})
     query_string = {
       :partner => options[:partner],
@@ -93,5 +107,10 @@ class PagesController < ApplicationController
     query_string += "&sign=#{sign}&sign_type=MD5"
     query_string = URI::encode(query_string)
     redirect_to "https://www.alipay.com/cooperate/gateway.do?" + query_string
+  end
+
+
+  def redirect_to_paypal_gateway(options={})
+    redirect_to URI.encode("https://#{PAYPAL_HOST}/cgi-bin/webscr?cmd=_ext-enter&redirect_cmd=_xclick&charset=utf-8&business=#{PAYPAL_EMAIL}&currenct_code=USD&item_name=#{options[:item_name]}&amount=#{options[:amount]}" )
   end
 end

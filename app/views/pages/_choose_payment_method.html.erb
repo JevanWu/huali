@@ -1,4 +1,6 @@
 <%= form_tag(alipay_path(product), :method => "post") do %>
+  <%= radio_button_tag(:pay_bank, "paypal") %>
+  <%= image_tag("https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg") %>
   <%= radio_button_tag(:pay_bank, "directPay", :checked => "checked") %>
   <%= image_tag("alipay.gif", :height => "35", :width => "120") %>
   <ul class="bank-list">
