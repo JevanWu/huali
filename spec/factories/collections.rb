@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :collection do
-    name_cn Forgery(:lorem_ipsum).word
-    name_en Forgery(:lorem_ipsum).word
-    description Forgery(:lorem_ipsum).paragraph
+    name_cn { Forgery(:lorem_ipsum).word }
+    name_en { Forgery(:lorem_ipsum).word }
+    description { Forgery(:lorem_ipsum).sentence }
 
     factory :collection_with_products do
       after(:build) do |collection|
