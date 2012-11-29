@@ -1,6 +1,8 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
-
 FactoryGirl.define do
   factory :user do
+    email Forgery(:internet).email_address
+    password Forgery(:basic).password
+    password_confirmation password
+    # confirmed_at Time.now
   end
 end
