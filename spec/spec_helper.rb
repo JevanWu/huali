@@ -27,8 +27,9 @@ Spork.prefork do
       c.syntax = :should
     end
 
-    # Devise Helper for sign_in and sign_out
+    # Devise Helper for sign_in, sign_out, login_<user>
     config.include Devise::TestHelpers, :type => :controller
+    config.extend ControllerMacros
 
     # FactoryGirl Syntax Mixins
     config.include FactoryGirl::Syntax::Methods
