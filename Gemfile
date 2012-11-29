@@ -44,7 +44,7 @@ group :development do
   gem 'pry', :require => false
   gem 'awesome_print', :require => false
   gem 'capistrano', '~>2.0'
-  gem 'capistrano-zen'
+  gem 'capistrano-zen', git: 'git@github.com:zenhacks/capistrano-zen.git', :require => false
   gem 'railroady'
 end
 
