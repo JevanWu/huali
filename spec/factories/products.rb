@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :product do
+  factory :product, aliases: [:viewable] do
     name_cn Forgery(:lorem_ipsum).word
     name_en Forgery(:lorem_ipsum).word
     name_char Forgery(:lorem_ipsum).character
@@ -21,7 +21,6 @@ FactoryGirl.define do
     meta_description Forgery(:lorem_ipsum).paragraph
     meta_keywords Forgery(:lorem_ipsum).words(20)
 
-
     trait :available do
       available true
     end
@@ -32,6 +31,12 @@ FactoryGirl.define do
 
     trait :with_collection do
       collection
+    end
+
+    trait :with_pics do
+      after(:build) do |product|
+        create_list(:asset, Forgery(:basic).number, viewable: product )
+      end
     end
 
     # collection_id

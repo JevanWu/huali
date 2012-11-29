@@ -5,7 +5,7 @@ FactoryGirl.define do
     description Forgery(:lorem_ipsum).paragraph
 
     factory :collection_with_products do
-      after(:create) do |collection|
+      after(:build) do |collection|
         create_list(:product, Forgery(:basic).number, :with_collection, collection: collection )
       end
     end
