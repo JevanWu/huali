@@ -101,12 +101,6 @@ ActiveAdmin.register Product do
         link_to collection.name_cn, admin_collection_path(collection) if collection
       end
 
-      row :parts do
-        product.product_parts.map do |product_part|
-          link_to product_part.name_cn, admin_product_part_path(product_part)
-        end.join(', ').html_safe
-      end
-
       row :pictures do
         product.assets.map do |asset|
           image_tag asset.image.url(:medium)

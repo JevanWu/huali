@@ -11,13 +11,6 @@ class Product < ActiveRecord::Base
   attr_accessible :assets_attributes
   accepts_nested_attributes_for :assets, :reject_if => lambda { |a| a[:image].blank? }, :allow_destroy => true
 
-  # productParts
-  has_many :product_parts, :dependent => :destroy
-  attr_accessible :product_parts_attributes
-  accepts_nested_attributes_for :product_parts,
-    :reject_if => lambda { |a| a[:name_cn].blank? or a[:name_en].blank? }, :allow_destroy => true
-
-
   # lineItems
   has_many :line_items
 

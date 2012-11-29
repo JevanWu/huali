@@ -4,15 +4,8 @@ class ProductsController < ApplicationController
   # GET /products/1.json
   def show
     @product = Product.find(params[:id])
-    @product_parts = @product.product_parts
 
-    product_assets  = @product.assets || []
-
-    parts_assets = @product_parts.map { |part| part.asset }
-
-    # FIXME cannot use concat here, Raise ActiveRecord::AssociationTypeMismatch
-    # might be caused by ActiveRecord Lazy reading
-    assets = product_assets + parts_assets
+    assets  = @product.assets || []
 
     # filter empty assets
     assets.compact!
@@ -30,5 +23,4 @@ class ProductsController < ApplicationController
       format.json { render json: @product }
     end
   end
-
 end

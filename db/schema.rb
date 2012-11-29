@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121118130954) do
+ActiveRecord::Schema.define(:version => 20121129094712) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -107,6 +107,24 @@ ActiveRecord::Schema.define(:version => 20121118130954) do
   add_index "line_items", ["order_id"], :name => "index_line_items_on_order_id"
   add_index "line_items", ["product_id"], :name => "index_line_items_on_product_id"
 
+  create_table "orders", :force => true do |t|
+    t.string   "number"
+    t.decimal  "item_total",           :precision => 8, :scale => 2, :default => 0.0, :null => false
+    t.decimal  "total",                :precision => 8, :scale => 2, :default => 0.0, :null => false
+    t.decimal  "payment_total",        :precision => 8, :scale => 2, :default => 0.0
+    t.string   "state"
+    t.string   "payment_state"
+    t.string   "shipment_state"
+    t.text     "special_instructions"
+    t.integer  "address_id"
+    t.integer  "user_id"
+    t.datetime "completed_at"
+    t.datetime "created_at",                                                          :null => false
+    t.datetime "updated_at",                                                          :null => false
+  end
+
+  add_index "orders", ["number"], :name => "index_orders_on_number"
+
   create_table "pages", :force => true do |t|
     t.string   "title"
     t.string   "permalink"
@@ -118,16 +136,6 @@ ActiveRecord::Schema.define(:version => 20121118130954) do
   end
 
   add_index "pages", ["permalink"], :name => "index_pages_on_permalink"
-
-  create_table "product_parts", :force => true do |t|
-    t.string   "name_cn",     :null => false
-    t.string   "name_en",     :null => false
-    t.text     "description"
-    t.integer  "product_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-    t.text     "info_source"
-  end
 
   create_table "products", :force => true do |t|
     t.string   "name_cn",                                        :default => "",   :null => false
