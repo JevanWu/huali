@@ -1,3 +1,100 @@
 meiya 是我在豆瓣上发现的第一位正能量友邻，从此一发不可收拾~o(╯□╰)o 那本让我深受启发的《少有人走的路》是看了meiya 的感悟，我才去看的。
 其实我从小到大都是个好孩子，学数学，学英语，学专业课，就是没有学习过生活。
 以前努力学习的东西，现在大部分都用不上了，现实却把我扔在生活面前，扔在我模糊而庞大的成功欲望面前，不管不顾。
+传统搜索工具有了 PageRank 算法，并索引了 400 亿张网页之后，基本也就到了尽头了。
+因此你看到谷歌这样的公司开始收购全球最大的航班搜索公司 ITA、餐馆评分网站 Zagat。
+用 Google Places 山寨了 Yelp 和 Foursquare、用 Google Shopping 山寨了亚马逊、用 Google Play 山寨了 iTunes Store 和 App Store、用 Google Offers 山寨了 Groupon、用 Google Hotel Finder 山寨了 Hotels.com……最终，用 Google Now 山寨了Siri。
+谷歌必须拥有垂直领域的数据、知识以及专业技巧，才能更好地减少用户搜索意图中的歧义。关键字、语句、名字、词条、派生词、同义词、专有名词、地名、概念、用户评论……在某个垂直领域里的这些数据对于解决语境、范围和意图问题大有裨益。
+不管最终会先出现在搜索结果里还是 Google Now 里，谷歌确实是在其核心服务之下拼命建构着一个语义化的引擎。经过了谷歌自己的以及它推广的种种隐性或显性的第三方服务之后，「常规搜索结果」几乎只能算个可有可无的补充了。
+谷歌也开始提供类 Siri 的「答案」，而不仅仅是没完没了的「链接」。
+如果你在看美国 MLB 职棒联赛时搜索「洋基队」，你会首先得到的是实时比分结果，而不是洋基队的历史或是它新修建的体育场。
+Siri通过对一条由「自然语言」构成的要求进行语法解析将其转化为机器可以理解的主谓宾结构，如此，她不但可以像谷歌一样帮你搜寻文件与事实，还可以在你授权的前提下执行你的要求。
+这要求有可能是你明示的，但也可能是你暗示的。
+建构深层语义搜索、从不同的信息源、设备与第三方软件整合信息、制定规则、帮助用户执行交易，这些能力令 Siri 不再仅仅是一个板着脸的女图书管理员（谷歌搜索），而成了一个不可缺少的拥有一定特权的私人管家。
+以交易为核心的 Siri 有潜力撼动价值 5000 亿美元的全球广告业。
+对于有购买意愿的消费者而言，「纯粹」的信息要比转瞬即逝的广告或是一堆需要自己去仔细阅读的搜索结果更理想。
+Siri 植根于对语境有高度了解的个人移动设备，可以在用户最需要的时候给出具有无与伦比的相关性的「纯粹信息」。
+她可以铲除所有中间人，让顾客直接与商家连接，苹果本身也不必介入交易当中。
+Siri做的仅仅是对用户的意向进行比对，并提供选择，而且比我们见过的任何大规模的同类产品都更准确、更主动、更可靠。
+显然，像 Siri 这种前卫的平台不可能没有各种问题和风险。
+苹果过去的两个成功的互联网产品──iTunes 商店和 App Store──用的都是上一个时代的技术，且包含种种运营上的问题。
+诸如 MobileMe、Ping、Game Center、iCloud、iTunes Match 和 Passbook 等更新一些的互联网产品还都算不上大热。
+尽管如此，Siri 仍然是一个里程碑式的机会。
+对苹果而言，她可以成为一棵以交易为本的摇钱树；对用户而言，她代表着一种搜寻信息、完成任务的全新方法，比目前为止的所有方法都更具亲和力。
+Siri 的成败全看苹果。
+不过，就算传统搜索引擎能将「好点的」和「浪漫」或「舒适」关联在一起，从而更好地为你选出一家亚洲餐厅，你还得考虑钱包的问题。
+谷歌看不到你的银行账户记录，也不知道你平日的餐饮预算与消费习惯。
+因此，要想搜出真正有用的餐厅推荐的话，设定一个价格区间是必要的，例如从￥￥到￥￥￥，但不超过￥￥￥￥。
+这就要讲到浏览器和app的那场无聊的战争了。
+像谷歌这样的传统搜索引擎如果要建构你的购买习惯模型，就必须事无巨细地监视你的点击习惯，从而追踪你的交易记录。
+这种监视会详细到用户不可接受的程度。
+这一点也不简单（在很多国家大概也不合法），尤其是如果你没有在用 Google Play 或 Google Wallet 的话。
+所以，谷歌看不到你的信用卡记录与银行账户清单，但 Amex 或 Chase 这样的 app 有这些数据。
+如果你允许 Siri 以某种加密的方式与你 iPhone 上的这些 app 通讯的话，你就是在发出一种高度选择性的请求，并且表示你信任苹果和 Siri。
+这样一来，Siri 或是那些 app（有时是两者一起）就能在你的预算范围内来定义「好点的」了：不超过 85 元，150 到 250 那种的绝对不要，但也不要是那种人均 25 元的寒碜的中餐馆，因为那是令堂的生日。
+说到令堂，别忘了你的通讯录里她的名字下面，紧挨着「生日」的地方有一个自定义的字段叫「食物」，里面写着：「亚洲」、「牛排」、「印度有机白茶」。
+另一方面，你在 Yelp 里收藏了 37 家餐厅，无一例外都是素食──谷歌可不知道这个。
+你妈妈无所谓，但你是不碰肉食的。这时，Siri 可以通过比对两人的喜好来给出双方都能接受的选择。
+因此，由于 Siri 了解──在你主动提出要求的前提下──你和你妈妈的口味，以及你的经济能力，一次简单的搜索从「某某餐厅」变成了「一家我能吃得起的好点的亚洲素食餐厅」。
+「亚洲」没什么难度，因为所有跟餐厅有关的互联网服务多少都会把餐馆按照菜系来分类。
+但「好点的」又怎么说？在这个语境里「好点的」是什么意思？
+不过如今已是 2012 年，我们的移动设备的「自我感知能力」要比谷歌搜索引擎强得多了。
+举例来说，一台备有GPS、相机、麦克风、天线、陀螺仪以及各种其它感应器、数十个功能各异的app（从财经app到游戏）的移动设备已经拥有相当强大的「被动智能」。
+它对用户的了解已经足以大大减少搜索时的未知因素……假如所有这些用户输入和设备感应到的数据能够被整合的话。
+这是一套「由人工指引的导航系统」。
+它的导航环境是全球所有数据的集合，即整个互联网。
+用户基本上要一个一个词地主动将自己的意图告知谷歌，后者则一个一个地从这个全球集合里的数十亿张「网页」中缩小范围，最终，用户会从这个大大缩小了的范围中挑出自己想要的答案。
+这带来了许多不便。
+中文字体文件的体积是西文字体文件的数倍，而一旦读者开启了我们的app，字体文件有多大就要占据多大的内存空间。
+随着移动设备的内存不断增加，这一问题的影响在未来会越来越小。
+但在当时还是带来了额外的开发成本。此外，字体的授权费也是真金白银。
+This sentence describes what ultimately became the Unix pipeline: the chaining together of a set of programs such that the output of one is fed into the next as input.
+Every time we run a command like tail -5000 access.log | awk '{print $4}' | sort | uniq -c we’re benefiting from the legacy of McIlroy’s garden hose analogy.
+The pipeline enables each program to expose a small set of features and, through the interface of the standard streams, collaborate with other programs to deliver a larger unit of functionality.
+It’s mind-expanding when a Unix user figures out how to snap together their system’s various small command-line programs to accomplish tasks.
+The pipeline renders each command-line tool more powerful as a stage in a larger operation than it could have been as a stand-alone utility.
+We can couple together any number of these small programs as necessary and build new tools which add specific features as we need them. We can now speak Unix in compound sentences.
+Without the interface of the standard streams to allow programs to collaborate, Unix systems might have ended up with larger programs with duplicative feature sets.
+In Microsoft Windows, most programs tend to be their own closed universes of functionality.
+To get word count of a document you’re writing on a Unix system, you’d run wc -w document.
+On a system running Windows you’d likely have to boot the entire Microsoft Word application in order to get a word count of document.
+The count functionality of Word is locked in the context of use of editing a Word document.
+When we start the project the requirements are straightforward: save a name, an IP address, and a comment from any visitor that fills out the form and display those contents in an index view.
+We scaffold up a controller, generate a migration, a new model, sprinkle web design in some ERB templates, high five, and call it a day.
+This is a Rails system, I know this.
+Over time our requirements begin growing and we slowly start adding new features.
+First, in real-life operations we realize that spammers are posting to the form so we want to build a simple spam filter to reject posts containing certain words.
+We also realize we want some kind of rate-limiting to prevent visitors from posting more than one message per day.
+Finally, we want to post to Twitter when a visitor signs our guestbook because if we’re going to be anachronistic with our code
+example, let’s get really weird with it.
+These features are oversimplified but set that aside for the purposes of this example.
+The above code shows us a hodgepodge of entwined features.
+Like the Microsoft Word example of the word count feature, the features we’ve built are locked within the context of creating a GuestbookEntry.
+This kind of approach has several real-world implications.
+For one, the tests for this object likely exercise some of these features in the context of saving a database object.
+We don’t need to roundtrip to our database in order to validate that our rate limiting code is working.
+but since we’ve hung it off an after_create callback that’s likely what we might do because that’s the interface our application is using.
+These tests also likely littered with unrelated details and setup due to the coupling to unrelated but neighboring behavior and data.
+At a glance it’s difficult to untangle which code relates to what feature.
+When looking at the code we have to think about at each line to discern which of the object’s behavior that line is principally concerned with.
+Clear naming helps us in this example but in a system where each behavior was represented by a domain object, we’d be able to assume that a line of code related to the object’s assigned responsibility.
+Lastly, it’s easy for us to glance over the fact that we have, for example, the acorn of a user content spam filter in our system because it’s a minor detail of another object.
+If this were its own domain concept it would be much clearer that it was a first-class role within the system.
+Let’s look at this implementation through the lens of the Rule of Modularity.
+The above code fails the “simple parts, clean interfaces” sniff test.
+In our current factoring, we can’t extend or change these features without diffusing more details about them into the GuestbookEntry object.
+The interface by which our model uses this behavior through internal callbacks trigged through the object’s lifecycle.
+There are no external interfaces to these features despite the fact that each has
+their own behavior and data.
+This object now has several reasons to change.
+Let’s refactor these features by extracting this behavior to independent objects to see how these shake out as stand-alone domain concepts.
+First we’ll extract the code in our spam check implementation into its own object.
+Features like this have serious sprawl potential.
+When we first see the problem of abuse we’re likely we respond with the simplest thing that could work.
+There’s usually quite a bit of churn in this code as our combatants expose new weaknesses in our implementation.
+The rate of change of our spam protection strategy is inherently different than that of our GuestbookEntry persistence object.
+Identifying our UserContentSpamChecker as its own dedicated domain concept and establishing it as such will allow us to more easily maintain and extend this functionality independently of where it’s being used.
+Next we’ll extract our rate limiting code.
+Some small changes are required to decouple it fully from the guestbook such as the addition of a namespace.
+Now that we have a stand-alone domain object, more advanced requirements for this rate limiting logic will only change this one object.
+Our tests can exercise this feature in isolation apart from any potential consumer of its functionality.
