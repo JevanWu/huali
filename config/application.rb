@@ -15,14 +15,14 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
-module Changanhua
+module Huali
   class Application < Rails::Application
 
     # don't generate RSpec tests for views and helpers
     config.generators do |g|
       g.view_specs false
       g.helper_specs false
-      
+
     end
 
     # Settings in config/environments/* take precedence over those specified here.

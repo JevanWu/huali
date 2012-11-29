@@ -1,4 +1,4 @@
-Changanhua::Application.routes.draw do
+Huali::Application.routes.draw do
 
 
   resources :products, :only => [:show]
