@@ -40,7 +40,7 @@ db/*.sqlite3
 /public/stylesheets/compiled
 /public/system/*
 /spec/tmp/*
-/coverage
+/spec/coverage
 /cache
 /capybara*
 /capybara-*.html
