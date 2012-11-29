@@ -67,3 +67,25 @@ The application is configured to send email using a Mandrill account.
 
 `ENV["MANDRILL_USERNAME"]`: mandrill user name
 `ENV["MANDRILL_API_KEY"]`: mandrill API key
+
+## Test Strategy
+Model Spec is used to do test on:
+  - model dependencies
+  - data validations
+  - before, after hooks
+  - business logic
+
+Request Spec is used to do end-to-end test. It tests the APIs exposed to the client. It includes:
+
+  - routing testing
+  - state actions(cookie, token etc.)
+  - response
+
+Feature Spec *will be* used to make end-to-end test simulating user behavior.
+
+Helper Spec is used to test helper methods.
+
+Some specs are not included in the projects because:
+  - Routing Spec: the `route.rb` is well tested in the Rails projects.
+  - Controller Spec: use end-to-end test is more close to the user scenario.
+  - View Spec: will be covered in Feature Spec.
