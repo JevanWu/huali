@@ -24,7 +24,7 @@ group :development, :test do
   gem 'rspec-rails', '>= 2.11.0'
   gem 'rspec-instafail'
   gem 'factory_girl_rails', '>= 4.0.0'
-  gem 'forgery', '0.5.0'
+  gem 'forgery', git: 'git://github.com/zenhacks/forgery.git'
 end
 
 group :production, :staging do
