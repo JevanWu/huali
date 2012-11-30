@@ -9,7 +9,7 @@
     </p>
   </div>
   <div>
-    <%= choose_payment_method %>
+    <%= render :partial => "choose_payment_method", :locals => { :product => @product, :banks => @banks } %>
   </div>
   <div id="notice-info">
     <h3>购买注意</h3>
