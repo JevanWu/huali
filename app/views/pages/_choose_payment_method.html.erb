@@ -7,7 +7,7 @@
     <% banks.each do |bank| %>
       <li>
         <%= radio_button_tag(:pay_bank, bank) %>
-        <%= content_tag(:span, "", :class => "icon " + bank) %>
+        <%= content_tag(:span, "", :class => "bank-icon " + bank) %>
       </li>
     <% end %>
   </ul>
