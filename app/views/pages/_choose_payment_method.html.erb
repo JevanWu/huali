@@ -1,15 +1,18 @@
 <%= form_tag(alipay_path(product), :method => "post") do %>
-  <%= radio_button_tag(:pay_bank, "paypal") %>
-  <%= image_tag("https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg") %>
-  <%= radio_button_tag(:pay_bank, "directPay", :checked => "checked") %>
-  <%= image_tag("alipay.gif", :height => "35", :width => "120") %>
-  <ul class="bank-list">
+  <div class="bank-pay-block">
+    <p class="bank-pay-text">选择支付方式</p>
+    <label class="ALIPAY icon">
+      <%= radio_button_tag(:pay_bank, "directPay", :checked => "checked") %>
+    </label>
     <% banks.each do |bank| %>
-      <li>
+      <label class="<%= bank %> icon">
         <%= radio_button_tag(:pay_bank, bank) %>
-        <%= content_tag(:span, "", :class => "bank-icon " + bank) %>
-      </li>
+      </label>
     <% end %>
-  </ul>
+    <p class="paypal-text">国际支付</p>
+    <label class="PAYPAL icon">
+      <%= radio_button_tag(:pay_bank, "paypal") %>
+    </label>
+  </div>
   <%= submit_tag "确认支付" %>
 <% end %>
