@@ -24,4 +24,3 @@ $ ->
   $('#zoom').easyZoom({
     parent: '.product-essential'
   })
-

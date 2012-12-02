@@ -1,0 +1,25 @@
+<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style" id="product-share">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback: true,
+  title: '我在花里花店发现的好东西:  <%= @product.name_cn %>',
+  summary: '<%= @product.inspiration.gsub("\r\n", " ") %>',
+  pic: 'http://hua.li/<%= @asset_urls.first[:medium] %>',
+  ralateuid: {
+    "tsina": "花里花店"
+  },
+  appkey: {
+    "tsina": '214509410',
+    "tqq": ''
+  },
+  hideMore: true
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1716203" charset="utf-8"></script>
+<!-- JiaThis Button END -->
