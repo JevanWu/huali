@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html xmlns:wb=“http://open.weibo.com/wb”>
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -30,6 +30,7 @@
       <%= render 'layouts/footer' %>
     </div> <!--! end of #container -->
   </body>
+    <%= javascript_include_tag 'http://tjs.sjs.sinajs.cn/open/api/js/wb.js' %>
     <%= javascript_include_tag "application"  %>
     <!-- only include controller-specific js accordingly -->
     <% if ['products','collections'].include? params[:controller] %>

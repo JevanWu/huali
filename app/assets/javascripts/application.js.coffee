@@ -36,7 +36,6 @@ $ ->
     )
     return false
 
-
 arrowIn = ->
   $(this).siblings('.arrow')
     .addClass('near', 100)
