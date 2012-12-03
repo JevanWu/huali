@@ -6,7 +6,7 @@ class PagesController < ApplicationController
   ALIPAY_PID = "2088801670489935"
   ALIPAY_EMAIL = "tzgbusiness@gmail.com"
   PAYPAL_EMAIL = "s@zenhacks.org"
-  PAYPAL_HOST = "www.sandbox.paypal.com"
+  PAYPAL_HOST = "www.paypal.com"
   #host = ActiveMerchant::Billing::Base.mode == "test" ? "www.sandbox.paypal.com" : "www.paypal.com"
   # GET /pages/1
   # GET /pages/1.json
