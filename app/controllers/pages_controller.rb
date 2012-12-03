@@ -83,7 +83,7 @@ class PagesController < ApplicationController
 
   private
   def exchange_to_dollar(price)
-    (price/6)
+    (price/6).to_i - 0.01
   end
 
   def redirect_to_alipay_gateway(options={})
