@@ -15,7 +15,7 @@ class Product < ActiveRecord::Base
   has_many :line_items
 
   # validations
-  validates :name_en, :name_cn, :count_on_hand, :presence => true
+  validates :name_en, :name_cn, :inspiration, :count_on_hand, :presence => true
 
   # scopes
   default_scope where(available: true)
