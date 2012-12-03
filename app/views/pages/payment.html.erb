@@ -5,10 +5,8 @@
   <div id="order-list">
     <p>
       您的花篮里已经有一盒 <span class="product-name"><%= @product.name_cn %></span> ，
-      共计 <strong class="price-totle"><%= @product.price %></strong> 元或者<strong class="price-totle">$<%= @product.us_price %></strong>。请选择您的支付方式:
+      共计 <strong class="price-totle"><%= @product.price %></strong> 元或者<strong class="price-totle">$<%= @product.us_price %></strong>。
     </p>
-  </div>
-  <div>
     <%= render :partial => "choose_payment_method", :locals => { :product => @product, :banks => @banks } %>
   </div>
   <div id="notice-info">
