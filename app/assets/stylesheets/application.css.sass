@@ -166,6 +166,10 @@ p#home-intro
   .product-name
     color: $tintColor
 
+#payment-wrapper
+  input.button
+    font-size: 120%
+
 #order-list, #success-list
   font-size: 120%
   margin: 50px 0 20px 50px
@@ -184,26 +188,27 @@ p#home-intro
   margin-left: ($gridColumnWidth + $gridGutterWidth) * 2
 
 .bank-pay-block
-  width: 790px
   margin: 10px
   padding: 2px 12px
-  border: 1px solid #e4e4e4
-  background: #fff
-  .icon
-    display: inline-block
-    position: relative
-    vertical-align: middle
-    cursor: pointer
-    width: 125px
-    height: 10px
-    background-repeat: no-repeat
-    background-image: url(paycollec.png)
-    padding: 10px 10px 10px 4px
-    margin: 10px
+  border: 1px solid $grayLighter
 
-  .PAYPAL
-    background-image: url(paypal.jpg)
+.bank-icon
+  display: inline-block
+  position: relative
+  vertical-align: middle
+  cursor: pointer
+  width: 125px
+  height: 10px
+  background-repeat: no-repeat
+  background-image: url(paycollec.png)
+  padding: 10px 10px 10px 4px
+  margin: 10px
 
+
+.PAYPAL
+  background-image: url(paypal.jpg)
+  width: 300px
+  height: 80px
 
 .bank-pay-text, .paypal-text
   border-bottom: 1px solid #e4e4e4
