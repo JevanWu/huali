@@ -23,7 +23,7 @@ window.Cart = {
     for id, quantity in cart
       delete cart[id] if quantity <= 0
 
-    $.cookie('cart', cart)
+    $.cookie('cart', cart, path: '/')
 
   all: ->
     $.cookie('cart')
@@ -33,5 +33,5 @@ window.Cart = {
       id: id, quantity: $.cookie('cart')[id]
 
   empty: ->
-    $.removeCookie('cart')
+    $.removeCookie('cart', path: '/')
 }
