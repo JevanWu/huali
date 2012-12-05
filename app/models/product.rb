@@ -51,7 +51,7 @@ class Product < ActiveRecord::Base
   validates :name_en, :name_zh, :inspiration_en, :inspiration_zh, :count_on_hand, :presence => true
 
   # scopes
-  #default_scope where(available: true)
+  default_scope where(available: true)
 
   extend FriendlyId
   friendly_id :name_en, use: :slugged
