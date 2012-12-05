@@ -35,6 +35,7 @@ group :backend do
     watch(%r{^config/environments/.+\.rb})
     watch(%r{^config/initializers/.+\.rb})
     watch('spec/spec_helper.rb')
+    watch('config/routes.rb')
     watch(%r{^spec/support/.+\.rb})
   end
 
