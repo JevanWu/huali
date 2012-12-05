@@ -18,5 +18,12 @@ class OrdersController < ApplicationController
   end
 
   def current
+    begin
+      cart = JSON.parse(cookies['cart'])
+    rescue
+      cart = {}
+    end
+
+    render 'collections/show'
   end
 end
