@@ -79,7 +79,7 @@ class Product < ActiveRecord::Base
   end
 
   def to_s
-    "#{self.id} #{self.name_cn}"
+    "#{self.id} #{self.name_zh}"
   end
 
   def name
@@ -105,7 +105,7 @@ class Product < ActiveRecord::Base
     when :zh
       self.description_zh
     when :en
-      self.descripiton_en
+      self.description_en
     end
   end
 end

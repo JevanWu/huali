@@ -3,9 +3,9 @@
   <li> <h4 class="leading"><span>在线精品花店</span></h3> </li>
     <% Product.all.each do |product| %>
       <% if @product && @product.id == product.id %>
-        <li class="active"> <%= link_to product.name_cn, product_path(product), title: product.name_cn %> <span class="arrow"><<</span> </li>
+        <li class="active"> <%= link_to product.name_zh, product_path(product), title: product.name_zh %> <span class="arrow"><<</span> </li>
       <% else %>
-        <li> <%= link_to product.name_cn, product_path(product), title: product.name_cn %> <span class="arrow"><<</span> </li>
+        <li> <%= link_to product.name_zh, product_path(product), title: product.name_zh %> <span class="arrow"><<</span> </li>
       <% end %>
     <% end %>
   <hr>
