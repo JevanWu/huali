@@ -1,9 +1,12 @@
 Huali::Application.routes.draw do
 
-
   resources :products, :only => [:show]
 
   resources :collections, :only => [:show]
+
+  get 'orders/current', as: :current_order
+  resources :orders, :except => [:destroy, :update, :edit]
+
   # non-individual collections routes
   match '/collections/all', :to => 'collections#all'
   match '/collections/:id', :to => 'collections#show'
