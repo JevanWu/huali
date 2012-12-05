@@ -50,7 +50,7 @@ task :production do
 end
 
 task :staging do
-  set :domain, "staging.hua.li"
+  set :domain, "en.staging.hua.li staging.hua.li"
   set :unicorn_workers, 1
 
   # lua - 42.121.3.105, aliyun - steven
