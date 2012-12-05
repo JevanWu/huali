@@ -56,7 +56,7 @@ class PagesController < ApplicationController
       :total_fee => product.price.to_s,
       :payment_type => "1",
       :seller_email => ALIPAY_EMAIL,
-      :subject => product.name_cn,
+      :subject => product.name_zh,
       :body => product.description,
       :return_url => "http://hua.li/success/#{product.id}",
       :key => ALIPAY_KEY
