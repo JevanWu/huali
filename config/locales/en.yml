@@ -2,4 +2,13 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  currency: "Dollar"
+  delivery_charge: "free of charge for delivery"
+  soldout: "soldout"
+  join_queue: "if you want to join purchase queue, plz contact customer service"
+  stock: "stack"
+  product_info: "product information"
+  height: "height"
+  width: "width"
+  depth: "depth"
+  size: "size"
