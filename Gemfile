@@ -43,7 +43,6 @@ group :development do
   gem 'guard-bundler'
   gem 'guard-pow'
   gem 'guard-spork'
-  gem 'guard-annotate'
   gem 'pry', :require => false
   gem 'pry-rails'
   gem 'awesome_print', :require => false
