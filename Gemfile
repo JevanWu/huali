@@ -44,6 +44,7 @@ group :development do
   gem 'guard-pow'
   gem 'guard-spork'
   gem 'pry', :require => false
+  gem 'pry-rails'
   gem 'awesome_print', :require => false
   gem 'capistrano', '~>2.0'
   gem 'capistrano-zen', git: 'git@github.com:zenhacks/capistrano-zen.git', :require => false
