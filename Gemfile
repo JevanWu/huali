@@ -44,6 +44,11 @@ group :development do
   gem 'guard-pow'
   gem 'guard-spork'
   gem 'pry', :require => false
+  gem 'pry-remote'
+  gem 'pry-stack_explorer'
+  gem 'pry-debugger'
+  gem 'pry-rails'
+  gem 'pry-coolline'
   gem 'awesome_print', :require => false
   gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
   gem 'capistrano', '~>2.0'
