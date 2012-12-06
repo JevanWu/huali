@@ -2,7 +2,7 @@ load 'deploy'
 load 'deploy/assets'
 
 set :db_config_path, File.expand_path(File.dirname(__FILE__), 'config')
-set :db_backup_path, '/var/backups/postgresql'
+set :db_backup_path, '/var/backups/db'
 
 require 'capistrano-zen/utils'
 require 'capistrano-zen/nginx'
