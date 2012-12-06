@@ -55,14 +55,6 @@ group :backend do
   end
 end
 
-guard 'annotate' do
+guard 'annotate', tests: true, run_at_start: false, show_indexes: true do
   watch( 'db/schema.rb' )
-
-  # Uncomment the following line if you also want to run annotate anytime
-  # a model file changes
-  #watch( 'app/models/**/*.rb' )
-
-  # Uncomment the following line if you are running routes annotation
-  # with the ":routes => true" option
-  #watch( 'config/routes.rb' )
 end
