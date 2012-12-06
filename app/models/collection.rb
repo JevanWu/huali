@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: collections
+#
+#  created_at  :datetime         not null
+#  description :string(255)
+#  id          :integer          not null, primary key
+#  name_cn     :string(255)      not null
+#  name_en     :string(255)      not null
+#  updated_at  :datetime         not null
+#
+
 class Collection < ActiveRecord::Base
   attr_accessible :description, :name_en, :name_cn
   has_many :products

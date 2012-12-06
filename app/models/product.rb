@@ -1,3 +1,36 @@
+# == Schema Information
+#
+# Table name: products
+#
+#  available        :boolean          default(TRUE)
+#  collection_id    :integer
+#  cost_price       :decimal(8, 2)
+#  count_on_hand    :integer          default(0), not null
+#  created_at       :datetime         not null
+#  depth            :decimal(8, 2)
+#  description      :text
+#  height           :decimal(8, 2)
+#  id               :integer          not null, primary key
+#  info_source      :text
+#  inspiration      :text
+#  meta_description :string(255)
+#  meta_keywords    :string(255)
+#  name_char        :string(255)
+#  name_cn          :string(255)      default(""), not null
+#  name_en          :string(255)      default(""), not null
+#  original_price   :decimal(, )
+#  price            :decimal(8, 2)
+#  related_text     :text
+#  slug             :string(255)
+#  updated_at       :datetime         not null
+#  width            :decimal(8, 2)
+#
+# Indexes
+#
+#  index_products_on_name_en  (name_en)
+#  index_products_on_slug     (slug) UNIQUE
+#
+
 class Product < ActiveRecord::Base
   attr_accessible :name_cn, :name_en, :intro, :description, :description2, :meta_description, :meta_keywords, :count_on_hand, :cost_price, :original_price, :price, :height, :width, :depth, :available, :assets, :assets_attributes, :collection_id, :place, :usage, :info_source, :inspiration, :name_char, :related_text
 

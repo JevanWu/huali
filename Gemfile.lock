@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/ctran/annotate_models.git
+  revision: 1340635ff0d6eb80f5b6815010b52dac0be0765c
+  specs:
+    annotate (2.6.0.beta1)
+      activerecord (>= 2.3.0)
+      rake (>= 0.8.7)
+
+GIT
   remote: git://github.com/zenhacks/forgery.git
   revision: 852431bfa9a1b2b74dd24f7185f23ce7b52c760c
   specs:
@@ -126,6 +134,9 @@ GEM
       lumberjack (>= 1.0.2)
       pry (>= 0.9.10)
       thor (>= 0.14.6)
+    guard-annotate (1.0.0)
+      annotate (>= 2.4.0)
+      guard (>= 0.2.2)
     guard-bundler (1.0.0)
       bundler (~> 1.0)
       guard (~> 1.1)
@@ -323,6 +334,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin
+  annotate!
   awesome_print
   backup
   bootstrap-sass (~> 2.1.0.0)
@@ -339,6 +351,7 @@ DEPENDENCIES
   friendly_id (~> 4.0.1)
   growl
   guard
+  guard-annotate
   guard-bundler
   guard-livereload
   guard-pow
