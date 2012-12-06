@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  caches_page :show
+  #caches_page :show
   # GET /products/1
   # GET /products/1.json
   def show
