@@ -1,9 +1,10 @@
 <%= semantic_form_for @page do |f| %>
   <%= f.inputs do %>
-    <%= f.input :name %>
+    <%= f.input :title_en %>
+    <%= f.input :title_zh %>
     <%= f.input :permalink %>
-    <%= f.input :content, :hint => "Use Markdown to write the content"  %>
+    <%= f.input :content_en, :hint => "Use Markdown to write the content"  %>
+    <%= f.input :content_zh, :hint => "Use Markdown to write the content"  %>
   <% end %>
-
   <%= f.actions %>
 <% end %>

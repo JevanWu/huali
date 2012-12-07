@@ -81,19 +81,19 @@ ActiveAdmin.register Product do
       row :name_char
 
       row :inspiration_zh do
-        markdown(product.inspiration)
+        markdown(product.inspiration_zh)
       end
 
       row :inspiration_en do
-        markdown(product.inspiration)
+        markdown(product.inspiration_en)
       end
 
       row :description_en do
-        markdown(product.description)
+        markdown(product.description_en)
       end
 
       row :description_zh do
-        markdown(product.description)
+        markdown(product.description_zh)
       end
 
       row :related_text do

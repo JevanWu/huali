@@ -42,9 +42,13 @@ ActiveAdmin.register Page do
 
     attributes_table do
       row :permalink
-      row :title
-      row :content do
-        markdown(page.content)
+      row :title_en
+      row :title_zh
+      row :content_en do
+        markdown(page.content_en)
+      end
+      row :content_zh do
+        markdown(page.content_zh)
       end
       row :meta_keywords
       row :meta_description
