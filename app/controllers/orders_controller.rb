@@ -24,6 +24,12 @@ class OrdersController < ApplicationController
       cart = {}
     end
 
-    render 'collections/show'
+    @products = []
+    cart.keys.select { |k| k =~ /^\d+$/ }.each do |key|
+      if product = Product.find_by_id(key)
+        product[:quantity] = cart[key]
+        @products.push product
+      end
+    end
   end
 end
