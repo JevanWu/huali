@@ -33,5 +33,21 @@ class Page < ActiveRecord::Base
     permalink
   end
 
+  def title
+    case I18n.locale
+    when :"zh-CN"
+      self.title_zh
+    when :en
+      self.title_en
+    end
+  end
 
+  def content
+    case I18n.locale
+    when :"zh-CN"
+      self.content_zh
+    when :en
+      self.content_en
+    end
+  end
 end
