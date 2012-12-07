@@ -1,7 +1,7 @@
 require 'digest/md5'
 require 'open-uri'
 class PagesController < ApplicationController
-  caches_page :show, :home, :order, :payment, :alipay, :success
+  #caches_page :show, :home, :order, :payment, :alipay, :success
   ALIPAY_KEY = "ux04rwiwzqbuksk0xm70u1fvmoo2p32d"
   ALIPAY_PID = "2088801670489935"
   ALIPAY_EMAIL = "tzgbusiness@gmail.com"
@@ -56,7 +56,7 @@ class PagesController < ApplicationController
       :total_fee => product.price.to_s,
       :payment_type => "1",
       :seller_email => ALIPAY_EMAIL,
-      :subject => product.name_cn,
+      :subject => product.name_zh,
       :body => product.description,
       :return_url => "http://hua.li/success/#{product.id}",
       :key => ALIPAY_KEY

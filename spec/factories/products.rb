@@ -33,7 +33,7 @@
 
 FactoryGirl.define do
   factory :product, aliases: [:viewable] do
-    name_cn { Forgery(:lorem_ipsum).word }
+    name_zh { Forgery(:lorem_ipsum).word }
     name_en { Forgery(:lorem_ipsum).word }
     name_char { Forgery(:lorem_ipsum).character }
     description { Forgery(:lorem_ipsum).paragraph }

@@ -4,7 +4,7 @@
   </div>
   <div id="order-list">
     <p>
-      您的花篮里已经有一盒 <span class="product-name"><%= @product.name_cn %></span> ，
+      您的花篮里已经有一盒 <span class="product-name"><%= @product.name %></span> ，
       共计 <strong class="price-totle"><%= @product.price %></strong> 元。
     </p>
   </div>
@@ -16,8 +16,8 @@
   </div>
   <script type="text/javascript">var <%= @wufoo_id %>;(function(d, t) {
   var s = d.createElement(t), options = {
-  'userName':'easymoo', 
-  'formHash':'<%= @wufoo_id %>', 
+  'userName':'easymoo',
+  'formHash':'<%= @wufoo_id %>',
   'autoResize':true,
   'height':'1089',
   'async':true,

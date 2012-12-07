@@ -37,7 +37,7 @@ ActiveAdmin.register Product do
     end
 
     column "Cn Name" do |product|
-      link_to product.name_cn, product_path(product)
+      link_to product.name_zh, product_path(product)
     end
 
     column "En Name" do |product|
@@ -76,7 +76,7 @@ ActiveAdmin.register Product do
   show do |product|
 
     attributes_table do
-      row :name_cn
+      row :name_zh
       row :name_en
       row :name_char
 

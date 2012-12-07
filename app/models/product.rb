@@ -32,7 +32,7 @@
 #
 
 class Product < ActiveRecord::Base
-  attr_accessible :name_cn, :name_en, :intro, :description, :description2, :meta_description, :meta_keywords, :count_on_hand, :cost_price, :original_price, :price, :height, :width, :depth, :available, :assets, :assets_attributes, :collection_id, :place, :usage, :info_source, :inspiration, :name_char, :related_text
+  attr_accessible :name_zh, :name_en, :intro, :description_zh, :description_en, :description2, :meta_description, :meta_keywords, :count_on_hand, :cost_price, :original_price, :price, :height, :width, :depth, :available, :assets, :assets_attributes, :collection_id, :place, :usage, :info_source, :inspiration_zh, :inspiration_en, :name_char, :related_text
 
   # collection
   belongs_to :collection
@@ -48,7 +48,7 @@ class Product < ActiveRecord::Base
   has_many :line_items
 
   # validations
-  validates :name_en, :name_cn, :inspiration, :count_on_hand, :presence => true
+  validates :name_en, :name_zh, :inspiration_en, :inspiration_zh, :count_on_hand, :presence => true
 
   # scopes
   default_scope where(available: true)
@@ -79,7 +79,33 @@ class Product < ActiveRecord::Base
   end
 
   def to_s
-    "#{self.id} #{self.name_cn}"
+    "#{self.id} #{self.name_zh}"
   end
 
+  def name
+    case I18n.locale
+    when :zh
+      self.name_zh
+    when :en
+      self.name_en
+    end
+  end
+
+  def inspiration
+    case I18n.locale
+    when :zh
+      self.inspiration_zh
+    when :en
+      self.inspiration_en
+    end
+  end
+
+  def description
+    case I18n.locale
+    when :zh
+      self.description_zh
+    when :en
+      self.description_en
+    end
+  end
 end
