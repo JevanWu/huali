@@ -1,4 +1,4 @@
-zh:
+zh-CN:
   currency: "RMB"
   delivery_charge: "免运费"
   soldout: "已经售罄"
@@ -9,3 +9,10 @@ zh:
   width: "宽"
   depth: "长"
   size: "尺寸"
+  time:
+    am: 上午
+    formats:
+      default: ! '%Y年%b%d日 %A %H:%M:%S %Z'
+      long: ! '%Y年%b%d日 %H:%M'
+      short: ! '%b%d日 %H:%M'
+    pm: 下午

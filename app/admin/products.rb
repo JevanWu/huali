@@ -80,11 +80,19 @@ ActiveAdmin.register Product do
       row :name_en
       row :name_char
 
-      row :inspiration do
+      row :inspiration_zh do
         markdown(product.inspiration)
       end
 
-      row :description do
+      row :inspiration_en do
+        markdown(product.inspiration)
+      end
+
+      row :description_en do
+        markdown(product.description)
+      end
+
+      row :description_zh do
         markdown(product.description)
       end
 
