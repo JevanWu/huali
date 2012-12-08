@@ -31,6 +31,7 @@
 #  index_products_on_slug     (slug) UNIQUE
 #
 
+
 class Product < ActiveRecord::Base
   attr_accessible :name_zh, :name_en, :intro, :description_zh, :description_en, :description2, :meta_description, :meta_keywords, :count_on_hand, :cost_price, :original_price, :price, :height, :width, :depth, :available, :assets, :assets_attributes, :collection_id, :place, :usage, :info_source, :inspiration_zh, :inspiration_en, :name_char, :related_text
 
@@ -46,6 +47,11 @@ class Product < ActiveRecord::Base
 
   # lineItems
   has_many :line_items
+
+  # i18n translation
+  # FIXME need a better way to autoload the extended methods
+  require './lib/models.rb'
+  translate :name, :description, :inspiration
 
   # validations
   validates :name_en, :name_zh, :inspiration_en, :inspiration_zh, :count_on_hand, :presence => true
@@ -80,32 +86,5 @@ class Product < ActiveRecord::Base
 
   def to_s
     "#{self.id} #{self.name_zh}"
-  end
-
-  def name
-    case I18n.locale
-    when :"zh-CN"
-      self.name_zh
-    when :en
-      self.name_en
-    end
-  end
-
-  def inspiration
-    case I18n.locale
-    when :"zh-CN"
-      self.inspiration_zh
-    when :en
-      self.inspiration_en
-    end
-  end
-
-  def description
-    case I18n.locale
-    when :"zh-CN"
-      self.description_zh
-    when :en
-      self.description_en
-    end
   end
 end

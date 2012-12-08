@@ -17,11 +17,43 @@
 #
 
 class Page < ActiveRecord::Base
+
   reserved_words = [
-    'account', 'admin', 'api', 'blog', 'cache', 'changelog', 'enterprise', 'help', 'jobs', 'lists',
-    'login', 'logout', 'mine', 'news', 'plans', 'popular', 'projects', 'security', 'shop', 'session',
-    'jobs', 'translations', 'signup', 'status', 'styleguide', 'tour', 'wiki', 'stories', 'organizations',
-    'restaurant', 'codereview', 'better', 'compare', 'hosting' ]
+    'account',
+    'admin',
+    'api',
+    'blog',
+    'cache',
+    'changelog',
+    'enterprise',
+    'help',
+    'jobs',
+    'lists',
+    'login',
+    'logout',
+    'mine',
+    'news',
+    'plans',
+    'popular',
+    'projects',
+    'security',
+    'shop',
+    'session',
+    'jobs',
+    'translations',
+    'signup',
+    'status',
+    'styleguide',
+    'tour',
+    'wiki',
+    'stories',
+    'organizations',
+    'restaurant',
+    'codereview',
+    'better',
+    'compare',
+    'hosting'
+  ]
 
   attr_accessible :content_en, :content_zh, :title_en, :title_zh, :permalink, :meta_description, :meta_keywords
 
@@ -29,25 +61,12 @@ class Page < ActiveRecord::Base
 
   validates_uniqueness_of :permalink
 
+  # i18n translation
+  # FIXME need a better way to autoload the extended methods
+  require './lib/models.rb'
+  translate :title, :content
+
   def to_param
     permalink
-  end
-
-  def title
-    case I18n.locale
-    when :"zh-CN"
-      self.title_zh
-    when :en
-      self.title_en
-    end
-  end
-
-  def content
-    case I18n.locale
-    when :"zh-CN"
-      self.content_zh
-    when :en
-      self.content_en
-    end
   end
 end
