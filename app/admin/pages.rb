@@ -38,6 +38,8 @@ ActiveAdmin.register Page do
     end
   end
 
+  form :partial => "form"
+
   show do |page|
 
     attributes_table do
