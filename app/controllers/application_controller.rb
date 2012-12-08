@@ -33,7 +33,6 @@ class ApplicationController < ActionController::Base
 
   # mobile devise helper
   def check_for_mobile
-    session[:mobile_override] = params[:mobile] if params[:mobile]
     prepare_for_mobile if mobile_device?
   end
 
@@ -42,12 +41,10 @@ class ApplicationController < ActionController::Base
   end
 
   def mobile_device?
-    if session[:mobile_override]
-      session[:mobile_override] == "1"
-    else
+    params.has_key?(:mobile) ?  true :
+      (request.user_agent =~ /Mobile|webOS/) &&
       # treat iPad as non-mobile.
-      (request.user_agent =~ /Mobile|webOS/) && (request.user_agent !~ /iPad/)
-    end
+      (request.user_agent !~ /iPad/)
   end
   # enable this method both in all views / controllers
   helper_method :mobile_device?
