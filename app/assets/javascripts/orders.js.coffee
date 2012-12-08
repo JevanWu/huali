@@ -1,9 +1,12 @@
 #= require jquery.cookie
 
-
 $ ->
   # turn on JSON parsing in $.cookie
   $.cookie.json = true
+
+  $('.purchase').click ->
+    $(@).data('product')
+    return false
 
 # product = { id: String, quantity: Integer }
 # cart

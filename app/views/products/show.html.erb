@@ -9,7 +9,7 @@
 
     <% if @product.count_on_hand > 0 %>
       <p>
-        <%= link_to '放入购花篮', order_path(@product), :class => 'button' %>
+      <%= link_to '放入购花篮', current_order_path, class: 'button purchase', data: { product: @product.id } %>
       </p>
     <% else %>
       <p><%=t 'soldout' %></p>
