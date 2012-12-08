@@ -17,7 +17,7 @@ set :whenever_roles, [:db, :app]
 
 # Use Git as Version Control System
 set :scm, :git
-set :repository, "git@github.com:zenhacks/huali.git"
+set :repository, "git@git.zenhacks.org:yangchenyun/huali.git"
 set :branch, 'master'
 
 # keep a remote cache to avoid checking out everytime
