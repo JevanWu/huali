@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_filter :set_locale
+  before_filter :set_locale, :check_for_mobile
 
   protect_from_forgery
 
