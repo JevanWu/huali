@@ -23,7 +23,7 @@ class Page < ActiveRecord::Base
     'jobs', 'translations', 'signup', 'status', 'styleguide', 'tour', 'wiki', 'stories', 'organizations',
     'restaurant', 'codereview', 'better', 'compare', 'hosting' ]
 
-  attr_accessible :content, :title, :permalink, :meta_description, :meta_keywords
+  attr_accessible :content_en, :content_zh, :title_en, :title_zh, :permalink, :meta_description, :meta_keywords
 
   validates :permalink, :exclusion => { :in => reserved_words, :message => "%{value} is reserved" }
 
@@ -33,5 +33,21 @@ class Page < ActiveRecord::Base
     permalink
   end
 
+  def title
+    case I18n.locale
+    when :"zh-CN"
+      self.title_zh
+    when :en
+      self.title_en
+    end
+  end
 
+  def content
+    case I18n.locale
+    when :"zh-CN"
+      self.content_zh
+    when :en
+      self.content_en
+    end
+  end
 end

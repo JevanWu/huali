@@ -84,7 +84,7 @@ class Product < ActiveRecord::Base
 
   def name
     case I18n.locale
-    when :zh
+    when :"zh-CN"
       self.name_zh
     when :en
       self.name_en
@@ -93,7 +93,7 @@ class Product < ActiveRecord::Base
 
   def inspiration
     case I18n.locale
-    when :zh
+    when :"zh-CN"
       self.inspiration_zh
     when :en
       self.inspiration_en
@@ -102,7 +102,7 @@ class Product < ActiveRecord::Base
 
   def description
     case I18n.locale
-    when :zh
+    when :"zh-CN"
       self.description_zh
     when :en
       self.description_en
