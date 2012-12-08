@@ -15,7 +15,7 @@
 #= require jquery-ui/effect
 
 $ ->
-  $('.nav a').hover(arrowIn, arrowOut)
+  $('.desktop .nav a').hover(arrowIn, arrowOut)
 
   $('#image-slides img')
   	.hover($(this).toggleClass('hover'))

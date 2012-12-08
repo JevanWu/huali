@@ -1,0 +1,16 @@
+<ul id="product-nav" class="nav">
+  <% Product.all.each do |product| %>
+    <% if @product && @product.id == product.id %>
+      <li class="active"> <%= link_to product.name, product_path(product), title: product.name %> </li>
+    <% else %>
+      <li> <%= link_to product.name, product_path(product), title: product.name %> </li>
+    <% end %>
+  <% end %>
+  <hr>
+  <% if I18n.locale == :"zh-CN" %>
+    <div id="weibo-follow">
+      <wb:follow-button uid="3089584727" type="red_1" width="67" height="24" ></wb:follow-button>
+    </div>
+  <% end %>
+</ul>
+

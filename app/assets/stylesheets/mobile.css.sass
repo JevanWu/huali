@@ -1,0 +1,73 @@
+// Core variables and mixins
+@import "settings/variables"
+@import "settings/mixins"
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) 
+  #image-showcase, #show-case
+    width: 480px
+
+  .container
+    max-width: 768px
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px)
+  #image-showcase, #show-case
+    width: 360px
+
+  .container
+    max-width: 640px
+
+/* Landscape phones and down */
+@media (max-width: 480px)
+  #image-showcase, #show-case
+    width: 300px
+
+  .container
+    max-width: 400px
+
+/* Landscape phones and down */
+@media (max-width: 320px)
+  .container
+    max-width: 300px
+
+.logo img
+  width: 200px
+
+#product-nav li
+  display: inline
+  line-height: 3ex
+  margin-right: 5px
+  font-size: 120%
+
+  &.active
+    background-color: $tintColor
+    a
+      color: $white
+
+#content
+  margin-top: 20px
+  min-height: 1px
+
+#product-nav
+  position: static
+  margin-top: 25px
+
+// the sidebar information
+#product-side
+  position: static
+
+#product-summary, p#home-intro
+  position: static
+  float: none
+  margin-top: 5px
+
+#sidebar h2, #sidebar p
+  text-align: left
+
+#image-showcase
+  height: auto
+  margin: 0 auto
+
+  img
+    margin-bottom: 5px
