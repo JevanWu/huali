@@ -1,0 +1,11 @@
+<div id="product-info">
+  <h3><%= t 'product_info' %></h3>
+  <p class="in-stock"><%= t 'stock' %>:</p>
+  <p class="size">
+    <span><%=t 'size' %>: </span>
+    <span><%=t 'height' %> <%= @product.height %> cm </span>
+    <span><%=t 'width' %> <%= @product.width %> cm </span>
+    <span><%=t 'depth' %> <%= @product.depth %> cm </span>
+  </p>
+  <%= markdown @product.description %>
+</div>
