@@ -45,12 +45,15 @@ group :development do
   gem 'guard-pow'
   gem 'guard-spork'
   gem 'awesome_print'
+  # pry setups
   gem 'pry', :require => false
   gem 'pry-remote'
   gem 'pry-stack_explorer'
   gem 'pry-debugger'
   gem 'pry-rails'
   gem 'pry-coolline'
+  # for better exception inspection
+  gem 'better_errors'
   gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
   gem 'capistrano', '~>2.0'
   gem 'capistrano-zen', git: 'git@github.com:zenhacks/capistrano-zen.git', :require => false
