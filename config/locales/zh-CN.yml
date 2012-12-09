@@ -9,6 +9,8 @@ zh-CN:
   width: "宽"
   depth: "长"
   size: "尺寸"
+  flower_shop: "在线精品花店"
+  flower_basket: "放入购花篮"
   time:
     am: 上午
     formats:

@@ -1,5 +1,30 @@
 <% content_for :sidebar do %>
   <%= render 'product_meta' %>
+  <div id="product-side">
+    <h2 class="product-name"><span><%= @product.name %></span></h2>
+    <% unless @product.original_price.nil? %>
+    <p class="price old-price"> <%= @product.original_price %> RMB </p>
+    <% end %>
+    <p class="price"> <%= @product.price %> <%=t 'currency' %> </p>
+    <p class="meta">(<%=t 'delivery_charge' %>)</p>
+
+    <% if @product.count_on_hand > 0 %>
+      <p>
+        <%= link_to t("flower_basket"), order_path(@product), :class => 'button' %>
+      </p>
+    <% else %>
+      <p><%=t 'soldout' %></p>
+      <small class="meta"><%=t 'join_queue' %></small>
+    <% end %>
+
+    <% if I18n.locale == :zh %>
+      <%= render 'jiathis_buttons' %>
+    <% end %>
+  </div>
+
+  <div id="product-summary" class="span3 offset1">
+    <%= markdown @product.inspiration %>
+  </div>
 <% end %>
 
 <div id="product-wrapper">
