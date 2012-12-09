@@ -62,8 +62,6 @@ class Page < ActiveRecord::Base
   validates_uniqueness_of :permalink
 
   # i18n translation
-  # FIXME need a better way to autoload the extended methods
-  require './lib/models.rb'
   translate :title, :content
 
   def to_param

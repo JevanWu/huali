@@ -49,8 +49,6 @@ class Product < ActiveRecord::Base
   has_many :line_items
 
   # i18n translation
-  # FIXME need a better way to autoload the extended methods
-  require './lib/models.rb'
   translate :name, :description, :inspiration
 
   # validations
