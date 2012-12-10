@@ -1,8 +1,6 @@
 Huali::Application.routes.draw do
 
-
   resources :products, :only => [:show]
-
   resources :collections, :only => [:show]
   # non-individual collections routes
   match '/collections/all', :to => 'collections#all'
