@@ -4,9 +4,15 @@ $ ->
   # turn on JSON parsing in $.cookie
   $.cookie.json = true
 
-  $('.purchase').click ->
+  $('.purchase, .add_quantity, .reduce_quantity').click ->
     id = $(@).data('product')
-    Cart.update(id: id, quantity: 1)
+
+    quantity =
+      if $(@).attr('class') == 'reduce_quantity'
+      then  -1
+      else 1
+
+    Cart.update(id: id, quantity: quantity)
 
 # product = { id: String, quantity: Integer }
 # cart
@@ -23,7 +29,7 @@ window.Cart = {
     cart[product.id] += product.quantity
 
     # cleaning up invalid products
-    for id, quantity in cart
+    for id, quantity of cart
       delete cart[id] if quantity <= 0
 
     $.cookie('cart', cart, path: '/')

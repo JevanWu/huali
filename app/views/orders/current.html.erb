@@ -23,6 +23,8 @@
               <p class="product-quantity">
                 Quantity: 
                 <span class="quantity" id="product-quantity"><%= product[:quantity] %> </span>
+                <%= link_to 'add', current_order_path, data: { product: product.id }, class: 'add_quantity' %>
+                <%= link_to 'reduce', current_order_path, data: { product: product.id }, class: 'reduce_quantity' %>
               </p>
             </div>
           </div>
@@ -31,4 +33,3 @@
     <% end %>
   </div>
 </div>
-
