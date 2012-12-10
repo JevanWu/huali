@@ -17,7 +17,7 @@ set :whenever_roles, [:db, :app]
 
 # Use Git as Version Control System
 set :scm, :git
-set :repository, "git@github.com:zenhacks/huali.git"
+set :repository, "git@git.zenhacks.org:yangchenyun/huali.git"
 set :branch, 'master'
 
 # keep a remote cache to avoid checking out everytime
@@ -38,7 +38,7 @@ set :application, "huali"
 
 # multistage settings
 task :production do
-  set :domain, "hua.li www.hua.li"
+  set :domain, "en.hua.li www.hua.li hua.li *.hua.li"
   set :unicorn_workers, 3
 
   # maxwell - 42.121.119.155', aliyun

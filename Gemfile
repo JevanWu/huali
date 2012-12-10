@@ -3,6 +3,7 @@ source 'http://ruby.taobao.org'
 gem 'rails', '3.2.8'
 gem 'pg', '>= 0.14.1'
 gem 'devise', '>= 2.1.2'
+gem 'devise-i18n'
 gem 'redis-rails'
 gem 'activeadmin'
 gem 'paperclip', '~> 3.0'
@@ -19,7 +20,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'jquery-rails'
   gem 'uglifier', '>= 1.0.3'
-  gem 'bootstrap-sass', '~> 2.1.0.0'
+  gem 'bootstrap-sass', '~> 2.2.1.1'
 end
 
 group :development, :test do
@@ -45,12 +46,15 @@ group :development do
   gem 'guard-pow'
   gem 'guard-spork'
   gem 'awesome_print'
+  # pry setups
   gem 'pry', :require => false
   gem 'pry-remote'
   gem 'pry-stack_explorer'
   gem 'pry-debugger'
   gem 'pry-rails'
   gem 'pry-coolline'
+  # for better exception inspection
+  gem 'better_errors'
   gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
   gem 'capistrano', '~>2.0'
   gem 'capistrano-zen', git: 'git@github.com:zenhacks/capistrano-zen.git', :require => false

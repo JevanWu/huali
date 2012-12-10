@@ -1,57 +1,8 @@
 <% content_for :sidebar do %>
-  <div id="product-side">
-    <h2 class="product-name"><span><%= @product.name %></span></h2>
-    <% unless @product.original_price.nil? %>
-    <p class="price old-price"> <%= @product.original_price %> RMB </p>
-    <% end %>
-    <p class="price"> <%= @product.price %> <%=t 'currency' %> </p>
-    <p class="meta">(<%=t 'delivery_charge' %>)</p>
-
-    <% if @product.count_on_hand > 0 %>
-      <p>
-      <%= link_to '放入购花篮', current_order_path, class: 'button purchase', data: { product: @product.id } %>
-      </p>
-    <% else %>
-      <p><%=t 'soldout' %></p>
-      <small class="meta"><%=t 'join_queue' %></small>
-    <% end %>
-
-    <% if I18n.locale == :zh %>
-      <%= render 'jiathis_buttons' %>
-    <% end %>
-  </div>
-
-
-  <div id="product-summary" class="span3 offset1">
-    <%= markdown @product.inspiration %>
-  </div>
+  <%= render 'product_meta' %>
 <% end %>
 
 <div id="product-wrapper">
-  <div id="image-showcase">
-    <div id="image-cover"></div>
-    <%= image_tag @asset_urls.first[:full], alt: "#{@product.name} Images" %>
-  </div>
-  <ul id="image-slides" class="links">
-    <% @asset_urls.each_with_index do |asset_url, index| %>
-      <% if index < 5 %>
-      <li class="slide">
-        <%= link_to image_tag(asset_url[:thumb], alt: "product image"), asset_url[:full], :class => 'thumbnail', :title => @product.name %>
-      </li>
-      <% end %>
-    <% end %>
-  </ul>
-
-  <div id="product-info">
-    <h3><%= t 'product_info' %></h3>
-    <p class="in-stock"><%= t 'stock' %>:</p>
-    <p class="size">
-      <span><%=t 'size' %>: </span>
-      <span><%=t 'height' %> <%= @product.height %> cm </span>
-      <span><%=t 'width' %> <%= @product.width %> cm </span>
-      <span><%=t 'depth' %> <%= @product.depth %> cm </span>
-    </p>
-    <%= markdown @product.description %>
-  </div>
-
+  <%= render 'product_img' %>
+  <%= render 'product_info' %>
 </div>

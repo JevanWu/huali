@@ -1,0 +1,5 @@
+<div id="image-showcase">
+  <% @asset_urls.each_with_index do |asset_url, index| %>
+    <div> <%= image_tag asset_url[:full], alt: "#{@product.name} Images" %> </div>
+  <% end %>
+</div>

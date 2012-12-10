@@ -1,13 +1,14 @@
 require 'digest/md5'
 require 'open-uri'
 class PagesController < ApplicationController
+
   #caches_page :show, :home, :order, :payment, :alipay, :success
   ALIPAY_KEY = "ux04rwiwzqbuksk0xm70u1fvmoo2p32d"
   ALIPAY_PID = "2088801670489935"
   ALIPAY_EMAIL = "tzgbusiness@gmail.com"
   PAYPAL_EMAIL = "s@zenhacks.org"
   PAYPAL_HOST = "www.paypal.com"
-  #host = ActiveMerchant::Billing::Base.mode == "test" ? "www.sandbox.paypal.com" : "www.paypal.com"
+
   # GET /pages/1
   # GET /pages/1.json
   def show
@@ -76,7 +77,6 @@ class PagesController < ApplicationController
     end
   end
 
-
   def success
     @product = Product.find(params[:name_en])
   end
@@ -110,7 +110,6 @@ class PagesController < ApplicationController
     query_string = URI::encode(query_string)
     redirect_to "https://www.alipay.com/cooperate/gateway.do?" + query_string
   end
-
 
   def redirect_to_paypal_gateway(options={})
     redirect_to URI.encode("https://#{PAYPAL_HOST}/cgi-bin/webscr?cmd=_ext-enter&redirect_cmd=_xclick&charset=utf-8&business=#{PAYPAL_EMAIL}&currenct_code=USD&item_name=#{options[:item_name]}&amount=#{options[:amount]}" )

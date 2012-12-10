@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121205033824) do
+ActiveRecord::Schema.define(:version => 20121207144050) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -107,32 +107,16 @@ ActiveRecord::Schema.define(:version => 20121205033824) do
   add_index "line_items", ["order_id"], :name => "index_line_items_on_order_id"
   add_index "line_items", ["product_id"], :name => "index_line_items_on_product_id"
 
-  create_table "orders", :force => true do |t|
-    t.string   "number"
-    t.decimal  "item_total",           :precision => 8, :scale => 2, :default => 0.0, :null => false
-    t.decimal  "total",                :precision => 8, :scale => 2, :default => 0.0, :null => false
-    t.decimal  "payment_total",        :precision => 8, :scale => 2, :default => 0.0
-    t.string   "state"
-    t.string   "payment_state"
-    t.string   "shipment_state"
-    t.text     "special_instructions"
-    t.integer  "address_id"
-    t.integer  "user_id"
-    t.datetime "completed_at"
-    t.datetime "created_at",                                                          :null => false
-    t.datetime "updated_at",                                                          :null => false
-  end
-
-  add_index "orders", ["number"], :name => "index_orders_on_number"
-
   create_table "pages", :force => true do |t|
-    t.string   "title"
+    t.string   "title_zh"
     t.string   "permalink"
-    t.text     "content"
+    t.text     "content_zh"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
     t.string   "meta_keywords"
     t.string   "meta_description"
+    t.string   "title_en"
+    t.text     "content_en"
   end
 
   add_index "pages", ["permalink"], :name => "index_pages_on_permalink"
@@ -172,17 +156,6 @@ ActiveRecord::Schema.define(:version => 20121205033824) do
   end
 
   add_index "provinces", ["post_code"], :name => "index_provinces_on_post_code", :unique => true
-
-  create_table "settings", :force => true do |t|
-    t.string   "var",                      :null => false
-    t.text     "value"
-    t.integer  "thing_id"
-    t.string   "thing_type", :limit => 30
-    t.datetime "created_at",               :null => false
-    t.datetime "updated_at",               :null => false
-  end
-
-  add_index "settings", ["thing_type", "thing_id", "var"], :name => "index_settings_on_thing_type_and_thing_id_and_var", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

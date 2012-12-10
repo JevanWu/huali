@@ -1,7 +1,6 @@
 Huali::Application.routes.draw do
 
   resources :products, :only => [:show]
-
   resources :collections, :only => [:show]
 
   get 'orders/current', as: :current_order
