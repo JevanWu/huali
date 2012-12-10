@@ -5,8 +5,8 @@ $ ->
   $.cookie.json = true
 
   $('.purchase').click ->
-    $(@).data('product')
-    return false
+    id = $(@).data('product')
+    Cart.update(id: id, quantity: 1)
 
 # product = { id: String, quantity: Integer }
 # cart
