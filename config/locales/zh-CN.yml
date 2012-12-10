@@ -11,10 +11,3 @@ zh-CN:
   size: "尺寸"
   flower_shop: "在线精品花店"
   flower_basket: "放入购花篮"
-  time:
-    am: 上午
-    formats:
-      default: ! '%Y年%b%d日 %A %H:%M:%S %Z'
-      long: ! '%Y年%b%d日 %H:%M'
-      short: ! '%b%d日 %H:%M'
-    pm: 下午
