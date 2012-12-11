@@ -20,7 +20,7 @@ class OrdersController < ApplicationController
 
   def current
     @products = []
-    @cart.keys.select { |k| k =~ /^\d+$/ }.each do |key|
+    @cart.keys.each do |key|
       if product = Product.find_by_id(key)
         product[:quantity] = @cart[key]
         @products.push product
@@ -30,11 +30,12 @@ class OrdersController < ApplicationController
 
   private
 
-  def load_cart
-    begin
-      @cart = JSON.parse(cookies['cart'])
-    rescue
-      @cart = {}
+    def load_cart
+      begin
+        @cart = JSON.parse(cookies['cart']).select {|k, v| k =~ /^\d+$/}
+      rescue
+        @cart = {}
+      end
     end
   end
 end
