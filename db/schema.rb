@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121207144050) do
+ActiveRecord::Schema.define(:version => 20121211073405) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -121,6 +121,16 @@ ActiveRecord::Schema.define(:version => 20121207144050) do
 
   add_index "pages", ["permalink"], :name => "index_pages_on_permalink"
 
+  create_table "product_parts", :force => true do |t|
+    t.string   "name_cn",     :null => false
+    t.string   "name_en",     :null => false
+    t.text     "description"
+    t.integer  "product_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.text     "info_source"
+  end
+
   create_table "products", :force => true do |t|
     t.string   "name_zh",                                        :default => "",   :null => false
     t.string   "name_en",                                        :default => "",   :null => false
@@ -145,6 +155,7 @@ ActiveRecord::Schema.define(:version => 20121207144050) do
     t.string   "slug"
     t.text     "inspiration_en"
     t.text     "description_en"
+    t.boolean  "published"
   end
 
   add_index "products", ["name_en"], :name => "index_products_on_name_en"

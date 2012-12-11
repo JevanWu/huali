@@ -15,6 +15,14 @@ ActiveAdmin.register Product do
   end
   batch_action :destroy, false
 
+  scope_to do
+    Class.new do
+      def self.products
+        Product.unscoped
+      end
+    end
+  end
+
   controller do
     helper :products
     def scoped_collection
@@ -32,6 +40,10 @@ ActiveAdmin.register Product do
       product.available ?  'yes' : 'no'
     end
 
+    column "Published" do |product|
+      product.published ?  'yes' : 'no'
+    end
+    
     column "Character" do |product|
       link_to "#{product.name_char || ''}", product_path(product)
     end
@@ -143,6 +155,7 @@ ActiveAdmin.register Product do
         "#{product.depth} cm" if product.depth
       end
       row :available
+      row :published
       row :created_at
       row :updated_at
     end
