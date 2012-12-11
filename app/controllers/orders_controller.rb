@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
   before_filter :load_cart
 
   def index
-
+    @orders = Order.all
   end
 
   def show
