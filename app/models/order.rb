@@ -23,13 +23,13 @@
 #
 #  index_orders_on_number  (number)
 #
+
 class Order < ActiveRecord::Base
 
   attr_accessible :line_items, :address_attributes, :special_instructions,
-                  :gift_cart_text, :delivery_date
+                  :gift_card_text, :delivery_date
 
-  has_one :address
-
+  belongs_to :address
   belongs_to :user
 
   has_many :line_items, :dependent => :destroy, :order => "created_at ASC"
@@ -44,28 +44,35 @@ class Order < ActiveRecord::Base
   # before_filter :authenticate_user!
 
   # Queries
-  def self.by_number(number)
-    where(:number => number)
+  class << self
+    def by_number(number)
+      where(:number => number)
+    end
+
+    def between(start_date, end_date)
+      where(:created_at => start_date..end_date)
+    end
+
+    def by_customer(customer)
+      joins(:user).where("#{Spree.user_class.table_name}.email" => customer)
+    end
+
+    def by_state(state)
+      where(:state => state)
+    end
+
+    def complete
+      where('completed_at IS NOT NULL')
+    end
+
+    def incomplete
+      where(:completed_at => nil)
+    end
   end
 
-  def self.between(start_date, end_date)
-    where(:created_at => start_date..end_date)
-  end
-
-  def self.by_customer(customer)
-    joins(:user).where("#{Spree.user_class.table_name}.email" => customer)
-  end
-
-  def self.by_state(state)
-    where(:state => state)
-  end
-
-  def self.complete
-    where('completed_at IS NOT NULL')
-  end
-
-  def self.incomplete
-    where(:completed_at => nil)
+  def add_line_item(product_id, quantity)
+    this_item = LineItem.new(product_id: product_id, quantity: quantity)
+    self.line_items << this_item
   end
 
   def to_param

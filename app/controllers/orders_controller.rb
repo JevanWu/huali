@@ -15,6 +15,17 @@ class OrdersController < ApplicationController
   end
 
   def create
+    @order = Order.new(params[:order])
+    # @cart.keys.each do |key|
+      # @order.add_line_item(key, @cart[key])
+    # end
+
+    if @order.save!
+      flash[:notice] = "Successfully created order and addresses."
+      redirect_to :home
+    else
+      render :action => 'new'
+    end
 
   end
 

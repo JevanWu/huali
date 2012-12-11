@@ -16,14 +16,17 @@
 #
 
 class Address < ActiveRecord::Base
-  attr_accessible :address, :fullname, :phone, :post_code
+  attr_accessible :address, :fullname, :phone, :post_code,
+                  :province_id, :area_id, :city_id
 
   belongs_to :province
   belongs_to :city
   belongs_to :area
-
   belongs_to :user
-  belongs_to :order
+
+  has_many :order
+
+  accepts_nested_attributes_for :province, :area, :city
 
   validates :fullname, :address, :phone, :presence => true
   validate :phone_validate
