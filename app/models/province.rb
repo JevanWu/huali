@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: provinces
+#
+#  id        :integer          not null, primary key
+#  name      :string(255)
+#  post_code :integer
+#
+# Indexes
+#
+#  index_provinces_on_post_code  (post_code) UNIQUE
+#
+
 class Province < ActiveRecord::Base
   # read-only
 

@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: cities
+#
+#  id               :integer          not null, primary key
+#  name             :string(255)
+#  parent_post_code :integer
+#  post_code        :integer
+#
+# Indexes
+#
+#  index_cities_on_post_code  (post_code) UNIQUE
+#
+
 class City < ActiveRecord::Base
   # read-only Model
 

@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: addresses
+#
+#  address     :string(255)
+#  area_id     :integer
+#  city_id     :integer
+#  created_at  :datetime         not null
+#  fullname    :string(255)
+#  id          :integer          not null, primary key
+#  phone       :string(255)
+#  post_code   :string(255)
+#  province_id :integer
+#  updated_at  :datetime         not null
+#  user_id     :integer
+#
+
 class Address < ActiveRecord::Base
   attr_accessible :address, :fullname, :phone, :post_code
 
