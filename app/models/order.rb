@@ -1,7 +1,7 @@
 class Order < ActiveRecord::Base
 
-  attr_accessible :line_items, :address_attributes, :payments_attributes,
-                  :line_items_attributes, :address, :number, :special_instructions
+  attr_accessible :line_items, :address_attributes, :special_instructions,
+                  :gift_cart_text, :delivery_date
 
   has_one :address
 
