@@ -71,7 +71,7 @@ class Order < ActiveRecord::Base
   end
 
   def add_line_item(product_id, quantity)
-    this_item = LineItem.new(product_id: product_id, quantity: quantity)
+    this_item = LineItem.create(product_id: product_id, quantity: quantity)
     self.line_items << this_item
   end
 

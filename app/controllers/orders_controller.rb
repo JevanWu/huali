@@ -16,9 +16,11 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(params[:order])
-    # @cart.keys.each do |key|
-      # @order.add_line_item(key, @cart[key])
-    # end
+
+    # create line items
+    @cart.keys.each do |key|
+      @order.add_line_item(key, @cart[key])
+    end
 
     if @order.save!
       flash[:notice] = "Successfully created order and addresses."
@@ -48,5 +50,5 @@ class OrdersController < ApplicationController
         @cart = {}
       end
     end
-  end
+
 end
