@@ -121,30 +121,20 @@ ActiveRecord::Schema.define(:version => 20121211073405) do
 
   add_index "pages", ["permalink"], :name => "index_pages_on_permalink"
 
-  create_table "product_parts", :force => true do |t|
-    t.string   "name_cn",     :null => false
-    t.string   "name_en",     :null => false
-    t.text     "description"
-    t.integer  "product_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-    t.text     "info_source"
-  end
-
   create_table "products", :force => true do |t|
-    t.string   "name_zh",                                        :default => "",   :null => false
-    t.string   "name_en",                                        :default => "",   :null => false
+    t.string   "name_zh",                                        :default => "",    :null => false
+    t.string   "name_en",                                        :default => "",    :null => false
     t.text     "description_zh"
     t.string   "meta_description"
     t.string   "meta_keywords"
-    t.integer  "count_on_hand",                                  :default => 0,    :null => false
+    t.integer  "count_on_hand",                                  :default => 0,     :null => false
     t.decimal  "cost_price",       :precision => 8, :scale => 2
     t.decimal  "price",            :precision => 8, :scale => 2
     t.decimal  "height",           :precision => 8, :scale => 2
     t.decimal  "width",            :precision => 8, :scale => 2
     t.decimal  "depth",            :precision => 8, :scale => 2
-    t.datetime "created_at",                                                       :null => false
-    t.datetime "updated_at",                                                       :null => false
+    t.datetime "created_at",                                                        :null => false
+    t.datetime "updated_at",                                                        :null => false
     t.boolean  "available",                                      :default => true
     t.integer  "collection_id"
     t.text     "info_source"
@@ -155,7 +145,7 @@ ActiveRecord::Schema.define(:version => 20121211073405) do
     t.string   "slug"
     t.text     "inspiration_en"
     t.text     "description_en"
-    t.boolean  "published"
+    t.boolean  "published",                                      :default => false
   end
 
   add_index "products", ["name_en"], :name => "index_products_on_name_en"
