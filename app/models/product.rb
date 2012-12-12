@@ -55,7 +55,7 @@ class Product < ActiveRecord::Base
   validates :name_en, :name_zh, :inspiration_zh, :count_on_hand, :presence => true
 
   # scopes
-  default_scope where(published: true)
+  default_scope where(published: true).order('created_at DESC')
 
   extend FriendlyId
   friendly_id :name_en, use: :slugged
