@@ -40,10 +40,6 @@ ActiveAdmin.register Product do
       product.available ?  'yes' : 'no'
     end
 
-    column "Published" do |product|
-      product.published ?  'yes' : 'no'
-    end
-
     column "Character" do |product|
       link_to "#{product.name_char || ''}", product_path(product)
     end
@@ -92,7 +88,8 @@ ActiveAdmin.register Product do
       row :name_en
       row :name_char
       row :available
-      row :published
+      row :published_zh
+      row :published_en
 
       row :inspiration_zh do
         markdown(product.inspiration_zh)
