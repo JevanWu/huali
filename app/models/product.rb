@@ -35,7 +35,7 @@
 
 
 class Product < ActiveRecord::Base
-  attr_accessible :name_zh, :name_en, :intro, :description_zh, :description_en, :description2, :meta_description, :meta_keywords, :count_on_hand, :cost_price, :original_price, :price, :height, :width, :depth, :available, :assets, :assets_attributes, :collection_id, :place, :usage, :info_source, :inspiration_zh, :inspiration_en, :name_char, :related_text
+  attr_accessible :name_zh, :name_en, :intro, :description_zh, :description_en, :description2, :meta_description, :meta_keywords, :count_on_hand, :cost_price, :original_price, :price, :height, :width, :depth, :available, :assets, :assets_attributes, :collection_id, :place, :usage, :info_source, :inspiration_zh, :inspiration_en, :name_char, :related_text, :published
 
   # collection
   belongs_to :collection
@@ -57,7 +57,7 @@ class Product < ActiveRecord::Base
   validates :name_en, :name_zh, :inspiration_en, :inspiration_zh, :count_on_hand, :presence => true
 
   # scopes
-  default_scope where(available: true)
+  default_scope where(published: true)
 
   extend FriendlyId
   friendly_id :name_en, use: :slugged
