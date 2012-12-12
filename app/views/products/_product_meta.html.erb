@@ -8,14 +8,14 @@
 
   <% if @product.count_on_hand > 0 %>
     <p>
-      <%= link_to '放入购花篮', order_path(@product), :class => 'button' %>
+      <%= link_to t('flower_basket'), order_path(@product), :class => 'button' %>
     </p>
   <% else %>
     <p><%=t 'soldout' %></p>
     <small class="meta"><%=t 'join_queue' %></small>
   <% end %>
 
-  <%= render 'jiathis_buttons' %>  
+  <%= render 'jiathis_buttons' %>
 
 </div>
 
