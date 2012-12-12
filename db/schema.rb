@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121211073405) do
+ActiveRecord::Schema.define(:version => 20121212085710) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -107,6 +107,26 @@ ActiveRecord::Schema.define(:version => 20121211073405) do
   add_index "line_items", ["order_id"], :name => "index_line_items_on_order_id"
   add_index "line_items", ["product_id"], :name => "index_line_items_on_product_id"
 
+  create_table "orders", :force => true do |t|
+    t.string   "number"
+    t.decimal  "item_total",           :precision => 8, :scale => 2, :default => 0.0, :null => false
+    t.decimal  "total",                :precision => 8, :scale => 2, :default => 0.0, :null => false
+    t.decimal  "payment_total",        :precision => 8, :scale => 2, :default => 0.0
+    t.string   "state"
+    t.string   "payment_state"
+    t.string   "shipment_state"
+    t.text     "special_instructions"
+    t.integer  "address_id"
+    t.integer  "user_id"
+    t.datetime "completed_at"
+    t.datetime "created_at",                                                          :null => false
+    t.datetime "updated_at",                                                          :null => false
+    t.text     "gift_card_text"
+    t.date     "delivery_date",                                                       :null => false
+  end
+
+  add_index "orders", ["number"], :name => "index_orders_on_number"
+
   create_table "pages", :force => true do |t|
     t.string   "title_zh"
     t.string   "permalink"
@@ -145,7 +165,8 @@ ActiveRecord::Schema.define(:version => 20121211073405) do
     t.string   "slug"
     t.text     "inspiration_en"
     t.text     "description_en"
-    t.boolean  "published",                                      :default => false
+    t.boolean  "published_zh",                                   :default => false
+    t.boolean  "published_en",                                   :default => false
   end
 
   add_index "products", ["name_en"], :name => "index_products_on_name_en"
