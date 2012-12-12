@@ -7,10 +7,11 @@
     <% Product.all.each do |product| %>
       <% if @product && @product.id == product.id %>
       <li class="active"> 
-        <%= image_tag 'icon-hat.png', id: 'chris-hat', alt: "Chrismas Hat" %>
+        <% if product.new? %> <%= image_tag 'icon-hat.png', id: 'chris-hat', alt: "Chrismas Hat" %> <% end %>
         <%= link_to product.name, product_path(product), title: product.name %> <span class="arrow"><<</span> 
       </li>
       <% else %>
+        <% if product.new? %> <%= image_tag 'icon-hat.png', id: 'chris-hat', alt: "Chrismas Hat" %> <% end %>
         <li> <%= link_to product.name, product_path(product), title: product.name %> <span class="arrow"><<</span> </li>
       <% end %>
     <% end %>
@@ -21,4 +22,3 @@
     </div>
   <% end %>
 </ul>
-

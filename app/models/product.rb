@@ -85,4 +85,8 @@ class Product < ActiveRecord::Base
   def to_s
     "#{self.id} #{self.name_zh}"
   end
+
+  def new?
+    created_at >= 2.weeks.ago
+  end
 end
