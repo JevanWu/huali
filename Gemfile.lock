@@ -22,7 +22,7 @@ GIT
 
 GIT
   remote: git@github.com:zenhacks/capistrano-zen.git
-  revision: 5448ee76d8070eb54ef3b9436b631a5209946a43
+  revision: fa8f6e0b04ecee6acc7d0566fe0b2aaa75ed2970
   specs:
     capistrano-zen (0.0.3)
       capistrano (>= 2.5.3)
@@ -43,7 +43,7 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.1.3)
-    activeadmin (0.5.0)
+    activeadmin (0.5.1)
       arbre (>= 1.0.1)
       bourbon (>= 1.0.0)
       devise (>= 1.1.2)
@@ -81,13 +81,13 @@ GEM
     binding_of_caller (0.6.8)
     bootstrap-sass (2.2.1.1)
       sass (~> 3.2)
-    bourbon (2.1.3)
-      sass (>= 3.2)
+    bourbon (3.0.1)
+      sass (>= 3.2.0)
       thor
     bourne (1.1.2)
       mocha (= 0.10.5)
-    builder (3.0.3)
-    capistrano (2.13.4)
+    builder (3.0.4)
+    capistrano (2.13.5)
       highline
       net-scp (>= 1.0.0)
       net-sftp (>= 2.0.0)
@@ -165,7 +165,7 @@ GEM
       multi_json (~> 1.0)
     guard-pow (1.0.0)
       guard (>= 1.1)
-    guard-rspec (2.3.0)
+    guard-rspec (2.3.1)
       guard (>= 1.1)
       rspec (~> 2.11)
     guard-spork (1.4.0)
@@ -321,7 +321,7 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
-    selenium-webdriver (2.26.0)
+    selenium-webdriver (2.27.1)
       childprocess (>= 0.2.5)
       libwebsocket (~> 0.1.3)
       multi_json (~> 1.0)
@@ -339,6 +339,7 @@ GEM
       hike (~> 1.2)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
+    state_machine (1.1.2)
     thin (1.5.0)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
@@ -352,7 +353,7 @@ GEM
     uglifier (1.3.0)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
-    unicorn (4.4.0)
+    unicorn (4.5.0)
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
