@@ -55,7 +55,7 @@ class Product < ActiveRecord::Base
   validates :name_en, :name_zh, :inspiration_zh, :count_on_hand, :presence => true
 
   # scopes
-  default_scope order('created_at DESC')
+  default_scope lambda { published.order('created_at DESC') }
 
   extend FriendlyId
   friendly_id :name_en, use: :slugged
@@ -64,9 +64,11 @@ class Product < ActiveRecord::Base
     product.name_en.downcase!
   end
 
-  def self.published
-    la = I18n.locale =~ /zh-CN/ ? 'zh' : 'en'
-    where(:"published_#{la}" => true)
+  class << self
+    def published
+      lang = I18n.locale =~ /zh-CN/ ? 'zh' : I18n.locale
+      where(:"published_#{lang}" => true)
+    end
   end
 
   def has_stock?

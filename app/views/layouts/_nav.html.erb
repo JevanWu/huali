@@ -4,7 +4,7 @@
     <span><%= t 'flower_shop' %>  </span>
     <%= image_tag 'icon-knot.png', id: 'chris-knot', alt: "Chrismas Knot" %>
   </h4></li>
-    <% Product.published.all.each do |product| %>
+    <% Product.all.each do |product| %>
       <% if @product && @product.id == product.id %>
       <li class="active"> 
         <% if product.new? %> <%= image_tag 'icon-new.png', id: 'chris-new', alt: "Chrismas new" %> <% end %>

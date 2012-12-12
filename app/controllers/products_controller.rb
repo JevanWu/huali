@@ -3,7 +3,7 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
-    @product = Product.published.find(params[:id])
+    @product = Product.find(params[:id])
 
     assets  = @product.assets || []
 
