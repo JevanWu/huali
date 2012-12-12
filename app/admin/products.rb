@@ -43,7 +43,7 @@ ActiveAdmin.register Product do
     column "Published" do |product|
       product.published ?  'yes' : 'no'
     end
-    
+
     column "Character" do |product|
       link_to "#{product.name_char || ''}", product_path(product)
     end
@@ -91,6 +91,8 @@ ActiveAdmin.register Product do
       row :name_zh
       row :name_en
       row :name_char
+      row :available
+      row :published
 
       row :inspiration_zh do
         markdown(product.inspiration_zh)
@@ -100,12 +102,12 @@ ActiveAdmin.register Product do
         markdown(product.inspiration_en)
       end
 
-      row :description_en do
-        markdown(product.description_en)
-      end
-
       row :description_zh do
         markdown(product.description_zh)
+      end
+
+      row :description_en do
+        markdown(product.description_en)
       end
 
       row :related_text do
@@ -154,8 +156,6 @@ ActiveAdmin.register Product do
       row :depth do
         "#{product.depth} cm" if product.depth
       end
-      row :available
-      row :published
       row :created_at
       row :updated_at
     end
