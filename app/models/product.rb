@@ -52,7 +52,7 @@ class Product < ActiveRecord::Base
   translate :name, :description, :inspiration
 
   # validations
-  validates :name_en, :name_zh, :inspiration_en, :inspiration_zh, :count_on_hand, :presence => true
+  validates :name_en, :name_zh, :inspiration_zh, :count_on_hand, :presence => true
 
   # scopes
   default_scope where(published: true)
