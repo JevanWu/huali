@@ -53,8 +53,8 @@ group :development do
   gem 'pry-debugger'
   gem 'pry-rails'
   gem 'pry-coolline'
-  # for better exception inspection
-  gem 'better_errors'
+  gem 'better_errors', :git => 'git://github.com/charliesome/better_errors.git'
+  gem "binding_of_caller"
   gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
   gem 'capistrano', '~>2.0'
   gem 'capistrano-zen', git: 'git@github.com:zenhacks/capistrano-zen.git', :require => false
