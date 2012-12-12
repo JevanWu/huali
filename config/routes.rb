@@ -4,6 +4,7 @@ Huali::Application.routes.draw do
   resources :collections, :only => [:show]
 
   get 'orders/current', as: :current_order
+  get 'orders/checkout', as: :checkout_order
   resources :orders, :except => [:destroy, :update, :edit]
 
   # non-individual collections routes

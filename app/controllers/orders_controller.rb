@@ -24,11 +24,15 @@ class OrdersController < ApplicationController
 
     if @order.save!
       flash[:notice] = "Successfully created order and addresses."
-      redirect_to :home
+      redirect_to checkout_order_path
     else
       render :action => 'new'
     end
+  end
 
+  def checkout
+    # @order = Order.first
+    @banks = ['ICBCB2C', 'CMB', 'CCB', 'BOCB2C', 'ABC', 'COMM', 'CMBC']
   end
 
   def current
