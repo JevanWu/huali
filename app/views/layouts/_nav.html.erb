@@ -7,11 +7,11 @@
     <% Product.published.all.each do |product| %>
       <% if @product && @product.id == product.id %>
       <li class="active"> 
-        <% if product.new? %> <%= image_tag 'icon-hat.png', id: 'chris-hat', alt: "Chrismas Hat" %> <% end %>
+        <% if product.new? %> <%= image_tag 'icon-new.png', id: 'chris-new', alt: "Chrismas new" %> <% end %>
         <%= link_to product.name, product_path(product), title: product.name %> <span class="arrow"><<</span> 
       </li>
       <% else %>
-        <% if product.new? %> <%= image_tag 'icon-hat.png', id: 'chris-hat', alt: "Chrismas Hat" %> <% end %>
+        <% if product.new? %> <%= image_tag 'icon-new.png', id: 'chris-new', alt: "Chrismas new" %> <% end %>
         <li> <%= link_to product.name, product_path(product), title: product.name %> <span class="arrow"><<</span> </li>
       <% end %>
     <% end %>
