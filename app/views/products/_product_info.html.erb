@@ -1,10 +1,10 @@
 <div id="product-info">
-  <h3><%= t 'product_info' %></h3>
+  <h3><%= t('product_info').capitalize %></h3>
   <p class="size">
-    <span><%=t 'size' %>: </span>
-    <span><%=t 'height' %> <%= @product.height %> cm </span>
-    <span><%=t 'width' %> <%= @product.width %> cm </span>
-    <span><%=t 'depth' %> <%= @product.depth %> cm </span>
+    <span><%= t('size').capitalize %>: </span>
+    <span><%= t('height').capitalize %> <%= @product.height %> cm </span>
+    <span><%= t('width').capitalize %> <%= @product.width %> cm </span>
+    <span><%= t('depth').capitalize %> <%= @product.depth %> cm </span>
   </p>
   <%= markdown @product.description %>
 </div>
