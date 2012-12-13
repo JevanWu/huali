@@ -6,8 +6,13 @@
     <p>
       您的花篮里已经有一盒 <span class="product-name"><%= @product.name %></span> ，
       共计 <strong class="price-totle"><%= @product.price %></strong> 元。
-    </p>
-    <%= render :partial => "choose_payment_method", :locals => { :product => @product, :banks => @banks } %>
+    </p> 
+    <%= form_tag(alipay_path(@product), :method => "post") do %>
+      <%= render :partial => "shared/choose_payment_method", :locals => { :banks => @banks } %>
+      <div>
+        <%= submit_tag "确认支付", class: 'button' %>
+      </div>
+    <% end %>
   </div>
   <div id="notice-info">
     <h3>购买注意</h3>
