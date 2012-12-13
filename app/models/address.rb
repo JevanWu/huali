@@ -43,6 +43,10 @@ class Address < ActiveRecord::Base
     "#{full_name}: #{address}"
   end
 
+  def full_addr
+    "#{post_code}, #{province.name}, #{city.name}, #{area.name}, #{address}, #{fullname}"
+  end
+
   def same_as?(other)
     return false if other.nil?
     attributes.except('id', 'updated_at', 'created_at') == other.attributes.except('id', 'updated_at', 'created_at')
