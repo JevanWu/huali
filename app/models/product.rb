@@ -22,6 +22,8 @@
 #  name_zh          :string(255)      default(""), not null
 #  original_price   :decimal(, )
 #  price            :decimal(8, 2)
+#  published_en     :boolean          default(FALSE)
+#  published_zh     :boolean          default(FALSE)
 #  related_text     :text
 #  slug             :string(255)
 #  updated_at       :datetime         not null
