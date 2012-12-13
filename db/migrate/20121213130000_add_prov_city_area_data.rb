@@ -1,5 +1,5 @@
 ﻿# encoding: utf-8
-class CreateProvCityArea < ActiveRecord::Migration
+class AddProvCityAreaData < ActiveRecord::Migration
   areas = [
     [1, 110101, "东城区", 110100],
     [2, 110102, "西城区", 110100],
