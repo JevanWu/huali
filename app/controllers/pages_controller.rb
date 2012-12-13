@@ -34,7 +34,10 @@ class PagesController < ApplicationController
       "26" => 'z7p7k7',
       "27" => 'z7p7s5',
       "28" => 'z7p7z3',
-      "29" => 'z7p6p1'
+      "29" => 'z7p6p1',
+      "30" => 'm7p4z9',
+      "31" => 'm7p5a3',
+      "32" => 'z7p6m9'
     }
     @wufoo_id = product_wufoo_mapping[@product.id.to_s]
   end
