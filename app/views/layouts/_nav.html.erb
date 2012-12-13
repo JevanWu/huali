@@ -1,10 +1,17 @@
 <ul id="product-nav" class="nav">
   <!-- TODO switch this to product related path -->
-  <li> <h4 class="leading"><span><%= t 'flower_shop' %>  </span></h3> </li>
+  <li><h4 class="leading">
+    <span><%= t 'flower_shop' %>  </span>
+    <%= image_tag 'icon-knot.png', id: 'chris-knot', alt: "Chrismas Knot" %>
+  </h4></li>
     <% Product.all.each do |product| %>
       <% if @product && @product.id == product.id %>
-        <li class="active"> <%= link_to product.name, product_path(product), title: product.name %> <span class="arrow"><<</span> </li>
+      <li class="active"> 
+        <% if product.new? %> <%= image_tag 'icon-new.png', id: 'chris-new', alt: "Chrismas new" %> <% end %>
+        <%= link_to product.name, product_path(product), title: product.name %> <span class="arrow"><<</span> 
+      </li>
       <% else %>
+        <% if product.new? %> <%= image_tag 'icon-new.png', id: 'chris-new', alt: "Chrismas new" %> <% end %>
         <li> <%= link_to product.name, product_path(product), title: product.name %> <span class="arrow"><<</span> </li>
       <% end %>
     <% end %>
@@ -15,4 +22,3 @@
     </div>
   <% end %>
 </ul>
-

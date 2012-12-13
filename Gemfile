@@ -29,6 +29,7 @@ group :development, :test do
   gem 'rspec-instafail'
   gem 'factory_girl_rails', '>= 4.0.0'
   gem 'forgery', git: 'git://github.com/zenhacks/forgery.git'
+  gem 'rack-mini-profiler'
 end
 
 group :production, :staging do
@@ -55,7 +56,7 @@ group :development do
   gem 'pry-rails'
   gem 'pry-coolline'
   gem 'better_errors', :git => 'git://github.com/charliesome/better_errors.git'
-  gem "binding_of_caller"
+  gem 'binding_of_caller'
   gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
   gem 'capistrano', '~>2.0'
   gem 'capistrano-zen', git: 'git@github.com:zenhacks/capistrano-zen.git', :require => false

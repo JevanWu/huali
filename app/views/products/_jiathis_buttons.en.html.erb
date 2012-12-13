@@ -1,14 +1,13 @@
 <!-- JiaThis Button BEGIN -->
 <div class="jiathis_style" id="product-share">
   <a class="jiathis_button_tsina"></a>
-  <a class="jiathis_button_tqq"></a>
-  <a class="jiathis_button_douban"></a>
-  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_fb"></a>
+  <a class="jiathis_button_twitter"></a>
 </div>
 <script type="text/javascript" >
 var jiathis_config={
   data_track_clickback: true,
-  title: '我在花里花店发现的好东西:  <%= @product.name %>',
+  title: 'The great flower I discovered at hua.li:  <%= @product.name %>',
   summary: '<%= @product.inspiration.try(:gsub, "\r\n", " ") %>',
   pic: 'http://hua.li/<%= @asset_urls.first[:medium] %>',
   ralateuid: {

@@ -35,7 +35,7 @@
 
 
 class Product < ActiveRecord::Base
-  attr_accessible :name_zh, :name_en, :intro, :description_zh, :description_en, :description2, :meta_description, :meta_keywords, :count_on_hand, :cost_price, :original_price, :price, :height, :width, :depth, :available, :assets, :assets_attributes, :collection_id, :place, :usage, :info_source, :inspiration_zh, :inspiration_en, :name_char, :related_text, :published
+  attr_accessible :name_zh, :name_en, :intro, :description_zh, :description_en, :description2, :meta_description, :meta_keywords, :count_on_hand, :cost_price, :original_price, :price, :height, :width, :depth, :available, :assets, :assets_attributes, :collection_id, :place, :usage, :info_source, :inspiration_zh, :inspiration_en, :name_char, :related_text, :published_en, :published_zh
 
   # collection
   belongs_to :collection
@@ -57,13 +57,20 @@ class Product < ActiveRecord::Base
   validates :name_en, :name_zh, :inspiration_zh, :count_on_hand, :presence => true
 
   # scopes
-  default_scope where(published: true)
+  default_scope lambda { published.order('created_at DESC') }
 
   extend FriendlyId
   friendly_id :name_en, use: :slugged
 
   before_save do |product|
     product.name_en.downcase!
+  end
+
+  class << self
+    def published
+      lang = I18n.locale =~ /zh-CN/ ? 'zh' : I18n.locale
+      where(:"published_#{lang}" => true)
+    end
   end
 
   def has_stock?
@@ -86,5 +93,9 @@ class Product < ActiveRecord::Base
 
   def to_s
     "#{self.id} #{self.name_zh}"
+  end
+
+  def new?
+    created_at >= 2.weeks.ago
   end
 end
