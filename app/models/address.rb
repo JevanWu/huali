@@ -29,6 +29,7 @@ class Address < ActiveRecord::Base
 
   accepts_nested_attributes_for :province, :area, :city
 
+  before_validation :check_postcode
   validates :fullname, :address, :phone, :presence => true
   validate :phone_validate
 
@@ -37,6 +38,12 @@ class Address < ActiveRecord::Base
     n_digits = phone.scan(/[0-9]/).size
     valid_chars = (phone =~ /^[-+()\/\s\d]+$/)
     errors.add :phone, :invalid unless (n_digits >= 8 && valid_chars)
+  end
+
+  def check_postcode
+    # TODO
+    # check the postcode against the prov, city, area postcode
+    true
   end
 
   def to_s
