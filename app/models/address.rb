@@ -47,7 +47,7 @@ class Address < ActiveRecord::Base
   end
 
   def to_s
-    "#{full_name}: #{address}"
+    "#{fullname}: #{address}"
   end
 
   def full_addr
