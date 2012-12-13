@@ -3,11 +3,21 @@
     <%= image_tag('payment-title.png') %>
   </div>
   <div id="order-list">
+    <p> 您的花篮里已经有 </p>
+    <table border="">
+    <% @order.line_items.each do |item| %>
+      <tr>
+        <td> <%= item.name %> </td>
+        <td> <%= item.quantity %> </td>
+        <td> <%= item.price %> </td>
+        <td> <%= item.total %> </td>
+      </tr>
+    <% end %>
+    </table>
+      
     <p>
-      您的花篮里已经有一盒 <span class="product-name"><%= @product.name %></span> ，
-      共计 <strong class="price-totle"><%= @product.price %></strong> 元。
+      共计 <strong class="price-total"><%=  @order.total %></strong> 元。
     </p>
-    <%= render :partial => "choose_payment_method", :locals => { :product => @product, :banks => @banks } %>
   </div>
   <div id="notice-info">
     <h3>购买注意</h3>

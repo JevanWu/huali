@@ -31,7 +31,7 @@ class OrdersController < ApplicationController
   end
 
   def checkout
-    # @order = Order.first
+    @order = Order.first
     @banks = ['ICBCB2C', 'CMB', 'CCB', 'BOCB2C', 'ABC', 'COMM', 'CMBC']
   end
 
