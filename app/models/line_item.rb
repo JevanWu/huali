@@ -23,18 +23,15 @@ class LineItem < ActiveRecord::Base
   belongs_to :order, :dependent => :destroy
   belongs_to :product
 
-  before_validation :adjust_quantity, :copy_price
+  before_validation :adjust_quantity
 
   validates :product, :presence => true
   validates :quantity, :numericality => { :only_integer => true, :message => ('quantity must be numbers.'), :greater_than => -1 }
-  validates :price, :numericality => true
+
+  delegate :price, :name, :to => :product
 
   # after_save :update_order
   # after_destroy :update_order
-
-  def copy_price
-    self.price = product.price if product && price.nil?
-  end
 
   def increment_quantity
     self.quantity += 1

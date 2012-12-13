@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121213130000) do
+ActiveRecord::Schema.define(:version => 20121213130001) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -99,10 +99,9 @@ ActiveRecord::Schema.define(:version => 20121213130000) do
   create_table "line_items", :force => true do |t|
     t.integer  "order_id"
     t.integer  "product_id"
-    t.integer  "quantity",                                 :null => false
-    t.decimal  "price",      :precision => 8, :scale => 2, :null => false
-    t.datetime "created_at",                               :null => false
-    t.datetime "updated_at",                               :null => false
+    t.integer  "quantity",   :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "line_items", ["order_id"], :name => "index_line_items_on_order_id"
