@@ -41,10 +41,9 @@ class LineItem < ActiveRecord::Base
     self.quantity -= 1
   end
 
-  def amount
+  def total
     price * quantity
   end
-  alias total amount
 
   def adjust_quantity
     self.quantity = 0 if quantity.nil? || quantity < 0

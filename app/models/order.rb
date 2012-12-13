@@ -76,9 +76,7 @@ class Order < ActiveRecord::Base
   end
 
   def cal_total
-    self.total = line_items.inject(0) do |sum, item|
-      sum + item.price * item.quantity
-    end
+    self.total = line_items.inject { |sum, item| sum + item.total }
   end
 
   def add_line_item(product_id, quantity)
