@@ -20,7 +20,7 @@ class LineItem < ActiveRecord::Base
   # :price, :order_id is only altered internally
   attr_accessible :product_id, :quantity
 
-  belongs_to :order
+  belongs_to :order, :dependent => :destroy
   belongs_to :product
 
   before_validation :adjust_quantity, :copy_price
