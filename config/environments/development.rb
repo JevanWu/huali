@@ -49,6 +49,9 @@ Huali::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
+  # only use zh-CN locale in development
+  config.i18n.locale = :"zh-CN"
+
   # Paperclip path
   Paperclip.options[:command_path] = "/usr/local/bin/"
 end
