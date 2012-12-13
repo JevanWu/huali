@@ -85,7 +85,7 @@ class Order < ActiveRecord::Base
   end
 
   def to_param
-    number.to_s.to_url.upcase
+    number.to_s.upcase
   end
 
   def completed?

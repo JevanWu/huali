@@ -27,6 +27,13 @@
     <%= @order.address.phone %>
   </div>
 
+  <%= form_tag(alipay_path(@order), :method => "post") do %>
+    <%= render :partial => "shared/choose_payment_method", :locals => { :banks => @banks } %>
+    <div>
+      <%= submit_tag "确认支付", class: 'button' %>
+    </div>
+  <% end %>
+
   <div id="notice-info">
     <h3>购买注意</h3>
     <p> <strong>支付提醒：</strong>现在只支持用支付宝一次支付一件花盒，敬请谅解。 </p>
