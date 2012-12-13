@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_filter :set_locale, :check_for_mobile
+  before_filter :dev_tools if Rails.env == 'development'
 
   protect_from_forgery
 
@@ -54,5 +55,9 @@ class ApplicationController < ActionController::Base
       format.html { render template: "errors/error_#{status}", layout: 'layouts/application', status: status }
       format.all { render nothing: true, status: status }
     end
+  end
+
+  def dev_tools
+    Rack::MiniProfiler.authorize_request
   end
 end

@@ -28,6 +28,7 @@ group :development, :test do
   gem 'rspec-instafail'
   gem 'factory_girl_rails', '>= 4.0.0'
   gem 'forgery', git: 'git://github.com/zenhacks/forgery.git'
+  gem 'rack-mini-profiler'
 end
 
 group :production, :staging do
