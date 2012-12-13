@@ -20,6 +20,8 @@ $ ->
 #   ...
 
 window.Cart = {
+  # FIXME should protect against bad 'cart' cookie during JSON.parse
+
   update: (product) ->
     # initialize cart
     cart = $.cookie('cart') || {}

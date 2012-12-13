@@ -41,8 +41,7 @@ class Address < ActiveRecord::Base
   end
 
   def check_postcode
-    # TODO
-    # check the postcode against the prov, city, area postcode
+    # TODO check the postcode against the prov, city, area postcode
     true
   end
 
