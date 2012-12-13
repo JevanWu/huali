@@ -16,6 +16,10 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(params[:order])
+    # TODO
+    # check against invalid cart
+    # - no line items present
+    # - zero quantity
 
     # create line items
     @cart.keys.each do |key|
