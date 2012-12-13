@@ -15,7 +15,8 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.new(params[:order])
+    order = Order.new(params[:order])
+
     # TODO
     # check against invalid cart
     # - no line items present
@@ -23,10 +24,13 @@ class OrdersController < ApplicationController
 
     # create line items
     @cart.keys.each do |key|
-      @order.add_line_item(key, @cart[key])
+      order.add_line_item(key, @cart[key])
     end
 
-    if @order.save!
+    if order.save!
+      session[:order_id] = order.id
+      cookies['cart'] = ''
+
       flash[:notice] = "Successfully created order and addresses."
       redirect_to checkout_order_path
     else
@@ -35,7 +39,7 @@ class OrdersController < ApplicationController
   end
 
   def checkout
-    @order = Order.first
+    @order = Order.find_by_id(session[:order_id])
     @banks = ['ICBCB2C', 'CMB', 'CCB', 'BOCB2C', 'ABC', 'COMM', 'CMBC']
   end
 
@@ -58,5 +62,4 @@ class OrdersController < ApplicationController
         @cart = {}
       end
     end
-
 end
