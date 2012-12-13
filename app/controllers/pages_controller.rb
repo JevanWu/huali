@@ -35,7 +35,7 @@ class PagesController < ApplicationController
       "27" => 'z7p7s5',
       "28" => 'z7p7z3',
       "29" => 'z7p6p1',
-      "30" => 'm7p4z9',
+      "30" => 'm7p4w1',
       "31" => 'm7p5a3',
       "32" => 'z7p6m9'
     }
