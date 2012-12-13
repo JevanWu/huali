@@ -42,6 +42,7 @@ class Order < ActiveRecord::Base
   # accepts_nested_attributes_for :shipments
 
   # before_filter :authenticate_user!
+  before_create :generate_no, :cal_total
 
   # Queries
   class << self
@@ -67,6 +68,16 @@ class Order < ActiveRecord::Base
 
     def incomplete
       where(:completed_at => nil)
+    end
+  end
+
+  def generate_no
+    self.number = Time.now.strftime("%Y%m%d%H%M")
+  end
+
+  def cal_total
+    self.total = line_items.inject(0) do |sum, item|
+      sum + item.price * item.quantity
     end
   end
 
