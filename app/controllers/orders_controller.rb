@@ -29,7 +29,7 @@ class OrdersController < ApplicationController
 
     if order.save!
       session[:order_id] = order.id
-      cookies['cart'] = ''
+      cookies.delete :cart
 
       flash[:notice] = "Successfully created order and addresses."
       redirect_to checkout_order_path
