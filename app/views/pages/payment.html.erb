@@ -5,7 +5,7 @@
   <div id="order-list">
     <p>
       您的花篮里已经有一盒 <span class="product-name"><%= @product.name %></span> ，
-      共计 <strong class="price-totle"><%= @product.price %></strong> 元。
+      共计 <strong class="price-total"><%= @product.price %></strong> 元。
     </p> 
     <%= form_tag(alipay_path(@product), :method => "post") do %>
       <%= render :partial => "shared/choose_area" %>
