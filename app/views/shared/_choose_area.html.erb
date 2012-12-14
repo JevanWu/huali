@@ -1,12 +1,14 @@
 <div class="form-block">
   <p class="form-title">选择递送区域</p>
-  <label>
+  <label class="area-icon">
     <%= radio_button_tag(:area, "local", :checked => "checked") %>
     <span>江浙沪</span>
+    <small>(免运费)</small>
   </label>
-  <label>
+  <label class="area-icon">
     <%= radio_button_tag(:area, "remote") %>
     <span>全国其他城市</span>
+    <small><a href='/'>(按联邦快递收费)</a></small>
   </label>
 </div>
 
