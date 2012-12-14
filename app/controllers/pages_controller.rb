@@ -53,7 +53,7 @@ class PagesController < ApplicationController
     order_num = Time.now.strftime("%Y%m%H%M%S")
     product = Product.find(params[:name_en])
 
-    delivery_fee = params[:area] == 'local' ? 0 : 50
+    delivery_fee = params[:area] == 'remote' ? 50 : 0
     total_cost = product.price + delivery_fee
 
     options = {

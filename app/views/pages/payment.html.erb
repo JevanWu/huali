@@ -9,7 +9,6 @@
     </p> 
     <%= form_tag(alipay_path(@product), :method => "post") do %>
       <% unless @product.collection_id == 4 %>
-        <%= render :partial => "shared/choose_area" %>
       <% end %>
       <%= render :partial => "shared/choose_payment_method", :locals => { :banks => @banks } %>
       <div>
