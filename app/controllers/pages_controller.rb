@@ -50,15 +50,18 @@ class PagesController < ApplicationController
   end
 
   def alipay
-    binding.pry_remote
     order_num = Time.now.strftime("%Y%m%H%M%S")
     product = Product.find(params[:name_en])
+
+    delivery_fee = params[:area] == 'local' ? 0 : 50
+    total_cost = product.price + delivery_fee
+
     options = {
       :item_name => product.name_en,
-      :amount => exchange_to_dollar(product.price).to_s,
+      :amount => exchange_to_dollar(total_cost).to_s,
       :partner => ALIPAY_PID,
       :out_trade_no => order_num,
-      :total_fee => product.price.to_s,
+      :total_fee => total_cost.to_s,
       :payment_type => "1",
       :seller_email => ALIPAY_EMAIL,
       :subject => product.name_zh,
