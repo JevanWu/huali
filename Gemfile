@@ -14,6 +14,7 @@ gem 'friendly_id', '~> 4.0.1'
 # backup, whenever probably should be isolated in a server setup script
 gem 'backup', :require => false
 gem 'whenever', :require => false
+gem 'rack-mini-profiler'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -28,7 +29,6 @@ group :development, :test do
   gem 'rspec-instafail'
   gem 'factory_girl_rails', '>= 4.0.0'
   gem 'forgery', git: 'git://github.com/zenhacks/forgery.git'
-  gem 'rack-mini-profiler'
 end
 
 group :production, :staging do
