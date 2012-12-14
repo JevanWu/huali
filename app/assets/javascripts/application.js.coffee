@@ -36,6 +36,16 @@ $ ->
     )
     return false
 
+  $('.area-icon').click ->
+    area = $('input[type=radio]', this).val()
+    origin_price = parseFloat $('.price-total').data('price')
+    new_price =
+      if area == 'remote'
+        origin_price + 50
+      else
+        origin_price
+    $('.price-total').text(new_price)
+
 arrowIn = ->
   $(this).siblings('.arrow')
     .addClass('near', 100)
