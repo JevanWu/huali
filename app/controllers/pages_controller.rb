@@ -50,6 +50,7 @@ class PagesController < ApplicationController
   end
 
   def alipay
+    binding.pry_remote
     order_num = Time.now.strftime("%Y%m%H%M%S")
     product = Product.find(params[:name_en])
     options = {
