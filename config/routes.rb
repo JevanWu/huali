@@ -20,7 +20,7 @@ Huali::Application.routes.draw do
 
   get 'order/:name_en', to: 'pages#order', as: :order
   get 'payment/:name_en', to: 'pages#payment', as: :payment
-  post 'payment/:name_en', to: 'pages#alipay', as: :alipay
+  post 'payment/:name_en', to: 'pages#gateway', as: :gateway
   get 'success/:name_en', to: 'pages#success', as: :success
   get ':id', to: 'pages#show', as: :page
   get "errors/error_404"
