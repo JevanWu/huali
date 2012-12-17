@@ -41,7 +41,7 @@ $ ->
     origin_price = parseFloat $('.price-total').data('price')
     new_price =
       if area == 'remote'
-        origin_price + 50
+        origin_price + 40
       else
         origin_price
     $('.price-total').text(new_price)
