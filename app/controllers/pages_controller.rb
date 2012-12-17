@@ -44,15 +44,45 @@ class PagesController < ApplicationController
   end
 
   def gateway
+
+    order_num = Time.now.strftime("%Y%m%H%M%S")
+    product = Product.find(params[:name_en])
+    delivery_fee = params[:area] == 'remote' ? 50 : 0
+    total_cost = product.price + delivery_fee
+
     if params[:pay_bank] == "paypal"
-      redirect_to Transaction.paypal_gateway(query_hash(params))
-    elsif params[:pay_bank] == "directPay"
-      params[:paymethod] = "directPay"
-      redirect_to Transaction.alipay_gateway(query_hash(params))
+      query_hash = {
+        :cmd => "_ext-enter",
+        :redirect_cmd => "_xclick",
+        :charset => "utf-8",
+        :business => PAYPAL_EMAIL,
+        :currenct_code => "USD",
+        :item_name => product.name_en,
+        :amount => exchange_to_dollar(total_cost).to_s
+      }
+      redirect_to Transaction.paypal_gateway(query_hash)
     else
-      params[:paymethod] = "bankPay"
-      params[:defaultbank] = params[:pay_bank]
-      redirect_to Transaction.alipay_gateway(query_hash(params))
+      query_hash = {
+        :key => ALIPAY_KEY,
+        :partner => ALIPAY_PID,
+        :out_trade_no => order_num,
+        :total_fee => total_cost.to_s,
+        :payment_type => "1",
+        :paymethod => "directPay",
+        :"_input_charset" => 'utf-8',
+        :service => "create_direct_pay_by_user",
+        :seller_email => ALIPAY_EMAIL,
+        :subject => product.name_zh,
+        :body => product.description,
+        :return_url => "http://hua.li/success/#{product.id}"
+       }
+      if params[:pay_bank] == "directPay"
+        redirect_to Transaction.alipay_gateway(query_hash)
+      else
+        query_hash[:paymethod] = "bankPay"
+        query_hash[:defaultbank] = params[:pay_bank]
+        redirect_to Transaction.alipay_gateway(query_hash)
+      end
     end
   end
 
@@ -61,41 +91,6 @@ class PagesController < ApplicationController
   end
 
   private
-  def query_hash(param={})
-    order_num = Time.now.strftime("%Y%m%H%M%S")
-    product = Product.find(params[:name_en])
-
-    delivery_fee = params[:area] == 'remote' ? 50 : 0
-    total_cost = product.price + delivery_fee
-
-    query_hash = {
-      :key => ALIPAY_KEY,
-      :partner => ALIPAY_PID,
-      :out_trade_no => order_num,
-      :total_fee => total_cost.to_s,
-      :payment_type => "1",
-      :paymethod => "directPay",
-      :"_input_charset" => 'utf-8',
-      :service => "create_direct_pay_by_user",
-      :seller_email => ALIPAY_EMAIL,
-      :subject => product.name_zh,
-      :body => product.description,
-      :return_url => "http://hua.li/success/#{product.id}"
-     }
-    if params[:paymethod] == "directPay"
-      query_hash
-    elsif params[:paymethod] == "bankPay"
-      query_hash[:paymethod] = "bankPay"
-      query_hash[:defaultbank] = params[:defaultbank]
-      query_hash
-    else
-      query_hash = {
-        :item_name => product.name_en,
-        :amount => exchange_to_dollar(total_cost).to_s,
-        :paypal_email => PAYPAL_EMAIL
-      }
-    end
-  end
 
   def exchange_to_dollar(price)
     (price/6).to_i - 0.01

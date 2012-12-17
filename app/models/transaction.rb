@@ -1,17 +1,23 @@
 require 'digest/md5'
 require 'open-uri'
 class Transaction < ActiveRecord::Base
+  Alipay_gateway = "https://www.alipay.com/cooperate/gateway.do?"
+  Paypal_gateway = "https://www.paypal.com/cgi-bin/webscr?"
   class << self
     def alipay_gateway(query_hash={})
-      "https://www.alipay.com/cooperate/gateway.do?" + digest_and_encode(query_hash, "alipay")
+      Alipay_gateway + encode(translate_to_query_string(query_hash, "alipay"))
     end
 
     def paypal_gateway(query_hash={})
-      "https://www.paypal.com/cgi-bin/webscr?" +digest_and_encode(query_hash, "paypal")
+      Paypal_gateway + encode(translate_to_query_string(query_hash, "paypal"))
     end
 
     private
-    def digest_and_encode(query_hash,gateway)
+    def digest(query_string)
+      Digest::MD5.hexdigest(query_string)
+    end
+
+    def translate_to_query_string(query_hash, gateway)
       case gateway
       when "alipay"
         key = query_hash[:key]
@@ -19,12 +25,17 @@ class Transaction < ActiveRecord::Base
         query_string = query_hash.sort.map do |key, value|
             "#{key}=#{value}"
             end.join("&")
-        sign = Digest::MD5.hexdigest(query_string + key)
+        sign = digest(query_string + key)
         query_string += "&sign=#{sign}&sign_type=MD5"
-        query_string = URI::encode(query_string)
       when "paypal"
-        URI::encode("cmd=_ext-enter&redirect_cmd=_xclick&charset=utf-8&business=#{query_hash[:paypal_email]}&currenct_code=USD&item_name=#{query_hash[:item_name]}&amount=#{query_hash[:amount]}" )
+        query_string = query_hash.map do |key, value|
+          "#{key}=#{value}"
+          end.join("&")
       end
+    end
+
+    def encode(query_string)
+      URI::encode(query_string)
     end
   end
 end
