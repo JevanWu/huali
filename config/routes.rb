@@ -22,6 +22,7 @@ Huali::Application.routes.draw do
   get 'payment/:name_en', to: 'pages#payment', as: :payment
   post 'payment/:name_en', to: 'pages#alipay', as: :alipay
   get 'success/:name_en', to: 'pages#success', as: :success
+  get 'share/:name_en', to: 'pages#share', as: :success
   get ':id', to: 'pages#show', as: :page
   get "errors/error_404"
   get "errors/error_500"

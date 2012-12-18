@@ -88,6 +88,9 @@ class PagesController < ApplicationController
     @product = Product.find(params[:name_en])
   end
 
+  def share
+  end
+
   private
   def exchange_to_dollar(price)
     (price/6).to_i - 0.01
