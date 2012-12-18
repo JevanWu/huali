@@ -46,6 +46,11 @@ $ ->
         origin_price
     $('.price-total').text(new_price)
 
+  content = "分享到 @花里花店"
+  url = document.location.href.replace('share', 'products')
+
+  $('#post-share').attr 'href', weiboUrl(content, url)
+
 arrowIn = ->
   $(this).siblings('.arrow')
     .addClass('near', 100)
@@ -55,3 +60,12 @@ arrowOut = ->
   $(this).siblings('.arrow')
     .removeClass('near', 100)
     .removeClass('visible')
+
+# TODO use QueryString to refactor this
+
+weiboUrl = (content, url)->
+  root = 'http://service.weibo.com/share/share.php?'
+  root +
+    'title=' + content +
+    '&' +
+    'url=' + url
