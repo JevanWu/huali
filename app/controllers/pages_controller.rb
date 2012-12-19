@@ -100,6 +100,8 @@ class PagesController < ApplicationController
     }
 
     options.merge!(:defaultbank => bank) if method == 'bankPay'
+
+    options
   end
 
   def exchange_to_dollar(price)
