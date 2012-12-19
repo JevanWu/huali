@@ -5,6 +5,7 @@
     <%= image_tag 'icon-knot.png', id: 'chris-knot', alt: "Chrismas Knot" %>
   </h4></li>
     <% Product.all.each do |product| %>
+      <% return if product.collection_id  == '9' %>
       <% if @product && @product.id == product.id %>
       <li class="active"> 
         <% if product.new? %> <%= image_tag 'icon-new.png', id: 'chris-new', alt: "Chrismas new" %> <% end %>
