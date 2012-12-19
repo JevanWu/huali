@@ -1,10 +1,7 @@
 class PagesController < ApplicationController
 
-  ALIPAY_KEY = "ux04rwiwzqbuksk0xm70u1fvmoo2p32d"
-  ALIPAY_PID = "2088801670489935"
-  ALIPAY_EMAIL = "tzgbusiness@gmail.com"
-  PAYPAL_EMAIL = "s@zenhacks.org"
   #caches_page :show, :home, :order, :payment, :alipay, :success
+
   def show
     @page = Page.find_by_permalink!(params[:id])
 
@@ -18,7 +15,6 @@ class PagesController < ApplicationController
   end
 
   def order
-    name_en = params["name_en"]
     @product = Product.find(params[:name_en])
     product_wufoo_mapping = {
       "22" => 's7x2z7',
@@ -70,6 +66,11 @@ class PagesController < ApplicationController
     Time.now.strftime("%Y%m%H%M%S")
   end
 
+  ALIPAY_KEY = "ux04rwiwzqbuksk0xm70u1fvmoo2p32d"
+  ALIPAY_PID = "2088801670489935"
+  ALIPAY_EMAIL = "tzgbusiness@gmail.com"
+  PAYPAL_EMAIL = "s@zenhacks.org"
+
   def paypal_options(product, cost)
     {
       :cmd => "_ext-enter",
@@ -99,8 +100,6 @@ class PagesController < ApplicationController
     }
 
     options.merge!(:defaultbank => bank) if method == 'bankPay'
-
-    options
   end
 
   def exchange_to_dollar(price)
