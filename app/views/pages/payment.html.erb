@@ -9,6 +9,7 @@
     </p> 
     <%= form_tag(gateway_path(@product), :method => "post") do %>
       <% unless @product.collection_id == 4 %>
+      <%= render :partial => "shared/choose_area", :locals => { :banks => @banks } %>
       <% end %>
       <%= render :partial => "shared/choose_payment_method", :locals => { :banks => @banks } %>
       <div>

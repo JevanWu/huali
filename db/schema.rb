@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121212085710) do
+ActiveRecord::Schema.define(:version => 20121218054308) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -137,11 +137,9 @@ ActiveRecord::Schema.define(:version => 20121212085710) do
     t.datetime "updated_at",                                                        :null => false
     t.boolean  "available",                                      :default => true
     t.integer  "collection_id"
-    t.text     "info_source"
     t.decimal  "original_price"
     t.text     "inspiration_zh"
     t.string   "name_char"
-    t.text     "related_text"
     t.string   "slug"
     t.text     "inspiration_en"
     t.text     "description_en"

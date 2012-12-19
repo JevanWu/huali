@@ -48,8 +48,8 @@ class PagesController < ApplicationController
 
     product[:order_num] = generate_order_num
 
-    delivery_fee = params[:area] == 'remote' ? 50 : 0
-    cost = product.price + delivery_fee
+    delivery_fee = params[:area] == 'remote' ? 40 : 0
+    total_cost = product.price + delivery_fee
 
     if params[:pay_bank] == "paypal"
       redirect_to Transaction.paypal_gateway paypal_options(product, cost)
