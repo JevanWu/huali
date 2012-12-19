@@ -121,16 +121,6 @@ ActiveRecord::Schema.define(:version => 20121218054308) do
 
   add_index "pages", ["permalink"], :name => "index_pages_on_permalink"
 
-  create_table "product_parts", :force => true do |t|
-    t.string   "name_cn",     :null => false
-    t.string   "name_en",     :null => false
-    t.text     "description"
-    t.integer  "product_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-    t.text     "info_source"
-  end
-
   create_table "products", :force => true do |t|
     t.string   "name_zh",                                        :default => "",    :null => false
     t.string   "name_en",                                        :default => "",    :null => false
