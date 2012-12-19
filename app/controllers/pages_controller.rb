@@ -78,7 +78,7 @@ class PagesController < ApplicationController
       :charset => "utf-8",
       :business => PAYPAL_EMAIL,
       :currenct_code => "USD",
-      :item_name => product.name_en,
+      :item_name => product.name,
       :amount => exchange_to_dollar(cost)
     }
   end
@@ -94,7 +94,7 @@ class PagesController < ApplicationController
       :"_input_charset" => 'utf-8',
       :service => "create_direct_pay_by_user",
       :seller_email => ALIPAY_EMAIL,
-      :subject => product.name_zh,
+      :subject => product.name,
       :body => product.description,
       :return_url => "http://hua.li/success/#{product.id}"
     }
