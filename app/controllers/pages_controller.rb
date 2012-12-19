@@ -44,45 +44,19 @@ class PagesController < ApplicationController
   end
 
   def gateway
-
-    order_num = Time.now.strftime("%Y%m%H%M%S")
     product = Product.find(params[:name_en])
+
+    product[:order_num] = generate_order_num
+
     delivery_fee = params[:area] == 'remote' ? 50 : 0
-    total_cost = product.price + delivery_fee
+    cost = product.price + delivery_fee
 
     if params[:pay_bank] == "paypal"
-      query_hash = {
-        :cmd => "_ext-enter",
-        :redirect_cmd => "_xclick",
-        :charset => "utf-8",
-        :business => PAYPAL_EMAIL,
-        :currenct_code => "USD",
-        :item_name => product.name_en,
-        :amount => exchange_to_dollar(total_cost).to_s
-      }
-      redirect_to Transaction.paypal_gateway(query_hash)
+      redirect_to Transaction.paypal_gateway paypal_options(product, cost)
+    elsif params[:pay_bank] == "directPay"
+      redirect_to Transaction.alipay_gateway alipay_options(product, cost)
     else
-      query_hash = {
-        :key => ALIPAY_KEY,
-        :partner => ALIPAY_PID,
-        :out_trade_no => order_num,
-        :total_fee => total_cost.to_s,
-        :payment_type => "1",
-        :paymethod => "directPay",
-        :"_input_charset" => 'utf-8',
-        :service => "create_direct_pay_by_user",
-        :seller_email => ALIPAY_EMAIL,
-        :subject => product.name_zh,
-        :body => product.description,
-        :return_url => "http://hua.li/success/#{product.id}"
-       }
-      if params[:pay_bank] == "directPay"
-        redirect_to Transaction.alipay_gateway(query_hash)
-      else
-        query_hash[:paymethod] = "bankPay"
-        query_hash[:defaultbank] = params[:pay_bank]
-        redirect_to Transaction.alipay_gateway(query_hash)
-      end
+      redirect_to Transaction.alipay_gateway alipay_options(product, cost, 'bankPay', params[:pay_bank])
     end
   end
 
@@ -92,8 +66,43 @@ class PagesController < ApplicationController
 
   private
 
+  def generate_order_num
+    Time.now.strftime("%Y%m%H%M%S")
+  end
+
+  def paypal_options(product, cost)
+    {
+      :cmd => "_ext-enter",
+      :redirect_cmd => "_xclick",
+      :charset => "utf-8",
+      :business => PAYPAL_EMAIL,
+      :currenct_code => "USD",
+      :item_name => product.name_en,
+      :amount => exchange_to_dollar(cost)
+    }
+  end
+
+  def alipay_options(product, cost, method = 'directPay', bank = 'ICBCB2C')
+    {
+      :key => ALIPAY_KEY,
+      :partner => ALIPAY_PID,
+      :out_trade_no => product[:order_num],
+      :total_fee => "#{cost}",
+      :payment_type => "1",
+      :paymethod => method,
+      :defaultbank => bank,
+      :"_input_charset" => 'utf-8',
+      :service => "create_direct_pay_by_user",
+      :seller_email => ALIPAY_EMAIL,
+      :subject => product.name_zh,
+      :body => product.description,
+      :return_url => "http://hua.li/success/#{product.id}"
+    }
+  end
+
   def exchange_to_dollar(price)
-    (price/6).to_i - 0.01
+    amount = (price/6).to_i - 0.01
+    amount.to_s
   end
 
 end
