@@ -17,10 +17,6 @@
     <%= f.input :description_zh, :hint => "Use Markdown to write the content" , :input_html => {:rows => 10} %>
     <%= f.input :description_en, :hint => "Use Markdown to write the content" , :input_html => {:rows => 10} %>
 
-    <%= f.input :related_text, :hint => "Use Markdown to write the content" , :input_html => {:rows => 10} %>
-
-    <%= f.input :info_source, :hint => "Use Markdown to write the content" , :input_html => {:rows => 10} %>
-
     <%= f.inputs :for => :assets, :class => 'image_field' do |builder, i| %>
       <% if @product.assets[i - 1].image %>
         <%= image_tag @product.assets[i - 1].image.url(:thumb)%>
