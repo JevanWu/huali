@@ -49,7 +49,7 @@ class PagesController < ApplicationController
     product[:order_num] = generate_order_num
 
     delivery_fee = params[:area] == 'remote' ? 40 : 0
-    total_cost = product.price + delivery_fee
+    cost = product.price + delivery_fee
 
     if params[:pay_bank] == "paypal"
       redirect_to Transaction.paypal_gateway paypal_options(product, cost)
@@ -82,15 +82,14 @@ class PagesController < ApplicationController
     }
   end
 
-  def alipay_options(product, cost, method = 'directPay', bank = 'ICBCB2C')
-    {
+  def alipay_options(product, cost, method = 'directPay', bank = '')
+    options = {
       :key => ALIPAY_KEY,
       :partner => ALIPAY_PID,
       :out_trade_no => product[:order_num],
-      :total_fee => "#{cost}",
+      :total_fee => cost.to_s,
       :payment_type => "1",
       :paymethod => method,
-      :defaultbank => bank,
       :"_input_charset" => 'utf-8',
       :service => "create_direct_pay_by_user",
       :seller_email => ALIPAY_EMAIL,
@@ -98,6 +97,10 @@ class PagesController < ApplicationController
       :body => product.description,
       :return_url => "http://hua.li/success/#{product.id}"
     }
+
+    options.merge!(:defaultbank => bank) if method == 'bankPay'
+
+    options
   end
 
   def exchange_to_dollar(price)
