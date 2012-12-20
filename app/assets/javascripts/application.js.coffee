@@ -69,3 +69,5 @@ weiboUrl = (content, url)->
     'title=' + content +
     '&' +
     'url=' + url
+    '&' +
+    'pic=' + 'http://hua.li/assets/share-img.jpg'
