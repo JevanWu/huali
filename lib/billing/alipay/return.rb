@@ -1,4 +1,5 @@
 require 'uri'
+require 'ostruct'
 
 module Billing
   module Alipay
