@@ -48,19 +48,26 @@ class PagesController < ApplicationController
     cost = product.price + delivery_fee
 
     if params[:pay_bank] == "paypal"
-      redirect_to Transaction.paypal_gateway paypal_options(product, cost)
+      gateway = Billing::Paypal::Gateway.new paypal_options(product, cost)
+      redirect_to gateway.purchase_path
     elsif params[:pay_bank] == "directPay"
-      redirect_to Transaction.alipay_gateway alipay_options(product, cost)
+      gateway = Billing::Alipay::Gateway.new alipay_options(product, cost)
+      redirect_to gateway.purchase_path
     else
-      redirect_to Transaction.alipay_gateway alipay_options(product, cost, 'bankPay', params[:pay_bank])
+      gateway = Billing::Alipay::Gateway.new alipay_options(product, cost, 'bankPay', params[:pay_bank])
+      redirect_to gateway.purchase_path
     end
   end
 
   # synchronous response from gateway
   def return
     @product = Product.find(params[:name_en])
-    # r = Billing::Alipay::Notification.new(request.query_string)
+    # r = Billing::Alipay::Return.new(request.query_string)
   end
+
+  # asynchronous response from gateway
+  def notify
+    # notification = Billing::Alipay::Notification.new(request.raw_post)
   end
 
   private
@@ -71,35 +78,22 @@ class PagesController < ApplicationController
 
   def paypal_options(product, cost)
     {
-      :cmd => "_ext-enter",
-      :redirect_cmd => "_xclick",
-      :charset => "utf-8",
-      :business => PAYPAL_EMAIL,
-      :currenct_code => "USD",
-      :item_name => product.name,
-      :amount => exchange_to_dollar(cost)
+      'item_name' => product.name,
+      'amount' => exchange_to_dollar(cost)
     }
   end
 
   def alipay_options(product, cost, method = 'directPay', bank = '')
     options = {
-      :key => ALIPAY_KEY,
-      :partner => ALIPAY_PID,
-      :out_trade_no => product[:order_num],
-      :total_fee => cost.to_s,
-      :payment_type => "1",
-      :paymethod => method,
-      :"_input_charset" => 'utf-8',
-      :service => "create_direct_pay_by_user",
-      :seller_email => ALIPAY_EMAIL,
-      :subject => product.name,
-      :body => product.description,
-      :return_url => "http://hua.li/success/#{product.id}"
+      'out_trade_no' => product[:order_num],
+      'total_fee' => cost.to_s,
+      'paymethod' => method,
+      'defaultbank' => bank,
+      'subject' => product.name,
+      'body' => product.description,
+      'return_url' => success_url(product),
+      'show_url' => product_url(product)
     }
-
-    options.merge!(:defaultbank => bank) if method == 'bankPay'
-
-    options
   end
 
   def exchange_to_dollar(price)
