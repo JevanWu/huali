@@ -11,7 +11,6 @@ module Billing
     def compacted_options
       @options.select do |key, value|
         not (value.nil? or value.empty?)
-
       end
     end
   end
