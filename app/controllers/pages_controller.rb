@@ -66,11 +66,6 @@ class PagesController < ApplicationController
     Time.now.strftime("%Y%m%H%M%S")
   end
 
-  ALIPAY_KEY = "ux04rwiwzqbuksk0xm70u1fvmoo2p32d"
-  ALIPAY_PID = "2088801670489935"
-  ALIPAY_EMAIL = "tzgbusiness@gmail.com"
-  PAYPAL_EMAIL = "s@zenhacks.org"
-
   def paypal_options(product, cost)
     {
       :cmd => "_ext-enter",
