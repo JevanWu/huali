@@ -56,8 +56,11 @@ class PagesController < ApplicationController
     end
   end
 
-  def success
+  # synchronous response from gateway
+  def return
     @product = Product.find(params[:name_en])
+    # r = Billing::Alipay::Notification.new(request.query_string)
+  end
   end
 
   private
