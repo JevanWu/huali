@@ -23,12 +23,11 @@ module Billing
 
       private
 
+      def reset!
+        @params = {}
+      end
+
       def parse(query_string)
-
-        def reset!
-          @params = {}
-        end
-
         return {} if query_string.blank?
 
         params = query_string.split('&').inject({}) do |memo, chunk|
