@@ -1,3 +1,6 @@
+require 'digest/md5'
+require 'uri'
+
 module Billing
   module Alipay
     class Gateway < Billing::Gateway
@@ -34,7 +37,7 @@ module Billing
       def purchase_path
         check_options!
         query = add_sign(query_string)
-        SERVICE_URL + URI::encode(query)
+        SERVICE_URL + URI.encode(query)
       end
 
       private
