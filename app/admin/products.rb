@@ -107,14 +107,6 @@ ActiveAdmin.register Product do
         markdown(product.description_en)
       end
 
-      row :related_text do
-        markdown(product.related_text)
-      end
-
-      row :info_source do
-        markdown(product.info_source)
-      end
-
       row :collection do
         collection = product.collection
         link_to collection.name_cn, admin_collection_path(collection) if collection
@@ -156,5 +148,6 @@ ActiveAdmin.register Product do
       row :created_at
       row :updated_at
     end
+    active_admin_comments
   end
 end

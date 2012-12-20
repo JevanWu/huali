@@ -1,5 +1,5 @@
-<div class="bank-pay-block">
-  <p class="bank-pay-text">选择支付方式</p>
+<div class="form-block">
+  <p class="form-title">选择支付方式</p>
   <label class="ALIPAY bank-icon">
     <%= radio_button_tag(:pay_bank, "directPay", :checked => "checked") %>
   </label>
@@ -8,7 +8,7 @@
       <%= radio_button_tag(:pay_bank, bank) %>
     </label>
   <% end %>
-  <p class="paypal-text">信用卡支付</p>
+  <p class="form-title">信用卡支付</p>
   <label class="PAYPAL bank-icon">
     <%= radio_button_tag(:pay_bank, "paypal") %>
   </label>

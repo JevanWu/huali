@@ -5,9 +5,12 @@
   <div id="order-list">
     <p>
       您的花篮里已经有一盒 <span class="product-name"><%= @product.name %></span> ，
-      共计 <strong class="price-totle"><%= @product.price %></strong> 元。
+      共计 <strong class="price-total" data-price="<%= @product.price %>"><%= @product.price %></strong> 元。
     </p> 
-    <%= form_tag(alipay_path(@product), :method => "post") do %>
+    <%= form_tag(gateway_path(@product), :method => "post") do %>
+      <% unless @product.collection_id == 4 %>
+      <%= render :partial => "shared/choose_area", :locals => { :banks => @banks } %>
+      <% end %>
       <%= render :partial => "shared/choose_payment_method", :locals => { :banks => @banks } %>
       <div>
         <%= submit_tag "确认支付", class: 'button' %>

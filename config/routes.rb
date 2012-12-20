@@ -25,8 +25,13 @@ Huali::Application.routes.draw do
 
   get 'order/:name_en', to: 'pages#order', as: :order
   get 'payment/:name_en', to: 'pages#payment', as: :payment
-  post 'payment/:name_en', to: 'pages#alipay', as: :alipay
-  get 'success/:name_en', to: 'pages#success', as: :success
+  post 'payment/:name_en', to: 'pages#gateway', as: :gateway
+
+  # alipay related url
+  get 'success/:name_en', to: 'pages#return', as: :success
+  post '/notify', to: 'pages#notify', as: :notify
+  post '/notify_error', to: 'pages#notify_error', as: :notify_error
+
   get ':id', to: 'pages#show', as: :page
   get "errors/error_404"
   get "errors/error_500"

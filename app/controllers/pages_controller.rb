@@ -1,16 +1,7 @@
-require 'digest/md5'
-require 'open-uri'
 class PagesController < ApplicationController
 
   #caches_page :show, :home, :order, :payment, :alipay, :success
-  ALIPAY_KEY = "ux04rwiwzqbuksk0xm70u1fvmoo2p32d"
-  ALIPAY_PID = "2088801670489935"
-  ALIPAY_EMAIL = "tzgbusiness@gmail.com"
-  PAYPAL_EMAIL = "s@zenhacks.org"
-  PAYPAL_HOST = "www.paypal.com"
 
-  # GET /pages/1
-  # GET /pages/1.json
   def show
     @page = Page.find_by_permalink!(params[:id])
 
@@ -24,7 +15,6 @@ class PagesController < ApplicationController
   end
 
   def order
-    name_en = params["name_en"]
     @product = Product.find(params[:name_en])
     product_wufoo_mapping = {
       "22" => 's7x2z7',
@@ -37,84 +27,81 @@ class PagesController < ApplicationController
       "29" => 'z7p6p1',
       "30" => 'm7p4w1',
       "31" => 'm7p5a3',
-      "32" => 'z7p6m9'
+      "32" => 'z7p6m9',
+      "33" => 'm7p3p7'
     }
     @wufoo_id = product_wufoo_mapping[@product.id.to_s]
   end
 
   def payment
     @product = Product.find(params[:name_en])
-    @product[:us_price] = exchange_to_dollar @product.price
     # @banks = ['ICBCB2C', 'CMB', 'CCB', 'BOCB2C', 'ABC', 'COMM', 'CEBBANK', 'SPDB', 'SHBANK', 'GDB', 'CITIC', 'CIB', 'SDB', 'CMBC', 'BJBANK', 'HZCBB2C', 'BJRCB', 'SPABANK', 'FDB', 'WZCBB2C-DEBIT', 'NBBANK', 'ICBCBTB', 'CCBBTB', SPDBB2B', 'ABCBTB']
     @banks = ['ICBCB2C', 'CMB', 'CCB', 'BOCB2C', 'ABC', 'COMM', 'CMBC']
   end
 
-  def alipay
-    order_num = Time.now.strftime("%Y%m%H%M%S")
+  def gateway
     product = Product.find(params[:name_en])
-    options = {
-      :item_name => product.name_en,
-      :amount => exchange_to_dollar(product.price).to_s,
-      :partner => ALIPAY_PID,
-      :out_trade_no => order_num,
-      :total_fee => product.price.to_s,
-      :payment_type => "1",
-      :seller_email => ALIPAY_EMAIL,
-      :subject => product.name_zh,
-      :body => product.description,
-      :return_url => "http://hua.li/success/#{product.id}",
-      :key => ALIPAY_KEY
-     }
+
+    product[:order_num] = generate_order_num
+
+    delivery_fee = params[:area] == 'remote' ? 40 : 0
+    cost = product.price + delivery_fee
+
     if params[:pay_bank] == "paypal"
-      redirect_to_paypal_gateway(options)
+      gateway = Billing::Paypal::Gateway.new paypal_options(product, cost)
+      redirect_to gateway.purchase_path
     elsif params[:pay_bank] == "directPay"
-      paymethod = "directPay"
-      options[:paymethod] = paymethod
-      redirect_to_alipay_gateway(options)
+      gateway = Billing::Alipay::Gateway.new alipay_options(product, cost)
+      redirect_to gateway.purchase_path
     else
-      paymethod = "bankPay"
-      defaultbank = params[:pay_bank]
-      options[:paymethod] = paymethod
-      options[:defaultbank] = defaultbank
-      redirect_to_alipay_gateway(options)
+      gateway = Billing::Alipay::Gateway.new alipay_options(product, cost, 'bankPay', params[:pay_bank])
+      redirect_to gateway.purchase_path
     end
   end
 
-  def success
+  # synchronous response from gateway
+  def return
     @product = Product.find(params[:name_en])
+    # r = Billing::Alipay::Return.new(request.query_string)
+  end
+
+  # asynchronous response from gateway
+  def notify
+    # notification = Billing::Alipay::Notification.new(request.raw_post)
+  end
+
+  def share
   end
 
   private
-  def exchange_to_dollar(price)
-    (price/6).to_i - 0.01
+
+  def generate_order_num
+    Time.now.strftime("%Y%m%H%M%S")
   end
 
-  def redirect_to_alipay_gateway(options={})
-    query_string = {
-      :partner => options[:partner],
-      :out_trade_no => options[:out_trade_no],
-      :total_fee => options[:total_fee],
-      :seller_email => options[:seller_email],
-      :return_url => options[:return_url],
-      :paymethod => options[:paymethod],
-      :"_input_charset" => 'utf-8',
-      :service => "create_direct_pay_by_user",
-      :payment_type => "1",
-      :subject => options[:subject]
+  def paypal_options(product, cost)
+    {
+      'item_name' => product.name,
+      'amount' => exchange_to_dollar(cost)
     }
-    if options[:defaultbank]
-      query_string[:defaultbank] = options[:defaultbank]
-    end
-    query_string = query_string.sort.map do |key, value|
-        "#{key}=#{value}"
-        end.join("&")
-    sign = Digest::MD5.hexdigest(query_string + options[:key])
-    query_string += "&sign=#{sign}&sign_type=MD5"
-    query_string = URI::encode(query_string)
-    redirect_to "https://www.alipay.com/cooperate/gateway.do?" + query_string
   end
 
-  def redirect_to_paypal_gateway(options={})
-    redirect_to URI.encode("https://#{PAYPAL_HOST}/cgi-bin/webscr?cmd=_ext-enter&redirect_cmd=_xclick&charset=utf-8&business=#{PAYPAL_EMAIL}&currenct_code=USD&item_name=#{options[:item_name]}&amount=#{options[:amount]}" )
+  def alipay_options(product, cost, method = 'directPay', bank = '')
+    options = {
+      'out_trade_no' => product[:order_num],
+      'total_fee' => cost.to_s,
+      'paymethod' => method,
+      'defaultbank' => bank,
+      'subject' => product.name,
+      'body' => product.description,
+      'return_url' => success_url(product),
+      'show_url' => product_url(product)
+    }
   end
+
+  def exchange_to_dollar(price)
+    amount = (price/6).to_i - 0.01
+    amount.to_s
+  end
+
 end
