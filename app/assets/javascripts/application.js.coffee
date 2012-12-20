@@ -46,6 +46,11 @@ $ ->
         origin_price
     $('.price-total').text(new_price)
 
+  content = "感情若只低诉，整个世界都将失语。在这个冬日，用明信片来传递一直没能表达的感情。 我从@花里花店 ，免费寄出了一张明信片。你也快来吧~"
+  url = document.location.href.replace('share', 'products')
+
+  $('#post-share').attr 'href', weiboUrl(content, url)
+
 arrowIn = ->
   $(this).siblings('.arrow')
     .addClass('near', 100)
@@ -55,3 +60,15 @@ arrowOut = ->
   $(this).siblings('.arrow')
     .removeClass('near', 100)
     .removeClass('visible')
+
+# TODO use QueryString to refactor this
+
+weiboUrl = (content, url)->
+  root = 'http://service.weibo.com/share/share.php?'
+  root +
+    'title=' + content +
+    '&' +
+    'url=' + url +
+    '&' +
+    # 'pic=' + 'http://hua.li/assets/share-img.jpg'
+    'pic=' + 'http://www.hua.li/system/assets/images/000/000/139/medium/DSC_2509_copy.jpg'
