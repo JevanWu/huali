@@ -46,7 +46,7 @@ $ ->
         origin_price
     $('.price-total').text(new_price)
 
-  content = "感情若只低诉，整个世界都将失语。我在 @花里花店 ，免费寄出了一张明信片。快来关注一下吧!"
+  content = "感情若只低诉，整个世界都将失语。在这个冬日，用明信片来传递一直没能表达的感情。 我从@花里花店 ，免费寄出了一张明信片。你也快来吧~"
   url = document.location.href.replace('share', 'products')
 
   $('#post-share').attr 'href', weiboUrl(content, url)
