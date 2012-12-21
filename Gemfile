@@ -15,6 +15,7 @@ gem 'friendly_id', '~> 4.0.1'
 gem 'backup', :require => false
 gem 'whenever', :require => false
 gem 'rack-mini-profiler'
+gem "figaro"
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
