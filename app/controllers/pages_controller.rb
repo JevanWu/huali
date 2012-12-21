@@ -1,3 +1,4 @@
+# encoding: utf-8
 class PagesController < ApplicationController
 
   #caches_page :show, :home, :order, :payment, :alipay, :success
