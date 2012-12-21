@@ -11,6 +11,7 @@ require 'capistrano-zen/postgresql'
 require 'capistrano-zen/mysql'
 require 'capistrano-zen/rbenv'
 require 'capistrano-zen/unicorn'
+require 'capistrano-zen/config'
 
 require "whenever/capistrano"
 set :whenever_roles, [:db, :app]
