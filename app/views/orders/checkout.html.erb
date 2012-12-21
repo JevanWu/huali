@@ -27,7 +27,7 @@
     <%= @order.address.phone %>
   </div>
 
-  <%= form_tag(alipay_path(@order), :method => "post") do %>
+  <%= form_tag(gateway_path(@order), :method => "post") do %>
     <%= render :partial => "shared/choose_payment_method", :locals => { :banks => @banks } %>
     <div>
       <%= submit_tag "确认支付", class: 'button' %>
