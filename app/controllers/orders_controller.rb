@@ -40,6 +40,13 @@ class OrdersController < ApplicationController
   def checkout
     @order = Order.find_by_id(session[:order_id])
     @banks = ['ICBCB2C', 'CMB', 'CCB', 'BOCB2C', 'ABC', 'COMM', 'CMBC']
+
+    if @order.blank?
+      flash[:alert] = "No items in the cart, please add items first."
+      redirect_to :root
+    end
+
+  end
   end
 
   def current
