@@ -3,9 +3,9 @@ module Billing
     private
 
     def query_string
-      compacted_options.sort.map do |key, value|
-        "#{key}=#{value}"
-      end.join("&")
+      compacted_options.map do |k, v|
+        "#{k}=#{v}"
+      end.sort * '&'
     end
 
     def compacted_options
