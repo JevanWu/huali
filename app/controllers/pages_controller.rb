@@ -95,6 +95,7 @@ class PagesController < ApplicationController
       'subject' => product.name,
       'body' => product.description,
       'return_url' => success_url(product),
+      'notify_url' => notify_url(product),
       'show_url' => product_url(product)
     }
   end
