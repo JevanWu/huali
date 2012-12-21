@@ -1,7 +1,7 @@
 load 'deploy'
 load 'deploy/assets'
 
-set :db_config_path, File.expand_path(File.dirname(__FILE__), 'config')
+set :config_path, File.expand_path(File.dirname(__FILE__), 'config')
 set :db_backup_path, '/var/backups/db'
 
 require 'capistrano-zen/utils'
@@ -100,8 +100,9 @@ after "deploy:setup",
   "nginx:setup:unicorn",
   "pg:setup",
   "pg:init",
-  "unicorn:setup"
+  "unicorn:setup",
+  "config:setup"
 
 # dump database before a new successful release
-before "pg:symlink", "pg:dump"
-after "deploy:finalize_update", "pg:symlink"
+before "config:db_symlink", "pg:dump"
+after "deploy:finalize_update", "config:db_symlink", "config:appenv_symlink"
