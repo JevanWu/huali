@@ -5,7 +5,7 @@ module Billing
   module Alipay
     module Verify
       def verify_seller
-        seller_email == Alipay::Email
+        seller_email == ENV['ALIPAY_EMAIL']
       end
 
       def verify_sign
@@ -16,7 +16,7 @@ module Billing
           "#{key}=#{URI.decode(value)}"
         end.sort * '&'
 
-        Digest::MD5.hexdigest(query + Alipay::Key) == sign.downcase
+        Digest::MD5.hexdigest(query + ENV['ALIPAY_KEY']) == sign.downcase
       end
     end
   end
