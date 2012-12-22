@@ -61,20 +61,9 @@ Huali::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  config.action_mailer.default_url_options = { :host => 'changanflowers.com' }
-  # ActionMailer Config
-  # Setup for production - deliveries, no errors raised
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.perform_deliveries = true
+  # ActionMailer Config for staging, no error raised
+  config.action_mailer.default_url_options = { :host => 'staging.hua.li' }
   config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default :charset => "utf-8"
-
-    config.action_mailer.smtp_settings = {
-      :address   => "smtp.mandrillapp.com",
-      :port      => 25,
-      :user_name => ENV["MANDRILL_USERNAME"],
-      :password  => ENV["MANDRILL_API_KEY"]
-    }
 
   # ImageMagick Process path on production server (Ubuntu 12.04 LTS)
   Paperclip.options[:command_path] = "/usr/bin/"

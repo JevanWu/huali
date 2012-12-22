@@ -1,3 +1,4 @@
+# encoding: utf-8
 class PagesController < ApplicationController
 
   #caches_page :show, :home, :order, :payment, :alipay, :success
@@ -93,7 +94,7 @@ class PagesController < ApplicationController
       'paymethod' => method,
       'defaultbank' => bank,
       'subject' => product.name,
-      'body' => product.description,
+      'body' => product.description[0..50],
       'return_url' => success_url(product),
       'notify_url' => notify_url(product),
       'show_url' => product_url(product)

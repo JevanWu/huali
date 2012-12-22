@@ -7,7 +7,7 @@ module Billing
         "cmd" => "_ext-enter",
         "redirect_cmd" => "_xclick",
         "charset" => "utf-8",
-        "business" => Paypal::Email,
+        "business" => ENV['PAYPAL_EMAIL'],
         "currenct_code" => "USD"
       }
 

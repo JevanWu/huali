@@ -8,8 +8,8 @@ module Billing
 
       DEFAULT_OPTS = {
         # gateway related
-        "seller_email" => Alipay::Email,
-        "partner" => Alipay::Pid,
+        "seller_email" => ENV['ALIPAY_EMAIL'],
+        "partner" => ENV['ALIPAY_PID'],
         "_input_charset" => "utf-8",
         "service" => "create_direct_pay_by_user",
 
@@ -22,13 +22,13 @@ module Billing
       # "out_trade_no" => 'ANS12345678',
       # "subject" => name,
       # "total_fee" => '12',
-      # "body" => content,
+      # "body" => 'content',
       # "show_url" => '',
-      # "return_url" => "http://hua.dev/success/#{product.id}",
+      # "return_url" => "http://hua.dev/success/file",
       # "notify_url" => "http =>//hua.dev/notify",
       # "error_notify_url" => "http =>//hua.dev/notify_error",
       # "paymethod" => "bankPay",
-      # "defaultbank" => 'CMB
+      # "defaultbank" => 'CMB'
       # }
       def initialize(options)
         @options = DEFAULT_OPTS.merge(options)
@@ -50,7 +50,7 @@ module Billing
       end
 
       def add_sign(query)
-        sign = Digest::MD5.hexdigest(query + Alipay::Key)
+        sign = Digest::MD5.hexdigest(query + ENV['ALIPAY_KEY'])
         query += "&sign=#{sign}&sign_type=MD5"
       end
     end

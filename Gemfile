@@ -16,6 +16,7 @@ gem 'backup', :require => false
 gem 'whenever', :require => false
 gem 'state_machine', :require => 'state_machine/core'
 gem 'rack-mini-profiler'
+gem "figaro"
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
