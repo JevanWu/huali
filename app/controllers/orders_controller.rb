@@ -45,8 +45,6 @@ class OrdersController < ApplicationController
       flash[:alert] = "No items in the cart, please add items first."
       redirect_to :root
     end
-
-  end
   end
 
   def current
