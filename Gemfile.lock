@@ -22,7 +22,7 @@ GIT
 
 GIT
   remote: git@github.com:zenhacks/capistrano-zen.git
-  revision: 412e6299257a4570d612ba485ba69cf760255e2b
+  revision: 3617d1bb4c9a00035a8894247cd7b8395cc4b9d9
   specs:
     capistrano-zen (0.0.3)
       capistrano (>= 2.5.3)
@@ -364,7 +364,7 @@ GEM
     warden (1.2.1)
       rack (>= 1.0)
     websocket (1.0.6)
-    whenever (0.8.0)
+    whenever (0.8.1)
       activesupport (>= 2.3.4)
       chronic (>= 0.6.3)
     xpath (1.0.0)
