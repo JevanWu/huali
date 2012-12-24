@@ -2,6 +2,7 @@ class CreateTransactions < ActiveRecord::Migration
   def change
     create_table :transactions do |t|
       t.string     :identifier
+      t.string     :paymethod
       t.string     :merchant_name
       t.string     :merchant_trade_no
       t.references :order
