@@ -50,7 +50,7 @@ class OrdersController < ApplicationController
   def gateway
     @order = Order.find_by_id(session[:order_id])
     parse_pay_info
-                                amount: @order.total )
+    transaction = @order.generate_transaction(@options)
   end
 
   def return
