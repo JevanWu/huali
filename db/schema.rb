@@ -181,6 +181,7 @@ ActiveRecord::Schema.define(:version => 20121224075413) do
     t.string   "identifier"
     t.string   "merchant_name"
     t.string   "merchant_trade_no"
+    t.string   "paymethod"
     t.string   "subject"
     t.text     "body"
     t.string   "status"
