@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121218054308) do
+ActiveRecord::Schema.define(:version => 20121224075413) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -176,6 +176,20 @@ ActiveRecord::Schema.define(:version => 20121218054308) do
   end
 
   add_index "provinces", ["post_code"], :name => "index_provinces_on_post_code", :unique => true
+
+  create_table "transactions", :force => true do |t|
+    t.string   "identifier"
+    t.string   "trade_no"
+    t.string   "merchant_name"
+    t.string   "merchant_no"
+    t.integer  "order_id"
+    t.string   "service"
+    t.integer  "amount"
+    t.string   "status"
+    t.datetime "processed_at"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

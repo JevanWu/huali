@@ -33,7 +33,7 @@ class Order < ActiveRecord::Base
   belongs_to :user
 
   has_many :line_items, :order => "created_at ASC"
-  # has_many :payments, :dependent => :destroy
+  has_many :transactions, :order => "created_at ASC"
   # has_many :shipments, :dependent => :destroy
 
   accepts_nested_attributes_for :line_items
