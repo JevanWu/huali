@@ -180,13 +180,13 @@ ActiveRecord::Schema.define(:version => 20121224075413) do
   create_table "transactions", :force => true do |t|
     t.string   "identifier"
     t.string   "merchant_name"
-    t.string   "merchant_no"
+    t.string   "merchant_trade_no"
     t.integer  "order_id"
     t.integer  "amount"
     t.string   "status"
     t.datetime "processed_at"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "users", :force => true do |t|
