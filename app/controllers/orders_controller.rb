@@ -49,7 +49,7 @@ class OrdersController < ApplicationController
 
   def gateway
     @order = Order.find_by_id(session[:order_id])
-    @order.transactions.create( merchant_name: params[:pay_bank],
+    parse_pay_info
                                 amount: @order.total )
   end
 
@@ -70,6 +70,17 @@ class OrdersController < ApplicationController
   end
 
   private
+
+    def parse_pay_info
+      @options = case params[:pay_info]
+      when 'directPay'
+        { paymethod: params[:pay_info], merchant_name: '' }
+      when 'paypal'
+        { paymethod: params[:pay_info], merchant_name: '' }
+      else
+        { paymethod: 'bankPay', merchant_name: params[:pay_info]}
+      end
+    end
 
     def load_cart
       begin
