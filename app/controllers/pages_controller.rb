@@ -48,10 +48,10 @@ class PagesController < ApplicationController
     delivery_fee = params[:area] == 'remote' ? 40 : 0
     cost = product.price + delivery_fee
 
-    if params[:pay_bank] == "paypal"
+    if params[:paymethod] == "paypal"
       gateway = Billing::Paypal::Gateway.new paypal_options(product, cost)
       redirect_to gateway.purchase_path
-    elsif params[:pay_bank] == "directPay"
+    elsif params[:paymethod] == "directPay"
       gateway = Billing::Alipay::Gateway.new alipay_options(product, cost)
       redirect_to gateway.purchase_path
     else
