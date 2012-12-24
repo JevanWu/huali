@@ -33,12 +33,11 @@ class Order < ActiveRecord::Base
   belongs_to :user
 
   has_many :line_items, :order => "created_at ASC"
-  # has_many :payments, :dependent => :destroy
+  has_many :transactions, :order => "created_at ASC"
   # has_many :shipments, :dependent => :destroy
 
   accepts_nested_attributes_for :line_items
   accepts_nested_attributes_for :address
-  # accepts_nested_attributes_for :payments
   # accepts_nested_attributes_for :shipments
 
   # before_filter :authenticate_user!
@@ -71,6 +70,20 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def generate_transaction(options)
+    default = {
+      amount: self.total,
+      subject: subject_text,
+      body: body_text
+    }
+    self.transactions.create default.merge(options)
+  end
+
+  def add_line_item(product_id, quantity)
+    this_item = LineItem.create(product_id: product_id, quantity: quantity)
+    self.line_items << this_item
+  end
+
   def generate_no
     self.number = Time.now.strftime("%Y%m%d%H%M")
   end
@@ -79,10 +92,6 @@ class Order < ActiveRecord::Base
     self.total = line_items.inject(0) { |sum, item| sum + item.total }
   end
 
-  def add_line_item(product_id, quantity)
-    this_item = LineItem.create(product_id: product_id, quantity: quantity)
-    self.line_items << this_item
-  end
 
   def to_param
     number.to_s.upcase
@@ -94,5 +103,15 @@ class Order < ActiveRecord::Base
 
   def checkout_allowed?
     line_items.count > 0
+  end
+
+  private
+
+  def subject_text
+    line_items.inject('') { |sum, item| sum + "#{item.name} * #{item.quantity} |"}
+  end
+
+  def body_text
+    # prepare body text for transaction
   end
 end

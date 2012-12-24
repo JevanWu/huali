@@ -91,7 +91,7 @@ class PagesController < ApplicationController
     options = {
       'out_trade_no' => product[:order_num],
       'total_fee' => cost.to_s,
-      'paymethod' => method,
+      'pay_bank' => method,
       'defaultbank' => bank,
       'subject' => product.name,
       'body' => product.description[0..50],

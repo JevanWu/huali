@@ -47,6 +47,21 @@ class OrdersController < ApplicationController
     end
   end
 
+  def gateway
+    @order = Order.find_by_id(session[:order_id])
+    parse_pay_info
+    transaction = @order.generate_transaction(@options)
+
+    gateway = Billing::Alipay::Gateway.new transaction.to_alipay
+    redirect_to gateway.purchase_path
+  end
+
+  def return
+  end
+
+  def notify
+  end
+
   def current
     @products = []
     @cart.keys.each do |key|
@@ -58,6 +73,17 @@ class OrdersController < ApplicationController
   end
 
   private
+
+    def parse_pay_info
+      @options = case params[:pay_info]
+      when 'directPay'
+        { paymethod: params[:pay_info], merchant_name: '' }
+      when 'paypal'
+        { paymethod: params[:pay_info], merchant_name: '' }
+      else
+        { paymethod: 'bankPay', merchant_name: params[:pay_info]}
+      end
+    end
 
     def load_cart
       begin
