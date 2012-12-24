@@ -47,6 +47,15 @@ class OrdersController < ApplicationController
     end
   end
 
+  def gateway
+  end
+
+  def return
+  end
+
+  def notify
+  end
+
   def current
     @products = []
     @cart.keys.each do |key|

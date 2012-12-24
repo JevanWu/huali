@@ -3,8 +3,12 @@ Huali::Application.routes.draw do
   resources :products, :only => [:show]
   resources :collections, :only => [:show]
 
+  # FIXME refactor this routes to be more elegant
   get 'orders/current', as: :current_order
   get 'orders/checkout', as: :checkout_order
+  post 'orders/gateway', as: :gateway_order
+  get 'orders/return', as: :return_order
+  post 'orders/notify', as: :notify_order
   resources :orders, :except => [:destroy, :update, :edit]
 
   # non-individual collections routes
