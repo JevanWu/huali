@@ -179,7 +179,6 @@ ActiveRecord::Schema.define(:version => 20121224075413) do
 
   create_table "transactions", :force => true do |t|
     t.string   "identifier"
-    t.string   "paymethod"
     t.string   "merchant_name"
     t.string   "merchant_trade_no"
     t.integer  "order_id"
