@@ -181,9 +181,11 @@ ActiveRecord::Schema.define(:version => 20121224075413) do
     t.string   "identifier"
     t.string   "merchant_name"
     t.string   "merchant_trade_no"
+    t.string   "subject"
+    t.text     "body"
+    t.string   "status"
     t.integer  "order_id"
     t.integer  "amount"
-    t.string   "status"
     t.datetime "processed_at"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false

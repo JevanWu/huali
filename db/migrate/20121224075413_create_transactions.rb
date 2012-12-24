@@ -4,9 +4,12 @@ class CreateTransactions < ActiveRecord::Migration
       t.string     :identifier
       t.string     :merchant_name
       t.string     :merchant_trade_no
+      t.string     :subject
+      t.text       :body
+      t.string     :status
+
       t.references :order
       t.integer    :amount
-      t.string     :status
       t.datetime   :processed_at
 
       t.timestamps
