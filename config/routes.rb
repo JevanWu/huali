@@ -20,6 +20,7 @@ Huali::Application.routes.draw do
 
   get 'order/:name_en', to: 'pages#order', as: :order
   get 'payment/:name_en', to: 'pages#payment', as: :payment
+  get 'share/:name_en', to: 'pages#share', as: :share
   post 'payment/:name_en', to: 'pages#gateway', as: :gateway
 
   # alipay related url
