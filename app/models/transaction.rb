@@ -14,7 +14,7 @@ class Transaction < ActiveRecord::Base
 
   def generate_identifier
     unless @identifier
-      # generate identifier
+      @identifier = Time.now.strftime("%Y%m%H%M%S")
     end
   end
 end

@@ -48,6 +48,9 @@ class OrdersController < ApplicationController
   end
 
   def gateway
+    @order = Order.find_by_id(session[:order_id])
+    @order.transactions.create( merchant_name: params[:pay_bank],
+                                amount: @order.total )
   end
 
   def return
