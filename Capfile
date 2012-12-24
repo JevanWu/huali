@@ -105,5 +105,5 @@ after "deploy:setup",
   "config:setup"
 
 # dump database before a new successful release
-before "config:db_symlink", "pg:dump"
-after "deploy:finalize_update", "config:db_symlink", "config:appenv_symlink"
+before "config:db:symlink", "pg:dump"
+after "deploy:finalize_update", "config:db:symlink", "config:env:symlink"
