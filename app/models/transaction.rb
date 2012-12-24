@@ -1,4 +1,6 @@
 class Transaction < ActiveRecord::Base
+  include Rails.application.routes.url_helpers
+
   attr_accessible :merchant_name, :paymethod, :amount, :subject, :body
 
   belongs_to :order, :dependent => :destroy
@@ -18,6 +20,23 @@ class Transaction < ActiveRecord::Base
     message: "%{value} is not a valid merchant name."
   }
   validates_associated :order
+
+  def to_alipay
+    {
+      'out_trade_no' => self.identifier,
+      'total_fee' => self.amount,
+      'pay_bank' => self.paymethod,
+      'defaultbank' => self.merchant_name,
+      'subject' => self.subject,
+      'body' => self.body,
+      'return_url' => return_order_url(host: 'http://hua.li'),
+      'notify_url' => notify_order_url(host: 'http://hua.li')
+    }
+  end
+
+  def to_paypal
+
+  end
 
   private
 

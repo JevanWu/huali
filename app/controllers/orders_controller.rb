@@ -51,6 +51,9 @@ class OrdersController < ApplicationController
     @order = Order.find_by_id(session[:order_id])
     parse_pay_info
     transaction = @order.generate_transaction(@options)
+
+    gateway = Billing::Alipay::Gateway.new transaction.to_alipay
+    redirect_to gateway.purchase_path
   end
 
   def return
