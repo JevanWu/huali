@@ -6,4 +6,4 @@ Crawl-delay: 5
 Disallow: /admin
 Disallow: /administrator
 
-# Sitemap: http://www.douban.com/sitemap_index.xml
+Sitemap: http://www.douban.com/sitemap_index.xml.gz
