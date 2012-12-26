@@ -43,10 +43,6 @@ ActiveAdmin.register Order do
       #order.phonenum
     #end
 
-    #column "购买者姓名", :sortable => :buyer_name do |order|
-      #order.buyer_name
-    #end
-
     column "收货人姓名", :sortable => :phonenum do |order|
       order.address.fullname
     end
@@ -59,11 +55,11 @@ ActiveAdmin.register Order do
       order.delivery_date
     end
 
-    default_actions
+    column "处理订单" do |order|
+      link_to('编辑 ', edit_admin_order_path(order)) + link_to('查看 ', admin_order_path(order))
+    end
 
   end
-
-  form :partial => "form"
 
   show :title => "订单" do
 
