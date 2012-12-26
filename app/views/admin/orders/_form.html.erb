@@ -1,9 +1,0 @@
-<%= semantic_form_for [:admin, @order] do |f| %>
-  <%= f.inputs "Main Info" do %>
-    <%= f.input :delivery_date, :label => "Delivery Date" %>
-    <%= f.input :gift_card_text, :label => "Gift Card Text" %>
-    <%= f.input :special_instructions, :label => "Special Instructions" %>
-  <% end %>
-
-  <%= f.actions %>
-<% end %>
