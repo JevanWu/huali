@@ -42,6 +42,8 @@ class Order < ActiveRecord::Base
 
   before_validation :generate_identifier, :cal_total, on: :create
 
+  validates :identifier, presence: true
+
   # Queries
   class << self
     def by_number(number)
