@@ -2,6 +2,11 @@
 SitemapGenerator::Sitemap.default_host = "http://www.hua.li"
 
 SitemapGenerator::Sitemap.create do
+  add '/faq', :changefreq => 'weekly'
+  add '/about', :changefreq => 'weekly'
+  add '/help-center', :changefreq => 'weekly'
+  add '/copyright', :changefreq => 'weekly'
+
   # Put links creation logic here.
   #
   # The root path '/' and sitemap index file are added automatically for you.
