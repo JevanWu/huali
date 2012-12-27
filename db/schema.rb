@@ -125,7 +125,7 @@ ActiveRecord::Schema.define(:version => 20121227042818) do
     t.date     "delivery_date",                                                       :null => false
   end
 
-  add_index "orders", ["identifier"], :name => "index_orders_on_number"
+  add_index "orders", ["identifier"], :name => "index_orders_on_identifier"
 
   create_table "pages", :force => true do |t|
     t.string   "title_zh"
