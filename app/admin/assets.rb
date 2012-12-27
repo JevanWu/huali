@@ -12,6 +12,27 @@ ActiveAdmin.register Asset do
     f.buttons
   end
 
+  index do
+    selectable_column
+    column "Image" do |asset|
+      image_tag asset.image.url(:thumb)
+    end
+
+    column "Viewable Type" do |asset|
+      asset.viewable_type
+    end
+
+    column "File_size" do |asset|
+      asset.image_file_size
+    end
+
+    column "Image_updated_at" do |asset|
+      asset.image_updated_at
+    end
+
+    default_actions
+  end
+
   show do |asset|
     attributes_table do
       row :viewable_type
