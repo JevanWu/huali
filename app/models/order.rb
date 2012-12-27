@@ -40,7 +40,6 @@ class Order < ActiveRecord::Base
   accepts_nested_attributes_for :address
   # accepts_nested_attributes_for :shipments
 
-  # before_filter :authenticate_user!
   before_validation :generate_identifier, :cal_total, on: :create
 
   # Queries
