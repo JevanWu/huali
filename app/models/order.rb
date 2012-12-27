@@ -8,8 +8,8 @@
 #  delivery_date        :date             not null
 #  gift_card_text       :text
 #  id                   :integer          not null, primary key
+#  identifier           :string(255)
 #  item_total           :decimal(8, 2)    default(0.0), not null
-#  number               :string(255)
 #  payment_state        :string(255)
 #  payment_total        :decimal(8, 2)    default(0.0)
 #  shipment_state       :string(255)
@@ -21,7 +21,7 @@
 #
 # Indexes
 #
-#  index_orders_on_number  (number)
+#  index_orders_on_identifier  (identifier) UNIQUE
 #
 
 class Order < ActiveRecord::Base
