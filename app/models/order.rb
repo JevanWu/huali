@@ -29,6 +29,8 @@ class Order < ActiveRecord::Base
   attr_accessible :line_items, :address_attributes, :special_instructions,
                   :gift_card_text, :delivery_date
 
+  attr_accessor :identifier
+
   belongs_to :address
   belongs_to :user
 
@@ -41,7 +43,7 @@ class Order < ActiveRecord::Base
   # accepts_nested_attributes_for :shipments
 
   # before_filter :authenticate_user!
-  before_create :generate_no, :cal_total
+  before_validation :generate_identifier, :cal_total, on: :create
 
   # Queries
   class << self
@@ -70,6 +72,10 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def generate_identifier
+    self.identifier = day_uniq_id('OR')
+  end
+
   def generate_transaction(options)
     default = {
       amount: self.total,
@@ -84,14 +90,9 @@ class Order < ActiveRecord::Base
     self.line_items << this_item
   end
 
-  def generate_no
-    self.number = Time.now.strftime("%Y%m%d%H%M")
-  end
-
   def cal_total
     self.total = line_items.inject(0) { |sum, item| sum + item.total }
   end
-
 
   def to_param
     number.to_s.upcase
