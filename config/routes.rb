@@ -27,15 +27,7 @@ Huali::Application.routes.draw do
     root :to => "admin#index"
   end
 
-  get 'order/:name_en', to: 'pages#order', as: :order
-  get 'payment/:name_en', to: 'pages#payment', as: :payment
   get 'share/:name_en', to: 'pages#share', as: :share
-  post 'payment/:name_en', to: 'pages#gateway', as: :gateway
-
-  # alipay related url
-  get 'success/:name_en', to: 'pages#return', as: :success
-  post '/notify', to: 'pages#notify', as: :notify
-  post '/notify_error', to: 'pages#notify_error', as: :notify_error
 
   get ':id', to: 'pages#show', as: :page
   get "errors/error_404"

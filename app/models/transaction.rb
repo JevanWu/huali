@@ -59,7 +59,10 @@ class Transaction < ActiveRecord::Base
   end
 
   def to_paypal
-
+    # {
+      # 'item_name' => product.name,
+      # 'amount' => exchange_to_dollar(cost)
+    # }
   end
 
   def generate_identifier
