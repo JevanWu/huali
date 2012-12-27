@@ -87,6 +87,11 @@ namespace :deploy do
   task :bundle, :roles => :app, :except => { :no_release => true } do
     run "cd #{release_path} && bundle install"
   end
+
+  task :copy_old_sitemap do
+    run "if [ -e #{previous_release}/public/sitemap_index.xml.gz  ]; then cp #{previous_release}/public/sitemap* #{current_release}/public/; fi"
+  end
+
   after "deploy:finalize_update", "deploy:bundle"
 end
 
@@ -107,3 +112,4 @@ after "deploy:setup",
 # dump database before a new successful release
 before "config:db:symlink", "pg:dump"
 after "deploy:finalize_update", "config:db:symlink", "config:env:symlink"
+after "deploy:update_code", "deploy:copy_old_sitemap"
