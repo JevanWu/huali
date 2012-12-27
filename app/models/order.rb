@@ -97,10 +97,6 @@ class Order < ActiveRecord::Base
     self.total = line_items.inject(0) { |sum, item| sum + item.total }
   end
 
-  def to_param
-    identifier.to_s.upcase
-  end
-
   def completed?
     !! completed_at
   end
