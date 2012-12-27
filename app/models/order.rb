@@ -95,7 +95,7 @@ class Order < ActiveRecord::Base
   end
 
   def to_param
-    number.to_s.upcase
+    identifier.to_s.upcase
   end
 
   def completed?
