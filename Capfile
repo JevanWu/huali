@@ -112,4 +112,3 @@ after "deploy:setup",
 # dump database before a new successful release
 before "config:db:symlink", "pg:dump"
 after "deploy:finalize_update", "config:db:symlink", "config:env:symlink"
-after "deploy:update_code", "deploy:copy_old_sitemap"
