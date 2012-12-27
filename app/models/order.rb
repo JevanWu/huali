@@ -69,6 +69,10 @@ class Order < ActiveRecord::Base
     def incomplete
       where(:completed_at => nil)
     end
+
+    def full_info(key)
+      includes(:user, :transactions).find_by_id(key)
+    end
   end
 
   def generate_identifier
