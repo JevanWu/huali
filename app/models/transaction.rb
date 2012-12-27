@@ -27,8 +27,6 @@ class Transaction < ActiveRecord::Base
 
   attr_accessible :merchant_name, :paymethod, :amount, :subject, :body
 
-  attr_accessor :identifier
-
   belongs_to :order, :dependent => :destroy
 
   before_validation :generate_identifier, on: :create
