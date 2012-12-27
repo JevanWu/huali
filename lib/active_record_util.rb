@@ -16,5 +16,15 @@ module ActiveRecordExtension
     end
   end
 end
-
 ActiveRecord::Base.send(:include, ActiveRecordExtension)
+
+class ActiveRecord::Base
+
+  protected
+
+  def day_uniq_id(prefix)
+    date_string = Time.now.strftime('%Y%m%d')
+    day_uiq_num = "%06d" % $redis.incr("#{self.class.name}:#{date_string}")
+    prefix + date_string + day_uiq_num
+  end
+end
