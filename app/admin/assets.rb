@@ -14,18 +14,12 @@ ActiveAdmin.register Asset do
 
   index do
     selectable_column
-    column "ID" do |asset|
-      link_to asset.id, asset_path(asset)
+    column "Image" do |asset|
+      image_tag asset.image.url(:thumb)
     end
 
     column "Viewable Type" do |asset|
       asset.viewable_type
-    end
-
-    column "Image" do |asset|
-      unless asset.image.nil?
-        image_tag asset.image.url(:thumb)
-      end
     end
 
     column "File_size" do |asset|
