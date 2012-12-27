@@ -37,15 +37,19 @@ class User < ActiveRecord::Base
 
   has_many :orders
 
-  scope :registered, where("#{self.table_name}.email NOT LIKE ?", "%@changan.sample")
+  scope :registered, where("#{self.table_name}.email NOT LIKE ?", "%@guest.me")
+  scope :guests, where("#{self.table_name}.email LIKE ?", "%@guest.me")
 
-  def self.anonymous!
-    token = User.generate_token(:anonymous_token)
-    User.create(:email => "#{token}@changan.sample", :password => token, :password_confirmation => token, :anonymous_token => token)
+  class << self
+    def build_guest
+      u = User.create(email: "guest_#{Time.now.to_i}#{rand(99)}@guest.me")
+      u.save(:validate => false)
+      u
+    end
   end
 
-  def anonymous?
-    email.nil? || email =~ /@changan.sample$/
+  def guest?
+    !!(email =~ /@guest.me/)
   end
 
   private

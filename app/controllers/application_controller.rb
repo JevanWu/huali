@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale, :check_for_mobile
   before_filter :dev_tools if Rails.env == 'development'
 
+  after_filter :store_location
+
   protect_from_forgery
 
   unless Rails.application.config.consider_all_requests_local
@@ -16,7 +18,53 @@ class ApplicationController < ActionController::Base
 
   end
 
+  def store_location
+    # store last url as long as it isn't a /users path
+    session[:previous_url] = request.fullpath unless request.fullpath =~ /\/users/
+  end
+
+  def after_sign_in_path_for(resource)
+    migrate_from_guest
+    session[:previous_url] || root_path
+  end
+
+  # if user is logged in, return current_user, else return guest_user
+  def current_or_guest_user
+    if current_user
+      migrate_from_guest
+      current_user
+    else
+      guest_user
+    end
+  end
+
+  def guest_user
+    session[:guest_user_id] ||= User.build_guest.id
+    User.find_by_id session[:guest_user_id]
+  end
+
   private
+
+  def migrate_from_guest
+    if session[:guest_user_id]
+      hand_off_guest
+      destroy_guest
+    end
+  end
+
+  def destroy_guest
+    guest_user.destroy
+    session[:guest_user_id] = nil
+  end
+
+  # hand off resources from guest_user to current_user.
+  def hand_off_guest
+    guest_orders = guest_user.orders.all
+    guest_orders.each do |order|
+      order.user_id = current_user.id
+      order.save
+    end
+  end
 
   # i18n helpers
   def set_locale
