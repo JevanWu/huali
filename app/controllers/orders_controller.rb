@@ -15,7 +15,7 @@ class OrdersController < ApplicationController
   end
 
   def create
-    order = Order.new(params[:order])
+    validate_cart
 
     # TODO check against invalid cart
     # - no line items present
@@ -73,6 +73,12 @@ class OrdersController < ApplicationController
   end
 
   private
+    def validate_cart
+      # TODO check against invalid cart
+      # - no line items present
+      # - zero quantity
+      true
+    end
 
     def parse_pay_info
       @options = case params[:pay_info]
