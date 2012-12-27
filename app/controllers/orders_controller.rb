@@ -1,13 +1,14 @@
 class OrdersController < ApplicationController
   layout 'order'
   before_filter :load_cart
+  before_filter :authenticate_user!, except: [:current, :new, :return, :notify]
 
   def index
-    @orders = Order.all
+    @orders = current_user.orders
   end
 
   def show
-
+    @order = current_user.orders.full_info(params[:id])
   end
 
   def new
@@ -17,9 +18,7 @@ class OrdersController < ApplicationController
   def create
     validate_cart
 
-    # TODO check against invalid cart
-    # - no line items present
-    # - zero quantity
+    order = current.orders.build(params[:order])
 
     # create line items
     @cart.keys.each do |key|
