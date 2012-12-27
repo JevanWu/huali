@@ -1,0 +1,8 @@
+<li>
+<%= link_to('购花篮', current_order_path) %>        
+</li>
+<% if user_signed_in? %>
+  <li>
+  <%= link_to('历史订单', orders_path)  %>  
+  </li>
+<% end %>
