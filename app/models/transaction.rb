@@ -1,7 +1,33 @@
+# == Schema Information
+#
+# Table name: transactions
+#
+#  amount            :integer
+#  body              :text
+#  created_at        :datetime         not null
+#  id                :integer          not null, primary key
+#  identifier        :string(255)
+#  merchant_name     :string(255)
+#  merchant_trade_no :string(255)
+#  order_id          :integer
+#  paymethod         :string(255)
+#  processed_at      :datetime
+#  status            :string(255)
+#  subject           :string(255)
+#  updated_at        :datetime         not null
+#
+# Indexes
+#
+#  index_transactions_on_identifier  (identifier) UNIQUE
+#  index_transactions_on_order_id    (order_id)
+#
+
 class Transaction < ActiveRecord::Base
   include Rails.application.routes.url_helpers
 
   attr_accessible :merchant_name, :paymethod, :amount, :subject, :body
+
+  attr_accessor :identifier
 
   belongs_to :order, :dependent => :destroy
 
@@ -38,9 +64,7 @@ class Transaction < ActiveRecord::Base
 
   end
 
-  private
-
   def generate_identifier
-    self.identifier ||= Time.now.strftime("%Y%m%H%M%S")
+    self.identifier = uid_prefixed_by('TR')
   end
 end

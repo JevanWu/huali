@@ -8,8 +8,8 @@
 #  delivery_date        :date             not null
 #  gift_card_text       :text
 #  id                   :integer          not null, primary key
+#  identifier           :string(255)
 #  item_total           :decimal(8, 2)    default(0.0), not null
-#  number               :string(255)
 #  payment_state        :string(255)
 #  payment_total        :decimal(8, 2)    default(0.0)
 #  shipment_state       :string(255)
@@ -21,13 +21,15 @@
 #
 # Indexes
 #
-#  index_orders_on_number  (number)
+#  index_orders_on_identifier  (identifier) UNIQUE
 #
 
 class Order < ActiveRecord::Base
 
   attr_accessible :line_items, :address_attributes, :special_instructions,
                   :gift_card_text, :delivery_date
+
+  attr_accessor :identifier
 
   belongs_to :address
   belongs_to :user
@@ -41,7 +43,7 @@ class Order < ActiveRecord::Base
   # accepts_nested_attributes_for :shipments
 
   # before_filter :authenticate_user!
-  before_create :generate_no, :cal_total
+  before_validation :generate_identifier, :cal_total, on: :create
 
   # Queries
   class << self
@@ -70,6 +72,10 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def generate_identifier
+    self.identifier = uid_prefixed_by('OR')
+  end
+
   def generate_transaction(options)
     default = {
       amount: self.total,
@@ -84,14 +90,9 @@ class Order < ActiveRecord::Base
     self.line_items << this_item
   end
 
-  def generate_no
-    self.number = Time.now.strftime("%Y%m%d%H%M")
-  end
-
   def cal_total
     self.total = line_items.inject(0) { |sum, item| sum + item.total }
   end
-
 
   def to_param
     number.to_s.upcase

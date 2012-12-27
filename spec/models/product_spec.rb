@@ -12,7 +12,6 @@
 #  description_zh   :text
 #  height           :decimal(8, 2)
 #  id               :integer          not null, primary key
-#  info_source      :text
 #  inspiration_en   :text
 #  inspiration_zh   :text
 #  meta_description :string(255)
@@ -24,7 +23,6 @@
 #  price            :decimal(8, 2)
 #  published_en     :boolean          default(FALSE)
 #  published_zh     :boolean          default(FALSE)
-#  related_text     :text
 #  slug             :string(255)
 #  updated_at       :datetime         not null
 #  width            :decimal(8, 2)
