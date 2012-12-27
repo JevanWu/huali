@@ -29,8 +29,6 @@ class Order < ActiveRecord::Base
   attr_accessible :line_items, :address_attributes, :special_instructions,
                   :gift_card_text, :delivery_date
 
-  attr_accessor :identifier
-
   belongs_to :address
   belongs_to :user
 
@@ -42,8 +40,9 @@ class Order < ActiveRecord::Base
   accepts_nested_attributes_for :address
   # accepts_nested_attributes_for :shipments
 
-  # before_filter :authenticate_user!
   before_validation :generate_identifier, :cal_total, on: :create
+
+  validates :identifier, presence: true
 
   # Queries
   class << self
@@ -70,6 +69,10 @@ class Order < ActiveRecord::Base
     def incomplete
       where(:completed_at => nil)
     end
+
+    def full_info(key)
+      includes(:user, :transactions).find_by_id(key)
+    end
   end
 
   def generate_identifier
@@ -92,10 +95,6 @@ class Order < ActiveRecord::Base
 
   def cal_total
     self.total = line_items.inject(0) { |sum, item| sum + item.total }
-  end
-
-  def to_param
-    identifier.to_s.upcase
   end
 
   def completed?

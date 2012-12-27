@@ -1,9 +1,14 @@
 <% if @orders.empty? %>
-  <p>Empty Order</p>
+  <p>You have no Order</p>
 <% else %>
   <div>
     <% @orders.each do |order| %>
-      <%= order.inspect %>
+      <p>
+      <%= order.identifier %>
+      <%= order.delivery_date %>
+      <%= order.total %>
+      <%= link_to order.identifier, order_path(order) %>
+      </p>
     <% end %>
   </div>
 <% end %>

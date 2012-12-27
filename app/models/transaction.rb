@@ -27,8 +27,6 @@ class Transaction < ActiveRecord::Base
 
   attr_accessible :merchant_name, :paymethod, :amount, :subject, :body
 
-  attr_accessor :identifier
-
   belongs_to :order, :dependent => :destroy
 
   before_validation :generate_identifier, on: :create
@@ -61,7 +59,10 @@ class Transaction < ActiveRecord::Base
   end
 
   def to_paypal
-
+    # {
+      # 'item_name' => product.name,
+      # 'amount' => exchange_to_dollar(cost)
+    # }
   end
 
   def generate_identifier
