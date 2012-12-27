@@ -22,7 +22,7 @@ class ActiveRecord::Base
 
   protected
 
-  def day_uniq_id(prefix)
+  def uid_prefixed_by(prefix = 'NO')
     date_string = Time.now.strftime('%Y%m%d')
     day_uiq_num = "%06d" % $redis.incr("#{self.class.name}:#{date_string}")
     prefix + date_string + day_uiq_num

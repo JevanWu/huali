@@ -73,7 +73,7 @@ class Order < ActiveRecord::Base
   end
 
   def generate_identifier
-    self.identifier = day_uniq_id('OR')
+    self.identifier = uid_prefixed_by('OR')
   end
 
   def generate_transaction(options)

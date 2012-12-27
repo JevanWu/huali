@@ -41,6 +41,6 @@ class Transaction < ActiveRecord::Base
   end
 
   def generate_identifier
-    self.identifier = day_uniq_id('TR')
+    self.identifier = uid_prefixed_by('TR')
   end
 end
