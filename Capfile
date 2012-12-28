@@ -93,6 +93,7 @@ end
 namespace :sitemap do
   task :refresh do
     run "cd #{release_path} && bundle exec rake sitemap:refresh"
+    run "bundle exec rake sitemap:uncompress"
   end
 end
 
