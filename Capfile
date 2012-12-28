@@ -85,15 +85,13 @@ namespace :deploy do
   end
 
   task :bundle, :roles => :app, :except => { :no_release => true } do
-    run "cd #{release_path} && bundle install"
+    run "cd #{release_path} && bundle install --without development test"
   end
+  after "deploy:finalize_update", "deploy:bundle"
 
   task :refresh_sitemaps do
-      run "cd #{latest_release} && RAILS_ENV=#{rails_env} rake sitemap:refresh"
+    run "cd #{release_path} && bundle exec rake sitemap:refresh"
   end
-
-  after "deploy", "refresh_sitemaps"
-  after "deploy:finalize_update", "deploy:bundle"
 end
 
 after "deploy:install",
@@ -112,4 +110,7 @@ after "deploy:setup",
 
 # dump database before a new successful release
 before "config:db:symlink", "pg:dump"
-after "deploy:finalize_update", "config:db:symlink", "config:env:symlink"
+after "deploy:finalize_update",
+  "config:db:symlink",
+  "config:env:symlink",
+  "refresh_sitemaps"
