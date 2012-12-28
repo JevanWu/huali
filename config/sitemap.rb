@@ -6,11 +6,19 @@ SitemapGenerator::Sitemap.create do
   add '/about', :changefreq => 'weekly'
   add '/help-center', :changefreq => 'weekly'
   add '/copyright', :changefreq => 'weekly'
-  Product.find_each do |product|
-    add(product_path(product), :lastmod => product.updated_at, :images => [{
-      :loc => product.assets.first.image.url(:medium),
-      :title => product.name
-    }])
+  Product.unscoped.find_each do |product|
+    
+    product_images = []
+
+    product.assets.each do |asset|
+      product_image = {}
+      product_image[:loc] = asset.image.url(:medium)
+      product_image[:title] = product.name
+      product_images << product_image
+    end
+
+
+    add(product_path(product), :lastmod => product.updated_at, :images => product_images)
   end
 
   # Put links creation logic here.
