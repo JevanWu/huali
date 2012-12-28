@@ -23,6 +23,7 @@
 #   end
 
 SitemapGenerator::Sitemap.default_host = "http://www.hua.li"
+SitemapGenerator::Sitemap.create_index = false
 
 SitemapGenerator::Sitemap.create do
   add '/faq', :changefreq => 'weekly'
