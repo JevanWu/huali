@@ -62,6 +62,7 @@ group :development do
   gem 'capistrano', '~>2.0'
   gem 'capistrano-zen', git: 'git@github.com:zenhacks/capistrano-zen.git', :require => false
   gem 'railroady'
+  gem 'ruby-graphviz', :require => 'graphviz' # Optional: only required for graphing
 end
 
 group :test do
