@@ -42,36 +42,7 @@ class Order < ActiveRecord::Base
 
   validates :identifier, presence: true
 
-  extend StateMachine::MacroMethods
-
-  state_machine :state, :initial => :generated do
-    before_transition any => :wait_refund, :do => :auth_refund
-
-    # use adj. for state with future vision
-    # use v. for event name
-    state :generated do
-      transition :to => :wait_check, :on => :pay
-      transition :to => :cancelled, :on => :cancel
-    end
-
-    state :wait_check do
-      transition :to => :wait_ship, :on => :check
-      transition :to => :wait_refund, :on => :cancel
-    end
-
-    state :wait_ship do
-      transition :to => :wait_confirm, :on => :ship
-      transition :to => :wait_refund, :on => :cancel
-    end
-
-    state :wait_confirm do
-      transition :to => :finished, :on => :confirm
-    end
-
-    state :wait_refund do
-      transition :to => :cancelled, :on => :refund
-    end
-  end
+  require_relative 'order_state_machine'
 
   # Queries
   class << self
@@ -135,11 +106,6 @@ class Order < ActiveRecord::Base
   end
 
   private
-
-  def auth_refund
-    # TODO auth the admin for the refund actions
-    true
-  end
 
   def subject_text
     line_items.inject('') { |sum, item| sum + "#{item.name} * #{item.quantity} |"}
