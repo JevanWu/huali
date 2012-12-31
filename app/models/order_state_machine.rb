@@ -9,7 +9,7 @@ class Order
     # use v. for event name
     state :generated do
       transition :to => :wait_check, :on => :pay
-      transition :to => :cancelled, :on => :cancel
+      transition :to => :void, :on => :cancel
     end
 
     state :wait_check do
@@ -27,7 +27,7 @@ class Order
     end
 
     state :wait_refund do
-      transition :to => :cancelled, :on => :refund
+      transition :to => :void, :on => :refund
     end
   end
 
