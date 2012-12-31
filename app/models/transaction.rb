@@ -45,6 +45,8 @@ class Transaction < ActiveRecord::Base
   }
   validates_associated :order
 
+  require_relative 'transaction_state_machine'
+
   def to_alipay
     {
       'out_trade_no' => self.identifier,
