@@ -1,7 +1,6 @@
 class OrdersController < ApplicationController
   layout 'order'
   before_filter :load_cart
-  # before_filter :authenticate_user!, except: [:current, :return, :notify]
 
   def index
     @orders = current_or_guest_user.orders
@@ -72,6 +71,7 @@ class OrdersController < ApplicationController
   end
 
   private
+
     def validate_cart
       # TODO check against invalid cart
       # - no line items present
