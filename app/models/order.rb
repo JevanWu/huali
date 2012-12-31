@@ -10,9 +10,7 @@
 #  id                   :integer          not null, primary key
 #  identifier           :string(255)
 #  item_total           :decimal(8, 2)    default(0.0), not null
-#  payment_state        :string(255)
 #  payment_total        :decimal(8, 2)    default(0.0)
-#  shipment_state       :string(255)
 #  special_instructions :text
 #  state                :string(255)
 #  total                :decimal(8, 2)    default(0.0), not null
