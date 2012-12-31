@@ -12,7 +12,7 @@
 #  order_id          :integer
 #  paymethod         :string(255)
 #  processed_at      :datetime
-#  status            :string(255)
+#  state             :string(255)
 #  subject           :string(255)
 #  updated_at        :datetime         not null
 #
