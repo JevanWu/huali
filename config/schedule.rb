@@ -33,3 +33,7 @@ end
 every :day, :at => '1:30 am' do
   rake 'guests:cleanup'
 end
+
+every :day, :at => '3:00 am' do
+  rake "sitemap:refresh"
+end

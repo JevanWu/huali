@@ -90,6 +90,12 @@ namespace :deploy do
   after "deploy:finalize_update", "deploy:bundle"
 end
 
+namespace :sitemap do
+  task :refresh do
+    run "cd #{release_path} && bundle exec rake sitemap:refresh"
+  end
+end
+
 after "deploy:install",
   "nginx:install",
   "nodejs:install",
@@ -106,4 +112,7 @@ after "deploy:setup",
 
 # dump database before a new successful release
 before "config:db:symlink", "pg:dump"
-after "deploy:finalize_update", "config:db:symlink", "config:env:symlink"
+after "deploy:finalize_update",
+  "config:db:symlink",
+  "config:env:symlink",
+  "sitemap:refresh"
