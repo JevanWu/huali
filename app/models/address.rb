@@ -25,7 +25,8 @@ class Address < ActiveRecord::Base
   belongs_to :area
   belongs_to :user
 
-  has_many :order
+  has_many :orders
+  has_many :shipments
 
   accepts_nested_attributes_for :province, :area, :city
 
