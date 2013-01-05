@@ -175,7 +175,6 @@ ActiveRecord::Schema.define(:version => 20130105030720) do
   add_index "provinces", ["post_code"], :name => "index_provinces_on_post_code", :unique => true
 
   create_table "ship_methods", :force => true do |t|
-    t.string  "tracking_num"
     t.string  "name"
     t.string  "service_phone"
     t.string  "type"
@@ -183,10 +182,9 @@ ActiveRecord::Schema.define(:version => 20130105030720) do
     t.integer "cost"
   end
 
-  add_index "ship_methods", ["tracking_num"], :name => "index_ship_methods_on_tracking_num"
-
   create_table "shipments", :force => true do |t|
     t.string   "identifier"
+    t.string   "tracking_num"
     t.string   "state"
     t.text     "note"
     t.integer  "cost"
@@ -200,6 +198,7 @@ ActiveRecord::Schema.define(:version => 20130105030720) do
   add_index "shipments", ["identifier"], :name => "index_shipments_on_identifier"
   add_index "shipments", ["order_id"], :name => "index_shipments_on_order_id"
   add_index "shipments", ["ship_method_id"], :name => "index_shipments_on_ship_method_id"
+  add_index "shipments", ["tracking_num"], :name => "index_shipments_on_tracking_num"
 
   create_table "transactions", :force => true do |t|
     t.string   "identifier"
