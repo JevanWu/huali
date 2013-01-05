@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130105030720) do
+ActiveRecord::Schema.define(:version => 20130105095153) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -180,6 +180,7 @@ ActiveRecord::Schema.define(:version => 20130105030720) do
     t.string  "method"
     t.string  "website"
     t.integer "cost"
+    t.string  "kuaidi_com_code"
   end
 
   create_table "shipments", :force => true do |t|
