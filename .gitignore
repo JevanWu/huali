@@ -23,6 +23,7 @@ db/*.sqlite3
 **.war
 *.rbc
 *.sassc
+*.png
 .rspec
 .redcar/
 .sass-cache
@@ -30,6 +31,7 @@ db/*.sqlite3
 /coverage/
 /db/*.javadb/
 /db/*.sqlite3
+/doc
 /doc/api/
 /doc/app/
 /doc/features.html

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121231100941) do
+ActiveRecord::Schema.define(:version => 20130105030720) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -39,7 +39,6 @@ ActiveRecord::Schema.define(:version => 20121231100941) do
     t.integer  "user_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
-    t.integer  "order_id"
   end
 
   create_table "administrators", :force => true do |t|
@@ -174,6 +173,32 @@ ActiveRecord::Schema.define(:version => 20121231100941) do
   end
 
   add_index "provinces", ["post_code"], :name => "index_provinces_on_post_code", :unique => true
+
+  create_table "ship_methods", :force => true do |t|
+    t.string  "name"
+    t.string  "service_phone"
+    t.string  "method"
+    t.string  "website"
+    t.integer "cost"
+  end
+
+  create_table "shipments", :force => true do |t|
+    t.string   "identifier"
+    t.string   "tracking_num"
+    t.string   "state"
+    t.text     "note"
+    t.integer  "cost"
+    t.integer  "address_id"
+    t.integer  "ship_method_id"
+    t.integer  "order_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "shipments", ["identifier"], :name => "index_shipments_on_identifier"
+  add_index "shipments", ["order_id"], :name => "index_shipments_on_order_id"
+  add_index "shipments", ["ship_method_id"], :name => "index_shipments_on_ship_method_id"
+  add_index "shipments", ["tracking_num"], :name => "index_shipments_on_tracking_num"
 
   create_table "transactions", :force => true do |t|
     t.string   "identifier"

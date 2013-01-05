@@ -26,18 +26,17 @@
 class Order < ActiveRecord::Base
 
   attr_accessible :line_items, :address_attributes, :special_instructions,
-                  :gift_card_text, :delivery_date
+                  :gift_card_text, :delivery_date, :identifier
 
   belongs_to :address
   belongs_to :user
 
-  has_many :line_items, :order => "created_at ASC"
-  has_many :transactions, :order => "created_at ASC"
-  # has_many :shipments, :dependent => :destroy
+  has_many :line_items, dependent: :destroy
+  has_many :transactions, dependent: :destroy
+  has_many :shipments, dependent: :destroy
 
   accepts_nested_attributes_for :line_items
   accepts_nested_attributes_for :address
-  # accepts_nested_attributes_for :shipments
 
   before_validation :generate_identifier, :cal_total, on: :create
 
@@ -93,6 +92,16 @@ class Order < ActiveRecord::Base
       body: body_text
     }
     self.transactions.create default.merge(options)
+  end
+
+  # options = {
+    # tracking_num: String
+    # ship_method_id: Integer
+    # note: String
+    # cost: Integer (optional)
+  # }
+  def generate_shipment(options)
+    self.shipments.create options
   end
 
   def add_line_item(product_id, quantity)

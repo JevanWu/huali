@@ -82,9 +82,9 @@ class OrdersController < ApplicationController
     def parse_pay_info
       @options = case params[:pay_info]
       when 'directPay'
-        { paymethod: params[:pay_info], merchant_name: '' }
+        { paymethod: params[:pay_info], merchant_name: 'Alipay' }
       when 'paypal'
-        { paymethod: params[:pay_info], merchant_name: '' }
+        { paymethod: params[:pay_info], merchant_name: 'Paypal' }
       else
         { paymethod: 'bankPay', merchant_name: params[:pay_info]}
       end
