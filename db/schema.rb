@@ -177,7 +177,7 @@ ActiveRecord::Schema.define(:version => 20130105030720) do
   create_table "ship_methods", :force => true do |t|
     t.string  "name"
     t.string  "service_phone"
-    t.string  "type"
+    t.string  "method"
     t.string  "website"
     t.integer "cost"
   end

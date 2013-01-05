@@ -3,7 +3,7 @@ class CreateShipMethods < ActiveRecord::Migration
     create_table :ship_methods do |t|
       t.string :name
       t.string :service_phone
-      t.string :type
+      t.string :method
       t.string :website
       t.integer :cost
     end
