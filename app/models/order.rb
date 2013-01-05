@@ -87,6 +87,10 @@ class Order < ActiveRecord::Base
     self.transactions.create default.merge(options)
   end
 
+  def generate_shipment(options)
+    self.shipments.create options
+  end
+
   def add_line_item(product_id, quantity)
     this_item = LineItem.create(product_id: product_id, quantity: quantity)
     self.line_items << this_item
