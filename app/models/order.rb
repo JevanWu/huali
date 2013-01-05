@@ -30,13 +30,12 @@ class Order < ActiveRecord::Base
   belongs_to :address
   belongs_to :user
 
-  has_many :line_items, :order => "created_at ASC"
-  has_many :transactions, :order => "created_at ASC"
-  # has_many :shipments, :dependent => :destroy
+  has_many :line_items, dependent: :destroy
+  has_many :transactions, dependent: :destroy
+  has_many :shipments, dependent: :destroy
 
   accepts_nested_attributes_for :line_items
   accepts_nested_attributes_for :address
-  # accepts_nested_attributes_for :shipments
 
   before_validation :generate_identifier, :cal_total, on: :create
 
