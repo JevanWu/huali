@@ -10,7 +10,7 @@ class Shipment < ActiveRecord::Base
   validates_presence_of :order_id, :address_id, :ship_method_id
   validates_presence_of :tracking_num, if: :is_express?
 
-  delegate :method, :to => :ship_method
+  require_relative 'shipment_state_machine'
 
   def generate_identifier
     self.identifier = uid_prefixed_by('SH')
