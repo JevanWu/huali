@@ -27,11 +27,11 @@ class Shipment < ActiveRecord::Base
   private
 
   def is_express?
-    method == 'express'
+    ship_method.method == 'express'
   end
 
   def is_mannual?
-    method == 'mannual'
+    ship_method.method == 'mannual'
   end
 
 end
