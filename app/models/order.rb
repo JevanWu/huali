@@ -87,6 +87,12 @@ class Order < ActiveRecord::Base
     self.transactions.create default.merge(options)
   end
 
+  # options = {
+    # tracking_num: String
+    # ship_method_id: Integer
+    # note: String
+    # cost: Integer (optional)
+  # }
   def generate_shipment(options)
     self.shipments.create options
   end
