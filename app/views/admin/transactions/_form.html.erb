@@ -1,0 +1,10 @@
+<%= semantic_form_for [:admin, @transaction] do |f| %>
+  <%= f.inputs "Main Info" do %>
+    <%= f.input :order_id, :label => "订单编号", :wrapper_html => { :style => "display:none;" } %>
+    <%= f.input :amount, :label => "金额", required: true %>
+    <%= f.input :merchant_name, :label => "商户名" , required: true%>
+    <%= f.input :paymethod, :label => "支付方式", required: true%>
+    <%= f.input :subject, :label => "主题" %>
+  <% end %>
+  <%= f.actions %>
+<% end %>

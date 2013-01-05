@@ -28,12 +28,20 @@ ActiveAdmin.register Order do
   index do
     selectable_column
     column "订单编号", :sortable => :id do |order|
-      order.number
+      order.identifier
     end
 
-    #column "订单状态", :sortable => :status do |order|
-      #order.status
-    #end
+    column "交易编号", :sortable => :id do |order|
+      link_to order.transactions.first.identifier, admin_transaction_path(order.transactions.first)
+    end
+
+    column "订单状态", :sortable => :status do |order|
+      order.state
+    end
+
+    column "订单金额", :sortable => :id do |order|
+      order.total
+    end
 
     #column "购买者姓名", :sortable => :buyer_name do |order|
       #order.buyer_name
@@ -48,7 +56,7 @@ ActiveAdmin.register Order do
     end
 
     column "收货人电话", :sortable => :phonenum do |order|
-      order.address.phonenum
+      order.address.phone
     end
 
     column "递送日期", :sortable => :delivery_date do |order|
@@ -56,44 +64,59 @@ ActiveAdmin.register Order do
     end
 
     column "处理订单" do |order|
-      link_to('编辑 ', edit_admin_order_path(order)) + link_to('查看 ', admin_order_path(order))
+      link_to('编辑 ', edit_admin_order_path(order)) + \
+      link_to('查看 ', admin_order_path(order)) + \
+      link_to('新建交易', new_admin_transaction_path(:"transaction[order_id]" => order.id), :confirm => "确定新建一笔交易么?")
+
+    end
+
+    column "修改订单状态" do |order|
+      link_to('新建 ') + \
+      link_to('审核 ') + \
+      link_to('发货 ') + \
+      link_to('确认收货 ') + \
+      link_to('退款')
     end
 
   end
+
+  form :partial => "form"
 
   show :title => "订单" do
 
     attributes_table do
       row '订单编号' do
-        order.number
+        order.identifier
       end
 
       row '订单总价' do
-        order.cal_total
+        order.cal_total.to_s + "元"
       end
 
-      #row '订单内容' do
-        #order.line_items.each do |line_item|
-          #line_item.product.name
-          #line_item.product.price
-        #end
-      #end
 
-      #row '收货人姓名' do
-        #order.address.fullname
-      #end
+      row '收货人姓名' do
+        order.address.fullname
+      end
 
-      #row '收货人电话' do
-        #order.address.phone
-      #end
+      row '收货人电话' do
+        order.address.phone
+      end
 
-      #row '收货人地址' do
-        #order.address.address
-      #end
+      row '收货人地址' do
+        order.address.address
+      end
 
-      #row '收货人邮编' do
-        #order.address.post_code
-      #end
+      row '收货人邮编' do
+        order.address.post_code
+      end
+
+      row :'订单内容' do
+        order.line_items.map do |line_item|
+          label_tag(line_item.product.name, line_item.product.name + " x " + line_item.quantity.to_s)
+          #image_tag line_item.product.assets.first.image.url(:medium)
+        end.join('</br>').html_safe
+      end
+
 
       row '卡片信息' do
         order.gift_card_text

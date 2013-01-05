@@ -25,7 +25,7 @@
 class Transaction < ActiveRecord::Base
   include Rails.application.routes.url_helpers
 
-  attr_accessible :merchant_name, :paymethod, :amount, :subject, :body
+  attr_accessible :merchant_name, :paymethod, :amount, :subject, :body, :identifier, :order_id
 
   belongs_to :order, :dependent => :destroy
 
