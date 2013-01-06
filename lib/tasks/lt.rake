@@ -55,10 +55,10 @@ end
 
 def check_install
   unless system('which lt > /dev/null')
-    raise "you need to install localtunnel to use this tasks \n
+    puts "you need to install localtunnel to use this tasks \n
     run 'npm install -g localtunnel' to install them"
+    exit
   end
-  exit
 end
 
 def check_lt
