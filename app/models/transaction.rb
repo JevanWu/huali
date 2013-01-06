@@ -31,7 +31,7 @@ class Transaction < ActiveRecord::Base
 
   before_validation :generate_identifier, on: :create
 
-  validates :identifier, :paymethod, :merchant_name, :amount, :subject, presence: true
+  validates_presence_of :identifier, :paymethod, :merchant_name, :amount, :subject
   validates :identifier, uniqueness: true
   validates :amount, numericality: true
   validates :paymethod, inclusion: {
@@ -43,7 +43,6 @@ class Transaction < ActiveRecord::Base
     in: %w(Alipay Paypal ICBCB2C CMB CCB BOCB2C ABC COMM CMBC),
     message: "%{value} is not a valid merchant name."
   }
-  validates_associated :order
 
   require_relative 'transaction_state_machine'
 
