@@ -70,6 +70,7 @@ class Transaction < ActiveRecord::Base
   end
 
   def process
+    start
     Billing::Alipay::Gateway.new(gateway).purchase_path
   end
 
