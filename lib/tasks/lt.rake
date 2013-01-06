@@ -58,6 +58,7 @@ def check_install
     raise "you need to install localtunnel to use this tasks \n
     run 'npm install -g localtunnel' to install them"
   end
+  exit
 end
 
 def check_lt
