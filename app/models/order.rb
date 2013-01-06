@@ -114,6 +114,14 @@ class Order < ActiveRecord::Base
     line_items.count > 0
   end
 
+  def transaction_state
+    transactions.first.state
+  end
+
+  def shipment_state
+    shipments.first.state
+  end
+
   private
 
   def subject_text
