@@ -17,14 +17,6 @@ module Billing
         super parse(post)
       end
 
-      def complete?
-        trade_status == "TRADE_FINISHED"
-      end
-
-      def pending?
-        trade_status == 'WAIT_BUYER_PAY'
-      end
-
       private
 
       # reset the notification.

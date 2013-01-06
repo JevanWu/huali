@@ -15,13 +15,6 @@ module Billing
         super parse(query_string)
       end
 
-      alias :order :out_trade_no
-      alias :amount :total_fee
-
-      def success?
-        verify_sign && verify_seller
-      end
-
       private
 
       def reset!
