@@ -66,8 +66,8 @@ ActiveAdmin.register Order do
     column "处理订单" do |order|
       link_to('编辑 ', edit_admin_order_path(order)) + \
       link_to('查看 ', admin_order_path(order)) + \
-      link_to('新建交易', new_admin_transaction_path(:"transaction[order_id]" => order.id), :confirm => "确定新建一笔交易么?")
-
+      link_to('新建交易', new_admin_transaction_path(:"transaction[order_id]" => order.id), :confirm => "确定新建一笔交易么?") + \
+      link_to('新建递送', new_admin_shipment_path(:"shipment[order_id]" => order.id), :confirm => "确定新建一笔递送么?")
     end
 
     column "修改订单状态" do |order|
@@ -92,7 +92,6 @@ ActiveAdmin.register Order do
       row '订单总价' do
         order.cal_total.to_s + "元"
       end
-
 
       row '收货人姓名' do
         order.address.fullname

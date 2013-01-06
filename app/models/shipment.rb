@@ -1,5 +1,5 @@
 class Shipment < ActiveRecord::Base
-  attr_accessible :cost, :identifier, :note, :state, :tracking_num, :ship_method_id, :address_id
+  attr_accessible :cost, :identifier, :note, :state, :tracking_num, :ship_method_id, :address_id, :order_id
 
   belongs_to :address
   belongs_to :ship_method
