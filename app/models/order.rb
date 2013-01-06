@@ -85,13 +85,13 @@ class Order < ActiveRecord::Base
     self.identifier = uid_prefixed_by('OR')
   end
 
-  def generate_transaction(options)
+  def generate_transaction(pay_info, options = {})
     default = {
       amount: self.total,
       subject: subject_text,
       body: body_text
     }
-    self.transactions.create default.merge(options)
+    self.transactions.create pay_info, default.merge(options)
   end
 
   # options = {
@@ -119,6 +119,14 @@ class Order < ActiveRecord::Base
 
   def checkout_allowed?
     line_items.count > 0
+  end
+
+  def transaction_state
+    transactions.first.state
+  end
+
+  def shipment_state
+    shipments.first.state
   end
 
   private

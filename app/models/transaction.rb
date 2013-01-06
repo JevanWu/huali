@@ -31,7 +31,7 @@ class Transaction < ActiveRecord::Base
 
   before_validation :generate_identifier, on: :create
 
-  validates :identifier, :paymethod, :merchant_name, :amount, :subject, presence: true
+  validates_presence_of :identifier, :paymethod, :merchant_name, :amount, :subject
   validates :identifier, uniqueness: true
   validates :amount, numericality: true
   validates :paymethod, inclusion: {
@@ -43,18 +43,50 @@ class Transaction < ActiveRecord::Base
     in: %w(Alipay Paypal ICBCB2C CMB CCB BOCB2C ABC COMM CMBC),
     message: "%{value} is not a valid merchant name."
   }
-  validates_associated :order
 
   require_relative 'transaction_state_machine'
 
+  def initialize(pay_info, opts)
+    pay_opts = parse_pay_info(pay_info)
+    super opts.merge(pay_opts)
+  end
+
+  def process
+    Billing::Alipay::Gateway.new(gateway).purchase_path
+  end
+
+  private
+
+  def gateway
+    case paymethod
+    when 'directPay'; to_alipay
+    when 'paypal'; to_paypal
+    when 'bankPay'; to_bankpay
+    end
+  end
+
   def to_alipay
     {
-      'out_trade_no' => self.identifier,
-      'total_fee' => self.amount,
-      'pay_bank' => self.paymethod,
-      'defaultbank' => self.merchant_name,
-      'subject' => self.subject,
-      'body' => self.body,
+      # directPay requires the defaultbank to be blank
+      'pay_bank' => 'directPay',
+      'defaultbank' => '',
+      'out_trade_no' => identifier,
+      'total_fee' => amount,
+      'subject' => subject,
+      'body' => body,
+      'return_url' => return_order_url(host: 'http://hua.li'),
+      'notify_url' => notify_order_url(host: 'http://hua.li')
+    }
+  end
+
+  def to_bankpay
+    {
+      'pay_bank' => 'bankPay',
+      'out_trade_no' => identifier,
+      'total_fee' => amount,
+      'defaultbank' => merchant_name,
+      'subject' => subject,
+      'body' => body,
       'return_url' => return_order_url(host: 'http://hua.li'),
       'notify_url' => notify_order_url(host: 'http://hua.li')
     }
@@ -70,4 +102,16 @@ class Transaction < ActiveRecord::Base
   def generate_identifier
     self.identifier = uid_prefixed_by('TR')
   end
+
+  def parse_pay_info(pay_info)
+    case pay_info
+    when 'directPay'
+      { paymethod: 'directPay', merchant_name: 'Alipay' }
+    when 'paypal'
+      { paymethod: 'paypal', merchant_name: 'Paypal' }
+    else
+      { paymethod: 'bankPay', merchant_name: pay_info }
+    end
+  end
+
 end

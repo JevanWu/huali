@@ -1,5 +1,5 @@
 class ShipMethod < ActiveRecord::Base
-  attr_accessible :name, :service_phone, :method, :website, :cost
+  attr_accessible :name, :service_phone, :method, :website, :cost, :kuaidi_com_code
 
   has_many :shipments
 
