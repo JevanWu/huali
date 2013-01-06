@@ -5,19 +5,18 @@ module Billing
   module Alipay
     module Helper
 
-      alias :order :out_trade_no
+      # our internal trade identifier
+      alias :identifier :out_trade_no
+      # alipay's trade identifier
+      alias :merchant_trade_no :trade_no
       alias :amount :total_fee
 
-      def success?
+      def verified?
         verify_sign && verify_seller
       end
 
       def complete?
         trade_status == "TRADE_FINISHED"
-      end
-
-      def pending?
-        trade_status == 'WAIT_BUYER_PAY'
       end
 
       private
