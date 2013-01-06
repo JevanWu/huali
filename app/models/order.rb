@@ -78,13 +78,13 @@ class Order < ActiveRecord::Base
     self.identifier = uid_prefixed_by('OR')
   end
 
-  def generate_transaction(options)
+  def generate_transaction(pay_info, options = {})
     default = {
       amount: self.total,
       subject: subject_text,
       body: body_text
     }
-    self.transactions.create default.merge(options)
+    self.transactions.create pay_info, default.merge(options)
   end
 
   # options = {

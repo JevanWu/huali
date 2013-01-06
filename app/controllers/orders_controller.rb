@@ -47,11 +47,12 @@ class OrdersController < ApplicationController
 
   def gateway
     @order = Order.find_by_id(session[:order_id])
-    parse_pay_info
-    transaction = @order.generate_transaction(@options)
 
-    gateway = Billing::Alipay::Gateway.new transaction.to_alipay
-    redirect_to gateway.purchase_path
+    # TODO make params[:pay_info] more clear
+    # currently it is mixed with two kinds of inf - pay method and merchant_name
+    # they should be separated
+    transaction = @order.generate_transaction params[:pay_info]
+    redirect_to transaction.process
   end
 
   def return
@@ -77,17 +78,6 @@ class OrdersController < ApplicationController
       # - no line items present
       # - zero quantity
       true
-    end
-
-    def parse_pay_info
-      @options = case params[:pay_info]
-      when 'directPay'
-        { paymethod: params[:pay_info], merchant_name: 'Alipay' }
-      when 'paypal'
-        { paymethod: params[:pay_info], merchant_name: 'Paypal' }
-      else
-        { paymethod: 'bankPay', merchant_name: params[:pay_info]}
-      end
     end
 
     def load_cart

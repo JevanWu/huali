@@ -47,6 +47,12 @@ class Transaction < ActiveRecord::Base
 
   require_relative 'transaction_state_machine'
 
+  def initialize(pay_info, opts)
+    pay_opts = parse_pay_info(pay_info)
+    super opts.merge(pay_opts)
+  end
+
+  private
   def to_alipay
     {
       'out_trade_no' => self.identifier,
@@ -70,4 +76,15 @@ class Transaction < ActiveRecord::Base
   def generate_identifier
     self.identifier = uid_prefixed_by('TR')
   end
+  def parse_pay_info(pay_info)
+    case pay_info
+    when 'directPay'
+      { paymethod: 'directPay', merchant_name: 'Alipay' }
+    when 'paypal'
+      { paymethod: 'paypal', merchant_name: 'Paypal' }
+    else
+      { paymethod: 'bankPay', merchant_name: params[:pay_info]}
+    end
+  end
+
 end
