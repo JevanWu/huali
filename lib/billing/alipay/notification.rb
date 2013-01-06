@@ -4,7 +4,7 @@ require 'ostruct'
 module Billing
   module Alipay
     class Notification < OpenStruct
-      include Verify
+      include Helper
 
       attr_accessor :params
       attr_accessor :raw

@@ -4,7 +4,7 @@ require 'ostruct'
 module Billing
   module Alipay
     class Return < OpenStruct
-      include Verify
+      include Helper
 
       attr_accessor :params
 

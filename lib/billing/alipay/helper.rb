@@ -3,7 +3,7 @@ require 'uri'
 
 module Billing
   module Alipay
-    module Verify
+    module Helper
       def verify_seller
         seller_email == ENV['ALIPAY_EMAIL']
       end
