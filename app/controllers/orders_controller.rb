@@ -56,9 +56,11 @@ class OrdersController < ApplicationController
   end
 
   def return
+    Transaction.return(request.query_string)
   end
 
   def notify
+    Transaction.notify(request.raw_post)
   end
 
   def current

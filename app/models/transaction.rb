@@ -46,6 +46,24 @@ class Transaction < ActiveRecord::Base
 
   require_relative 'transaction_state_machine'
 
+  class << self
+    def return(opts)
+      result = Billing::Alipay::Return.new(opts)
+
+      return unless result.verified? && result.complete?
+
+      trans = find_by_identifier(result.identifier)
+
+      if trans.check_deal(result)
+        trans.complete_deal(result)
+      end
+    end
+
+    def notify(opts)
+      result = Billing::Alipay::Notification.new(opts)
+    end
+  end
+
   def initialize(pay_info, opts)
     pay_opts = parse_pay_info(pay_info)
     super opts.merge(pay_opts)
@@ -53,6 +71,18 @@ class Transaction < ActiveRecord::Base
 
   def process
     Billing::Alipay::Gateway.new(gateway).purchase_path
+  end
+
+  def check_deal(result)
+    amount == result.amount
+  end
+
+  def complete_deal(result)
+    if complete
+      processed_at = Time.now
+      merchant_trade_no = result.merchant_trade_no
+      save!
+    end
   end
 
   private
