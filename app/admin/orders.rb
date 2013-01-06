@@ -24,6 +24,41 @@ ActiveAdmin.register Order do
   scope :"本周内"
 
   filter :delivery_date, :label => "发货时间"
+  member_action :pay  do
+    order = Order.find(params[:id])
+    order.pay
+    redirect_to admin_orders_path
+  end
+
+  member_action :check  do
+    order = Order.find(params[:id])
+    order.check
+    redirect_to admin_orders_path
+  end
+
+  member_action :ship  do
+    order = Order.find(params[:id])
+    order.ship
+    redirect_to admin_orders_path
+  end
+
+  member_action :confirm  do
+    order = Order.find(params[:id])
+    order.confirm
+    redirect_to admin_orders_path
+  end
+
+  member_action :cancel  do
+    order = Order.find(params[:id])
+    order.cancel
+    redirect_to admin_orders_path
+  end
+
+  member_action :refund  do
+    order = Order.find(params[:id])
+    order.refund
+    redirect_to admin_orders_path
+  end
 
   index do
     selectable_column
@@ -32,7 +67,9 @@ ActiveAdmin.register Order do
     end
 
     column "交易编号", :sortable => :id do |order|
-      link_to order.transactions.first.identifier, admin_transaction_path(order.transactions.first)
+      unless order.transactions.first.nil?
+        link_to order.transactions.first.identifier, admin_transaction_path(order.transactions.first)
+      end
     end
 
     column "订单状态", :sortable => :status do |order|
@@ -66,16 +103,16 @@ ActiveAdmin.register Order do
     column "处理订单" do |order|
       link_to('编辑 ', edit_admin_order_path(order)) + \
       link_to('查看 ', admin_order_path(order)) + \
-      link_to('新建交易', new_admin_transaction_path(:"transaction[order_id]" => order.id), :confirm => "确定新建一笔交易么?") + \
+      link_to('新建交易 ', new_admin_transaction_path(:"transaction[order_id]" => order.id), :confirm => "确定新建一笔交易么?") + \
       link_to('新建递送', new_admin_shipment_path(:"shipment[order_id]" => order.id), :confirm => "确定新建一笔递送么?")
     end
 
     column "修改订单状态" do |order|
-      link_to('新建 ') + \
-      link_to('审核 ') + \
-      link_to('发货 ') + \
-      link_to('确认收货 ') + \
-      link_to('退款')
+      link_to('付款 ', pay_admin_order_path(order)) + \
+      link_to('审核 ', check_admin_order_path(order)) + \
+      link_to('发货 ', ship_admin_order_path(order)) + \
+      link_to('确认 ', confirm_admin_order_path(order)) + \
+      link_to('取消 ', cancel_admin_order_path(order))
     end
 
   end
