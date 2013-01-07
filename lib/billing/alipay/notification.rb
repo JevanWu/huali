@@ -32,6 +32,7 @@ module Billing
           key, value = *line.scan( %r{^([A-Za-z0-9_.]+)\=(.*)$} ).flatten
           params[key] = URI.decode(value)
         end
+        params
       end
     end
   end
