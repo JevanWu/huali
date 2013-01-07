@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 ActiveAdmin.register Transaction do
+  menu(:label => "交易")
 
   index do
     selectable_column

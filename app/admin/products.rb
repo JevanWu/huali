@@ -2,6 +2,7 @@
 require 'kramdown'
 
 ActiveAdmin.register Product do
+  menu(:label => "产品")
 
   {
     :'生效' => :enable!,

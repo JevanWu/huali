@@ -1,4 +1,6 @@
+# encoding: utf-8
 ActiveAdmin.register Page do
+  menu(:label => "页面")
   controller do
     def new
       @page = Page.new

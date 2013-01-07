@@ -1,5 +1,6 @@
 # encoding: utf-8
 ActiveAdmin.register Order do
+  menu(:label => "订单")
   # batch actions generator
   #{
       #:'生成订单' => :inited!,
