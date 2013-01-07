@@ -26,6 +26,10 @@ ActiveAdmin.register Transaction do
       transaction.amount
     end
 
+    column "状态" do |transaction|
+      transaction.state ? t(transaction.state) : nil
+    end
+
     column "主题" do |transaction|
       transaction.subject
     end
@@ -35,13 +39,15 @@ ActiveAdmin.register Transaction do
 
   form :partial => "form"
 
-  show do |transaction|
+  show :title => "交易" do |transaction|
 
     attributes_table do
       row :merchant_name
       row :identifier
       row :paymethod
-      row :state
+      row :state do
+        transaction.state ? t(transaction.state) : nil
+      end
       row :amount
       row :subject
       row :body

@@ -17,3 +17,10 @@ zh-CN:
   wait_refund: "等待退款"
   generated: "新建"
   finished: "完成"
+  failed: "失败"
+  processing: "处理中"
+  completed: "结束"
+  ready: "准备"
+  shipped: "已发货"
+  unknown: "未知"
+  

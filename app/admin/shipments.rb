@@ -5,25 +5,27 @@ ActiveAdmin.register Shipment do
   index do
     selectable_column
 
+    column "ID", :sortable => :id do |shipment|
+      link_to shipment.id, admin_shipment_path(shipment)
+    end
+    
     column "成本", :sortable => :cost do |shipment|
       shipment.cost
+    end
+
+    column "递送状态", :sortable => :state do |shipment|
+      shipment.state ? t(shipment.state) : nil
     end
 
     column "递送编号", :sortable => :identifier do |shipment|
       shipment.identifier
     end
 
-    column "递送状态", :sortable => :state do |shipment|
-      shipment.state
-    end
-
-    column "留言", :sortable => :note do |shipment|
-      shipment.note
-    end
-
     column "跟踪编号", :sortable => :tracking_num do |shipment|
       shipment.tracking_num
     end
+
+    default_actions
 
   end
 
@@ -40,9 +42,8 @@ ActiveAdmin.register Shipment do
         shipment.identifier
       end
 
-
       row '递送状态' do
-        shipment.state
+        shipment.state ? t(shipment.state) : nil
       end
 
       row '留言' do
