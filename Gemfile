@@ -14,7 +14,7 @@ gem 'friendly_id', '~> 4.0.1'
 # backup, whenever probably should be isolated in a server setup script
 gem 'backup', :require => false
 gem 'whenever', :require => false
-gem 'state_machine', :require => 'state_machine/core'
+gem 'state_machine'
 gem 'rack-mini-profiler'
 gem 'figaro'
 gem 'sitemap_generator'
