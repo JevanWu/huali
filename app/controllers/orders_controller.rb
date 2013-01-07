@@ -57,10 +57,12 @@ class OrdersController < ApplicationController
 
   def return
     Transaction.return(request.query_string)
+    redirect_to :home
   end
 
   def notify
     Transaction.notify(request.raw_post)
+    render nothing: true
   end
 
   def current
