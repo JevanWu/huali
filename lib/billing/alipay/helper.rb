@@ -11,7 +11,7 @@ module Billing
       end
 
       def complete?
-        trade_status == "TRADE_FINISHED"
+        trade_status == "TRADE_SUCCESS"
       end
 
       private
