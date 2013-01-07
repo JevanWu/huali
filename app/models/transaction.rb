@@ -69,7 +69,7 @@ class Transaction < ActiveRecord::Base
 
       return unless result.verified? && result.complete?
 
-      trans = find_by_identifier(result.identifier)
+      trans = find_by_identifier(result.out_trade_no)
 
       if trans.check_deal(result)
         trans.complete_deal(result)
@@ -78,6 +78,14 @@ class Transaction < ActiveRecord::Base
 
     def notify(opts)
       result = Billing::Alipay::Notification.new(opts)
+
+      return unless result.verified? && result.complete?
+
+      trans = find_by_identifier(result.out_trade_no)
+
+      if trans.check_deal(result)
+        trans.complete_deal(result)
+      end
     end
   end
 
@@ -92,13 +100,13 @@ class Transaction < ActiveRecord::Base
   end
 
   def check_deal(result)
-    amount == result.amount
+    amount.to_s == result.total_fee
   end
 
   def complete_deal(result)
     if complete
-      processed_at = Time.now
-      merchant_trade_no = result.merchant_trade_no
+      self.processed_at = Time.now
+      self.merchant_trade_no = result.trade_no
       save!
     end
   end
@@ -122,8 +130,8 @@ class Transaction < ActiveRecord::Base
       'total_fee' => amount,
       'subject' => subject,
       'body' => body,
-      'return_url' => return_order_url(host: 'http://hua.li'),
-      'notify_url' => notify_order_url(host: 'http://hua.li')
+      'return_url' => return_order_url(host: 'hua.li'),
+      'notify_url' => notify_order_url(host: 'hua.li')
     }
   end
 
@@ -135,8 +143,8 @@ class Transaction < ActiveRecord::Base
       'defaultbank' => merchant_name,
       'subject' => subject,
       'body' => body,
-      'return_url' => return_order_url(host: 'http://hua.li'),
-      'notify_url' => notify_order_url(host: 'http://hua.li')
+      'return_url' => return_order_url(host: 'hua.li'),
+      'notify_url' => notify_order_url(host: 'hua.li')
     }
   end
 
