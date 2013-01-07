@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130107125330) do
+ActiveRecord::Schema.define(:version => 20130107131439) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -208,12 +208,12 @@ ActiveRecord::Schema.define(:version => 20130107125330) do
     t.string   "paymethod"
     t.string   "subject"
     t.text     "body"
-    t.string   "state",             :default => "generated"
+    t.string   "state",                                           :default => "generated"
     t.integer  "order_id"
-    t.integer  "amount"
+    t.decimal  "amount",            :precision => 8, :scale => 2
     t.datetime "processed_at"
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
+    t.datetime "created_at",                                                               :null => false
+    t.datetime "updated_at",                                                               :null => false
   end
 
   add_index "transactions", ["identifier"], :name => "index_transactions_on_identifier", :unique => true
