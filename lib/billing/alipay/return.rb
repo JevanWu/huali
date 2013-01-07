@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'uri'
 require 'ostruct'
 
@@ -18,13 +19,13 @@ module Billing
       private
 
       def reset!
-        @params = {}
+        params = {}
       end
 
       def parse(query_string)
         return {} if query_string.blank?
 
-        params = query_string.split('&').inject({}) do |memo, chunk|
+        @params = query_string.split('&').inject({}) do |memo, chunk|
           next if chunk.empty?
           key, value = chunk.split('=', 2)
           next if key.empty?

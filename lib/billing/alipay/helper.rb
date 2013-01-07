@@ -1,15 +1,10 @@
+# encoding: utf-8
 require 'digest/md5'
 require 'uri'
 
 module Billing
   module Alipay
     module Helper
-
-      # our internal trade identifier
-      alias :identifier :out_trade_no
-      # alipay's trade identifier
-      alias :merchant_trade_no :trade_no
-      alias :amount :total_fee
 
       def verified?
         verify_sign && verify_seller
@@ -26,14 +21,14 @@ module Billing
       end
 
       def verify_sign
-        sign_type = @params.delete("sign_type")
-        sign = @params.delete("sign")
+        @sign_type ||= params.delete("sign_type")
+        @sign ||= params.delete("sign")
 
-        query_string = @params.map do |key, value|
-          "#{key}=#{URI.decode(value)}"
+        query = params.map do |key, value|
+          "#{key}=#{value}"
         end.sort * '&'
 
-        Digest::MD5.hexdigest(query + ENV['ALIPAY_KEY']) == sign.downcase
+        Digest::MD5.hexdigest(query + ENV['ALIPAY_KEY']) == @sign
       end
     end
   end
