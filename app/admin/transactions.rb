@@ -2,6 +2,7 @@
 
 ActiveAdmin.register Transaction do
   menu(:label => "交易")
+  actions :all, :except => :new
 
   index do
     selectable_column

@@ -1,6 +1,7 @@
 # encoding: utf-8
 ActiveAdmin.register Shipment do
   menu(:label => "递送")
+  actions :all, :except => :new
   index do
     selectable_column
 
