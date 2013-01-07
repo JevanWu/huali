@@ -75,7 +75,7 @@ ActiveAdmin.register Order do
     end
 
     column "订单状态", :sortable => :status do |order|
-      order.state
+      order.state ? t(order.state) : nil
     end
 
     column "订单金额", :sortable => :id do |order|
