@@ -44,6 +44,7 @@ class Order < ActiveRecord::Base
   state_machine :state, :initial => :generated do
     # TODO implement an auth_state dynamically for each state
     before_transition :to => :wait_refund, :do => :auth_refund
+    before_transition :to => :completed, :do => :complete_order
 
     # use adj. for state with future vision
     # use v. for event name
@@ -63,7 +64,7 @@ class Order < ActiveRecord::Base
     end
 
     state :wait_confirm do
-      transition :to => :finished, :on => :confirm
+      transition :to => :completed, :on => :confirm
     end
 
     state :wait_refund do
@@ -163,5 +164,10 @@ class Order < ActiveRecord::Base
   def auth_refund
     # TODO auth the admin for the refund actions
     true
+  end
+
+  def complete_order
+    self.completed_at = Time.now
+    save!
   end
 end
