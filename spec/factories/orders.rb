@@ -42,12 +42,16 @@ FactoryGirl.define do
       state 'wait_check'
     end
 
-    trait :with_one_transactions do
-
+    trait :with_one_transaction do
+      after(:build) do |order|
+        create_list(:transaction, 1, order: order )
+      end
     end
 
-    trait :with_multi_transactions do
-
+    trait :with_multi_transaction do
+      after(:build) do |order|
+        create_list(:transaction, Forgery(:basic).number, order: order )
+      end
     end
 
     trait :with_one_shipment do
