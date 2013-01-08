@@ -79,6 +79,8 @@ class Transaction < ActiveRecord::Base
 
       trans = find_by_identifier(result.out_trade_no)
 
+      return if trans.processed?
+
       if trans.check_deal(result)
         trans.complete_deal(result)
       end
@@ -106,6 +108,10 @@ class Transaction < ActiveRecord::Base
       self.merchant_trade_no = result.trade_no
       save!
     end
+  end
+
+  def processed?
+    !! processed_at
   end
 
   private
