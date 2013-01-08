@@ -37,7 +37,8 @@ class Order < ActiveRecord::Base
   accepts_nested_attributes_for :line_items
   accepts_nested_attributes_for :address
 
-  before_validation :generate_identifier, :cal_total, on: :create
+  before_validation :generate_identifier, on: :create
+  before_validation :cal_total
 
   validates :identifier, presence: true
 
