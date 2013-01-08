@@ -94,7 +94,7 @@ class Transaction < ActiveRecord::Base
     super opts.merge(pay_opts)
   end
 
-  def process
+  def request_process
     start
     Billing::Alipay::Gateway.new(gateway).purchase_path
   end
