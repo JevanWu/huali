@@ -10,7 +10,7 @@ module Billing
         verify_sign && verify_seller
       end
 
-      def complete?
+      def success?
         trade_status == "TRADE_SUCCESS"
       end
 

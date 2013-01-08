@@ -75,7 +75,7 @@ class Transaction < ActiveRecord::Base
     end
 
     def handle_process
-      return unless result.verified? && result.complete?
+      return unless result.verified? && result.success?
 
       trans = find_by_identifier(result.out_trade_no)
 
