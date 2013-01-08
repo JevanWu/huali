@@ -26,9 +26,10 @@
 
 FactoryGirl.define do
   factory :transaction do
-    order_id ""
-    amount 1
-    status "MyString"
-    identifier "MyString"
+    amount { Forgery(:monetary).money }
+    subject { Forgery(:lorem_ipsum).sentence }
+    body { Forgery(:lorem_ipsum).paragraph }
+    merchant_name { %w(Alipay Paypal ICBCB2C CMB CCB BOCB2C ABC COMM CMBC).sample }
+    paymethod { %w(paypal directPay bankPay).sample }
   end
 end
