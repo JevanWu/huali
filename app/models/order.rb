@@ -144,11 +144,11 @@ class Order < ActiveRecord::Base
   end
 
   def transaction_state
-    transactions.first.state
+    transactions.last.state
   end
 
   def shipment_state
-    shipments.first.state
+    shipments.last.state
   end
 
   private
