@@ -29,11 +29,12 @@ FactoryGirl.define do
     gift_card_text { Forgery(:lorem_ipsum).paragraph }
     special_instructions { Forgery(:lorem_ipsum).paragraph }
 
-    # FIXME
-    # as the association is built after creation
-    # the instance needs to be reloaded before access child collections
     after(:build) do |order|
       create_list(:line_item, Forgery(:basic).number, :with_order, order: order )
+
+      # FIXME the instance needs to be reloaded before access child collections(line_items)
+      order.reload
+      order.save
     end
 
     trait :wait_check do
