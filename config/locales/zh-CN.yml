@@ -23,4 +23,75 @@ zh-CN:
   ready: "准备"
   shipped: "已发货"
   unknown: "未知"
-  
+  delivery_date: "递送日期"
+
+  activerecord:
+    models:
+      transaction: "交易"
+      product: "产品"
+      shipment: "递送"
+      order: "订单"
+      asset: "资源"
+      page: "页面"
+      collection: "集合"
+      line_item: "条目"
+      address: "地址"
+    attributes:
+      order:
+        identifier: "订单编号"
+        transaction_identifier: "交易编号"
+        delivery_date: "递送日期"
+        special_instructions: "特殊要求"
+        gift_card_text: "卡片信息"
+        total: "订单总价"
+        state: "订单状态"
+        receiver_fullname: "收货人姓名"
+        receiver_phonenum: "收货人电话"
+        receiver_postcode: "收货人邮编"
+        receiver_address: "收货人地址"
+        order_content: "订单内容"
+        transaction_identifier: "交易编号"
+        fullname: "收货人姓名"
+      shipment:
+        cost: "成本"
+        identifier: "递送编号"
+        state: "递送状态"
+        note: "留言"
+        tracking_num: "快递单号"
+      transaction:
+        order: "订单"
+        identifier: "交易编号"
+        merchant_name: "商户名"
+        merchant_trade_no: "商户交易编号"
+        paymethod: "支付方式"
+        amount: "金额"
+        state: "交易状态"
+        subject: "主题"
+        body: "正文"
+      product:
+        thumbnail: "缩略图"
+        image: "图片"
+        available: "是否有货"
+        name_zh: "中文名"
+        name_en: "英文名"
+        collection: "集合"
+        published_zh: "中文发布"
+        published_en: "英文发布"
+        inspiration_zh: "中文灵感"
+        inspiration_en: "英文灵感"
+        description_zh: "中文描述"
+        description_en: "英文描述"
+        count_on_hand: "库存"
+        price: "现价"
+        original_price: "原价"
+        height: "高度"
+        width: "宽度"
+        depth: "深度"
+        created_at: "创建于"
+        updated_at: "更新于"
+        cost_price: "成本价"
+
+
+
+
+

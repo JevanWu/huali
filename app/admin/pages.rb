@@ -42,7 +42,7 @@ ActiveAdmin.register Page do
 
   form :partial => "form"
 
-  show do |page|
+  show do
 
     attributes_table do
       row :permalink

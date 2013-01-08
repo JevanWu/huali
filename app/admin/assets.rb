@@ -35,7 +35,7 @@ ActiveAdmin.register Asset do
     default_actions
   end
 
-  show do |asset|
+  show do
     attributes_table do
       row :viewable_type
 

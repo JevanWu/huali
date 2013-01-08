@@ -64,43 +64,29 @@ ActiveAdmin.register Order do
 
   index do
     selectable_column
-    column "订单编号", :sortable => :id do |order|
-      order.identifier
-    end
+    column :identifier, :sortable => :identifier
 
-    column "交易编号", :sortable => :id do |order|
+    column :transaction_identifier, :sortable => :id do |order|
       unless order.transactions.first.nil?
         link_to order.transactions.first.identifier, admin_transaction_path(order.transactions.first)
       end
     end
 
-    column "订单状态", :sortable => :status do |order|
-      order.state ? t(order.state) : nil
-    end
+    column :total, :sortable => :id
 
-    column "订单金额", :sortable => :id do |order|
-      order.total
-    end
-
-    #column "购买者姓名", :sortable => :buyer_name do |order|
-      #order.buyer_name
-    #end
-
-    #column "购买者电话", :sortable => :phonenum do |order|
-      #order.phonenum
-    #end
-
-    column "收货人姓名", :sortable => :phonenum do |order|
+    column :receiver_fullname do |order|
       order.address.fullname
     end
 
-    column "收货人电话", :sortable => :phonenum do |order|
+    column :receiver_phonenum do |order|
       order.address.phone
     end
 
-    column "递送日期", :sortable => :delivery_date do |order|
-      order.delivery_date
+    column :state, :sortable => :status do |order|
+      order.state ? t(order.state) : nil
     end
+
+    column :delivery_date, :sortable => :delivery_date
 
     column "处理订单" do |order|
       link_to('编辑 ', edit_admin_order_path(order)) + \
@@ -121,53 +107,40 @@ ActiveAdmin.register Order do
 
   form :partial => "form"
 
-  show :title => "订单" do
+  show do
 
     attributes_table do
-      row '订单编号' do
-        order.identifier
+      row :identifier
+
+      row :total do
+        number_to_currency order.total, :unit => '&yen;'
       end
 
-      row '订单总价' do
-        order.cal_total.to_s + "元"
-      end
-
-      row '收货人姓名' do
+      row :receiver_fullname do
         order.address.fullname
       end
 
-      row '收货人电话' do
+      row :receiver_phonenum do
         order.address.phone
       end
 
-      row '收货人地址' do
+      row :receiver_address do
         order.address.address
       end
 
-      row '收货人邮编' do
+      row :receiver_postcode do
         order.address.post_code
       end
 
-      row :'订单内容' do
+      row :order_content do
         order.line_items.map do |line_item|
           label_tag(line_item.product.name, line_item.product.name + " x " + line_item.quantity.to_s)
-          #image_tag line_item.product.assets.first.image.url(:medium)
         end.join('</br>').html_safe
       end
 
-
-      row '卡片信息' do
-        order.gift_card_text
-      end
-
-      row '特殊要求' do
-        order.special_instructions
-      end
-
-      row '递送日期' do
-        order.delivery_date
-      end
-
+      row :gift_card_text
+      row :special_instructions
+      row :delivery_date
     end
   end
 
