@@ -66,19 +66,15 @@ class Transaction < ActiveRecord::Base
   class << self
     def return(opts)
       result = Billing::Alipay::Return.new(opts)
-
-      return unless result.verified? && result.complete?
-
-      trans = find_by_identifier(result.out_trade_no)
-
-      if trans.check_deal(result)
-        trans.complete_deal(result)
-      end
+      handle_process(result)
     end
 
     def notify(opts)
       result = Billing::Alipay::Notification.new(opts)
+      handle_process(result)
+    end
 
+    def handle_process
       return unless result.verified? && result.complete?
 
       trans = find_by_identifier(result.out_trade_no)
@@ -98,6 +94,7 @@ class Transaction < ActiveRecord::Base
     start
     Billing::Alipay::Gateway.new(gateway).purchase_path
   end
+
 
   def check_deal(result)
     amount.to_s == result.total_fee
