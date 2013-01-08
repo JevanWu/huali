@@ -133,8 +133,8 @@ class Transaction < ActiveRecord::Base
       'total_fee' => amount,
       'subject' => subject,
       'body' => body,
-      'return_url' => return_order_url(host: 'hua.li'),
-      'notify_url' => notify_order_url(host: 'hua.li')
+      'return_url' => return_order_url(host: $host),
+      'notify_url' => notify_order_url(host: $host)
     }
   end
 
@@ -146,8 +146,8 @@ class Transaction < ActiveRecord::Base
       'defaultbank' => merchant_name,
       'subject' => subject,
       'body' => body,
-      'return_url' => return_order_url(host: 'hua.li'),
-      'notify_url' => notify_order_url(host: 'hua.li')
+      'return_url' => return_order_url(host: $host),
+      'notify_url' => notify_order_url(host: $host)
     }
   end
 
