@@ -33,6 +33,7 @@ FactoryGirl.define do
       create_list(:line_item, Forgery(:basic).number, :with_order, order: order )
 
       # FIXME the instance needs to be reloaded before access child collections(line_items)
+      # only problems in this case
       order.reload
       order.save
     end
