@@ -52,13 +52,20 @@ class OrdersController < ApplicationController
     # currently it is mixed with two kinds of inf - pay method and merchant_name
     # they should be separated
     transaction = @order.generate_transaction params[:pay_info]
-    redirect_to transaction.process
+    redirect_to transaction.request_process
   end
 
   def return
+    Transaction.return(request.query_string)
+    redirect_to :home
   end
 
   def notify
+    if Transaction.notify(request.raw_post)
+      render :text => "success"
+    else
+      render :text => "failed"
+    end
   end
 
   def current

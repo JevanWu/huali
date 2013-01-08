@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130105095153) do
+ActiveRecord::Schema.define(:version => 20130107131439) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -108,18 +108,18 @@ ActiveRecord::Schema.define(:version => 20130105095153) do
 
   create_table "orders", :force => true do |t|
     t.string   "identifier"
-    t.decimal  "item_total",           :precision => 8, :scale => 2, :default => 0.0, :null => false
-    t.decimal  "total",                :precision => 8, :scale => 2, :default => 0.0, :null => false
+    t.decimal  "item_total",           :precision => 8, :scale => 2, :default => 0.0,     :null => false
+    t.decimal  "total",                :precision => 8, :scale => 2, :default => 0.0,     :null => false
     t.decimal  "payment_total",        :precision => 8, :scale => 2, :default => 0.0
-    t.string   "state"
+    t.string   "state",                                              :default => "ready"
     t.text     "special_instructions"
     t.integer  "address_id"
     t.integer  "user_id"
     t.datetime "completed_at"
-    t.datetime "created_at",                                                          :null => false
-    t.datetime "updated_at",                                                          :null => false
+    t.datetime "created_at",                                                              :null => false
+    t.datetime "updated_at",                                                              :null => false
     t.text     "gift_card_text"
-    t.date     "delivery_date",                                                       :null => false
+    t.date     "delivery_date",                                                           :null => false
   end
 
   add_index "orders", ["identifier"], :name => "index_orders_on_identifier", :unique => true
@@ -208,12 +208,12 @@ ActiveRecord::Schema.define(:version => 20130105095153) do
     t.string   "paymethod"
     t.string   "subject"
     t.text     "body"
-    t.string   "state"
+    t.string   "state",                                           :default => "generated"
     t.integer  "order_id"
-    t.integer  "amount"
+    t.decimal  "amount",            :precision => 8, :scale => 2
     t.datetime "processed_at"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at",                                                               :null => false
+    t.datetime "updated_at",                                                               :null => false
   end
 
   add_index "transactions", ["identifier"], :name => "index_transactions_on_identifier", :unique => true

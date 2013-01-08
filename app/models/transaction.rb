@@ -44,15 +44,79 @@ class Transaction < ActiveRecord::Base
     message: "%{value} is not a valid merchant name."
   }
 
-  require_relative 'transaction_state_machine'
+  state_machine :state, :initial => :generated do
+    before_transition :to => :completed, :do => :check_return
+    after_transition :to => :completed, :do => :notify_order
+
+    # use adj. for state with future vision
+    # use v. for event name
+    state :generated do
+      transition :to => :processing, :on => :start
+    end
+
+    # processing is a state where controls are handed off to gateway now
+    # the events are all returned from gateway
+    # FIXME might need a clock to timeout the processing
+    state :processing do
+      transition :to => :completed, :on => :complete
+      transition :to => :failed, :on => :failure
+    end
+  end
+
+  class << self
+    def return(opts)
+      result = Billing::Alipay::Return.new(opts)
+      handle_process(result)
+    end
+
+    def notify(opts)
+      result = Billing::Alipay::Notification.new(opts)
+      handle_process(result)
+    end
+
+    def handle_process(result)
+      unless result.verified? && result.success?
+        false
+      else
+        trans = find_by_identifier(result.out_trade_no)
+        if trans.processed?
+          true
+        else
+          if trans.check_deal(result)
+            trans.complete_deal(result)
+          else
+            false
+          end
+        end
+      end
+    end
+  end
 
   def initialize(pay_info, opts)
     pay_opts = parse_pay_info(pay_info)
     super opts.merge(pay_opts)
   end
 
-  def process
+  def request_process
+    start
     Billing::Alipay::Gateway.new(gateway).purchase_path
+  end
+
+
+  def check_deal(result)
+    amount.to_s == result.total_fee
+  end
+
+  def complete_deal(result)
+    if complete
+      self.processed_at = Time.now
+      self.merchant_trade_no = result.trade_no
+      save!
+    end
+  end
+
+  def processed?
+    !! processed_at
   end
 
   private
@@ -74,8 +138,8 @@ class Transaction < ActiveRecord::Base
       'total_fee' => amount,
       'subject' => subject,
       'body' => body,
-      'return_url' => return_order_url(host: 'http://hua.li'),
-      'notify_url' => notify_order_url(host: 'http://hua.li')
+      'return_url' => return_order_url(host: $host),
+      'notify_url' => notify_order_url(host: $host)
     }
   end
 
@@ -87,8 +151,8 @@ class Transaction < ActiveRecord::Base
       'defaultbank' => merchant_name,
       'subject' => subject,
       'body' => body,
-      'return_url' => return_order_url(host: 'http://hua.li'),
-      'notify_url' => notify_order_url(host: 'http://hua.li')
+      'return_url' => return_order_url(host: $host),
+      'notify_url' => notify_order_url(host: $host)
     }
   end
 
@@ -114,4 +178,13 @@ class Transaction < ActiveRecord::Base
     end
   end
 
+  def notify_order
+    self.order.pay
+  end
+
+  def check_return
+    # It checks Notification to valid the returned result
+    # - paid amount equals the request amount
+    # - the transactionID is the same
+  end
 end
