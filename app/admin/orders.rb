@@ -19,11 +19,11 @@ ActiveAdmin.register Order do
   #end
   #batch_action :destroy, false
 
-  scope :"全部"
-  scope :"本月内"
-  scope :"今天"
-  scope :"明天"
-  scope :"本周内"
+  scope :all
+  scope :current
+  scope :tomorrow
+  scope :within_this_week
+  scope :within_this_month
 
   filter :delivery_date, :label => "发货时间"
   member_action :pay  do

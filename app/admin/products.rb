@@ -40,7 +40,7 @@ ActiveAdmin.register Product do
     column :name_zh
     column :name_en
 
-    column :availale do |product|
+    column :available do |product|
       product.available ?  '有货' : '无货'
     end
 

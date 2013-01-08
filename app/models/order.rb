@@ -44,14 +44,18 @@ class Order < ActiveRecord::Base
 
   require_relative 'order_state_machine'
 
-  scope :"全部", lambda { reorder }
-  scope :"今天", lambda { where('delivery_date = ?', Date.current) }
-  scope :"明天", lambda { where("delivery_date = ?", Date.tomorrow) }
-  scope :"本周内", lambda { where("delivery_date >= ? AND delivery_date <= ? ", Date.current.beginning_of_week, Date.current.end_of_week) }
-  scope :"本月内", lambda { where("delivery_date >= ? AND delivery_date <= ? ", Date.current.beginning_of_month, Date.current.end_of_month) }
+  scope :all, lambda { reorder }
+  scope :current, lambda { where('delivery_date = ?', Date.current) }
+  scope :tomorrow, lambda { where("delivery_date = ?", Date.tomorrow) }
+  scope :within_this_week, lambda { where("delivery_date >= ? AND delivery_date <= ? ", Date.current.beginning_of_week, Date.current.end_of_week) }
+  scope :within_this_month, lambda { where("delivery_date >= ? AND delivery_date <= ? ", Date.current.beginning_of_month, Date.current.end_of_month) }
 
   # Queries
   class << self
+    def today
+      lambda { where('delivery_date = ?', Date.current) }
+    end
+
     def by_number(number)
       where(:number => number)
     end

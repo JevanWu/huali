@@ -25,6 +25,14 @@ zh-CN:
   unknown: "未知"
   delivery_date: "递送日期"
 
+  active_admin:
+    scopes:
+      all: "全部"
+      current: "今天"
+      tomorrow: "明天"
+      within_this_week: "本周内"
+      within_this_month: "本月内"
+
   activerecord:
     models:
       transaction: "交易"
@@ -90,8 +98,3 @@ zh-CN:
         created_at: "创建于"
         updated_at: "更新于"
         cost_price: "成本价"
-
-
-
-
-
