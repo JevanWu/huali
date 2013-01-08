@@ -52,9 +52,6 @@ class Order < ActiveRecord::Base
 
   # Queries
   class << self
-    def today
-      lambda { where('delivery_date = ?', Date.current) }
-    end
 
     def by_number(number)
       where(:number => number)
