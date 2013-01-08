@@ -25,7 +25,6 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  # always used from order factory
   factory :shipment do
     order
     ship_method

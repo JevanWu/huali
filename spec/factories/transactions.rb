@@ -23,7 +23,6 @@
 #
 
 FactoryGirl.define do
-  # always used from order factory
   factory :transaction do
     order
     amount { Forgery(:monetary).money }
