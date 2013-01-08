@@ -62,7 +62,7 @@ class OrdersController < ApplicationController
 
   def notify
     Transaction.notify(request.raw_post)
-    render nothing: true
+    render :text => "success"
   end
 
   def current
