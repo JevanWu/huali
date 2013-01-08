@@ -11,14 +11,12 @@
 #  website         :string(255)
 #
 
-# Read about factories at https://github.com/thoughtbot/factory_girl
-
 FactoryGirl.define do
   factory :ship_method do
-    tracking_num "MyString"
-    name "MyString"
-    service_phone "MyString"
-    type ""
-    website "MyString"
+    cost { Forgery(:monetary).money }
+    method { %w(express mannual).sample }
+    name { Forgery(:lorem_ipsum).word }
+    service_phone { Forgery(:address).phone }
+    website { Forgery(:internet).domain_name }
   end
 end

@@ -50,11 +50,15 @@ FactoryGirl.define do
     end
 
     trait :with_one_shipment do
-
+      after(:build) do |order|
+        create_list(:shipment, 1, order: order )
+      end
     end
 
     trait :with_multi_shipment do
-
+      after(:build) do |order|
+        create_list(:shipment, Forgery(:basic).number, order: order )
+      end
     end
   end
 end
