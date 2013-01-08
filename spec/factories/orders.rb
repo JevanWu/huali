@@ -22,20 +22,38 @@
 #  index_orders_on_identifier  (identifier) UNIQUE
 #
 
-# Read about factories at https://github.com/thoughtbot/factory_girl
-
 FactoryGirl.define do
   factory :order do
-    number "MyString"
-    item_total "9.99"
-    total "9.99"
-    payment_total "9.99"
-    state "MyString"
-    payment_state "MyString"
-    shipment_state "MyString"
-    address nil
-    completed_at "2012-11-02 20:46:25"
-    user nil
-    special_instructions "MyText"
+    address
+    delivery_date { Date.current.next_week }
+    gift_card_text { Forgery(:lorem_ipsum).paragraph }
+    special_instructions { Forgery(:lorem_ipsum).paragraph }
+
+    # FIXME
+    # as the association is built after creation
+    # the instance needs to be reloaded before access child collections
+    after(:build) do |order|
+      create_list(:line_item, Forgery(:basic).number, :with_order, order: order )
+    end
+
+    trait :wait_check do
+      state 'wait_check'
+    end
+
+    trait :with_one_transactions do
+
+    end
+
+    trait :with_multi_transactions do
+
+    end
+
+    trait :with_one_shipment do
+
+    end
+
+    trait :with_multi_shipment do
+
+    end
   end
 end
