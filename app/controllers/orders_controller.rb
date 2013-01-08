@@ -61,8 +61,11 @@ class OrdersController < ApplicationController
   end
 
   def notify
-    Transaction.notify(request.raw_post)
-    render :text => "success"
+    if Transaction.notify(request.raw_post)
+      render :text => "success"
+    else
+      render :text => "failed"
+    end
   end
 
   def current
