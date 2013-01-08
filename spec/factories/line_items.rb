@@ -19,9 +19,11 @@
 
 FactoryGirl.define do
   factory :line_item do
-    order_id ""
-    product_id ""
-    quantity ""
-    price "9.99"
+    product
+    quantity { Forgery(:basic).number }
+
+    trait :with_order do
+      order
+    end
   end
 end

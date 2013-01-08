@@ -25,13 +25,16 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
+  # always used from order factory
   factory :shipment do
-    identifier "MyString"
-    state "MyString"
-    note "MyText"
-    cost 1
-    address nil
-    ship_method nil
-    order nil
+    order
+    ship_method
+    note { Forgery(:lorem_ipsum).paragraph }
+    # FIXME use a real mock for tracking_num
+    tracking_num { Forgery(:address).zip}
+
+    trait :with_cost do
+      cost { Forgery(:monetary).money }
+    end
   end
 end

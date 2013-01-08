@@ -38,10 +38,10 @@ FactoryGirl.define do
     name_zh { Forgery(:lorem_ipsum).word }
     name_en { Forgery(:lorem_ipsum).word }
     name_char { Forgery(:lorem_ipsum).character }
-    description { Forgery(:lorem_ipsum).paragraph }
-    inspiration { Forgery(:lorem_ipsum).sentence }
-    related_text { Forgery(:lorem_ipsum).paragraph }
-    info_source { Forgery(:lorem_ipsum).paragraph }
+    description_en { Forgery(:lorem_ipsum).paragraph }
+    description_zh { Forgery(:lorem_ipsum).paragraph }
+    inspiration_en { Forgery(:lorem_ipsum).sentence }
+    inspiration_zh { Forgery(:lorem_ipsum).sentence }
 
     count_on_hand { Forgery(:basic).number }
 

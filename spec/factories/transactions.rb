@@ -22,13 +22,14 @@
 #  index_transactions_on_order_id    (order_id)
 #
 
-# Read about factories at https://github.com/thoughtbot/factory_girl
-
 FactoryGirl.define do
+  # always used from order factory
   factory :transaction do
-    order_id ""
-    amount 1
-    status "MyString"
-    identifier "MyString"
+    order
+    amount { Forgery(:monetary).money }
+    subject { Forgery(:lorem_ipsum).sentence }
+    body { Forgery(:lorem_ipsum).paragraph }
+    merchant_name { %w(Alipay Paypal ICBCB2C CMB CCB BOCB2C ABC COMM CMBC).sample }
+    paymethod { %w(paypal directPay bankPay).sample }
   end
 end
