@@ -2,7 +2,7 @@
 #
 # Table name: transactions
 #
-#  amount            :integer
+#  amount            :decimal(8, 2)
 #  body              :text
 #  created_at        :datetime         not null
 #  id                :integer          not null, primary key
@@ -12,7 +12,7 @@
 #  order_id          :integer
 #  paymethod         :string(255)
 #  processed_at      :datetime
-#  state             :string(255)
+#  state             :string(255)      default("generated")
 #  subject           :string(255)
 #  updated_at        :datetime         not null
 #

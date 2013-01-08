@@ -8,7 +8,6 @@
 #  created_at  :datetime         not null
 #  fullname    :string(255)
 #  id          :integer          not null, primary key
-#  order_id    :integer
 #  phone       :string(255)
 #  post_code   :string(255)
 #  province_id :integer
