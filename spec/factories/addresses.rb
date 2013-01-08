@@ -18,13 +18,13 @@
 FactoryGirl.define do
   factory :address do
     province_id { Province.all.sample.id }
-    city_id { Province.find(province_id).cities.sample.id }
-    area_id { City.find(city_id).areas.sample.id }
+    city_id { province.cities.sample.id }
+    area_id { city.areas.sample.id }
 
     fullname { Forgery(:name).full_name }
-    address ( Forgery(:address).street_address )
-    phone ( Forgery(:address).phone )
-    post_code ( Forgery(:address).zip )
+    address { Forgery(:address).street_address }
+    phone { Forgery(:address).phone }
+    post_code { Forgery(:address).zip }
 
     trait :with_user do
       user
