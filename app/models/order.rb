@@ -114,7 +114,7 @@ class Order < ActiveRecord::Base
       subject: subject_text,
       body: body_text
     }
-    self.transactions.create pay_info, default.merge(options)
+    self.transactions.create default.merge(options), pay_info
   end
 
   # options = {

@@ -92,9 +92,13 @@ class Transaction < ActiveRecord::Base
     end
   end
 
-  def initialize(pay_info, opts)
-    pay_opts = parse_pay_info(pay_info)
-    super opts.merge(pay_opts)
+  def initialize(opts = {}, pay_info = nil)
+    unless pay_info
+      pay_opts = parse_pay_info(pay_info)
+      super opts.merge(pay_opts)
+    else
+      super opts
+    end
   end
 
   def request_process
