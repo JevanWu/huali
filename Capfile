@@ -92,7 +92,9 @@ end
 
 namespace :sitemap do
   task :refresh do
-    run "cd #{release_path} && bundle exec rake sitemap:refresh"
+    if rails_env == 'production'
+      run "cd #{release_path} && bundle exec rake sitemap:refresh"
+    end
   end
 end
 
