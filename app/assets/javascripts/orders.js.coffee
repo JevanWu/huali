@@ -8,7 +8,7 @@ $ ->
     id = $(@).data('product')
 
     quantity =
-      if $(@).attr('class') == 'reduce_quantity'
+      if $(@).attr('class').match('reduce')
       then  -1
       else 1
 
