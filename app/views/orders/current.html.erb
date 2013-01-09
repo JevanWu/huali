@@ -3,33 +3,32 @@
     <% if @products.blank? %>
       <p>Empty Cart</p>
     <% else %>
-      <% @products.each do |product| %>
-        <div class="product span3">
-          <div class="product-image">
-            <a href=<%= product_path(product.id) =%> title="Nice Flowers"><%= image_tag product.assets.first.image.url(:medium) %></a>
-          </div>
-          <div class="new-description">
-            <h3><a href=<%= product_path(product.id) =%> title="Fashion Demo Flowers"><%= product.name %></a></h3>
-            <div class="price-box">
-              <a href='/order'><button type="button" class="button btn-cart"><span>点击购买</span></button></a>
-              <% unless product.original_price.nil? %>
-              <p class="old-price">
-                <span class="price" id="old-price"> ￥<%= product.original_price %> </span>
-              </p>
-              <% end %>
-              <p class="special-price">
-                <span class="price" id="product-price">￥<%= product.price %> </span>
-              </p>
-              <p class="product-quantity">
-                Quantity: 
-                <span class="quantity" id="product-quantity"><%= product[:quantity] %> </span>
-                <%= link_to 'add', current_order_path, data: { product: product.id }, class: 'add_quantity' %>
-                <%= link_to 'reduce', current_order_path, data: { product: product.id }, class: 'reduce_quantity' %>
-              </p>
-            </div>
-          </div>
-        </div>
-      <% end %>
+      <table class='item-table table table-striped table-hover'>
+        <thead>
+          <tr>
+            <th class="image"></th>
+            <th class="name">name</th>
+            <th class="price">price</th>
+            <th class="quantity">quantity</th>
+            <th class="total">total</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @products.each do |product| %>
+              <tr>
+                <td class="image"><%= image_tag product.assets.first.image.url(:thumb) %></td>
+                <td class="name"><%= product.name %></td>
+                <td class="price"> <%= number_to_currency product.price, unit: '&yen;'  %> </td>
+                <td class="quantity">
+                    <%= link_to 'add', current_order_path, data: { product: product.id }, class: 'add_quantity' %>
+                    <input type='text' value="<%= product[:quantity] %>">
+                    <%= link_to 'reduce', current_order_path, data: { product: product.id }, class: 'reduce_quantity' %>
+                </td>
+                <td class="total"> <%= count_total(product) %> </td>
+              </tr>
+        <% end %>
+        </tbody>
+      </table>
     <% end %>
   </div>
   <%= link_to 'checkout', new_order_path, class: 'checkout' %>
