@@ -1,22 +1,6 @@
 # encoding: utf-8
 ActiveAdmin.register Order do
   actions :all, :except => :new
-  # batch actions generator
-  #{
-      #:'生成订单' => :inited!,
-      #:'付款' => :paid!,
-      #:'发货' => :delivered!,
-      #:'收货' => :received!,
-      #:'发送确认邮件' => :email_sent!,
-      #:'发送物流短信' => :sms_sent!
-  #}.each do |label, action|
-    #batch_action label do |selection|
-      #orders = Order.find(selection)
-      #orders.each { |order| order.send(action) }
-      #redirect_to :back, :notice => "#{orders.count}张订单已经更新"
-    #end
-  #end
-  #batch_action :destroy, false
 
   scope :all
   scope :current
@@ -27,37 +11,37 @@ ActiveAdmin.register Order do
   filter :delivery_date
 
   member_action :pay  do
-    order = Order.find(params[:id])
+    order = Order.find_by_id(params[:id])
     order.pay
     redirect_to admin_orders_path
   end
 
   member_action :check  do
-    order = Order.find(params[:id])
+    order = Order.find_by_id(params[:id])
     order.check
     redirect_to admin_orders_path
   end
 
   member_action :ship  do
-    order = Order.find(params[:id])
+    order = Order.find_by_id(params[:id])
     order.ship
     redirect_to admin_orders_path
   end
 
   member_action :confirm  do
-    order = Order.find(params[:id])
+    order = Order.find_by_id(params[:id])
     order.confirm
     redirect_to admin_orders_path
   end
 
   member_action :cancel  do
-    order = Order.find(params[:id])
+    order = Order.find_by_id(params[:id])
     order.cancel
     redirect_to admin_orders_path
   end
 
   member_action :refund  do
-    order = Order.find(params[:id])
+    order = Order.find_by_id(params[:id])
     order.refund
     redirect_to admin_orders_path
   end
