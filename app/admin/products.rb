@@ -3,14 +3,13 @@ require 'kramdown'
 
 ActiveAdmin.register Product do
 
-  {
-    :'生效' => :enable!,
-    :'无效' => :disable!
-  }.each do |label, action|
-    batch_action label do |selection|
+  [ :enable!,
+    :disable!
+ ].each do |action|
+    batch_action I18n.t(action) do |selection|
       products = Product.unscoped.find(selection)
       products.each { |product| product.send(action) }
-      redirect_to :back, :notice => "#{products.count}张订单已经更新"
+      redirect_to :back, :notice => products.count.to_s + t(:product_updated)
     end
   end
   batch_action :destroy, false

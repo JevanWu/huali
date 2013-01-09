@@ -25,6 +25,9 @@ zh-CN:
   ship: "发货 "
   confirm: "确认 "
   cancel: "取消"
+  enable!: "生效"
+  disable!: "失效"
+  product_updated: "个产品已经更新"
 
   distance:
     unit:
