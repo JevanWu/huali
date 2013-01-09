@@ -1,21 +1,30 @@
 .item-table
-  td
+  td, th
     vertical-align: middle
 
+  td:first-child, th:first-child
+    text-align: left
+
+  td:last-child, th:last-child
+    text-align: right
+
   // vertical width
+  $itemImageWidth: 250px
+  $itemTableWidth: 960px
+  $itemInfoWidth: ($itemTableWidth - $itemImageWidth) / 4
+
   .image
-    width: 30%
+    width: percentage($itemImageWidth / $itemTableWidth)
   .name
-    width: 15%
+    width: percentage($itemInfoWidth / $itemTableWidth)
   .price
-    width: 15%
+    width: percentage($itemInfoWidth / $itemTableWidth)
   .quantity
-    width: 15%
+    width: percentage($itemInfoWidth / $itemTableWidth)
     input
       width: 20%
       text-align: center
       padding: 0
       margin: 0
   .total
-    width: 15%
-
+    width: percentage($itemInfoWidth / $itemTableWidth)

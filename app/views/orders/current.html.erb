@@ -16,7 +16,7 @@
         <tbody>
         <% @products.each do |product| %>
               <tr>
-                <td class="image"><%= image_tag product.assets.first.image.url(:thumb) %></td>
+                <td class="image"><%= image_tag product.assets.first.image.url(:medium), width: '150' %></td>
                 <td class="name"><%= product.name %></td>
                 <td class="price"> <%= number_to_currency product.price, unit: '&yen;'  %> </td>
                 <td class="quantity">
