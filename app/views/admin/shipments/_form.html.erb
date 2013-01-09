@@ -1,0 +1,11 @@
+<%= semantic_form_for [:admin, @shipment] do |f| %>
+  <%= f.inputs "Main Info" do %>
+    <%= f.input :order_id, :label => "订单编号", :wrapper_html => { :style => "display:none;" } %>
+    <%= f.input :cost, :label => "成本", required: true %>
+    <%= f.input :note, :label => "留言" %>
+    <%= f.input :tracking_num, :label => "快递单号" %>
+    <%= f.input :ship_method_id, :label => "递送方式", :as => :select, :collection => ShipMethod.all %>
+  <% end %>
+  <%= f.actions %>
+<% end %>
+

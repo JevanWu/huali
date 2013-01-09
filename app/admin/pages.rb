@@ -1,3 +1,4 @@
+# encoding: utf-8
 ActiveAdmin.register Page do
   controller do
     def new
@@ -40,7 +41,7 @@ ActiveAdmin.register Page do
 
   form :partial => "form"
 
-  show do |page|
+  show do
 
     attributes_table do
       row :permalink

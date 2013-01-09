@@ -1,3 +1,4 @@
+# encoding: utf-8
 # == Schema Information
 #
 # Table name: orders
@@ -73,8 +74,15 @@ class Order < ActiveRecord::Base
     end
   end
 
+  scope :all, lambda { reorder }
+  scope :current, lambda { where('delivery_date = ?', Date.current) }
+  scope :tomorrow, lambda { where("delivery_date = ?", Date.tomorrow) }
+  scope :within_this_week, lambda { where("delivery_date >= ? AND delivery_date <= ? ", Date.current.beginning_of_week, Date.current.end_of_week) }
+  scope :within_this_month, lambda { where("delivery_date >= ? AND delivery_date <= ? ", Date.current.beginning_of_month, Date.current.end_of_month) }
+
   # Queries
   class << self
+
     def by_number(number)
       where(:number => number)
     end

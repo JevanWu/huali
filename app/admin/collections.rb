@@ -1,5 +1,5 @@
+# encoding: utf-8
 ActiveAdmin.register Collection do
-
   filter :name_cn
   filter :description
   filter :created_at
