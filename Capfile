@@ -87,12 +87,14 @@ namespace :deploy do
   task :bundle, :roles => :app, :except => { :no_release => true } do
     run "cd #{release_path} && bundle install"
   end
-  after "deploy:finalize_update", "deploy:bundle"
+  after "deploy:update_code", "deploy:bundle"
 end
 
 namespace :sitemap do
   task :refresh do
-    run "cd #{release_path} && bundle exec rake sitemap:refresh"
+    if rails_env == 'production'
+      run "cd #{release_path} && bundle exec rake sitemap:refresh"
+    end
   end
 end
 
