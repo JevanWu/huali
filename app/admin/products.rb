@@ -2,6 +2,8 @@
 require 'kramdown'
 
 ActiveAdmin.register Product do
+  menu :if => proc{ can?(:manage, Product) }
+  controller.authorize_resource
 
   [ :enable!,
     :disable!
@@ -50,7 +52,7 @@ ActiveAdmin.register Product do
 
     column :collection do |product|
       if product.collection
-        link_to product.collection.name_cn, collection_path(product.collection)
+        link_to product.collection.name_zh, collection_path(product.collection)
       end
     end
 
@@ -86,7 +88,7 @@ ActiveAdmin.register Product do
 
       row :collection do
         collection = product.collection
-        link_to collection.name_cn, admin_collection_path(collection) if collection
+        link_to collection.name_zh, admin_collection_path(collection) if collection
       end
 
       row :image do

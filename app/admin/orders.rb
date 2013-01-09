@@ -1,5 +1,7 @@
 # encoding: utf-8
 ActiveAdmin.register Order do
+  menu :if => proc{ can?(:manage, Order) }
+  controller.authorize_resource
   actions :all, :except => :new
 
   scope :all

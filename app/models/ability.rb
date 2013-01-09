@@ -11,7 +11,7 @@ class Ability
       cannot :manage, Administrator
     when "supplier"
       can :manage, Order
-      cannot [:destroy, :create], Order
+      cannot [:edit, :destroy, :create], Order
     end
 
     # Define abilities for the passed in user here. For example:

@@ -1,5 +1,8 @@
 # encoding: utf-8
 ActiveAdmin.register Shipment do
+  menu :if => proc{ can?(:manage, Shipment) }
+  controller.authorize_resource
+
   #actions :all, :except => :new
   index do
     selectable_column
