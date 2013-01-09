@@ -6,6 +6,11 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
+  # rescue cancan authorization failure
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to admin_dashboard_path, :alert => exception.message
+  end
+
   unless Rails.application.config.consider_all_requests_local
 
     rescue_from 'Exception' do |exception|
@@ -16,6 +21,12 @@ class ApplicationController < ActionController::Base
       render_error 404, exception
     end
 
+  end
+
+
+  # cancan's ability
+  def current_ability
+    @current_ability ||= Ability.new(current_administrator)
   end
 
   def store_location

@@ -63,6 +63,7 @@ zh-CN:
 
   activerecord:
     models:
+      administrator: "管理用户"
       transaction: "交易"
       product: "产品"
       shipment: "递送"

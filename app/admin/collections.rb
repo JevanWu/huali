@@ -1,14 +1,14 @@
 # encoding: utf-8
 ActiveAdmin.register Collection do
-  filter :name_cn
+  filter :name_zh
   filter :description
   filter :created_at
   filter :updated_at
 
   index do
     selectable_column
-    column :name do |collection|
-      collection.name_cn
+    column :name_zh do |collection|
+      collection.name_zh
     end
     column :description
     column :products_count do |collection|
@@ -21,7 +21,7 @@ ActiveAdmin.register Collection do
 
   show do
     attributes_table do
-      row :name_cn
+      row :name_zh
       row :slug do
         collection.name_en
       end

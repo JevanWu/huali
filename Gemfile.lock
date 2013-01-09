@@ -87,6 +87,7 @@ GEM
     bourne (1.1.2)
       mocha (= 0.10.5)
     builder (3.0.4)
+    cancan (1.6.8)
     capistrano (2.13.5)
       highline
       net-scp (>= 1.0.0)
@@ -389,6 +390,7 @@ DEPENDENCIES
   better_errors!
   binding_of_caller
   bootstrap-sass (~> 2.2.1.1)
+  cancan
   capistrano (~> 2.0)
   capistrano-zen!
   capybara (>= 1.1.2)
