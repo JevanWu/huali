@@ -29,7 +29,7 @@ ActiveAdmin.register Collection do
 
       row :product do
         collection.products.map do |product|
-          link_to product.name_cn, admin_product_path(product)
+          link_to product.name_zh, admin_product_path(product)
         end.join(', ').html_safe
       end
 

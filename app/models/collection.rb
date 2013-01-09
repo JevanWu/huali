@@ -15,7 +15,7 @@ class Collection < ActiveRecord::Base
   has_many :products
 
   def to_s
-    "#{self.id} #{self.name_cn}"
+    "#{self.id} #{self.name_zh}"
   end
 
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130109084544) do
+ActiveRecord::Schema.define(:version => 20130109143144) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -89,7 +89,7 @@ ActiveRecord::Schema.define(:version => 20130109084544) do
   add_index "cities", ["post_code"], :name => "index_cities_on_post_code", :unique => true
 
   create_table "collections", :force => true do |t|
-    t.string   "name_cn",     :null => false
+    t.string   "name_zh",     :null => false
     t.string   "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
