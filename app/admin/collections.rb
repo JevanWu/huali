@@ -1,7 +1,5 @@
 # encoding: utf-8
 ActiveAdmin.register Collection do
-  menu(:label => "集合")
-
   filter :name_cn
   filter :description
   filter :created_at
