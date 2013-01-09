@@ -1,3 +1,8 @@
+@import "bootstrap/variables"
+@import "bootstrap/mixins"
+@import "settings/mixins"
+@import "settings/variables"
+
 .item-table
   td, th
     vertical-align: middle
@@ -31,6 +36,10 @@
       margin: 0
   .total
     width: percentage($itemInfoWidth / $itemTableWidth)
+
+.cart_foot
+  p
+    +meta_content
 
 .title
   img

@@ -2,7 +2,7 @@
   <%= image_tag('payment-title.png') %>
 </div>
 
-<div class="products row">
+<div class="row">
   <% if @products.blank? %>
     <p>Empty Cart</p>
   <% else %>
@@ -40,4 +40,33 @@
     </table>
   <% end %>
 </div>
-<%= link_to 'checkout', new_order_path, class: 'checkout' %>
+
+<div class="row cart_foot">
+  <div class="span4">
+    <p> 由于鲜花的特殊性，现阶段我们仅提对江浙沪皖的订单，我们将采用联邦快递为您运送相应货品。 客服工作时间（周日及法定节假日休息）：
+    </p>
+    <p>
+      工作日：<b>10:00 - 18:30</b>
+    </p>
+    <p>
+      非工作日：<b>10:30 - 18:00</b>
+    </p>
+  </div>
+
+  <div class="span4">
+    <p>
+      非工作时间的订单，我们会在第二天上班后跟您取得联系 如有任何问题
+    </p>
+    <p>
+      请联系客服电话：400-001-6936
+    </p>
+    <p>
+    或发送邮件至<a href="mailto:support@hua.li">support@hua.li</a>
+    </p>
+  </div>
+
+  <div class="span4 actions">
+    <%= link_to 'checkout', new_order_path, :class => 'checkout button' %>
+    <%= link_to 'cancel', new_order_path, :class => 'checkout button' %>
+  </div>
+</div>
