@@ -15,6 +15,7 @@
 @import "bootstrap/variables"
 @import "bootstrap/mixins"
 @import "settings/variables"
+@import "settings/mixins"
 
 // CSS Reset
 @import "bootstrap/reset"
@@ -59,11 +60,9 @@ footer
 
 // HOME
 p#home-intro
-  font-size: 90%
-  color: $grayLight
+  +meta_content
   position: absolute
   top: 180px
-  text-align: justify
 
 // SIDEBAR NAV
 #product-nav
@@ -136,10 +135,8 @@ p#home-intro
   width: 180px
 
   p
+    +meta_content
     margin: 0 0 2px 0
-    font-size: 90%
-    color: $grayLight
-    text-align: justify
 
 #product-info p
   margin-left: ($gridColumnWidth + $gridGutterWidth) / 2
