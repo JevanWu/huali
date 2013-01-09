@@ -127,6 +127,7 @@ ActiveAdmin.register Product do
       row :depth do
         number_to_human(product.depth, :units => :distance) if product.depth
       end
+
       row :created_at
       row :updated_at
     end

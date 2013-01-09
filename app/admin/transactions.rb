@@ -1,7 +1,5 @@
 # encoding: utf-8
-
 ActiveAdmin.register Transaction do
-  menu(:label => "交易")
   #actions :all, :except => :new
 
   index do
@@ -9,6 +7,7 @@ ActiveAdmin.register Transaction do
 
     column :identifier 
     column :merchant_name
+    column :merchant_trade_no
     column :paymethod 
     column :amount
     column :state do |transaction|
