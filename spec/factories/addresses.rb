@@ -17,9 +17,9 @@
 
 FactoryGirl.define do
   factory :address do
-    province_id { Province.all.sample.id }
-    city_id { province.cities.sample.id }
-    area_id { city.areas.sample.id }
+    province
+    city { province.cities.sample }
+    area { city.areas.sample }
 
     fullname { Forgery(:name).full_name }
     address { Forgery(:address).street_address }
@@ -29,5 +29,30 @@ FactoryGirl.define do
     trait :with_user do
       user
     end
+  end
+
+  factory :province do
+    name { Forgery(:address).province}
+    post_code { Forgery(:address).zip }
+
+    after(:build) do |prov|
+      create_list(:city, Forgery(:basic).number, province: prov )
+    end
+  end
+
+  factory :city do
+    name { Forgery(:address).city}
+    post_code { Forgery(:address).zip }
+    province
+
+    after(:build) do |city|
+      create_list(:area, Forgery(:basic).number, city: city )
+    end
+  end
+
+  factory :area do
+    name { Forgery(:address).city}
+    post_code { Forgery(:address).zip }
+    city
   end
 end
