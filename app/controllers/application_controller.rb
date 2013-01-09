@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_filter :set_locale, :check_for_mobile
+  before_filter :set_locale, :check_for_mobile, :get_host
   before_filter :dev_tools if Rails.env == 'development'
 
   after_filter :store_location
@@ -107,5 +107,9 @@ class ApplicationController < ActionController::Base
 
   def dev_tools
     Rack::MiniProfiler.authorize_request
+  end
+
+  def get_host
+    $host ||= request.host_with_port
   end
 end

@@ -13,7 +13,7 @@
 #  item_total           :decimal(8, 2)    default(0.0), not null
 #  payment_total        :decimal(8, 2)    default(0.0)
 #  special_instructions :text
-#  state                :string(255)
+#  state                :string(255)      default("ready")
 #  total                :decimal(8, 2)    default(0.0), not null
 #  updated_at           :datetime         not null
 #  user_id              :integer
@@ -38,11 +38,41 @@ class Order < ActiveRecord::Base
   accepts_nested_attributes_for :line_items
   accepts_nested_attributes_for :address
 
-  before_validation :generate_identifier, :cal_total, on: :create
+  before_validation :generate_identifier, on: :create
+  before_validation :cal_total
 
   validates :identifier, presence: true
 
-  require_relative 'order_state_machine'
+  state_machine :state, :initial => :generated do
+    # TODO implement an auth_state dynamically for each state
+    before_transition :to => :wait_refund, :do => :auth_refund
+    before_transition :to => :completed, :do => :complete_order
+
+    # use adj. for state with future vision
+    # use v. for event name
+    state :generated do
+      transition :to => :wait_check, :on => :pay
+      transition :to => :void, :on => :cancel
+    end
+
+    state :wait_check do
+      transition :to => :wait_ship, :on => :check
+      transition :to => :wait_refund, :on => :cancel
+    end
+
+    state :wait_ship do
+      transition :to => :wait_confirm, :on => :ship
+      transition :to => :wait_refund, :on => :cancel
+    end
+
+    state :wait_confirm do
+      transition :to => :completed, :on => :confirm
+    end
+
+    state :wait_refund do
+      transition :to => :void, :on => :refund
+    end
+  end
 
   scope :all, lambda { reorder }
   scope :current, lambda { where('delivery_date = ?', Date.current) }
@@ -92,7 +122,7 @@ class Order < ActiveRecord::Base
       subject: subject_text,
       body: body_text
     }
-    self.transactions.create pay_info, default.merge(options)
+    self.transactions.create default.merge(options), pay_info
   end
 
   # options = {
@@ -111,7 +141,7 @@ class Order < ActiveRecord::Base
   end
 
   def cal_total
-    self.total = line_items.inject(0) { |sum, item| sum + item.total }
+    self.total = line_items.inject(0.0) { |sum, item| sum + item.total }
   end
 
   def completed?
@@ -123,20 +153,30 @@ class Order < ActiveRecord::Base
   end
 
   def transaction_state
-    transactions.first.state
+    transactions.last.state
   end
 
   def shipment_state
-    shipments.first.state
+    shipments.last.state
   end
 
   private
 
   def subject_text
-    line_items.inject('') { |sum, item| sum + "#{item.name} * #{item.quantity} |"}
+    line_items.inject('') { |sum, item| sum + "#{item.name} x #{item.quantity}, "}
   end
 
   def body_text
     # prepare body text for transaction
+  end
+
+  def auth_refund
+    # TODO auth the admin for the refund actions
+    true
+  end
+
+  def complete_order
+    self.completed_at = Time.now
+    save!
   end
 end
