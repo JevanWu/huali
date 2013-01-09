@@ -40,7 +40,7 @@ ActiveAdmin.register Product do
     column :name_en
 
     column :available do |product|
-      product.available ?  '有货' : '无货'
+      product.available ?  t(:available) : t(:unavailable)
     end
 
     column :image do |product|
@@ -117,13 +117,15 @@ ActiveAdmin.register Product do
       end
 
       row :height do
-        "#{product.height} cm" if product.height
+        number_to_human(product.height, :units => :distance) if product.height
       end
+
       row :width do
-        "#{product.width} cm" if product.width
+        number_to_human(product.width, :units => :distance) if product.width
       end
+
       row :depth do
-        "#{product.depth} cm" if product.depth
+        number_to_human(product.depth, :units => :distance) if product.depth
       end
       row :created_at
       row :updated_at
