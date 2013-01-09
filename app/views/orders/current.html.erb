@@ -23,9 +23,9 @@
               <td class="name"><%= link_to product.name, product_path(product) %></td>
               <td class="price"> <%= number_to_currency product.price, unit: '&yen;'  %> </td>
               <td class="quantity">
-                  <%= link_to icon('plus'), current_order_path, data: { product: product.id }, class: 'add_quantity' %>
+                  <%= link_to icon('plus'), current_order_path, data: { product: product.id }, class: 'add_quantity trigger' %>
                   <input type='text' value="<%= product[:quantity] %>">
-                  <%= link_to icon('minus'), current_order_path, data: { product: product.id }, class: 'reduce_quantity' %>
+                  <%= link_to icon('minus'), current_order_path, data: { product: product.id }, class: 'reduce_quantity trigger' %>
               </td>
               <td class="total"> <%= count_total(product) %> </td>
             </tr>
