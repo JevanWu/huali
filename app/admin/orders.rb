@@ -87,21 +87,20 @@ ActiveAdmin.register Order do
 
     column :delivery_date, :sortable => :delivery_date
 
-    column "处理订单" do |order|
-      link_to('编辑 ', edit_admin_order_path(order)) + \
-      link_to('查看 ', admin_order_path(order)) + \
-      link_to('新建交易 ', new_admin_transaction_path(:"transaction[order_id]" => order.id), :confirm => "确定新建一笔交易么?") + \
-      link_to('新建递送', new_admin_shipment_path(:"shipment[order_id]" => order.id), :confirm => "确定新建一笔递送么?")
+    column :process_order do |order|
+      link_to(t(:edit), edit_admin_order_path(order)) + \
+      link_to(t(:view), admin_order_path(order)) + \
+      link_to(t(:new_transaction), new_admin_transaction_path(:"transaction[order_id]" => order.id)) + \
+      link_to(t(:new_shipment), new_admin_shipment_path(:"shipment[order_id]" => order.id))
     end
 
-    column "修改订单状态" do |order|
-      link_to('付款 ', pay_admin_order_path(order)) + \
-      link_to('审核 ', check_admin_order_path(order)) + \
-      link_to('发货 ', ship_admin_order_path(order)) + \
-      link_to('确认 ', confirm_admin_order_path(order)) + \
-      link_to('取消 ', cancel_admin_order_path(order))
+    column :modify_order_state do |order|
+      link_to(t(:pay), pay_admin_order_path(order)) + \
+      link_to(t(:check), check_admin_order_path(order)) + \
+      link_to(t(:ship), ship_admin_order_path(order)) + \
+      link_to(t(:confirm), confirm_admin_order_path(order)) + \
+      link_to(t(:cancel), cancel_admin_order_path(order))
     end
-
   end
 
   form :partial => "form"
