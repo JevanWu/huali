@@ -21,12 +21,7 @@
     </ul>
 
     <div id='checkout-form'>
-      <%= form_tag(gateway_order_path(@order), :method => "post") do %>
-        <%= render :partial => "shared/choose_payment_method", :locals => { :banks => @banks } %>
-        <div>
-          <%= submit_tag "确认支付", class: 'button' %>
-        </div>
-      <% end %>
+      <%= render 'shared/choose_payment_method', banks: @banks, order: @order %>
     </div>
   </div>
 </div>

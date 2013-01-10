@@ -1,15 +1,20 @@
-<div class="form-block">
-  <p class="form-title">选择支付方式</p>
-  <label class="ALIPAY bank-icon">
-    <%= radio_button_tag(:pay_info, "directPay", :checked => "checked") %>
-  </label>
-  <% banks.each do |bank| %>
-    <label class="<%= bank %> bank-icon">
-      <%= radio_button_tag(:pay_info, bank) %>
+<%= form_tag(gateway_order_path(order), :method => "post") do %>
+  <div class="form-block">
+    <p class="form-title">选择支付方式</p>
+    <label class="ALIPAY bank-icon">
+      <%= radio_button_tag(:pay_info, "directPay", :checked => "checked") %>
     </label>
-  <% end %>
-  <p class="form-title">信用卡支付</p>
-  <label class="PAYPAL bank-icon">
-    <%= radio_button_tag(:pay_info, "paypal") %>
-  </label>
-</div>
+    <% banks.each do |bank| %>
+      <label class="<%= bank %> bank-icon">
+        <%= radio_button_tag(:pay_info, bank) %>
+      </label>
+    <% end %>
+    <p class="form-title">信用卡支付</p>
+    <label class="PAYPAL bank-icon">
+      <%= radio_button_tag(:pay_info, "paypal") %>
+    </label>
+  </div>
+  <div>
+    <%= submit_tag "确认支付", class: 'button' %>
+  </div>
+<% end %>
