@@ -10,8 +10,8 @@ class Ability
       can :manage, :all
       cannot :manage, Administrator
     when "supplier"
-      can :manage, Order
-      cannot [:edit, :destroy, :create], Order
+      can :read, Order
+      can :ship, Order
     end
 
     # Define abilities for the passed in user here. For example:
