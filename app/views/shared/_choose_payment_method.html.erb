@@ -1,6 +1,6 @@
 <%= form_tag(gateway_order_path(order), :method => "post") do %>
   <div class="form-block">
-    <p class="form-title">选择支付方式</p>
+    <legend>选择支付方式</legend>
     <label class="ALIPAY bank-icon">
       <%= radio_button_tag(:pay_info, "directPay", :checked => "checked") %>
     </label>
@@ -9,7 +9,7 @@
         <%= radio_button_tag(:pay_info, bank) %>
       </label>
     <% end %>
-    <p class="form-title">信用卡支付</p>
+    <legend>信用卡支付</legend>
     <label class="PAYPAL bank-icon">
       <%= radio_button_tag(:pay_info, "paypal") %>
     </label>
