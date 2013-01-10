@@ -1,6 +1,6 @@
 source 'http://ruby.taobao.org'
 
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.11'
 gem 'pg', '>= 0.14.1'
 gem 'devise', '>= 2.1.2'
 gem 'devise-i18n'
