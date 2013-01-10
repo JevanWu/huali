@@ -1,44 +1,41 @@
 <% # encoding: utf-8 %>
-<div id="payment-wrapper">
-  <div class="row">
-    <%= image_tag('payment-title.png') %>
-  </div>
-  <div id="order-list">
-    <p> 您的花篮里已经有 </p>
-    <table border="">
-    <% @order.line_items.each do |item| %>
-      <tr>
-        <td> <%= item.name %> </td>
-        <td> <%= item.quantity %> </td>
-        <td> <%= item.price %> </td>
-        <td> <%= item.total %> </td>
-      </tr>
-    <% end %>
-    </table>
-    <p>
-      共计 <strong class="price-total"><%=  @order.total %></strong> 元。
-    </p>
-  </div>
+<% content_for(:title_img) do %>
+  <%= image_tag('title-checkout.png') %>
+<% end %>
 
-  <div id="order-addr">
-    <p> 您的地址是 </p>
-    <%= @order.address.full_addr %>
-    <%= @order.address.fullname %>
-    <%= @order.address.phone %>
-  </div>
+<div class='row'>
+  <div class="span4">
+    <%= render 'side_item_table', items: @order.line_items %>
 
-  <%= form_tag(gateway_order_path(@order), :method => "post") do %>
-    <%= render :partial => "shared/choose_payment_method", :locals => { :banks => @banks } %>
-    <div>
-      <%= submit_tag "确认支付", class: 'button' %>
+    <div id="order-addr">
+      <p> 您的地址是 </p>
+      <%= @order.address.full_addr %>
+      <%= @order.address.fullname %>
+      <%= @order.address.phone %>
     </div>
-  <% end %>
-
-  <div id="notice-info">
-    <h3>购买注意</h3>
-    <p> <strong>支付提醒：</strong>现在只支持用支付宝一次支付一件花盒，敬请谅解。 </p>
-    <p> <strong>递送时间：</strong>如果您在每天下午18:00前下单，产品将在第二天中午使用新鲜花材进行制作，并在下午通过联邦快递发送出去，鲜花会在第三天白天到达；如果您在每天下午18:00后下单，将被认定为次日的订单。 </p>
-    <p> <strong>损坏赔偿：</strong>如果在运送过程中花盒出现了例如被翻转等损坏，请您在第一时间拍照后联系我们的客服。在客服确认为鲜花产品在运输过程中受到了因运输不当而产生的损坏，我们愿意进行全额的赔偿。 但是由于鲜花产品的特殊性，在运输过程中一定会对于新鲜程度的部分影响，我们仅能够针对运输不当造成的损坏来对您进行赔偿，请您务必谅解。我们将会尽我们的可能减少鲜花产品在运输途中的时间。 </p>
-    <p> <strong>产品保鲜：</strong>请您在收到产品后务必打开盒盖给鲜花透气，并向鲜花根部适当注水，如果您家中有喷壶的话，可以适当给鲜花表面喷洒适量的清水。 </p>
   </div>
+
+  <div class="span8">
+    <ul id='checkout-nav'>
+      
+    </ul>
+
+    <div id='checkout-form'>
+      <%= form_tag(gateway_order_path(@order), :method => "post") do %>
+        <%= render :partial => "shared/choose_payment_method", :locals => { :banks => @banks } %>
+        <div>
+          <%= submit_tag "确认支付", class: 'button' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+<div id="notice-info">
+  <h3>购买注意</h3>
+  <p> <strong>支付提醒：</strong>现在只支持用支付宝一次支付一件花盒，敬请谅解。 </p>
+  <p> <strong>递送时间：</strong>如果您在每天下午18:00前下单，产品将在第二天中午使用新鲜花材进行制作，并在下午通过联邦快递发送出去，鲜花会在第三天白天到达；如果您在每天下午18:00后下单，将被认定为次日的订单。 </p>
+  <p> <strong>损坏赔偿：</strong>如果在运送过程中花盒出现了例如被翻转等损坏，请您在第一时间拍照后联系我们的客服。在客服确认为鲜花产品在运输过程中受到了因运输不当而产生的损坏，我们愿意进行全额的赔偿。 但是由于鲜花产品的特殊性，在运输过程中一定会对于新鲜程度的部分影响，我们仅能够针对运输不当造成的损坏来对您进行赔偿，请您务必谅解。我们将会尽我们的可能减少鲜花产品在运输途中的时间。 </p>
+  <p> <strong>产品保鲜：</strong>请您在收到产品后务必打开盒盖给鲜花透气，并向鲜花根部适当注水，如果您家中有喷壶的话，可以适当给鲜花表面喷洒适量的清水。 </p>
 </div>
