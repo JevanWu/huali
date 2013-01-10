@@ -77,5 +77,3 @@ pickle-email-*.html
 
 # vim artifacts
 **.swp
-
-~/.guard_history
