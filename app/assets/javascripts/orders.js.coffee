@@ -50,7 +50,8 @@ window.Cart = {
     $.removeCookie('cart', path: '/')
 
   quantityAll: ->
-    cart = $.cookie('cart') || {}
+    cart = $.cookie('cart')
+    return 0 if _.size($.cookie('cart')) is 0
     amounts = _.map(cart, (quantity, id) -> quantity)
-    _.reduce(amounts, (sum, quan) -> sum + quan)
+    total = _.reduce(amounts, (sum, quan) -> sum + quan)
 }
