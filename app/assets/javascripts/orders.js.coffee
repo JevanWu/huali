@@ -1,8 +1,11 @@
 #= require jquery.cookie
+#= require underscore
 
 $ ->
   # turn on JSON parsing in $.cookie
   $.cookie.json = true
+
+  $('#cart_amount span').text Cart.quantityAll()
 
   $('.purchase, .add_quantity, .reduce_quantity').click ->
     id = $(@).data('product')
@@ -45,4 +48,9 @@ window.Cart = {
 
   empty: ->
     $.removeCookie('cart', path: '/')
+
+  quantityAll: ->
+    cart = $.cookie('cart') || {}
+    amounts = _.map(cart, (quantity, id) -> quantity)
+    _.reduce(amounts, (sum, quan) -> sum + quan)
 }
