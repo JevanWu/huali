@@ -12,6 +12,7 @@ class OrdersController < ApplicationController
 
   def new
     @order = Order.new
+    fetch_items
   end
 
   def create
@@ -69,13 +70,7 @@ class OrdersController < ApplicationController
   end
 
   def current
-    @products = []
-    @cart.keys.each do |key|
-      if product = Product.find_by_id(key)
-        product[:quantity] = @cart[key]
-        @products.push product
-      end
-    end
+    fetch_items
   end
 
   private
@@ -92,6 +87,16 @@ class OrdersController < ApplicationController
         @cart = JSON.parse(cookies['cart']).select {|k, v| k =~ /^\d+$/}
       rescue
         @cart = {}
+      end
+    end
+
+    def fetch_items
+      @products = []
+      @cart.keys.each do |key|
+        if product = Product.find_by_id(key)
+          product[:quantity] = @cart[key]
+          @products.push product
+        end
       end
     end
 end
