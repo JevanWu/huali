@@ -21,6 +21,7 @@ class Ability
         can :read, Order
         can :update, Order
         can :confirm, Order
+        can :cancel, Order
       end
     end
 
