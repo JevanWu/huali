@@ -1,17 +1,27 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(admin)
-    admin ||= Administrator.new
-    case admin.role
-    when "super"
-      can :manage, :all
-    when "admin"
-      can :manage, :all
-      cannot :manage, Administrator
-    when "supplier"
-      can :read, Order
-      can :ship, Order
+  def initialize(user)
+    if user.class.to_s == "Administrator"
+      case user.role
+      when "super"
+        can :manage, :all
+      when "admin"
+        can :manage, :all
+        cannot :manage, Administrator
+      when "supplier"
+        can :read, Order
+        can :ship, Order
+      end
+    end
+
+    if user.class.to_s == "User"
+      case user.role
+      when "customer"
+        can :read, Order
+        can :update, Order
+        can :confirm, Order
+      end
     end
 
     # Define abilities for the passed in user here. For example:
