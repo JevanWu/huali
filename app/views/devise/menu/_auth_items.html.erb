@@ -1,4 +1,4 @@
-<div>
+<div id='auth-item'>
 <% if user_signed_in? %>
   <%= link_to current_user.email, edit_user_registration_path %>
   <%= link_to '退出', destroy_user_session_path, :method => :delete %>
