@@ -5,19 +5,18 @@
     </tr>
   </thead>
   <tbody>
-  <% @products.each do |product| %>
-    <tr>
-      <td class="image"><%= image_tag product.assets.first.image.url(:thumb) %></td>
-      <td class="content">
-        <p>
-          <%= link_to product.name, product_path(product) %>
-          <span>x <%= product[:quantity] %> </span>
-        </p>
-      </td>
-      <td class="total"> <%= count_total(product) %> </td>
-    </tr>
-  <% end %>
-
+    <% @products.each do |product| %>
+      <tr>
+        <td class="image"><%= image_tag product.assets.first.image.url(:thumb) %></td>
+        <td class="content">
+          <p>
+            <%= link_to product.name, product_path(product) %>
+            <span>x <%= product[:quantity] %> </span>
+          </p>
+        </td>
+        <td class="total"> <%= count_total(product) %> </td>
+      </tr>
+    <% end %>
   </tbody>
   <tfoot>
     <tr>
