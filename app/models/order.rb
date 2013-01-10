@@ -25,7 +25,7 @@
 
 class Order < ActiveRecord::Base
 
-  attr_accessible :line_items, :special_instructions,
+  attr_accessible :line_items, :special_instructions, :address_attributes,
                   :gift_card_text, :delivery_date, :identifier, :state
 
   belongs_to :address
