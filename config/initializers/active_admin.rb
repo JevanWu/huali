@@ -150,3 +150,7 @@ ActiveAdmin.setup do |config|
   # Set the CSV builder separator (default is ",")
   # config.csv_column_separator = ','
 end
+
+module ActiveAdmin::ViewHelpers
+  include OrderHelper
+end
