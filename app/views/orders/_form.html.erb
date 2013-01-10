@@ -1,4 +1,4 @@
-<%= form_for @order, html: { class: 'form-horizontal'} do |f| %>
+<%= simple_form_for @order, html: { class: 'form-horizontal'} do |f| %>
   <% if @order.errors.any? %>
     <div id="#error_explanation">
       <ul class='alert alert-error'>
@@ -9,82 +9,21 @@
     </div>
   <% end %>
 
-  <div class="control-group">
-    <label class="control-label">Delivery Date</label>
-    <div class="controls">
-      <%= f.text_field :delivery_date, required: true, class: 'span6' %>
-      <span class='help-inline'>* required</span>
-    </div>
-  </div>
+  <%= f.input :delivery_date, as: 'string', required:true %>
 
-  <fieldset>
-    <%= f.fields_for :address do |builder|%>
-      <div class="control-group">
-        <label class="control-label">Province</label>
-        <div class="controls">
-          <%= builder.select(:province_id, options_from_collection_for_select(Province.all, :id, :name)) %>
-          <span class='help-inline'>* required</span>
-        </div>
-      </div>
-      <div class="control-group">
-        <label class="control-label">City</label>
-        <div class="controls">
-          <%= builder.select(:city_id, options_from_collection_for_select(City.all, :id, :name)) %>
-          <span class='help-inline'>* required</span>
-        </div>
-      </div>
-      <div class="control-group">
-        <label class="control-label">Area</label>
-        <div class="controls">
-          <%= builder.select(:area_id, options_from_collection_for_select(Area.all, :id, :name)) %>
-          <span class='help-inline'>* required</span>
-        </div>
-      </div>
-      <div class="control-group">
-        <label class="control-label">Fullname</label>
-        <div class="controls">
-          <%= builder.text_field :fullname, required: true, placeholder: 'Her/His Fullname'%> 
-          <span class='help-inline'>* required</span>
-        </div>
-      </div>
-      <div class="control-group">
-        <label class="control-label">Phone Number</label>
-        <div class="controls">
-          <%= builder.text_field :phone, required: true, placeholder: 'Receiver Phone Number'%> 
-          <span class='help-inline'>* required</span>
-        </div>
-      </div>
-      <div class="control-group">
-        <label class="control-label">Address</label>
-        <div class="controls">
-          <%= builder.text_field :address, required: true, placeholder: 'His/Her Address'%> 
-          <span class='help-inline'>* required</span>
-        </div>
-      </div>
-      <div class="control-group">
-        <label class="control-label">Postcode</label>
-        <div class="controls">
-          <%= builder.text_field :post_code, placeholder: 'Postcode'%> 
-        </div>
-      </div>
-    <% end %>
-  </fieldset>
+  <%= f.fields_for :address do |builder|%>
+    <%= builder.input :fullname, require:true, placeholder: 'Receiver Name' %>
+    <%= builder.input :phone, required:true %>
+    <%= builder.input :province_id, collection: Province.all.map, required:true %>
+    <%= builder.input :city_id, collection: City.all, required:true %>
+    <%= builder.input :area_id, collection: Area.all, required:true %>
+    <%= builder.input :address, as: 'text', required:true %>
+    <%= builder.input :post_code, required:true %>
+  <% end %>
 
-  <div class='input'>
-  </div>
-  <div class="control-group">
-    <label class="control-label">Gift Card Text</label>
-    <div class="controls">
-      <%= f.text_area :gift_card_text %>
-    </div>
-  </div>
-  <div class="control-group">
-    <label class="control-label">Special Instruction</label>
-    <div class="controls">
-      <%= f.text_area :special_instructions %>
-    </div>
-  </div>
+  <%= f.input :gift_card_text, required:true %>
+  <%= f.input :special_instructions, required:true %>
 
-  <%= f.submit 'Save', class: 'button' %>
-  <%= link_to 'Cancel', current_order_path, class: 'cancel-btn' %>
+  <%= f.button :submit, class: 'button' %>
+  <%= link_to 'Cancel', current_order_path %>
 <% end %>
