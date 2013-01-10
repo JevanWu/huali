@@ -1,6 +1,6 @@
-<div class="row title">
+<% content_for(:title_img) do %>
   <%= image_tag('title-basket.png') %>
-</div>
+<% end %>
 
 <div class="row">
   <% if @products.blank? %>

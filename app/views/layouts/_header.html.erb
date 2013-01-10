@@ -3,3 +3,8 @@
   <%= render 'orders/links' %>
   <%= render 'devise/menu/auth_items' %>
 </header>
+<% if content_for(:title_img) %>
+  <div class="title-img">
+    <%= yield(:title_img) %>
+  </div>
+<% end %>
