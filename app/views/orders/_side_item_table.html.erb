@@ -5,23 +5,23 @@
     </tr>
   </thead>
   <tbody>
-    <% @products.each do |product| %>
+    <% items.each do |item| %>
       <tr>
-        <td class="image"><%= image_tag product.assets.first.image.url(:thumb) %></td>
+        <td class="image"><%= image_tag item.assets.first.image.url(:thumb) %></td>
         <td class="content">
           <p>
-            <%= link_to product.name, product_path(product) %>
-            <span>x <%= product[:quantity] %> </span>
+            <%= link_to item.name, item_path(item) %>
+            <span>x <%= item[:quantity] %> </span>
           </p>
         </td>
-        <td class="total"> <%= count_total(product) %> </td>
+        <td class="total"> <%= count_total(item) %> </td>
       </tr>
     <% end %>
   </tbody>
   <tfoot>
     <tr>
       <td colspan='2'>共计</td>
-      <td><%= count_cart(@products) %></td>
+      <td><%= count_cart(items) %></td>
     </tr>
   </tfoot>
 </table>
