@@ -14,8 +14,6 @@ zh-CN:
   delivery_date: "递送日期"
   available: "有货"
   unavailable: "无货"
-  process_order: "处理订单"
-  modify_order_state: "修改订单状态"
   edit: "编辑 "
   view: "查看 "
   new_transaction: "新建交易 "
@@ -89,6 +87,8 @@ zh-CN:
         order_content: "订单内容"
         transaction_identifier: "交易编号"
         fullname: "收货人姓名"
+        process_order: "处理订单"
+        modify_order_state: "修改订单状态"
       shipment:
         cost: "成本"
         identifier: "递送编号"
