@@ -12,6 +12,7 @@ class OrdersController < ApplicationController
 
   def new
     @order = Order.new
+    @order.build_address
     fetch_items
   end
 

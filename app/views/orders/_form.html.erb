@@ -1,21 +1,58 @@
-<%= semantic_form_for @order do |f| %>
-
-  <%= f.semantic_fields_for :address_attributes do |address, i| %>
-    <%= address.input :fullname %>
-    <%= address.input :phone %>
-    <%= address.input :province_id, :collection => Hash[Province.all.map { |col| [col.name, col.id] }] %>
-    <%= address.input :city_id, :collection => Hash[City.all.map { |col| [col.name, col.id] }] %>
-    <%= address.input :area_id, :collection => Hash[Area.all.map { |col| [col.name, col.id] }] %>
-    <%= address.input :address %>
-    <%= address.input :post_code %>
+<%= form_for @order do |f| %>
+  <% if @order.errors.any? %>
+    <div id="#error_explanation">
+      <ul class='alert alert-error'>
+      <% @order.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
   <% end %>
 
-  <%= f.input :delivery_date %>
-  <%= f.input :gift_card_text %>
-  <%= f.input :special_instructions %>
+  <fieldset>
+    <legend>address</legend>
+    <%= f.fields_for :address do |builder|%>
+      <div class='input'>
+        <%= builder.text_field :fullname, required: true %>
+        <span class='help-inline'>* required</span>
+      </div>
+      <div class='input'>
+        <%= builder.text_field :phone, required: true %>
+        <span class='help-inline'>* required</span>
+      </div>
+      <div class='select'>
+        <%= builder.select(:province_id, options_from_collection_for_select(Province.all, :id, :name)) %>
+      </div>
+      <div class='select'>
+        <%= builder.select(:city_id, options_from_collection_for_select(City.all, :id, :name)) %>
+      </div>
+      <div class='select'>
+        <%= builder.select(:area_id, options_from_collection_for_select(Area.all, :id, :name)) %>
+      </div>
+      <div class='input'>
+        <%= builder.text_field :address, required: true %>
+        <span class='help-inline'>* required</span>
+      </div>
+      <div class='input'>
+        <%= builder.text_field :post_code, required: true %>
+        <span class='help-inline'>* required</span>
+      </div>
+    <% end %>
+  </fieldset>
 
-  <%= f.actions do %>
-    <%= f.action :submit, :as => :button %>
-    <%= f.action :cancel, :as => :link %>
-  <% end %>
+  <div class='input'>
+    <%= f.text_field :delivery_date, required: true %>
+    <span class='help-inline'>* required</span>
+  </div>
+  <div class='input'>
+    <%= f.text_area :gift_card_text, required: true %>
+    <span class='help-inline'>* required</span>
+  </div>
+  <div class='input'>
+    <%= f.text_area :special_instructions, required: true %>
+    <span class='help-inline'>* required</span>
+  </div>
+
+  <%= f.submit 'Save', class: 'button' %>
+  <%= link_to 'Cancel', current_order_path, class: 'cancel-btn' %>
 <% end %>
