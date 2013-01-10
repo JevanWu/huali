@@ -152,5 +152,5 @@ ActiveAdmin.setup do |config|
 end
 
 module ActiveAdmin::ViewHelpers
-  include OrderHelper
+  include OrdersHelper
 end

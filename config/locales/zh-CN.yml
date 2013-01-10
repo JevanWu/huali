@@ -27,6 +27,7 @@ zh-CN:
   enable!: "生效"
   disable!: "失效"
   product_updated: "个产品已经更新"
+  order_state_changed: "订单状态变更为"
 
   distance:
     unit:

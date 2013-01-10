@@ -15,37 +15,37 @@ ActiveAdmin.register Order do
   member_action :pay  do
     order = Order.find_by_id(params[:id])
     order.pay
-    redirect_to admin_orders_path
+    redirect_to admin_orders_path, :alert => t(:order_state_changed) + t(:wait_check)
   end
 
   member_action :check  do
     order = Order.find_by_id(params[:id])
     order.check
-    redirect_to admin_orders_path
+    redirect_to admin_orders_path, :alert => t(:order_state_changed) + t(:wait_ship)
   end
 
   member_action :ship  do
     order = Order.find_by_id(params[:id])
     order.ship
-    redirect_to admin_orders_path
+    redirect_to admin_orders_path, :alert => t(:order_state_changed) + t(:wait_confirm)
   end
 
   member_action :confirm  do
     order = Order.find_by_id(params[:id])
     order.confirm
-    redirect_to admin_orders_path
+    redirect_to admin_orders_path, :alert => t(:order_state_changed) + t(:completed)
   end
 
   member_action :cancel  do
     order = Order.find_by_id(params[:id])
     order.cancel
-    redirect_to admin_orders_path
+    redirect_to admin_orders_path, :alert => t(:order_state_changed) + t(:void)
   end
 
   member_action :refund  do
     order = Order.find_by_id(params[:id])
     order.refund
-    redirect_to admin_orders_path
+    redirect_to admin_orders_path, :alert => t(:order_state_changed) + t(:void)
   end
 
   index do
