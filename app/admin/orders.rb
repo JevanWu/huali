@@ -82,7 +82,7 @@ ActiveAdmin.register Order do
     end
 
     column :modify_order_state do |order|
-      order_shift(order)
+      state_shift(order)
     end
   end
 
