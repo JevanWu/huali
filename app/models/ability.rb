@@ -2,7 +2,7 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    if user.class.to_s == "Administrator"
+    if user.is_a?(Administrator)
       case user.role
       when "super"
         can :manage, :all
@@ -15,7 +15,7 @@ class Ability
       end
     end
 
-    if user.class.to_s == "User"
+    if user.is_a?(User)
       case user.role
       when "customer"
         can [:read, :update, :confirm, :cancel], Order do |order|
