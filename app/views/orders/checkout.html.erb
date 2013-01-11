@@ -8,7 +8,7 @@
     <%= render 'side_item_table', items: @order.line_items %>
 
     <div id="order-addr">
-      <p> 您的地址是 </p>
+      <p><%= t(:your_address) %></p>
       <%= @order.address.full_addr %>
       <%= @order.address.fullname %>
       <%= @order.address.phone %>
@@ -17,7 +17,7 @@
 
   <div class="span8">
     <ul id='checkout-nav'>
-      
+
     </ul>
 
     <div id='checkout-form'>
