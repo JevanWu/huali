@@ -23,7 +23,7 @@
 #
 
 class Administrator < ActiveRecord::Base
-  ROLES = %w[super admin supplier]
+  #ROLES = %w[super admin supplier]
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable

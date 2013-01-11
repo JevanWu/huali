@@ -25,7 +25,7 @@
 #
 
 class User < ActiveRecord::Base
-  ROLES = %w[customer]
+  #ROLES = %w[customer]
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
