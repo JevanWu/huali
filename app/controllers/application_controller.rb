@@ -1,10 +1,12 @@
 class ApplicationController < ActionController::Base
-  before_filter :set_locale, :check_for_mobile, :get_host
+  before_filter :set_locale, :get_host
   before_filter :dev_tools if Rails.env == 'development'
 
   after_filter :store_location
 
   protect_from_forgery
+
+  include ApplicationControllerExtension::Mobile
 
   # rescue cancan authorization failure
   rescue_from CanCan::AccessDenied do |exception|
@@ -95,24 +97,6 @@ class ApplicationController < ActionController::Base
       nil
     end
   end
-
-  # mobile devise helper
-  def check_for_mobile
-    prepare_for_mobile if mobile_device?
-  end
-
-  def prepare_for_mobile
-    prepend_view_path Rails.root + 'app' + 'views_mobile'
-  end
-
-  def mobile_device?
-    params.has_key?(:mobile) ?  true :
-      (request.user_agent =~ /Mobile|webOS/) &&
-      # treat iPad as non-mobile.
-      (request.user_agent !~ /iPad/)
-  end
-  # enable this method both in all views / controllers
-  helper_method :mobile_device?
 
   def render_error(status, exception)
     respond_to do |format|
