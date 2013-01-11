@@ -79,12 +79,12 @@ class Transaction < ActiveRecord::Base
       unless result.verified? && result.success?
         false
       else
-        trans = find_by_identifier(result.out_trade_no)
-        if trans.processed?
-          true
+        transaction = find_by_identifier(result.out_trade_no)
+        if transaction.processed?
+          transaction
         else
-          if trans.check_deal(result)
-            trans.complete_deal(result)
+          if transaction.check_deal(result)
+            transaction.complete_deal(result)
           else
             false
           end
