@@ -1,7 +1,8 @@
 # encoding: utf-8
 ActiveAdmin.register Collection do
-  menu :if => proc{ can?(:manage, Collection) }
+  menu if: proc { can? :manage, Collection }
   controller.authorize_resource
+
   filter :name_zh
   filter :description
   filter :created_at

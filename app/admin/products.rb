@@ -1,8 +1,6 @@
 # encoding: utf-8
-require 'kramdown'
-
 ActiveAdmin.register Product do
-  menu :if => proc{ can?(:manage, Product) }
+  menu if: proc { can? :manage, Product }
   controller.authorize_resource
 
   [ :enable!,
