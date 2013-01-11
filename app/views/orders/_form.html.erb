@@ -9,7 +9,7 @@
     </div>
   <% end %>
 
-  <%= f.input :delivery_date, as: :date, required:true %>
+  <%= f.input :delivery_date, as: :string, required:true %>
 
   <%= f.fields_for :address do |builder|%>
     <%= builder.input :fullname, require:true, placeholder: 'Receiver Name' %>
@@ -18,11 +18,11 @@
     <%= builder.input :city_id, collection: City.all, required:true %>
     <%= builder.input :area_id, collection: Area.all, required:true %>
     <%= builder.input :address, as: 'text', required:true %>
-    <%= builder.input :post_code, required:true %>
+    <%= builder.input :post_code %>
   <% end %>
 
-  <%= f.input :gift_card_text, required:true %>
-  <%= f.input :special_instructions, required:true %>
+  <%= f.input :gift_card_text %>
+  <%= f.input :special_instructions %>
 
   <%= f.button :submit, class: 'button' %>
   <%= link_to t(:cancel), current_order_path %>
