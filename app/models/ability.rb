@@ -11,15 +11,18 @@ class Ability
         cannot :manage, Administrator
       when "supplier"
         can :read, Order
-        can :ship, Order
+        can [:create, :ship], Shipment
       end
     end
 
     if user.is_a?(User)
       case user.role
       when "customer"
-        can [:read, :update, :confirm, :cancel], Order do |order|
+        can [:read, :create], Order do |order|
           (order.user.id == user.id)
+        end
+        can [:read, :create], Transaction do |tran|
+          (tran.user.id == user.id)
         end
       end
     end
