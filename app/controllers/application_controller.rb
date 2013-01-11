@@ -35,8 +35,13 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    migrate_from_guest
-    session[:previous_url] || root_path
+    case resource
+    when User
+      migrate_from_guest
+      session[:previous_url] || root_path
+    when Administrator
+      admin_root_path
+    end
   end
 
   # if user is logged in, return current_user, else return guest_user
