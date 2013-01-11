@@ -94,7 +94,7 @@ class Transaction < ActiveRecord::Base
   end
 
   def initialize(opts = {}, pay_info = nil)
-    unless pay_info
+    if pay_info
       pay_opts = parse_pay_info(pay_info)
       super opts.merge(pay_opts)
     else
