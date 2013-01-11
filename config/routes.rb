@@ -18,12 +18,12 @@ Huali::Application.routes.draw do
 
   devise_for :users
 
-  root :to => "pages#home", as: :home
+  root :to => "pages#home"
 
   ActiveAdmin.routes(self)
 
   authenticated :administrators do
-    root :to => "admin#index", as: :home
+    root :to => "admin#index"
   end
 
   get 'share/:name_en', to: 'pages#share', as: :share
