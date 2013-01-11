@@ -28,6 +28,7 @@ class Transaction < ActiveRecord::Base
   attr_accessible :merchant_name, :paymethod, :amount, :subject, :body, :order_id, :state
 
   belongs_to :order
+  has_one :user, through: :order
 
   before_validation :generate_identifier, on: :create
 
@@ -37,8 +38,8 @@ class Transaction < ActiveRecord::Base
   validates :paymethod, inclusion: {
     in: %w(paypal directPay bankPay),
     message: "%{value} is not a valid paymethod."
-
   }
+
   validates :merchant_name, inclusion: {
     in: %w(Alipay Paypal ICBCB2C CMB CCB BOCB2C ABC COMM CMBC),
     message: "%{value} is not a valid merchant name."

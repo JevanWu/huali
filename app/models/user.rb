@@ -34,8 +34,9 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :anonymous_token
 
   has_many :addresses
-
   has_many :orders
+  has_many :transactions, through: :orders
+  has_many :shipments, through: :orders
 
   scope :registered, where("#{self.table_name}.email NOT LIKE ?", "%@guest.me")
   scope :guests, where("#{self.table_name}.email LIKE ?", "%@guest.me")
