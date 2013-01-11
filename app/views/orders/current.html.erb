@@ -10,10 +10,10 @@
       <thead>
         <tr>
           <th class="image"></th>
-          <th class="name">name</th>
-          <th class="price">price</th>
-          <th class="quantity">quantity</th>
-          <th class="total">total</th>
+          <th class="name"><%= t(:name) %></th>
+          <th class="price"><%= t(:price) %></th>
+          <th class="quantity"><%= t(:quantity) %></th>
+          <th class="total"><%= t(:total) %></th>
         </tr>
       </thead>
       <tbody>
@@ -21,7 +21,7 @@
       </tbody>
       <tfoot>
         <tr>
-          <td colspan='4'>共计</td>
+          <td colspan='4'><%= t(:in_total) %></td>
           <td><%= count_cart(@products) %></td>
         </tr>
       </tfoot>
@@ -56,8 +56,8 @@
 
   <% unless @products.blank? %>
     <div class="span4 actions">
-      <%= link_to 'return', root_path, :class => 'checkout button-alt' %>
-      <%= link_to 'checkout', new_order_path, :class => 'checkout button' %>
+      <%= link_to t(:back), root_path, :class => 'checkout button-alt' %>
+      <%= link_to t(:checkout), new_order_path, :class => 'checkout button' %>
     </div>
   <% end %>
 </div>

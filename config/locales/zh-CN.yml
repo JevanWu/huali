@@ -28,6 +28,18 @@ zh-CN:
   enable!: "生效"
   disable!: "失效"
   product_updated: "个产品已经更新"
+  your_basket: "您的花篮里已经有"
+  basket: "购花篮"
+  your_address: "您的地址是"
+  in_total: "总计"
+  total: "合计"
+  currency: "元"
+  name: "名称"
+  price: "价格"
+  back: "后退"
+  checkout: "支付"
+  quantity: "数量"
+  confirm_to_pay: "确认支付"
 
   distance:
     unit:
@@ -41,7 +53,6 @@ zh-CN:
   wait_refund: "等待退款"
   generated: "新建"
   finished: "完成"
-  
 
   #states for transaction
   processing: "处理中"
@@ -52,6 +63,18 @@ zh-CN:
   ready: "准备"
   shipped: "已发货"
   unknown: "未知"
+
+  simple_form:
+    labels:
+      order:
+        address:
+          fullname: "全名"
+          phone: "电话"
+          province_id: "省份"
+          city_id: "城市"
+          area_id: "区域"
+          address: "地址"
+          post_code: "邮编"
 
   active_admin:
     scopes:
