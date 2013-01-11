@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
-  include ApplicationControllerExtension::Mobile
+  include ::Extension::Mobile
 
   # rescue cancan authorization failure
   rescue_from CanCan::AccessDenied do |exception|

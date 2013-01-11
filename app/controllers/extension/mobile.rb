@@ -1,6 +1,11 @@
-module ApplicationControllerExtension
+module Extension
   module Mobile
-    before_filter :check_for_mobile
+    extend ActiveSupport::Concern
+
+    included do
+      before_filter :check_for_mobile
+      helper_method :mobile_device?
+    end
 
     private
 
@@ -19,6 +24,5 @@ module ApplicationControllerExtension
         # treat iPad as non-mobile.
         (request.user_agent !~ /iPad/)
     end
-    helper_method :mobile_device?
   end
 end
