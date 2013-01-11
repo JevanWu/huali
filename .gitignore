@@ -18,6 +18,7 @@
 db/*.sqlite3
 /log/*
 /tmp/*
+/git_stats
 
 # various artifacts
 **.war
