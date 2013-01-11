@@ -25,7 +25,6 @@
 #
 
 class User < ActiveRecord::Base
-  #ROLES = %w[customer]
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -40,6 +39,11 @@ class User < ActiveRecord::Base
 
   scope :registered, where("#{self.table_name}.email NOT LIKE ?", "%@guest.me")
   scope :guests, where("#{self.table_name}.email LIKE ?", "%@guest.me")
+
+  validates :role, inclusion: {
+    in: %w(customer),
+    message: "%{value} is not a valid user role."
+  }
 
   class << self
     def build_guest

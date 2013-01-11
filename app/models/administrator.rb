@@ -23,7 +23,6 @@
 #
 
 class Administrator < ActiveRecord::Base
-  #ROLES = %w[super admin supplier]
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -31,5 +30,8 @@ class Administrator < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :role
-  # attr_accessible :title, :body
+  validates :role, inclusion: {
+    in: %w(super admin supplier),
+    message: "%{value} is not a valid administrator role."
+  }
 end
