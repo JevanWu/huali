@@ -8,6 +8,10 @@ module OrdersHelper
     number_to_currency item_total, unit: '&yen;'
   end
 
+  def current_if_action(action)
+    action_name == action ? 'current' : ''
+  end
+
   def state_shift(order)
     case order.state
     when "generated"

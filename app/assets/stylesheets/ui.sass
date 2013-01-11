@@ -51,6 +51,27 @@ p.meta
   color: $grayLight
   margin-top: 0
 
+ul.info-nav
+  padding: 0
+  margin: 0 0 30px 0
+
+  li
+    list-style: none
+    width: 33%
+    float: left
+    padding: 1px 0 5px 0
+    margin: 0
+    text-align: center
+    color: $grayLight
+    border-bottom: 1px solid $grayLight
+
+    &.current
+      // to fix the line spacing caused by fontweight
+      padding-top: 0px
+      color: $grayDark
+      font-weight: bold
+      border-bottom: 2px solid $tintColor
+
 // mod: links
 // desc: use ul>li element as a list of links
 

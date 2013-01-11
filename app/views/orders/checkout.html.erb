@@ -4,6 +4,13 @@
 <% end %>
 
 <div class='row'>
+  <div class='span4'>
+    <%= link_to 'back', current_order_path, class: 'back-basket'%>
+  </div>
+  <%= render 'nav' %>
+</div>
+
+<div class='row'>
   <div class="span4">
     <%= render 'side_item_table', items: @order.line_items %>
 
