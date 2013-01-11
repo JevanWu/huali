@@ -18,10 +18,9 @@ class Ability
     if user.class.to_s == "User"
       case user.role
       when "customer"
-        can :read, Order
-        can :update, Order
-        can :confirm, Order
-        can :cancel, Order
+        can [:read, :update, :confirm, :cancel], Order do |order|
+          (order.user.id == user.id)
+        end
       end
     end
 
