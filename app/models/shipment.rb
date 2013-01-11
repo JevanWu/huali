@@ -28,6 +28,7 @@ class Shipment < ActiveRecord::Base
   belongs_to :address
   belongs_to :ship_method
   belongs_to :order
+  has_one :user, through: :order
 
   before_validation :populate_cost, :copy_address, :generate_identifier, on: :create
 

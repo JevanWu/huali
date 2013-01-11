@@ -1,5 +1,8 @@
 # encoding: utf-8
 ActiveAdmin.register Order do
+  menu if: proc { can? :manage, Order }
+  controller.authorize_resource
+
   actions :all, :except => :new
 
   scope :all
@@ -13,37 +16,37 @@ ActiveAdmin.register Order do
   member_action :pay  do
     order = Order.find_by_id(params[:id])
     order.pay
-    redirect_to admin_orders_path
+    redirect_to admin_orders_path, :alert => t(:order_state_changed) + t(:wait_check)
   end
 
   member_action :check  do
     order = Order.find_by_id(params[:id])
     order.check
-    redirect_to admin_orders_path
+    redirect_to admin_orders_path, :alert => t(:order_state_changed) + t(:wait_ship)
   end
 
   member_action :ship  do
     order = Order.find_by_id(params[:id])
     order.ship
-    redirect_to admin_orders_path
+    redirect_to admin_orders_path, :alert => t(:order_state_changed) + t(:wait_confirm)
   end
 
   member_action :confirm  do
     order = Order.find_by_id(params[:id])
     order.confirm
-    redirect_to admin_orders_path
+    redirect_to admin_orders_path, :alert => t(:order_state_changed) + t(:completed)
   end
 
   member_action :cancel  do
     order = Order.find_by_id(params[:id])
     order.cancel
-    redirect_to admin_orders_path
+    redirect_to admin_orders_path, :alert => t(:order_state_changed) + t(:void)
   end
 
   member_action :refund  do
     order = Order.find_by_id(params[:id])
     order.refund
-    redirect_to admin_orders_path
+    redirect_to admin_orders_path, :alert => t(:order_state_changed) + t(:void)
   end
 
   index do
@@ -80,11 +83,7 @@ ActiveAdmin.register Order do
     end
 
     column :modify_order_state do |order|
-      link_to(t(:pay), pay_admin_order_path(order)) + \
-      link_to(t(:check), check_admin_order_path(order)) + \
-      link_to(t(:ship), ship_admin_order_path(order)) + \
-      link_to(t(:confirm), confirm_admin_order_path(order)) + \
-      link_to(t(:cancel), cancel_admin_order_path(order))
+      state_shift(order)
     end
   end
 

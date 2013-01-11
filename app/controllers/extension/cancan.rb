@@ -1,0 +1,17 @@
+module Extension
+  module Cancan
+    extend ActiveSupport::Concern
+
+    included do
+      # rescue cancan authorization failure
+      rescue_from CanCan::AccessDenied do |exception|
+        redirect_to admin_dashboard_path, :alert => exception.message
+      end
+    end
+
+    # cancan's ability
+    def current_ability
+      @current_ability ||= Ability.new(current_administrator)
+    end
+  end
+end

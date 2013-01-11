@@ -14,8 +14,6 @@ zh-CN:
   delivery_date: "递送日期"
   available: "有货"
   unavailable: "无货"
-  process_order: "处理订单"
-  modify_order_state: "修改订单状态"
   edit: "编辑 "
   view: "查看 "
   new_transaction: "新建交易 "
@@ -23,6 +21,7 @@ zh-CN:
   pay: "付款 "
   check: "审核 "
   ship: "发货 "
+  refund: "退款"
   confirm: "确认 "
   cancel: "取消"
   enable!: "生效"
@@ -40,6 +39,7 @@ zh-CN:
   checkout: "支付"
   quantity: "数量"
   confirm_to_pay: "确认支付"
+  order_state_changed: "订单状态变更为"
 
   distance:
     unit:
@@ -53,10 +53,11 @@ zh-CN:
   wait_refund: "等待退款"
   generated: "新建"
   finished: "完成"
+  completed: "结束"
+  void: "取消"
 
   #states for transaction
   processing: "处理中"
-  completed: "结束"
   failed: "失败"
 
   #states for shipment
@@ -86,6 +87,7 @@ zh-CN:
 
   activerecord:
     models:
+      administrator: "管理用户"
       transaction: "交易"
       product: "产品"
       shipment: "递送"
@@ -111,6 +113,8 @@ zh-CN:
         order_content: "订单内容"
         transaction_identifier: "交易编号"
         fullname: "收货人姓名"
+        process_order: "处理订单"
+        modify_order_state: "修改订单状态"
       shipment:
         cost: "成本"
         identifier: "递送编号"

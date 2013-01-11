@@ -14,6 +14,7 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string(255)
+#  role                   :string(255)      default("customer")
 #  sign_in_count          :integer          default(0)
 #  updated_at             :datetime         not null
 #
@@ -34,11 +35,17 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :anonymous_token
 
   has_many :addresses
-
   has_many :orders
+  has_many :transactions, through: :orders
+  has_many :shipments, through: :orders
 
   scope :registered, where("#{self.table_name}.email NOT LIKE ?", "%@guest.me")
   scope :guests, where("#{self.table_name}.email LIKE ?", "%@guest.me")
+
+  validates :role, inclusion: {
+    in: %w(customer),
+    message: "%{value} is not a valid user role."
+  }
 
   class << self
     def build_guest

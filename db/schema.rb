@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130108175802) do
+ActiveRecord::Schema.define(:version => 20130109143144) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(:version => 20130108175802) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.string   "role"
   end
 
   add_index "administrators", ["email"], :name => "index_administrators_on_email", :unique => true
@@ -88,7 +89,7 @@ ActiveRecord::Schema.define(:version => 20130108175802) do
   add_index "cities", ["post_code"], :name => "index_cities_on_post_code", :unique => true
 
   create_table "collections", :force => true do |t|
-    t.string   "name_cn",     :null => false
+    t.string   "name_zh",     :null => false
     t.string   "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
@@ -220,8 +221,8 @@ ActiveRecord::Schema.define(:version => 20130108175802) do
   add_index "transactions", ["order_id"], :name => "index_transactions_on_order_id"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "email",                  :default => "",         :null => false
+    t.string   "encrypted_password",     :default => "",         :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -231,8 +232,9 @@ ActiveRecord::Schema.define(:version => 20130108175802) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "anonymous_token"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
+    t.string   "role",                   :default => "customer"
   end
 
   add_index "users", ["anonymous_token"], :name => "index_users_on_anonymous_token", :unique => true
