@@ -58,8 +58,13 @@ class OrdersController < ApplicationController
   end
 
   def return
-    Transaction.return(request.query_string)
-    redirect_to :home
+    transaction = Transaction.return(request.query_string)
+    if transaction
+      @order = transaction.order
+      render 'success'
+    else
+      render 'failed'
+    end
   end
 
   def notify
