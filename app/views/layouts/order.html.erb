@@ -18,7 +18,7 @@
       <%= render 'layouts/messages' %>
       <%= render 'layouts/header' %>
       <div id="main" class="row">
-        <div id="content" class="<%= params[:controller] + '#' + params[:action] %> span12" role="main">
+        <div id="content" class="<%= controller_name %> <%= action_name %> span12" role="main">
           <%= yield %>
         </div>
       </div>

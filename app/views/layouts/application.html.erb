@@ -24,7 +24,7 @@
             <%= yield :sidebar %>
           </div>
         </div>
-        <div id="content" class="<%= params[:controller] + '#' + params[:action] %> span8" role="main">
+        <div id="content" class="<%= controller_name %> <%= action_name %> span8" role="main">
           <%= yield %>
         </div>
       </div>

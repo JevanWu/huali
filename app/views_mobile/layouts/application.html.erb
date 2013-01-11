@@ -24,7 +24,7 @@
             <%= yield :sidebar %>
           </div>
         </div>
-        <div id="content" role="main">
+        <div id="content" class="<%= controller_name %> <%= action_name %>" role="main">
           <%= yield %>
         </div>
       </div>
@@ -34,7 +34,7 @@
     <%= javascript_include_tag 'http://tjs.sjs.sinajs.cn/open/api/js/wb.js' %>
     <%= javascript_include_tag "application"  %>
     <!-- only include controller-specific js accordingly -->
-    <% if ['products','collections'].include? params[:controller] %>
+    <% if ['products','collections'].include? controller_name %>
       <%= javascript_include_tag params[:controller] %>
     <% end %>
     <%= javascript_include_tag "ga" %>
