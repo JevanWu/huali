@@ -3,6 +3,9 @@
 @import "settings/mixins"
 @import "settings/variables"
 
+.orders
+  margin-top: 30px
+
 .item-table
   td, th
     vertical-align: middle
@@ -62,6 +65,27 @@
     &:hover
       color: $gray
       background: transparent url('back-tri-hover.png') no-repeat 0 4px
+
+ul.info-nav
+  padding: 0
+  margin: 0 0 30px 20px
+
+  li
+    list-style: none
+    width: 33%
+    float: left
+    padding: 1px 0 5px 0
+    margin: 0
+    text-align: center
+    color: $grayLight
+    border-bottom: 1px solid $grayLight
+
+    &.current
+      // to fix the line spacing caused by fontweight
+      padding-top: 0px
+      color: $grayDark
+      font-weight: bold
+      border-bottom: 2px solid $tintColor
   
 #success-info
   img
