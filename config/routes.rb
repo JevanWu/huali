@@ -1,5 +1,4 @@
 Huali::Application.routes.draw do
-
   resources :products, :only => [:show]
   resources :collections, :only => [:show]
 
@@ -19,12 +18,12 @@ Huali::Application.routes.draw do
 
   devise_for :users
 
-  root :to => "pages#home", :as => :home
+  root :to => "pages#home", as: :home
 
   ActiveAdmin.routes(self)
 
   authenticated :administrators do
-    root :to => "admin#index"
+    root :to => "admin#index", as: :home
   end
 
   get 'share/:name_en', to: 'pages#share', as: :share
@@ -32,5 +31,4 @@ Huali::Application.routes.draw do
   get ':id', to: 'pages#show', as: :page
   get "errors/error_404"
   get "errors/error_500"
-
 end
