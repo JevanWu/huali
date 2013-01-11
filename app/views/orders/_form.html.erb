@@ -1,4 +1,4 @@
-<%= simple_form_for @order, html: { class: 'form-horizontal'} do |f| %>
+<%= simple_form_for @order, html: { class: 'form-horizontal', id: 'new-order'} do |f| %>
   <% if @order.errors.any? %>
     <div id="#error_explanation">
       <ul class='alert alert-error'>
@@ -16,14 +16,16 @@
     <%= builder.input :phone, required:true %>
     <%= builder.input :province_id, collection: Province.all.map, required:true %>
     <%= builder.input :city_id, collection: City.all, required:true %>
-    <%= builder.input :area_id, collection: Area.all, required:true %>
-    <%= builder.input :address, as: 'text', required:true %>
+    <%= builder.input :area_id, collection: Area.all %>
     <%= builder.input :post_code %>
+    <%= builder.input :address, as: 'text', required:true, input_html: { rows: 3 }%>
   <% end %>
 
-  <%= f.input :gift_card_text %>
-  <%= f.input :special_instructions %>
+  <%= f.input :gift_card_text, input_html: { rows: 3 } %>
+  <%= f.input :special_instructions, input_html: { rows: 3 } %>
 
-  <%= f.button :submit, class: 'button' %>
-  <%= link_to t(:cancel), current_order_path %>
+  <div class="form-actions">
+    <%= f.button :submit, class: 'button' %>
+    <%= link_to t(:cancel), current_order_path %>
+  </div>
 <% end %>
