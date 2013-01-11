@@ -7,15 +7,26 @@ $ ->
 
   $('#cart_amount span').text Cart.quantityAll()
 
-  $('.purchase, .add_quantity, .reduce_quantity').click ->
+  $('.purchase').click ->
     id = $(@).data('product')
+    Cart.update(id: id, quantity: 1)
 
-    quantity =
-      if $(@).attr('class').match('reduce')
-      then  -1
-      else 1
+  $('.add_quantity, .reduce_quantity, .empty_quantity').click ->
+    id = $(@).data('product')
+    quantity = Cart.get(id)['quantity']
+    action = $(@).attr('class').match(/(\w+)_quantity/)[1]
 
-    Cart.update(id: id, quantity: quantity)
+    changeTo = switch action
+      when 'add'
+        quantity + 1
+      when 'reduce'
+        quantity - 1
+      when 'empty'
+        0
+      else
+        quantity
+
+    Cart.update(id: id, quantity: changeTo)
 
 # product = { id: String, quantity: Integer }
 # cart
@@ -31,7 +42,7 @@ window.Cart = {
     cart[product.id] = cart[product.id] || 0
 
     # update quantity of each products
-    cart[product.id] += product.quantity
+    cart[product.id] = product.quantity
 
     # cleaning up invalid products
     for id, quantity of cart
