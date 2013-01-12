@@ -152,6 +152,10 @@ class Order < ActiveRecord::Base
     line_items.count > 0
   end
 
+  def cancel_allowed?
+    state.in? ['generated', 'wait_check']
+  end
+
   def transaction_state
     transaction.state
   end
