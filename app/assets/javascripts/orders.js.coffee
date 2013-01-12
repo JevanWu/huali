@@ -1,3 +1,5 @@
+#= require jquery.ui.datepicker
+#= require jquery.ui.datepicker-zh-CN
 #= require jquery.cookie
 #= require underscore
 
@@ -6,6 +8,15 @@ $ ->
   $.cookie.json = true
 
   $('#cart_amount span').text Cart.quantityAll()
+
+  datePicker = $('.datepicker')
+
+  if datePicker.length > 0
+    datePicker.datepicker(
+        gotoCurrent: true
+        minDate: '+1D'
+        maxDate: '+1M'
+    )
 
   $('.purchase').click ->
     id = $(@).data('product')
