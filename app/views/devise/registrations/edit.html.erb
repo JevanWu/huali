@@ -1,4 +1,12 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<% content_for(:title_img) do %>
+  <%= image_tag('title-account.png') %>
+<% end %>
+
+<div class='row'>
+  <div class='span4'>
+  </div>
+  <%= render 'shared/account_nav' %>
+</div>
 
 <%= simple_form_for resource, 
   as: resource_name, 
