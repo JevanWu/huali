@@ -99,7 +99,7 @@ class Product < ActiveRecord::Base
     created_at >= 2.weeks.ago
   end
 
-  def img
-    assets.first.image.url
+  def img(size)
+    assets.first.image.url(size)
   end
 end

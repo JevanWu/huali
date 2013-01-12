@@ -1,5 +1,5 @@
 <tr>
-  <td class="image"><%= image_tag product_in_cart.assets.img(:medium), width: '150' %></td>
+  <td class="image"><%= image_tag product_in_cart.img(:medium), width: '150' %></td>
   <td class="name"><%= link_to product_in_cart.name, product_path(product_in_cart) %></td>
   <td class="price"> <%= number_to_currency product_in_cart.price, unit: '&yen;'  %> </td>
   <td class="quantity">
