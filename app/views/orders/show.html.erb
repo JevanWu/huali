@@ -1,3 +1,95 @@
-<%= @order.inspect %>
-<%= @order.address.inspect %>
-<%= @order.user.inspect %>
+<% content_for(:title_img) do %>
+  <%= image_tag('title-account.png') %>
+<% end %>
+
+<div class='row'>
+  <div class='span4'>
+  </div>
+  <%= render 'shared/account_nav' %>
+</div>
+
+<div id="order-summary" class='row'>
+  <table class="table table-bordered">
+    <tbody>
+      <tr>
+        <td>
+          <strong>订单号</strong>: <%= @order.identifier %>
+        </td>
+        <td>
+          <strong>订单状态</strong>: <%= @order.state %>
+        </td>
+        <td>
+          <strong>下单时间</strong>: <%= @order.created_at %>
+        </td>
+        <td>
+          <strong>送达时间</strong>: <%= @order.delivery_date %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<% if @order.state == 'generated' %>
+  <%= render 'actions' %>
+<% end %>
+
+<div id='order-info' class='row'>
+  <h3><span>订单信息</span></h3>
+  <table class='table'>
+    <tbody>
+      <tr>
+        <td rowspan='3'><strong>收货人信息</strong></td>
+        <td>收货人: <%= @order.address.fullname %></td>
+      </tr>
+      <tr>
+        <td>地址: <%= @order.address.full_addr %></td>
+      </tr>
+      <tr>
+        <td>联系电话: <%= @order.address.phone %></td>
+      </tr>
+    </tbody>
+
+    <tbody>
+      <tr>
+        <td rowspan='3'><strong>支付及配送方式</strong></td>
+        <td>Paymethod: <%= @order.transaction.paymethod %></td>
+      </tr>
+      <tr>
+        <td>Delivery Cost: <%= @order.shipment.cost %></td>
+      </tr>
+      <tr>
+        <td>Delivery Date: <%= @order.delivery_date %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div id='order-items' class='row'>
+  <h3><span>产品信息</span></h3>
+  <table id='product_detail' class='item-table table'>
+    <thead>
+      <tr>
+        <th class="image">图片</th>
+        <th class="name"><%= t(:name) %></th>
+        <th class="size"><%= t(:size) %></th>
+        <th class="price"><%= t(:price) %></th>
+        <th class="quantity"><%= t(:quantity) %></th>
+        <th class="total"><%= t(:total) %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: 'product_detail', collection: @order.line_items %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan='5'><%= t(:in_total) %></td>
+        <td><%= @order.total %></td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<% if @order.state == 'generated' %>
+  <%= render 'actions' %>
+<% end %>
