@@ -13,6 +13,7 @@
 #= require jquery
 #= require jquery_ujs
 #= require jquery.effects.core
+#= require orders
 
 $ ->
   $('.desktop .nav a').hover(arrowIn, arrowOut)

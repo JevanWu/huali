@@ -9,7 +9,7 @@
     </div>
   <% end %>
 
-  <%= f.input :delivery_date, as: :string, required:true %>
+  <%= f.input :delivery_date, as: :string, required:true, input_html: { class: 'datepicker' }%>
 
   <%= f.fields_for :address do |builder|%>
     <%= builder.input :fullname, require:true, placeholder: 'Receiver Name' %>
