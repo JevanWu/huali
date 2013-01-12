@@ -1,0 +1,7 @@
+<tr>
+  <td class="image"><%= image_tag product_detail.assets.first.image.url(:medium), width: '150' %></td>
+  <td class="name"><%= link_to product_detail.name, product_path(product_detail) %></td>
+  <td class="price"> <%= number_to_currency product_detail.price, unit: '&yen;'  %> </td>
+  <td class="quantity"> <%= product_detail.quantity %> </td>
+  <td class="total"> <%= count_total(product_detail) %> </td>
+</tr>
