@@ -1,4 +1,3 @@
-# encoding: utf-8
 ActiveAdmin.register Transaction do
   #actions :all, :except => :new
   menu if: proc { can?(:manage, Transaction) }

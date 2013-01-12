@@ -1,4 +1,3 @@
-# encoding: utf-8
 ActiveAdmin.register Asset do
   menu if: proc { can? :manage, Asset }
   controller.authorize_resource

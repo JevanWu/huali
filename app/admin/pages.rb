@@ -1,4 +1,3 @@
-# encoding: utf-8
 ActiveAdmin.register Page do
   menu if: proc { can? :manage, Page }
   controller.authorize_resource

@@ -1,4 +1,3 @@
-# encoding: utf-8
 ActiveAdmin.register Shipment do
   menu if: proc { can? :manage, Shipment }
   controller.authorize_resource

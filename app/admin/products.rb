@@ -1,4 +1,3 @@
-# encoding: utf-8
 ActiveAdmin.register Product do
   menu if: proc { can? :manage, Product }
   controller.authorize_resource
