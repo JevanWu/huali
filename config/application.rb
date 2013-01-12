@@ -27,6 +27,10 @@ module Huali
 
     config.to_prepare do
       Devise::SessionsController.layout 'horizontal'
+      Devise::RegistrationsController.layout 'horizontal'
+      Devise::ConfirmationsController.layout "horizontal"
+      Devise::UnlocksController.layout "horizontal"
+      Devise::PasswordsController.layout "horizontal"
     end
 
     # Settings in config/environments/* take precedence over those specified here.
