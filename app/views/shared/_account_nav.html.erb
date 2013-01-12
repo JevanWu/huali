@@ -1,11 +1,11 @@
 <ul id='account-nav' class='info-nav span8'>
   <li class='<%= current_if_controller('orders') %>'>
-    所有订单
+    <%= link_to "所有订单", orders_path %>
   </li>
   <li class='<%= current_if_controller('addresses') %>'>
-    地址信息
+    <%= link_to "地址信息", '' %>
   </li>
   <li class='<%= current_if_controller('users', 'registrations') %>'>
-    账户信息
+    <%= link_to "账户信息", edit_user_registration_path %>
   </li>
 </ul>
