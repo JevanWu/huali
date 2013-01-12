@@ -29,6 +29,13 @@
   <% end %>
 </div>
 
+<% unless @products.blank? %>
+  <div class="order-actions">
+    <%= link_to t(:back), root_path, :class => 'checkout button-alt' %>
+    <%= link_to t(:checkout), new_order_path, :class => 'checkout button' %>
+  </div>
+<% end %>
+
 <div class="row cart_foot">
   <div class="span4">
     <p> 由于鲜花的特殊性，现阶段我们仅提对江浙沪皖的订单，我们将采用联邦快递为您运送相应货品。 客服工作时间（周日及法定节假日休息）：
@@ -53,11 +60,4 @@
     <%= mail_to 'support@hua.li', 'support@hua.li' %>
     </p>
   </div>
-
-  <% unless @products.blank? %>
-    <div class="span4 actions">
-      <%= link_to t(:back), root_path, :class => 'checkout button-alt' %>
-      <%= link_to t(:checkout), new_order_path, :class => 'checkout button' %>
-    </div>
-  <% end %>
 </div>
