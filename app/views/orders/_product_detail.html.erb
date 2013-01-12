@@ -1,5 +1,5 @@
 <tr>
-  <td class="image"><%= image_tag product_detail.assets.first.image.url(:thumb) %></td>
+  <td class="image"><%= image_tag product_detail.img(:thumb) %></td>
   <td class="name"><%= link_to product_detail.name, product_path(product_detail) %></td>
   <td class='size'>
     <span><%= t('height').capitalize %> <%= product_detail.height %> cm </span>

@@ -98,4 +98,8 @@ class Product < ActiveRecord::Base
   def new?
     created_at >= 2.weeks.ago
   end
+
+  def img
+    assets.first.image.url
+  end
 end

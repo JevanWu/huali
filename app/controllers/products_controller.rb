@@ -5,6 +5,7 @@ class ProductsController < ApplicationController
   def show
     @product = Product.find(params[:id])
 
+    # FIXME products always have assets now
     assets  = @product.assets || []
 
     # filter empty assets

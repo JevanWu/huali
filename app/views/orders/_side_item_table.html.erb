@@ -7,7 +7,7 @@
   <tbody>
     <% items.each do |item| %>
       <tr>
-        <td class="image"><%= image_tag item.assets.first.image.url(:thumb) %></td>
+        <td class="image"><%= image_tag item.assets.img(:thumb) %></td>
         <td class="content">
           <p>
             <%= link_to item.name, product_path(item) %>

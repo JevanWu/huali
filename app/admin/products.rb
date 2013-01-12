@@ -42,9 +42,7 @@ ActiveAdmin.register Product do
     end
 
     column :image do |product|
-      unless product.assets.first.nil? or product.assets.first.image.nil?
-        image_tag product.assets.first.image.url(:thumb)
-      end
+      image_tag product.img(:thumb)
     end
 
     column :collection do |product|
