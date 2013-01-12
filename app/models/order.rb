@@ -108,7 +108,7 @@ class Order < ActiveRecord::Base
     end
 
     def full_info(key)
-      includes(:user, :transactions, :shipments).find_by_id(key)
+      includes(:user, :address, :transactions, :shipments).find_by_id(key)
     end
   end
 
