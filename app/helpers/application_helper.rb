@@ -11,7 +11,11 @@ module ApplicationHelper
     content_tag('i', '', class: "icon-#{name}")
   end
 
-  def current_if_action(*action)
-    action.include?(action_name) ? 'current' : ''
+  def current_if_action(*actions)
+    actions.include?(action_name) ? 'current' : ''
+  end
+
+  def current_if_controller(*controllers)
+    controllers.include?(controller_name) ? 'current' : ''
   end
 end
