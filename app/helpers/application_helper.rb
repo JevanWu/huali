@@ -10,4 +10,8 @@ module ApplicationHelper
   def icon(name)
     content_tag('i', '', class: "icon-#{name}")
   end
+
+  def current_if_action(*action)
+    action.include?(action_name) ? 'current' : ''
+  end
 end
