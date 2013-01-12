@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  layout 'order'
+  layout :horizontal
   before_filter :load_cart
 
   def index
