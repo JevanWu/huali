@@ -190,7 +190,7 @@ class Order < ActiveRecord::Base
 
   def complete_order
     self.completed_at = Time.now
-    self.payment_total = self.transactions.by_state('completed').map(&:amount).inject(:+)
+    self.payment_total += self.transactions.by_state('completed').map(&:amount).inject(:+)
     save!
   end
 end
