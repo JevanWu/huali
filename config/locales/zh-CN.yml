@@ -40,6 +40,7 @@ zh-CN:
   quantity: "数量"
   confirm_to_pay: "确认支付"
   order_state_changed: "订单状态变更为"
+  shipment_state_changed: "交易状态变更为"
 
   # checkout_nav
   address_and_info: "地址和信息"
@@ -109,6 +110,8 @@ zh-CN:
   ready: "准备"
   shipped: "已发货"
   unknown: "未知"
+  ship: "发货 "
+  accept: "确认收货"
 
   simple_form:
     labels:
@@ -180,6 +183,7 @@ zh-CN:
         state: "递送状态"
         note: "留言"
         tracking_num: "快递单号"
+        modify_shipment_state: "修改快递状态"
       transaction:
         order: "订单"
         identifier: "交易编号"
