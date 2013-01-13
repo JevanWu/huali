@@ -42,7 +42,7 @@ class Order < ActiveRecord::Base
   before_validation :cal_total
 
   validates :identifier, presence: true
-  validates_presence_of :delivery_date, :state, :total
+  validates_presence_of :delivery_date, :state, :total, :item_total
 
   state_machine :state, :initial => :generated do
     # TODO implement an auth_state dynamically for each state
