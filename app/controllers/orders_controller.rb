@@ -19,21 +19,21 @@ class OrdersController < ApplicationController
   def create
     validate_cart
 
-    order = current_or_guest_user.orders.build(params[:order])
+    @order = current_or_guest_user.orders.build(params[:order])
 
     # create line items
     @cart.keys.each do |key|
-      order.add_line_item(key, @cart[key])
+      @order.add_line_item(key, @cart[key])
     end
 
-    if order.save!
-      session[:order_id] = order.id
+    if @order.save
+      session[:order_id] = @order.id
       cookies.delete :cart
 
       flash[:notice] = "Successfully created order and addresses."
       redirect_to checkout_order_path
     else
-      render :action => 'new'
+      render 'new'
     end
   end
 
