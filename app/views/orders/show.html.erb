@@ -16,7 +16,7 @@
           <strong>订单号</strong>: <%= @order.identifier %>
         </td>
         <td>
-          <strong>订单状态</strong>: <%= @order.state %>
+          <strong>订单状态</strong>: <%= t(@order.state) %>
         </td>
         <td>
           <strong>下单时间</strong>: <%= @order.created_at %>
