@@ -53,10 +53,10 @@
     <tbody>
       <tr>
         <td rowspan='3'><strong>支付及配送方式</strong></td>
-        <td>Paymethod: <%= @order.transaction.paymethod %></td>
+        <td>Paymethod: <%= @order.transaction ? @order.transaction.paymethod : nil %></td>
       </tr>
       <tr>
-        <td>Delivery Cost: <%= @order.shipment.cost %></td>
+        <td>Delivery Cost: <%= @order.shipment ? @order.try(shipment.cost) : nil %></td>
       </tr>
       <tr>
         <td>Delivery Date: <%= @order.delivery_date %></td>

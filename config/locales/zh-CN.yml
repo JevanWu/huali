@@ -71,6 +71,8 @@ zh-CN:
   modify_order_state: "修改订单状态"
   created_at: "下单时间"
   action: "操作"
+  pay_now: "立即支付"
+  cancel_now: "取消支付"
 
   distance:
     unit:
