@@ -14,9 +14,9 @@
   <%= f.fields_for :address do |builder|%>
     <%= builder.input :fullname, require:true, placeholder: 'Receiver Name' %>
     <%= builder.input :phone, required:true %>
-    <%= builder.input :province_id, collection: Province.all.map, required:true %>
-    <%= builder.input :city_id, collection: City.all, required:true %>
-    <%= builder.input :area_id, collection: Area.all %>
+    <%= builder.association :province, required:true %>
+    <%= builder.association :city, required:true %>
+    <%= builder.association :area, required:true %>
     <%= builder.input :post_code %>
     <%= builder.input :address, as: 'text', required:true, input_html: { rows: 3 }%>
   <% end %>
