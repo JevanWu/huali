@@ -76,9 +76,7 @@ ActiveAdmin.register Order do
 
     column :process_order do |order|
       link_to(t(:edit), edit_admin_order_path(order)) + \
-      link_to(t(:view), admin_order_path(order)) + \
-      link_to(t(:new_transaction), new_admin_transaction_path(:"transaction[order_id]" => order.id)) + \
-      link_to(t(:new_shipment), new_admin_shipment_path(:"shipment[order_id]" => order.id))
+      link_to(t(:view), admin_order_path(order))
     end
 
     column :modify_order_state do |order|

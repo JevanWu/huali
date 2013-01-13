@@ -17,7 +17,7 @@ module OrdersHelper
       link_to(t(:check), check_admin_order_path(order)) + \
       link_to(t(:cancel), cancel_admin_order_path(order))
     when "wait_ship"
-      link_to(t(:ship), new_admin_shipment_path(:"shipment[order_id]" => order.id))
+      link_to(t(:ship), new_admin_shipment_path(:"shipment[order_id]" => order.id)) + \
       link_to(t(:cancel), cancel_admin_order_path(order))
     when "wait_refund"
       link_to(t(:refund), refund_admin_order_path(order))
