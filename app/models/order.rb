@@ -48,6 +48,7 @@ class Order < ActiveRecord::Base
     # TODO implement an auth_state dynamically for each state
     before_transition :to => :wait_refund, :do => :auth_refund
     before_transition :to => :completed, :do => :complete_order
+    before_transition :to => :wait_check, :do => :pay_order
 
     # use adj. for state with future vision
     # use v. for event name
@@ -57,6 +58,8 @@ class Order < ActiveRecord::Base
     end
 
     state :wait_check do
+      validates_presence_of :payment_total
+
       transition :to => :wait_ship, :on => :check
       transition :to => :wait_refund, :on => :cancel
     end
@@ -190,7 +193,11 @@ class Order < ActiveRecord::Base
 
   def complete_order
     self.completed_at = Time.now
+    save
+  end
+
+  def pay_order
     self.payment_total += self.transactions.by_state('completed').map(&:amount).inject(:+)
-    save!
+    save
   end
 end
