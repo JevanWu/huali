@@ -142,7 +142,7 @@ class Order < ActiveRecord::Base
   end
 
   def cal_total
-    self.total = line_items.inject(0.0) { |sum, item| sum + item.total }
+    self.item_total = self.total = line_items.map(&:total).inject(:+)
   end
 
   def completed?
