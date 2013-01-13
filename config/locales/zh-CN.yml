@@ -34,6 +34,7 @@ zh-CN:
   currency: "元"
   name: "名称"
   price: "价格"
+  image: "图片"
   back: "后退"
   checkout: "支付"
   quantity: "数量"
@@ -75,6 +76,9 @@ zh-CN:
   pay_now: "立即支付"
   cancel_now: "取消支付"
   pay_and_ship_method: "支付和配送方式"
+  paymethod: "支付方式"
+  delivery_cost: "递送成本"
+
 
   distance:
     unit:

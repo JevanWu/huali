@@ -53,13 +53,13 @@
     <tbody>
       <tr>
         <td rowspan='3'><strong><%= t(:pay_and_ship_method) %></strong></td>
-        <td>Paymethod: <%= @order.transaction ? @order.transaction.paymethod : nil %></td>
+        <td><%= t(:paymethod) %>: <%= @order.transaction ? @order.transaction.paymethod : nil %></td>
       </tr>
       <tr>
-        <td>Delivery Cost: <%= @order.shipment ? @order.try(shipment.cost) : nil %></td>
+        <td><%= t(:delivery_cost) %>: <%= @order.shipment ? @order.try(shipment.cost) : nil %></td>
       </tr>
       <tr>
-        <td>Delivery Date: <%= @order.delivery_date %></td>
+        <td><%= t(:delivery_date) %>: <%= @order.delivery_date %></td>
       </tr>
     </tbody>
   </table>
