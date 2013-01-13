@@ -176,11 +176,11 @@ class Order < ActiveRecord::Base
     shipments.last
   end
 
-  private
-
   def subject_text
     line_items.inject('') { |sum, item| sum + "#{item.name} x #{item.quantity}, "}
   end
+
+  private
 
   def body_text
     # prepare body text for transaction

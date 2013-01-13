@@ -114,9 +114,7 @@ ActiveAdmin.register Order do
       end
 
       row :order_content do
-        order.line_items.map do |line_item|
-          label_tag(line_item.product.name, line_item.product.name + " x " + line_item.quantity.to_s)
-        end.join('</br>').html_safe
+        order.subject_text
       end
 
       row :gift_card_text
