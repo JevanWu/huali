@@ -6,7 +6,7 @@
     <%= order.created_at %>
   </td>
   <td>
-    <%= order.state %>
+    <%= t(order.state) %>
   </td>
   <td>
     <%= order.total %>
@@ -21,17 +21,17 @@
   </td>
   <td>
     <% if order.state == 'generated'%>
-      <%= link_to 'pay', checkout_order_path(order) %>
+      <%= link_to t(:pay), checkout_order_path(order) %>
     <% end %>
 
     <% if order.cancel_allowed? %>
-      <%= link_to 'cancel', checkout_order_path(order) %>
+      <%= link_to t(:cancel), checkout_order_path(order) %>
     <% end %>
 
     <% if order.state == 'wait_confirm' %>
-      <%= link_to 'confirm', checkout_order_path(order) %>
+      <%= link_to t(:confirm), checkout_order_path(order) %>
     <% end %>
 
-    <%= link_to 'view', order_path(order) %>
+    <%= link_to t(:view), order_path(order) %>
   </td>
 </tr>
