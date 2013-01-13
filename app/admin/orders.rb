@@ -68,7 +68,7 @@ ActiveAdmin.register Order do
       order.address.phone
     end
 
-    column :state, :sortable => :status do |order|
+    column :state, :sortable => :state do |order|
       order.state ? t(order.state) : nil
     end
 
