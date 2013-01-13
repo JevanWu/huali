@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   layout 'horizontal'
   before_filter :load_cart
+  before_filter :fetch_items, only: [:new, :create, :current]
 
   def index
     @orders = current_or_guest_user.orders
@@ -13,7 +14,6 @@ class OrdersController < ApplicationController
   def new
     @order = Order.new
     @order.build_address
-    fetch_items
   end
 
   def create
@@ -76,7 +76,6 @@ class OrdersController < ApplicationController
   end
 
   def current
-    fetch_items
   end
 
   private
