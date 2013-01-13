@@ -159,4 +159,8 @@ ActiveAdmin::ResourceController.class_eval do
   def current_ability
     @current_ability ||= AdminAbility.new(current_administrator)
   end
+
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to admin_dashboard_path, :alert => exception.message
+  end
 end
