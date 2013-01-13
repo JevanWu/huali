@@ -1,18 +1,18 @@
 <%= simple_form_for @order, html: { class: 'form-horizontal', id: 'new-order'} do |f| %>
-  <%= f.input :delivery_date, as: :string, required:true, input_html: { class: 'datepicker' }%>
+  <%= f.input :delivery_date, as: :string, required:true, input_html: { class: 'datepicker' }, placeholder: '寄给TA的时间' %>
 
   <%= f.fields_for :address do |builder|%>
-    <%= builder.input :fullname, require:true, placeholder: 'Receiver Name' %>
-    <%= builder.input :phone, required:true %>
+    <%= builder.input :fullname, require:true, placeholder: '收件人姓名' %>
+    <%= builder.input :phone, required:true, placeholder: '收件人联系方式'  %>
     <%= builder.association :province, required:true %>
     <%= builder.association :city, required:true %>
     <%= builder.association :area %>
-    <%= builder.input :post_code %>
-    <%= builder.input :address, as: 'text', required:true, input_html: { rows: 3 }%>
+    <%= builder.input :post_code, placeholder: '邮编' %>
+    <%= builder.input :address, as: 'text', required:true, input_html: { rows: 3 }, placeholder: '详细地址' %>
   <% end %>
 
-  <%= f.input :gift_card_text, input_html: { rows: 3 } %>
-  <%= f.input :special_instructions, input_html: { rows: 3 } %>
+  <%= f.input :gift_card_text, input_html: { rows: 3 }, placeholder: '你想对TA说的话' %>
+  <%= f.input :special_instructions, input_html: { rows: 3 }, placeholder: '有其他要求么?' %>
 
   <div class="form-actions">
     <%= f.button :submit, class: 'button' %>
