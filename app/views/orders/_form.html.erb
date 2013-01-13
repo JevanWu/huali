@@ -6,7 +6,7 @@
     <%= builder.input :phone, required:true %>
     <%= builder.association :province, required:true %>
     <%= builder.association :city, required:true %>
-    <%= builder.association :area, required:true %>
+    <%= builder.association :area %>
     <%= builder.input :post_code %>
     <%= builder.input :address, as: 'text', required:true, input_html: { rows: 3 }%>
   <% end %>
