@@ -17,7 +17,6 @@ zh-CN:
   size: "尺寸"
   flower_shop: "在线精品花店"
   flower_basket: "放入购花篮"
-  delivery_date: "递送日期"
   available: "有货"
   unavailable: "无货"
   edit: "编辑 "
@@ -55,11 +54,13 @@ zh-CN:
 
   # order view
   identifier: "订单编号"
+  order_info: "订单信息"
   delivery_date: "递送日期"
   special_instructions: "特殊要求"
   gift_card_text: "卡片信息"
   total: "订单总价"
   state: "订单状态"
+  receiver_info: "收货人信息"
   receiver_fullname: "收货人姓名"
   receiver_phonenum: "收货人电话"
   receiver_postcode: "收货人邮编"
@@ -73,6 +74,7 @@ zh-CN:
   action: "操作"
   pay_now: "立即支付"
   cancel_now: "取消支付"
+  pay_and_ship_method: "支付和配送方式"
 
   distance:
     unit:
