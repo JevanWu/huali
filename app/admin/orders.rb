@@ -1,5 +1,4 @@
 ActiveAdmin.register Order do
-  menu if: proc { can? :manage, Order }
   controller.authorize_resource
 
   actions :all, :except => :new
