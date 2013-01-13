@@ -49,7 +49,7 @@ zh-CN:
   # devise view
   sign_in: "登陆"
   sign_up: "注册"
-  forgot_your_password: "忘记你的密码"
+  forgot_your_password: "忘记密码"
   cancel_my_account: "取消我的账号"
   unhappy: "不高兴了?"
 
@@ -69,7 +69,7 @@ zh-CN:
   fullname: "收货人姓名"
   process_order: "处理订单"
   modify_order_state: "修改订单状态"
-  create_at: "下单时间"
+  created_at: "下单时间"
   action: "操作"
 
   distance:
@@ -121,8 +121,9 @@ zh-CN:
         remember_me: "记住我"
     hints:
       user:
-        email: "如果您不想改变,请留空"
-        current_password: "我们需要您当前的密码"
+        edit:
+          email: "如果您不想改变,请留空"
+          current_password: "我们需要您当前的密码"
 
   active_admin:
     scopes:
