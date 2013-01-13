@@ -2,19 +2,6 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    if user.is_a?(Administrator)
-      case user.role
-      when "super"
-        can :manage, :all
-      when "admin"
-        can :manage, :all
-        cannot :manage, Administrator
-      when "supplier"
-        can :read, Order
-        can [:create, :ship], Shipment
-      end
-    end
-
     if user.is_a?(User)
       case user.role
       when "customer"

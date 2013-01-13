@@ -152,3 +152,11 @@ end
 module ActiveAdmin::ViewHelpers
   include OrdersHelper
 end
+
+ActiveAdmin::ResourceController.class_eval do
+  protected
+
+  def current_ability
+    @current_ability ||= AdminAbility.new(current_administrator)
+  end
+end
