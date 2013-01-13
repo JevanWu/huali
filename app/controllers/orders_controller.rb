@@ -3,6 +3,8 @@ class OrdersController < ApplicationController
   before_filter :load_cart
   before_filter :fetch_items, only: [:new, :create, :current]
 
+  authorize_resource
+
   def index
     @orders = current_or_guest_user.orders
   end
