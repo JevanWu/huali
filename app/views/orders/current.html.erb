@@ -31,7 +31,7 @@
 
 <% unless @products.blank? %>
   <div class="order-actions">
-    <%= link_to t(:back), root_path, :class => 'checkout button-alt' %>
+    <%= link_to t(:back), :back, :class => 'checkout button-alt' %>
     <%= link_to t(:checkout), new_order_path, :class => 'checkout button' %>
   </div>
 <% end %>
