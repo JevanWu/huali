@@ -75,11 +75,11 @@ class Order < ActiveRecord::Base
     end
   end
 
-  scope :all, lambda { reorder }
-  scope :current, lambda { where('delivery_date = ?', Date.current) }
-  scope :tomorrow, lambda { where("delivery_date = ?", Date.tomorrow) }
-  scope :within_this_week, lambda { where("delivery_date >= ? AND delivery_date <= ? ", Date.current.beginning_of_week, Date.current.end_of_week) }
-  scope :within_this_month, lambda { where("delivery_date >= ? AND delivery_date <= ? ", Date.current.beginning_of_month, Date.current.end_of_month) }
+  scope :all, -> { reorder }
+  scope :current, -> { where('delivery_date = ?', Date.current) }
+  scope :tomorrow, -> { where("delivery_date = ?", Date.tomorrow) }
+  scope :within_this_week, -> { where("delivery_date >= ? AND delivery_date <= ? ", Date.current.beginning_of_week, Date.current.end_of_week) }
+  scope :within_this_month, -> { where("delivery_date >= ? AND delivery_date <= ? ", Date.current.beginning_of_month, Date.current.end_of_month) }
 
   # Queries
   class << self
@@ -190,6 +190,7 @@ class Order < ActiveRecord::Base
 
   def complete_order
     self.completed_at = Time.now
+    self.payment_total = self.transactions.by_state('completed').map(&:amount).inject(:+)
     save!
   end
 end
