@@ -65,6 +65,10 @@ class Transaction < ActiveRecord::Base
   end
 
   class << self
+    def by_state(state)
+      where(:state => state)
+    end
+
     def return(opts)
       result = Billing::Alipay::Return.new(opts)
       handle_process(result)

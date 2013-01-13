@@ -30,7 +30,7 @@ class Address < ActiveRecord::Base
   accepts_nested_attributes_for :province, :area, :city
 
   before_validation :check_postcode
-  validates :fullname, :address, :phone, :presence => true
+  validates_presence_of :fullname, :address, :phone, :province, :city
   validate :phone_validate
 
   def phone_validate

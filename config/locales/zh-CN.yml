@@ -108,9 +108,9 @@ zh-CN:
         address:
           fullname: "全名"
           phone: "电话"
-          province_id: "省份"
-          city_id: "城市"
-          area_id: "区域"
+          province: "省份"
+          city: "城市"
+          area: "区域"
           address: "地址"
           post_code: "邮编"
       user:

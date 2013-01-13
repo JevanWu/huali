@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   layout 'horizontal'
   before_filter :load_cart
+  before_filter :fetch_items, only: [:new, :create, :current]
 
   def index
     @orders = current_or_guest_user.orders
@@ -13,27 +14,26 @@ class OrdersController < ApplicationController
   def new
     @order = Order.new
     @order.build_address
-    fetch_items
   end
 
   def create
     validate_cart
 
-    order = current_or_guest_user.orders.build(params[:order])
+    @order = current_or_guest_user.orders.build(params[:order])
 
     # create line items
     @cart.keys.each do |key|
-      order.add_line_item(key, @cart[key])
+      @order.add_line_item(key, @cart[key])
     end
 
-    if order.save!
-      session[:order_id] = order.id
+    if @order.save
+      session[:order_id] = @order.id
       cookies.delete :cart
 
       flash[:notice] = "Successfully created order and addresses."
       redirect_to checkout_order_path
     else
-      render :action => 'new'
+      render 'new'
     end
   end
 
@@ -76,7 +76,6 @@ class OrdersController < ApplicationController
   end
 
   def current
-    fetch_items
   end
 
   private
