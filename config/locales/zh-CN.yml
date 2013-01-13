@@ -1,4 +1,10 @@
 zh-CN:
+  helpers:
+    submit:
+      user:
+        update: "更新账户"
+        create: "新增账户"
+
   currency: "RMB"
   delivery_charge: "免运费"
   soldout: "已经售罄"
@@ -18,12 +24,6 @@ zh-CN:
   view: "查看 "
   new_transaction: "新建交易 "
   new_shipment: "新建递送"
-  pay: "付款 "
-  check: "审核 "
-  ship: "发货 "
-  refund: "退款"
-  confirm: "确认 "
-  cancel: "取消"
   enable!: "生效"
   disable!: "失效"
   product_updated: "个产品已经更新"
@@ -41,6 +41,37 @@ zh-CN:
   confirm_to_pay: "确认支付"
   order_state_changed: "订单状态变更为"
 
+  # checkout_nav
+  address_and_info: "地址和信息"
+  choose_pay_method: "选择支付方式"
+  paid: "支付完成"
+
+  # devise view
+  sign_in: "登陆"
+  sign_up: "注册"
+  forgot_your_password: "忘记你的密码"
+  cancel_my_account: "取消我的账号"
+  unhappy: "不高兴了?"
+
+  # order view
+  identifier: "订单编号"
+  delivery_date: "递送日期"
+  special_instructions: "特殊要求"
+  gift_card_text: "卡片信息"
+  total: "订单总价"
+  state: "订单状态"
+  receiver_fullname: "收货人姓名"
+  receiver_phonenum: "收货人电话"
+  receiver_postcode: "收货人邮编"
+  receiver_address: "收货人地址"
+  order_content: "订单内容"
+  transaction_identifier: "交易编号"
+  fullname: "收货人姓名"
+  process_order: "处理订单"
+  modify_order_state: "修改订单状态"
+  create_at: "下单时间"
+  action: "操作"
+
   distance:
     unit:
       one: "厘米"
@@ -55,6 +86,12 @@ zh-CN:
   finished: "完成"
   completed: "结束"
   void: "取消"
+  pay: "付款 "
+  check: "审核 "
+  ship: "发货 "
+  refund: "退款"
+  confirm: "确认 "
+  cancel: "取消"
 
   #states for transaction
   processing: "处理中"
@@ -76,6 +113,16 @@ zh-CN:
           area_id: "区域"
           address: "地址"
           post_code: "邮编"
+      user:
+        email: "邮箱"
+        password: "密码"
+        password_confirmation: "确认密码"
+        current_password: "当前密码"
+        remember_me: "记住我"
+    hints:
+      user:
+        email: "如果您不想改变,请留空"
+        current_password: "我们需要您当前的密码"
 
   active_admin:
     scopes:
@@ -97,6 +144,9 @@ zh-CN:
       collection: "集合"
       line_item: "条目"
       address: "地址"
+      create_at: "下单时间"
+      total: "金额"
+
     attributes:
       order:
         identifier: "订单编号"
