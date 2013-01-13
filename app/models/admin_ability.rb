@@ -12,7 +12,7 @@ class AdminAbility
       cannot :manage, Administrator
     when "supplier"
       cannot :read, Order
-      can :read, Order, state: 'false'
+      can :read, Order, state: 'wait_ship'
       can [:create, :ship], Shipment
     end
   end
