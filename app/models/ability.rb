@@ -5,7 +5,9 @@ class Ability
     if user.is_a?(User)
       case user.role
       when "customer"
-        can [:read, :create], Order do |order|
+        can :read, Product
+        can :read, LineItem
+        can :manage, Order do |order|
           (order.user.id == user.id)
         end
         can [:read, :create], Transaction do |tran|
