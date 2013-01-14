@@ -1,4 +1,5 @@
-interactor :off
+# interactor :off
+interactor :history_file => "#{ENV['HOME']}/.guard_history"
 
 # bundle exec guard -g frontend
 group :frontend do

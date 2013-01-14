@@ -1,6 +1,4 @@
-# encoding: utf-8
 ActiveAdmin.register Order do
-  menu if: proc { can? :manage, Order }
   controller.authorize_resource
 
   actions :all, :except => :new
@@ -69,7 +67,7 @@ ActiveAdmin.register Order do
       order.address.phone
     end
 
-    column :state, :sortable => :status do |order|
+    column :state, :sortable => :state do |order|
       order.state ? t(order.state) : nil
     end
 
@@ -77,9 +75,7 @@ ActiveAdmin.register Order do
 
     column :process_order do |order|
       link_to(t(:edit), edit_admin_order_path(order)) + \
-      link_to(t(:view), admin_order_path(order)) + \
-      link_to(t(:new_transaction), new_admin_transaction_path(:"transaction[order_id]" => order.id)) + \
-      link_to(t(:new_shipment), new_admin_shipment_path(:"shipment[order_id]" => order.id))
+      link_to(t(:view), admin_order_path(order))
     end
 
     column :modify_order_state do |order|
@@ -115,9 +111,7 @@ ActiveAdmin.register Order do
       end
 
       row :order_content do
-        order.line_items.map do |line_item|
-          label_tag(line_item.product.name, line_item.product.name + " x " + line_item.quantity.to_s)
-        end.join('</br>').html_safe
+        order.subject_text
       end
 
       row :gift_card_text

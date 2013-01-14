@@ -1,0 +1,36 @@
+<% content_for(:title_img) do %>
+  <%= image_tag('title-checkout.png') %>
+<% end %>
+
+<div class='row'>
+  <div class='span4 checkout-back'>
+    <%= link_to '返回订单', orders_path %>
+  </div>
+  <%= render 'checkout_nav' %>
+</div>
+
+<div class='row'>
+  <div class="span4">
+    <%= render 'side_item_table', items: @order.line_items %>
+  </div>
+
+  <div id='success-info' class="offset1 span6">
+    <p>
+      <span>多谢惠顾。</span>
+      <%= link_to "订单", order_path(@order) %>
+      <span>支付成功。我们会尽快为您发货。</span>
+    </p>
+
+    <div>
+      <h3>售后注意</h3>
+      <p> <strong>订单查询：</strong>我们将会在联邦快递发出后通过短信的方式给您发送订单号码，您可以通过登录联邦快递的官网查询递送的情况。在未来您将可以在我们网站的后台中完成所有的查询工作。 </p>
+      <p> <strong>如果有任何疑问请拨打我们的服务热线: 400-001-6936. </strong></p>
+    </div>
+    <p>
+      <%= image_tag('success-img.png') %>
+    </p>
+    <p>
+      <%= link_to '查看订单', order_path(@order), class: 'button' %>
+    </p>
+  </div>
+</div>

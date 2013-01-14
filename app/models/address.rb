@@ -30,7 +30,7 @@ class Address < ActiveRecord::Base
   accepts_nested_attributes_for :province, :area, :city
 
   before_validation :check_postcode
-  validates :fullname, :address, :phone, :presence => true
+  validates_presence_of :fullname, :address, :phone, :province, :city
   validate :phone_validate
 
   def phone_validate
@@ -50,7 +50,7 @@ class Address < ActiveRecord::Base
   end
 
   def full_addr
-    "#{post_code}, #{province.name}, #{city.name}, #{area.name}, #{address}, #{fullname}"
+    [post_code, province.name, city.name, area.name, address].compact.join(',')
   end
 
   def same_as?(other)

@@ -1,3 +1,95 @@
-<%= @order.inspect %>
-<%= @order.address.inspect %>
-<%= @order.user.inspect %>
+<% content_for(:title_img) do %>
+  <%= image_tag('title-account.png') %>
+<% end %>
+
+<div class='row'>
+  <div class='span4'>
+  </div>
+  <%= render 'shared/account_nav' %>
+</div>
+
+<div id="order-summary" class='row'>
+  <table class="table table-bordered">
+    <tbody>
+      <tr>
+        <td>
+          <strong><%= t(:identifier) %></strong>: <%= @order.identifier %>
+        </td>
+        <td>
+          <strong><%= t(:state) %></strong>: <%= t(@order.state) %>
+        </td>
+        <td>
+          <strong><%= t(:created_at) %></strong>: <%= @order.created_at %>
+        </td>
+        <td>
+          <strong><%= t(:delivery_date) %></strong>: <%= @order.delivery_date %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<% if @order.state == 'generated' %>
+  <%= render 'actions' %>
+<% end %>
+
+<div id='order-info' class='row'>
+  <h3><span><%= t(:order_info) %></span></h3>
+  <table class='table'>
+    <tbody>
+      <tr>
+        <td rowspan='3'><strong><%= t(:receiver_info) %></strong></td>
+        <td><%= t(:receiver_fullname) %>: <%= @order.address.fullname %></td>
+      </tr>
+      <tr>
+        <td><%= t(:receiver_address) %>: <%= @order.address.full_addr %></td>
+      </tr>
+      <tr>
+        <td><%= t(:receiver_phonenum) %>: <%= @order.address.phone %></td>
+      </tr>
+    </tbody>
+
+    <tbody>
+      <tr>
+        <td rowspan='3'><strong><%= t(:pay_and_ship_method) %></strong></td>
+        <td><%= t(:paymethod) %>: <%= @order.transaction ? @order.transaction.paymethod : nil %></td>
+      </tr>
+      <tr>
+        <td><%= t(:delivery_cost) %>: <%= @order.shipment ? @order.try(shipment.cost) : nil %></td>
+      </tr>
+      <tr>
+        <td><%= t(:delivery_date) %>: <%= @order.delivery_date %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div id='order-items' class='row'>
+  <h3><span><%= t(:product_info) %></span></h3>
+  <table id='product_detail' class='item-table table'>
+    <thead>
+      <tr>
+        <th class="image"><%= t(:image) %></th>
+        <th class="name"><%= t(:name) %></th>
+        <th class="size"><%= t(:size) %></th>
+        <th class="price"><%= t(:price) %></th>
+        <th class="quantity"><%= t(:quantity) %></th>
+        <th class="total"><%= t(:total) %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: 'product_detail', collection: @order.line_items %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan='5'><%= t(:in_total) %></td>
+        <td><%= @order.total %></td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<% if @order.state == 'generated' %>
+  <%= render 'actions' %>
+<% end %>

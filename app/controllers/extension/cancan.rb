@@ -5,13 +5,12 @@ module Extension
     included do
       # rescue cancan authorization failure
       rescue_from CanCan::AccessDenied do |exception|
-        redirect_to admin_dashboard_path, :alert => exception.message
+        redirect_to :back, :alert => exception.message
       end
     end
 
-    # cancan's ability
     def current_ability
-      @current_ability ||= Ability.new(current_administrator)
+      @current_ability ||= Ability.new(current_user)
     end
   end
 end

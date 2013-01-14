@@ -1,4 +1,3 @@
-# encoding: utf-8
 ActiveAdmin.register Shipment do
   menu if: proc { can? :manage, Shipment }
   controller.authorize_resource
@@ -12,8 +11,23 @@ ActiveAdmin.register Shipment do
     column :state, :sortable => :state do |shipment|
       shipment.state ? t(shipment.state) : nil
     end
-    default_actions
 
+    column :modify_shipment_state do |shipment|
+      link_to(t(:ship), ship_admin_shipment_path(shipment)) + \
+      link_to(t(:accept), accept_admin_shipment_path(shipment))
+    end
+  end
+
+  member_action :ship do
+    shipment = Shipment.find_by_id(params[:id])
+    shipment.ship
+    redirect_to admin_shipments_path, :alert => t(:shipment_state_changed) + t(:shipped)
+  end
+
+  member_action :accept do
+    shipment = Shipment.find_by_id(params[:id])
+    shipment.accept
+    redirect_to admin_shipments_path, :alert => t(:shipment_state_changed) + t(:completed)
   end
 
   form :partial => "form"

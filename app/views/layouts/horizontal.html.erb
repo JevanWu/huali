@@ -9,16 +9,17 @@
     <meta name="author" content=""/>
     <!--[if lt IE 9]><%= javascript_include_tag 'html5shiv' %><![endif]-->
     <%= stylesheet_link_tag "application", :media => "all" %>
+    <%= yield(:css) %>
     <!--[if IE 6]><%= stylesheet_link_tag 'ie6' %><![endif]-->
     <!--[if IE 7]><%= stylesheet_link_tag 'ie7' %><![endif]-->
     <%= csrf_meta_tags %>
   </head>
-  <body class="desktop <%= controller_name %> <%= action_name %>">
+  <body class="desktop">
     <div id="wrapper" class="container">
       <%= render 'layouts/messages' %>
       <%= render 'layouts/header' %>
       <div id="main" class="row">
-        <div id="content" class="span12" role="main">
+        <div id="content" class="<%= controller_name %> <%= action_name %> span12" role="main">
           <%= yield %>
         </div>
       </div>
@@ -27,4 +28,5 @@
   </body>
     <%= javascript_include_tag "application"  %>
     <%= javascript_include_tag "ga" %>
+    <%= yield(:js) %>
 </html>

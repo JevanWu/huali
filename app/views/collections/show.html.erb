@@ -3,10 +3,11 @@
     <% @products.each do |product| %>
       <div class="product span3">
         <div class="product-image">
-          <a href=<%= product_path(product.id) =%> title="Nice Flowers"><%= image_tag product.assets.first.image.url(:medium) %></a>
+          <%# FIXME the title and below title needs to be customized %>
+          <%= link_to image_tag(product.img(:medium)), product_path(product), title: 'Nice Flowers' %>
         </div>
         <div class="new-description">
-          <h3><a href=<%= product_path(product.id) =%> title="Fashion Demo Flowers"><%= product.name_cn %></a></h3>
+          <h3> <%= link_to product.name, product_path(product), title: 'Fashion Demo Flowers' %> </h3>
           <div class="price-box">
             <a href='/order'><button type="button" class="button btn-cart"><span>点击购买</span></button></a>
             <% unless product.original_price.nil? %>

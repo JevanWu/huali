@@ -1,4 +1,3 @@
-# encoding: utf-8
 # == Schema Information
 #
 # Table name: orders
@@ -25,7 +24,7 @@
 
 class Order < ActiveRecord::Base
 
-  attr_accessible :line_items, :address_attributes, :special_instructions,
+  attr_accessible :line_items, :special_instructions, :address_attributes,
                   :gift_card_text, :delivery_date, :identifier, :state
 
   belongs_to :address
@@ -43,11 +42,13 @@ class Order < ActiveRecord::Base
   before_validation :cal_total
 
   validates :identifier, presence: true
+  validates_presence_of :delivery_date, :state, :total, :item_total
 
   state_machine :state, :initial => :generated do
     # TODO implement an auth_state dynamically for each state
     before_transition :to => :wait_refund, :do => :auth_refund
     before_transition :to => :completed, :do => :complete_order
+    before_transition :to => :wait_check, :do => :pay_order
 
     # use adj. for state with future vision
     # use v. for event name
@@ -57,6 +58,8 @@ class Order < ActiveRecord::Base
     end
 
     state :wait_check do
+      validates_presence_of :payment_total
+
       transition :to => :wait_ship, :on => :check
       transition :to => :wait_refund, :on => :cancel
     end
@@ -75,11 +78,11 @@ class Order < ActiveRecord::Base
     end
   end
 
-  scope :all, lambda { reorder }
-  scope :current, lambda { where('delivery_date = ?', Date.current) }
-  scope :tomorrow, lambda { where("delivery_date = ?", Date.tomorrow) }
-  scope :within_this_week, lambda { where("delivery_date >= ? AND delivery_date <= ? ", Date.current.beginning_of_week, Date.current.end_of_week) }
-  scope :within_this_month, lambda { where("delivery_date >= ? AND delivery_date <= ? ", Date.current.beginning_of_month, Date.current.end_of_month) }
+  scope :all, -> { reorder }
+  scope :current, -> { where('delivery_date = ?', Date.current) }
+  scope :tomorrow, -> { where("delivery_date = ?", Date.tomorrow) }
+  scope :within_this_week, -> { where("delivery_date >= ? AND delivery_date <= ? ", Date.current.beginning_of_week, Date.current.end_of_week) }
+  scope :within_this_month, -> { where("delivery_date >= ? AND delivery_date <= ? ", Date.current.beginning_of_month, Date.current.end_of_month) }
 
   # Queries
   class << self
@@ -109,7 +112,7 @@ class Order < ActiveRecord::Base
     end
 
     def full_info(key)
-      includes(:user, :transactions).find_by_id(key)
+      includes(:user, :address, :transactions, :shipments).find_by_id(key)
     end
   end
 
@@ -142,7 +145,7 @@ class Order < ActiveRecord::Base
   end
 
   def cal_total
-    self.total = line_items.inject(0.0) { |sum, item| sum + item.total }
+    self.item_total = self.total = line_items.map(&:total).inject(:+)
   end
 
   def completed?
@@ -153,19 +156,31 @@ class Order < ActiveRecord::Base
     line_items.count > 0
   end
 
+  def cancel_allowed?
+    state.in? ['generated', 'wait_check']
+  end
+
   def transaction_state
-    transactions.last.state
+    transaction.state
   end
 
   def shipment_state
-    shipments.last.state
+    shipment.state
   end
 
-  private
+  def transaction
+    transactions.last
+  end
+
+  def shipment
+    shipments.last
+  end
 
   def subject_text
     line_items.inject('') { |sum, item| sum + "#{item.name} x #{item.quantity}, "}
   end
+
+  private
 
   def body_text
     # prepare body text for transaction
@@ -178,6 +193,11 @@ class Order < ActiveRecord::Base
 
   def complete_order
     self.completed_at = Time.now
-    save!
+    save
+  end
+
+  def pay_order
+    self.payment_total += self.transactions.by_state('completed').map(&:amount).inject(:+)
+    save
   end
 end

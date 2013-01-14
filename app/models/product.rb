@@ -54,7 +54,7 @@ class Product < ActiveRecord::Base
   translate :name, :description, :inspiration
 
   # validations
-  validates :name_en, :name_zh, :inspiration_zh, :count_on_hand, :presence => true
+  validates_presence_of :name_en, :name_zh, :inspiration_zh, :count_on_hand, :assets
 
   # scopes
   default_scope lambda { published.order('created_at DESC') }
@@ -97,5 +97,9 @@ class Product < ActiveRecord::Base
 
   def new?
     created_at >= 2.weeks.ago
+  end
+
+  def img(size)
+    assets.first.image.url(size)
   end
 end

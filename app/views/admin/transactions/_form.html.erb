@@ -2,8 +2,8 @@
   <%= f.inputs "Main Info" do %>
     <%= f.input :order_id, :label => "订单编号", :wrapper_html => { :style => "display:none;" } %>
     <%= f.input :amount, :label => "金额", required: true %>
-    <%= f.input :merchant_name, :label => "商户名" , required: true%>
-    <%= f.input :paymethod, :label => "支付方式", required: true%>
+    <%= f.input :paymethod, :label => "支付方式", :collection => %w(paypal directPay bankPay), required: true%>
+    <%= f.input :merchant_name, :label => "商户名" , :collection => %w(Alipay Paypal ICBCB2C CMB CCB BOCB2C ABC COMM CMBC) , required: true %>
     <%= f.input :subject, :label => "主题" %>
   <% end %>
   <%= f.actions %>

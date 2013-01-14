@@ -1,23 +1,31 @@
-<p>This is the line items information</p>
-
-<%= semantic_form_for @order do |f| %>
-
-  <%= f.semantic_fields_for :address_attributes do |address, i| %>
-    <%= address.input :fullname %>
-    <%= address.input :phone %>
-    <%= address.input :province_id, :collection => Hash[Province.all.map { |col| [col.name, col.id] }] %>
-    <%= address.input :city_id, :collection => Hash[City.all.map { |col| [col.name, col.id] }] %>
-    <%= address.input :area_id, :collection => Hash[Area.all.map { |col| [col.name, col.id] }] %>
-    <%= address.input :address %>
-    <%= address.input :post_code %>
-  <% end %>
-
-  <%= f.input :delivery_date %>
-  <%= f.input :gift_card_text %>
-  <%= f.input :special_instructions %>
-
-  <%= f.actions do %>
-    <%= f.action :submit, :as => :button %>
-    <%= f.action :cancel, :as => :link %>
-  <% end %>
+<% content_for(:css) do %>
+  <%= stylesheet_link_tag "jquery.ui.datepicker" %>
 <% end %>
+
+<% content_for(:js) do %>
+  <%= javascript_include_tag "datepicker-settings" %>
+<% end %>
+
+<% content_for(:title_img) do %>
+  <%= image_tag('title-checkout.png') %>
+<% end %>
+
+<div class='row'>
+  <div class='span4 checkout-back'>
+    <%= link_to t(:back), current_order_path %>
+  </div>
+  <%= render 'checkout_nav' %>
+</div>
+
+<div class='row'>
+  <div class="span4">
+    <%= render 'side_item_table', items: @products %>
+  </div>
+
+  <div class="span8">
+    <div id='checkout-form'>
+      <%= render 'form' %>
+    </div>
+  </div>
+</div>
+<%= render 'notice' %>

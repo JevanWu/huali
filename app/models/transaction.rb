@@ -65,6 +65,10 @@ class Transaction < ActiveRecord::Base
   end
 
   class << self
+    def by_state(state)
+      where(:state => state)
+    end
+
     def return(opts)
       result = Billing::Alipay::Return.new(opts)
       handle_process(result)
@@ -79,12 +83,12 @@ class Transaction < ActiveRecord::Base
       unless result.verified? && result.success?
         false
       else
-        trans = find_by_identifier(result.out_trade_no)
-        if trans.processed?
-          true
+        transaction = find_by_identifier(result.out_trade_no)
+        if transaction.processed?
+          transaction
         else
-          if trans.check_deal(result)
-            trans.complete_deal(result)
+          if transaction.check_deal(result)
+            transaction.complete_deal(result)
           else
             false
           end
@@ -94,7 +98,7 @@ class Transaction < ActiveRecord::Base
   end
 
   def initialize(opts = {}, pay_info = nil)
-    unless pay_info
+    if pay_info
       pay_opts = parse_pay_info(pay_info)
       super opts.merge(pay_opts)
     else

@@ -1,6 +1,9 @@
 class OrdersController < ApplicationController
-  layout 'order'
+  layout 'horizontal'
   before_filter :load_cart
+  before_filter :fetch_items, only: [:new, :create, :current]
+
+  # authorize_resource
 
   def index
     @orders = current_or_guest_user.orders
@@ -12,26 +15,27 @@ class OrdersController < ApplicationController
 
   def new
     @order = Order.new
+    @order.build_address
   end
 
   def create
     validate_cart
 
-    order = current_or_guest_user.orders.build(params[:order])
+    @order = current_or_guest_user.orders.build(params[:order])
 
     # create line items
     @cart.keys.each do |key|
-      order.add_line_item(key, @cart[key])
+      @order.add_line_item(key, @cart[key])
     end
 
-    if order.save!
-      session[:order_id] = order.id
+    if @order.save
+      session[:order_id] = @order.id
       cookies.delete :cart
 
       flash[:notice] = "Successfully created order and addresses."
       redirect_to checkout_order_path
     else
-      render :action => 'new'
+      render 'new'
     end
   end
 
@@ -56,8 +60,13 @@ class OrdersController < ApplicationController
   end
 
   def return
-    Transaction.return(request.query_string)
-    redirect_to :home
+    transaction = Transaction.return(request.query_string)
+    if transaction
+      @order = transaction.order
+      render 'success'
+    else
+      render 'failed'
+    end
   end
 
   def notify
@@ -69,13 +78,6 @@ class OrdersController < ApplicationController
   end
 
   def current
-    @products = []
-    @cart.keys.each do |key|
-      if product = Product.find_by_id(key)
-        product[:quantity] = @cart[key]
-        @products.push product
-      end
-    end
   end
 
   private
@@ -92,6 +94,16 @@ class OrdersController < ApplicationController
         @cart = JSON.parse(cookies['cart']).select {|k, v| k =~ /^\d+$/}
       rescue
         @cart = {}
+      end
+    end
+
+    def fetch_items
+      @products = []
+      @cart.keys.each do |key|
+        if product = Product.find_by_id(key)
+          product[:quantity] = @cart[key]
+          @products.push product
+        end
       end
     end
 end

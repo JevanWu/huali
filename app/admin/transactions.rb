@@ -1,4 +1,3 @@
-# encoding: utf-8
 ActiveAdmin.register Transaction do
   #actions :all, :except => :new
   menu if: proc { can?(:manage, Transaction) }
@@ -12,7 +11,7 @@ ActiveAdmin.register Transaction do
     column :merchant_trade_no
     column :paymethod
     column :amount
-    column :state do |transaction|
+    column :state, sortable: :state do |transaction|
       transaction.state ? t(transaction.state) : nil
     end
     column :subject

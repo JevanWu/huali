@@ -1,14 +1,32 @@
+<% content_for(:title_img) do %>
+  <%= image_tag('title-account.png') %>
+<% end %>
+
 <% if @orders.empty? %>
   <p>You have no Order</p>
 <% else %>
-  <div>
-    <% @orders.each do |order| %>
-      <p>
-      <%= order.identifier %>
-      <%= order.delivery_date %>
-      <%= order.total %>
-      <%= link_to order.identifier, order_path(order) %>
-      </p>
-    <% end %>
+  <div class='row'>
+    <div class='span4'>
+    </div>
+    <%= render 'shared/account_nav' %>
+  </div>
+
+  <div id="order-summary" class='row'>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th><%= t(:identifier) %></th>
+          <th><%= t(:created_at) %></th>
+          <th><%= t(:state) %></th>
+          <th><%= t(:total) %></th>
+          <th><%= t(:order_content) %></th>
+          <th><%= t(:action) %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render partial: 'order', collection: @orders %>
+      </tbody>
+    </table>
   </div>
 <% end %>
+

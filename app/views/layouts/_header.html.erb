@@ -1,6 +1,10 @@
 <header>
-  <div> <%= link_to image_tag('logo-chris.png'), home_path, class: 'logo', title: "Hua.li | 花里" %> </div>
-  <%= render 'devise/menu/registration_items' %>
-  <%= render 'devise/menu/login_items' %>
-  <%= render '/orders/links' %>
+  <div> <%= link_to image_tag('logo-chris.png'), root_path, class: 'logo', title: "Hua.li | 花里" %> </div>
+  <%= render 'orders/links' %>
+  <%= render 'devise/menu/auth_items' %>
 </header>
+<% if content_for(:title_img) %>
+  <div class="title-img">
+    <%= yield(:title_img) %>
+  </div>
+<% end %>
