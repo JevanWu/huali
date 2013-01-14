@@ -2,7 +2,6 @@ ActiveAdmin.register Shipment do
   menu if: proc { can? :manage, Shipment }
   controller.authorize_resource
 
-  #actions :all, :except => :new
   index do
     selectable_column
 
@@ -16,6 +15,8 @@ ActiveAdmin.register Shipment do
       link_to(t(:ship), ship_admin_shipment_path(shipment)) + \
       link_to(t(:accept), accept_admin_shipment_path(shipment))
     end
+
+    default_actions
   end
 
   member_action :ship do

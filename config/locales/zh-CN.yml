@@ -190,6 +190,7 @@ zh-CN:
       shipment:
         cost: "成本"
         identifier: "递送编号"
+        ship_method_id: "递送方式"
         state: "递送状态"
         note: "留言"
         tracking_num: "快递单号"
