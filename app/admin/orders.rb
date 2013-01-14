@@ -117,6 +117,19 @@ ActiveAdmin.register Order do
       row :gift_card_text
       row :special_instructions
       row :delivery_date
+
+      row :transaction_info do
+        order.transactions.map do |transaction|
+          link_to transaction.identifier, admin_transaction_path(transaction)
+        end.join(' ').html_safe
+      end
+
+      row :shipment_info do
+        order.shipments.map do |shipment|
+          link_to shipment.identifier, admin_shipment_path(shipment)
+        end.join(' ').html_safe
+      end
+
     end
   end
 
