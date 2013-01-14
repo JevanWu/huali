@@ -203,7 +203,7 @@ zh-CN:
         paymethod: "支付方式"
         amount: "金额"
         state: "交易状态"
-        subject: "主题"
+        subject: "摘要"
         body: "正文"
       product:
         thumbnail: "缩略图"
