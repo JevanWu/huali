@@ -1,5 +1,6 @@
 #= require jquery.cookie
 #= require underscore
+#= require prov_city_area_update
 
 $ ->
   # turn on JSON parsing in $.cookie
@@ -27,6 +28,7 @@ $ ->
         quantity
 
     Cart.update(id: id, quantity: changeTo)
+
 
 # product = { id: String, quantity: Integer }
 # cart

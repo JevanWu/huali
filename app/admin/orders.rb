@@ -11,6 +11,13 @@ ActiveAdmin.register Order do
 
   filter :delivery_date
 
+  controller do
+    helper :orders
+    def scoped_collection
+      Order.includes(:transactions, :address)
+    end
+  end
+
   member_action :pay  do
     order = Order.find_by_id(params[:id])
     order.pay
