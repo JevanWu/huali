@@ -149,10 +149,6 @@ ActiveAdmin.setup do |config|
   # config.csv_column_separator = ','
 end
 
-module ActiveAdmin::ViewHelpers
-  include OrdersHelper
-end
-
 ActiveAdmin::ResourceController.class_eval do
   protected
 

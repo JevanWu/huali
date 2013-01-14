@@ -12,6 +12,7 @@ ActiveAdmin.register Order do
   filter :delivery_date
 
   controller do
+    helper :orders
     def scoped_collection
       Order.includes(:transactions, :address)
     end
