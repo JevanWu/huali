@@ -1,0 +1,11 @@
+<%= semantic_form_for [:admin, @shipmethod] do |f| %>
+  <%= f.inputs "Main Info" do %>
+    <%= f.input :name %>
+    <%= f.input :cost %>
+    <%= f.input :method, :collection => [t(:manual) => "manual", t(:express) => "express"] %>
+    <%= f.input :service_phone %>
+    <%= f.input :website %>
+    <%= f.input :kuaidi_com_code %>
+  <% end %>
+  <%= f.actions %>
+<% end %>

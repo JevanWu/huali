@@ -42,6 +42,10 @@ zh-CN:
   order_state_changed: "订单状态变更为"
   shipment_state_changed: "交易状态变更为"
 
+  # shipmethod
+  express: "快递"
+  manual: "人工"
+
   # checkout_nav
   address_and_info: "地址和信息"
   choose_pay_method: "选择支付方式"
@@ -156,8 +160,7 @@ zh-CN:
       collection: "集合"
       line_item: "条目"
       address: "地址"
-      create_at: "下单时间"
-      total: "金额"
+      ship_method: "递送方式"
 
     attributes:
       order:
@@ -177,6 +180,13 @@ zh-CN:
         fullname: "收货人姓名"
         process_order: "处理订单"
         modify_order_state: "修改订单状态"
+      ship_method:
+        name: "名字"
+        cost: "成本"
+        method: "方式"
+        website: "网站"
+        service_phone: "服务电话"
+        kuaidi_com_code: "快递100编码"
       shipment:
         cost: "成本"
         identifier: "递送编号"

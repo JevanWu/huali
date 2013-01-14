@@ -1,11 +1,10 @@
 <%= semantic_form_for [:admin, @product] do |f| %>
   <%= f.inputs "Main Info" do %>
-    <%= f.input :available, :label => "Available", :as => :boolean %>
-    <%= f.input :published_zh, :label => "Published Chinese", :as => :boolean %>
-    <%= f.input :published_en, :label => "Published English", :as => :boolean %>
-    <%= f.input :name_zh, :label => "Chinese Name", required: true %>
-    <%= f.input :name_en, :label => "English Name", required: true %>
-    <%= f.input :name_char, :label => "Chinese Character" %>
+    <%= f.input :available, :as => :boolean %>
+    <%= f.input :published_zh, :as => :boolean %>
+    <%= f.input :published_en, :as => :boolean %>
+    <%= f.input :name_zh, required: true %>
+    <%= f.input :name_en, required: true %>
 
     <!-- use col.name_zh as checkboxname, col.id as checkbox id which is passed as params -->
     <!-- the last option :collection takes an hash for each check options-->
@@ -34,7 +33,7 @@
   <% end %>
 
   <%= f.inputs "SKU Info" do %>
-    <%= f.input :count_on_hand, :label => "Count", :required => true %>
+    <%= f.input :count_on_hand, :required => true %>
     <%= f.input :price %>
     <%= f.input :original_price %>
     <%= f.input :cost_price %>
