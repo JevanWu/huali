@@ -41,6 +41,7 @@ zh-CN:
   confirm_to_pay: "确认支付"
   order_state_changed: "订单状态变更为"
   shipment_state_changed: "交易状态变更为"
+  add_image: "新增图片"
 
   # shipmethod
   express: "快递"
@@ -192,6 +193,7 @@ zh-CN:
         fullname: "收货人姓名"
         process_order: "处理订单"
         modify_order_state: "修改订单状态"
+
       ship_method:
         name: "名字"
         cost: "成本"
@@ -233,9 +235,13 @@ zh-CN:
         count_on_hand: "库存"
         price: "现价"
         original_price: "原价"
+        assets: "图片"
         height: "高度"
         width: "宽度"
         depth: "深度"
         created_at: "创建于"
         updated_at: "更新于"
         cost_price: "成本价"
+        add_image: "新增图片"
+        meta_keywords: "关键词"
+        meta_description: "关键描述"
