@@ -152,6 +152,8 @@ end
 
 module ActiveAdmin::ViewHelpers
   include OrdersHelper
+  include TransactionsHelper
+  include ShipmentsHelper
 end
 
 ActiveAdmin::ResourceController.class_eval do

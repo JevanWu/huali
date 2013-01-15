@@ -1,4 +1,5 @@
 <%= semantic_form_for [:admin, @transaction] do |f| %>
+  <%= f.semantic_errors :amount, :paymethod, :merchant_name %>
   <%= f.inputs "Main Info" do %>
     <%= f.input :order_id, :wrapper_html => { :style => "display:none;" } %>
     <%= f.input :amount, required: true %>

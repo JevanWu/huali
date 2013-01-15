@@ -1,4 +1,5 @@
 <%= semantic_form_for [:admin, @shipmethod] do |f| %>
+  <%= f.semantic_errors :name, :cost %>
   <%= f.inputs "Main Info" do %>
     <%= f.input :name %>
     <%= f.input :cost %>

@@ -13,6 +13,31 @@ ActiveAdmin.register Shipment do
   scope :unknown
   scope :completed
 
+  controller do
+    def create
+      @shipment = Shipment.new(params[:shipment])
+      if @shipment.save
+        order = Order.find_by_id(@shipment.order_id)
+        order.state = "wait_confirm"
+        order.save
+        redirect_to admin_shipments_path
+      end
+    end
+  end
+
+  member_action :ship do
+    shipment = Shipment.find_by_id(params[:id])
+    shipment.ship
+    redirect_to admin_shipments_path, :alert => t(:shipment_state_changed) + t(:shipped)
+  end
+
+  member_action :accept do
+    shipment = Shipment.find_by_id(params[:id])
+    shipment.accept
+    redirect_to admin_shipments_path, :alert => t(:shipment_state_changed) + t(:completed)
+  end
+
+
   index do
     selectable_column
 
@@ -22,12 +47,11 @@ ActiveAdmin.register Shipment do
       shipment.state ? t(shipment.state) : nil
     end
 
-    column :modify_shipment_state do |shipment|
-      link_to(t(:ship), ship_admin_shipment_path(shipment)) + \
-      link_to(t(:accept), accept_admin_shipment_path(shipment))
-    end
-
     default_actions
+
+    column :modify_shipment_state do |shipment|
+      shipment_state_shift(shipment)
+    end
   end
 
   member_action :ship do

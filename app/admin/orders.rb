@@ -86,7 +86,7 @@ ActiveAdmin.register Order do
     end
 
     column :modify_order_state do |order|
-      state_shift(order)
+      order_state_shift(order)
     end
   end
 
@@ -128,13 +128,13 @@ ActiveAdmin.register Order do
       row :transaction_info do
         order.transactions.map do |transaction|
           link_to transaction.identifier, admin_transaction_path(transaction)
-        end.join(' ').html_safe
+        end.join('</br>').html_safe
       end
 
       row :shipment_info do
         order.shipments.map do |shipment|
           link_to shipment.identifier, admin_shipment_path(shipment)
-        end.join(' ').html_safe
+        end.join('</br>').html_safe
       end
 
     end

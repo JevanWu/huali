@@ -12,6 +12,36 @@ ActiveAdmin.register Transaction do
   scope :completed
   scope :failed
 
+  controller do
+    def create
+      @transaction = Transaction.new(params[:transaction])
+      if @transaction.save
+        order = Order.find_by_id(@transaction.order_id)
+        order.state = "wait_check"
+        order.save
+        redirect_to admin_transactions_path
+      end
+    end
+  end
+
+  member_action :start do
+    transaction = Transaction.find_by_id(params[:id])
+    transaction.start
+    redirect_to admin_transactions_path, :alert => t(:transaction_state_changed) + t(:processing)
+  end
+
+  member_action :complete do
+    transaction = Transaction.find_by_id(params[:id])
+    transaction.complete
+    redirect_to admin_transactions_path, :alert => t(:transaction_state_changed) + t(:completed)
+  end
+
+  member_action :failure do
+    transaction = Transaction.find_by_id(params[:id])
+    transaction.failure
+    redirect_to admin_transactions_path, :alert => t(:transaction_state_changed) + t(:failed)
+  end
+
   index do
     selectable_column
 
@@ -26,6 +56,9 @@ ActiveAdmin.register Transaction do
     end
     column :subject
     default_actions
+    column :modify_transaction_state do |transaction|
+      transaction_state_shift(transaction)
+    end
   end
 
   form :partial => "form"

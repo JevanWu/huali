@@ -8,7 +8,7 @@ module OrdersHelper
     number_to_currency item_total, unit: '&yen;'
   end
 
-  def state_shift(order)
+  def order_state_shift(order)
     case order.state
     when "generated"
       link_to(t(:pay), new_admin_transaction_path(:"transaction[order_id]" => order.id, :"transaction[amount]" => order.total, :"transaction[subject]" => order.subject_text)) + \

@@ -46,7 +46,7 @@ class Shipment < ActiveRecord::Base
     after_transition :to => :shipped, :do => :ship_order
 
     # use adj. for state with future vision
-    # use v. for event name
+    # use v. for event namen
     state :ready do
       transition :to => :shipped, :on => :ship
     end

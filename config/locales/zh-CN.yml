@@ -39,8 +39,6 @@ zh-CN:
   checkout: "支付"
   quantity: "数量"
   confirm_to_pay: "确认支付"
-  order_state_changed: "订单状态变更为"
-  shipment_state_changed: "交易状态变更为"
   add_image: "新增图片"
 
   # shipmethod
@@ -76,7 +74,6 @@ zh-CN:
   transaction_identifier: "交易编号"
   fullname: "收货人姓名"
   process_order: "处理订单"
-  modify_order_state: "修改订单状态"
   created_at: "下单时间"
   action: "操作"
   pay_now: "立即支付"
@@ -106,17 +103,26 @@ zh-CN:
   refund: "退款"
   confirm: "确认 "
   cancel: "取消"
+  modify_order_state: "修改订单状态"
+  order_state_changed: "订单状态变更为"
 
   #states for transaction
   processing: "处理中"
-  failed: "失败"
+  failed: "失败 "
+  failure: "失败"
+  complete: "完成 "
+  start: "开始 "
+  modify_transaction_state: "修改交易状态"
+  transaction_state_changed: "交易状态变更为"
 
   #states for shipment
   ready: "准备"
   shipped: "已发货"
   unknown: "未知"
   ship: "发货 "
-  accept: "确认收货"
+  accept: "送达 "
+  modify_shipment_state: "修改递送状态"
+  shipment_state_changed: "递送状态变更为"
 
   formtastic:
     :yes: '是'
@@ -236,6 +242,7 @@ zh-CN:
         processed_at: "处理于"
         created_at: "创建于"
         updated_at: "更新于"
+        modify_transaction_state: "修改交易状态"
 
       product:
         thumbnail: "缩略图"
