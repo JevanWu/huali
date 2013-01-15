@@ -117,6 +117,16 @@ zh-CN:
   ship: "发货 "
   accept: "确认收货"
 
+  formtastic:
+    :yes: '是'
+    :no: '否'
+    :create: '创建%{model}'
+    :update: '更新%{model}'
+    :submit: '提交%{model}'
+    :cancel: '取消%{model}'
+    :reset: '重置%{model}'
+    :required: '必填'
+
   simple_form:
     labels:
       order:
