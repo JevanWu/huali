@@ -4,7 +4,7 @@ ActiveAdmin.register Transaction do
   controller.authorize_resource
 
   filter :paymethod
-  filter :state, :as => :select, :collection =>{ "新建" => "generated", "完成" => "completed", "处理中" => "processing", "失败" => "failure" } 
+  filter :state, :as => :select, :collection =>{ "新建" => "generated", "完成" => "completed", "处理中" => "processing", "失败" => "failure" }
   filter :amount
 
   scope :generated
@@ -16,8 +16,9 @@ ActiveAdmin.register Transaction do
     selectable_column
 
     column :identifier
-    column :merchant_name
-    column :merchant_trade_no
+    column :order do |transaction|
+      link_to transaction.order.identifier, admin_order_path(transaction.order)
+    end
     column :paymethod
     column :amount
     column :state, sortable: :state do |transaction|
@@ -39,6 +40,7 @@ ActiveAdmin.register Transaction do
         transaction.state ? t(transaction.state) : nil
       end
       row :amount
+      row :merchant_trade_no
       row :subject
       row :body
     end
