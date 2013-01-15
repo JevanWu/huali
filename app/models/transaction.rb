@@ -32,6 +32,11 @@ class Transaction < ActiveRecord::Base
 
   before_validation :generate_identifier, on: :create
 
+  scope :generated, -> { where('state=?', "generated") }
+  scope :processing, -> { where('state=?', "processing") }
+  scope :completed, -> { where('state=?', "completed") }
+  scope :failed, -> { where('state=?', "failed") }
+
   validates_presence_of :identifier, :paymethod, :merchant_name, :amount, :subject
   validates :identifier, uniqueness: true
   validates :amount, numericality: true

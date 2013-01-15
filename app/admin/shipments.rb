@@ -4,9 +4,14 @@ ActiveAdmin.register Shipment do
   controller.authorize_resource
 
   filter :tracking_num
-  filter :state, :as => :select, :collection => {"准备" => "ready", "发货" => "shiped", "未知" => "unknown"}
+  filter :state, :as => :select, :collection => {"准备" => "ready", "发货" => "shipped", "未知" => "unknown"}
   filter :cost
   filter :note
+
+  scope :ready
+  scope :shipped
+  scope :unknown
+  scope :completed
 
   index do
     selectable_column

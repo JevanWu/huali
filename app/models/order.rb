@@ -78,6 +78,14 @@ class Order < ActiveRecord::Base
     end
   end
 
+  scope :generated, -> { where('state=?', "generated") }
+  scope :wait_check, -> { where('state=?', "wait_check") }
+  scope :wait_ship, -> { where('state=?', "wait_ship") }
+  scope :wait_refund, -> { where('state=?', "wait_refund") }
+  scope :wait_confirm, -> { where('state=?', "wait_confirm") }
+  scope :completed, -> { where('state=?', "completed") }
+  scope :void, -> { where('state=?', "void") }
+
   scope :all, -> { reorder }
   scope :current, -> { where('delivery_date = ?', Date.current) }
   scope :tomorrow, -> { where("delivery_date = ?", Date.tomorrow) }

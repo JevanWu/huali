@@ -7,6 +7,11 @@ ActiveAdmin.register Transaction do
   filter :state, :as => :select, :collection =>{ "新建" => "generated", "完成" => "completed", "处理中" => "processing", "失败" => "failure" } 
   filter :amount
 
+  scope :generated
+  scope :processing
+  scope :completed
+  scope :failed
+
   index do
     selectable_column
 

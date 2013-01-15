@@ -8,6 +8,13 @@ ActiveAdmin.register Order do
   scope :tomorrow
   scope :within_this_week
   scope :within_this_month
+  scope :generated
+  scope :wait_check
+  scope :wait_ship
+  scope :wait_refund
+  scope :wait_confirm
+  scope :completed
+  scope :void
 
   filter :delivery_date
 
