@@ -1,6 +1,12 @@
+# encoding: utf-8
 ActiveAdmin.register Shipment do
   menu if: proc { can? :manage, Shipment }
   controller.authorize_resource
+
+  filter :tracking_num
+  filter :state, :as => :select, :collection => {"准备" => "ready", "发货" => "shiped", "未知" => "unknown"}
+  filter :cost
+  filter :note
 
   index do
     selectable_column

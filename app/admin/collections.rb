@@ -4,8 +4,6 @@ ActiveAdmin.register Collection do
 
   filter :name_zh
   filter :description
-  filter :created_at
-  filter :updated_at
 
   index do
     selectable_column
