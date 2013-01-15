@@ -24,7 +24,7 @@ ActiveAdmin.register Product do
   controller do
     helper :products
     def scoped_collection
-      Product.unscoped
+      Product.unscoped.includes(:assets, :collection)
     end
   end
 
