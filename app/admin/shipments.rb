@@ -14,6 +14,7 @@ ActiveAdmin.register Shipment do
   scope :completed
 
   controller do
+    helper :shipments
     def create
       @shipment = Shipment.new(params[:shipment])
       if @shipment.save
@@ -36,7 +37,6 @@ ActiveAdmin.register Shipment do
     shipment.accept
     redirect_to admin_shipments_path, :alert => t(:shipment_state_changed) + t(:completed)
   end
-
 
   index do
     selectable_column
