@@ -13,6 +13,8 @@ ActiveAdmin.register Transaction do
   scope :failed
 
   controller do
+    helper :transactions
+
     def create
       @transaction = Transaction.new(params[:transaction])
       if @transaction.save
