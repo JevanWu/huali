@@ -12,6 +12,12 @@ ActiveAdmin.register Order do
 
   filter :delivery_date
   filter :state, :as => :select, :collection => { "新建" => "generated", "结束" => "completed", "等待审核" => "wait_check", "等待确认" => "wait_confirm", "等待发货" => "wait_ship", "等待退款" => "wait_refund", "取消" => "void"  }
+  filter :address_fullname, :as => :string
+  filter :address_phone, :as => :string
+  filter :address_province_name, :as => :string
+  filter :address_city_name, :as => :string
+  filter :address_address, :as => :string
+
 
   controller do
     helper :orders
@@ -110,6 +116,14 @@ ActiveAdmin.register Order do
 
       row :receiver_phonenum do
         order.address.phone
+      end
+
+      row :receiver_province do
+        order.address.province.name
+      end
+
+      row :receiver_city do
+        order.address.city.name
       end
 
       row :receiver_address do
