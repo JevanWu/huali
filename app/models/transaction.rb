@@ -60,7 +60,7 @@ class Transaction < ActiveRecord::Base
     # FIXME might need a clock to timeout the processing
     state :processing do
       transition :to => :completed, :on => :complete
-      transition :to => :failed, :on => :failure
+      transition :to => :failed, :on => :fail
     end
   end
 

@@ -4,7 +4,7 @@ ActiveAdmin.register Transaction do
   controller.authorize_resource
 
   filter :paymethod
-  filter :state, :as => :select, :collection => { "新建" => "generated", "完成" => "completed", "处理中" => "processing", "失败" => "failure" }
+  filter :state, :as => :select, :collection => { "新建" => "generated", "完成" => "completed", "处理中" => "processing", "失败" => "fail" }
   filter :amount
 
   controller do
@@ -33,9 +33,9 @@ ActiveAdmin.register Transaction do
     redirect_to admin_transactions_path, :alert => t(:transaction_state_changed) + t(:completed)
   end
 
-  member_action :failure do
+  member_action :fail do
     transaction = Transaction.find_by_id(params[:id])
-    transaction.failure
+    transaction.fail
     redirect_to admin_transactions_path, :alert => t(:transaction_state_changed) + t(:failed)
   end
 

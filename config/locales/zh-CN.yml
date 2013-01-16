@@ -109,8 +109,7 @@ zh-CN:
   #states for transaction
   processing: "处理中"
   failed: "失败 "
-  failure: "失败"
-  complete: "完成 "
+  fail: "失败" complete: "完成 "
   start: "开始 "
   modify_transaction_state: "修改交易状态"
   transaction_state_changed: "交易状态变更为"

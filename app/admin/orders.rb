@@ -15,8 +15,6 @@ ActiveAdmin.register Order do
 
   controller do
     helper :orders
-    helper :transactions
-    helper :shipments
 
     def scoped_collection
       Order.includes(:transactions, :address)
