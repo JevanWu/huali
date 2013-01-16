@@ -32,11 +32,6 @@ class Transaction < ActiveRecord::Base
 
   before_validation :generate_identifier, on: :create
 
-  scope :generated, -> { where('state=?', "generated") }
-  scope :processing, -> { where('state=?', "processing") }
-  scope :completed, -> { where('state=?', "completed") }
-  scope :failed, -> { where('state=?', "failed") }
-
   validates_presence_of :identifier, :paymethod, :merchant_name, :amount, :subject
   validates :identifier, uniqueness: true
   validates :amount, numericality: true
@@ -65,7 +60,7 @@ class Transaction < ActiveRecord::Base
     # FIXME might need a clock to timeout the processing
     state :processing do
       transition :to => :completed, :on => :complete
-      transition :to => :failed, :on => :failure
+      transition :to => :failed, :on => :fail
     end
   end
 
@@ -94,6 +89,7 @@ class Transaction < ActiveRecord::Base
         else
           if transaction.check_deal(result)
             transaction.complete_deal(result)
+            transaction
           else
             false
           end

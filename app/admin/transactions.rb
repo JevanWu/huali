@@ -4,13 +4,8 @@ ActiveAdmin.register Transaction do
   controller.authorize_resource
 
   filter :paymethod
-  filter :state, :as => :select, :collection =>{ "新建" => "generated", "完成" => "completed", "处理中" => "processing", "失败" => "failure" }
+  filter :state, :as => :select, :collection => { "新建" => "generated", "完成" => "completed", "处理中" => "processing", "失败" => "fail" }
   filter :amount
-
-  scope :generated
-  scope :processing
-  scope :completed
-  scope :failed
 
   controller do
     helper :transactions
@@ -38,9 +33,9 @@ ActiveAdmin.register Transaction do
     redirect_to admin_transactions_path, :alert => t(:transaction_state_changed) + t(:completed)
   end
 
-  member_action :failure do
+  member_action :fail do
     transaction = Transaction.find_by_id(params[:id])
-    transaction.failure
+    transaction.fail
     redirect_to admin_transactions_path, :alert => t(:transaction_state_changed) + t(:failed)
   end
 
@@ -53,6 +48,13 @@ ActiveAdmin.register Transaction do
     end
     column :paymethod
     column :amount
+    column :merchant_trade_no do |transaction|
+      trade_no = transaction.merchant_trade_no
+      if trade_no
+        link_to trade_no, "https://merchantprod.alipay.com/trade/refund/fastPayRefund.htm?tradeNo=#{trade_no}&action=detail"
+      end
+    end
+
     column :state, sortable: :state do |transaction|
       transaction.state ? t(transaction.state) : nil
     end
@@ -75,7 +77,12 @@ ActiveAdmin.register Transaction do
         transaction.state ? t(transaction.state) : nil
       end
       row :amount
-      row :merchant_trade_no
+      row :merchant_trade_no do |transaction|
+        trade_no = transaction.merchant_trade_no
+        if trade_no
+          link_to trade_no, "https://merchantprod.alipay.com/trade/refund/fastPayRefund.htm?tradeNo=#{trade_no}&action=detail"
+        end
+      end
       row :subject
       row :body
     end

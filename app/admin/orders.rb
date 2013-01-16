@@ -1,3 +1,4 @@
+# encoding: utf-8
 ActiveAdmin.register Order do
   controller.authorize_resource
 
@@ -8,20 +9,18 @@ ActiveAdmin.register Order do
   scope :tomorrow
   scope :within_this_week
   scope :within_this_month
-  scope :generated
-  scope :wait_check
-  scope :wait_ship
-  scope :wait_refund
-  scope :wait_confirm
-  scope :completed
-  scope :void
 
   filter :delivery_date
+  filter :state, :as => :select, :collection => { "新建" => "generated", "结束" => "completed", "等待审核" => "wait_check", "等待确认" => "wait_confirm", "等待发货" => "wait_ship", "等待退款" => "wait_refund", "取消" => "void"  }
+  filter :address_fullname, :as => :string
+  filter :address_phone, :as => :string
+  filter :address_province_name, :as => :string
+  filter :address_city_name, :as => :string
+  filter :address_address, :as => :string
+
 
   controller do
     helper :orders
-    helper :transactions
-    helper :shipments
 
     def scoped_collection
       Order.includes(:transactions, :address, :line_items)
@@ -119,6 +118,14 @@ ActiveAdmin.register Order do
         order.address.phone
       end
 
+      row :receiver_province do
+        order.address.province.name
+      end
+
+      row :receiver_city do
+        order.address.city.name
+      end
+
       row :receiver_address do
         order.address.address
       end
@@ -131,20 +138,30 @@ ActiveAdmin.register Order do
         order.subject_text
       end
 
+      row :state do
+        t(order.state)
+      end
+
       row :gift_card_text
       row :special_instructions
       row :delivery_date
 
       row :transaction_info do
-        order.transactions.map do |transaction|
-          link_to transaction.identifier, admin_transaction_path(transaction)
-        end.join('</br>').html_safe
+        unless order.transactions.nil?
+          order.transactions.map do |transaction|
+            link_to(transaction.identifier, admin_transaction_path(transaction)) + \
+            label_tag(" " + t(transaction.state))
+          end.join('</br>').html_safe
+        end
       end
 
       row :shipment_info do
-        order.shipments.map do |shipment|
-          link_to shipment.identifier, admin_shipment_path(shipment)
-        end.join('</br>').html_safe
+        unless order.shipments.nil?
+          order.shipments.map do |shipment|
+            link_to(shipment.identifier, admin_shipment_path(shipment)) + \
+            label_tag(" " + t(shipment.state))
+          end.join('</br>').html_safe
+        end
       end
 
     end
