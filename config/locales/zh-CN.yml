@@ -82,7 +82,6 @@ zh-CN:
   paymethod: "支付方式"
   delivery_cost: "递送成本"
 
-
   distance:
     unit:
       one: "厘米"
@@ -145,18 +144,14 @@ zh-CN:
           area: "区域"
           address: "地址"
           post_code: "邮编"
-      user:
+      user: &register
         email: "邮箱"
         password: "密码"
         password_confirmation: "确认密码"
         current_password: "当前密码"
         remember_me: "记住我"
       administrator:
-        email: "邮箱"
-        password: "密码"
-        password_confirmation: "确认密码"
-        current_password: "当前密码"
-        remember_me: "记住我"
+        *register
     hints:
       user:
         edit:
@@ -198,7 +193,7 @@ zh-CN:
       ship_method: "递送方式"
 
     attributes:
-      order:
+      order: &order
         identifier: "订单编号"
         transaction_identifier: "交易编号"
         delivery_date: "递送日期"
