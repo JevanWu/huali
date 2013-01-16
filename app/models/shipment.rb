@@ -25,11 +25,6 @@
 class Shipment < ActiveRecord::Base
   attr_accessible :cost, :identifier, :note, :state, :tracking_num, :ship_method_id, :address_id, :order_id
 
-  scope :ready, -> { where('state=?', "ready") }
-  scope :shipped, -> { where('state=?', "shipped") }
-  scope :unknown, -> { where('state=?', "unknown") }
-  scope :completed, -> { where('state=?', "completed") }
-
   belongs_to :address
   belongs_to :ship_method
   belongs_to :order

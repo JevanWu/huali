@@ -1,3 +1,4 @@
+# encoding: utf-8
 ActiveAdmin.register Order do
   controller.authorize_resource
 
@@ -8,15 +9,9 @@ ActiveAdmin.register Order do
   scope :tomorrow
   scope :within_this_week
   scope :within_this_month
-  scope :generated
-  scope :wait_check
-  scope :wait_ship
-  scope :wait_refund
-  scope :wait_confirm
-  scope :completed
-  scope :void
 
   filter :delivery_date
+  filter :state, :as => :select, :collection => { "新建" => "generated", "结束" => "completed", "等待审核" => "wait_check", "等待确认" => "wait_confirm", "等待发货" => "wait_ship", "等待退款" => "wait_refund", "取消" => "void"  }
 
   controller do
     helper :orders

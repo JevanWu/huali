@@ -8,11 +8,6 @@ ActiveAdmin.register Shipment do
   filter :cost
   filter :note
 
-  scope :ready
-  scope :shipped
-  scope :unknown
-  scope :completed
-
   controller do
     helper :shipments
     def create

@@ -4,13 +4,8 @@ ActiveAdmin.register Transaction do
   controller.authorize_resource
 
   filter :paymethod
-  filter :state, :as => :select, :collection =>{ "新建" => "generated", "完成" => "completed", "处理中" => "processing", "失败" => "failure" }
+  filter :state, :as => :select, :collection => { "新建" => "generated", "完成" => "completed", "处理中" => "processing", "失败" => "failure" }
   filter :amount
-
-  scope :generated
-  scope :processing
-  scope :completed
-  scope :failed
 
   controller do
     helper :transactions
