@@ -89,6 +89,7 @@ class Transaction < ActiveRecord::Base
         else
           if transaction.check_deal(result)
             transaction.complete_deal(result)
+            transaction
           else
             false
           end

@@ -124,6 +124,10 @@ ActiveAdmin.register Order do
         order.subject_text
       end
 
+      row :state do
+        t(order.state)
+      end
+
       row :gift_card_text
       row :special_instructions
       row :delivery_date
@@ -140,7 +144,7 @@ ActiveAdmin.register Order do
       row :shipment_info do
         unless order.shipments.nil?
           order.shipments.map do |shipment|
-            link_to shipment.identifier, admin_shipment_path(shipment)
+            link_to(shipment.identifier, admin_shipment_path(shipment)) + \
             label_tag(" " + t(shipment.state))
           end.join('</br>').html_safe
         end
