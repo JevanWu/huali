@@ -136,15 +136,21 @@ ActiveAdmin.register Order do
       row :delivery_date
 
       row :transaction_info do
-        order.transactions.map do |transaction|
-          link_to transaction.identifier, admin_transaction_path(transaction)
-        end.join('</br>').html_safe
+        unless order.transactions.nil?
+          order.transactions.map do |transaction|
+            link_to(transaction.identifier, admin_transaction_path(transaction)) + \
+            label_tag(" " + t(transaction.state))
+          end.join('</br>').html_safe
+        end
       end
 
       row :shipment_info do
-        order.shipments.map do |shipment|
-          link_to shipment.identifier, admin_shipment_path(shipment)
-        end.join('</br>').html_safe
+        unless order.shipments.nil?
+          order.shipments.map do |shipment|
+            link_to shipment.identifier, admin_shipment_path(shipment)
+            label_tag(" " + t(shipment.state))
+          end.join('</br>').html_safe
+        end
       end
 
     end
