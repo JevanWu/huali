@@ -5,6 +5,11 @@ zh-CN:
       other: "厘米"
 
   activerecord:
+    format: ! '%{attribute} %{message}'
+    errors:
+      messages:
+        blank: "您需要填写此项"
+
     models:
       administrator: "管理用户"
       transaction: "交易"
