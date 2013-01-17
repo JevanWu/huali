@@ -80,6 +80,9 @@ class PagesController < ApplicationController
   def share
   end
 
+  def partner
+  end
+
   private
 
   def generate_order_num
