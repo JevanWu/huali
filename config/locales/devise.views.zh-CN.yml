@@ -25,7 +25,7 @@ zh-CN:
     passwords:
       new:
         forgot_your_password: 忘记密码？
-        send_me_reset_password_instructions: 给我发送重设密码的说明
+        send_me_reset_password_instructions: 重设密码
       edit:
         change_your_password: 更改您的密码
         new_password: 新密码

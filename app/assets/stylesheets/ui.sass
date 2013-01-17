@@ -20,19 +20,20 @@ a.subtle
     color: $grayLight
     background-color: transparent
     text-decoration: underline
-    
 
 .button
   background-color: $tintColor
   color: $white
-  border: none
   padding: 3px 8px
+  margin: 0px 5px
+  border: 1px solid $tintColor
+  line-height: inherit
 
   &:hover
     text-decoration: underline
 
 .button-alt
-  @extend a.button
+  @extend .button
   color: $tintColor
   background-color: $white
 

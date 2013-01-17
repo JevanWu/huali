@@ -8,27 +8,28 @@
   <%= render 'shared/account_nav' %>
 </div>
 
-<%= simple_form_for resource,
-  as: resource_name,
-  url: registration_path(resource_name),
-  html: { class: 'form-horizontal', method: :put } do |f| %>
-  <%= devise_error_messages! %>
+<div class='authentication'>
+  <div class='row'>
+    <p class='span4 meta'> 更改用户信息>> </p>
+    <%= simple_form_for resource,
+      as: resource_name,
+      url: registration_path(resource_name),
+      html: { class: 'span8 form-horizontal', method: :put } do |f| %>
+      <%= devise_error_messages! %>
 
-  <%= f.input :email, required: true %>
-  <%= f.input :password, required: true%>
-  <%= f.input :password_confirmation, required: true %>
+      <%= f.input :email, required: true %>
+      <%= f.input :password, required: true%>
+      <%= f.input :password_confirmation, required: true %>
 
-  <%= f.input :current_password, required: true %>
+      <%= f.input :current_password, required: true %>
 
-  <div class="form-actions">
-    <%= f.button :submit, t(:sign_up), class: 'button' %>
+      <div class="form-actions">
+        <%= f.button :submit, :sign_up, class: 'button' %>
+      </div>
+    <% end %>
   </div>
+  <div class='row'>
+    <p class='span4 meta'> 删除用户信息>> </p>
+    <p class='span8'><%= t(:unhappy) %> <%= link_to t(:cancel_my_account), registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
 
-<% end %>
-
-
-<h3><%= t(:cancel_my_account) %></h3>
-
-<p><%= t(:unhappy) %> <%= link_to t(:cancel_my_account), registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
-
-<%= link_to t(:back), :back %>
+</div>
