@@ -147,7 +147,7 @@ ActiveAdmin.register Order do
       row :delivery_date
 
       row :transaction_info do
-        unless order.transactions.nil?
+        unless order.transactions.blank?
           order.transactions.map do |transaction|
             link_to(transaction.identifier, admin_transaction_path(transaction)) + \
             label_tag(" " + t(transaction.state))
@@ -156,7 +156,7 @@ ActiveAdmin.register Order do
       end
 
       row :shipment_info do
-        unless order.shipments.nil?
+        unless order.shipments.blank?
           order.shipments.map do |shipment|
             link_to(shipment.identifier, admin_shipment_path(shipment)) + \
             label_tag(" " + t(shipment.state))
