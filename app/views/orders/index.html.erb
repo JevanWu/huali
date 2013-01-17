@@ -2,8 +2,12 @@
   <%= image_tag('title-account.png') %>
 <% end %>
 
-<% if @orders.empty? %>
-  <p>You have no Order</p>
+<% if @orders.blank? %>
+  <div class='row' id='cart-content'>
+    <p>
+      您还没有任何订单, 请去 <%= link_to '花市', root_path %> 开始采购.
+    </p>
+  </div>
 <% else %>
   <div class='row'>
     <%= render 'shared/account_nav' %>
