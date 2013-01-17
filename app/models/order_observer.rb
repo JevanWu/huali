@@ -3,7 +3,7 @@ class OrderObserver < ActiveRecord::Observer
     Notify.new_order_user_email(order.id).deliver
   end
 
-  def after_pay
+  def after_pay(order, transition)
     Notify.pay_order_user_email(order.id).deliver
   end
 end
