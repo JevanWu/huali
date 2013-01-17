@@ -21,6 +21,11 @@ class Notify < ActionMailer::Base
     mail(to: 's@zenhacks.org', subject: subject("订单付款成功", @order.subject_text))
   end
 
+  def ship_order_user_email(order_id)
+    @order = Order.full_info(order_id)
+    mail(to: 's@zenhacks.org', subject: subject("订单已发货", @order.subject_text))
+  end
+
   private
 
   # Examples
