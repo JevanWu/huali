@@ -32,14 +32,14 @@ class OrdersController < ApplicationController
       cookies.delete :cart
 
       flash[:notice] = "Successfully created order and addresses."
-      redirect_to checkout_order_path
+      redirect_to checkout_order_path(@order)
     else
       render 'new'
     end
   end
 
   def checkout
-    @order = Order.find_by_id(session[:order_id])
+    @order = Order.find_by_id(params[:id] || session[:order_id])
     @banks = ['ICBCB2C', 'CMB', 'CCB', 'BOCB2C', 'ABC', 'COMM', 'CMBC']
 
     if @order.blank?
