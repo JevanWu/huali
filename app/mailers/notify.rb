@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class Notify < ActionMailer::Base
   include Resque::Mailer
   add_template_helper ApplicationHelper
@@ -11,7 +13,7 @@ class Notify < ActionMailer::Base
 
   def new_order_user_email(order_id)
     @order = Order.full_info(order_id)
-    mail(to: 's@zenhacks.org', subject: subject("New Order", @order.subject_text))
+    mail(to: 's@zenhacks.org', subject: subject("新订单", @order.subject_text))
   end
 
   private

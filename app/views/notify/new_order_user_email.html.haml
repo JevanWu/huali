@@ -4,7 +4,7 @@
       %td{style: "font-size: 1px; line-height: 1px;", width: "21"}
       %td{align: "left", style: "padding: 20px 0 0;"}
         %h2{style: "color:#646464; font-weight: bold; margin: 0; padding: 0; line-height: 26px; font-size: 18px; font-family: Helvetica, Arial, sans-serif; "}
-          恭喜您, 您在花里购买的订单已经支付成功
+          恭喜您, 您在花里购买的订单已经生成
       %td{style: "font-size: 1px; line-height: 1px;", width: "21"}
     %tr
       %td{style: "font-size: 1px; line-height: 1px;", width: "21"}
@@ -15,12 +15,17 @@
           订购的
           = @order.subject_text + '.'
         %p{style: "color:#767676; font-weight: normal; margin: 0; padding: 0; line-height: 20px; font-size: 12px;font-family: Helvetica, Arial, sans-serif; "}
+          在您完成支付后，
           它将在
           = @order.delivery_date
           寄往
           = @order.address.full_addr + '.'
         %p{style: "color:#767676; font-weight: normal; margin: 0; padding: 0; line-height: 20px; font-size: 12px;font-family: Helvetica, Arial, sans-serif; "}
           您可在
+          = link_to '这里', checkout_order_url(@order)
+          完成支付.
+        %p{style: "color:#767676; font-weight: normal; margin: 0; padding: 0; line-height: 20px; font-size: 12px;font-family: Helvetica, Arial, sans-serif; "}
+          您也可以在
           = link_to '这里', order_url(@order)
           查看该订单的详细信息.
         %br
