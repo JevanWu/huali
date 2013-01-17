@@ -49,10 +49,7 @@ ActiveAdmin.register Transaction do
     column :paymethod
     column :amount
     column :merchant_trade_no do |transaction|
-      trade_no = transaction.merchant_trade_no
-      if trade_no
-        link_to trade_no, "https://merchantprod.alipay.com/trade/refund/fastPayRefund.htm?tradeNo=#{trade_no}&action=detail"
-      end
+      trade_no_link(transaction)
     end
 
     column :state, sortable: :state do |transaction|
@@ -78,10 +75,7 @@ ActiveAdmin.register Transaction do
       end
       row :amount
       row :merchant_trade_no do |transaction|
-        trade_no = transaction.merchant_trade_no
-        if trade_no
-          link_to trade_no, "https://merchantprod.alipay.com/trade/refund/fastPayRefund.htm?tradeNo=#{trade_no}&action=detail"
-        end
+        trade_no_link(transaction)
       end
       row :subject
       row :body
