@@ -1,5 +1,5 @@
 module TransactionsHelper
-  def trade_no_link(transaction)
+  def merchant_trade_link(transaction)
     trade_no = transaction.merchant_trade_no
     if trade_no
       link_to trade_no, "https://merchantprod.alipay.com/trade/refund/fastPayRefund.htm?tradeNo=#{trade_no}&action=detail"
