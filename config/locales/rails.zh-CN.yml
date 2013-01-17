@@ -4,12 +4,6 @@ zh-CN:
       one: "厘米"
       other: "厘米"
 
-  helpers:
-    submit:
-      user:
-        update: "更新账户"
-        create: "注册账户"
-
   activerecord:
     models:
       administrator: "管理用户"
