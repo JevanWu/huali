@@ -14,13 +14,12 @@ class OrdersController < ApplicationController
   end
 
   def new
+    validate_cart
     @order = Order.new
     @order.build_address
   end
 
   def create
-    validate_cart
-
     @order = current_or_guest_user.orders.build(params[:order])
 
     # create line items
@@ -83,10 +82,12 @@ class OrdersController < ApplicationController
   private
 
     def validate_cart
-      # TODO check against invalid cart
       # - no line items present
       # - zero quantity
-      true
+      if @cart.blank? || @cart.all? { |k, v| v.to_i <= 0 }
+        flash[:alert] = "No items in the cart, please add items first."
+        redirect_to :root
+      end
     end
 
     def load_cart
