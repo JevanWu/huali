@@ -10,12 +10,7 @@
   <%= image_tag('title-checkout.png') %>
 <% end %>
 
-<div class='row'>
-  <div class='span4 checkout-back'>
-    <%= link_to t(:back), current_order_path %>
-  </div>
-  <%= render 'checkout_nav' %>
-</div>
+<%= render 'checkout_nav' %>
 
 <div class='row'>
   <div class="span4">

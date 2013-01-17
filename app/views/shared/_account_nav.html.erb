@@ -1,3 +1,6 @@
+<div class='span4 nav-back'>
+  <%= link_to '返回', :back %>
+</div>
 <ul id='account-nav' class='info-nav span8'>
   <li class='<%= current_if_controller('orders') %>'>
     <%= link_to "所有订单", orders_path %>
