@@ -1,0 +1,26 @@
+zh-CN:
+  simple_form:
+    labels:
+      order:
+        address:
+          fullname: "全名"
+          phone: "电话"
+          province: "省份"
+          city: "城市"
+          area: "区域"
+          address: "地址"
+          post_code: "邮编"
+      user: &register
+        email: "邮箱"
+        password: "密码"
+        password_confirmation: "确认密码"
+        current_password: "当前密码"
+        remember_me: "记住我"
+      administrator:
+        *register
+    hints:
+      user:
+        edit:
+          email: "如果您不想改变,请留空"
+          current_password: "我们需要您当前的密码"
+
