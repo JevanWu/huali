@@ -41,6 +41,7 @@ class Order < ActiveRecord::Base
   before_validation :generate_identifier, on: :create
   after_validation :cal_total
 
+  validate :delivery_date_in_range, on: :create
   validates :identifier, presence: true
   validates_presence_of :line_items, :delivery_date, :state, :total, :item_total
 
@@ -181,6 +182,12 @@ class Order < ActiveRecord::Base
   end
 
   private
+
+  def delivery_date_in_range
+    unless delivery_date.in? Date.today.tomorrow..Date.today.next_month
+      errors.add(:delivery_date, "The delivery is not available on #{delivery_date}.")
+    end
+  end
 
   def body_text
     # prepare body text for transaction
