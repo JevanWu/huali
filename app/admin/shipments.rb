@@ -28,13 +28,13 @@ ActiveAdmin.register Shipment do
   member_action :ship do
     shipment = Shipment.find_by_id(params[:id])
     shipment.ship
-    redirect_to admin_shipments_path, :alert => t(:shipment_state_changed) + t(:shipped)
+    redirect_to admin_orders_path, :alert => t(:shipment_state_changed) + t(:shipped)
   end
 
   member_action :accept do
     shipment = Shipment.find_by_id(params[:id])
     shipment.accept
-    redirect_to admin_shipments_path, :alert => t(:shipment_state_changed) + t(:completed)
+    redirect_to admin_orders_path, :alert => t(:shipment_state_changed) + t(:completed)
   end
 
   index do
