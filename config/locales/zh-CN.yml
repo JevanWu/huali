@@ -44,13 +44,6 @@ zh-CN:
   choose_pay_method: "选择支付方式"
   paid: "支付完成"
 
-  # devise view
-  sign_in: "登陆"
-  sign_up: "注册"
-  forgot_your_password: "找回密码"
-  cancel_my_account: "取消我的账号"
-  unhappy: "不高兴了?"
-
   # order view
   identifier: "订单编号"
   order_info: "订单信息"
@@ -75,6 +68,7 @@ zh-CN:
   pay_and_ship_method: "支付和配送方式"
   paymethod: "支付方式"
   delivery_cost: "递送成本"
+  unhappy: "不高兴了?"
 
 
   #states for order
@@ -112,3 +106,4 @@ zh-CN:
   accept: "送达 "
   modify_shipment_state: "修改递送状态"
   shipment_state_changed: "递送状态变更为"
+
