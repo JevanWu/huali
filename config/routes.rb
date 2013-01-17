@@ -1,4 +1,13 @@
 Huali::Application.routes.draw do
+  # Optionally, enable Resque here
+  require 'resque/server'
+  resque_constraint = lambda do |request|
+    request.env['warden'].authenticate!({ :scope => :administrator })
+  end
+  constraints resque_constraint do
+    mount Resque::Server.new, :at => "/admin/resque", as: 'resque'
+  end
+
   get "areas/:area_id", :to => 'areas#show'
   get "cities/:city_id/areas", :to => 'areas#index'
   get "cities/:city_id", :to => 'cities#show'
