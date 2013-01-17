@@ -1,6 +1,11 @@
 # encoding: utf-8
 ActiveAdmin.register Order do
-  controller.authorize_resource
+  menu unless: proc { cannot? :read, Page }
+
+  controller do
+    include ActiveAdminCanCan
+    authorize_resource
+  end
 
   actions :all, :except => :new
 
@@ -11,7 +16,16 @@ ActiveAdmin.register Order do
   scope :within_this_month
 
   filter :delivery_date
-  filter :state, :as => :select, :collection => { "新建" => "generated", "结束" => "completed", "等待审核" => "wait_check", "等待确认" => "wait_confirm", "等待发货" => "wait_ship", "等待退款" => "wait_refund", "取消" => "void"  }
+  filter :state, :as => :select, :collection =>
+    { "新建" => "generated",
+      "结束" => "completed",
+      "等待审核" => "wait_check",
+      "等待确认" => "wait_confirm",
+      "等待发货" => "wait_ship",
+      "等待退款" => "wait_refund",
+      "取消" => "void"
+    }
+
   filter :address_fullname, :as => :string
   filter :address_phone, :as => :string
   filter :address_province_name, :as => :string

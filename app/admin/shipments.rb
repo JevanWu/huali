@@ -1,7 +1,11 @@
 # encoding: utf-8
 ActiveAdmin.register Shipment do
-  menu if: proc { can? :manage, Shipment }
-  controller.authorize_resource
+  menu if: proc { can? :read, Shipment }
+
+  controller do
+    include ActiveAdminCanCan
+    authorize_resource
+  end
 
   filter :tracking_num
   filter :state, :as => :select, :collection => {"准备" => "ready", "发货" => "shipped", "未知" => "unknown"}

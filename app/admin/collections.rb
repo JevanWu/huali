@@ -1,6 +1,10 @@
 ActiveAdmin.register Collection do
-  menu if: proc { can? :manage, Collection }
-  controller.authorize_resource
+  menu if: proc { can? :read, Collection }
+
+  controller do
+    include ActiveAdminCanCan
+    authorize_resource
+  end
 
   filter :name_zh
   filter :description

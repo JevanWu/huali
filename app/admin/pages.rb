@@ -1,6 +1,11 @@
 ActiveAdmin.register Page do
-  menu if: proc { can? :manage, Page }
-  controller.authorize_resource
+  menu if: proc { can? :read, Page }
+
+  controller do
+    include ActiveAdminCanCan
+    authorize_resource
+  end
+
 
   filter :title_zh
   controller do
