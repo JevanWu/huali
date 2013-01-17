@@ -13,7 +13,6 @@ class AdminAbility
       cannot :manage, Resque
     when "supplier"
       cannot :read, Order
-      cannot :read, Transaction
       can :read, Order, state: 'wait_ship'
       can [:create, :ship], Shipment
     end
