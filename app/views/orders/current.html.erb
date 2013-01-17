@@ -2,9 +2,11 @@
   <%= image_tag('title-basket.png') %>
 <% end %>
 
-<div class="row">
+<div class="row" id="cart-content">
   <% if @products.blank? %>
-    <p>Empty Cart</p>
+    <p>
+      您还没有任何订单, 请去 <%= link_to '花市', root_path %> 开始采购.
+    </p>
   <% else %>
     <table class='item-table cart-table table table-striped table-hover'>
       <thead>
