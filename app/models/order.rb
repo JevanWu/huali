@@ -39,10 +39,10 @@ class Order < ActiveRecord::Base
   accepts_nested_attributes_for :address
 
   before_validation :generate_identifier, on: :create
-  before_validation :cal_total
+  after_validation :cal_total
 
   validates :identifier, presence: true
-  validates_presence_of :delivery_date, :state, :total, :item_total
+  validates_presence_of :line_items, :delivery_date, :state, :total, :item_total
 
   state_machine :state, :initial => :generated do
     # TODO implement an auth_state dynamically for each state

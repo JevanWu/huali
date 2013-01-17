@@ -1,4 +1,7 @@
 <%= simple_form_for @order, html: { class: 'form-horizontal', id: 'new-order'} do |f| %>
+  <div class="control-group error section-error">
+    <%= f.full_error :line_items %>
+  </div>
   <%= f.input :delivery_date, as: :string, required:true, input_html: { class: 'datepicker' }, placeholder: '寄给TA的时间' %>
 
   <%= f.fields_for :address do |builder|%>
