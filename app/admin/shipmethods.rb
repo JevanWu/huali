@@ -1,6 +1,10 @@
 ActiveAdmin.register ShipMethod do
-  menu if: proc { can? :manage, ShipMethod }
-  controller.authorize_resource
+  menu if: proc { can? :read, ShipMethod }
+
+  controller do
+    include ActiveAdminCanCan
+    authorize_resource
+  end
 
   index do
     selectable_column

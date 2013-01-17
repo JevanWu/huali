@@ -1,7 +1,11 @@
 # encoding: utf-8
 ActiveAdmin.register Transaction do
-  menu if: proc { can?(:manage, Transaction) }
-  controller.authorize_resource
+  menu if: proc { can? :read, Transaction }
+
+  controller do
+    include ActiveAdminCanCan
+    authorize_resource
+  end
 
   filter :paymethod
   filter :state, :as => :select, :collection => { "新建" => "generated", "完成" => "completed", "处理中" => "processing", "失败" => "fail" }

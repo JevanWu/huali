@@ -1,6 +1,10 @@
 ActiveAdmin.register Product do
-  menu if: proc { can? :manage, Product }
-  controller.authorize_resource
+  menu if: proc { can? :read, Product }
+
+  controller do
+    include ActiveAdminCanCan
+    authorize_resource
+  end
 
   [ :enable!,
     :disable!
