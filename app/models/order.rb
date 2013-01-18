@@ -46,7 +46,9 @@ class Order < ActiveRecord::Base
 
   validates :identifier, presence: true
   validates_presence_of :line_items, :delivery_date, :state, :total, :item_total, :sender_email, :sender_phone, :sender_name
+  # only validate once on Date.today, because in future Date.today will change
   validate :delivery_date_in_range, on: :create
+  validate :phone_validate
 
   state_machine :state, :initial => :generated do
     # TODO implement an auth_state dynamically for each state
@@ -190,6 +192,13 @@ class Order < ActiveRecord::Base
     unless delivery_date.in? Date.today.tomorrow..Date.today.next_month
       errors.add(:delivery_date, "The delivery is not available on #{delivery_date}.")
     end
+  end
+
+  def phone_validate
+    return if sender_phone.blank?
+    n_digits = sender_phone.scan(/[0-9]/).size
+    valid_chars = (sender_phone =~ /^[-+()\/\s\d]+$/)
+    errors.add :sender_phone, :invalid unless (n_digits >= 8 && valid_chars)
   end
 
   def body_text
