@@ -49,7 +49,7 @@ class OrdersController < ApplicationController
   end
 
   def gateway
-    @order = Order.find_by_id(session[:order_id])
+    @order = Order.find_by_id(params[:id] || session[:order_id])
 
     # TODO make params[:pay_info] more clear
     # currently it is mixed with two kinds of inf - pay method and merchant_name
