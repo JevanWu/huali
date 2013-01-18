@@ -4,8 +4,8 @@ class Notify < ActionMailer::Base
   include Resque::Mailer
   add_template_helper ApplicationHelper
 
-  default_url_options[:host] = $host
   default from: 'support@hua.li'
+  default_url_options[:host] = 'hua.li'
 
   # For User
   def new_order_user_email(order_id)
