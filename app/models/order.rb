@@ -191,7 +191,7 @@ class Order < ActiveRecord::Base
 
   def delivery_date_in_range
     unless delivery_date.in? Date.today.tomorrow..Date.today.next_month
-      errors.add :delivery_date, :cannt_delivery_on_this_date
+      errors.add :delivery_date, :unavailable_date
     end
   end
 
