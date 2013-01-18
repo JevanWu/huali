@@ -29,4 +29,13 @@ class Area < ActiveRecord::Base
     post_code
   end
 
+  def enable
+    self.available = true
+    self.save
+  end
+
+  def disable
+    self.available = false
+    self.save
+  end
 end

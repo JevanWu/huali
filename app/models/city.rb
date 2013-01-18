@@ -39,4 +39,14 @@ class City < ActiveRecord::Base
       area.save
     end
   end
+
+  def enable
+    self.available = true
+    self.save
+  end
+
+  def disable
+    self.available = false
+    self.save
+  end
 end

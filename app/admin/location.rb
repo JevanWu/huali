@@ -9,6 +9,17 @@ ActiveAdmin.register Province do
   scope :available
   scope :unavailable
 
+  [ :enable,
+    :disable
+  ].each do |action|
+      batch_action I18n.t(action) do |selection|
+        provinces = Province.find(selection)
+        provinces.each { |province| province.send(action) }
+        redirect_to :back, :notice => provinces.count.to_s + t(:province_updated)
+      end
+    end
+  batch_action :destroy, false
+
   member_action :enable  do
     province = Province.find_by_id(params[:id])
     province.available = true
@@ -77,6 +88,17 @@ ActiveAdmin.register City do
     as: :select,
     collection: proc { Province.unscoped.reduce({}) { |m, p| m[p.name] = p.post_code; m } }
 
+  [ :enable,
+    :disable
+  ].each do |action|
+      batch_action I18n.t(action) do |selection|
+        cities = City.find(selection)
+        cities.each { |city| city.send(action) }
+        redirect_to :back, :notice => cities.count.to_s + t(:city_updated)
+      end
+    end
+  batch_action :destroy, false
+
   member_action :enable  do
     city = City.find_by_id(params[:id])
     city.available = true
@@ -142,6 +164,17 @@ ActiveAdmin.register Area do
 
   scope :available
   scope :unavailable
+
+  [ :enable,
+    :disable
+  ].each do |action|
+      batch_action I18n.t(action) do |selection|
+        areas = Area.find(selection)
+        areas.each { |area| area.send(action) }
+        redirect_to :back, :notice => areas.count.to_s + t(:area_updated)
+      end
+    end
+  batch_action :destroy, false
 
   member_action :enable  do
     area = Area.find_by_id(params[:id])
