@@ -11,7 +11,7 @@ module OrdersHelper
   def order_state_shift(order)
     case order.state
     when "generated"
-      link_to(t(:pay), new_admin_transaction_path(:"transaction[order_id]" => order.id, :"transaction[amount]" => order.total, :"transaction[subject]" => order.subject_text)) + \
+      #link_to(t(:pay), new_admin_transaction_path(:"transaction[order_id]" => order.id, :"transaction[amount]" => order.total, :"transaction[subject]" => order.subject_text)) + \
       link_to(t(:cancel), cancel_admin_order_path(order))
     when "wait_check"
       link_to(t(:check), check_admin_order_path(order), :confirm => t(:confirm_check)) + \
