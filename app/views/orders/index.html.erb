@@ -2,6 +2,9 @@
   <%= image_tag('title-account.png') %>
 <% end %>
 
+<div class='row'>
+  <%= render 'shared/account_nav' %>
+</div>
 <% if @orders.blank? %>
   <div class='row' id='cart-content'>
     <p>
@@ -9,10 +12,6 @@
     </p>
   </div>
 <% else %>
-  <div class='row'>
-    <%= render 'shared/account_nav' %>
-  </div>
-
   <div id="order-summary" class='row'>
     <table class="table table-bordered">
       <thead>

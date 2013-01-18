@@ -14,6 +14,8 @@
       <%= f.input :email, required: true %>
       <%= f.input :password, required: true%>
       <%= f.input :password_confirmation, required: true %>
+      <%= f.input :name, placeholder: '您的称呼, 以便我们和您联系' %>
+      <%= f.input :phone, placeholder: '以便我们和您核对信息'  %>
 
       <div class="form-actions">
         <%= f.button :submit, t('.sign_up'), class: 'button' %>
