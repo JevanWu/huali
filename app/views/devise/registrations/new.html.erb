@@ -5,8 +5,8 @@
 <div class='authentication'>
   <div class='row'>
     <p class='span4 meta'> 通过邮箱注册>> </p>
-    <%= simple_form_for resource, 
-      as: resource_name, 
+    <%= simple_form_for resource,
+      as: resource_name,
       url: registration_path(resource_name),
       html: { class: 'span8 form-horizontal' } do |f| %>
       <%= devise_error_messages! %>
@@ -17,12 +17,12 @@
 
       <div class="form-actions">
         <%= f.button :submit, t('.sign_up'), class: 'button' %>
-        <%= link_to t(".sign_in"), new_session_path(resource_name), class: 'button-alt' %><br />
+        <%= link_to t("sign_in"), new_session_path(resource_name), class: 'button-alt' %><br />
       </div>
 
       <div class='control-group'>
         <div class='controls'>
-          <%= link_to t(".forgot_your_password"), new_password_path(resource_name), class:'forget-psw' %>
+          <%= link_to t("forgot_your_password"), new_password_path(resource_name), class:'forget-psw' %>
         </div>
       </div>
 

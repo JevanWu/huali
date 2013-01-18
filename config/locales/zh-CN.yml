@@ -35,6 +35,9 @@ zh-CN:
   quantity: "数量"
   confirm_to_pay: "确认支付"
   add_image: "新增图片"
+  sign_up: "注册"
+  sign_in: "登陆"
+  forgot_your_password: "忘记你的密码"
 
   # shipmethod
   express: "快递"
@@ -112,3 +115,4 @@ zh-CN:
   order_success: "您已经成功创建订单和地址信息"
   order_not_exist: "此订单不存在"
   no_items: "还没有花在购花篮, 请先选购"
+
