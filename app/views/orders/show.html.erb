@@ -19,10 +19,10 @@
           <strong><%= t(:state) %></strong>: <%= t(@order.state) %>
         </td>
         <td>
-          <strong><%= t(:created_at) %></strong>: <%= @order.created_at %>
+          <strong><%= t(:created_at) %></strong>: <%= l @order.created_at, :format => :short %>
         </td>
         <td>
-          <strong><%= t(:delivery_date) %></strong>: <%= @order.delivery_date %>
+          <strong><%= t(:delivery_date) %></strong>: <%= l @order.delivery_date, :format => :short %>
         </td>
       </tr>
     </tbody>
