@@ -70,6 +70,7 @@ zh-CN:
   paymethod: "支付方式"
   delivery_cost: "递送成本"
   unhappy: "不高兴了?"
+  confirm_check: "你确定审核通过此订单"
 
 
   #states for order
