@@ -1,6 +1,6 @@
 class ProvincesController < ApplicationController
   def index
-    provinces = Province.all
+    provinces = Province.available
 
     respond_to do |format|
       format.json { render json: provinces }
@@ -8,7 +8,7 @@ class ProvincesController < ApplicationController
   end
 
   def show
-    province = Province.find params[:prov_id]
+    province = Province.available.find params[:prov_id]
 
     respond_to do |format|
       format.json { render json: province }

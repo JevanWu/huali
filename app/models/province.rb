@@ -13,16 +13,28 @@
 #
 
 class Province < ActiveRecord::Base
-  # read-only
+  # mainly read-only Model
+  attr_accessible :available
+  scope :available, lambda { where available: true }
+  scope :unavailable, lambda { where available: false }
+  default_scope lambda { where available: true }
+
+  after_save :update_cities_availability
 
   has_many :cities, order: 'post_code ASC', foreign_key: 'parent_post_code', primary_key: 'post_code', dependent: :destroy
 
   has_many :addresses
 
-  validates :name, :post_code, :presence => true
+  validates_presence_of :name, :post_code
 
   def to_s
     post_code
   end
 
+  def update_cities_availability
+    cities.each do |area|
+      area.available = available
+      area.save
+    end
+  end
 end
