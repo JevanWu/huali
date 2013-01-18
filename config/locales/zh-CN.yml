@@ -108,3 +108,7 @@ zh-CN:
   modify_shipment_state: "修改递送状态"
   shipment_state_changed: "递送状态变更为"
 
+  #flash message
+  order_success: "您已经成功创建订单和地址信息"
+  order_not_exist: "此订单不存在"
+  no_items: "还没有花在购花篮, 请先选购"
