@@ -35,9 +35,6 @@ zh-CN:
   quantity: "数量"
   confirm_to_pay: "确认支付"
   add_image: "新增图片"
-  sign_up: "注册"
-  sign_in: "登陆"
-  forgot_your_password: "忘记你的密码"
 
   # shipmethod
   express: "快递"
