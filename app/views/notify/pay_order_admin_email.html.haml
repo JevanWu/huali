@@ -1,0 +1,32 @@
+%td.content{align: "left", style: "font-family: Helvetica, Arial, sans-serif; padding: 20px 0 0;", valign: "top", width: "600"}
+  %table{border: "0", cellpadding: "0", cellspacing: "0", style: "color: #717171; font: normal 11px Helvetica, Arial, sans-serif; margin: 0; padding: 0;", width: "600"}
+    %tr
+      %td{style: "font-size: 1px; line-height: 1px;", width: "21"}
+      %td{align: "left", style: "padding: 20px 0 0;"}
+        %h2{style: "color:#646464; font-weight: bold; margin: 0; padding: 0; line-height: 26px; font-size: 18px; font-family: Helvetica, Arial, sans-serif; "}
+          有新订单已经支付成功。
+      %td{style: "font-size: 1px; line-height: 1px;", width: "21"}
+    %tr
+      %td{style: "font-size: 1px; line-height: 1px;", width: "21"}
+      %td{style: "padding: 15px 0 15px;", valign: "top"}
+        %p{style: "color:#767676; font-weight: normal; margin: 0; padding: 0; line-height: 20px; font-size: 12px;font-family: Helvetica, Arial, sans-serif; "}
+          = @order.sender_name
+          已经为
+          = @order.subject_text
+          支付了
+          = @order.payment_total
+        %p{style: "color:#767676; font-weight: normal; margin: 0; padding: 0; line-height: 20px; font-size: 12px;font-family: Helvetica, Arial, sans-serif; "}
+          请在
+          = link_to '这里', admin_order_url(@order)
+          审核该订单的详细信息.
+        %p{style: "color:#767676; font-weight: normal; margin: 0; padding: 0; line-height: 20px; font-size: 12px;font-family: Helvetica, Arial, sans-serif; "}
+          如果需要联系该顾客，
+          他的邮件是
+          = mail_to @order.sender_email, subject: "花里|关于#{@order.identifier}", body: "尊敬的#{@order.sender_name}\n"
+          他的联系方式是
+          = @order.sender_phone
+        %br
+          %table{border: "0", cellpadding: "0", cellspacing: "0", width: "558"}
+            %tr
+              %td{valign: "top"}
+                %div{ style: "background:#f5f5f5; padding:20px;border:1px solid #ddd" }
