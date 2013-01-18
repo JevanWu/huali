@@ -5,9 +5,11 @@
   <li class='<%= current_if_controller('orders') %>'>
     <%= link_to "所有订单", orders_path %>
   </li>
-  <li class='<%= current_if_controller('addresses') %>'>
-    <%= link_to "地址信息", '' %>
-  </li>
+  <!-- 
+    <li class='<%= current_if_controller('addresses') %>'>
+      <%= link_to "地址信息", '' %>
+    </li>
+  -->
   <li class='<%= current_if_controller('users', 'registrations') %>'>
     <%= link_to "账户信息", edit_user_registration_path %>
   </li>
