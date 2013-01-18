@@ -8,7 +8,7 @@ ActiveAdmin.register Transaction do
   end
 
   filter :paymethod
-  filter :state, :as => :select, :collection => { "新建" => "generated", "完成" => "completed", "处理中" => "processing", "失败" => "fail" }
+  filter :state, :as => :select, :collection => { "新建" => "generated", "完成" => "completed", "处理中" => "processing", "失败" => "failed" }
   filter :amount
 
   controller do
@@ -39,7 +39,7 @@ ActiveAdmin.register Transaction do
 
   member_action :fail do
     transaction = Transaction.find_by_id(params[:id])
-    transaction.fail
+    transaction.failure
     redirect_to admin_transactions_path, :alert => t(:transaction_state_changed) + t(:failed)
   end
 

@@ -45,7 +45,6 @@ class Transaction < ActiveRecord::Base
     message: "%{value} is not a valid merchant name."
   }
 
-  StateMachine::Machine.ignore_method_conflicts = true
   state_machine :state, :initial => :generated do
     before_transition :to => :completed, :do => :check_return
     after_transition :to => :completed, :do => :notify_order
@@ -61,7 +60,8 @@ class Transaction < ActiveRecord::Base
     # FIXME might need a clock to timeout the processing
     state :processing do
       transition :to => :completed, :on => :complete
-      transition :to => :failed, :on => :fail
+      # fail is reserved for native method name
+      transition :to => :failed, :on => :failure
     end
   end
 
