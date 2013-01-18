@@ -81,12 +81,12 @@ class Product < ActiveRecord::Base
     @available
   end
 
-  def enable!
+  def enable
     self.available = true
     self.save
   end
 
-  def disable!
+  def disable
     self.available = false
     self.save
   end

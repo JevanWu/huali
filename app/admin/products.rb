@@ -6,8 +6,8 @@ ActiveAdmin.register Product do
     authorize_resource
   end
 
-  [ :enable!,
-    :disable!
+  [ :enable,
+    :disable
  ].each do |action|
     batch_action I18n.t(action) do |selection|
       products = Product.unscoped.find(selection)
