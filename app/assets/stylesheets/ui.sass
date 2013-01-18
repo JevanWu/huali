@@ -1,22 +1,60 @@
+abbr[title='required']
+  color: $tintColor
+
 a.logo
   vertical-align: bottom
 
   &:hover
     background-color: transparent
 
+// links used as action trigger
+a.trigger
+  +opacity(30)
+
+  &:hover
+    +opacity(100)
+    background-color: transparent
+
+a.subtle
+  color: $grayLight
+  // font-size: 90%
+
+  &:hover
+    color: $grayLight
+    background-color: transparent
+    text-decoration: underline
+
+.nav-back
+  text-align: center
+  a
+    padding-left: 15px
+    color: $grayLight
+    background: url('back-tri.png') no-repeat 0 4px
+
+    &:hover
+      color: $gray
+      background: transparent url('back-tri-hover.png') no-repeat 0 4px
+
 .button
   background-color: $tintColor
   color: $white
-  border: none
   padding: 3px 8px
+  margin: 0px 5px
+  border: 1px solid $tintColor
+  line-height: inherit
 
   &:hover
     text-decoration: underline
 
 .button-alt
-  @extend a.button
+  @extend .button
   color: $tintColor
   background-color: $white
+
+  &:hover
+    background-color: $white
+    color: $tintColor
+    text-decoration: underline
 
 ul.nav
   list-style: none outside none
@@ -27,6 +65,7 @@ ul.nav
 p.meta
   color: $grayLight
   margin-top: 0
+
 
 // mod: links
 // desc: use ul>li element as a list of links

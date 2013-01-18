@@ -13,6 +13,7 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string(255)
+#  role                   :string(255)      default("admin"), not null
 #  sign_in_count          :integer          default(0)
 #  updated_at             :datetime         not null
 #
@@ -29,6 +30,9 @@ class Administrator < ActiveRecord::Base
   devise :database_authenticatable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
-  # attr_accessible :title, :body
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :role
+  validates :role, inclusion: {
+    in: %w(super admin supplier),
+    message: "%{value} is not a valid administrator role."
+  }
 end

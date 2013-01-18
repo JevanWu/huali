@@ -8,19 +8,21 @@
 #  count_on_hand    :integer          default(0), not null
 #  created_at       :datetime         not null
 #  depth            :decimal(8, 2)
-#  description      :text
+#  description_en   :text
+#  description_zh   :text
 #  height           :decimal(8, 2)
 #  id               :integer          not null, primary key
-#  info_source      :text
-#  inspiration      :text
+#  inspiration_en   :text
+#  inspiration_zh   :text
 #  meta_description :string(255)
 #  meta_keywords    :string(255)
 #  name_char        :string(255)
-#  name_cn          :string(255)      default(""), not null
 #  name_en          :string(255)      default(""), not null
+#  name_zh          :string(255)      default(""), not null
 #  original_price   :decimal(, )
 #  price            :decimal(8, 2)
-#  related_text     :text
+#  published_en     :boolean          default(FALSE)
+#  published_zh     :boolean          default(FALSE)
 #  slug             :string(255)
 #  updated_at       :datetime         not null
 #  width            :decimal(8, 2)
@@ -52,7 +54,7 @@ class Product < ActiveRecord::Base
   translate :name, :description, :inspiration
 
   # validations
-  validates :name_en, :name_zh, :inspiration_zh, :count_on_hand, :presence => true
+  validates_presence_of :name_en, :name_zh, :inspiration_zh, :count_on_hand, :assets
 
   # scopes
   default_scope lambda { published.order('created_at DESC') }
@@ -95,5 +97,9 @@ class Product < ActiveRecord::Base
 
   def new?
     created_at >= 2.weeks.ago
+  end
+
+  def img(size)
+    assets.first.image.url(size)
   end
 end

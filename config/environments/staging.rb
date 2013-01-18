@@ -5,7 +5,7 @@ Huali::Application.configure do
   config.cache_classes = true
 
   # Full error reports are disabled and caching is turned on
-  config.consider_all_requests_local       = false
+  config.consider_all_requests_local       = true
   config.action_controller.perform_caching = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
@@ -46,7 +46,7 @@ Huali::Application.configure do
   # config.action_controller.asset_host = "http://assets.example.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w( ie6.css ie7.css home.js collections.js products.js pages.js ga.js html5shiv.js jquery/core.js)
+  config.assets.precompile += %w( mobile.css ie6.css ie7.css jquery.ui.datepicker.css home.js collections.js products.js pages.js ga.js html5shiv.js datepicker-settings.js)
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false

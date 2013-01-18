@@ -1,4 +1,10 @@
 ActiveAdmin.register Asset do
+  menu if: proc { can? :read, Asset }
+
+  controller do
+    include ActiveAdminCanCan
+    authorize_resource
+  end
 
   filter :viewable_type, :as => :select, :collection =>  proc { Asset.pluck(:viewable_type).uniq }
   filter :image_file_name
@@ -33,7 +39,7 @@ ActiveAdmin.register Asset do
     default_actions
   end
 
-  show do |asset|
+  show do
     attributes_table do
       row :viewable_type
 

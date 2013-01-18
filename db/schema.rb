@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121218054308) do
+ActiveRecord::Schema.define(:version => 20130118190152) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -42,8 +42,8 @@ ActiveRecord::Schema.define(:version => 20121218054308) do
   end
 
   create_table "administrators", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "email",                  :default => "",      :null => false
+    t.string   "encrypted_password",     :default => "",      :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -52,8 +52,9 @@ ActiveRecord::Schema.define(:version => 20121218054308) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
+    t.string   "role",                   :default => "admin", :null => false
   end
 
   add_index "administrators", ["email"], :name => "index_administrators_on_email", :unique => true
@@ -63,6 +64,7 @@ ActiveRecord::Schema.define(:version => 20121218054308) do
     t.string  "name"
     t.integer "post_code"
     t.integer "parent_post_code"
+    t.boolean "available",        :default => false, :null => false
   end
 
   add_index "areas", ["post_code"], :name => "index_areas_on_post_code", :unique => true
@@ -83,12 +85,13 @@ ActiveRecord::Schema.define(:version => 20121218054308) do
     t.string  "name"
     t.integer "post_code"
     t.integer "parent_post_code"
+    t.boolean "available",        :default => false, :null => false
   end
 
   add_index "cities", ["post_code"], :name => "index_cities_on_post_code", :unique => true
 
   create_table "collections", :force => true do |t|
-    t.string   "name_cn",     :null => false
+    t.string   "name_zh",     :null => false
     t.string   "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
@@ -98,14 +101,34 @@ ActiveRecord::Schema.define(:version => 20121218054308) do
   create_table "line_items", :force => true do |t|
     t.integer  "order_id"
     t.integer  "product_id"
-    t.integer  "quantity",                                 :null => false
-    t.decimal  "price",      :precision => 8, :scale => 2, :null => false
-    t.datetime "created_at",                               :null => false
-    t.datetime "updated_at",                               :null => false
+    t.integer  "quantity",   :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "line_items", ["order_id"], :name => "index_line_items_on_order_id"
   add_index "line_items", ["product_id"], :name => "index_line_items_on_product_id"
+
+  create_table "orders", :force => true do |t|
+    t.string   "identifier"
+    t.decimal  "item_total",           :precision => 8, :scale => 2, :default => 0.0,     :null => false
+    t.decimal  "total",                :precision => 8, :scale => 2, :default => 0.0,     :null => false
+    t.decimal  "payment_total",        :precision => 8, :scale => 2, :default => 0.0
+    t.string   "state",                                              :default => "ready"
+    t.text     "special_instructions"
+    t.integer  "address_id"
+    t.integer  "user_id"
+    t.datetime "completed_at"
+    t.datetime "created_at",                                                              :null => false
+    t.datetime "updated_at",                                                              :null => false
+    t.text     "gift_card_text"
+    t.date     "delivery_date",                                                           :null => false
+    t.string   "sender_email"
+    t.string   "sender_phone"
+    t.string   "sender_name"
+  end
+
+  add_index "orders", ["identifier"], :name => "index_orders_on_identifier", :unique => true
 
   create_table "pages", :force => true do |t|
     t.string   "title_zh"
@@ -153,13 +176,59 @@ ActiveRecord::Schema.define(:version => 20121218054308) do
   create_table "provinces", :force => true do |t|
     t.string  "name"
     t.integer "post_code"
+    t.boolean "available", :default => false, :null => false
   end
 
   add_index "provinces", ["post_code"], :name => "index_provinces_on_post_code", :unique => true
 
+  create_table "ship_methods", :force => true do |t|
+    t.string  "name"
+    t.string  "service_phone"
+    t.string  "method"
+    t.string  "website"
+    t.decimal "cost",            :precision => 8, :scale => 2, :default => 0.0
+    t.string  "kuaidi_com_code"
+  end
+
+  create_table "shipments", :force => true do |t|
+    t.string   "identifier"
+    t.string   "tracking_num"
+    t.string   "state"
+    t.text     "note"
+    t.integer  "cost"
+    t.integer  "address_id"
+    t.integer  "ship_method_id"
+    t.integer  "order_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "shipments", ["identifier"], :name => "index_shipments_on_identifier"
+  add_index "shipments", ["order_id"], :name => "index_shipments_on_order_id"
+  add_index "shipments", ["ship_method_id"], :name => "index_shipments_on_ship_method_id"
+  add_index "shipments", ["tracking_num"], :name => "index_shipments_on_tracking_num"
+
+  create_table "transactions", :force => true do |t|
+    t.string   "identifier"
+    t.string   "merchant_name"
+    t.string   "merchant_trade_no"
+    t.string   "paymethod"
+    t.string   "subject"
+    t.text     "body"
+    t.string   "state",                                           :default => "generated"
+    t.integer  "order_id"
+    t.decimal  "amount",            :precision => 8, :scale => 2
+    t.datetime "processed_at"
+    t.datetime "created_at",                                                               :null => false
+    t.datetime "updated_at",                                                               :null => false
+  end
+
+  add_index "transactions", ["identifier"], :name => "index_transactions_on_identifier", :unique => true
+  add_index "transactions", ["order_id"], :name => "index_transactions_on_order_id"
+
   create_table "users", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "email",                  :default => "",         :null => false
+    t.string   "encrypted_password",     :default => "",         :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -169,8 +238,11 @@ ActiveRecord::Schema.define(:version => 20121218054308) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "anonymous_token"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
+    t.string   "role",                   :default => "customer", :null => false
+    t.string   "phone"
+    t.string   "name"
   end
 
   add_index "users", ["anonymous_token"], :name => "index_users_on_anonymous_token", :unique => true

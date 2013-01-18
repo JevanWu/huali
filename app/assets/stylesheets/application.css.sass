@@ -7,9 +7,12 @@
 // You're free to add application-wide styles to this file and they'll appear at the top of the
 // compiled file, but it's generally better to create a new file per style scope.
 //
-//= require formtastic
+//= require_self
+//= require orders
 
 // Core variables and mixins
+@import "bootstrap/variables"
+@import "bootstrap/mixins"
 @import "settings/variables"
 @import "settings/mixins"
 
@@ -24,7 +27,15 @@
 @import "base"
 
 // Recurring UI Elements
+@import "bootstrap/tables"
+@import "bootstrap/sprites"
+@import "bootstrap/forms"
 @import "ui"
+
+// partials
+@import 'header'
+@import 'devise'
+@import 'bank'
 
 // LAYOUTS
 
@@ -40,23 +51,18 @@
 #content
   min-height: 600px
 
-header
-  width: 320px
-  margin-top: 30px
-  margin-left: -20px
-
-
 footer
   margin-top: 10px
   text-align: right
 
+.registrations, .passwords, .sessions
+  margin-top: 150px
+
 // HOME
 p#home-intro
-  font-size: 90%
-  color: $grayLight
+  +meta_content
   position: absolute
   top: 180px
-  text-align: justify
 
 // SIDEBAR NAV
 #product-nav
@@ -129,10 +135,8 @@ p#home-intro
   width: 180px
 
   p
+    +meta_content
     margin: 0 0 2px 0
-    font-size: 90%
-    color: $grayLight
-    text-align: justify
 
 #product-info p
   margin-left: ($gridColumnWidth + $gridGutterWidth) / 2
@@ -149,17 +153,17 @@ p#home-intro
 
   &.loading
     background: $white url('loading.gif') center center no-repeat
-    +opacity(0.6)
+    +opacity(60)
 
 #image-slides
   margin-top: 10px
   img // same proportion with the full-size image
     width: 80px
     height: #{80 * 600 / 620}px
-    +opacity(0.5)
+    +opacity(50)
 
     &.hover, &:hover, &.current
-      +opacity(0.9)
+      +opacity(90)
 
 // ORDER PAGE
 // PAYMENT PAGE
@@ -215,22 +219,6 @@ p#home-intro
   margin: 10px
   padding: 2px 12px
 
-.form-title
-  border-bottom: 1px solid #e4e4e4
-  margin-bottom: 4px
-
-.bank-icon
-  display: inline-block
-  position: relative
-  vertical-align: middle
-  cursor: pointer
-  width: 125px
-  height: 10px
-  background-repeat: no-repeat
-  background-image: url(paycollec.png)
-  padding: 10px 10px 10px 4px
-  margin: 10px
-
 .area-icon
   display: inline-block
   vertical-align: middle
@@ -238,35 +226,3 @@ p#home-intro
   height: 10px
   padding: 10px 10px 10px 4px
   margin: 10px
-
-.PAYPAL
-  background-image: url(paypal.jpg)
-  background-position: 25px 0px
-  width: 325px
-  height: 80px
-
-.ALIPAY
-  background-position: 25px 0px
-
-.ICBCB2C
-  background-position: 25px -270px
-
-.CMB
-  background-position: 25px -180px
-
-.CCB
-  background-position: 25px -240px
-
-.BOCB2C
-  background-position: 25px -210px
-
-.ABC
-  background-position: 25px -360px
-
-.COMM
-  background-position: 25px -300px
-
-.CMBC
-  background-position: 25px -420px
-
-

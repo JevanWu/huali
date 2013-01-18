@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 ActiveAdmin.setup do |config|
 
   # == Site Title
@@ -149,4 +148,43 @@ ActiveAdmin.setup do |config|
   #
   # Set the CSV builder separator (default is ",")
   # config.csv_column_separator = ','
+end
+
+ActiveAdmin::ResourceController.class_eval do
+  protected
+
+  def current_ability
+    @current_ability ||= AdminAbility.new(current_administrator)
+  end
+
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to admin_dashboard_path, :alert => exception.message
+  end
+end
+
+module ActiveAdminCanCan
+  def active_admin_collection
+    super.accessible_by current_ability
+  end
+
+  def resource
+    resource = super
+    authorize! permission, resource
+    resource
+  end
+
+  private
+
+  def permission
+    case action_name
+    when "show"
+      :read
+    when "new", "create"
+      :create
+    when "edit"
+      :update
+    else
+      action_name.to_sym
+    end
+  end
 end

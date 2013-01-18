@@ -1,14 +1,18 @@
 ActiveAdmin.register Collection do
+  menu if: proc { can? :read, Collection }
 
-  filter :name_cn
+  controller do
+    include ActiveAdminCanCan
+    authorize_resource
+  end
+
+  filter :name_zh
   filter :description
-  filter :created_at
-  filter :updated_at
 
   index do
     selectable_column
-    column :name do |collection|
-      collection.name_cn
+    column :name_zh do |collection|
+      collection.name_zh
     end
     column :description
     column :products_count do |collection|
@@ -21,7 +25,7 @@ ActiveAdmin.register Collection do
 
   show do
     attributes_table do
-      row :name_cn
+      row :name_zh
       row :slug do
         collection.name_en
       end
@@ -29,7 +33,7 @@ ActiveAdmin.register Collection do
 
       row :product do
         collection.products.map do |product|
-          link_to product.name_cn, admin_product_path(product)
+          link_to product.name_zh, admin_product_path(product)
         end.join(', ').html_safe
       end
 

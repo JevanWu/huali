@@ -1,0 +1,11 @@
+<% unless current_user %>
+  <div id='guest-orders'>
+    <%= link_to t(:order_list), orders_path %>
+  </div>
+<% end %>
+<div id="basket">
+  <%= link_to t(:basket), current_order_path %>
+  <div id='cart_amount'>
+    <%= image_tag 'icon-tri.png' %><span></span>
+  </div>
+</div>

@@ -1,18 +1,33 @@
-<h2>Sign up</h2>
-
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
-
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email %></div>
-
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
-
-  <div><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></div>
-
-  <div><%= f.submit "Sign up" %></div>
+<% content_for(:title_img) do %>
+  <%= image_tag('title-reg.png') %>
 <% end %>
 
-<%= render "devise/shared/links" %>
+<div class='authentication'>
+  <div class='row'>
+    <p class='span4 meta'> 通过邮箱注册>> </p>
+    <%= simple_form_for resource,
+      as: resource_name,
+      url: registration_path(resource_name),
+      html: { class: 'span8 form-horizontal' } do |f| %>
+      <%= devise_error_messages! %>
+
+      <%= f.input :email, required: true %>
+      <%= f.input :password, required: true%>
+      <%= f.input :password_confirmation, required: true %>
+      <%= f.input :name, placeholder: '您的称呼, 以便我们和您联系' %>
+      <%= f.input :phone, placeholder: '以便我们和您核对信息'  %>
+
+      <div class="form-actions">
+        <%= f.button :submit, t('.sign_up'), class: 'button' %>
+        <%= link_to t(".sign_in"), new_session_path(resource_name), class: 'button-alt' %><br />
+      </div>
+
+      <div class='control-group'>
+        <div class='controls'>
+          <%= link_to t(".forgot_your_password"), new_password_path(resource_name), class:'forget-psw' %>
+        </div>
+      </div>
+
+    <% end %>
+    </div>
+</div>

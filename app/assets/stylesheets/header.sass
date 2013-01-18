@@ -1,0 +1,47 @@
+@import "bootstrap/variables"
+@import "bootstrap/mixins"
+@import "settings/mixins"
+@import "settings/variables"
+
+header
+  width: 320px
+  height: 150px
+  margin-top: 30px
+  margin-left: -20px
+  position: relative
+
+  #auth-item
+    position: absolute
+    top: 85px
+    right: 0
+    
+  #guest-orders
+    position: absolute
+    top: 108px
+    right: 0
+
+  #basket
+    position: absolute
+    top: 62px
+    right: 0
+    
+    #cart_amount
+      margin-left: 5px
+      display: inline-block
+      background-color: $tintColor
+      width: 18px
+      height: 18px
+
+      span
+        font-size: 90%
+        color: $white
+
+      img
+        position: relative
+        right: 4px
+        bottom: 2px
+
+.title-img
+  float: right
+  position: relative
+  bottom: 20px

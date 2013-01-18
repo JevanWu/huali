@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: line_items
+#
+#  created_at :datetime         not null
+#  id         :integer          not null, primary key
+#  order_id   :integer
+#  product_id :integer
+#  quantity   :integer          not null
+#  updated_at :datetime         not null
+#
+# Indexes
+#
+#  index_line_items_on_order_id    (order_id)
+#  index_line_items_on_product_id  (product_id)
+#
+
 class LineItem < ActiveRecord::Base
   # :price, :order_id is only altered internally
   attr_accessible :product_id, :quantity
@@ -5,18 +22,15 @@ class LineItem < ActiveRecord::Base
   belongs_to :order
   belongs_to :product
 
-  before_validation :adjust_quantity, :copy_price
+  before_validation :adjust_quantity
 
   validates :product, :presence => true
   validates :quantity, :numericality => { :only_integer => true, :message => ('quantity must be numbers.'), :greater_than => -1 }
-  validates :price, :numericality => true
+
+  delegate :img, :price, :name, :height, :width, :depth, :to => :product
 
   # after_save :update_order
   # after_destroy :update_order
-
-  def copy_price
-    self.price = product.price if product && price.nil?
-  end
 
   def increment_quantity
     self.quantity += 1
@@ -26,10 +40,9 @@ class LineItem < ActiveRecord::Base
     self.quantity -= 1
   end
 
-  def amount
+  def total
     price * quantity
   end
-  alias total amount
 
   def adjust_quantity
     self.quantity = 0 if quantity.nil? || quantity < 0

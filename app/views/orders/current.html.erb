@@ -1,0 +1,53 @@
+<% content_for(:title_img) do %>
+  <%= image_tag('title-basket.png') %>
+<% end %>
+
+<div class="row" id="cart-content">
+  <% if @products.blank? %>
+    <p>
+      您还没有任何订单, 请去 <%= link_to '花市', root_path %> 开始采购.
+    </p>
+  <% else %>
+    <table class='item-table cart-table table table-striped table-hover'>
+      <thead>
+        <tr>
+          <th class="image"></th>
+          <th class="name"><%= t(:name) %></th>
+          <th class="price"><%= t(:price) %></th>
+          <th class="quantity"><%= t(:quantity) %></th>
+          <th class="total"><%= t(:total) %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render partial: 'product_in_cart', collection: @products %>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan='4'><%= t(:in_total) %></td>
+          <td><%= count_cart(@products) %></td>
+        </tr>
+      </tfoot>
+    </table>
+  <% end %>
+</div>
+
+<% unless @products.blank? %>
+  <div class="order-actions">
+    <%= link_to t(:back), :back, :class => 'checkout button-alt' %>
+    <%= link_to t(:checkout), new_order_path, :class => 'checkout button' %>
+  </div>
+<% end %>
+
+<div class="row cart_foot">
+  <div class="span4">
+    <p> 客服工作时间（周日及法定节假日休息）： </p>
+    <p> 工作日：<b>10:00 - 18:30</b> </p>
+    <p> 非工作日：<b>10:30 - 18:00</b> </p>
+  </div>
+
+  <div class="span4">
+    <p> 非工作时间的订单，我们会在第二天上班后跟您取得联系 </p>
+    <p> 如有任何问题, 请联系客服电话：400-001-6936 </p>
+    <p> 或发送邮件至 <%= mail_to 'support@hua.li', 'support@hua.li' %> </p>
+  </div>
+</div>

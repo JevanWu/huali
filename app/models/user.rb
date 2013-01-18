@@ -11,9 +11,12 @@
 #  id                     :integer          not null, primary key
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :string(255)
+#  name                   :string(255)
+#  phone                  :string(255)
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string(255)
+#  role                   :string(255)      default("customer"), not null
 #  sign_in_count          :integer          default(0)
 #  updated_at             :datetime         not null
 #
@@ -31,19 +34,32 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :anonymous_token
+  attr_accessible :email, :password, :password_confirmation, :remember_me,
+                  :anonymous_token, :phone, :name
 
   has_many :addresses
+  has_many :orders
+  has_many :transactions, through: :orders
+  has_many :shipments, through: :orders
 
-  scope :registered, where("#{self.table_name}.email NOT LIKE ?", "%@changan.sample")
+  scope :registered, where("#{self.table_name}.email NOT LIKE ?", "%@guest.me")
+  scope :guests, where("#{self.table_name}.email LIKE ?", "%@guest.me")
 
-  def self.anonymous!
-    token = User.generate_token(:anonymous_token)
-    User.create(:email => "#{token}@changan.sample", :password => token, :password_confirmation => token, :anonymous_token => token)
+  validates :role, inclusion: {
+    in: %w(customer),
+    message: "%{value} is not a valid user role."
+  }
+
+  class << self
+    def build_guest
+      u = User.create(email: "guest_#{Time.now.to_i}#{rand(99)}@guest.me")
+      u.save(:validate => false)
+      u
+    end
   end
 
-  def anonymous?
-    email.nil? || email =~ /@changan.sample$/
+  def guest?
+    !!(email =~ /@guest.me/)
   end
 
   private

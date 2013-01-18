@@ -1,19 +1,24 @@
-source 'http://ruby.taobao.org'
+source 'http://rubygems.org'
 
 gem 'rails', '3.2.11'
 gem 'pg', '>= 0.14.1'
 gem 'devise', '>= 2.1.2'
 gem 'devise-i18n'
+gem 'cancan', '~> 1.0'
 gem 'rails-i18n'
 gem 'redis-rails'
 gem 'activeadmin'
 gem 'paperclip', '~> 3.0'
 gem 'formtastic'
-gem 'kramdown', '~>0.13'
+gem 'simple_form'
+gem 'resque'
+gem 'resque_mailer'
+gem 'kramdown', '~> 0.13'
 gem 'friendly_id', '~> 4.0.1'
 # backup, whenever probably should be isolated in a server setup script
 gem 'backup', :require => false
 gem 'whenever', :require => false
+gem 'state_machine'
 gem 'rack-mini-profiler'
 gem 'figaro'
 gem 'sitemap_generator'
@@ -22,6 +27,8 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'jquery-rails'
+  gem "haml-rails"
+  gem 'jquery-ui-rails', git: 'git@github.com:yangchenyun/jquery-ui-rails.git'
   gem 'uglifier', '>= 1.0.3'
   gem 'bootstrap-sass', '~> 2.2.1.1'
 end
@@ -62,6 +69,8 @@ group :development do
   gem 'capistrano', '~>2.0'
   gem 'capistrano-zen', git: 'git@github.com:zenhacks/capistrano-zen.git', :require => false
   gem 'railroady'
+  gem 'ruby-graphviz', :require => 'graphviz' # Optional: only required for graphing
+  gem 'meta_request', '0.2.1'
 end
 
 group :test do

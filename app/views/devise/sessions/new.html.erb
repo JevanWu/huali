@@ -1,0 +1,38 @@
+<% content_for(:title_img) do %>
+  <%= image_tag('title-login.png') %>
+<% end %>
+
+<div class='authentication'>
+  <div class='row'>
+    <p class='span4 meta'> 已有用户登录>> </p>
+    <%= simple_form_for resource,
+      as: resource_name,
+      url: session_path(resource_name),
+      html: { class: 'span8 form-horizontal' } do |f| %>
+      <%= devise_error_messages! %>
+
+      <%= f.input :email, required: true %>
+      <%= f.input :password, required: true%>
+
+      <% if devise_mapping.rememberable? -%>
+        <%= f.input :remember_me, as: :boolean %>
+      <% end %>
+
+      <div class="form-actions">
+        <%= f.button :submit,  t('.sign_in'), class: 'button' %>
+        <% if resource_name == :user %>
+          <%= link_to t(".sign_up"), new_registration_path(resource_name), class: 'button-alt' %><br />
+        <% end %>
+      </div>
+
+      <% if resource_name == :user %>
+      <div class='control-group'>
+        <div class='controls'>
+          <%= link_to t(".forgot_your_password"), new_password_path(resource_name), class:'forget-psw' %>
+        </div>
+      </div>
+      <% end %>
+
+    <% end %>
+  </div>
+</div>

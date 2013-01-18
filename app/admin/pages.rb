@@ -1,4 +1,13 @@
 ActiveAdmin.register Page do
+  menu if: proc { can? :read, Page }
+
+  controller do
+    include ActiveAdminCanCan
+    authorize_resource
+  end
+
+
+  filter :title_zh
   controller do
     def new
       @page = Page.new
@@ -40,7 +49,7 @@ ActiveAdmin.register Page do
 
   form :partial => "form"
 
-  show do |page|
+  show do
 
     attributes_table do
       row :permalink

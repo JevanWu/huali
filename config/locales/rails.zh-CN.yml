@@ -1,0 +1,126 @@
+zh-CN:
+  distance:
+    unit:
+      one: "厘米"
+      other: "厘米"
+
+  activerecord:
+    format: ! '%{attribute} %{message}'
+    errors:
+      messages:
+        blank: "您需要填写此项"
+        unavailable_date: "我们无法为您在这个日期进行递送"
+        unavailable_location: "我们无法为您配送到这个地区"
+
+    models:
+      administrator: "管理用户"
+      transaction: "交易"
+      product: "产品"
+      shipment: "递送"
+      order: "订单"
+      asset: "资源"
+      page: "页面"
+      collection: "集合"
+      line_item: "条目"
+      address: "地址"
+      province: '省'
+      city: '城市'
+      area: '地区'
+      ship_method: "递送方式"
+
+    attributes:
+      order: &order
+        identifier: "订单编号"
+        transaction_identifier: "交易编号"
+        delivery_date: "递送日期"
+        special_instructions: "特殊要求"
+        gift_card_text: "卡片信息"
+        total: "订单总价"
+        state: "订单状态"
+        receiver_fullname: "收货人姓名"
+        receiver_phonenum: "收货人电话"
+        receiver_postcode: "收货人邮编"
+        receiver_province: "收货人省份"
+        receiver_city: "收货人城市"
+        receiver_address: "收货人地址"
+        sender_name: "寄件人姓名"
+        sender_email: "寄件人邮箱"
+        sender_phone: "寄件人电话"
+        order_content: "订单内容"
+        transaction_identifier: "交易编号"
+        transaction_info: "交易信息"
+        shipment_info: "递送信息"
+        fullname: "收货人姓名"
+        process_order: "处理订单"
+        modify_order_state: "修改订单状态"
+        address_fullname: "收件人姓名"
+        address_phone: "收件人电话"
+        address_province_name: "收件人省份"
+        address_city_name: "收件人城市"
+        address_address: "收件人地址"
+
+      ship_method:
+        name: "名字"
+        cost: "成本"
+        method: "方式"
+        website: "网站"
+        service_phone: "服务电话"
+        kuaidi_com_code: "快递100编码"
+
+      shipment:
+        cost: "成本"
+        identifier: "递送编号"
+        ship_method_id: "递送方式"
+        state: "递送状态"
+        note: "留言"
+        tracking_num: "快递单号"
+        modify_shipment_state: "修改快递状态"
+
+      transaction:
+        order: "订单"
+        identifier: "交易编号"
+        merchant_name: "商户名"
+        merchant_trade_no: "商户交易编号"
+        paymethod: "支付方式"
+        amount: "金额"
+        state: "交易状态"
+        subject: "摘要"
+        body: "正文"
+        processed_at: "处理于"
+        created_at: "创建于"
+        updated_at: "更新于"
+        modify_transaction_state: "修改交易状态"
+
+      product:
+        thumbnail: "缩略图"
+        image: "图片"
+        available: "是否有货"
+        name_zh: "中文名"
+        name_en: "英文名"
+        collection: "集合"
+        published_zh: "中文发布"
+        published_en: "英文发布"
+        inspiration_zh: "中文灵感"
+        inspiration_en: "英文灵感"
+        description_zh: "中文描述"
+        description_en: "英文描述"
+        count_on_hand: "库存"
+        price: "现价"
+        original_price: "原价"
+        assets: "图片"
+        height: "高度"
+        width: "宽度"
+        depth: "深度"
+        created_at: "创建于"
+        updated_at: "更新于"
+        cost_price: "成本价"
+        add_image: "新增图片"
+        meta_keywords: "关键词"
+        meta_description: "关键描述"
+
+      collection:
+        name_zh: "中文名"
+        description: "描述"
+
+      page:
+        title_zh: "中文标题"

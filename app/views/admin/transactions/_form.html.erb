@@ -1,0 +1,12 @@
+<%= semantic_form_for [:admin, @transaction] do |f| %>
+  <%= f.semantic_errors :amount, :paymethod, :merchant_name %>
+  <%= f.inputs "Main Info" do %>
+    <%= f.input :order_id, :wrapper_html => { :style => "display:none;" } %>
+    <%= f.input :amount, required: true %>
+    <%= f.input :paymethod, :collection => %w(paypal directPay bankPay), required: true%>
+    <%= f.input :merchant_name, :collection => %w(Alipay Paypal ICBCB2C CMB CCB BOCB2C ABC COMM CMBC) , required: true %>
+    <%= f.input :subject %>
+    <%= f.input :body %>
+  <% end %>
+  <%= f.actions %>
+<% end %>

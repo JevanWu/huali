@@ -1,0 +1,12 @@
+<tr>
+  <td class="image"><%= image_tag product_in_cart.img(:medium), width: '150' %></td>
+  <td class="name"><%= link_to product_in_cart.name, product_path(product_in_cart) %></td>
+  <td class="price"> <%= number_to_currency product_in_cart.price, unit: '&yen;'  %> </td>
+  <td class="quantity">
+      <%= link_to icon('plus'), current_order_path, data: { product: product_in_cart.id }, class: 'add_quantity trigger' %>
+      <input type='text' value="<%= product_in_cart[:quantity] %>">
+      <%= link_to icon('minus'), current_order_path, data: { product: product_in_cart.id }, class: 'reduce_quantity trigger' %>
+      <%= link_to icon('trash'), current_order_path, data: { product: product_in_cart.id }, class: 'empty_quantity trigger' %>
+  </td>
+  <td class="total"> <%= count_total(product_in_cart) %> </td>
+</tr>

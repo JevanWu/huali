@@ -1,16 +1,18 @@
-# encoding: utf-8
-require 'kramdown'
-
 ActiveAdmin.register Product do
+  menu if: proc { can? :read, Product }
 
-  {
-    :'生效' => :enable!,
-    :'无效' => :disable!
-  }.each do |label, action|
-    batch_action label do |selection|
+  controller do
+    include ActiveAdminCanCan
+    authorize_resource
+  end
+
+  [ :enable!,
+    :disable!
+ ].each do |action|
+    batch_action I18n.t(action) do |selection|
       products = Product.unscoped.find(selection)
       products.each { |product| product.send(action) }
-      redirect_to :back, :notice => "#{products.count}张订单已经更新"
+      redirect_to :back, :notice => products.count.to_s + t(:product_updated)
     end
   end
   batch_action :destroy, false
@@ -26,7 +28,7 @@ ActiveAdmin.register Product do
   controller do
     helper :products
     def scoped_collection
-      Product.unscoped
+      Product.unscoped.includes(:assets, :collection)
     end
   end
 
@@ -36,57 +38,33 @@ ActiveAdmin.register Product do
       link_to product.id, product_path(product)
     end
 
-    column "Availability" do |product|
-      product.available ?  'yes' : 'no'
+    column :name_zh
+    column :name_en
+
+    column :available do |product|
+      product.available ?  t(:available) : t(:unavailable)
     end
 
-    column "Character" do |product|
-      link_to "#{product.name_char || ''}", product_path(product)
+    column :image do |product|
+      image_tag product.img(:thumb)
     end
 
-    column "Cn Name" do |product|
-      link_to product.name_zh, product_path(product)
-    end
-
-    column "En Name" do |product|
-      link_to product.name_en, product_path(product)
-    end
-
-    column "Image" do |product|
-      unless product.assets.first.nil? or product.assets.first.image.nil?
-        image_tag product.assets.first.image.url(:thumb)
-      end
-    end
-
-    column "Collection" do |product|
+    column :collection do |product|
       if product.collection
-        link_to product.collection.name_cn, collection_path(product.collection)
+        link_to product.collection.name_zh, collection_path(product.collection)
       end
     end
-
-    # column :original_price, :sortable => :price do |product|
-      # div :class => "price" do
-        # number_to_currency product.original_price, :unit => '&yen;'
-      # end
-    # end
-
-    # column :price, :sortable => :price do |product|
-      # div :class => "price" do
-        # number_to_currency product.price, :unit => '&yen;'
-      # end
-    # end
 
     default_actions
   end
 
   form :partial => "form"
 
-  show do |product|
+  show do
 
     attributes_table do
       row :name_zh
       row :name_en
-      row :name_char
       row :available
       row :published_zh
       row :published_en
@@ -109,42 +87,47 @@ ActiveAdmin.register Product do
 
       row :collection do
         collection = product.collection
-        link_to collection.name_cn, admin_collection_path(collection) if collection
+        link_to collection.name_zh, admin_collection_path(collection) if collection
       end
 
-      row :pictures do
+      row :image do
         product.assets.map do |asset|
           image_tag asset.image.url(:medium)
         end.join(' ').html_safe
       end
 
-      row :thumbnails do
+      row :thumbnail do
         product.assets.map do |asset|
           image_tag asset.image.url(:thumb)
         end.join(' ').html_safe
       end
 
-      row :meta_description
-      row :meta_keywords
       row :count_on_hand
+
       row :original_price do
         number_to_currency product.price, :unit => '&yen;'
       end
+
       row :price do
         number_to_currency product.price, :unit => '&yen;'
       end
+
       row :cost_price do
         number_to_currency product.cost_price, :unit => '&yen;'
       end
+
       row :height do
-        "#{product.height} cm" if product.height
+        number_to_human(product.height, :units => :distance) if product.height
       end
+
       row :width do
-        "#{product.width} cm" if product.width
+        number_to_human(product.width, :units => :distance) if product.width
       end
+
       row :depth do
-        "#{product.depth} cm" if product.depth
+        number_to_human(product.depth, :units => :distance) if product.depth
       end
+
       row :created_at
       row :updated_at
     end

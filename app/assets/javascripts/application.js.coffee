@@ -12,7 +12,9 @@
 #
 #= require jquery
 #= require jquery_ujs
-#= require jquery-ui/effect
+#= require jquery.ui.effect
+#= require underscore
+#= require orders
 
 $ ->
   $('.desktop .nav a').hover(arrowIn, arrowOut)

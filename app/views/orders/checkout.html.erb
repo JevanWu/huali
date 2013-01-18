@@ -1,0 +1,29 @@
+<% content_for(:title_img) do %>
+  <%= image_tag('title-checkout.png') %>
+<% end %>
+
+<%= render 'checkout_nav' %>
+
+<div class='row'>
+  <div class="span4">
+    <%= render 'side_item_table', items: @order.line_items %>
+
+    <div id="order-addr">
+      <p><%= t(:your_address) %></p>
+      <%= @order.address.full_addr %>
+      <%= @order.address.fullname %>
+      <%= @order.address.phone %>
+    </div>
+  </div>
+
+  <div class="span8">
+    <ul id='checkout-nav'>
+
+    </ul>
+
+    <div id='checkout-form'>
+      <%= render 'shared/choose_payment_method', banks: @banks, order: @order %>
+    </div>
+  </div>
+</div>
+<%= render 'notice' %>
