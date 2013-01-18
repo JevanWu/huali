@@ -104,9 +104,9 @@ class OrdersController < ApplicationController
     end
 
     def populate_sender_info
-      @order.sender_email = current_user.email
-      @order.sender_name = current_user.name
-      @order.sender_phone = current_user.phone
+      @order.sender_email = current_user.try(:email)
+      @order.sender_name = current_user.try(:name)
+      @order.sender_phone = current_user.try(:phone)
     end
 
     def update_guest
