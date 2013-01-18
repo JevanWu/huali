@@ -1,5 +1,10 @@
 zh-CN:
   devise:
+    failure:
+      administrator:
+        not_found_in_database: 此用户不存在
+      user:
+        not_found_in_database: 此用户不存在
     confirmations:
       new:
         resend_confirmation_instructions: 重新发送确认指示
@@ -39,11 +44,13 @@ zh-CN:
         title: 修改 %{resource}
         we_need_your_current_password_to_confirm_your_changes: 我们需要您的当前密码以确认您的更改
         update: 更新
-      new:
+      new: &new
         sign_up: 注册
+        sign_in: 登录
+        forgot_your_password: 忘记密码
     sessions:
       new:
-        sign_in: 登录
+        *new
     shared:
       links:
         didn_t_receive_confirmation_instructions: 没有收到确认指令？

@@ -43,7 +43,7 @@ class Address < ActiveRecord::Base
   end
 
   def full_addr
-    [post_code, province.name, city.name, area.try(:name), address].compact.join(',')
+    [post_code, province.name, city.name, area.try(:name), address].select {|s| !s.blank? }.join(', ')
   end
 
   def same_as?(other)

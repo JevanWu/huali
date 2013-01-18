@@ -124,6 +124,10 @@ ActiveAdmin.register Order do
         number_to_currency order.total, :unit => '&yen;'
       end
 
+      row :sender_name
+      row :sender_email
+      row :sender_phone
+
       row :receiver_fullname do
         order.address.fullname
       end

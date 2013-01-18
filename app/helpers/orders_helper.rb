@@ -14,7 +14,7 @@ module OrdersHelper
       link_to(t(:pay), new_admin_transaction_path(:"transaction[order_id]" => order.id, :"transaction[amount]" => order.total, :"transaction[subject]" => order.subject_text)) + \
       link_to(t(:cancel), cancel_admin_order_path(order))
     when "wait_check"
-      link_to(t(:check), check_admin_order_path(order)) + \
+      link_to(t(:check), check_admin_order_path(order), :confirm => t(:confirm_check)) + \
       link_to(t(:cancel), cancel_admin_order_path(order))
     when "wait_ship"
       link_to(t(:ship), new_admin_shipment_path(:"shipment[order_id]" => order.id)) + \

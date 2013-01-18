@@ -31,7 +31,7 @@ class OrdersController < ApplicationController
       session[:order_id] = @order.id
       cookies.delete :cart
 
-      flash[:notice] = "Successfully created order and addresses."
+      flash[:notice] = t(:order_success)
       redirect_to checkout_order_path(@order)
     else
       render 'new'
@@ -43,13 +43,13 @@ class OrdersController < ApplicationController
     if params[:id]
       @order = current_or_guest_user.orders.find_by_id(params[:id])
       if @order.blank?
-        flash[:alert] = "The order doesn't exist."
+        flash[:alert] = t(:order_not_exist)
         redirect_to :root
       end
     else
       @order = Order.find_by_id(params[:id] || session[:order_id])
       if @order.blank?
-        flash[:alert] = "No items in the cart, please add items first."
+        flash[:alert] = t(:no_items)
         redirect_to :root
       end
     end
@@ -92,7 +92,7 @@ class OrdersController < ApplicationController
       # - no line items present
       # - zero quantity
       if @cart.blank? || @cart.all? { |k, v| v.to_i <= 0 }
-        flash[:alert] = "No items in the cart, please add items first."
+        flash[:alert] = t(:no_items)
         redirect_to :root
       end
     end

@@ -70,6 +70,7 @@ zh-CN:
   paymethod: "支付方式"
   delivery_cost: "递送成本"
   unhappy: "不高兴了?"
+  confirm_check: "你确定审核通过此订单"
 
 
   #states for order
@@ -93,7 +94,7 @@ zh-CN:
   #states for transaction
   processing: "处理中"
   failed: "失败 "
-  fail: "失败"
+  failure: "失败"
   complete: "完成 "
   start: "开始 "
   modify_transaction_state: "修改交易状态"
@@ -107,4 +108,9 @@ zh-CN:
   accept: "送达 "
   modify_shipment_state: "修改递送状态"
   shipment_state_changed: "递送状态变更为"
+
+  #flash message
+  order_success: "您已经成功创建订单和地址信息"
+  order_not_exist: "此订单不存在"
+  no_items: "还没有花在购花篮, 请先选购"
 
