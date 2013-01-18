@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
 
-  #caches_page :show, :home, :order, :payment, :alipay, :success
+  # caches_page :show, :home, :partner
 
   def show
     @page = Page.find_by_permalink!(params[:id])
@@ -14,14 +14,6 @@ class PagesController < ApplicationController
   def home
   end
 
-  def share
+  def partner
   end
-
-  private
-
-  def exchange_to_dollar(price)
-    amount = (price/6).to_i - 0.01
-    amount.to_s
-  end
-
 end

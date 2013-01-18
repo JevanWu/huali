@@ -44,8 +44,6 @@ Huali::Application.routes.draw do
     root :to => "admin#index"
   end
 
-  get 'share/:name_en', to: 'pages#share', as: :share
-
   get ':id', to: 'pages#show', as: :page
   get "errors/error_404"
   get "errors/error_500"
