@@ -25,7 +25,7 @@
     <% end %>
 
     <% if order.cancel_allowed? %>
-      <%= link_to t(:cancel), checkout_order_path(order) %>
+      <%= link_to t(:cancel), cancel_order_path(order), method: 'put' %>
     <% end %>
 
     <% if order.state == 'wait_confirm' %>

@@ -86,6 +86,16 @@ class OrdersController < ApplicationController
   def current
   end
 
+  def cancel
+    @order = current_or_guest_user.orders.find_by_id(params[:id])
+    if @order.cancel
+      flash[:notice] = t(:cancel_success)
+    else
+      flash[:alert] = t(:cancel_failed)
+    end
+    redirect_to orders_path
+  end
+
   private
 
     def validate_cart

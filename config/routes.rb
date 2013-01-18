@@ -1,5 +1,6 @@
 Huali::Application.routes.draw do
-  # Optionally, enable Resque here
+
+  # Mount resque under the admin namespace wardened by devise
   require 'resque/server'
   resque_constraint = lambda do |request|
     request.env['warden'].authenticate!({ :scope => :administrator })
@@ -22,6 +23,7 @@ Huali::Application.routes.draw do
   get 'orders/current', as: :current_order
   get 'orders/checkout(/:id)', to: 'orders#checkout', as: :checkout_order
   post 'orders/gateway(/:id)', to: 'orders#gateway', as: :gateway_order
+  put 'orders/cancel/:id', to: 'orders#cancel', as: :cancel_order
   get 'orders/return', as: :return_order
   post 'orders/notify', as: :notify_order
   resources :orders, :except => [:destroy, :update, :edit]
