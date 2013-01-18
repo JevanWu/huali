@@ -20,7 +20,7 @@
     <%= f.fields_for :address do |builder|%>
       <%= builder.input :fullname, require:true, placeholder: '收件人姓名' %>
       <%= builder.input :phone, required:true, placeholder: '收件人联系方式'  %>
-      <%= builder.association :province, :prompt => "请选择省份", required:true %>
+      <%= builder.association :province, :collection => proc { Province.available }, :prompt => "请选择省份", required:true %>
       <%= builder.association :city, :collection => [], :prompt => "请选择城市", required:true %>
       <%= builder.association :area, :collection => [] %>
       <%= builder.input :post_code, placeholder: '邮编' %>

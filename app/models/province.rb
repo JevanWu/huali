@@ -17,7 +17,6 @@ class Province < ActiveRecord::Base
   attr_accessible :available
   scope :available, lambda { where available: true }
   scope :unavailable, lambda { where available: false }
-  default_scope lambda { where available: true }
 
   after_save :update_cities_availability
 
