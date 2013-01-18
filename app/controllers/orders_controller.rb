@@ -29,8 +29,8 @@ class OrdersController < ApplicationController
     end
 
     if @order.save
-      session[:order_id] = @order.id
-      cookies.delete :cart
+      empty_cart
+      update_guest if current_or_guest_user.guest?
 
       flash[:notice] = t(:order_success)
       redirect_to checkout_order_path(@order)
@@ -98,10 +98,26 @@ class OrdersController < ApplicationController
   end
 
   private
+    def empty_cart
+      session[:order_id] = @order.id
+      cookies.delete :cart
+    end
+
     def populate_sender_info
       @order.sender_email = current_user.email
       @order.sender_name = current_user.name
       @order.sender_phone = current_user.phone
+    end
+
+    def update_guest
+      # need an object to hold the user instance
+      guest = guest_user
+      guest.email = @order.sender_email
+      guest.phone = @order.sender_phone
+      guest.name = @order.sender_name
+      guest.save
+      # FIXME it is possible, the email exists in User
+      # this guest is registered before
     end
 
     def validate_cart
