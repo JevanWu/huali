@@ -85,7 +85,7 @@ namespace :deploy do
   end
 
   task :bundle, :roles => :app, :except => { :no_release => true } do
-    run "cd #{release_path} && bundle install"
+    run "cd #{release_path} && bundle install --without=development test"
   end
   before "deploy:finalize_update", "deploy:bundle"
 end
