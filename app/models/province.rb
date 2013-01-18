@@ -2,6 +2,7 @@
 #
 # Table name: provinces
 #
+#  available :boolean          default(FALSE), not null
 #  id        :integer          not null, primary key
 #  name      :string(255)
 #  post_code :integer

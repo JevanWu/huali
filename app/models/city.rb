@@ -2,6 +2,7 @@
 #
 # Table name: cities
 #
+#  available        :boolean          default(FALSE), not null
 #  id               :integer          not null, primary key
 #  name             :string(255)
 #  parent_post_code :integer

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130117235601) do
+ActiveRecord::Schema.define(:version => 20130118165927) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -42,8 +42,8 @@ ActiveRecord::Schema.define(:version => 20130117235601) do
   end
 
   create_table "administrators", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "email",                  :default => "",      :null => false
+    t.string   "encrypted_password",     :default => "",      :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -52,9 +52,9 @@ ActiveRecord::Schema.define(:version => 20130117235601) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
-    t.string   "role"
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
+    t.string   "role",                   :default => "admin", :null => false
   end
 
   add_index "administrators", ["email"], :name => "index_administrators_on_email", :unique => true
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(:version => 20130117235601) do
     t.string  "name"
     t.integer "post_code"
     t.integer "parent_post_code"
+    t.boolean "available",        :default => false, :null => false
   end
 
   add_index "areas", ["post_code"], :name => "index_areas_on_post_code", :unique => true
@@ -84,6 +85,7 @@ ActiveRecord::Schema.define(:version => 20130117235601) do
     t.string  "name"
     t.integer "post_code"
     t.integer "parent_post_code"
+    t.boolean "available",        :default => false, :null => false
   end
 
   add_index "cities", ["post_code"], :name => "index_cities_on_post_code", :unique => true
@@ -174,6 +176,7 @@ ActiveRecord::Schema.define(:version => 20130117235601) do
   create_table "provinces", :force => true do |t|
     t.string  "name"
     t.integer "post_code"
+    t.boolean "available", :default => false, :null => false
   end
 
   add_index "provinces", ["post_code"], :name => "index_provinces_on_post_code", :unique => true
@@ -237,7 +240,7 @@ ActiveRecord::Schema.define(:version => 20130117235601) do
     t.string   "anonymous_token"
     t.datetime "created_at",                                     :null => false
     t.datetime "updated_at",                                     :null => false
-    t.string   "role",                   :default => "customer"
+    t.string   "role",                   :default => "customer", :null => false
   end
 
   add_index "users", ["anonymous_token"], :name => "index_users_on_anonymous_token", :unique => true
