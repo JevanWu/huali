@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130118165927) do
+ActiveRecord::Schema.define(:version => 20130118190152) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -241,6 +241,8 @@ ActiveRecord::Schema.define(:version => 20130118165927) do
     t.datetime "created_at",                                     :null => false
     t.datetime "updated_at",                                     :null => false
     t.string   "role",                   :default => "customer", :null => false
+    t.string   "phone"
+    t.string   "name"
   end
 
   add_index "users", ["anonymous_token"], :name => "index_users_on_anonymous_token", :unique => true
