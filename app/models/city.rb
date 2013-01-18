@@ -2,6 +2,7 @@
 #
 # Table name: cities
 #
+#  available        :boolean          default(FALSE), not null
 #  id               :integer          not null, primary key
 #  name             :string(255)
 #  parent_post_code :integer
@@ -13,7 +14,12 @@
 #
 
 class City < ActiveRecord::Base
-  # read-only Model
+  # mainly read-only Model
+  attr_accessible :available
+  scope :available, lambda { where available: true }
+  scope :unavailable, lambda { where available: false }
+
+  after_save :update_areas_availability
 
   belongs_to :province, :foreign_key => 'parent_post_code', :primary_key => 'post_code'
 
@@ -27,4 +33,10 @@ class City < ActiveRecord::Base
     post_code
   end
 
+  def update_areas_availability
+    areas.each do |area|
+      area.available = available
+      area.save
+    end
+  end
 end

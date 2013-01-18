@@ -9,7 +9,8 @@ zh-CN:
     errors:
       messages:
         blank: "您需要填写此项"
-        cannt_delivery_on_this_date: "我们无法为您在这个日期进行递送"
+        unavailable_date: "我们无法为您在这个日期进行递送"
+        unavailable_location: "我们无法为您配送到这个地区"
 
     models:
       administrator: "管理用户"
@@ -22,6 +23,9 @@ zh-CN:
       collection: "集合"
       line_item: "条目"
       address: "地址"
+      province: '省'
+      city: '城市'
+      area: '地区'
       ship_method: "递送方式"
 
     attributes:

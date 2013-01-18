@@ -12,6 +12,7 @@
 #  item_total           :decimal(8, 2)    default(0.0), not null
 #  payment_total        :decimal(8, 2)    default(0.0)
 #  sender_email         :string(255)
+#  sender_name          :string(255)
 #  sender_phone         :string(255)
 #  special_instructions :text
 #  state                :string(255)      default("ready")
@@ -190,7 +191,7 @@ class Order < ActiveRecord::Base
 
   def delivery_date_in_range
     unless delivery_date.in? Date.today.tomorrow..Date.today.next_month
-      errors.add :delivery_date, :cannt_delivery_on_this_date
+      errors.add :delivery_date, :unavailable_date
     end
   end
 
