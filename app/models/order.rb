@@ -44,9 +44,9 @@ class Order < ActiveRecord::Base
   before_validation :generate_identifier, on: :create
   after_validation :cal_total
 
-  validate :delivery_date_in_range, on: :create
   validates :identifier, presence: true
   validates_presence_of :line_items, :delivery_date, :state, :total, :item_total, :sender_email, :sender_phone, :sender_name
+  validate :delivery_date_in_range, on: :create
 
   state_machine :state, :initial => :generated do
     # TODO implement an auth_state dynamically for each state
