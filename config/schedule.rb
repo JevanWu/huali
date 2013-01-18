@@ -20,7 +20,7 @@
 # Learn more: http://github.com/javan/whenever
 #
 
-set :output, "#{Rails.root.join('log')}/cron_log.log"
+set :output, "../log/cron_log.log"
 
 every :day, :at => '1:00 am' do
   command "backup perform -t db_backup"
