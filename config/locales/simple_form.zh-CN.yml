@@ -2,8 +2,11 @@ zh-CN:
   simple_form:
     labels:
       order:
+        sender_name: "您的姓名"
+        sender_phone: "您的电话"
+        sender_email: "您的邮箱"
         address:
-          fullname: "全名"
+          fullname: "收件人"
           phone: "电话"
           province: "省份"
           city: "城市"

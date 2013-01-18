@@ -27,7 +27,8 @@
 class Order < ActiveRecord::Base
 
   attr_accessible :line_items, :special_instructions, :address_attributes,
-                  :gift_card_text, :delivery_date, :identifier, :state
+                  :gift_card_text, :delivery_date, :identifier, :state,
+                  :sender_name, :sender_phone, :sender_email
 
   belongs_to :address
   belongs_to :user
@@ -45,7 +46,7 @@ class Order < ActiveRecord::Base
 
   validate :delivery_date_in_range, on: :create
   validates :identifier, presence: true
-  validates_presence_of :line_items, :delivery_date, :state, :total, :item_total
+  validates_presence_of :line_items, :delivery_date, :state, :total, :item_total, :sender_email, :sender_phone, :sender_name
 
   state_machine :state, :initial => :generated do
     # TODO implement an auth_state dynamically for each state
