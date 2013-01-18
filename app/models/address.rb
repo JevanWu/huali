@@ -33,13 +33,6 @@ class Address < ActiveRecord::Base
   validates_presence_of :fullname, :address, :phone, :province, :city
   validate :phone_validate
 
-  def phone_validate
-    return if phone.blank?
-    n_digits = phone.scan(/[0-9]/).size
-    valid_chars = (phone =~ /^[-+()\/\s\d]+$/)
-    errors.add :phone, :invalid unless (n_digits >= 8 && valid_chars)
-  end
-
   def check_postcode
     # TODO check the postcode against the prov, city, area postcode
     true
@@ -73,4 +66,12 @@ class Address < ActiveRecord::Base
     self.class.new(self.attributes.except('id', 'updated_at', 'created_at'))
   end
 
+  private
+
+  def phone_validate
+    return if phone.blank?
+    n_digits = phone.scan(/[0-9]/).size
+    valid_chars = (phone =~ /^[-+()\/\s\d]+$/)
+    errors.add :phone, :invalid unless (n_digits >= 8 && valid_chars)
+  end
 end
