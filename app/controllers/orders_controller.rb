@@ -17,6 +17,7 @@ class OrdersController < ApplicationController
     validate_cart
     @order = Order.new
     @order.build_address
+    populate_sender_info unless current_or_guest_user.guest?
   end
 
   def create
@@ -97,6 +98,11 @@ class OrdersController < ApplicationController
   end
 
   private
+    def populate_sender_info
+      @order.sender_email = current_user.email
+      @order.sender_name = current_user.name
+      @order.sender_phone = current_user.phone
+    end
 
     def validate_cart
       # - no line items present
