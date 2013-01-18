@@ -2,13 +2,6 @@ $ ->
   [proSelector, citySelector, areaSelector] = $('select').filter (index) ->
     $(@).attr('id').match /address_attributes/
 
-  $(proSelector).on 'change',  ->
-    emptyAreaSelector()
-    updateCitySelector $(@).val()
-
-  $(citySelector).on 'change', ->
-    updateAreaSelector $(@).val()
-
   updateCitySelector = (prov_id) ->
     $.ajax
       url: "/provinces/#{prov_id}/cities"
@@ -29,3 +22,14 @@ $ ->
       console.log(memo)
       memo + "<option value=#{place.id} data-postcode='#{place.post_code}'>#{place.name}</option>"
     , '<option value>请选择</option>')
+
+  # refresh the city lists on ready
+  updateCitySelector $(proSelector).val() if proSelector
+
+  $(proSelector).on 'change',  ->
+    emptyAreaSelector()
+    updateCitySelector $(@).val()
+
+  $(citySelector).on 'change', ->
+    updateAreaSelector $(@).val()
+
