@@ -39,17 +39,24 @@ class OrdersController < ApplicationController
   end
 
   def checkout
-    @order = Order.find_by_id(params[:id] || session[:order_id])
     @banks = ['ICBCB2C', 'CMB', 'CCB', 'BOCB2C', 'ABC', 'COMM', 'CMBC']
-
-    if @order.blank?
-      flash[:alert] = "No items in the cart, please add items first."
-      redirect_to :root
+    if params[:id]
+      @order = current_or_guest_user.orders.find_by_id(params[:id])
+      if @order.blank?
+        flash[:alert] = "The order doesn't exist."
+        redirect_to :root
+      end
+    else
+      @order = Order.find_by_id(params[:id] || session[:order_id])
+      if @order.blank?
+        flash[:alert] = "No items in the cart, please add items first."
+        redirect_to :root
+      end
     end
   end
 
   def gateway
-    @order = Order.find_by_id(session[:order_id])
+    @order = Order.find_by_id(params[:id] || session[:order_id])
 
     # TODO make params[:pay_info] more clear
     # currently it is mixed with two kinds of inf - pay method and merchant_name
