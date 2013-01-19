@@ -44,37 +44,37 @@ ActiveAdmin.register Order do
   member_action :pay  do
     order = Order.find_by_id(params[:id])
     order.pay
-    redirect_to admin_orders_path, :alert => t(:order_state_changed) + t(:wait_check)
+    redirect_to admin_orders_path, :alert => t(:order_state_changed) + t(:wait_check, :scope => :order)
   end
 
   member_action :check  do
     order = Order.find_by_id(params[:id])
     order.check
-    redirect_to admin_orders_path, :alert => t(:order_state_changed) + t(:wait_ship)
+    redirect_to admin_orders_path, :alert => t(:order_state_changed) + t(:wait_ship, :scope => :order)
   end
 
   member_action :ship  do
     order = Order.find_by_id(params[:id])
     order.ship
-    redirect_to admin_orders_path, :alert => t(:order_state_changed) + t(:wait_confirm)
+    redirect_to admin_orders_path, :alert => t(:order_state_changed) + t(:wait_confirm, :scope => :order)
   end
 
   member_action :confirm  do
     order = Order.find_by_id(params[:id])
     order.confirm
-    redirect_to admin_orders_path, :alert => t(:order_state_changed) + t(:completed)
+    redirect_to admin_orders_path, :alert => t(:order_state_changed) + t(:completed, :scope => :order)
   end
 
   member_action :cancel  do
     order = Order.find_by_id(params[:id])
     order.cancel
-    redirect_to admin_orders_path, :alert => t(:order_state_changed) + t(:void)
+    redirect_to admin_orders_path, :alert => t(:order_state_changed) + t(:void, :scope => :order)
   end
 
   member_action :refund  do
     order = Order.find_by_id(params[:id])
     order.refund
-    redirect_to admin_orders_path, :alert => t(:order_state_changed) + t(:void)
+    redirect_to admin_orders_path, :alert => t(:order_state_changed) + t(:void, :scope => :order)
   end
 
   index do
@@ -98,7 +98,7 @@ ActiveAdmin.register Order do
     end
 
     column :state, :sortable => :state do |order|
-      order.state ? t(order.state) : nil
+      order.state ? t(order.state, :scope => :order) : nil
     end
 
     column :delivery_date, :sortable => :delivery_date
@@ -157,7 +157,7 @@ ActiveAdmin.register Order do
       end
 
       row :state do
-        t(order.state)
+        t(order.state, :scope => :order)
       end
 
       row :gift_card_text
@@ -168,7 +168,7 @@ ActiveAdmin.register Order do
         unless order.transactions.blank?
           order.transactions.map do |transaction|
             link_to(transaction.identifier, admin_transaction_path(transaction)) + \
-            label_tag(" " + t(transaction.state))
+            label_tag(" " + t(transaction.state), :scope => :transaction)
           end.join('</br>').html_safe
         end
       end
@@ -177,7 +177,7 @@ ActiveAdmin.register Order do
         unless order.shipments.blank?
           order.shipments.map do |shipment|
             link_to(shipment.identifier, admin_shipment_path(shipment)) + \
-            label_tag(" " + t(shipment.state))
+            label_tag(" " + t(shipment.state, :scope => :shipment))
           end.join('</br>').html_safe
         end
       end

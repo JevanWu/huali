@@ -28,13 +28,13 @@ ActiveAdmin.register Shipment do
   member_action :ship do
     shipment = Shipment.find_by_id(params[:id])
     shipment.ship
-    redirect_to admin_orders_path, :alert => t(:shipment_state_changed) + t(:shipped)
+    redirect_to admin_orders_path, :alert => t(:shipment_state_changed) + t(:shipped, :scope => :shipment)
   end
 
   member_action :accept do
     shipment = Shipment.find_by_id(params[:id])
     shipment.accept
-    redirect_to admin_orders_path, :alert => t(:shipment_state_changed) + t(:completed)
+    redirect_to admin_orders_path, :alert => t(:shipment_state_changed) + t(:completed, :scope => :shipment)
   end
 
   index do
@@ -43,7 +43,7 @@ ActiveAdmin.register Shipment do
     column :tracking_num, :sortable => :tracking_num
     column :cost, :sortable => :cost
     column :state, :sortable => :state do |shipment|
-      shipment.state ? t(shipment.state) : nil
+      shipment.state ? t(shipment.state, :scope => :shipment) : nil
     end
 
     default_actions
@@ -56,13 +56,13 @@ ActiveAdmin.register Shipment do
   member_action :ship do
     shipment = Shipment.find_by_id(params[:id])
     shipment.ship
-    redirect_to admin_shipments_path, :alert => t(:shipment_state_changed) + t(:shipped)
+    redirect_to admin_shipments_path, :alert => t(:shipment_state_changed) + t(:shipped, :scope => :shipment)
   end
 
   member_action :accept do
     shipment = Shipment.find_by_id(params[:id])
     shipment.accept
-    redirect_to admin_shipments_path, :alert => t(:shipment_state_changed) + t(:completed)
+    redirect_to admin_shipments_path, :alert => t(:shipment_state_changed) + t(:completed, :scope => :shipment)
   end
 
   form :partial => "form"

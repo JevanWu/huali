@@ -28,19 +28,19 @@ ActiveAdmin.register Transaction do
   member_action :start do
     transaction = Transaction.find_by_id(params[:id])
     transaction.start
-    redirect_to admin_transactions_path, :alert => t(:transaction_state_changed) + t(:processing)
+    redirect_to admin_transactions_path, :alert => t(:transaction_state_changed) + t(:processing, :scope => :transaction)
   end
 
   member_action :complete do
     transaction = Transaction.find_by_id(params[:id])
     transaction.complete
-    redirect_to admin_transactions_path, :alert => t(:transaction_state_changed) + t(:completed)
+    redirect_to admin_transactions_path, :alert => t(:transaction_state_changed) + t(:completed, :scope => :transaction)
   end
 
   member_action :fail do
     transaction = Transaction.find_by_id(params[:id])
     transaction.failure
-    redirect_to admin_transactions_path, :alert => t(:transaction_state_changed) + t(:failed)
+    redirect_to admin_transactions_path, :alert => t(:transaction_state_changed) + t(:failed, :scope => :transaction)
   end
 
   index do
@@ -57,7 +57,7 @@ ActiveAdmin.register Transaction do
     end
 
     column :state, sortable: :state do |transaction|
-      transaction.state ? t(transaction.state) : nil
+      transaction.state ? t(transaction.state, :scope => :transaction) : nil
     end
     column :subject
     default_actions
@@ -75,7 +75,7 @@ ActiveAdmin.register Transaction do
       row :identifier
       row :paymethod
       row :state do
-        transaction.state ? t(transaction.state) : nil
+        transaction.state ? t(transaction.state, :scope => :transaction) : nil
       end
       row :amount
       row :merchant_trade_no do |transaction|
