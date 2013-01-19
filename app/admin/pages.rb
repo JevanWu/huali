@@ -1,5 +1,5 @@
 ActiveAdmin.register Page do
-  menu if: proc { can? :read, Page }
+  menu parent: 'Setting', if: proc { can? :read, Page }
 
   controller do
     include ActiveAdminCanCan

@@ -1,6 +1,6 @@
 # encoding: utf-8
 ActiveAdmin.register Shipment do
-  menu if: proc { can? :read, Shipment }
+  menu parent: 'Order', if: proc { can? :read, Shipment }
 
   controller do
     include ActiveAdminCanCan

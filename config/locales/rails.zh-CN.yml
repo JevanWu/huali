@@ -14,13 +14,13 @@ zh-CN:
 
     models:
       administrator: "管理用户"
-      transaction: "交易"
+      transaction: "交易记录"
       product: "产品"
-      shipment: "递送"
-      order: "订单"
-      asset: "资源"
-      page: "页面"
-      collection: "集合"
+      shipment: "货运记录"
+      order: "订单列表"
+      asset: "图片"
+      page: "单独页面"
+      collection: "品类"
       line_item: "条目"
       address: "地址"
       province: '省'

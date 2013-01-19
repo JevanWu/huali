@@ -1,5 +1,5 @@
 ActiveAdmin.register Collection do
-  menu if: proc { can? :read, Collection }
+  menu parent: 'Product', if: proc { can? :read, Collection }
 
   controller do
     include ActiveAdminCanCan

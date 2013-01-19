@@ -1,5 +1,5 @@
 ActiveAdmin.register Province do
-  menu if: proc { can? :read, Province }
+  menu parent: 'Setting', if: proc { can? :read, Province }
 
   controller do
     include ActiveAdminCanCan
@@ -74,7 +74,7 @@ ActiveAdmin.register Province do
 end
 
 ActiveAdmin.register City do
-  menu if: proc { can? :read, City }
+  menu parent: 'Setting', if: proc { can? :read, City }
 
   controller do
     include ActiveAdminCanCan
@@ -155,7 +155,7 @@ ActiveAdmin.register City do
 end
 
 ActiveAdmin.register Area do
-  menu if: proc { can? :read, Area }
+  menu parent: 'Setting', if: proc { can? :read, Area }
 
   controller do
     include ActiveAdminCanCan

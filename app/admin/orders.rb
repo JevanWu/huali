@@ -1,6 +1,6 @@
 # encoding: utf-8
 ActiveAdmin.register Order do
-  menu unless: proc { cannot? :read, Page }
+  menu parent: 'Order', priority: 1, unless: proc { cannot? :read, Page }
 
   controller do
     include ActiveAdminCanCan

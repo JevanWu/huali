@@ -1,5 +1,5 @@
 ActiveAdmin.register ShipMethod do
-  menu if: proc { can? :read, ShipMethod }
+  menu parent: 'Setting', if: proc { can? :read, ShipMethod }
 
   controller do
     include ActiveAdminCanCan
