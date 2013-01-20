@@ -186,6 +186,11 @@ ActiveAdmin.register Order do
         end
       end
 
+      row :images do
+        order.line_items.map do |item|
+          image_tag item.product.assets.first.image.url(:medium)
+        end.join('</br>').html_safe
+      end
     end
   end
 
