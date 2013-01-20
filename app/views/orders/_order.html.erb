@@ -6,7 +6,7 @@
     <%= l order.created_at, :format => :short %>
   </td>
   <td>
-    <%= t(order.state) %>
+    <%= t(order.state, :scope => :order) %>
   </td>
   <td>
     <%= order.total %>
