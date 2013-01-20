@@ -88,6 +88,10 @@ ActiveAdmin.register Order do
 
   index do
     selectable_column
+    column :state, :sortable => :state do |order|
+      status_tag t(order.state, scope: :order), order_state(order)
+    end
+
     column :identifier, :sortable => :identifier
 
     column :transaction_identifier, :sortable => :id do |order|
@@ -106,9 +110,6 @@ ActiveAdmin.register Order do
       order.address.phone
     end
 
-    column :state, :sortable => :state do |order|
-      order.state ? t(order.state, :scope => :order) : nil
-    end
 
     column :delivery_date, :sortable => :delivery_date
 
@@ -126,11 +127,11 @@ ActiveAdmin.register Order do
 
   show do
     attributes_table do
-      row :identifier
-
       row :state do
-        t(order.state, scope: 'order')
+        status_tag t(order.state, scope: :order), order_state(order)
       end
+
+      row :identifier
 
       row :order_content do
         order.subject_text
