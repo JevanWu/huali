@@ -1,6 +1,6 @@
 # encoding: utf-8
 ActiveAdmin.register Order do
-  menu parent: 'Order', priority: 1, unless: proc { cannot? :read, Page }
+  menu parent: 'Order', priority:1, unless: proc { cannot? :read, Page }
 
   controller do
     include ActiveAdminCanCan
@@ -17,14 +17,14 @@ ActiveAdmin.register Order do
 
   filter :delivery_date
   filter :state, :as => :select, :collection =>
-    { "新建" => "generated",
-      "结束" => "completed",
-      "等待审核" => "wait_check",
-      "等待确认" => "wait_confirm",
-      "等待发货" => "wait_ship",
-      "等待退款" => "wait_refund",
-      "取消" => "void"
-    }
+  { "等待付款" => "generated",
+    "结束" => "completed",
+    "等待审核" => "wait_check",
+    "等待发货" => "wait_ship",
+    "已经发货" => "wait_confirm",
+    "等待退款" => "wait_refund",
+    "取消" => "void"
+  }
 
   filter :address_fullname, :as => :string
   filter :address_phone, :as => :string
@@ -116,7 +116,6 @@ ActiveAdmin.register Order do
   form :partial => "form"
 
   show do
-
     attributes_table do
       row :identifier
 
@@ -181,8 +180,6 @@ ActiveAdmin.register Order do
           end.join('</br>').html_safe
         end
       end
-
     end
   end
-
 end

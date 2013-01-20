@@ -77,23 +77,6 @@ zh-CN:
 
 
   #states for order
-  wait_check: "等待审核"
-  wait_confirm: "等待确认"
-  wait_ship: "等待发货"
-  wait_refund: "等待退款"
-  generated: "新建"
-  finished: "完成"
-  completed: "结束"
-  void: "取消"
-  pay: "付款 "
-  check: "审核 "
-  ship: "发货 "
-  refund: "退款"
-  confirm: "确认 "
-  cancel: "取消"
-  modify_order_state: "修改订单状态"
-  order_state_changed: "订单状态变更为"
-
   order:
     wait_check: "等待审核"
     wait_confirm: "已经发货"
@@ -134,10 +117,7 @@ zh-CN:
   no_items: "还没有花在购花篮, 请先选购"
   cancel_success: "订单取消成功"
   cancel_failed: "订单取消失败, 请联系客服人员"
-  modify_order_state: "修改订单状态"
   order_state_changed: "订单状态变更为"
-  modify_transaction_state: "修改交易状态"
   transaction_state_changed: "交易状态变更为"
-  modify_shipment_state: "修改递送状态"
   shipment_state_changed: "递送状态变更为"
 
