@@ -10,7 +10,6 @@ ActiveAdmin.register ShipMethod do
     selectable_column
 
     column :name, :sortable => :name
-    column :cost, :sortable => :cost
     column :method, :sortable => :method do |ship_method|
       t(ship_method.method)
     end

@@ -41,7 +41,6 @@ ActiveAdmin.register Shipment do
     selectable_column
 
     column :tracking_num, :sortable => :tracking_num
-    column :cost, :sortable => :cost
     column :state, :sortable => :state do |shipment|
       shipment.state ? t(shipment.state) : nil
     end
