@@ -5,6 +5,28 @@ ActiveAdmin.register Order do
   controller do
     include ActiveAdminCanCan
     authorize_resource
+
+    helper :orders
+
+    # override methods from **inherited_resource** to specify behavior of controller
+    # scoped_collection / resource
+    def scoped_collection
+      case current_administrator.role
+      when 'supplier'
+        Order.select(selected).includes(:transactions, :address, :line_items)
+      else
+        Order.includes(:transactions, :address, :line_items)
+      end
+    end
+
+    def resource
+      if current_administrator.role == 'supplier'
+        selected = (Order.column_names - %w{sender_email sender_phone sender_name total}).join(',')
+        @order ||= end_of_association_chain.select(selected).find(params[:id])
+      else
+        super
+      end
+    end
   end
 
   actions :all, :except => :new
@@ -31,15 +53,6 @@ ActiveAdmin.register Order do
   filter :address_province_name, :as => :string
   filter :address_city_name, :as => :string
   filter :address_address, :as => :string
-
-
-  controller do
-    helper :orders
-
-    def scoped_collection
-      Order.includes(:transactions, :address, :line_items)
-    end
-  end
 
   member_action :pay  do
     order = Order.find_by_id(params[:id])
@@ -156,7 +169,7 @@ ActiveAdmin.register Order do
       row :special_instructions
 
       row :total do
-        number_to_currency order.total, :unit => '&yen;'
+        number_to_currency order[:total].presence, :unit => '&yen;'
       end
 
       row :transaction_info do
@@ -177,10 +190,17 @@ ActiveAdmin.register Order do
         end
       end
 
-      row :sender_name
-      row :sender_email
-      row :sender_phone
+      row :sender_name do
+        order[:sender_name].presence
+      end
 
+      row :sender_email do
+        order[:sender_email].presence
+      end
+
+      row :sender_phone do
+        order[:sender_phone].presence
+      end
     end
   end
 
