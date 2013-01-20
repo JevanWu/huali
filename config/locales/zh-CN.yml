@@ -51,7 +51,7 @@ zh-CN:
   # order view
   identifier: "订单编号"
   order_info: "订单信息"
-  delivery_date: "递送日期"
+  delivery_date: "送达日期"
   special_instructions: "特殊要求"
   gift_card_text: "卡片信息"
   total: "订单总价"
