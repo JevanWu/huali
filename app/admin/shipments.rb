@@ -75,6 +75,9 @@ ActiveAdmin.register Shipment do
       row :state do
         shipment.state ? t(shipment.state) : nil
       end
+      row :modify_shipment_state do
+        shipment_state_shift(shipment)
+      end
       row :note
     end
   end

@@ -77,8 +77,11 @@ ActiveAdmin.register Transaction do
       row :state do
         transaction.state ? t(transaction.state) : nil
       end
+      row :modify_transaction_state do
+        transaction_state_shift(transaction)
+      end
       row :amount
-      row :merchant_trade_no do |transaction|
+      row :merchant_trade_no do
         merchant_trade_link(transaction)
       end
       row :subject

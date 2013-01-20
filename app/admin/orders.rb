@@ -160,6 +160,10 @@ ActiveAdmin.register Order do
         t(order.state)
       end
 
+      row :modify_order_state do
+        order_state_shift(order)
+      end
+
       row :gift_card_text
       row :special_instructions
       row :delivery_date
