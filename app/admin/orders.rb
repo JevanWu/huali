@@ -5,7 +5,6 @@ ActiveAdmin.register Order do
   controller do
     include ActiveAdminCanCan
     authorize_resource
-
     helper :orders
 
     # override methods from **inherited_resource** to specify behavior of controller
