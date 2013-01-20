@@ -5,25 +5,13 @@ ActiveAdmin.register Shipment do
   controller do
     include ActiveAdminCanCan
     authorize_resource
+    helper :shipments
   end
 
   filter :tracking_num
   filter :state, :as => :select, :collection => {"准备" => "ready", "发货" => "shipped", "未知" => "unknown"}
   filter :cost
   filter :note
-
-  controller do
-    helper :shipments
-    def create
-      @shipment = Shipment.new(params[:shipment])
-      if @shipment.save
-        order = Order.find_by_id(@shipment.order_id)
-        order.state = "wait_confirm"
-        order.save
-        redirect_to admin_shipments_path
-      end
-    end
-  end
 
   member_action :ship do
     shipment = Shipment.find_by_id(params[:id])

@@ -5,25 +5,12 @@ ActiveAdmin.register Transaction do
   controller do
     include ActiveAdminCanCan
     authorize_resource
+    helper :transactions
   end
 
   filter :paymethod
   filter :state, :as => :select, :collection => { "新建" => "generated", "完成" => "completed", "处理中" => "processing", "失败" => "failed" }
   filter :amount
-
-  controller do
-    helper :transactions
-
-    def create
-      @transaction = Transaction.new(params[:transaction])
-      if @transaction.save
-        order = Order.find_by_id(@transaction.order_id)
-        order.state = "wait_check"
-        order.save
-        redirect_to admin_transactions_path
-      end
-    end
-  end
 
   member_action :start do
     transaction = Transaction.find_by_id(params[:id])
