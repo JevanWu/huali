@@ -115,7 +115,7 @@ class Transaction < ActiveRecord::Base
 
 
   def check_deal(result)
-    amount.to_s == result.total_fee
+    amount.to_f == result.total_fee.to_f
   end
 
   def complete_deal(result)
