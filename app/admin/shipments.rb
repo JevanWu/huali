@@ -40,10 +40,11 @@ ActiveAdmin.register Shipment do
   index do
     selectable_column
 
-    column :tracking_num, :sortable => :tracking_num
     column :state, :sortable => :state do |shipment|
-      shipment.state ? t(shipment.state, :scope => :shipment) : nil
+      status_tag t(shipment.state, scope: :shipment), shipment_state_class(shipment)
     end
+
+    column :tracking_num, :sortable => :tracking_num
 
     default_actions
 
@@ -69,11 +70,13 @@ ActiveAdmin.register Shipment do
   show do
 
     attributes_table do
+      row :state do |shipment|
+        status_tag t(shipment.state, scope: :shipment), shipment_state_class(shipment)
+      end
+
       row :tracking_num
       row :cost
-      row :state do
-        shipment.state ? t(shipment.state) : nil
-      end
+
       row :modify_shipment_state do
         shipment_state_shift(shipment)
       end

@@ -7,4 +7,18 @@ module ShipmentsHelper
       link_to(t(:accept, :scope => :shipment), accept_admin_shipment_path(shipment))
     end
   end
+
+  def shipment_state_class(shipment)
+    case shipment.state
+    when 'ready'
+      'warning'
+    when 'shipped'
+      ''
+    when 'completed'
+      'ok'
+    when 'unknown'
+      'error'
+    else
+    end
+  end
 end
