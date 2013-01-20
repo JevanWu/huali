@@ -26,7 +26,7 @@ class Notify < ActionMailer::Base
   # For Admin
   def pay_order_admin_email(order_id)
     @order = Order.full_info(order_id)
-    mail(to: 's@zenhacks.org', subject: subject("订单付款成功", @order.subject_text))
+    mail(to: 'support@hua.li', subject: subject("订单付款成功", @order.subject_text))
   end
 
   private
