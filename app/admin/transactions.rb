@@ -46,6 +46,10 @@ ActiveAdmin.register Transaction do
   index do
     selectable_column
 
+    column :state, sortable: :state do |transaction|
+      status_tag t(transaction.state, scope: :transaction), transaction_state_class(transaction)
+    end
+
     column :identifier
     column :order do |transaction|
       link_to transaction.order.identifier, admin_order_path(transaction.order)
@@ -56,9 +60,6 @@ ActiveAdmin.register Transaction do
       merchant_trade_link(transaction)
     end
 
-    column :state, sortable: :state do |transaction|
-      transaction.state ? t(transaction.state, :scope => :transaction) : nil
-    end
     column :subject
     default_actions
     column :modify_transaction_state do |transaction|
@@ -71,12 +72,13 @@ ActiveAdmin.register Transaction do
   show do
 
     attributes_table do
+      row :state do
+        status_tag t(transaction.state, scope: :transaction), transaction_state_class(transaction)
+      end
+
       row :merchant_name
       row :identifier
       row :paymethod
-      row :state do
-        transaction.state ? t(transaction.state, :scope => :transaction) : nil
-      end
       row :modify_transaction_state do
         transaction_state_shift(transaction)
       end

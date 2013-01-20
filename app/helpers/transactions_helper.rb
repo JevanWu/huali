@@ -6,6 +6,20 @@ module TransactionsHelper
     end
   end
 
+  def transaction_state_class(transaction)
+    case transaction.state
+    when 'generated'
+      ''
+    when 'processing'
+      'warning'
+    when 'completed'
+      'ok'
+    when 'failure'
+      'error'
+    else
+    end
+  end
+
   def transaction_state_shift(transaction)
     case transaction.state
     when "generated"
