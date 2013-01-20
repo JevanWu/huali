@@ -1,6 +1,6 @@
 # encoding: utf-8
 ActiveAdmin.register Transaction do
-  menu parent: 'Order', if: proc { can? :read, Transaction }
+  menu parent: I18n.t('active_admin.menu.order'), if: proc { can? :read, Transaction }
 
   controller do
     include ActiveAdminCanCan
@@ -77,8 +77,11 @@ ActiveAdmin.register Transaction do
       row :state do
         transaction.state ? t(transaction.state) : nil
       end
+      row :modify_transaction_state do
+        transaction_state_shift(transaction)
+      end
       row :amount
-      row :merchant_trade_no do |transaction|
+      row :merchant_trade_no do
         merchant_trade_link(transaction)
       end
       row :subject

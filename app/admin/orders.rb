@@ -1,6 +1,6 @@
 # encoding: utf-8
 ActiveAdmin.register Order do
-  menu parent: 'Order', priority: 1, unless: proc { cannot? :read, Page }
+  menu parent: I18n.t('active_admin.menu.order') , priority:1, unless: proc { cannot? :read, Page }
 
   controller do
     include ActiveAdminCanCan
@@ -39,14 +39,14 @@ ActiveAdmin.register Order do
 
   filter :delivery_date
   filter :state, :as => :select, :collection =>
-    { "新建" => "generated",
-      "结束" => "completed",
-      "等待审核" => "wait_check",
-      "等待确认" => "wait_confirm",
-      "等待发货" => "wait_ship",
-      "等待退款" => "wait_refund",
-      "取消" => "void"
-    }
+  { "新建" => "generated",
+    "结束" => "completed",
+    "等待审核" => "wait_check",
+    "等待确认" => "wait_confirm",
+    "等待发货" => "wait_ship",
+    "等待退款" => "wait_refund",
+    "取消" => "void"
+  }
 
   filter :address_fullname, :as => :string
   filter :address_phone, :as => :string
@@ -118,7 +118,7 @@ ActiveAdmin.register Order do
 
     column :process_order do |order|
       link_to(t(:edit), edit_admin_order_path(order)) + \
-      link_to(t(:view), admin_order_path(order))
+        link_to(t(:view), admin_order_path(order))
     end
 
     column :modify_order_state do |order|
@@ -135,73 +135,76 @@ ActiveAdmin.register Order do
 
       row :state do
         t(order.state)
-      end
 
-      row :order_content do
-        order.subject_text
-      end
+        row :order_content do
+          order.subject_text
+        end
 
-      row :images do
-        order.products.map do |product|
-          image_tag product.img(:medium)
-        end.join('</br>').html_safe
-      end
-
-      row :ship_method do
-        order.shipment.try(:ship_method)
-      end
-
-      row :receiver_info do
-        order.address.full_addr
-      end
-
-      row :receiver_name do
-        order.address.fullname
-      end
-
-      row :delivery_date
-
-      row :receiver_phonenum do
-        order.address.phone
-      end
-
-      row :gift_card_text
-      row :special_instructions
-
-      row :total do
-        number_to_currency order[:total].presence, :unit => '&yen;'
-      end
-
-      row :transaction_info do
-        unless order.transactions.blank?
-          order.transactions.map do |transaction|
-            link_to(transaction.identifier, admin_transaction_path(transaction)) + \
-            label_tag(" " + t(transaction.state))
+        row :images do
+          order.products.map do |product|
+            image_tag product.img(:medium)
           end.join('</br>').html_safe
         end
-      end
 
-      row :shipment_info do
-        unless order.shipments.blank?
-          order.shipments.map do |shipment|
-            link_to(shipment.identifier, admin_shipment_path(shipment)) + \
-            label_tag(" " + t(shipment.state))
-          end.join('</br>').html_safe
+        row :ship_method do
+          order.shipment.try(:ship_method)
         end
-      end
 
-      row :sender_name do
-        order[:sender_name].presence
-      end
+        row :receiver_info do
+          order.address.full_addr
+        end
 
-      row :sender_email do
-        order[:sender_email].presence
-      end
+        row :receiver_fullname do
+          order.address.fullname
+        end
 
-      row :sender_phone do
-        order[:sender_phone].presence
+        row :delivery_date
+
+        row :receiver_phonenum do
+          order.address.phone
+        end
+
+        row :modify_order_state do
+          order_state_shift(order)
+        end
+
+        row :gift_card_text
+        row :special_instructions
+
+        row :total do
+          number_to_currency order[:total].presence, :unit => '&yen;'
+        end
+
+        row :transaction_info do
+          unless order.transactions.blank?
+            order.transactions.map do |transaction|
+              link_to(transaction.identifier, admin_transaction_path(transaction)) + \
+                label_tag(" " + t(transaction.state))
+            end.join('</br>').html_safe
+          end
+        end
+
+        row :shipment_info do
+          unless order.shipments.blank?
+            order.shipments.map do |shipment|
+              link_to(shipment.identifier, admin_shipment_path(shipment)) + \
+                label_tag(" " + t(shipment.state))
+            end.join('</br>').html_safe
+          end
+        end
+
+        row :sender_name do
+          order[:sender_name].presence
+        end
+
+        row :sender_email do
+          order[:sender_email].presence
+        end
+
+        row :sender_phone do
+          order[:sender_phone].presence
+        end
       end
     end
   end
-
 end
