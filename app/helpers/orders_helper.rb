@@ -8,6 +8,24 @@ module OrdersHelper
     number_to_currency item_total, unit: '&yen;'
   end
 
+  def order_state(order)
+    case order.state
+    when 'generated'
+      'warning'
+    when 'wait_check'
+      'error'
+    when 'wait_ship'
+      'warning'
+    when 'wait_confirm'
+      ''
+    when 'wait_refund'
+      'error'
+    when 'completed'
+      'ok'
+    else
+    end
+  end
+
   def order_state_shift(order)
     case order.state
     when "generated"
