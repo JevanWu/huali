@@ -21,4 +21,8 @@ class ShipMethod < ActiveRecord::Base
     in: %w(express mannual),
     message: "%{value} is not a valid shipment_method."
   }
+
+  def to_s
+    name
+  end
 end

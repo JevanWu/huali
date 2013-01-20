@@ -120,49 +120,44 @@ ActiveAdmin.register Order do
     attributes_table do
       row :identifier
 
-      row :total do
-        number_to_currency order.total, :unit => '&yen;'
-      end
-
-      row :sender_name
-      row :sender_email
-      row :sender_phone
-
-      row :receiver_fullname do
-        order.address.fullname
-      end
-
-      row :receiver_phonenum do
-        order.address.phone
-      end
-
-      row :receiver_province do
-        order.address.province.name
-      end
-
-      row :receiver_city do
-        order.address.city.name
-      end
-
-      row :receiver_address do
-        order.address.address
-      end
-
-      row :receiver_postcode do
-        order.address.post_code
+      row :state do
+        t(order.state)
       end
 
       row :order_content do
         order.subject_text
       end
 
-      row :state do
-        t(order.state)
+      row :images do
+        order.products.map do |product|
+          image_tag product.img(:medium)
+        end.join('</br>').html_safe
+      end
+
+      row :ship_method do
+        order.shipment.try(:ship_method)
+      end
+
+      row :receiver_info do
+        order.address.full_addr
+      end
+
+      row :receiver_name do
+        order.address.fullname
+      end
+
+      row :delivery_date
+
+      row :receiver_phonenum do
+        order.address.phone
       end
 
       row :gift_card_text
       row :special_instructions
-      row :delivery_date
+
+      row :total do
+        number_to_currency order.total, :unit => '&yen;'
+      end
 
       row :transaction_info do
         unless order.transactions.blank?
@@ -181,6 +176,10 @@ ActiveAdmin.register Order do
           end.join('</br>').html_safe
         end
       end
+
+      row :sender_name
+      row :sender_email
+      row :sender_phone
 
     end
   end

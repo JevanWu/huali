@@ -58,6 +58,7 @@ zh-CN:
         address_province_name: "收件人省份"
         address_city_name: "收件人城市"
         address_address: "收件人地址"
+        images: "产品图"
 
       ship_method:
         name: "名字"
