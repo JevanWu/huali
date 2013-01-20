@@ -5,6 +5,7 @@
     <%= f.input :amount, required: true %>
     <%= f.input :paymethod, :collection => %w(paypal directPay bankPay), required: true%>
     <%= f.input :merchant_name, :collection => %w(Alipay Paypal ICBCB2C CMB CCB BOCB2C ABC COMM CMBC) , required: true %>
+    <%= f.input :merchant_trade_no %>
     <%= f.input :subject %>
     <%= f.input :body %>
   <% end %>

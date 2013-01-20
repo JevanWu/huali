@@ -76,16 +76,19 @@ ActiveAdmin.register Transaction do
         status_tag t(transaction.state, scope: :transaction), transaction_state_class(transaction)
       end
 
-      row :merchant_name
       row :identifier
-      row :paymethod
-      row :modify_transaction_state do
-        transaction_state_shift(transaction)
-      end
-      row :amount
+      row :merchant_name
       row :merchant_trade_no do
         merchant_trade_link(transaction)
       end
+
+      row :paymethod
+
+      row :modify_transaction_state do
+        transaction_state_shift(transaction)
+      end
+
+      row :amount
       row :subject
       row :body
     end
