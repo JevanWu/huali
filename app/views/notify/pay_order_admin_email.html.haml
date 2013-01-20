@@ -22,7 +22,7 @@
         %p{style: "color:#767676; font-weight: normal; margin: 0; padding: 0; line-height: 20px; font-size: 12px;font-family: Helvetica, Arial, sans-serif; "}
           如果需要联系该顾客，
           他的邮件是
-          = mail_to @order.sender_email, subject: "花里|关于#{@order.identifier}", body: "尊敬的#{@order.sender_name}\n"
+          = mail_to @order.sender_email, nil, subject: "花里|关于#{@order.identifier}", body: "尊敬的#{@order.sender_name}\n"
           他的联系方式是
           = @order.sender_phone
         %br
