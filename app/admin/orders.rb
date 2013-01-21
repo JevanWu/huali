@@ -101,7 +101,7 @@ ActiveAdmin.register Order do
       [order[:sender_name], order[:sender_email], order[:sender_phone]].select { |s| !s.blank? }.join(', ')
     end
 
-    column :expected_date, :sortable => :expected_date
+    column :delivery_date, :sortable => :delivery_date
 
     column :process_order do |order|
       link_to(t(:edit), edit_admin_order_path(order)) + \
@@ -127,41 +127,6 @@ ActiveAdmin.register Order do
         order.subject_text
       end
 
-      row :images do
-        order.products.map do |product|
-          image_tag product.img(:medium)
-        end.join('</br>').html_safe
-      end
-
-      row :ship_method do
-        order.shipment.try(:ship_method)
-      end
-
-      row :receiver_info do
-        order.address.full_addr
-      end
-
-      row :receiver_fullname do
-        order.address.fullname
-      end
-
-      row :expected_date
-
-      row :receiver_phonenum do
-        order.address.phone
-      end
-
-      row :modify_order_state do
-        order_state_shift(order)
-      end
-
-      row :gift_card_text
-      row :special_instructions
-
-      row :total do
-        number_to_currency order[:total].presence, :unit => '&yen;'
-      end
-
       row :transaction_info do
         unless order.transactions.blank?
           order.transactions.map do |transaction|
@@ -178,6 +143,39 @@ ActiveAdmin.register Order do
             label_tag(" " + t(shipment.state, :scope => :shipment))
           end.join('</br>').html_safe
         end
+      end
+
+      row :images do
+        order.products.map do |product|
+          image_tag product.img(:medium)
+        end.join('</br>').html_safe
+      end
+
+      row :expected_date
+
+      row :delivery_date
+
+      row :ship_method do
+        order.shipment.try(:ship_method)
+      end
+
+      row :receiver_info do
+        order.address.full_addr
+      end
+
+      row :receiver_fullname do
+        order.address.fullname
+      end
+
+      row :receiver_phonenum do
+        order.address.phone
+      end
+
+      row :gift_card_text
+      row :special_instructions
+
+      row :total do
+        number_to_currency order[:total].presence, :unit => '&yen;'
       end
 
       row :sender_name do

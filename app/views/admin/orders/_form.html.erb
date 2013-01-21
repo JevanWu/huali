@@ -5,6 +5,7 @@
     <%= builder.input :fullname %>
     <%= builder.input :phone %>
     <%= f.input :expected_date, as: :string, required: true, input_html: { class: 'datepicker' }%>
+    <%= f.input :delivery_date, as: :string, input_html: { class: 'datepicker' }%>
   <% end %>
 
 
