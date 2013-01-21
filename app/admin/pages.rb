@@ -1,5 +1,6 @@
+# encoding: utf-8
 ActiveAdmin.register Page do
-  menu parent: -> { I18n.t('active_admin.menu.setting') }, if: proc { can? :read, Page }
+  menu parent: '设置', if: proc { can? :read, Page }
 
   controller do
     include ActiveAdminCanCan

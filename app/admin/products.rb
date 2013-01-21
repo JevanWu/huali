@@ -1,5 +1,6 @@
+# encoding: utf-8
 ActiveAdmin.register Product do
-  menu parent: -> { I18n.t('active_admin.menu.product') }, if: proc { can? :read, Product }
+  menu parent: '产品', if: proc { can? :read, Product }
 
   controller do
     include ActiveAdminCanCan
