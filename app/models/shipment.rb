@@ -22,14 +22,14 @@
 #
 
 class Shipment < ActiveRecord::Base
-  attr_accessible :cost, :identifier, :note, :state, :tracking_num, :ship_method_id, :address_id, :order_id
+  attr_accessible :identifier, :note, :state, :tracking_num, :ship_method_id, :address_id, :order_id
 
   belongs_to :address
   belongs_to :ship_method
   belongs_to :order
   has_one :user, through: :order
 
-  before_validation :populate_cost, :copy_address, :generate_identifier, on: :create
+  before_validation :copy_address, :generate_identifier, on: :create
   after_create :ship
 
   validates_presence_of :order_id, :address_id, :ship_method_id
@@ -63,10 +63,6 @@ class Shipment < ActiveRecord::Base
 
   def copy_address
     self.address_id = self.order.address_id
-  end
-
-  def populate_cost
-    self.cost ||= self.ship_method.cost
   end
 
   private
