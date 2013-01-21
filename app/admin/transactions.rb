@@ -1,6 +1,6 @@
 # encoding: utf-8
 ActiveAdmin.register Transaction do
-  menu parent: -> { I18n.t('active_admin.menu.order') }, if: proc { can? :read, Transaction }
+  menu parent: I18n.t('active_admin.menu.order'), if: proc { can? :read, Transaction }
 
   controller do
     include ActiveAdminCanCan

@@ -1,5 +1,5 @@
 ActiveAdmin.register Asset do
-  menu parent: -> { I18n.t('active_admin.menu.product') }, if: proc { can? :read, Asset }
+  menu parent: I18n.t('active_admin.menu.product'), if: proc { can? :read, Asset }
 
   controller do
     include ActiveAdminCanCan
