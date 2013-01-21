@@ -73,7 +73,7 @@ zh-CN:
         identifier: "递送编号"
         ship_method: "递送方式"
         state: "递送状态"
-        note: "留言"
+        note: "备注"
         tracking_num: "快递单号"
         modify_shipment_state: "修改快递状态"
 

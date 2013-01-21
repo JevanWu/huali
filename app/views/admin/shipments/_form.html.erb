@@ -1,5 +1,5 @@
 <%= semantic_form_for [:admin, @shipment] do |f| %>
-  <%= f.inputs "Main Info" do %>
+  <%= f.inputs "Delivery Info" do %>
     <%= f.input :tracking_num %>
     <%= f.input :ship_method, :as => :radio, :collection => ShipMethod.all %>
     <%= f.input :note %>
@@ -7,4 +7,3 @@
   <% end %>
   <%= f.actions %>
 <% end %>
-

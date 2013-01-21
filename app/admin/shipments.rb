@@ -41,9 +41,13 @@ ActiveAdmin.register Shipment do
   end
 
   member_action :ship do
-    shipment = Shipment.find_by_id(params[:id])
-    shipment.ship
-    redirect_to admin_shipments_path, :alert => t(:shipment_state_changed) + t(:shipped, :scope => :shipment)
+    @shipment = Shipment.find_by_id(params[:id])
+    if @shipment.ship
+      redirect_to admin_shipments_path, :alert => t(:shipment_state_changed) + t(:shipped, :scope => :shipment)
+    else
+      flash[:error] = "货运订单状态更新失败"
+      render 'edit', layout: false
+    end
   end
 
   member_action :accept do
