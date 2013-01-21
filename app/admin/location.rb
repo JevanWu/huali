@@ -1,5 +1,5 @@
 ActiveAdmin.register Province do
-  menu parent: I18n.t('active_admin.menu.setting'), if: proc { can? :read, Province }
+  menu parent: -> { I18n.t('active_admin.menu.setting') }, if: proc { can? :read, Province }
 
   controller do
     include ActiveAdminCanCan
@@ -12,7 +12,7 @@ ActiveAdmin.register Province do
   [ :enable,
     :disable
   ].each do |action|
-      batch_action I18n.t(action) do |selection|
+      batch_action -> { I18n.t(action) } do |selection|
         provinces = Province.find(selection)
         provinces.each { |province| province.send(action) }
         redirect_to :back, :notice => provinces.count.to_s + t(:province_updated)
