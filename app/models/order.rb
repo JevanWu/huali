@@ -56,6 +56,7 @@ class Order < ActiveRecord::Base
     before_transition :to => :wait_refund, :do => :auth_refund
     before_transition :to => :completed, :do => :complete_order
     before_transition :to => :wait_check, :do => :pay_order
+    after_transition :to => :wait_ship, :do => :generate_shipment
 
     # use adj. for state with future vision
     # use v. for event name
@@ -142,7 +143,7 @@ class Order < ActiveRecord::Base
     # note: String
     # cost: Integer (optional)
   # }
-  def generate_shipment(options)
+  def generate_shipment(options = {})
     self.shipments.create options
   end
 

@@ -3,7 +3,6 @@
 # Table name: shipments
 #
 #  address_id     :integer
-#  cost           :integer
 #  created_at     :datetime         not null
 #  id             :integer          not null, primary key
 #  identifier     :string(255)

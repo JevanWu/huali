@@ -2,7 +2,6 @@
 #
 # Table name: ship_methods
 #
-#  cost            :decimal(8, 2)    default(0.0)
 #  id              :integer          not null, primary key
 #  kuaidi_com_code :string(255)
 #  method          :string(255)
