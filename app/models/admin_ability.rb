@@ -14,7 +14,8 @@ class AdminAbility
     when "supplier"
       cannot :read, Order
       can :read, Order, state: 'wait_ship'
-      can [:create, :ship], Shipment
+      can :manage, Shipment
+      cannot :delete, Shipment
     end
   end
 end

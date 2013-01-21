@@ -46,6 +46,7 @@ zh-CN:
         sender_name: "寄件人姓名"
         sender_email: "寄件人邮箱"
         sender_phone: "寄件人电话"
+        sender_info: "寄件人信息"
         order_content: "订单内容"
         transaction_identifier: "交易编号"
         transaction_info: "交易信息"

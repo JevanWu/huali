@@ -11,7 +11,12 @@ ActiveAdmin.register Order do
     # override methods from **inherited_resource** to specify behavior of controller
     # scoped_collection / resource
     def scoped_collection
-      Order.includes(:transactions, :address, :line_items)
+      if current_administrator.role == 'supplier'
+        selected = (Order.column_names - %w{sender_email sender_phone sender_name total}).join(',')
+        Order.select(selected).includes(:transactions, :address, :line_items)
+      else
+        Order.includes(:transactions, :address, :line_items)
+      end
     end
 
     def resource
@@ -88,22 +93,19 @@ ActiveAdmin.register Order do
       end
     end
 
-    column :total, :sortable => :id
-
-    column :receiver_fullname do |order|
-      order.address.fullname
+    column :total, :sortable => :id do |order|
+      order[:total]
     end
 
-    column :receiver_phonenum do |order|
-      order.address.phone
+    column :sender_info do |order|
+      [order[:sender_name], order[:sender_email], order[:sender_phone]].select { |s| !s.blank? }.join(', ')
     end
-
 
     column :delivery_date, :sortable => :delivery_date
 
     column :process_order do |order|
       link_to(t(:edit), edit_admin_order_path(order)) + \
-        link_to(t(:view), admin_order_path(order))
+      link_to(t(:view), admin_order_path(order))
     end
 
     column :modify_order_state do |order|
