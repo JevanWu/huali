@@ -1,5 +1,5 @@
 ActiveAdmin.register Province do
-  menu parent: I18n.t('active_admin.menu.setting'), if: proc { can? :read, Province }
+  menu parent: -> { I18n.t('active_admin.menu.setting') }, if: proc { can? :read, Province }
 
   controller do
     include ActiveAdminCanCan

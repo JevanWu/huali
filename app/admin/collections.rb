@@ -1,11 +1,11 @@
 ActiveAdmin.register Collection do
-  menu parent: I18n.t('active_admin.menu.product'), if: proc { can? :read, Collection }
+  menu parent: -> { I18n.t('active_admin.menu.product') }, if: proc { can? :read, Collection }
 
   controller do
     include ActiveAdminCanCan
     authorize_resource
   end
-  
+
   filter :name_zh
   filter :description
 
