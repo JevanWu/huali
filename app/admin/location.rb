@@ -1,5 +1,6 @@
+# encoding: utf-8
 ActiveAdmin.register Province do
-  menu parent: I18n.t('active_admin.menu.setting'), if: proc { can? :read, Province }
+  menu parent: '设置', if: proc { can? :read, Province }
 
   controller do
     include ActiveAdminCanCan
@@ -12,7 +13,7 @@ ActiveAdmin.register Province do
   [ :enable,
     :disable
   ].each do |action|
-      batch_action -> { I18n.t(action) } do |selection|
+      batch_action action do |selection|
         provinces = Province.find(selection)
         provinces.each { |province| province.send(action) }
         redirect_to :back, :notice => provinces.count.to_s + t(:province_updated)
@@ -74,7 +75,7 @@ ActiveAdmin.register Province do
 end
 
 ActiveAdmin.register City do
-  menu parent: I18n.t('active_admin.menu.setting'), if: proc { can? :read, City }
+  menu parent: '设置', if: proc { can? :read, City }
 
   controller do
     include ActiveAdminCanCan
@@ -91,7 +92,7 @@ ActiveAdmin.register City do
   [ :enable,
     :disable
   ].each do |action|
-      batch_action I18n.t(action) do |selection|
+      batch_action action do |selection|
         cities = City.find(selection)
         cities.each { |city| city.send(action) }
         redirect_to :back, :notice => cities.count.to_s + t(:city_updated)
@@ -155,7 +156,7 @@ ActiveAdmin.register City do
 end
 
 ActiveAdmin.register Area do
-  menu parent: I18n.t('active_admin.menu.setting'), if: proc { can? :read, Area }
+  menu parent: '设置', if: proc { can? :read, Area }
 
   controller do
     include ActiveAdminCanCan
@@ -168,7 +169,7 @@ ActiveAdmin.register Area do
   [ :enable,
     :disable
   ].each do |action|
-      batch_action I18n.t(action) do |selection|
+      batch_action action do |selection|
         areas = Area.find(selection)
         areas.each { |area| area.send(action) }
         redirect_to :back, :notice => areas.count.to_s + t(:area_updated)

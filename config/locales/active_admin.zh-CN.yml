@@ -1,9 +1,5 @@
 zh-CN:
   active_admin:
-    menu:
-      setting: "设置"
-      order: "订单"
-      product: "产品"
     scopes:
       all: "全部"
       current: "今天"

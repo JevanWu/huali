@@ -1,6 +1,7 @@
 # encoding: utf-8
 ActiveAdmin.register Order do
-  menu parent: I18n.t('active_admin.menu.order') , priority:1, unless: proc { cannot? :read, Page }
+  # i18n isn't evaluated here
+  menu parent: '订单', priority:1, unless: proc { cannot? :read, Page }
 
   controller do
     include ActiveAdminCanCan
