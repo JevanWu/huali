@@ -143,8 +143,8 @@ class Order < ActiveRecord::Base
     # note: String
     # cost: Integer (optional)
   # }
-  def generate_shipment(options = {})
-    self.shipments.create options
+  def generate_shipment
+    self.shipments.create
   end
 
   def add_line_item(product_id, quantity)
