@@ -20,7 +20,7 @@
           <strong><%= t(:created_at) %></strong>: <%= l @order.created_at, :format => :short %>
         </td>
         <td>
-          <strong><%= t(:delivery_date) %></strong>: <%= l @order.delivery_date, :format => :short %>
+          <strong><%= t(:expected_date) %></strong>: <%= l @order.expected_date, :format => :short %>
         </td>
       </tr>
     </tbody>
@@ -57,7 +57,7 @@
         <td><%= t(:delivery_cost) %>: <%= @order.shipment ? @order.try(shipment.cost) : nil %></td>
       </tr>
       <tr>
-        <td><%= t(:delivery_date) %>: <%= @order.delivery_date %></td>
+        <td><%= t(:expected_date) %>: <%= @order.expected_date %></td>
       </tr>
     </tbody>
   </table>

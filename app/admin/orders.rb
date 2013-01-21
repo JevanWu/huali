@@ -37,7 +37,7 @@ ActiveAdmin.register Order do
   scope :within_this_week
   scope :within_this_month
 
-  filter :delivery_date
+  filter :expected_date
   filter :state, :as => :select, :collection =>
   {
     "等待付款" => "generated",
@@ -101,7 +101,7 @@ ActiveAdmin.register Order do
       [order[:sender_name], order[:sender_email], order[:sender_phone]].select { |s| !s.blank? }.join(', ')
     end
 
-    column :delivery_date, :sortable => :delivery_date
+    column :expected_date, :sortable => :expected_date
 
     column :process_order do |order|
       link_to(t(:edit), edit_admin_order_path(order)) + \
@@ -145,7 +145,7 @@ ActiveAdmin.register Order do
         order.address.fullname
       end
 
-      row :delivery_date
+      row :expected_date
 
       row :receiver_phonenum do
         order.address.phone

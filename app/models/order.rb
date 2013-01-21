@@ -28,7 +28,7 @@
 class Order < ActiveRecord::Base
 
   attr_accessible :line_items, :special_instructions, :address_attributes,
-                  :gift_card_text, :delivery_date, :identifier, :state,
+                  :gift_card_text, :expected_date, :identifier, :state,
                   :sender_name, :sender_phone, :sender_email
 
   belongs_to :address
@@ -46,9 +46,9 @@ class Order < ActiveRecord::Base
   after_validation :cal_total
 
   validates :identifier, presence: true
-  validates_presence_of :line_items, :delivery_date, :state, :total, :item_total, :sender_email, :sender_phone, :sender_name
+  validates_presence_of :line_items, :expected_date, :state, :total, :item_total, :sender_email, :sender_phone, :sender_name
   # only validate once on Date.today, because in future Date.today will change
-  validate :delivery_date_in_range, on: :create
+  validate :expected_date_in_range, on: :create
   validate :phone_validate
 
   state_machine :state, :initial => :generated do
@@ -87,10 +87,10 @@ class Order < ActiveRecord::Base
   end
 
   scope :all, -> { reorder }
-  scope :current, -> { where('delivery_date = ?', Date.current) }
-  scope :tomorrow, -> { where("delivery_date = ?", Date.tomorrow) }
-  scope :within_this_week, -> { where("delivery_date >= ? AND delivery_date <= ? ", Date.current.beginning_of_week, Date.current.end_of_week) }
-  scope :within_this_month, -> { where("delivery_date >= ? AND delivery_date <= ? ", Date.current.beginning_of_month, Date.current.end_of_month) }
+  scope :current, -> { where('expected_date = ?', Date.current) }
+  scope :tomorrow, -> { where("expected_date = ?", Date.tomorrow) }
+  scope :within_this_week, -> { where("expected_date >= ? AND expected_date <= ? ", Date.current.beginning_of_week, Date.current.end_of_week) }
+  scope :within_this_month, -> { where("expected_date >= ? AND expected_date <= ? ", Date.current.beginning_of_month, Date.current.end_of_month) }
 
   # Queries
   class << self
@@ -190,9 +190,9 @@ class Order < ActiveRecord::Base
 
   private
 
-  def delivery_date_in_range
-    unless delivery_date.in? Date.today.tomorrow..Date.today.next_month
-      errors.add :delivery_date, :unavailable_date
+  def expected_date_in_range
+    unless expected_date.in? Date.today.tomorrow..Date.today.next_month
+      errors.add :expected_date, :unavailable_date
     end
   end
 
