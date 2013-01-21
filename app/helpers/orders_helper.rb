@@ -29,17 +29,17 @@ module OrdersHelper
   def order_state_shift(order)
     case order.state
     when "generated"
-      link_to(t(:cancel, scope: :order), cancel_admin_order_path(order), confirm: t(:confirm_check))
+      link_to(t(:cancel, scope: :order), cancel_admin_order_path(order), confirm: t(:confirm_cancel))
     when "wait_check"
       link_to(t(:check, scope: :order), check_admin_order_path(order), confirm: t(:confirm_check)) + \
-      link_to(t(:cancel, scope: :order), cancel_admin_order_path(order), confirm: t(:confirm_check))
+      link_to(t(:cancel, scope: :order), cancel_admin_order_path(order), confirm: t(:confirm_cancel))
     when "wait_ship"
-      link_to(t(:ship, scope: :order), edit_admin_shipment_path(order.shipment)) + \
-      link_to(t(:cancel, scope: :order), cancel_admin_order_path(order), confirm: t(:confirm_check))
+      link_to(t(:ship, scope: :order), edit_admin_shipment_path(order.shipment), t(:confirm_accept)) + \
+      link_to(t(:cancel, scope: :order), cancel_admin_order_path(order), confirm: t(:confirm_cancel))
     when "wait_refund"
       link_to(t(:refund, scope: :order), refund_admin_order_path(order))
     when "wait_confirm"
-      link_to(t(:confirm, scope: :order), confirm_admin_order_path(order))
+      link_to(t(:confirm, scope: :order), accept_admin_shipment_path(order.shipment), confirm: t(:confirm_accept))
     end
   end
 end

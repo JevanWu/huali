@@ -62,11 +62,6 @@ ActiveAdmin.register Order do
     redirect_to edit_admin_shipment_path(order.shipment)
   end
 
-  member_action :confirm  do
-    order = Order.find_by_id(params[:id])
-    redirect_to edit_admin_shipment_path(order.shipment)
-  end
-
   member_action :cancel  do
     order = Order.find_by_id(params[:id])
     order.cancel
