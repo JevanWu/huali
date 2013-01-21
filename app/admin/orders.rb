@@ -24,8 +24,6 @@ ActiveAdmin.register Order do
     end
   end
 
-  batch_action :destroy, false
-
   actions :all, :except => :new
 
   scope :all
@@ -61,11 +59,6 @@ ActiveAdmin.register Order do
   member_action :check  do
     order = Order.find_by_id(params[:id])
     order.check
-    redirect_to edit_admin_shipment_path(order.shipment)
-  end
-
-  member_action :ship  do
-    order = Order.find_by_id(params[:id])
     redirect_to edit_admin_shipment_path(order.shipment)
   end
 
