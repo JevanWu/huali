@@ -66,14 +66,12 @@ ActiveAdmin.register Order do
 
   member_action :ship  do
     order = Order.find_by_id(params[:id])
-    order.ship
-    redirect_to admin_orders_path, :alert => t(:order_state_changed) + t(:wait_confirm, :scope => :order)
+    redirect_to edit_admin_shipment_path(order.shipment)
   end
 
   member_action :confirm  do
     order = Order.find_by_id(params[:id])
-    order.confirm
-    redirect_to admin_orders_path, :alert => t(:order_state_changed) + t(:completed, :scope => :order)
+    redirect_to edit_admin_shipment_path(order.shipment)
   end
 
   member_action :cancel  do
