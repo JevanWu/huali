@@ -68,10 +68,12 @@ class Shipment < ActiveRecord::Base
   private
 
   def is_express?
+    return false unless ship_method
     ship_method.method == 'express'
   end
 
   def is_mannual?
+    return false unless ship_method
     ship_method.method == 'mannual'
   end
 
