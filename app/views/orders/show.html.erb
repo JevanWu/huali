@@ -14,7 +14,7 @@
           <strong><%= t(:identifier) %></strong>: <%= @order.identifier %>
         </td>
         <td>
-          <strong><%= t(:state) %></strong>: <%= t(@order.state) %>
+          <strong><%= t(:state) %></strong>: <%= t(@order.state, :scope => :order) %>
         </td>
         <td>
           <strong><%= t(:created_at) %></strong>: <%= l @order.created_at, :format => :short %>

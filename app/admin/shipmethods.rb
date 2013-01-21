@@ -1,5 +1,5 @@
 ActiveAdmin.register ShipMethod do
-  menu parent: 'Setting', if: proc { can? :read, ShipMethod }
+  menu parent: I18n.t('active_admin.menu.setting'), if: proc { can? :read, ShipMethod }
 
   controller do
     include ActiveAdminCanCan
@@ -10,7 +10,6 @@ ActiveAdmin.register ShipMethod do
     selectable_column
 
     column :name, :sortable => :name
-    column :cost, :sortable => :cost
     column :method, :sortable => :method do |ship_method|
       t(ship_method.method)
     end

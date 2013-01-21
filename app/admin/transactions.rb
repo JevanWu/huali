@@ -1,50 +1,41 @@
 # encoding: utf-8
 ActiveAdmin.register Transaction do
-  menu parent: 'Order', if: proc { can? :read, Transaction }
+  menu parent: I18n.t('active_admin.menu.order'), if: proc { can? :read, Transaction }
 
   controller do
     include ActiveAdminCanCan
     authorize_resource
+    helper :transactions
   end
 
   filter :paymethod
   filter :state, :as => :select, :collection => { "新建" => "generated", "完成" => "completed", "处理中" => "processing", "失败" => "failed" }
   filter :amount
 
-  controller do
-    helper :transactions
-
-    def create
-      @transaction = Transaction.new(params[:transaction])
-      if @transaction.save
-        order = Order.find_by_id(@transaction.order_id)
-        order.state = "wait_check"
-        order.save
-        redirect_to admin_transactions_path
-      end
-    end
-  end
-
   member_action :start do
     transaction = Transaction.find_by_id(params[:id])
     transaction.start
-    redirect_to admin_transactions_path, :alert => t(:transaction_state_changed) + t(:processing)
+    redirect_to admin_transactions_path, :alert => t(:transaction_state_changed) + t(:processing, :scope => :transaction)
   end
 
   member_action :complete do
     transaction = Transaction.find_by_id(params[:id])
     transaction.complete
-    redirect_to admin_transactions_path, :alert => t(:transaction_state_changed) + t(:completed)
+    redirect_to admin_transactions_path, :alert => t(:transaction_state_changed) + t(:completed, :scope => :transaction)
   end
 
   member_action :fail do
     transaction = Transaction.find_by_id(params[:id])
     transaction.failure
-    redirect_to admin_transactions_path, :alert => t(:transaction_state_changed) + t(:failed)
+    redirect_to admin_transactions_path, :alert => t(:transaction_state_changed) + t(:failed, :scope => :transaction)
   end
 
   index do
     selectable_column
+
+    column :state, sortable: :state do |transaction|
+      status_tag t(transaction.state, scope: :transaction), transaction_state_class(transaction)
+    end
 
     column :identifier
     column :order do |transaction|
@@ -56,9 +47,6 @@ ActiveAdmin.register Transaction do
       merchant_trade_link(transaction)
     end
 
-    column :state, sortable: :state do |transaction|
-      transaction.state ? t(transaction.state) : nil
-    end
     column :subject
     default_actions
     column :modify_transaction_state do |transaction|
@@ -71,16 +59,23 @@ ActiveAdmin.register Transaction do
   show do
 
     attributes_table do
-      row :merchant_name
-      row :identifier
-      row :paymethod
       row :state do
-        transaction.state ? t(transaction.state) : nil
+        status_tag t(transaction.state, scope: :transaction), transaction_state_class(transaction)
       end
-      row :amount
-      row :merchant_trade_no do |transaction|
+
+      row :identifier
+      row :merchant_name
+      row :merchant_trade_no do
         merchant_trade_link(transaction)
       end
+
+      row :paymethod
+
+      row :modify_transaction_state do
+        transaction_state_shift(transaction)
+      end
+
+      row :amount
       row :subject
       row :body
     end
