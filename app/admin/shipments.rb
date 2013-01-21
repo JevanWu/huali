@@ -10,7 +10,6 @@ ActiveAdmin.register Shipment do
 
   filter :tracking_num
   filter :state, :as => :select, :collection => {"准备" => "ready", "发货" => "shipped", "未知" => "unknown"}
-  filter :cost
   filter :note
 
   member_action :ship do
@@ -63,7 +62,6 @@ ActiveAdmin.register Shipment do
       end
 
       row :tracking_num
-      row :cost
 
       row :modify_shipment_state do
         shipment_state_shift(shipment)

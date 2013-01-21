@@ -22,7 +22,6 @@ ActiveAdmin.register ShipMethod do
   show do
     attributes_table do
       row :name
-      row :cost
       row :method do |shipmethod|
         t(shipmethod.method)
       end
