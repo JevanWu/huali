@@ -30,7 +30,6 @@ class Shipment < ActiveRecord::Base
   has_one :user, through: :order
 
   before_validation :copy_address, :generate_identifier, on: :create
-  after_create :ship
 
   validates_presence_of :order_id, :address_id, :ship_method_id
   validates_presence_of :tracking_num, if: :is_express?
