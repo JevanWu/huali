@@ -32,7 +32,6 @@ class Shipment < ActiveRecord::Base
   before_validation :copy_address, :generate_identifier, on: :create
 
   validates_presence_of :order_id, :address_id
-  validates_presence_of :tracking_num, if: :is_express?
 
   state_machine :state, :initial => :ready do
     after_transition :to => :completed, :do => :confirm_order
@@ -47,6 +46,8 @@ class Shipment < ActiveRecord::Base
     # FIXME might need a clock to timeout the processing
     # Might need a bad path for it
     state :shipped do
+      validates_presence_of :tracking_num, if: :is_express?
+
       transition :to => :completed, :on => :accept
       transition :to => :unknown, :on => :time_out
     end
