@@ -31,7 +31,7 @@ class Shipment < ActiveRecord::Base
 
   before_validation :copy_address, :generate_identifier, on: :create
 
-  validates_presence_of :order_id, :address_id, :ship_method_id
+  validates_presence_of :order_id, :address_id
   validates_presence_of :tracking_num, if: :is_express?
 
   state_machine :state, :initial => :ready do
