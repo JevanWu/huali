@@ -1,9 +1,14 @@
 <%= semantic_form_for [:admin, @order] do |f| %>
-  <%= f.inputs "Main Info" do %>
-    <%= f.input :sender_name %>
-    <%= f.input :sender_email %>
-    <%= f.input :sender_phone %>
+  <%= f.inputs "Delivery Info", for: :address do |builder, i| %>
+    <%= builder.input :address %>
+    <%= builder.input :post_code %>
+    <%= builder.input :fullname %>
+    <%= builder.input :phone %>
     <%= f.input :delivery_date, as: :string, required: true, input_html: { class: 'datepicker' }%>
+  <% end %>
+
+
+  <%= f.inputs "Order Info" do %>
     <%= f.input :special_instructions %>
     <%= f.input :gift_card_text %>
   <% end %>
