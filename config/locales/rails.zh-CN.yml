@@ -33,6 +33,7 @@ zh-CN:
         identifier: "订单编号"
         transaction_identifier: "交易编号"
         delivery_date: "递送日期"
+        expected_date: "到达日期"
         special_instructions: "特殊要求"
         gift_card_text: "卡片信息"
         total: "订单总价"
