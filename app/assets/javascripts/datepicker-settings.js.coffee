@@ -4,6 +4,6 @@
 $ ->
   $('.datepicker').datepicker(
       gotoCurrent: true
-      minDate: '+1D'
+      minDate: '+2D'
       maxDate: '+1M'
   )
