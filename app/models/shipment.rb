@@ -3,7 +3,6 @@
 # Table name: shipments
 #
 #  address_id     :integer
-#  cost           :integer
 #  created_at     :datetime         not null
 #  id             :integer          not null, primary key
 #  identifier     :string(255)
@@ -23,18 +22,16 @@
 #
 
 class Shipment < ActiveRecord::Base
-  attr_accessible :cost, :identifier, :note, :state, :tracking_num, :ship_method_id, :address_id, :order_id
+  attr_accessible :identifier, :note, :state, :tracking_num, :ship_method_id, :address_id, :order_id
 
   belongs_to :address
   belongs_to :ship_method
   belongs_to :order
   has_one :user, through: :order
 
-  before_validation :populate_cost, :copy_address, :generate_identifier, on: :create
-  after_create :ship
+  before_validation :copy_address, :generate_identifier, on: :create
 
-  validates_presence_of :order_id, :address_id, :ship_method_id
-  validates_presence_of :tracking_num, if: :is_express?
+  validates_presence_of :order_id, :address_id
 
   state_machine :state, :initial => :ready do
     after_transition :to => :completed, :do => :confirm_order
@@ -49,6 +46,8 @@ class Shipment < ActiveRecord::Base
     # FIXME might need a clock to timeout the processing
     # Might need a bad path for it
     state :shipped do
+      validates_presence_of :tracking_num, if: :is_express?
+
       transition :to => :completed, :on => :accept
       transition :to => :unknown, :on => :time_out
     end
@@ -66,17 +65,15 @@ class Shipment < ActiveRecord::Base
     self.address_id = self.order.address_id
   end
 
-  def populate_cost
-    self.cost ||= self.ship_method.cost
-  end
-
   private
 
   def is_express?
+    return false unless ship_method
     ship_method.method == 'express'
   end
 
   def is_mannual?
+    return false unless ship_method
     ship_method.method == 'mannual'
   end
 

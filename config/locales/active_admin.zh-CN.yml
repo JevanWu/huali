@@ -1,5 +1,7 @@
 zh-CN:
   active_admin:
+    ship_model: "货运订单"
+
     scopes:
       all: "全部"
       current: "今天"

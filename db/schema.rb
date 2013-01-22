@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130118190152) do
+ActiveRecord::Schema.define(:version => 20130121105846) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -122,10 +122,11 @@ ActiveRecord::Schema.define(:version => 20130118190152) do
     t.datetime "created_at",                                                              :null => false
     t.datetime "updated_at",                                                              :null => false
     t.text     "gift_card_text"
-    t.date     "delivery_date",                                                           :null => false
+    t.date     "expected_date",                                                           :null => false
     t.string   "sender_email"
     t.string   "sender_phone"
     t.string   "sender_name"
+    t.date     "delivery_date"
   end
 
   add_index "orders", ["identifier"], :name => "index_orders_on_identifier", :unique => true
@@ -182,12 +183,11 @@ ActiveRecord::Schema.define(:version => 20130118190152) do
   add_index "provinces", ["post_code"], :name => "index_provinces_on_post_code", :unique => true
 
   create_table "ship_methods", :force => true do |t|
-    t.string  "name"
-    t.string  "service_phone"
-    t.string  "method"
-    t.string  "website"
-    t.decimal "cost",            :precision => 8, :scale => 2, :default => 0.0
-    t.string  "kuaidi_com_code"
+    t.string "name"
+    t.string "service_phone"
+    t.string "method"
+    t.string "website"
+    t.string "kuaidi_com_code"
   end
 
   create_table "shipments", :force => true do |t|
@@ -195,7 +195,6 @@ ActiveRecord::Schema.define(:version => 20130118190152) do
     t.string   "tracking_num"
     t.string   "state"
     t.text     "note"
-    t.integer  "cost"
     t.integer  "address_id"
     t.integer  "ship_method_id"
     t.integer  "order_id"

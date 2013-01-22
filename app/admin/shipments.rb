@@ -8,9 +8,10 @@ ActiveAdmin.register Shipment do
     helper :shipments
   end
 
+  batch_action :destroy, false
+
   filter :tracking_num
   filter :state, :as => :select, :collection => {"准备" => "ready", "发货" => "shipped", "未知" => "unknown"}
-  filter :cost
   filter :note
 
   member_action :ship do
@@ -32,9 +33,12 @@ ActiveAdmin.register Shipment do
       status_tag t(shipment.state, scope: :shipment), shipment_state_class(shipment)
     end
 
-    column :tracking_num, :sortable => :tracking_num
+    column :identifier, :sortable => :identifier do |shipment|
+      link_to(shipment.identifier, admin_shipment_path(shipment)) + '<br/>'.html_safe + \
+      link_to(t(:edit), edit_admin_shipment_path(shipment))
+    end
 
-    default_actions
+    column :tracking_num, :sortable => :tracking_num
 
     column :modify_shipment_state do |shipment|
       shipment_state_shift(shipment)
@@ -42,15 +46,23 @@ ActiveAdmin.register Shipment do
   end
 
   member_action :ship do
-    shipment = Shipment.find_by_id(params[:id])
-    shipment.ship
-    redirect_to admin_shipments_path, :alert => t(:shipment_state_changed) + t(:shipped, :scope => :shipment)
+    @shipment = Shipment.find_by_id(params[:id])
+    if @shipment.ship
+      redirect_to admin_shipments_path, :alert => t(:shipment_state_changed) + t(:shipped, :scope => :shipment)
+    else
+      flash[:error] = "货运订单状态更新失败"
+      render 'edit', layout: false
+    end
   end
 
   member_action :accept do
-    shipment = Shipment.find_by_id(params[:id])
-    shipment.accept
-    redirect_to admin_shipments_path, :alert => t(:shipment_state_changed) + t(:completed, :scope => :shipment)
+    @shipment = Shipment.find_by_id(params[:id])
+    if @shipment.accept
+      redirect_to admin_shipments_path, :alert => t(:shipment_state_changed) + t(:completed, :scope => :shipment)
+    else
+      flash[:error] = "货运订单状态更新失败"
+      render 'edit', layout: false
+    end
   end
 
   form :partial => "form"
@@ -63,7 +75,6 @@ ActiveAdmin.register Shipment do
       end
 
       row :tracking_num
-      row :cost
 
       row :modify_shipment_state do
         shipment_state_shift(shipment)

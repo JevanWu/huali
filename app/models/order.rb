@@ -5,7 +5,8 @@
 #  address_id           :integer
 #  completed_at         :datetime
 #  created_at           :datetime         not null
-#  delivery_date        :date             not null
+#  delivery_date        :date
+#  expected_date        :date             not null
 #  gift_card_text       :text
 #  id                   :integer          not null, primary key
 #  identifier           :string(255)
@@ -46,9 +47,9 @@ class Order < ActiveRecord::Base
   after_validation :cal_total
 
   validates :identifier, presence: true
-  validates_presence_of :line_items, :delivery_date, :state, :total, :item_total, :sender_email, :sender_phone, :sender_name
+  validates_presence_of :line_items, :expected_date, :state, :total, :item_total, :sender_email, :sender_phone, :sender_name
   # only validate once on Date.today, because in future Date.today will change
-  validate :delivery_date_in_range, on: :create
+  validate :expected_date_in_range, on: :create
   validate :phone_validate
 
   state_machine :state, :initial => :generated do
@@ -56,6 +57,7 @@ class Order < ActiveRecord::Base
     before_transition :to => :wait_refund, :do => :auth_refund
     before_transition :to => :completed, :do => :complete_order
     before_transition :to => :wait_check, :do => :pay_order
+    after_transition :to => :wait_ship, :do => :generate_shipment
 
     # use adj. for state with future vision
     # use v. for event name
@@ -86,10 +88,10 @@ class Order < ActiveRecord::Base
   end
 
   scope :all, -> { reorder }
-  scope :current, -> { where('delivery_date = ?', Date.current) }
-  scope :tomorrow, -> { where("delivery_date = ?", Date.tomorrow) }
-  scope :within_this_week, -> { where("delivery_date >= ? AND delivery_date <= ? ", Date.current.beginning_of_week, Date.current.end_of_week) }
-  scope :within_this_month, -> { where("delivery_date >= ? AND delivery_date <= ? ", Date.current.beginning_of_month, Date.current.end_of_month) }
+  scope :current, -> { where('expected_date = ?', Date.current) }
+  scope :tomorrow, -> { where("expected_date = ?", Date.tomorrow) }
+  scope :within_this_week, -> { where("expected_date >= ? AND expected_date <= ? ", Date.current.beginning_of_week, Date.current.end_of_week) }
+  scope :within_this_month, -> { where("expected_date >= ? AND expected_date <= ? ", Date.current.beginning_of_month, Date.current.end_of_month) }
 
   # Queries
   class << self
@@ -142,8 +144,8 @@ class Order < ActiveRecord::Base
     # note: String
     # cost: Integer (optional)
   # }
-  def generate_shipment(options)
-    self.shipments.create options
+  def generate_shipment
+    self.shipments.create
   end
 
   def add_line_item(product_id, quantity)
@@ -176,11 +178,11 @@ class Order < ActiveRecord::Base
   end
 
   def transaction
-    transactions.last
+    transactions.first
   end
 
   def shipment
-    shipments.last
+    shipments.first
   end
 
   def subject_text
@@ -189,9 +191,9 @@ class Order < ActiveRecord::Base
 
   private
 
-  def delivery_date_in_range
-    unless delivery_date.in? Date.today.next_day(2)..Date.today.next_month
-      errors.add :delivery_date, :unavailable_date
+  def expected_date_in_range
+    unless expected_date.in? Date.today.tomorrow..Date.today.next_month
+      errors.add :expected_date, :unavailable_date
     end
   end
 

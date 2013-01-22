@@ -19,10 +19,11 @@ ActiveAdmin.register ShipMethod do
     default_actions
   end
 
+  form :partial => "form"
+
   show do
     attributes_table do
       row :name
-      row :cost
       row :method do |shipmethod|
         t(shipmethod.method)
       end
@@ -31,5 +32,4 @@ ActiveAdmin.register ShipMethod do
       row :kuaidi_com_code
     end
   end
-
 end

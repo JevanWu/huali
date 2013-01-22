@@ -5,7 +5,8 @@
 #  address_id           :integer
 #  completed_at         :datetime
 #  created_at           :datetime         not null
-#  delivery_date        :date             not null
+#  delivery_date        :date
+#  expected_date        :date             not null
 #  gift_card_text       :text
 #  id                   :integer          not null, primary key
 #  identifier           :string(255)

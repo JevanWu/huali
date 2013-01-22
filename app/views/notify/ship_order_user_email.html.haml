@@ -21,7 +21,7 @@
           = @order.shipment.tracking_num
         %p{style: "color:#767676; font-weight: normal; margin: 0; padding: 0; line-height: 20px; font-size: 12px;font-family: Helvetica, Arial, sans-serif; "}
           预计它将在
-          = @order.delivery_date
+          = @order.expected_date
           送达
           = @order.address.full_addr + '.'
           的手中.

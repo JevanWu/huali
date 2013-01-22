@@ -32,8 +32,9 @@ zh-CN:
       order: &order
         identifier: "订单编号"
         transaction_identifier: "交易编号"
-        delivery_date: "递送日期"
         expected_date: "到达日期"
+        delivery_date: "发货日期"
+        ship_method: '递送方式'
         special_instructions: "特殊要求"
         gift_card_text: "卡片信息"
         total: "订单总价"
@@ -44,9 +45,11 @@ zh-CN:
         receiver_province: "收货人省份"
         receiver_city: "收货人城市"
         receiver_address: "收货人地址"
+        receiver_info: "收货人信息"
         sender_name: "寄件人姓名"
         sender_email: "寄件人邮箱"
         sender_phone: "寄件人电话"
+        sender_info: "寄件人信息"
         order_content: "订单内容"
         transaction_identifier: "交易编号"
         transaction_info: "交易信息"
@@ -61,6 +64,12 @@ zh-CN:
         address_address: "收件人地址"
         images: "产品图"
 
+      address:
+        address: "收件人地址"
+        fullname: "收件人姓名"
+        phone: "收件人电话"
+        post_code: "邮编"
+
       ship_method:
         name: "名字"
         cost: "成本"
@@ -72,9 +81,9 @@ zh-CN:
       shipment:
         cost: "成本"
         identifier: "递送编号"
-        ship_method_id: "递送方式"
+        ship_method: "递送方式"
         state: "递送状态"
-        note: "留言"
+        note: "备注"
         tracking_num: "快递单号"
         modify_shipment_state: "修改快递状态"
 
