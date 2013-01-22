@@ -36,7 +36,7 @@ GIT
       capistrano (>= 2.5.3)
 
 GEM
-  remote: http://rubygems.org/
+  remote: http://mirrors.tuna.tsinghua.edu.cn/rubygems/
   specs:
     actionmailer (3.2.11)
       actionpack (= 3.2.11)
