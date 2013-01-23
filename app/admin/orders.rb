@@ -16,6 +16,7 @@ ActiveAdmin.register Order do
         Order.select(selected).includes(:transactions, :address, :line_items)
       else
         Order.includes(:transactions, :address, :line_items)
+        Order.where("state != ?", "completed")
       end
     end
 
