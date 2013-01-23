@@ -130,8 +130,9 @@ ActiveAdmin.register Order do
       row :transaction_info do
         unless order.transactions.blank?
           order.transactions.map do |transaction|
+            paylink = transaction.state == "generated" ? link_to(t('order.pay'), transaction.request_process) : " "
             link_to(transaction.identifier, admin_transaction_path(transaction)) + \
-            label_tag(" " + t(transaction.state, :scope => :transaction))
+            label_tag(" " + t(transaction.state, :scope => :transaction)) + paylink
           end.join('</br>').html_safe
         end
       end
