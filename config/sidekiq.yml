@@ -4,7 +4,6 @@
 ---
 :verbose: false
 :namespace: sidekiq:huali
-:concurrency: 25
+:concurrency: 100
 :queues:
-  - [mail, 7]
   - [default, 5]
