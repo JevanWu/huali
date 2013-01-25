@@ -2,8 +2,5 @@
 #
 # To ban all spiders from the entire site uncomment the next two lines:
 User-agent: *
-Crawl-delay: 5
-Disallow: /admin
-Disallow: /administrator
 
 Sitemap: http://www.hua.li/sitemap_index.xml.gz
