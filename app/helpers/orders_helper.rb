@@ -34,7 +34,10 @@ module OrdersHelper
       link_to(t(:check, scope: :order), check_admin_order_path(order), confirm: t(:confirm_check)) + \
       link_to(t(:cancel, scope: :order), cancel_admin_order_path(order), confirm: t(:confirm_cancel))
     when "wait_ship"
-      link_to(t(:ship, scope: :order), edit_admin_shipment_path(order.shipment), confirm: t(:confirm_ship)) + \
+      # for historic compatibility, when order(state = checked) doesn't have shipment generated.
+      link_to(t(:ship, scope: :order),
+              order.shipment.blank? ? new_admin_shipment_path("order[id]" => order.id) : edit_admin_shipment_path(order.shipment),
+              confirm: t(:confirm_ship)) + \
       link_to(t(:cancel, scope: :order), cancel_admin_order_path(order), confirm: t(:confirm_cancel))
     when "wait_refund"
       link_to(t(:refund, scope: :order), refund_admin_order_path(order))
