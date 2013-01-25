@@ -23,6 +23,7 @@ gem 'sitemap_generator'
 
 # background jobs
 gem 'sidekiq'
+gem 'sidekiq-failures'
 gem 'slim'
 gem 'sinatra', :require => nil
 

@@ -369,6 +369,11 @@ GEM
       multi_json (~> 1)
       redis (~> 3)
       redis-namespace
+    sidekiq-failures (0.1.0)
+      sidekiq (>= 2.2.1)
+      sinatra
+      slim
+      sprockets
     simple_form (2.0.4)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
@@ -479,6 +484,7 @@ DEPENDENCIES
   sass-rails (~> 3.2.3)
   shoulda-matchers
   sidekiq
+  sidekiq-failures
   simple_form
   simplecov
   sinatra
