@@ -10,7 +10,7 @@ class AdminAbility
     when "admin"
       can :manage, :all
       cannot :manage, Administrator
-      cannot :manage, Resque
+      cannot :manage, Sidekiq
     when "supplier"
       cannot :read, Order
       can :read, Order, state: 'wait_ship'
