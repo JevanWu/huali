@@ -5,8 +5,6 @@ zh-CN:
     questions:
       - question: 二加二等于几?
         answers: ["4", "four", "四"]
-      - question: 门前大桥下游过一群__ 
-        answer: 鸭 
       - question: 十二前面是什么数字?
         answers: ["11", "eleven", "十一"]
       - question: 五乘以二等于几?

@@ -1,5 +1,4 @@
-#source 'http://rubygems.org'
-source 'http://mirrors.tuna.tsinghua.edu.cn/rubygems/'
+source 'http://rubygems.org'
 
 gem 'rails', '3.2.11'
 gem 'pg', '>= 0.14.1'
