@@ -1,2 +1,2 @@
-# as console and resque needs same with webapp
+# as console and sidekiq process needs same locale with webapp
 I18n.default_locale = :"zh-CN"
