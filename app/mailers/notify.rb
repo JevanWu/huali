@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 class Notify < ActionMailer::Base
-  include Resque::Mailer
   add_template_helper ApplicationHelper
 
   default from: 'support@hua.li'
