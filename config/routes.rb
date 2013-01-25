@@ -1,12 +1,11 @@
+require 'sidekiq/web'
+
 Huali::Application.routes.draw do
 
   # Mount resque under the admin namespace wardened by devise
-  require 'resque/server'
-  resque_constraint = lambda do |request|
-    request.env['warden'].authenticate!({ :scope => :administrator })
-  end
-  constraints resque_constraint do
-    mount Resque::Server.new, :at => "/admin/resque", as: 'resque'
+  constraint = lambda { |request| request.env["warden"].authenticate? and request.env['warden'].user.role == 'super' }
+  constraints constraint do
+    mount Sidekiq::Web, at: "/admin/sidekiq", as: :sidekiq
   end
 
   get "areas/:area_id", :to => 'areas#show'
