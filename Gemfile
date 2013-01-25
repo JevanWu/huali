@@ -20,6 +20,7 @@ gem 'state_machine'
 gem 'rack-mini-profiler'
 gem 'figaro'
 gem 'sitemap_generator'
+gem 'humanizer'
 
 # background jobs
 gem 'sidekiq'
