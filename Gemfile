@@ -11,7 +11,6 @@ gem 'activeadmin'
 gem 'paperclip', '~> 3.0'
 gem 'formtastic'
 gem 'simple_form'
-gem 'resque_mailer'
 gem 'kramdown', '~> 0.13'
 gem 'friendly_id', '~> 4.0.1'
 # backup, whenever probably should be isolated in a server setup script
