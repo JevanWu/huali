@@ -15,7 +15,7 @@ ActiveAdmin.register Order do
         selected = (Order.column_names - %w{sender_email sender_phone sender_name total}).join(',')
         Order.select(selected).includes(:transactions, :address, :line_items)
       else
-        Order.includes(:transactions, :address, :line_items)
+        Order.includes(:transactions, :address, :line_items).incomplete
       end
     end
 
@@ -130,8 +130,7 @@ ActiveAdmin.register Order do
       row :transaction_info do
         unless order.transactions.blank?
           order.transactions.map do |transaction|
-            link_to(transaction.identifier, admin_transaction_path(transaction)) + \
-            label_tag(" " + t(transaction.state, :scope => :transaction))
+            link_to(transaction.identifier, admin_transaction_path(transaction))
           end.join('</br>').html_safe
         end
       end
