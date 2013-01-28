@@ -12,10 +12,11 @@ class AdminAbility
       cannot :manage, Administrator
       cannot :manage, Resque
     when "supplier"
-      cannot :read, Order
-      can :read, Order, state: 'wait_ship'
-      can :manage, Shipment
-      cannot :delete, Shipment
+      can :read, Order, state: ""
+      #cannot :read, Order
+      #can :read, Order, state: 'wait_ship'
+      #can :manage, Shipment
+      #cannot :delete, Shipment
     end
   end
 end
