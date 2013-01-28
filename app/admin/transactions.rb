@@ -76,8 +76,8 @@ ActiveAdmin.register Transaction do
       end
 
       row :to_pay_link do
-        if transaction.state == "generated"
-          link_to(t('order.pay'), transaction.request_process)
+        unless transaction.state == "complete"
+          link_to t('order.pay'), transaction.request_path
         end
       end
 

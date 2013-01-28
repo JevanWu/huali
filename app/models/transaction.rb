@@ -110,6 +110,10 @@ class Transaction < ActiveRecord::Base
 
   def request_process
     start
+    request_path
+  end
+
+  def request_path
     case paymethod
     when 'paypal'
       Billing::Paypal::Gateway.new(gateway).purchase_path
@@ -117,7 +121,6 @@ class Transaction < ActiveRecord::Base
       Billing::Alipay::Gateway.new(gateway).purchase_path
     end
   end
-
 
   def check_deal(result)
     amount.to_f == result.total_fee.to_f
