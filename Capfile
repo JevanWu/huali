@@ -16,6 +16,8 @@ require 'capistrano-zen/config'
 require "whenever/capistrano"
 set :whenever_roles, [:db, :app]
 
+require 'sidekiq/capistrano'
+
 # Use Git as Version Control System
 set :scm, :git
 set :repository, "git@git.zenhacks.org:yangchenyun/huali.git"

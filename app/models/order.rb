@@ -30,7 +30,7 @@ class Order < ActiveRecord::Base
 
   attr_accessible :line_items, :special_instructions, :address_attributes,
                   :gift_card_text, :delivery_date, :expected_date, :identifier, :state,
-                  :sender_name, :sender_phone, :sender_email
+                  :sender_name, :sender_phone, :sender_email, :source
 
   belongs_to :address
   belongs_to :user
@@ -47,7 +47,7 @@ class Order < ActiveRecord::Base
   after_validation :cal_total
 
   validates :identifier, presence: true
-  validates_presence_of :line_items, :expected_date, :state, :total, :item_total, :sender_email, :sender_phone, :sender_name
+  validates_presence_of :line_items, :expected_date, :state, :total, :item_total, :sender_email, :sender_phone, :sender_name, :source
   # only validate once on Date.today, because in future Date.today will change
   validate :expected_date_in_range, on: :create
   validate :phone_validate

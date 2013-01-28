@@ -1,0 +1,9 @@
+# Sample configuration file for Sidekiq.
+# Options here can still be overridden by cmd line args.
+# sidekiq -C config.yml
+---
+:verbose: false
+:namespace: sidekiq:huali
+:concurrency: 100
+:queues:
+  - [default, 5]

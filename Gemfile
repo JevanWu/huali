@@ -11,8 +11,6 @@ gem 'activeadmin'
 gem 'paperclip', '~> 3.0'
 gem 'formtastic'
 gem 'simple_form'
-gem 'resque'
-gem 'resque_mailer'
 gem 'kramdown', '~> 0.13'
 gem 'friendly_id', '~> 4.0.1'
 # backup, whenever probably should be isolated in a server setup script
@@ -22,6 +20,13 @@ gem 'state_machine'
 gem 'rack-mini-profiler'
 gem 'figaro'
 gem 'sitemap_generator'
+gem 'humanizer'
+
+# background jobs
+gem 'sidekiq'
+gem 'sidekiq-failures'
+gem 'slim'
+gem 'sinatra', :require => nil
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

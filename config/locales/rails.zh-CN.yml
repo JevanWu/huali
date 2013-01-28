@@ -39,6 +39,7 @@ zh-CN:
         gift_card_text: "卡片信息"
         total: "订单总价"
         state: "订单状态"
+        source: "来源"
         receiver_fullname: "收货人姓名"
         receiver_phonenum: "收货人电话"
         receiver_postcode: "收货人邮编"

@@ -177,6 +177,8 @@ ActiveAdmin.register Order do
         number_to_currency order[:total].presence, :unit => '&yen;'
       end
 
+      row :source
+
       row :sender_name do
         order[:sender_name].presence
       end
