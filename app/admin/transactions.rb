@@ -75,6 +75,12 @@ ActiveAdmin.register Transaction do
         transaction_state_shift(transaction)
       end
 
+      row :to_pay_link do
+        if transaction.state == "generated"
+          link_to(t('order.pay'), transaction.request_process)
+        end
+      end
+
       row :amount
       row :subject
       row :body

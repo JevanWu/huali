@@ -97,6 +97,7 @@ zh-CN:
         state: "交易状态"
         subject: "摘要"
         body: "正文"
+        to_pay_link: "支付链接"
         processed_at: "处理于"
         created_at: "创建于"
         updated_at: "更新于"
