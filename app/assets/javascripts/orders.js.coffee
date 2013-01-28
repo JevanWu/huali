@@ -10,12 +10,11 @@ $ ->
 
   $('.purchase').click ->
     id = $(@).data('product')
-    quantity = Cart.get(id) + 1
-    Cart.update(id: id, quantity: quantity)
+    Cart.update(id: id, quantity: 1)
 
   $('.add_quantity, .reduce_quantity, .empty_quantity').click ->
     id = $(@).data('product')
-    quantity = Cart.get(id)
+    quantity = Cart.get(id)['quantity']
     action = $(@).attr('class').match(/(\w+)_quantity/)[1]
 
     changeTo = switch action
@@ -58,9 +57,7 @@ window.Cart = {
 
   get: (id) ->
     if id of $.cookie('cart')
-      $.cookie('cart')[id]
-    else
-      0
+      id: id, quantity: $.cookie('cart')[id]
 
   empty: ->
     $.removeCookie('cart', path: '/')
