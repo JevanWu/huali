@@ -75,6 +75,12 @@ ActiveAdmin.register Transaction do
         transaction_state_shift(transaction)
       end
 
+      row :to_pay_link do
+        unless transaction.state == "complete"
+          link_to t('order.pay'), transaction.request_path
+        end
+      end
+
       row :amount
       row :subject
       row :body

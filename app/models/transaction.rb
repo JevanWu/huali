@@ -110,9 +110,17 @@ class Transaction < ActiveRecord::Base
 
   def request_process
     start
-    Billing::Alipay::Gateway.new(gateway).purchase_path
+    request_path
   end
 
+  def request_path
+    case paymethod
+    when 'paypal'
+      Billing::Paypal::Gateway.new(gateway).purchase_path
+    else
+      Billing::Alipay::Gateway.new(gateway).purchase_path
+    end
+  end
 
   def check_deal(result)
     amount.to_f == result.total_fee.to_f
@@ -168,10 +176,17 @@ class Transaction < ActiveRecord::Base
   end
 
   def to_paypal
-    # {
-      # 'item_name' => product.name,
-      # 'amount' => exchange_to_dollar(cost)
-    # }
+    {
+      'item_name' => subject,
+      'amount' => to_dollar(amount),
+      'invoice' => identifier,
+      'return' => return_order_url(host: $host),
+      'notify_url' => notify_order_url(host: $host)
+    }
+  end
+
+  def to_dollar(amount)
+    (amount / 6.0).to_i - 0.01
   end
 
   def generate_identifier

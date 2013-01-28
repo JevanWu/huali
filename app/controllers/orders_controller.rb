@@ -62,6 +62,7 @@ class OrdersController < ApplicationController
     # TODO make params[:pay_info] more clear
     # currently it is mixed with two kinds of inf - pay method and merchant_name
     # they should be separated
+
     transaction = @order.generate_transaction params[:pay_info]
     redirect_to transaction.request_process
   end
