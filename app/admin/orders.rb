@@ -15,7 +15,7 @@ ActiveAdmin.register Order do
         selected = (Order.column_names - %w{sender_email sender_phone sender_name total}).join(',')
         Order.select(selected).includes(:transactions, :address, :line_items)
       else
-        Order.includes(:transactions, :address, :line_items).incomplete
+        Order.includes(:transactions, :address, :line_items)
       end
     end
 
