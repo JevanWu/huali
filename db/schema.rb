@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130121105846) do
+ActiveRecord::Schema.define(:version => 20130128041819) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -127,6 +127,7 @@ ActiveRecord::Schema.define(:version => 20130121105846) do
     t.string   "sender_phone"
     t.string   "sender_name"
     t.date     "delivery_date"
+    t.string   "source",                                             :default => "",      :null => false
   end
 
   add_index "orders", ["identifier"], :name => "index_orders_on_identifier", :unique => true
