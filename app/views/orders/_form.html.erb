@@ -12,7 +12,7 @@
     <legend>订单信息</legend>
     <%= f.input :gift_card_text, input_html: { rows: 3 }, placeholder: '我们可以代您书写给TA的话，请注明落款哦！' %>
     <%= f.input :special_instructions, input_html: { rows: 3 }, placeholder: '您可将一些特殊要求罗列与此，我们将尽力满足您的要求。' %>
-    <%= f.input :source, require:true, as: :select, :collection => ["微博", "人人", "豆瓣", "平面媒体", "朋友推荐", "线下活动", "BBS", "其他"] %>
+    <%= f.input :source, required:true, as: :select, :collection => ["微博", "人人", "豆瓣", "平面媒体", "朋友推荐", "线下活动", "BBS", "其他"] %>
   </fieldset>
   <fieldset>
     <legend>递送信息</legend>
