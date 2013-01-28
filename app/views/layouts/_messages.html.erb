@@ -1,3 +1,4 @@
+<%= content_tag :div, '情人节预订火爆进行中 支持支付宝 Paypal付款', :id => "flash_notice"  %>
 <% flash.each do |name, msg| %>
   <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
 <% end %>
