@@ -175,7 +175,10 @@ class Transaction < ActiveRecord::Base
   def to_paypal
     {
       'item_name' => subject,
-      'amount' => to_dollar(amount)
+      'amount' => to_dollar(amount),
+      'invoice' => identifier,
+      'return' => return_order_url(host: $host),
+      'notify_url' => notify_order_url(host: $host)
     }
   end
 
