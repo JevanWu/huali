@@ -1,5 +1,6 @@
 #= require jquery.cookie
 #= require underscore
+#= require_self
 #= require prov_city_area_update
 
 $ ->

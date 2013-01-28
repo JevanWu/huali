@@ -19,7 +19,6 @@ $ ->
 
   reduceToOptions = (data) ->
     _.reduce(data, (memo, place) ->
-      console.log(memo)
       memo + "<option value=#{place.id} data-postcode='#{place.post_code}'>#{place.name}</option>"
     , '<option value>请选择</option>')
 
