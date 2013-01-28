@@ -15,7 +15,7 @@ module OrdersHelper
     when 'wait_check'
       'error'
     when 'wait_ship'
-      'warning'
+      'ok'
     when 'wait_confirm'
       ''
     when 'wait_refund'
