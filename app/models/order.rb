@@ -29,7 +29,7 @@
 class Order < ActiveRecord::Base
 
   attr_accessible :line_items, :special_instructions, :address_attributes,
-                  :gift_card_text, :expected_date, :identifier, :state,
+                  :gift_card_text, :delivery_date, :expected_date, :identifier, :state,
                   :sender_name, :sender_phone, :sender_email
 
   belongs_to :address

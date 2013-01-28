@@ -32,7 +32,7 @@ zh-CN:
       order: &order
         identifier: "订单编号"
         transaction_identifier: "交易编号"
-        expected_date: "预期到达日期"
+        expected_date: "到达日期"
         delivery_date: "发货日期"
         ship_method: '递送方式'
         special_instructions: "特殊要求"

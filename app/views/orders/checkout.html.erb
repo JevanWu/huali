@@ -9,7 +9,7 @@
     <%= render 'side_item_table', items: @order.line_items %>
 
     <div id="order-addr">
-      <p><%= t(:your_address) %></p>
+      <p><%= t(:ta_address) %></p>
       <%= @order.address.full_addr %>
       <%= @order.address.fullname %>
       <%= @order.address.phone %>
