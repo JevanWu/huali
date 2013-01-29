@@ -38,6 +38,9 @@ zh-CN:
   quantity: "数量"
   confirm_to_pay: "确认支付"
   add_image: "新增图片"
+  paypal: "paypal"
+  directPay: "支付宝"
+  bankPay: "网银支付"
 
   # shipmethod
   express: "快递"
