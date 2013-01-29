@@ -2,15 +2,15 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  currency: "Dollar"
-  delivery_charge: "delivery free"
-  soldout: "Soldout"
-  join_queue: "Contact us for more information"
-  stock: "stock"
-  product_info: "product information"
-  height: "height"
-  width: "width"
-  depth: "depth"
-  size: "size"
-  flower_shop: "Online Flower Shop"
-  flower_basket: "Buy"
+  currency: Dollar
+  delivery_charge: delivery free
+  soldout: Soldout
+  join_queue: Contact us for more information
+  stock: stock
+  product_info: product information
+  height: height
+  width: width
+  depth: depth
+  size: size
+  flower_shop: Online Flower Shop
+  flower_basket: Buy
