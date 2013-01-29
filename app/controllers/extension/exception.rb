@@ -14,7 +14,6 @@ module Extension
           'ActionController::UnknownController',
           '::AbstractController::ActionNotFound',
           'ActiveRecord::RecordNotFound' do |exception|
-          binding.pry
           notify_squash exception
           render_error 404, exception
         end
