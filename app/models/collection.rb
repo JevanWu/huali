@@ -15,8 +15,12 @@ class Collection < ActiveRecord::Base
                   :available, :meta_description, :meta_keywords
   has_many :products
 
+  translate :name
+
   extend FriendlyId
   friendly_id :name_en, use: :slugged
+
+  scope :available, lambda { where(available: true) }
 
   def to_s
     "#{self.id} #{self.name_zh}"
