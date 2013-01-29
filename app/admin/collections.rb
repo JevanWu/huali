@@ -27,9 +27,7 @@ ActiveAdmin.register Collection do
   show do
     attributes_table do
       row :name_zh
-      row :slug do
-        collection.name_en
-      end
+      row :name_en
       row :description
 
       row :product do
