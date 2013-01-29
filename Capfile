@@ -17,6 +17,7 @@ require "whenever/capistrano"
 set :whenever_roles, [:db, :app]
 
 require 'sidekiq/capistrano'
+require 'squash/rails/capistrano'
 
 # Use Git as Version Control System
 set :scm, :git

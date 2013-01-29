@@ -22,6 +22,10 @@ gem 'figaro'
 gem 'sitemap_generator'
 gem 'humanizer'
 
+# squash
+gem 'squash_ruby', :require => 'squash/ruby'
+gem 'squash_rails', :require => 'squash/rails'
+
 # background jobs
 gem 'sidekiq'
 gem 'sidekiq-failures'
