@@ -35,7 +35,7 @@ class Shipment < ActiveRecord::Base
 
   state_machine :state, :initial => :ready do
     after_transition :to => :completed, :do => :confirm_order
-    after_transition :to => :shipped, :do => :ship_order
+    before_transition :to => :shipped, :do => :ship_order
 
     # use adj. for state with future vision
     # use v. for event namen
