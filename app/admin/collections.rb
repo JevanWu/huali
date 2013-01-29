@@ -8,13 +8,15 @@ ActiveAdmin.register Collection do
   end
 
   filter :name_zh
+  filter :display_name
   filter :description
 
   index do
     selectable_column
-    column :name_zh do |collection|
-      collection.name_zh
-    end
+    column :name_zh
+    column :display_name
+    column :name_en
+    column :available
     column :description
     column :products_count do |collection|
       div :class => 'count' do
@@ -37,6 +39,9 @@ ActiveAdmin.register Collection do
           link_to product.name_zh, admin_product_path(product)
         end.join(', ').html_safe
       end
+
+      row :meta_description
+      row :meta_keywords
 
       row :created_at
       row :updated_at
