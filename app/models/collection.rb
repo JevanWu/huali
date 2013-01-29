@@ -11,7 +11,8 @@
 #
 
 class Collection < ActiveRecord::Base
-  attr_accessible :description, :name_en, :name_cn
+  attr_accessible :description, :name_en, :name_zh, :display_name,
+                  :available, :meta_description, :meta_keywords
   has_many :products
 
   extend FriendlyId
