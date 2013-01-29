@@ -24,6 +24,8 @@ ActiveAdmin.register Collection do
     default_actions
   end
 
+  form :partial => "form"
+
   show do
     attributes_table do
       row :name_zh
