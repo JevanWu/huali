@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/SquareSquash/rails.git
+  revision: 3253cca21cafceaf6c6182932aa0fd374154b280
+  specs:
+    squash_rails (1.0.0)
+      squash_ruby
+
+GIT
   remote: git://github.com/charliesome/better_errors.git
   revision: 7e3a2bb071687eb9a1fdf3dceb5d84869482b942
   specs:
@@ -398,8 +405,6 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    squash_rails (1.0.0)
-      squash_ruby
     squash_ruby (1.0.0)
       json
     state_machine (1.1.2)
@@ -497,7 +502,7 @@ DEPENDENCIES
   sitemap_generator
   slim
   spork (~> 1.0rc)
-  squash_rails
+  squash_rails!
   squash_ruby
   state_machine
   thin (>= 1.4.1)
