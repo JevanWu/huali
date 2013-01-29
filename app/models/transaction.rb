@@ -188,9 +188,9 @@ class Transaction < ActiveRecord::Base
   def to_dollar(amount)
     dollar = (amount/6)
     if (dollar.to_i) % 10 > 5
-      (dollar/10.ceil) * 10 - 0.01
+      ((dollar/10).ceil) * 10 - 0.01
     else
-      (dollar/10.ceil) * 10 - 5 - 0.01
+      ((dollar/10).ceil) * 10 - 5 - 0.01
     end
   end
 
