@@ -4,6 +4,10 @@ class ApplicationController < ActionController::Base
   before_filter :get_host
   before_filter :dev_tools if Rails.env == 'development'
 
+  # enable squash
+  include Squash::Ruby::ControllerMethods
+  enable_squash_client
+
   include ::Extension::Mobile
   include ::Extension::GuestUser
   include ::Extension::Locale

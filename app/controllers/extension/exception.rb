@@ -1,10 +1,12 @@
 module Extension
   module Exception
     extend ActiveSupport::Concern
+    include Squash::Ruby::ControllerMethods
 
     included do
       unless Rails.application.config.consider_all_requests_local
         rescue_from 'Exception' do |exception|
+          notify_squash exception
           render_error 500, exception
         end
 
@@ -12,6 +14,8 @@ module Extension
           'ActionController::UnknownController',
           '::AbstractController::ActionNotFound',
           'ActiveRecord::RecordNotFound' do |exception|
+          binding.pry
+          notify_squash exception
           render_error 404, exception
         end
       end
