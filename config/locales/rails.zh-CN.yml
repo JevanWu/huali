@@ -134,6 +134,8 @@ zh-CN:
       collection:
         name_zh: 中文名
         name_en: 英文名
+        display_name: 显示名称
+        available: 是否有效
         description: 描述
         product: 产品
         created_at: 创建于
