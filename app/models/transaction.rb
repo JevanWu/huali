@@ -186,7 +186,15 @@ class Transaction < ActiveRecord::Base
   end
 
   def to_dollar(amount)
-    (amount / 6.0).to_i - 0.01
+    dollar = amount / 6.0
+    # round the dollar amount to 10x
+    round = (dollar / 10.0).ceil * 10
+
+    # adjust the number to 5x
+    # 124.234 -> 124.99 ; 126.23 -> 129.99
+    adjust = (dollar % 10 > 5) ? 0.01 : (5 + 0.01)
+
+    round - adjust
   end
 
   def generate_identifier
