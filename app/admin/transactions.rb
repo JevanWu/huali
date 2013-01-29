@@ -38,10 +38,15 @@ ActiveAdmin.register Transaction do
     end
 
     column :identifier
+
     column :order do |transaction|
       link_to transaction.order.identifier, admin_order_path(transaction.order)
     end
-    column :paymethod
+
+    column :paymethod do |transaction|
+      t(transaction.paymethod)
+    end
+
     column :amount
     column :merchant_trade_no do |transaction|
       merchant_trade_link(transaction)
@@ -69,7 +74,9 @@ ActiveAdmin.register Transaction do
         merchant_trade_link(transaction)
       end
 
-      row :paymethod
+      row :paymethod do
+        t(transaction.paymethod)
+      end
 
       row :modify_transaction_state do
         transaction_state_shift(transaction)
