@@ -21,5 +21,4 @@ class Collection < ActiveRecord::Base
   def to_s
     "#{self.id} #{self.name_zh}"
   end
-
 end
