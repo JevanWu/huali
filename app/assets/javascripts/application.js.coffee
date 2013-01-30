@@ -49,21 +49,22 @@ $ ->
   allPanels = $('.accordion > dd')
 
   $('.accordion > dt > a').click ->
+    slideUpPanels = ->
+      allPanels
+        .slideUp()
+        .prev().find('a')
+        .removeClass('opened')
+
     handler = $(@)
-    allPanels.slideUp()
 
     if handler.hasClass('opened')
-      handler
-        .removeClass('opened')
+      slideUpPanels()
     else
+      slideUpPanels()
       handler
         .parent().next().slideDown()
         .end().end()
         .addClass('opened')
-
-    allPanels
-      .prev().find('a')
-      .removeClass('opened')
 
     false
 
