@@ -1,22 +1,24 @@
 <div class="collection-wrapper">
   <div class="collection-title row">
-    
+    <%= image_tag('title-basket.png') %>
   </div>
-  <div class="products row">
+  <div class="row">
     <% @products.each do |product| %>
-      <div class="product span4">
-        <div class="product-image">
-          <%# FIXME the title and below title needs to be customized %>
+      <div class="collection-unit span4">
+        <div class="unit-info">
+          <%= link_to t('flower_basket'), current_order_path, :class => 'purchase button', data: { product: product.id } %>
+          <p>
+            <% unless product.original_price.nil? %>
+            <span class="price old-price"> <%= product.original_price %> <%=t 'currency' %>  </span>
+            <% end %>
+            <span class="price"><%= product.price %> <%=t 'currency' %>  </span>
+          </p>
+          
+        </div>
+        <div class="unit-image">
           <%= link_to image_tag(product.img(:medium)), product_path(product), title: product.name %>
         </div>
-          <h3> <%= link_to product.name, product_path(product), title: 'Fashion Demo Flowers' %> </h3>
-          <%= link_to t('flower_basket'), current_order_path, :class => 'purchase button', data: { product: product.id } %>
-            <p>
-              <% unless product.original_price.nil? %>
-              <span class="old-price"> <%= product.original_price %> <%=t 'currency' %>  </span>
-              <% end %>
-              <span class="price"><%= product.price %> <%=t 'currency' %>  </span>
-            </p>
+        <h3 class="unit-title"> <%= link_to product.name, product_path(product), title: 'Fashion Demo Flowers' %> </h3>
       </div>
     <% end %>
   </div>

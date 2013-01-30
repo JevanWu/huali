@@ -15,7 +15,7 @@
     <small class="meta"><%=t 'join_queue' %></small>
   <% end %>
   <p>
-    <%= link_to t('more') + @product.collection.name, collection_path(@product.collection), class: 'more-collection' %>
+    <%= link_to t('more') + @product.collection.display_name, collection_path(@product.collection), class: 'more-collection' %>
   </p>
 
   <%= render 'jiathis_buttons' %>
