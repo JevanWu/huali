@@ -49,8 +49,9 @@ $ ->
   allPanels = $('.accordion > dd')
 
   $('.accordion > dt > a').click ->
-    allPanels.slideUp()
     handler = $(@)
+    allPanels.slideUp()
+
     if handler.hasClass('opened')
       handler
         .removeClass('opened')
@@ -59,7 +60,12 @@ $ ->
         .parent().next().slideDown()
         .end().end()
         .addClass('opened')
-      false
+
+    allPanels
+      .prev().find('a')
+      .removeClass('opened')
+
+    false
 
 arrowIn = ->
   $(this).siblings('.arrow')
