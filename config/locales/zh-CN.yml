@@ -2,6 +2,7 @@ zh-CN:
   currency: RMB
   delivery_charge: 免运费
   soldout: 已经售罄
+  more: 更多
   join_queue: 如需加入订购队列，请联系客服
   stock: 库存
   product_info: 产品信息
