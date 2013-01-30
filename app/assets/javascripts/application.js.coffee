@@ -48,7 +48,7 @@ $ ->
   # nav accordion
   allPanels = $('.accordion > dd')
 
-  $('.accordion > dt > a').click ->
+  $('.accordion > dt > a').mouseenter ->
     slideUpPanels = ->
       allPanels
         .slideUp()
