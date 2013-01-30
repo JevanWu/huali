@@ -35,7 +35,7 @@ zh-CN:
   price: 价格
   image: 图片
   back: 后退
-  checkout: 支付
+  checkout: 确定
   quantity: 数量
   confirm_to_pay: 确认支付
   add_image: 新增图片

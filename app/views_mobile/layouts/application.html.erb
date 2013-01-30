@@ -34,7 +34,7 @@
     <%= javascript_include_tag 'http://tjs.sjs.sinajs.cn/open/api/js/wb.js' %>
     <%= javascript_include_tag "application"  %>
     <!-- only include controller-specific js accordingly -->
-    <% if ['products','collections'].include? controller_name %>
+    <% if controller_name.in? ['products'] %>
       <%= javascript_include_tag params[:controller] %>
     <% end %>
     <%= javascript_include_tag "ga" %>

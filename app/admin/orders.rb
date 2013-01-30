@@ -101,7 +101,9 @@ ActiveAdmin.register Order do
       [order[:sender_name], order[:sender_email], order[:sender_phone]].select { |s| !s.blank? }.join(', ')
     end
 
-    column :delivery_date, :sortable => :delivery_date
+    column :delivery_date, sortable: :delivery_date
+
+    column :expected_date, sortable: :expected_date
 
     column :process_order do |order|
       link_to(t(:edit), edit_admin_order_path(order)) + \

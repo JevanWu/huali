@@ -31,6 +31,7 @@ ActiveAdmin.register Collection do
   show do
     attributes_table do
       row :name_zh
+      row :display_name
       row :name_en
       row :description
 
