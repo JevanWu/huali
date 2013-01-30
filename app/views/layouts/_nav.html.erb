@@ -1,25 +1,39 @@
 <ul id="product-nav" class="nav">
   <!-- TODO switch this to product related path -->
-  <li><h4 class="leading">
+  <h4 class="leading">
     <span><%= t 'flower_shop' %>  </span>
     <%= image_tag 'icon-knot.png', id: 'chris-knot', alt: "Chrismas Knot" %>
-  </h4></li>
-    <% Product.all.each do |product| %>
-      <% next if product.collection_id  == 9 %>
-      <% if @product && @product.id == product.id %>
-      <li class="active"> 
-        <% if product.new? %> <%= image_tag 'icon-new.png', id: 'chris-new', alt: "Chrismas new" %> <% end %>
-        <%= link_to product.name, product_path(product), title: product.name %> <span class="arrow"><<</span> 
-      </li>
-      <% else %>
-        <% if product.new? %> <%= image_tag 'icon-new.png', id: 'chris-new', alt: "Chrismas new" %> <% end %>
-        <li> <%= link_to product.name, product_path(product), title: product.name %> <span class="arrow"><<</span> </li>
-      <% end %>
+  </h4>
+  <dl id='nav-accordion' class='accordion'>
+    <% Collection.available.each do |collection| %>
+      <dt class="accordion-heading nav-header">
+        <%= link_to collection.name, '#' %>
+      </dt>
+      <dd>
+        <ul class="nav nav-list">
+        <% collection.products.all.each do |product| %>
+          <% if @product && @product.id == product.id %>
+          <li class="active">
+            <% if product.new? %> <%= image_tag 'icon-new.png', id: 'chris-new', alt: "Chrismas new" %> <% end %>
+            <%= link_to product.name, product_path(product), title: product.name %>
+            <span class="arrow"><<</span>
+          </li>
+          <% else %>
+          <li>
+            <% if product.new? %> <%= image_tag 'icon-new.png', id: 'chris-new', alt: "Chrismas new" %> <% end %>
+            <%= link_to product.name, product_path(product), title: product.name %>
+            <span class="arrow"><<</span>
+          </li>
+          <% end %>
+        <% end %>
+        </ul>
+      </dd>
     <% end %>
-  <hr>
+  </dl>
+
   <% if I18n.locale == :"zh-CN" %>
     <div id="weibo-follow">
-      <wb:follow-button uid="3089584727" type="red_1" width="67" height="24" ></wb:follow-button>
+    <wb:follow-button uid="3089584727" type="red_1" width="67" height="24" ></wb:follow-button>
     </div>
   <% end %>
 </ul>
