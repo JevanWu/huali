@@ -124,6 +124,14 @@ p#home-intro
 
 // PRODUCT PAGE
 
+.price
+  font-size: 120%
+  color: $grayLight
+
+.old-price
+  text-decoration: line-through
+  color: $grayLight
+
 #product-side
   position: absolute
   right: 0
@@ -136,14 +144,6 @@ p#home-intro
     font-size: 120%
     padding: 4px 0px 4px 8px
     color: $tintColor
-
-  .price
-    font-size: 120%
-    color: $grayLight
-
-  .old-price
-    text-decoration: line-through
-    color: $grayLight
 
   .more-collection
     margin: 0px 5px
@@ -190,6 +190,10 @@ p#home-intro
 
     &.hover, &:hover, &.current
       +opacity(90)
+
+// Collection Page
+.collection-title
+  height: 180px
 
 // ORDER PAGE
 // PAYMENT PAGE

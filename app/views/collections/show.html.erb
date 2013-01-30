@@ -1,25 +1,22 @@
 <div class="collection-wrapper">
+  <div class="collection-title row">
+    
+  </div>
   <div class="products row">
     <% @products.each do |product| %>
-      <div class="product span3">
+      <div class="product span4">
         <div class="product-image">
           <%# FIXME the title and below title needs to be customized %>
-          <%= link_to image_tag(product.img(:medium)), product_path(product), title: 'Nice Flowers' %>
+          <%= link_to image_tag(product.img(:medium)), product_path(product), title: product.name %>
         </div>
-        <div class="new-description">
           <h3> <%= link_to product.name, product_path(product), title: 'Fashion Demo Flowers' %> </h3>
-          <div class="price-box">
-            <a href='/order'><button type="button" class="button btn-cart"><span>点击购买</span></button></a>
-            <% unless product.original_price.nil? %>
-            <p class="old-price">
-              <span class="price" id="old-price-298"> ￥<%= product.original_price %> </span>
+          <%= link_to t('flower_basket'), current_order_path, :class => 'purchase button', data: { product: product.id } %>
+            <p>
+              <% unless product.original_price.nil? %>
+              <span class="old-price"> <%= product.original_price %> <%=t 'currency' %>  </span>
+              <% end %>
+              <span class="price"><%= product.price %> <%=t 'currency' %>  </span>
             </p>
-            <% end %>
-            <p class="special-price">
-              <span class="price" id="product-price-298">￥<%= product.price %> </span>
-            </p>
-          </div>
-        </div>
       </div>
     <% end %>
   </div>
