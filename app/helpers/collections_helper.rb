@@ -8,7 +8,7 @@ module CollectionsHelper
     when 10
       'title-chuncui.png'
     when 9
-      'title-banlan.png'
+      'title-nihong.png'
     end
   end
 end
