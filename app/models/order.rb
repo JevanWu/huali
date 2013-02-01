@@ -178,11 +178,11 @@ class Order < ActiveRecord::Base
   end
 
   def transaction
-    transactions.first
+    transactions.last
   end
 
   def shipment
-    shipments.first
+    shipments.last
   end
 
   def subject_text
