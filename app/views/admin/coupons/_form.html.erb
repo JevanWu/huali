@@ -1,0 +1,9 @@
+<%= semantic_form_for [:admin, @coupon] do |f| %>
+  <%= f.inputs "Coupon Info" do %>
+    <%= f.input :adjustment, 
+      placeholder: '+20.0, -30.0, x1.1, *0.9 etc.',
+      hint: 'support multiple calculation(+,-,*,x,%,/), validate format includes "-20.0", "x1.1", "%2" etc.' %>
+    <%= f.input :expires_at, as: :string, required: true, input_html: { class: 'datepicker' }%>
+  <% end %>
+  <%= f.actions %>
+<% end %>
