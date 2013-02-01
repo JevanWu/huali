@@ -88,9 +88,8 @@ ActiveAdmin.register Order do
     column :identifier, :sortable => :identifier
 
     column :transaction_identifier, :sortable => :id do |order|
-      unless order.transactions.first.nil?
-        link_to order.transactions.first.identifier, admin_transaction_path(order.transactions.first)
-      end
+      link_to order.transaction.identifier,
+        admin_transaction_path(order.transaction) if order.transaction
     end
 
     column :total, :sortable => :id do |order|
