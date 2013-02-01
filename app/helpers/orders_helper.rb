@@ -30,7 +30,7 @@ module OrdersHelper
     case order.state
     when "generated"
       link_to(t(:cancel, scope: :order), cancel_admin_order_path(order), confirm: t(:confirm_cancel))
-      link_to(t(:init_transaction, scope: :order), new_admin_transaction_path("order[id]" => order.id,
+      link_to(t(:init_transaction, scope: :order), new_admin_transaction_path("transaction[order_id]" => order.id,
                                                                       "transaction[amount]" => order.total,
                                                                       "transaction[subject]" => order.subject_text,
                                                                       "transaction[body]" => order.body_text))
@@ -40,7 +40,7 @@ module OrdersHelper
     when "wait_ship"
       # for historic compatibility, when order(state = checked) doesn't have shipment generated.
       link_to(t(:ship, scope: :order),
-              order.shipment.blank? ? new_admin_shipment_path("order[id]" => order.id) : edit_admin_shipment_path(order.shipment),
+              order.shipment.blank? ? new_admin_shipment_path("shipment[order_id]" => order.id) : edit_admin_shipment_path(order.shipment),
               confirm: t(:confirm_ship)) + \
       link_to(t(:cancel, scope: :order), cancel_admin_order_path(order), confirm: t(:confirm_cancel))
     when "wait_refund"
