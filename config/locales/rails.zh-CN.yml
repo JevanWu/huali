@@ -19,6 +19,7 @@ zh-CN:
       shipment: 货运记录
       order: 订单列表
       asset: 图片
+      coupon: 优惠码
       page: 单独页面
       collection: 品类
       line_item: 条目
@@ -153,3 +154,12 @@ zh-CN:
 
       page:
         title_zh: 中文标题
+
+      coupon:
+        code: 优惠代码
+        expired: 是否失效
+        adjustment: 优惠调整
+        available_count: 剩余有效次数
+        used_count: 使用次数
+        expires_at: 过期时间
+
