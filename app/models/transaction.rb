@@ -31,6 +31,7 @@ class Transaction < ActiveRecord::Base
   has_one :user, through: :order
 
   before_validation :generate_identifier, on: :create
+  before_validation :override_merchant_name
 
   validates_presence_of :identifier, :paymethod, :merchant_name, :amount, :subject
   validates :identifier, uniqueness: true
@@ -195,6 +196,15 @@ class Transaction < ActiveRecord::Base
     adjust = (dollar % 10 > 5) ? 0.01 : (5 + 0.01)
 
     round - adjust
+  end
+
+  def override_merchant_name
+    case paymethod
+    when 'paypal'
+      self.merchant_name = 'Paypal'
+    when 'directPay'
+      self.merchant_name = 'Alipay'
+    end
   end
 
   def generate_identifier
