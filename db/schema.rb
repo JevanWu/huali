@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130201143824) do
+ActiveRecord::Schema.define(:version => 20130201150921) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -128,6 +128,14 @@ ActiveRecord::Schema.define(:version => 20130201143824) do
 
   add_index "line_items", ["order_id"], :name => "index_line_items_on_order_id"
   add_index "line_items", ["product_id"], :name => "index_line_items_on_product_id"
+
+  create_table "order_coupons", :force => true do |t|
+    t.integer "order_id"
+    t.integer "coupon_id"
+  end
+
+  add_index "order_coupons", ["coupon_id"], :name => "index_order_coupons_on_coupon_id"
+  add_index "order_coupons", ["order_id"], :name => "index_order_coupons_on_order_id"
 
   create_table "orders", :force => true do |t|
     t.string   "identifier"
