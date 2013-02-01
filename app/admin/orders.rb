@@ -175,18 +175,16 @@ ActiveAdmin.register Order do
       row :gift_card_text
       row :special_instructions
 
-      row :coupon_code
-
       row :coupon
 
       row :item_total do
-        number_to_currency order[:item_total].presence, :unit => '&yen;'
+        number_to_currency order.item_total, unit: '&yen;'
       end
 
       row :adjustment
 
       row :total do
-        number_to_currency order[:total].presence, :unit => '&yen;'
+        number_to_currency order.total, unit: '&yen;'
       end
 
       row :source
