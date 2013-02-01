@@ -49,8 +49,6 @@ class Order < ActiveRecord::Base
   accepts_nested_attributes_for :address
 
   before_validation :generate_identifier, on: :create
-  after_validation :cal_item_total, :cal_total
-  after_validation :adjust_total, if: :adjust_allowed?
 
   validates_format_of :adjustment,
                       with: %r{\A[+-x*%/][\s\d.]+}, # +/-/*/%1234.0
@@ -58,14 +56,14 @@ class Order < ActiveRecord::Base
 
   validates_presence_of :identifier, :line_items, :expected_date, :state, :total, :item_total, :sender_email, :sender_phone, :sender_name, :source
 
-  validates :identifier, presence: true
-  validates_presence_of :line_items, :expected_date, :state, :total, :item_total, :sender_email, :sender_phone, :sender_name, :source
   # only validate once on Date.today, because in future Date.today will change
   validate :expected_date_in_range, on: :create
   validate :phone_validate
+  validate :coupon_code_validate
 
-
-  state_machine :state, :initial => :generated do
+  after_validation :cal_item_total, :cal_total
+  after_validation :adjust_total, if: :adjust_allowed?
+  after_validation :use_coupon, unless: lambda { |order| order.coupon_code.blank? }
     # TODO implement an auth_state dynamically for each state
     before_transition :to => :wait_refund, :do => :auth_refund
     before_transition :to => :completed, :do => :complete_order
@@ -234,6 +232,17 @@ class Order < ActiveRecord::Base
     n_digits = sender_phone.scan(/[0-9]/).size
     valid_chars = (sender_phone =~ /^[-+()\/\s\d]+$/)
     errors.add :sender_phone, :invalid unless (n_digits >= 8 && valid_chars)
+  end
+
+  def coupon_code_validate
+    return if coupon_code.blank?
+    co = Coupon.find_by_code(coupon_code)
+    if co
+      errors.add :coupon_code, "coupon has expired." unless co.usable?
+    else
+      errors.add :coupon_code, "coupon doesn't exist."
+    end
+
   end
 
   def auth_refund
