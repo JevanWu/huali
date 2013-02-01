@@ -5,6 +5,7 @@
 #  address_id           :integer
 #  adjustment           :string(255)
 #  completed_at         :datetime
+#  coupon_code          :string(255)
 #  created_at           :datetime         not null
 #  delivery_date        :date
 #  expected_date        :date             not null
@@ -32,7 +33,7 @@ class Order < ActiveRecord::Base
 
   attr_accessible :line_items, :special_instructions, :address_attributes,
                   :gift_card_text, :delivery_date, :expected_date, :identifier, :state,
-                  :sender_name, :sender_phone, :sender_email, :source,  :adjustment
+                  :sender_name, :sender_phone, :sender_email, :source, :adjustment, :coupon_code
 
   belongs_to :address
   belongs_to :user

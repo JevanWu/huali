@@ -24,9 +24,9 @@ zh-CN:
       collection: 品类
       line_item: 条目
       address: 地址
-      province: '省'
-      city: '城市'
-      area: '地区'
+      province: 省
+      city: 城市
+      area: 地区
       ship_method: 递送方式
 
     attributes:
@@ -67,15 +67,16 @@ zh-CN:
         address_city_name: 收件人城市
         address_address: 收件人地址
         images: 产品图
+        coupon_code: 优惠码
         coupon: 优惠券
 
       administrator:
-        email: "邮箱"
-        password: "密码"
-        role: "角色"
-        current_sign_in_at: "当前登陆时间"
-        last_sign_in_at: "上次登陆时间"
-        sign_in_count: "登陆次数"
+        email: 邮箱
+        password: 密码
+        role: 角色
+        current_sign_in_at: 当前登陆时间
+        last_sign_in_at: 上次登陆时间
+        sign_in_count: 登陆次数
 
       address:
         address: 收件人地址

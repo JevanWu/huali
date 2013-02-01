@@ -175,6 +175,8 @@ ActiveAdmin.register Order do
       row :gift_card_text
       row :special_instructions
 
+      row :coupon_code
+
       row :coupon
 
       row :item_total do
