@@ -56,6 +56,10 @@ class Coupon < ActiveRecord::Base
     end
   end
 
+  def to_s
+    code
+  end
+
   private
 
   def generate_code
