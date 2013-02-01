@@ -33,7 +33,7 @@ class Transaction < ActiveRecord::Base
   before_validation :generate_identifier, on: :create
   before_validation :override_merchant_name
 
-  validates_presence_of :identifier, :paymethod, :merchant_name, :amount, :subject
+  validates_presence_of :order, :identifier, :paymethod, :merchant_name, :amount, :subject
   validates :identifier, uniqueness: true
   validates :amount, numericality: true
   validates :paymethod, inclusion: {
