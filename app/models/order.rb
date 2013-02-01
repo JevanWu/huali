@@ -3,6 +3,7 @@
 # Table name: orders
 #
 #  address_id           :integer
+#  adjustment           :string(255)
 #  completed_at         :datetime
 #  created_at           :datetime         not null
 #  delivery_date        :date
@@ -15,6 +16,7 @@
 #  sender_email         :string(255)
 #  sender_name          :string(255)
 #  sender_phone         :string(255)
+#  source               :string(255)      default(""), not null
 #  special_instructions :text
 #  state                :string(255)      default("ready")
 #  total                :decimal(8, 2)    default(0.0), not null
@@ -44,7 +46,7 @@ class Order < ActiveRecord::Base
   accepts_nested_attributes_for :address
 
   before_validation :generate_identifier, on: :create
-  after_validation :cal_total
+  after_validation :cal_item_total, :cal_total
 
   validates :identifier, presence: true
   validates_presence_of :line_items, :expected_date, :state, :total, :item_total, :sender_email, :sender_phone, :sender_name, :source
@@ -153,12 +155,20 @@ class Order < ActiveRecord::Base
     self.line_items << this_item
   end
 
+  def cal_item_total
+    self.item_total = line_items.map(&:total).inject(:+)
+  end
+
   def cal_total
-    self.item_total = self.total = line_items.map(&:total).inject(:+)
+    self.total = 0
   end
 
   def completed?
     !! completed_at
+  end
+
+  def adjust_allowed?
+
   end
 
   def checkout_allowed?

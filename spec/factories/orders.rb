@@ -3,6 +3,7 @@
 # Table name: orders
 #
 #  address_id           :integer
+#  adjustment           :string(255)
 #  completed_at         :datetime
 #  created_at           :datetime         not null
 #  delivery_date        :date
@@ -15,6 +16,7 @@
 #  sender_email         :string(255)
 #  sender_name          :string(255)
 #  sender_phone         :string(255)
+#  source               :string(255)      default(""), not null
 #  special_instructions :text
 #  state                :string(255)      default("ready")
 #  total                :decimal(8, 2)    default(0.0), not null
