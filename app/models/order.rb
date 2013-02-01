@@ -52,7 +52,7 @@ class Order < ActiveRecord::Base
   after_validation :adjust_total, if: :adjust_allowed?
 
   # +/-/*/%1234.0
-  validates_format_of :adjustment, with: %r{\A[+-x*%/][\s\d.]+}
+  validates_format_of :adjustment, with: %r{\A[+-x*%/][\s\d.]+}, unless: -> { adjustment.blank? }
 
   validates :identifier, presence: true
   validates_presence_of :line_items, :expected_date, :state, :total, :item_total, :sender_email, :sender_phone, :sender_name, :source
