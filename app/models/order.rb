@@ -182,7 +182,17 @@ class Order < ActiveRecord::Base
   end
 
   def use_coupon
+    # respect the manual adjustment
+    return unless adjustment.blank?
 
+    # bind the coupon
+    self.coupon = Coupon.find_by_code(coupon_code)
+
+    # adjust the total with coupon's adjustment
+    adjust_string = self.coupon.use!
+    if adjust_string
+      adjust_total(adjust_string)
+    end
   end
 
   def completed?
