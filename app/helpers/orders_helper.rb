@@ -30,6 +30,10 @@ module OrdersHelper
     case order.state
     when "generated"
       link_to(t(:cancel, scope: :order), cancel_admin_order_path(order), confirm: t(:confirm_cancel))
+      link_to(t(:init_transaction, scope: :order), new_admin_transaction_path("order[id]" => order.id,
+                                                                      "transaction[amount]" => order.total,
+                                                                      "transaction[subject]" => order.subject_text,
+                                                                      "transaction[body]" => order.body_text))
     when "wait_check"
       link_to(t(:check, scope: :order), check_admin_order_path(order), confirm: t(:confirm_check)) + \
       link_to(t(:cancel, scope: :order), cancel_admin_order_path(order), confirm: t(:confirm_cancel))

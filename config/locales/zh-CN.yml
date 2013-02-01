@@ -92,6 +92,7 @@ zh-CN:
     pay: 付款
     check: 审核
     ship: 发货
+    init_transaction: 生成交易
     refund: 退款
     confirm: 确认
     cancel: 取消
