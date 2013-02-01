@@ -64,6 +64,8 @@ class Order < ActiveRecord::Base
   after_validation :cal_item_total, :cal_total
   after_validation :adjust_total, if: :adjust_allowed?
   after_validation :use_coupon, unless: lambda { |order| order.coupon_code.blank? }
+
+  state_machine :state, :initial => :generated do
     # TODO implement an auth_state dynamically for each state
     before_transition :to => :wait_refund, :do => :auth_refund
     before_transition :to => :completed, :do => :complete_order
@@ -172,11 +174,15 @@ class Order < ActiveRecord::Base
     self.total = self.item_total
   end
 
-  def adjust_total
+  def adjust_total(adjust_string = adjustment)
     # convert symbol to valid arithmetic operator
-    adjust = self.adjustment.squeeze(' ').sub('x', '*').sub('%', '/')
+    adjust = adjust_string.squeeze(' ').sub('x', '*').sub('%', '/')
     operator, number = [adjust.first.to_sym, adjust[1..-1].to_f]
     self.total = self.item_total.send(operator, number)
+  end
+
+  def use_coupon
+
   end
 
   def completed?

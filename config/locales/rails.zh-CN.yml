@@ -39,7 +39,6 @@ zh-CN:
         special_instructions: 特殊要求
         gift_card_text: 卡片信息
         item_total: 物品总价
-        adjustment: 价格调整
         total: 订单总价
         state: 订单状态
         source: 来源
@@ -69,6 +68,7 @@ zh-CN:
         images: 产品图
         coupon_code: 优惠码
         coupon: 优惠券
+        adjustment: 价格调整
 
       administrator:
         email: 邮箱
