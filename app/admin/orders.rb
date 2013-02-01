@@ -92,8 +92,8 @@ ActiveAdmin.register Order do
         admin_transaction_path(order.transaction) if order.transaction
     end
 
-    column :total, :sortable => :id do |order|
-      order[:total]
+    column :total, :sortable => :total do |order|
+      order.total
     end
 
     column :sender_info do |order|
