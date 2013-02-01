@@ -69,6 +69,11 @@ ActiveAdmin.register Transaction do
       end
 
       row :identifier
+
+      row :order do
+        link_to transaction.order.identifier, admin_order_path(transaction.order)
+      end
+
       row :merchant_name
       row :merchant_trade_no do
         merchant_trade_link(transaction)
