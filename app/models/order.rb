@@ -48,11 +48,15 @@ class Order < ActiveRecord::Base
   before_validation :generate_identifier, on: :create
   after_validation :cal_item_total, :cal_total
 
+  # +/-/*/%1234.0
+  validates_format_of :adjustment, :with => %r{\A[+-x*%/][\d.]+}
+
   validates :identifier, presence: true
   validates_presence_of :line_items, :expected_date, :state, :total, :item_total, :sender_email, :sender_phone, :sender_name, :source
   # only validate once on Date.today, because in future Date.today will change
   validate :expected_date_in_range, on: :create
   validate :phone_validate
+
 
   state_machine :state, :initial => :generated do
     # TODO implement an auth_state dynamically for each state
@@ -160,7 +164,10 @@ class Order < ActiveRecord::Base
   end
 
   def cal_total
-    self.total = 0
+    if adjustment.blank?
+      self.total = self.item_total
+    else
+    end
   end
 
   def completed?
