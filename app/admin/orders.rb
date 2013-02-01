@@ -131,7 +131,8 @@ ActiveAdmin.register Order do
       row :transaction_info do
         unless order.transactions.blank?
           order.transactions.map do |transaction|
-            link_to(transaction.identifier, admin_transaction_path(transaction))
+            link_to(transaction.identifier, admin_transaction_path(transaction)) + \
+            label_tag(" " + t(transaction.state, :scope => :transaction))
           end.join('</br>').html_safe
         end
       end
