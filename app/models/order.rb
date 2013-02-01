@@ -32,7 +32,7 @@ class Order < ActiveRecord::Base
 
   attr_accessible :line_items, :special_instructions, :address_attributes,
                   :gift_card_text, :delivery_date, :expected_date, :identifier, :state,
-                  :sender_name, :sender_phone, :sender_email, :source
+                  :sender_name, :sender_phone, :sender_email, :source,  :adjustment
 
   belongs_to :address
   belongs_to :user

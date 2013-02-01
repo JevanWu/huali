@@ -175,6 +175,12 @@ ActiveAdmin.register Order do
       row :gift_card_text
       row :special_instructions
 
+      row :item_total do
+        number_to_currency order[:item_total].presence, :unit => '&yen;'
+      end
+
+      row :adjustment
+
       row :total do
         number_to_currency order[:total].presence, :unit => '&yen;'
       end

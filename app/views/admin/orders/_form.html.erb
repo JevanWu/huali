@@ -8,6 +8,9 @@
     <%= f.input :delivery_date, as: :string, input_html: { class: 'datepicker' }%>
   <% end %>
 
+  <%= f.inputs "Payment Info" do %>
+    <%= f.input :adjustment %>
+  <% end %>
 
   <%= f.inputs "Order Info" do %>
     <%= f.input :special_instructions %>
