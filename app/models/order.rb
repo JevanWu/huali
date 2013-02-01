@@ -189,6 +189,10 @@ class Order < ActiveRecord::Base
     line_items.inject('') { |sum, item| sum + "#{item.name} x #{item.quantity}, "}
   end
 
+  def body_text
+    # prepare body text for transaction
+  end
+
   private
 
   def expected_date_in_range
@@ -202,10 +206,6 @@ class Order < ActiveRecord::Base
     n_digits = sender_phone.scan(/[0-9]/).size
     valid_chars = (sender_phone =~ /^[-+()\/\s\d]+$/)
     errors.add :sender_phone, :invalid unless (n_digits >= 8 && valid_chars)
-  end
-
-  def body_text
-    # prepare body text for transaction
   end
 
   def auth_refund
