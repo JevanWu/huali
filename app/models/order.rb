@@ -47,9 +47,10 @@ class Order < ActiveRecord::Base
 
   before_validation :generate_identifier, on: :create
   after_validation :cal_item_total, :cal_total
+  after_validation :adjust_total, if: :adjust_allowed?
 
   # +/-/*/%1234.0
-  validates_format_of :adjustment, :with => %r{\A[+-x*%/][\s\d.]+}
+  validates_format_of :adjustment, with: %r{\A[+-x*%/][\s\d.]+}
 
   validates :identifier, presence: true
   validates_presence_of :line_items, :expected_date, :state, :total, :item_total, :sender_email, :sender_phone, :sender_name, :source
@@ -164,14 +165,14 @@ class Order < ActiveRecord::Base
   end
 
   def cal_total
-    if adjustment.blank?
-      self.total = self.item_total
-    else
-      # convert symbol to valid arithmetic operator
-      adjust = self.adjustment.squeeze(' ').sub('x', '*').sub('%', '/')
-      operator, number = [adjust.first.to_sym, adjust[1..-1].to_f]
-      self.total = self.item_total.send(operator, number)
-    end
+    self.total = self.item_total
+  end
+
+  def adjust_total
+    # convert symbol to valid arithmetic operator
+    adjust = self.adjustment.squeeze(' ').sub('x', '*').sub('%', '/')
+    operator, number = [adjust.first.to_sym, adjust[1..-1].to_f]
+    self.total = self.item_total.send(operator, number)
   end
 
   def completed?
@@ -179,7 +180,7 @@ class Order < ActiveRecord::Base
   end
 
   def adjust_allowed?
-
+    state == 'generated' && !adjustment.blank?
   end
 
   def checkout_allowed?
