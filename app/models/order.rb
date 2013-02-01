@@ -58,8 +58,8 @@ class Order < ActiveRecord::Base
 
   # only validate once on Date.today, because in future Date.today will change
   validate :expected_date_in_range, on: :create
-  validate :phone_validate
-  validate :coupon_code_validate
+  validate :phone_validate, unless: lambda { |order| order.sender_phone.blank? }
+  validate :coupon_code_validate, unless: lambda { |order| order.coupon_code.blank? }
 
   after_validation :cal_item_total, :cal_total
   after_validation :adjust_total, if: :adjust_allowed?
@@ -234,21 +234,18 @@ class Order < ActiveRecord::Base
   end
 
   def phone_validate
-    return if sender_phone.blank?
     n_digits = sender_phone.scan(/[0-9]/).size
     valid_chars = (sender_phone =~ /^[-+()\/\s\d]+$/)
     errors.add :sender_phone, :invalid unless (n_digits >= 8 && valid_chars)
   end
 
   def coupon_code_validate
-    return if coupon_code.blank?
     co = Coupon.find_by_code(coupon_code)
     if co
       errors.add :coupon_code, "coupon has expired." unless co.usable?
     else
       errors.add :coupon_code, "coupon doesn't exist."
     end
-
   end
 
   def auth_refund
