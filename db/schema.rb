@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130201141203) do
+ActiveRecord::Schema.define(:version => 20130201143824) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -106,13 +106,14 @@ ActiveRecord::Schema.define(:version => 20130201141203) do
   add_index "collections", ["slug"], :name => "index_collections_on_slug", :unique => true
 
   create_table "coupons", :force => true do |t|
-    t.string   "code",                          :null => false
-    t.string   "adjustment",                    :null => false
-    t.boolean  "expired",    :default => false, :null => false
-    t.date     "expires_at",                    :null => false
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
-    t.integer  "count",      :default => 1,     :null => false
+    t.string   "code",                               :null => false
+    t.string   "adjustment",                         :null => false
+    t.boolean  "expired",         :default => false, :null => false
+    t.date     "expires_at",                         :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+    t.integer  "available_count", :default => 1,     :null => false
+    t.integer  "used_count",      :default => 0
   end
 
   add_index "coupons", ["code"], :name => "coupons_on_code", :unique => true
