@@ -168,7 +168,7 @@ class Order < ActiveRecord::Base
       self.total = self.item_total
     else
       # convert symbol to valid arithmetic operator
-      adjust = self.adjustment.squeeze.sub('x', '*').sub('%', '/')
+      adjust = self.adjustment.squeeze(' ').sub('x', '*').sub('%', '/')
       operator, number = [adjust.first.to_sym, adjust[1..-1].to_f]
       self.total = self.item_total.send(operator, number)
     end
