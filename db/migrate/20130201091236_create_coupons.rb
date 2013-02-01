@@ -4,7 +4,7 @@ class CreateCoupons < ActiveRecord::Migration
       t.string :code, null: false
       t.string :adjustment, null: false
       t.boolean :used, null: false, default: false
-      t.datetime :expires_at
+      t.date :expires_at
       t.timestamps
     end
     add_index :coupons, :code, unique: true, name: 'coupons_on_code'

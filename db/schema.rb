@@ -109,7 +109,7 @@ ActiveRecord::Schema.define(:version => 20130201091236) do
     t.string   "code",                          :null => false
     t.string   "adjustment",                    :null => false
     t.boolean  "used",       :default => false, :null => false
-    t.datetime "expires_at"
+    t.date     "expires_at"
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
   end
