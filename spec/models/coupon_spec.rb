@@ -4,11 +4,12 @@
 #
 #  adjustment :string(255)      not null
 #  code       :string(255)      not null
+#  count      :integer          default(1), not null
 #  created_at :datetime         not null
-#  expires_at :datetime
+#  expired    :boolean          default(FALSE), not null
+#  expires_at :date             not null
 #  id         :integer          not null, primary key
 #  updated_at :datetime         not null
-#  used       :boolean          default(FALSE), not null
 #
 # Indexes
 #
