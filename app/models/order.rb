@@ -41,6 +41,8 @@ class Order < ActiveRecord::Base
   has_many :transactions, dependent: :destroy
   has_many :shipments, dependent: :destroy
   has_many :products, through: :line_items
+  has_one :order_coupon
+  has_one :coupon, through: :order_coupon
 
   accepts_nested_attributes_for :line_items
   accepts_nested_attributes_for :address

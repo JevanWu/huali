@@ -28,6 +28,9 @@ class Coupon < ActiveRecord::Base
   # +/-/*/%1234.0
   validates_format_of :adjustment, :with => %r{\A[+-x*%/][\s\d.]+}
 
+  has_many :order_coupons
+  has_many :orders, through: :order_coupon
+
   def use!
     return false unless usable?
 
