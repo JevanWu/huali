@@ -11,13 +11,17 @@ ActiveAdmin.register Coupon do
 
   filter :expires_at
   filter :adjustment
-  filter :used
+  filter :expired
+  filter :available_count
+  filter :used_count
 
   index do
     selectable_column
     column :code
     column :adjustment
-    column :used
+    column :expired
+    column :available_count
+    column :used_count
     column :expires_at
 
     default_actions
@@ -29,7 +33,9 @@ ActiveAdmin.register Coupon do
     attributes_table do
       row :code
       row :adjustment
-      row :used
+      row :available_count
+      row :used_count
+      row :expired
       row :expires_at
     end
   end
