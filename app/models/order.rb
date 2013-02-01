@@ -52,8 +52,11 @@ class Order < ActiveRecord::Base
   after_validation :cal_item_total, :cal_total
   after_validation :adjust_total, if: :adjust_allowed?
 
-  # +/-/*/%1234.0
-  validates_format_of :adjustment, with: %r{\A[+-x*%/][\s\d.]+}, unless: -> { adjustment.blank? }
+  validates_format_of :adjustment,
+                      with: %r{\A[+-x*%/][\s\d.]+}, # +/-/*/%1234.0
+                      unless: lambda { |order| order.adjustment.blank? }
+
+  validates_presence_of :identifier, :line_items, :expected_date, :state, :total, :item_total, :sender_email, :sender_phone, :sender_name, :source
 
   validates :identifier, presence: true
   validates_presence_of :line_items, :expected_date, :state, :total, :item_total, :sender_email, :sender_phone, :sender_name, :source
