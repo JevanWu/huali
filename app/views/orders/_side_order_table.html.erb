@@ -1,0 +1,33 @@
+<table class='side-table table'>
+  <thead>
+    <tr>
+      <th colspan='3'><%= t(:basket) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% order.line_items.each do |item| %>
+      <tr>
+        <td class="image"><%= image_tag item.img(:thumb) %></td>
+        <td class="content">
+          <p>
+            <%= link_to item.name, product_path(item) %>
+            <span>x <%= item[:quantity] %> </span>
+          </p>
+        </td>
+        <td class="total"> <%= count_total(item) %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <% if order.total != order.item_total %>
+    <tr>
+      <td colspan='2'><%= t(:discount) %></td>
+      <td> <%= order.total - order.item_total %></td>
+    </tr>
+    <% end %>
+    <tr>
+      <td colspan='2'><%= t(:in_total) %></td>
+      <td><%= order.total %></td>
+    </tr>
+  </tfoot>
+</table>

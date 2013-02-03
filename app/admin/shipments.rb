@@ -14,18 +14,6 @@ ActiveAdmin.register Shipment do
   filter :state, :as => :select, :collection => {"准备" => "ready", "发货" => "shipped", "未知" => "unknown"}
   filter :note
 
-  member_action :ship do
-    shipment = Shipment.find_by_id(params[:id])
-    shipment.ship
-    redirect_to admin_orders_path, :alert => t(:shipment_state_changed) + t(:shipped, :scope => :shipment)
-  end
-
-  member_action :accept do
-    shipment = Shipment.find_by_id(params[:id])
-    shipment.accept
-    redirect_to admin_orders_path, :alert => t(:shipment_state_changed) + t(:completed, :scope => :shipment)
-  end
-
   index do
     selectable_column
 

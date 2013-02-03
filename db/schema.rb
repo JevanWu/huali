@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130129091816) do
+ActiveRecord::Schema.define(:version => 20130203160203) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -105,6 +105,20 @@ ActiveRecord::Schema.define(:version => 20130129091816) do
 
   add_index "collections", ["slug"], :name => "index_collections_on_slug", :unique => true
 
+  create_table "coupons", :force => true do |t|
+    t.string   "code",                               :null => false
+    t.string   "adjustment",                         :null => false
+    t.boolean  "expired",         :default => false, :null => false
+    t.date     "expires_at",                         :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+    t.integer  "available_count", :default => 1,     :null => false
+    t.integer  "used_count",      :default => 0
+    t.string   "note"
+  end
+
+  add_index "coupons", ["code"], :name => "coupons_on_code", :unique => true
+
   create_table "line_items", :force => true do |t|
     t.integer  "order_id"
     t.integer  "product_id"
@@ -115,6 +129,14 @@ ActiveRecord::Schema.define(:version => 20130129091816) do
 
   add_index "line_items", ["order_id"], :name => "index_line_items_on_order_id"
   add_index "line_items", ["product_id"], :name => "index_line_items_on_product_id"
+
+  create_table "order_coupons", :force => true do |t|
+    t.integer "order_id"
+    t.integer "coupon_id"
+  end
+
+  add_index "order_coupons", ["coupon_id"], :name => "index_order_coupons_on_coupon_id"
+  add_index "order_coupons", ["order_id"], :name => "index_order_coupons_on_order_id"
 
   create_table "orders", :force => true do |t|
     t.string   "identifier"
@@ -135,6 +157,8 @@ ActiveRecord::Schema.define(:version => 20130129091816) do
     t.string   "sender_name"
     t.date     "delivery_date"
     t.string   "source",                                             :default => "",      :null => false
+    t.string   "adjustment"
+    t.string   "coupon_code"
   end
 
   add_index "orders", ["identifier"], :name => "index_orders_on_identifier", :unique => true

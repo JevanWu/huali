@@ -3,7 +3,9 @@
 # Table name: orders
 #
 #  address_id           :integer
+#  adjustment           :string(255)
 #  completed_at         :datetime
+#  coupon_code          :string(255)
 #  created_at           :datetime         not null
 #  delivery_date        :date
 #  expected_date        :date             not null
@@ -15,6 +17,7 @@
 #  sender_email         :string(255)
 #  sender_name          :string(255)
 #  sender_phone         :string(255)
+#  source               :string(255)      default(""), not null
 #  special_instructions :text
 #  state                :string(255)      default("ready")
 #  total                :decimal(8, 2)    default(0.0), not null
@@ -30,7 +33,7 @@ class Order < ActiveRecord::Base
 
   attr_accessible :line_items, :special_instructions, :address_attributes,
                   :gift_card_text, :delivery_date, :expected_date, :identifier, :state,
-                  :sender_name, :sender_phone, :sender_email, :source
+                  :sender_name, :sender_phone, :sender_email, :source, :adjustment, :coupon_code
 
   belongs_to :address
   belongs_to :user
@@ -39,18 +42,29 @@ class Order < ActiveRecord::Base
   has_many :transactions, dependent: :destroy
   has_many :shipments, dependent: :destroy
   has_many :products, through: :line_items
+  has_one :order_coupon
+  has_one :coupon, through: :order_coupon
 
   accepts_nested_attributes_for :line_items
   accepts_nested_attributes_for :address
 
   before_validation :generate_identifier, on: :create
-  after_validation :cal_total
 
-  validates :identifier, presence: true
-  validates_presence_of :line_items, :expected_date, :state, :total, :item_total, :sender_email, :sender_phone, :sender_name, :source
+  validates_format_of :adjustment,
+                      with: %r{\A[+-x*%/][\s\d.]+}, # +/-/*/%1234.0
+                      unless: lambda { |order| order.adjustment.blank? }
+
+  validates_presence_of :identifier, :line_items, :expected_date, :state, :total, :item_total, :sender_email, :sender_phone, :sender_name, :source
+
   # only validate once on Date.today, because in future Date.today will change
   validate :expected_date_in_range, on: :create
-  validate :phone_validate
+  validate :phone_validate, unless: lambda { |order| order.sender_phone.blank? }
+  # skip coupon code validation for empty coupon and already used coupon
+  validate :coupon_code_validate, unless: lambda { |order| order.coupon_code.blank? || order.already_use_the_coupon? }
+
+  after_validation :cal_item_total, :cal_total
+  after_validation :adjust_total, if: :adjust_allowed?
+  after_validation :use_coupon, unless: lambda { |order| order.coupon_code.blank? }
 
   state_machine :state, :initial => :generated do
     # TODO implement an auth_state dynamically for each state
@@ -154,12 +168,48 @@ class Order < ActiveRecord::Base
     self.line_items << this_item
   end
 
+  def cal_item_total
+    self.item_total = line_items.map(&:total).inject(:+)
+  end
+
   def cal_total
-    self.item_total = self.total = line_items.map(&:total).inject(:+)
+    self.total = self.item_total
+  end
+
+  def adjust_total(adjust_string = adjustment)
+    # convert symbol to valid arithmetic operator
+    adjust = adjust_string.squeeze(' ').sub('x', '*').sub('%', '/')
+    operator, number = [adjust.first.to_sym, adjust[1..-1].to_f]
+    self.total = self.item_total.send(operator, number)
+  end
+
+  def use_coupon
+    # respect the manual adjustment
+    return unless adjustment.blank?
+
+    # if the coupon is already used by this order
+    return if already_use_the_coupon?
+
+    # bind the coupon
+    self.coupon = Coupon.find_by_code(self.coupon_code)
+
+    # adjust the total with coupon's adjustment
+    adjust_string = self.coupon && self.coupon.use!
+    if adjust_string
+      adjust_total(adjust_string)
+    end
+  end
+
+  def already_use_the_coupon?
+    coupon.try(:code) == coupon_code
   end
 
   def completed?
     !! completed_at
+  end
+
+  def adjust_allowed?
+    state == 'generated' && !adjustment.blank?
   end
 
   def checkout_allowed?
@@ -179,15 +229,19 @@ class Order < ActiveRecord::Base
   end
 
   def transaction
-    transactions.first
+    transactions.last
   end
 
   def shipment
-    shipments.first
+    shipments.last
   end
 
   def subject_text
     line_items.inject('') { |sum, item| sum + "#{item.name} x #{item.quantity}, "}
+  end
+
+  def body_text
+    # prepare body text for transaction
   end
 
   private
@@ -199,14 +253,18 @@ class Order < ActiveRecord::Base
   end
 
   def phone_validate
-    return if sender_phone.blank?
     n_digits = sender_phone.scan(/[0-9]/).size
     valid_chars = (sender_phone =~ /^[-+()\/\s\d]+$/)
     errors.add :sender_phone, :invalid unless (n_digits >= 8 && valid_chars)
   end
 
-  def body_text
-    # prepare body text for transaction
+  def coupon_code_validate
+    co = Coupon.find_by_code(coupon_code)
+    if co
+      errors.add :coupon_code, :expired_coupon unless co.usable?
+    else
+      errors.add :coupon_code, :non_exist_coupon
+    end
   end
 
   def auth_refund

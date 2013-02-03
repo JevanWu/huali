@@ -11,6 +11,8 @@ zh-CN:
         blank: 您需要填写此项
         unavailable_date: 我们无法为您在这个日期进行递送
         unavailable_location: 我们无法为您配送到这个地区
+        expired_coupon: 对不起，该优惠券已经过期或者失效
+        non_exist_coupon: 对不起，该优惠券不存在
 
     models:
       administrator: 管理用户
@@ -19,13 +21,14 @@ zh-CN:
       shipment: 货运记录
       order: 订单列表
       asset: 图片
+      coupon: 优惠码
       page: 单独页面
       collection: 品类
       line_item: 条目
       address: 地址
-      province: '省'
-      city: '城市'
-      area: '地区'
+      province: 省
+      city: 城市
+      area: 地区
       ship_method: 递送方式
 
     attributes:
@@ -37,6 +40,7 @@ zh-CN:
         ship_method: 递送方式
         special_instructions: 特殊要求
         gift_card_text: 卡片信息
+        item_total: 物品总价
         total: 订单总价
         state: 订单状态
         source: 来源
@@ -64,14 +68,17 @@ zh-CN:
         address_city_name: 收件人城市
         address_address: 收件人地址
         images: 产品图
+        coupon_code: 优惠码
+        coupon: 优惠券
+        adjustment: 价格调整
 
       administrator:
-        email: "邮箱"
-        password: "密码"
-        role: "角色"
-        current_sign_in_at: "当前登陆时间"
-        last_sign_in_at: "上次登陆时间"
-        sign_in_count: "登陆次数"
+        email: 邮箱
+        password: 密码
+        role: 角色
+        current_sign_in_at: 当前登陆时间
+        last_sign_in_at: 上次登陆时间
+        sign_in_count: 登陆次数
 
       address:
         address: 收件人地址
@@ -151,3 +158,12 @@ zh-CN:
 
       page:
         title_zh: 中文标题
+
+      coupon:
+        code: 优惠代码
+        expired: 是否失效
+        adjustment: 优惠调整
+        note: 说明
+        available_count: 剩余有效次数
+        used_count: 使用次数
+        expires_at: 过期时间

@@ -89,13 +89,12 @@ ActiveAdmin.register Order do
     column :identifier, :sortable => :identifier
 
     column :transaction_identifier, :sortable => :id do |order|
-      unless order.transactions.first.nil?
-        link_to order.transactions.first.identifier, admin_transaction_path(order.transactions.first)
-      end
+      link_to order.transaction.identifier,
+        admin_transaction_path(order.transaction) if order.transaction
     end
 
-    column :total, :sortable => :id do |order|
-      order[:total]
+    column :total, :sortable => :total do |order|
+      order.total
     end
 
     column :sender_info do |order|
@@ -133,7 +132,8 @@ ActiveAdmin.register Order do
       row :transaction_info do
         unless order.transactions.blank?
           order.transactions.map do |transaction|
-            link_to(transaction.identifier, admin_transaction_path(transaction))
+            link_to(transaction.identifier, admin_transaction_path(transaction)) + \
+            label_tag(" " + t(transaction.state, :scope => :transaction))
           end.join('</br>').html_safe
         end
       end
@@ -176,8 +176,16 @@ ActiveAdmin.register Order do
       row :gift_card_text
       row :special_instructions
 
+      row :coupon
+
+      row :item_total do
+        number_to_currency order.item_total, unit: '&yen;'
+      end
+
+      row :adjustment
+
       row :total do
-        number_to_currency order[:total].presence, :unit => '&yen;'
+        number_to_currency order.total, unit: '&yen;'
       end
 
       row :source

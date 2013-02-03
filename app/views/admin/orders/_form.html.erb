@@ -8,6 +8,12 @@
     <%= f.input :delivery_date, as: :string, input_html: { class: 'datepicker' }%>
   <% end %>
 
+  <%= f.inputs "Payment Info" do %>
+    <%= f.input :adjustment, 
+      placeholder: '+20.0, -30.0, x1.1, *0.9 etc.',
+      hint: 'support multiple calculation(+,-,*,x,%,/), validate format includes "-20.0", "x1.1", "%2" etc.' %>
+    <%= f.input :coupon_code %>
+  <% end %>
 
   <%= f.inputs "Order Info" do %>
     <%= f.input :special_instructions %>
