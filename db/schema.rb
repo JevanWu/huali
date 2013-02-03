@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130201152741) do
+ActiveRecord::Schema.define(:version => 20130203160203) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -114,6 +114,7 @@ ActiveRecord::Schema.define(:version => 20130201152741) do
     t.datetime "updated_at",                         :null => false
     t.integer  "available_count", :default => 1,     :null => false
     t.integer  "used_count",      :default => 0
+    t.string   "note"
   end
 
   add_index "coupons", ["code"], :name => "coupons_on_code", :unique => true

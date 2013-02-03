@@ -22,6 +22,7 @@ ActiveAdmin.register Coupon do
     column :expired
     column :available_count
     column :used_count
+    column :note
     column :expires_at
 
     default_actions
@@ -35,6 +36,7 @@ ActiveAdmin.register Coupon do
       row :adjustment
       row :available_count
       row :used_count
+      row :note
       row :expired
       row :expires_at
     end

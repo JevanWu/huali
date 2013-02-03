@@ -5,6 +5,7 @@
       hint: 'support multiple calculation(+,-,*,x,%,/), validate format includes "-20.0", "x1.1", "%2" etc.' %>
     <%= f.input :expires_at, as: :string, required: true, input_html: { class: 'datepicker' }%>
     <%= f.input :available_count %>
+    <%= f.input :note %>
   <% end %>
   <%= f.actions %>
 <% end %>
