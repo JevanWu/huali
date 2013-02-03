@@ -185,7 +185,6 @@ class Order < ActiveRecord::Base
   def use_coupon
     # respect the manual adjustment
     return unless adjustment.blank?
-    binding.pry
     # if already used by this order
     return if already_use_coupon?
 

@@ -37,12 +37,10 @@ class Coupon < ActiveRecord::Base
     self.available_count = self.available_count - 1
     self.used_count = self.used_count + 1
 
-    if self.available_count <= 0
-      self.expired = true
-    end
+    self.expired = self.available_count <= 0
 
     if self.save
-      return adjustment
+      return self.adjustment
     else
       return false
     end
