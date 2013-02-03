@@ -22,7 +22,7 @@
     <% if order.total != order.item_total %>
     <tr>
       <td colspan='2'><%= t(:discount) %></td>
-      <td> - <%= order.item_total - order.total %></td>
+      <td> <%= order.total - order.item_total %></td>
     </tr>
     <% end %>
     <tr>
