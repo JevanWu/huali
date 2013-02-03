@@ -74,9 +74,10 @@ zh-CN:
   delivery_cost: 递送成本
   unhappy: 不高兴了?
   confirm_check: 你确定审核通过此订单?
-  confirm_ship: 你确定发送此订单?
+  confirm_order_ship: 你确定发送此订单?
   confirm_accept: 你确定完成此订单?
   confirm_cancel: 你确定取消此订单?
+  confirm_ship: 您选择的快递方式为%{method}, 您填写的快递单号为 %{tracking_num}. 你确定发送这张订单 %{identifier}?
   confirm_complete: 你确定完成此交易?
   confirm_fail: 你确定注销此交易?
 
