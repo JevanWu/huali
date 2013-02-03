@@ -60,7 +60,7 @@ class Order < ActiveRecord::Base
   validate :expected_date_in_range, on: :create
   validate :phone_validate, unless: lambda { |order| order.sender_phone.blank? }
   # skip coupon code validation for empty coupon and already used coupon
-  validate :coupon_code_validate, unless: lambda { |order| order.coupon_code.blank? || order.already_use_coupon? }
+  validate :coupon_code_validate, unless: lambda { |order| order.coupon_code.blank? || order.already_use_the_coupon? }
 
   after_validation :cal_item_total, :cal_total
   after_validation :adjust_total, if: :adjust_allowed?
@@ -185,8 +185,9 @@ class Order < ActiveRecord::Base
   def use_coupon
     # respect the manual adjustment
     return unless adjustment.blank?
-    # if already used by this order
-    return if already_use_coupon?
+
+    # if the coupon is already used by this order
+    return if already_use_the_coupon?
 
     # bind the coupon
     self.coupon = Coupon.find_by_code(self.coupon_code)
@@ -198,7 +199,7 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def already_use_coupon?
+  def already_use_the_coupon?
     coupon.try(:code) == coupon_code
   end
 
