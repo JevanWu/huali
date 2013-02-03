@@ -21,7 +21,7 @@
 require 'securerandom'
 
 class Coupon < ActiveRecord::Base
-  attr_accessible :adjustment, :expires_at, :available_count
+  attr_accessible :adjustment, :expires_at, :available_count, :note
 
   before_validation :generate_code, on: :create
 
