@@ -252,9 +252,9 @@ class Order < ActiveRecord::Base
   def coupon_code_validate
     co = Coupon.find_by_code(coupon_code)
     if co
-      errors.add :coupon_code, "coupon has expired." unless co.usable?
+      errors.add :coupon_code, :expired_coupon unless co.usable?
     else
-      errors.add :coupon_code, "coupon doesn't exist."
+      errors.add :coupon_code, :non_exist_coupon
     end
   end
 
