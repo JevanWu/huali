@@ -184,6 +184,8 @@ class Order < ActiveRecord::Base
   def use_coupon
     # respect the manual adjustment
     return unless adjustment.blank?
+    # if already used by this order
+    return if coupon_code = self.coupon.try(:code)
 
     # bind the coupon
     self.coupon = Coupon.find_by_code(coupon_code)
