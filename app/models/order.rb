@@ -189,7 +189,7 @@ class Order < ActiveRecord::Base
     self.coupon = Coupon.find_by_code(coupon_code)
 
     # adjust the total with coupon's adjustment
-    adjust_string = self.coupon.use!
+    adjust_string = self.coupon && self.coupon.use!
     if adjust_string
       adjust_total(adjust_string)
     end
