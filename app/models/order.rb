@@ -88,10 +88,11 @@ class Order < ActiveRecord::Base
   end
 
   scope :all, -> { reorder }
-  scope :current, -> { where('expected_date = ?', Date.current) }
-  scope :tomorrow, -> { where("expected_date = ?", Date.tomorrow) }
-  scope :within_this_week, -> { where("expected_date >= ? AND expected_date <= ? ", Date.current.beginning_of_week, Date.current.end_of_week) }
-  scope :within_this_month, -> { where("expected_date >= ? AND expected_date <= ? ", Date.current.beginning_of_month, Date.current.end_of_month) }
+  scope :current, -> { where 'expected_date = ?', Date.current }
+  scope :tomorrow, -> { where 'expected_date = ?', Date.tomorrow }
+  scope :next_day_2, -> { where 'expected_date = ?', Date.current.next_day(2) }
+  scope :within_this_week, -> { where('expected_date >= ? AND expected_date <= ? ', Date.current.beginning_of_week, Date.current.end_of_week) }
+  scope :within_this_month, -> { where('expected_date >= ? AND expected_date <= ? ', Date.current.beginning_of_month, Date.current.end_of_month) }
 
   # Queries
   class << self

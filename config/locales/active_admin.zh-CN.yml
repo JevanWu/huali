@@ -6,6 +6,7 @@ zh-CN:
       all: 全部
       current: 今天
       tomorrow: 明天
+      next_day_2: 后天
       within_this_week: 本周内
       within_this_month: 本月内
       generated: 新建
