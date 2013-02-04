@@ -43,6 +43,7 @@ GIT
     forgery (0.5.0)
 
 GEM
+  remote: http://bundler-api.herokuapp.com/
   remote: http://rubygems.org/
   specs:
     actionmailer (3.2.11)
