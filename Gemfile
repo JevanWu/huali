@@ -24,7 +24,7 @@ gem 'humanizer'
 
 # squash
 gem 'squash_ruby', :require => 'squash/ruby'
-gem 'squash_rails', git: 'git://github.com/SquareSquash/rails.git', require: 'squash/rails'
+gem 'squash_rails', git: 'https://github.com/SquareSquash/rails.git', require: 'squash/rails'
 
 # background jobs
 gem 'sidekiq'
@@ -37,7 +37,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'jquery-rails'
   gem "haml-rails"
-  gem 'jquery-ui-rails', git: 'git@github.com:yangchenyun/jquery-ui-rails.git'
+  gem 'jquery-ui-rails', git: 'https://github.com/yangchenyun/jquery-ui-rails.git'
   gem 'uglifier', '>= 1.0.3'
   gem 'bootstrap-sass', '~> 2.2.1.1'
 end
@@ -46,7 +46,7 @@ group :development, :test do
   gem 'rspec-rails', '>= 2.11.0'
   gem 'rspec-instafail'
   gem 'factory_girl_rails', '>= 4.0.0'
-  gem 'forgery', git: 'git://github.com/zenhacks/forgery.git'
+  gem 'forgery', git: 'https://github.com/zenhacks/forgery.git'
 end
 
 group :production, :staging do
@@ -72,11 +72,11 @@ group :development do
   gem 'pry-debugger'
   gem 'pry-rails'
   gem 'pry-coolline'
-  gem 'better_errors', :git => 'git://github.com/charliesome/better_errors.git'
+  gem 'better_errors', :git => 'https://github.com/charliesome/better_errors.git'
   gem 'binding_of_caller'
-  gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
+  gem 'annotate', :git => 'https://github.com/ctran/annotate_models.git'
   gem 'capistrano', '~>2.0'
-  gem 'capistrano-zen', git: 'git@github.com:zenhacks/capistrano-zen.git', :require => false
+  gem 'capistrano-zen', git: 'https://github.com/zenhacks/capistrano-zen.git', :require => false
   gem 'railroady'
   gem 'ruby-graphviz', :require => 'graphviz' # Optional: only required for graphing
   gem 'meta_request', '0.2.1'

@@ -1,12 +1,12 @@
 GIT
-  remote: git://github.com/SquareSquash/rails.git
+  remote: https://github.com/SquareSquash/rails.git
   revision: 3253cca21cafceaf6c6182932aa0fd374154b280
   specs:
     squash_rails (1.0.0)
       squash_ruby
 
 GIT
-  remote: git://github.com/charliesome/better_errors.git
+  remote: https://github.com/charliesome/better_errors.git
   revision: 9037c49f36e390802169413aa5610074ded9f504
   specs:
     better_errors (0.3.2)
@@ -14,7 +14,7 @@ GIT
       erubis (>= 2.6.6)
 
 GIT
-  remote: git://github.com/ctran/annotate_models.git
+  remote: https://github.com/ctran/annotate_models.git
   revision: 1340635ff0d6eb80f5b6815010b52dac0be0765c
   specs:
     annotate (2.6.0.beta1)
@@ -22,13 +22,7 @@ GIT
       rake (>= 0.8.7)
 
 GIT
-  remote: git://github.com/zenhacks/forgery.git
-  revision: 852431bfa9a1b2b74dd24f7185f23ce7b52c760c
-  specs:
-    forgery (0.5.0)
-
-GIT
-  remote: git@github.com:yangchenyun/jquery-ui-rails.git
+  remote: https://github.com/yangchenyun/jquery-ui-rails.git
   revision: ea3b65e8c50275646e2d57d9915e3717748f1adc
   specs:
     jquery-ui-rails (3.0.1)
@@ -36,11 +30,17 @@ GIT
       railties (>= 3.1.0)
 
 GIT
-  remote: git@github.com:zenhacks/capistrano-zen.git
+  remote: https://github.com/zenhacks/capistrano-zen.git
   revision: 7ec4b3956906cd225dea9231381d3c5334dadfe1
   specs:
     capistrano-zen (0.0.3)
       capistrano (>= 2.5.3)
+
+GIT
+  remote: https://github.com/zenhacks/forgery.git
+  revision: 852431bfa9a1b2b74dd24f7185f23ce7b52c760c
+  specs:
+    forgery (0.5.0)
 
 GEM
   remote: http://rubygems.org/
