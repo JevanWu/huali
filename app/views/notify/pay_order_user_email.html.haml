@@ -13,7 +13,9 @@
           亲爱的
           = @order.sender_name
         %p{style: "color:#767676; font-weight: normal; margin: 0; padding: 0; line-height: 20px; font-size: 12px;font-family: Helvetica, Arial, sans-serif; "}
-          我们已经收到您支付的
+          我们已经收到您为订单号码
+          = @order.identifier
+          支付的
           = @order.payment_total
           款项
         %p{style: "color:#767676; font-weight: normal; margin: 0; padding: 0; line-height: 20px; font-size: 12px;font-family: Helvetica, Arial, sans-serif; "}

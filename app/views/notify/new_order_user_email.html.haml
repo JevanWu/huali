@@ -18,6 +18,9 @@
           订购的
           = @order.subject_text + '.'
         %p{style: "color:#767676; font-weight: normal; margin: 0; padding: 0; line-height: 20px; font-size: 12px;font-family: Helvetica, Arial, sans-serif; "}
+          订单号码为
+          = @order.identifier + '.'
+        %p{style: "color:#767676; font-weight: normal; margin: 0; padding: 0; line-height: 20px; font-size: 12px;font-family: Helvetica, Arial, sans-serif; "}
           在您完成支付后，
           它将在
           = @order.expected_date

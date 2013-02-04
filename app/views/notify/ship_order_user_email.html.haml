@@ -15,7 +15,9 @@
         %p{style: "color:#767676; font-weight: normal; margin: 0; padding: 0; line-height: 20px; font-size: 12px;font-family: Helvetica, Arial, sans-serif; "}
           我们已经制作完成并且用
           = @order.shipment.ship_method.name
-          的方式发送了您的订单.
+          的方式发送了订单号码为
+          = @order.identifier
+          的订单.
         %p{style: "color:#767676; font-weight: normal; margin: 0; padding: 0; line-height: 20px; font-size: 12px;font-family: Helvetica, Arial, sans-serif; "}
           快递单号为
           = @order.shipment.tracking_num
