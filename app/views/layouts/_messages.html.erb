@@ -1,4 +1,4 @@
-<%= content_tag :div, '情人节预订火爆进行中 支持支付宝 Paypal付款', :id => "flash_notice"  %>
+<%= content_tag :div, '情人节预订火爆进行中 支持支付宝 Paypal付款. 因快递原因，2.9-2.12号快递无法送达，其余时间正常快递。', :id => "flash_notice"  %>
 <% flash.each do |name, msg| %>
   <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
 <% end %>
