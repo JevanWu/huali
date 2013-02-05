@@ -24,7 +24,7 @@ gem 'sitemap_generator'
 gem 'humanizer'
 
 # squash
-gem 'squash_ruby', :require => 'squash/ruby'
+gem 'squash_ruby', git: 'git://github.com/SquareSquash/ruby.git', require: 'squash/ruby'
 gem 'squash_rails', git: 'https://github.com/SquareSquash/rails.git', require: 'squash/rails'
 
 # background jobs
