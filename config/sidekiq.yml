@@ -2,8 +2,8 @@
 # Options here can still be overridden by cmd line args.
 # sidekiq -C config.yml
 ---
-:verbose: false
-:namespace: sidekiq:huali
-:concurrency: 100
+:verbose: true
+# :namespace: sidekiq:huali
+:concurrency: 50
 :queues:
   - [default, 5]
