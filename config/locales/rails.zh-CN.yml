@@ -9,7 +9,7 @@ zh-CN:
     errors:
       messages:
         blank: 您需要填写此项
-        unavailable_date: 我们无法为您在这个日期进行递送
+        unavailable_date: 快递无法为您在2.9-2.12这个日期进行递送
         unavailable_location: 我们无法为您配送到这个地区
         expired_coupon: 对不起，该优惠券已经过期或者失效
         non_exist_coupon: 对不起，该优惠券不存在
