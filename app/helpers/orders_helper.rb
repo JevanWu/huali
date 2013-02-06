@@ -29,7 +29,7 @@ module OrdersHelper
   def order_state_shift(order)
     case order.state
     when "generated"
-      link_to(t(:cancel, scope: :order), cancel_admin_order_path(order), confirm: t(:confirm_cancel))
+      link_to(t(:cancel, scope: :order), cancel_admin_order_path(order), confirm: t(:confirm_cancel)) + \
       link_to(t(:init_transaction, scope: :order), new_admin_transaction_path("transaction[order_id]" => order.id,
                                                                       "transaction[amount]" => order.total,
                                                                       "transaction[subject]" => order.subject_text,
