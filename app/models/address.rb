@@ -33,6 +33,8 @@ class Address < ActiveRecord::Base
   validates_presence_of :fullname, :address, :phone, :province, :city
   validate :phone_validate, :location_available
 
+  after_validation :fill_in_post_code
+
   def check_postcode
     # TODO check the postcode against the prov, city, area postcode
     true
@@ -66,7 +68,17 @@ class Address < ActiveRecord::Base
     self.class.new(self.attributes.except('id', 'updated_at', 'created_at'))
   end
 
+  def location_code
+    # find the closest location
+    location = area || city || province
+    location.post_code
+  end
+
   private
+
+  def fill_in_post_code
+    post_code ||= location_code
+  end
 
   def phone_validate
     return if phone.blank?
