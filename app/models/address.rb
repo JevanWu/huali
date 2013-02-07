@@ -77,7 +77,7 @@ class Address < ActiveRecord::Base
   private
 
   def fill_in_post_code
-    post_code ||= location_code
+    self.post_code = location_code if self.post_code.blank?
   end
 
   def phone_validate
