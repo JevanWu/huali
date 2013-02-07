@@ -27,3 +27,11 @@
 // .active_admin       applies to any Active Admin namespace
 // .admin_namespace    applies to the admin namespace (eg: /admin)
 // .other_namespace    applies to a custom namespace named other (eg: /other)
+@media print
+  body.active_admin .attributes_table th
+    width: 80px
+  body.active_admin table th, body.active_admin table td
+    padding: 0
+
+  .profiler-results
+    display: none
