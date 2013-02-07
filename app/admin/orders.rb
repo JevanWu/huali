@@ -30,6 +30,7 @@ ActiveAdmin.register Order do
   end
 
   actions :all, :except => :new
+  batch_action :destroy, false
 
   scope :all
   scope :current
