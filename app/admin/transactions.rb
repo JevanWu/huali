@@ -49,7 +49,9 @@ ActiveAdmin.register Transaction do
 
     column :amount
     column :merchant_trade_no do |transaction|
-      merchant_trade_link(transaction)
+      if transaction.merchant_trade_no
+        link_to transaction.merchant_trade_no, transaction.merchant_trade_link
+      end
     end
 
     column :subject
@@ -75,8 +77,11 @@ ActiveAdmin.register Transaction do
       end
 
       row :merchant_name
+
       row :merchant_trade_no do
-        merchant_trade_link(transaction)
+        if transaction.merchant_trade_no
+          link_to transaction.merchant_trade_no, transaction.merchant_trade_link
+        end
       end
 
       row :paymethod do

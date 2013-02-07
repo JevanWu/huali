@@ -1,11 +1,4 @@
 module TransactionsHelper
-  def merchant_trade_link(transaction)
-    trade_no = transaction.merchant_trade_no
-    if trade_no
-      link_to trade_no, "https://merchantprod.alipay.com/trade/refund/fastPayRefund.htm?tradeNo=#{trade_no}&action=detail"
-    end
-  end
-
   def transaction_state_class(transaction)
     case transaction.state
     when 'generated'

@@ -139,6 +139,15 @@ class Transaction < ActiveRecord::Base
     !! processed_at
   end
 
+  def merchant_trade_link
+    case paymethod
+    when 'paypal'
+      "https://www.paypal.com/c2/cgi-bin/webscr?cmd=_view-a-trans&id=#{merchant_trade_no}"
+    else
+      "https://merchantprod.alipay.com/trade/refund/fastPayRefund.htm?tradeNo=#{merchant_trade_no}&action=detail"
+    end
+  end
+
   private
 
   def gateway
