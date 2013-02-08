@@ -30,7 +30,7 @@ class Address < ActiveRecord::Base
   accepts_nested_attributes_for :province, :area, :city
 
   before_validation :check_postcode
-  validates_presence_of :fullname, :address, :phone, :province, :city
+  validates_presence_of :fullname, :address, :phone, :province, :city, :post_code
   validate :phone_validate, :location_available
 
   after_validation :fill_in_post_code
@@ -68,6 +68,7 @@ class Address < ActiveRecord::Base
     self.class.new(self.attributes.except('id', 'updated_at', 'created_at'))
   end
 
+  # FIXME, the data is not correct
   def location_code
     # find the closest location
     location = area || city || province

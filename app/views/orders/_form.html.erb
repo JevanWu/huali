@@ -25,7 +25,7 @@
       <%= builder.association :province, :collection => proc { Province.available }, :prompt => "请选择省份", required:true %>
       <%= builder.association :city, :collection => [], :prompt => "请选择城市", required:true %>
       <%= builder.association :area, :collection => [] %>
-      <%= builder.input :post_code, placeholder: '邮编' %>
+      <%= builder.input :post_code, placeholder: '邮编', required: true %>
       <%= builder.input :address, as: 'text', required:true, input_html: { rows: 3 }, placeholder: '详细地址' %>
     <% end %>
   </fieldset>
