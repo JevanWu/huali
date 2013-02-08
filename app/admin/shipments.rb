@@ -13,6 +13,7 @@ ActiveAdmin.register Shipment do
   filter :tracking_num
   filter :state, :as => :select, :collection => {"准备" => "ready", "发货" => "shipped", "未知" => "unknown"}
   filter :note
+  filter :ship_method
 
   index do
     selectable_column
@@ -25,6 +26,8 @@ ActiveAdmin.register Shipment do
       link_to(shipment.identifier, admin_shipment_path(shipment)) + '<br/>'.html_safe + \
       link_to(t(:edit), edit_admin_shipment_path(shipment))
     end
+
+    column :ship_method
 
     column :tracking_num, :sortable => :tracking_num
 
@@ -61,6 +64,8 @@ ActiveAdmin.register Shipment do
       row :state do |shipment|
         status_tag t(shipment.state, scope: :shipment), shipment_state_class(shipment)
       end
+
+      row :ship_method
 
       row :tracking_num
 
