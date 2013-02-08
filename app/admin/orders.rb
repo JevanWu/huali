@@ -94,6 +94,8 @@ ActiveAdmin.register Order do
         admin_transaction_path(order.transaction) if order.transaction
     end
 
+    column :subject_text
+
     column :total, :sortable => :total do |order|
       order.total
     end
