@@ -1,16 +1,16 @@
 GIT
-  remote: git://github.com/SquareSquash/ruby.git
-  revision: 2319925c0a5d734526efd9586c7f0e89affbed56
-  specs:
-    squash_ruby (1.0.1)
-      json
-
-GIT
   remote: https://github.com/SquareSquash/rails.git
   revision: f234c6550a69753f69897dd882c46f3978ccf567
   specs:
     squash_rails (1.0.0)
       squash_ruby
+
+GIT
+  remote: https://github.com/SquareSquash/ruby.git
+  revision: 2319925c0a5d734526efd9586c7f0e89affbed56
+  specs:
+    squash_ruby (1.0.1)
+      json
 
 GIT
   remote: https://github.com/charliesome/better_errors.git
@@ -50,8 +50,7 @@ GIT
     forgery (0.5.0)
 
 GEM
-  remote: http://bundler-api.herokuapp.com/
-  remote: http://rubygems.org/
+  remote: http://ruby.taobao.org/
   specs:
     actionmailer (3.2.11)
       actionpack (= 3.2.11)
@@ -381,7 +380,7 @@ GEM
     shoulda-matchers (1.4.2)
       activesupport (>= 3.0.0)
       bourne (~> 1.1.2)
-    sidekiq (2.7.0)
+    sidekiq (2.6.4)
       celluloid (~> 0.12.0)
       connection_pool (~> 1.0)
       multi_json (~> 1)
@@ -504,7 +503,7 @@ DEPENDENCIES
   ruby-graphviz
   sass-rails (~> 3.2.3)
   shoulda-matchers
-  sidekiq
+  sidekiq (= 2.6.4)
   sidekiq-failures
   simple_form
   simplecov

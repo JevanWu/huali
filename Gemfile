@@ -1,5 +1,6 @@
-source "http://bundler-api.herokuapp.com"
-source 'http://rubygems.org'
+source "http://ruby.taobao.org"
+# source "http://bundler-api.herokuapp.com"
+# source 'http://rubygems.org'
 
 gem 'rails', '3.2.11'
 gem 'pg', '>= 0.14.1'
@@ -25,11 +26,11 @@ gem 'humanizer'
 gem 'faraday'
 
 # squash
-gem 'squash_ruby', git: 'git://github.com/SquareSquash/ruby.git', require: 'squash/ruby'
+gem 'squash_ruby', git: 'https://github.com/SquareSquash/ruby.git', require: 'squash/ruby'
 gem 'squash_rails', git: 'https://github.com/SquareSquash/rails.git', require: 'squash/rails'
 
 # background jobs
-gem 'sidekiq'
+gem 'sidekiq', '2.6.4'
 gem 'sidekiq-failures'
 gem 'slim'
 gem 'sinatra', :require => nil
