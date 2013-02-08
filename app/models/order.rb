@@ -188,15 +188,17 @@ class Order < ActiveRecord::Base
     return unless adjustment.blank?
 
     # if the coupon is already used by this order
-    return if already_use_the_coupon?
+    if already_use_the_coupon?
+      adjust_total(coupon.adjustment)
+    else
+      # bind the coupon
+      self.coupon = Coupon.find_by_code(self.coupon_code)
 
-    # bind the coupon
-    self.coupon = Coupon.find_by_code(self.coupon_code)
-
-    # adjust the total with coupon's adjustment
-    adjust_string = self.coupon && self.coupon.use!
-    if adjust_string
-      adjust_total(adjust_string)
+      # adjust the total with exist coupon's adjustment
+      adjust_string = self.coupon && self.coupon.use!
+      if adjust_string
+        adjust_total(adjust_string)
+      end
     end
   end
 
