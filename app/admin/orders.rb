@@ -39,6 +39,7 @@ ActiveAdmin.register Order do
   scope :within_this_week
   scope :within_this_month
 
+  filter :identifier
   filter :expected_date
   filter :state, :as => :select, :collection =>
   {

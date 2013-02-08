@@ -8,6 +8,7 @@ ActiveAdmin.register Transaction do
     helper :transactions
   end
 
+  filter :identifier
   filter :paymethod
   filter :state, :as => :select, :collection => { "新建" => "generated", "完成" => "completed", "处理中" => "processing", "失败" => "failed" }
   filter :amount

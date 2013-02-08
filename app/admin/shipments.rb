@@ -10,6 +10,8 @@ ActiveAdmin.register Shipment do
 
   batch_action :destroy, false
 
+  filter :identifier
+  filter :ship_method
   filter :tracking_num
   filter :state, :as => :select, :collection => {"准备" => "ready", "发货" => "shipped", "未知" => "unknown"}
   filter :note
