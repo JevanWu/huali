@@ -23,12 +23,15 @@ class ActiveRecord::Base
   protected
 
   def uid_prefixed_by(prefix = 'NO')
-    date_string = Time.now.strftime('%Y%m%d')
-    day_uiq_num = "%06d" % $redis.incr("#{self.class.name}:#{date_string}")
+    # FIXME, to avoid conflicts keys during convertion
+    key_date_string = Time.now.strftime('%Y%m%d')
+    date_string = Time.now.strftime('%y%m%d')
+
+    day_uiq_num = "%04d" % $redis.incr("#{self.class.name}:#{key_date_string}")
 
     # avoid conflicts in identifier, as it is used to communicate with Alipay/Paypal
     unless Rails.env == 'production'
-      prefix = prefix + Rails.env
+      prefix = prefix + Rails.env[0]
     end
     prefix + date_string + day_uiq_num
   end

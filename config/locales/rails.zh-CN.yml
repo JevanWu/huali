@@ -71,6 +71,7 @@ zh-CN:
         coupon_code: 优惠码
         coupon: 优惠券
         adjustment: 价格调整
+        subject_text: 货品内容
 
       administrator:
         email: 邮箱

@@ -22,6 +22,7 @@ gem 'rack-mini-profiler'
 gem 'figaro'
 gem 'sitemap_generator'
 gem 'humanizer'
+gem 'faraday'
 
 # squash
 gem 'squash_ruby', git: 'git://github.com/SquareSquash/ruby.git', require: 'squash/ruby'
