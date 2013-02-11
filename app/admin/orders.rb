@@ -41,6 +41,7 @@ ActiveAdmin.register Order do
 
   filter :identifier
   filter :expected_date
+  filter :delivery_date
   filter :state, :as => :select, :collection =>
   {
     '等待付款' => 'generated',
