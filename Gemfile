@@ -30,7 +30,7 @@ gem 'squash_ruby', git: 'https://github.com/SquareSquash/ruby.git', require: 'sq
 gem 'squash_rails', git: 'https://github.com/SquareSquash/rails.git', require: 'squash/rails'
 
 # background jobs
-gem 'sidekiq', '2.6.4'
+gem 'sidekiq', git: 'https://github.com/mperham/sidekiq.git'
 gem 'sidekiq-failures'
 gem 'slim'
 gem 'sinatra', :require => nil
