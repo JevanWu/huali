@@ -16,7 +16,7 @@
       <%= f.input :password_confirmation, required: true %>
       <%= f.input :name, placeholder: '您的称呼, 以便我们和您联系' %>
       <%= f.input :phone, placeholder: '以便我们和您核对信息'  %>
-      <%= f.input :humanizer_answer, :label => resource.humanizer_question %>
+      <%= f.input :humanizer_answer, :label => resource.humanizer_question, required: true %>
       <%= f.hidden_field :humanizer_question_id %>
 
       <div class="form-actions">
