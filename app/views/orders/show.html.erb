@@ -54,9 +54,6 @@
         <td><%= t(:paymethod) %>: <%= @order.transaction ? @order.transaction.paymethod : nil %></td>
       </tr>
       <tr>
-        <td><%= t(:delivery_cost) %>: <%= @order.shipment ? @order.try(@order.shipment.cost) : nil %></td>
-      </tr>
-      <tr>
         <td><%= t(:expected_date) %>: <%= @order.expected_date %></td>
       </tr>
     </tbody>
