@@ -66,6 +66,10 @@ ActiveAdmin.register Shipment do
         status_tag t(shipment.state, scope: :shipment), shipment_state_class(shipment)
       end
 
+      row :identifier
+
+      row :tracking_num
+
       row :ship_method
 
       row :tracking_num
