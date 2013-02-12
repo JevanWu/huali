@@ -1,9 +1,9 @@
 <div id="product-side">
   <h2 class="product-name"><span><%= @product.name %></span></h2>
   <% unless @product.original_price.nil? %>
-  <p class="price old-price"> <%= @product.original_price %> RMB </p>
+  <p class="pro-price old-price"> <%= @product.original_price %> RMB </p>
   <% end %>
-  <p class="price"> <%= @product.price %> <%=t 'currency' %> </p>
+  <p class="pro-price"> <%= @product.price %> <%=t 'currency' %> </p>
   <p class="meta">(<%=t 'delivery_charge' %>)</p>
 
   <% if @product.count_on_hand > 0 %>

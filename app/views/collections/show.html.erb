@@ -9,9 +9,9 @@
           <%= link_to t('flower_basket'), current_order_path, :class => 'purchase button', data: { product: product.id } %>
           <p>
             <% unless product.original_price.nil? %>
-            <span class="price old-price"> <%= product.original_price %> <%=t 'currency' %>  </span>
+            <span class="pro-price old-price"> <%= product.original_price %> <%=t 'currency' %>  </span>
             <% end %>
-            <span class="price"><%= product.price %> <%=t 'currency' %>  </span>
+            <span class="pro-price"><%= product.price %> <%=t 'currency' %>  </span>
           </p>
           
         </div>
