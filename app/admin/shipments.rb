@@ -72,8 +72,6 @@ ActiveAdmin.register Shipment do
 
       row :ship_method
 
-      row :tracking_num
-
       row :modify_shipment_state do
         shipment_state_shift(shipment)
       end
