@@ -9,7 +9,8 @@ class Sms
     '42' => '帐号过期',
     '43' => 'IP地址限制',
     '50' => '内容含有敏感词',
-    '51' => '手机号码不正确'
+    '51' => '手机号码不正确',
+    '-1' => '短信发送未成功'
   }
 
   class << self
@@ -52,7 +53,7 @@ STR
         c: content
 
       unless response.body == '0'
-        raise StandardError, ERROR_CODE[response.body]
+        raise StandardError, ERROR_CODE[response.body] + ". " + "phone number is #{phone}"
       end
     end
   end
