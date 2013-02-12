@@ -15,6 +15,7 @@ ActiveAdmin.register ShipMethod do
       t(ship_method.method)
     end
     column :service_phone
+    column :kuaidi_com_code
 
     default_actions
   end

@@ -93,7 +93,7 @@ zh-CN:
         method: 方式
         website: 网站
         service_phone: 服务电话
-        kuaidi_com_code: 快递100编码
+        kuaidi_com_code: 快递100查询编码
 
       shipment:
         cost: 成本

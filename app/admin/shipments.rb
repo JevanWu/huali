@@ -30,7 +30,9 @@ ActiveAdmin.register Shipment do
 
     column :ship_method
 
-    column :tracking_num, :sortable => :tracking_num
+    column :tracking_num, :sortable => :tracking_num do |shipment|
+      link_to shipment.tracking_num, shipment.kuai_100_url
+    end
 
     column :modify_shipment_state do |shipment|
       shipment_state_shift(shipment)
