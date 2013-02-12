@@ -20,7 +20,7 @@
 # Learn more: http://github.com/javan/whenever
 #
 
-set :output, "../log/cron_log.log"
+set :output, File.expand_path("../log/cron_log.log", __FILE__)
 
 every :day, :at => '1:00 am' do
   command "backup perform -t db_backup"
