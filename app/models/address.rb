@@ -33,7 +33,7 @@ class Address < ActiveRecord::Base
   validates_presence_of :fullname, :address, :phone, :province, :city, :post_code
   validate :phone_validate, :location_available
 
-  after_validation :fill_in_post_code
+  # after_validation :fill_in_post_code
 
   def check_postcode
     # TODO check the postcode against the prov, city, area postcode
