@@ -249,8 +249,11 @@ class Order < ActiveRecord::Base
   private
 
   def expected_date_in_range
-    unless expected_date.in? Date.today.tomorrow..Date.today.next_month and
-      not expected_date.in? Date.parse('2013-02-09')..Date.parse('2013-02-12')
+    unless expected_date.in? Date.today.tomorrow..Date.today.next_month
+      errors.add :expected_date, :unavailable_date
+    end
+
+    if expected_date.monday? or expected_date.sunday?
       errors.add :expected_date, :unavailable_date
     end
   end
