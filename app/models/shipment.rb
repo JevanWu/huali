@@ -31,7 +31,7 @@ class Shipment < ActiveRecord::Base
 
   before_validation :copy_address, :generate_identifier, on: :create
 
-  validates_presence_of :order_id, :address_id
+  validates_presence_of :order, :address, :ship_method
 
   state_machine :state, :initial => :ready do
     after_transition :to => :completed, :do => :confirm_order
@@ -66,7 +66,7 @@ class Shipment < ActiveRecord::Base
   end
 
   def kuai_100_url
-    ship_method && ship_method.kuaidi_com_code ?  "http://www.kuaidi100.com/chaxun?com=#{ship_method.kuaidi_com_code}&nu=#{tracking_num}" : ""
+    ship_method.kuaidi_com_code ? "http://www.kuaidi100.com/chaxun?com=#{ship_method.kuaidi_com_code}&nu=#{tracking_num}" : ""
   end
 
   private
