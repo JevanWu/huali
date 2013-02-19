@@ -30,8 +30,10 @@ every :day, :at => '2:00 am' do
   command "backup perform -t asset_backup"
 end
 
-every :day, :at => '1:30 am' do
-  rake 'guests:cleanup'
+every :day, :at => '5:45 pm' do
+  rake 'cleanup:guests'
+  rake 'cleanup:orders'
+  rake 'cleanup:transactions'
 end
 
 every :day, :at => '3:00 am' do
