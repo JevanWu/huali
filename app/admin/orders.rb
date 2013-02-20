@@ -98,8 +98,8 @@ ActiveAdmin.register Order do
 
     column :subject_text
 
-    column :total, :sortable => :total do |order|
-      order.total
+    column :ship_method do |order|
+      order.shipment.ship_method if order.shipment
     end
 
     column :sender_info do |order|
