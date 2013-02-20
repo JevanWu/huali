@@ -68,7 +68,13 @@ ActiveAdmin.register Order do
   member_action :check  do
     order = Order.find_by_id(params[:id])
     order.check
-    redirect_to admin_orders_path, alert: t(:order_state_changed) + t(:wait_ship, scope: :order)
+    redirect_to admin_orders_path, alert: t(:order_state_changed) + t(:wait_make, scope: :order)
+  end
+
+  member_action :make  do
+    order = Order.find_by_id(params[:id])
+    order.make
+    redirect_to admin_orders_path, :alert => t(:order_state_changed) + t(:wait_ship, :scope => :order)
   end
 
   member_action :cancel  do

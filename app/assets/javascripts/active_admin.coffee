@@ -14,3 +14,5 @@ $ ->
     event.preventDefault()
 
   $('.barcode35').barcode(code: 'code39')
+
+  $('.print').click -> window.print()

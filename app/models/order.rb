@@ -83,7 +83,12 @@ class Order < ActiveRecord::Base
     state :wait_check do
       validates_presence_of :payment_total
 
-      transition :to => :wait_ship, :on => :check
+      transition :to => :wait_make, :on => :check
+      transition :to => :wait_refund, :on => :cancel
+    end
+
+    state :wait_make do
+      transition :to => :wait_ship, :on => :make
       transition :to => :wait_refund, :on => :cancel
     end
 

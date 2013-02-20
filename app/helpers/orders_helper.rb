@@ -14,6 +14,8 @@ module OrdersHelper
       'warning'
     when 'wait_check'
       'error'
+    when 'wait_make'
+      'warning'
     when 'wait_ship'
       'ok'
     when 'wait_confirm'
@@ -36,6 +38,10 @@ module OrdersHelper
                                                                       "transaction[body]" => order.body_text))
     when "wait_check"
       link_to(t(:check, scope: :order), check_admin_order_path(order), confirm: t(:confirm_check)) + \
+      link_to(t(:cancel, scope: :order), cancel_admin_order_path(order), confirm: t(:confirm_cancel))
+    when "wait_make"
+      link_to(t(:print, scope: :order), '#', class: 'print') + \
+      link_to(t(:make, scope: :order), make_admin_order_path(order), confirm: t(:confirm_make)) + \
       link_to(t(:cancel, scope: :order), cancel_admin_order_path(order), confirm: t(:confirm_cancel))
     when "wait_ship"
       # for historic compatibility, when order(state = checked) doesn't have shipment generated.
