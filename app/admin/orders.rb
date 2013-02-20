@@ -95,7 +95,9 @@ ActiveAdmin.register Order do
       status_tag t(order.state, scope: :order), order_state(order)
     end
 
-    column :identifier, :sortable => :identifier
+    column :identifier, :sortable => :identifier do |order|
+      link_to order.identifier, admin_order_path(order)
+    end
 
     column :transaction_identifier, :sortable => :id do |order|
       link_to order.transaction.identifier,
