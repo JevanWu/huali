@@ -29,7 +29,7 @@ module OrdersHelper
   end
 
   def order_state_shift(order)
-    case order.state
+    buttons = case order.state
     when "generated"
       link_to(t(:cancel, scope: :order), cancel_admin_order_path(order), confirm: t(:confirm_cancel)) + \
       link_to(t(:init_transaction, scope: :order), new_admin_transaction_path("transaction[order_id]" => order.id,
@@ -55,5 +55,6 @@ module OrdersHelper
     when "wait_confirm"
       link_to(t(:confirm, scope: :order), accept_admin_shipment_path(order.shipment), confirm: t(:confirm_accept))
     end
+    content_tag('div', buttons, id: 'process-buttons')
   end
 end
