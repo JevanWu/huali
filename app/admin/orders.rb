@@ -128,6 +128,10 @@ ActiveAdmin.register Order do
         status_tag t(order.state, scope: :order), order_state(order)
       end
 
+      row :modify_order_state do
+        order_state_shift(order)
+      end
+
       row :identifier do |order|
         content_tag('span', order.identifier, class: 'barcode35') + \
         content_tag('span', order.identifier)
