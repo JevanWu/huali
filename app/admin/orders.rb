@@ -68,7 +68,7 @@ ActiveAdmin.register Order do
   member_action :check  do
     order = Order.find_by_id(params[:id])
     order.check
-    redirect_to order.shipment.blank? ? new_admin_shipment_path("shipment[order_id]" => order.id) : edit_admin_shipment_path(order.shipment)
+    redirect_to admin_orders_path, alert: t(:order_state_changed) + t(:wait_ship, scope: :order)
   end
 
   member_action :cancel  do
