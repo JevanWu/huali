@@ -17,7 +17,7 @@ module OrdersHelper
     when 'wait_ship'
       'ok'
     when 'wait_confirm'
-      ''
+      'info'
     when 'wait_refund'
       'error'
     when 'completed'
