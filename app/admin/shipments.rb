@@ -68,15 +68,20 @@ ActiveAdmin.register Shipment do
         status_tag t(shipment.state, scope: :shipment), shipment_state_class(shipment)
       end
 
+      row :modify_shipment_state do
+        shipment_state_shift(shipment)
+      end
+
+      row :order do |shipment|
+        link_to(shipment.order.identifier, admin_order_path(shipment.order))
+      end
+
       row :identifier
 
       row :tracking_num
 
       row :ship_method
 
-      row :modify_shipment_state do
-        shipment_state_shift(shipment)
-      end
       row :note
     end
   end

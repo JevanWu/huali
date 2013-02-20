@@ -96,6 +96,7 @@ zh-CN:
         kuaidi_com_code: 快递100查询编码
 
       shipment:
+        order: 订单
         cost: 成本
         identifier: 递送编号
         ship_method: 递送方式
