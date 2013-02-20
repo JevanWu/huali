@@ -136,8 +136,8 @@ ActiveAdmin.register Order do
       end
 
       row :identifier do |order|
-        content_tag('span', order.identifier, class: 'barcode35') + \
-        content_tag('span', order.identifier)
+        content_tag('span', order.identifier) + \
+        content_tag('span', order.identifier, class: 'barcode35')
       end
 
       row :order_content do
