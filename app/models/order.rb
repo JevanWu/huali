@@ -33,10 +33,13 @@ class Order < ActiveRecord::Base
 
   attr_accessible :line_items, :special_instructions, :address_attributes,
                   :gift_card_text, :delivery_date, :expected_date, :identifier, :state,
-                  :sender_name, :sender_phone, :sender_email, :source, :adjustment, :coupon_code
+                  :sender_name, :sender_phone, :sender_email, :source, :adjustment, :coupon_code,
+                  :ship_method_id
 
   belongs_to :address
   belongs_to :user
+  # store the ship_method to generate shipments
+  belongs_to :ship_method
 
   has_many :line_items, dependent: :destroy
   has_many :transactions, dependent: :destroy

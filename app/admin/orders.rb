@@ -175,9 +175,7 @@ ActiveAdmin.register Order do
 
       row :delivery_date
 
-      row :ship_method do
-        order.shipment.try(:ship_method)
-      end
+      row :ship_method
 
       row :receiver_info do
         order.address.full_addr
