@@ -88,6 +88,7 @@ class Order < ActiveRecord::Base
     end
 
     state :wait_make do
+      validates_presence_of :ship_method, :delivery_date
       transition :to => :wait_ship, :on => :make
       transition :to => :wait_refund, :on => :cancel
     end
