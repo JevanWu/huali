@@ -1,6 +1,7 @@
 zh-CN:
   active_admin:
     ship_model: 货运订单
+    check_model: 审核订单
 
     scopes:
       all: 全部

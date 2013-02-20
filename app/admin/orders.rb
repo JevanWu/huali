@@ -65,10 +65,13 @@ ActiveAdmin.register Order do
     redirect_to admin_orders_path, :alert => t(:order_state_changed) + t(:wait_check, :scope => :order)
   end
 
-  member_action :check  do
-    order = Order.find_by_id(params[:id])
-    order.check
-    redirect_to admin_orders_path, alert: t(:order_state_changed) + t(:wait_make, scope: :order)
+  member_action :check do
+    @order = Order.find_by_id(params[:id])
+    if @order.check
+      redirect_to admin_orders_path, alert: t(:order_state_changed) + t(:wait_make, scope: :order)
+    else
+      render active_admin_template('edit'), layout: false
+    end
   end
 
   member_action :make  do
