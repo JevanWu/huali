@@ -65,7 +65,6 @@ zh-CN:
   order_content: 订单内容
   transaction_identifier: 交易编号
   fullname: 收货人姓名
-  process_order: 处理订单
   created_at: 下单时间
   action: 操作
   pay_now: 立即支付

@@ -37,6 +37,7 @@ module OrdersHelper
                                                                       "transaction[subject]" => order.subject_text,
                                                                       "transaction[body]" => order.body_text))
     when "wait_check"
+      link_to(t(:edit), edit_admin_order_path(order)) + \
       link_to(t(:check, scope: :order), check_admin_order_path(order), confirm: t(:confirm_check)) + \
       link_to(t(:cancel, scope: :order), cancel_admin_order_path(order), confirm: t(:confirm_cancel))
     when "wait_make"

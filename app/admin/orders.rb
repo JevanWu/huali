@@ -116,11 +116,6 @@ ActiveAdmin.register Order do
 
     column :expected_date, sortable: :expected_date
 
-    column :process_order do |order|
-      link_to(t(:edit), edit_admin_order_path(order)) + \
-      link_to(t(:view), admin_order_path(order))
-    end
-
     column :modify_order_state do |order|
       order_state_shift(order)
     end
