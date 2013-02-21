@@ -38,6 +38,8 @@ class Order < ActiveRecord::Base
 
   belongs_to :address
   belongs_to :user
+  # just for convenient meta-methods
+  belongs_to :ship_method
 
   has_many :line_items, dependent: :destroy
   has_many :transactions, dependent: :destroy
