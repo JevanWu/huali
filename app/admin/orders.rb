@@ -13,9 +13,9 @@ ActiveAdmin.register Order do
     def scoped_collection
       if current_administrator.role == 'supplier'
         selected = (Order.column_names - %w{sender_email sender_phone sender_name total}).join(',')
-        Order.select(selected).includes(:transactions, :address, :line_items)
+        Order.select(selected).includes(:address, :line_items)
       else
-        Order.includes(:transactions, :address, :line_items)
+        Order.includes(:address, :line_items)
       end
     end
 
@@ -101,11 +101,6 @@ ActiveAdmin.register Order do
 
     column :identifier, :sortable => :identifier do |order|
       link_to order.identifier, admin_order_path(order)
-    end
-
-    column :transaction_identifier, :sortable => :id do |order|
-      link_to order.transaction.identifier,
-        admin_transaction_path(order.transaction) if order.transaction
     end
 
     column :subject_text
