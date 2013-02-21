@@ -38,8 +38,6 @@ class Order < ActiveRecord::Base
 
   belongs_to :address
   belongs_to :user
-  # store the ship_method to generate shipments
-  belongs_to :ship_method
 
   has_many :line_items, dependent: :destroy
   has_many :transactions, dependent: :destroy
