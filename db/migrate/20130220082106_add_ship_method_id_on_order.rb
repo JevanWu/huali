@@ -10,7 +10,7 @@ class AddShipMethodIdOnOrder < ActiveRecord::Migration
 
     Order.find_each do |o|
       if o.shipment
-        o.ship_method_id = o.shipment.ship_method_id
+        o.ship_method = o.shipment.ship_method
         o.save
       end
     end
