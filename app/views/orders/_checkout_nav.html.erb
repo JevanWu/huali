@@ -4,13 +4,13 @@
   </div>
   <ul id='checkout-nav' class='info-nav span8'>
     <li class='<%= current_if_action('new', 'create') %>'>
-    <%= t(:address_and_info) %> 
+    <%= t('views.order.success.address_and_info') %> 
     </li>
     <li class='<%= current_if_action('checkout') %>'>
-    <%= t(:choose_pay_method) %>
+    <%= t('views.order.success.choose_pay_method') %>
     </li>
     <li class='<%= current_if_action('return') %>'>
-    <%= t(:paid) %>
+    <%= t('views.order.success.paid') %>
     </li>
   </ul>
 </div>

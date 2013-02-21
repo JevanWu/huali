@@ -16,19 +16,19 @@ ActiveAdmin.register Transaction do
   member_action :start do
     transaction = Transaction.find_by_id(params[:id])
     transaction.start
-    redirect_to :back, :alert => t(:transaction_state_changed) + t(:processing, :scope => :transaction)
+    redirect_to :back, :alert => t('views.admin.transaction.transaction_state_changed') + t('models.transaction.state.processing')
   end
 
   member_action :complete do
     transaction = Transaction.find_by_id(params[:id])
     transaction.complete
-    redirect_to :back, :alert => t(:transaction_state_changed) + t(:completed, :scope => :transaction)
+    redirect_to :back, :alert => t('views.admin.transaction.transaction_state_changed') + t('models.transaction.state.completed')
   end
 
   member_action :fail do
     transaction = Transaction.find_by_id(params[:id])
     transaction.failure
-    redirect_to :back, :alert => t(:transaction_state_changed) + t(:failed, :scope => :transaction)
+    redirect_to :back, :alert => t('views.admin.transaction.transaction_state_changed') + t('models.transaction.state.failed')
   end
 
   index do

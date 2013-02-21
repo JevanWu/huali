@@ -2,9 +2,9 @@
   <td class="image"><%= image_tag product_detail.img(:thumb) %></td>
   <td class="name"><%= link_to product_detail.name, product_path(product_detail) %></td>
   <td class='size'>
-    <span><%= t('height').capitalize %> <%= product_detail.height %> cm </span>
-    <span><%= t('width').capitalize %> <%= product_detail.width %> cm </span>
-    <span><%= t('depth').capitalize %> <%= product_detail.depth %> cm </span>
+    <span><%= t('views.product.show.height').capitalize %> <%= product_detail.height %> cm </span>
+    <span><%= t('views.product.show.width').capitalize %> <%= product_detail.width %> cm </span>
+    <span><%= t('views.product.show.depth').capitalize %> <%= product_detail.depth %> cm </span>
   </td>
   <td class="price"> <%= number_to_currency product_detail.price, unit: '&yen;'  %> </td>
   <td class="quantity"> <%= product_detail.quantity %> </td>

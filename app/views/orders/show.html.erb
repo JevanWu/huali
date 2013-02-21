@@ -11,16 +11,16 @@
     <tbody>
       <tr>
         <td>
-          <strong><%= t(:identifier) %></strong>: <%= @order.identifier %>
+          <strong><%= t('activerecord.attributes.order.identifier') %></strong>: <%= @order.identifier %>
         </td>
         <td>
-          <strong><%= t(:state) %></strong>: <%= t(@order.state, :scope => :order) %>
+          <strong><%= t('activerecord.attributes.order.state') %></strong>: <%= t('models.order.state.' + @order.state) %>
         </td>
         <td>
-          <strong><%= t(:created_at) %></strong>: <%= l @order.created_at, :format => :short %>
+          <strong><%= t('activerecord.attributes.order.created_at') %></strong>: <%= l @order.created_at, :format => :short %>
         </td>
         <td>
-          <strong><%= t(:expected_date) %></strong>: <%= l @order.expected_date, :format => :short %>
+          <strong><%= t('activerecord.attributes.order.expected_date') %></strong>: <%= l @order.expected_date, :format => :short %>
         </td>
       </tr>
     </tbody>

@@ -4,15 +4,15 @@
   <p class="pro-price old-price"> <%= @product.original_price %> RMB </p>
   <% end %>
   <p class="pro-price"> <%= @product.price %> <%=t 'currency' %> </p>
-  <p class="meta">(<%=t 'delivery_charge' %>)</p>
+  <p class="meta">(<%=t 'views.product.show.delivery_charge' %>)</p>
 
   <% if @product.count_on_hand > 0 %>
     <p>
-    <%= link_to t('flower_basket'), current_order_path, :class => 'purchase button', data: { product: @product.id } %>
+    <%= link_to t('views.product.show.flower_basket'), current_order_path, :class => 'purchase button', data: { product: @product.id } %>
     </p>
   <% else %>
     <p><%=t 'soldout' %></p>
-    <small class="meta"><%=t 'join_queue' %></small>
+    <small class="meta"><%=t 'views.product.show.join_queue' %></small>
   <% end %>
   <p>
     <%= link_to t('more') + @product.collection.display_name, collection_path(@product.collection), class: 'more-collection' %>

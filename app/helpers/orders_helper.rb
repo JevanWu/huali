@@ -31,29 +31,29 @@ module OrdersHelper
   def order_state_shift(order)
     buttons = case order.state
     when "generated"
-      link_to(t(:cancel, scope: :order), cancel_admin_order_path(order), confirm: t(:confirm_cancel)) + \
-      link_to(t(:init_transaction, scope: :order), new_admin_transaction_path("transaction[order_id]" => order.id,
+      link_to(t('models.order.state.cancel'), cancel_admin_order_path(order), confirm: t('views.admin.order.confirm_cancel')) + \
+      link_to(t('models.order.state.init_transaction'), new_admin_transaction_path("transaction[order_id]" => order.id,
                                                                       "transaction[amount]" => order.total,
                                                                       "transaction[subject]" => order.subject_text,
                                                                       "transaction[body]" => order.body_text))
     when "wait_check"
       link_to(t(:edit), edit_admin_order_path(order)) + \
-      link_to(t(:check, scope: :order), check_admin_order_path(order), confirm: t(:confirm_check)) + \
-      link_to(t(:cancel, scope: :order), cancel_admin_order_path(order), confirm: t(:confirm_cancel))
+      link_to(t('models.order.state.check'), check_admin_order_path(order), confirm: t('views.admin.order.confirm_check')) + \
+      link_to(t('models.order.state.cancel'), cancel_admin_order_path(order), confirm: t('views.admin.order.confirm_cancel'))
     when "wait_make"
       link_to(t(:print, scope: :order), '#', class: 'print') + \
-      link_to(t(:make, scope: :order), make_admin_order_path(order), confirm: t(:confirm_make)) + \
-      link_to(t(:cancel, scope: :order), cancel_admin_order_path(order), confirm: t(:confirm_cancel))
+      link_to(t('models.order.state.make'), make_admin_order_path(order), confirm: t('views.admin.order.confirm_make')) + \
+      link_to(t('models.order.state.cancel'), cancel_admin_order_path(order), confirm: t('views.admin.order.confirm_cancel'))
     when "wait_ship"
       # for historic compatibility, when order(state = checked) doesn't have shipment generated.
-      link_to(t(:ship, scope: :order),
+      link_to(t('models.order.state.ship'),
               order.shipment.blank? ? new_admin_shipment_path("shipment[order_id]" => order.id, "shipment[ship_method_id]" => order.ship_method_id) : edit_admin_shipment_path(order.shipment),
-              confirm: t(:confirm_order_ship)) + \
-      link_to(t(:cancel, scope: :order), cancel_admin_order_path(order), confirm: t(:confirm_cancel))
+              confirm: t('views.admin.order.confirm_ship')) + \
+      link_to(t('models.order.state.cancel'), cancel_admin_order_path(order), confirm: t('views.admin.order.confirm_cancel'))
     when "wait_refund"
-      link_to(t(:refund, scope: :order), refund_admin_order_path(order))
+      link_to(t('models.order.state.refund'), refund_admin_order_path(order))
     when "wait_confirm"
-      link_to(t(:confirm, scope: :order), accept_admin_shipment_path(order.shipment), confirm: t(:confirm_accept))
+      link_to(t('models.order.state.confirm'), accept_admin_shipment_path(order.shipment), confirm: t('views.admin.order.confirm_accept'))
     end
     content_tag('div', buttons, id: 'process-buttons')
   end
