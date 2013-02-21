@@ -1,4 +1,5 @@
 #= require active_admin/base
+#= require jquery.barcode.0.3
 
 $ ->
   $('form').on 'click', '.remove_fields', (event) ->
@@ -11,3 +12,7 @@ $ ->
     regexp = new RegExp $(this).data('id'), 'g'
     $(this).parent().before($(this).data('fields').replace(regexp, time))
     event.preventDefault()
+
+  $('.barcode35').barcode(code: 'code39')
+
+  $('.print').click -> window.print()

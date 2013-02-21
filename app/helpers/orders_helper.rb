@@ -14,10 +14,12 @@ module OrdersHelper
       'warning'
     when 'wait_check'
       'error'
+    when 'wait_make'
+      'warning'
     when 'wait_ship'
       'ok'
     when 'wait_confirm'
-      ''
+      'info'
     when 'wait_refund'
       'error'
     when 'completed'
@@ -27,7 +29,7 @@ module OrdersHelper
   end
 
   def order_state_shift(order)
-    case order.state
+    buttons = case order.state
     when "generated"
       link_to(t(:cancel, scope: :order), cancel_admin_order_path(order), confirm: t(:confirm_cancel)) + \
       link_to(t(:init_transaction, scope: :order), new_admin_transaction_path("transaction[order_id]" => order.id,
@@ -35,12 +37,17 @@ module OrdersHelper
                                                                       "transaction[subject]" => order.subject_text,
                                                                       "transaction[body]" => order.body_text))
     when "wait_check"
+      link_to(t(:edit), edit_admin_order_path(order)) + \
       link_to(t(:check, scope: :order), check_admin_order_path(order), confirm: t(:confirm_check)) + \
+      link_to(t(:cancel, scope: :order), cancel_admin_order_path(order), confirm: t(:confirm_cancel))
+    when "wait_make"
+      link_to(t(:print, scope: :order), '#', class: 'print') + \
+      link_to(t(:make, scope: :order), make_admin_order_path(order), confirm: t(:confirm_make)) + \
       link_to(t(:cancel, scope: :order), cancel_admin_order_path(order), confirm: t(:confirm_cancel))
     when "wait_ship"
       # for historic compatibility, when order(state = checked) doesn't have shipment generated.
       link_to(t(:ship, scope: :order),
-              order.shipment.blank? ? new_admin_shipment_path("shipment[order_id]" => order.id) : edit_admin_shipment_path(order.shipment),
+              order.shipment.blank? ? new_admin_shipment_path("shipment[order_id]" => order.id, "shipment[ship_method_id]" => order.ship_method_id) : edit_admin_shipment_path(order.shipment),
               confirm: t(:confirm_order_ship)) + \
       link_to(t(:cancel, scope: :order), cancel_admin_order_path(order), confirm: t(:confirm_cancel))
     when "wait_refund"
@@ -48,5 +55,6 @@ module OrdersHelper
     when "wait_confirm"
       link_to(t(:confirm, scope: :order), accept_admin_shipment_path(order.shipment), confirm: t(:confirm_accept))
     end
+    content_tag('div', buttons, id: 'process-buttons')
   end
 end

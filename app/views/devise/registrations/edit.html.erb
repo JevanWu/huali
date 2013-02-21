@@ -15,17 +15,23 @@
       html: { class: 'span8 form-horizontal', method: :put } do |f| %>
       <%= devise_error_messages! %>
 
-      <%= f.input :name, placeholder: '您的称呼, 以便我们和您联系' %>
-      <%= f.input :phone, placeholder: '以便我们和您核对信息'  %>
-      <%= f.input :email, required: true %>
-      <%= f.input :password, required: true%>
-      <%= f.input :password_confirmation, required: true %>
+      <fieldset>
+        <legend>个人信息</legend>
+        <%= f.input :name, placeholder: '您的称呼, 以便我们和您联系' %>
+        <%= f.input :phone, placeholder: '以便我们和您核对信息'  %>
+        <%= f.input :email, required: true %>
+        <%= f.input :password, required: true%>
+        <%= f.input :password_confirmation, required: true %>
+      </fieldset>
 
-      <%= f.input :current_password, required: true %>
+      <fieldset>
+        <legend>提交修改</legend>
+        <%= f.input :current_password, required: true %>
+        <div class="form-actions">
+          <%= f.button :submit, t(".update"), class: 'button' %>
+        </div>
+      </fieldset>
 
-      <div class="form-actions">
-        <%= f.button :submit, t(".update"), class: 'button' %>
-      </div>
     <% end %>
   </div>
   <div class='row'>

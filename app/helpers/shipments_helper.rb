@@ -1,6 +1,6 @@
 module ShipmentsHelper
   def shipment_state_shift(shipment)
-    case shipment.state
+    buttons = case shipment.state
     when "ready"
       link_to(t(:ship, :scope => :shipment), ship_admin_shipment_path(shipment),
               confirm: t(:confirm_ship,
@@ -8,6 +8,7 @@ module ShipmentsHelper
     when "shipped"
       link_to(t(:accept, :scope => :shipment), accept_admin_shipment_path(shipment))
     end
+    content_tag('div', buttons, id: 'process-buttons')
   end
 
   def shipment_state_class(shipment)

@@ -33,7 +33,8 @@ class Order < ActiveRecord::Base
 
   attr_accessible :line_items, :special_instructions, :address_attributes,
                   :gift_card_text, :delivery_date, :expected_date, :identifier, :state,
-                  :sender_name, :sender_phone, :sender_email, :source, :adjustment, :coupon_code
+                  :sender_name, :sender_phone, :sender_email, :source, :adjustment, :coupon_code,
+                  :ship_method_id
 
   belongs_to :address
   belongs_to :user
@@ -83,7 +84,13 @@ class Order < ActiveRecord::Base
     state :wait_check do
       validates_presence_of :payment_total
 
-      transition :to => :wait_ship, :on => :check
+      transition :to => :wait_make, :on => :check
+      transition :to => :wait_refund, :on => :cancel
+    end
+
+    state :wait_make do
+      validates_presence_of :ship_method, :delivery_date
+      transition :to => :wait_ship, :on => :make
       transition :to => :wait_refund, :on => :cancel
     end
 

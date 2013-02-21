@@ -53,6 +53,7 @@ ActiveAdmin.register Order do
     '取消' => 'void'
   }
 
+  filter :sender_name, :as => :string
   filter :address_fullname, :as => :string
   filter :address_phone, :as => :string
   filter :address_province_name, :as => :string
@@ -65,10 +66,19 @@ ActiveAdmin.register Order do
     redirect_to admin_orders_path, :alert => t(:order_state_changed) + t(:wait_check, :scope => :order)
   end
 
-  member_action :check  do
+  member_action :check do
+    @order = Order.find_by_id(params[:id])
+    if @order.check
+      redirect_to admin_orders_path, alert: t(:order_state_changed) + t(:wait_make, scope: :order)
+    else
+      render active_admin_template('edit'), layout: false
+    end
+  end
+
+  member_action :make  do
     order = Order.find_by_id(params[:id])
-    order.check
-    redirect_to edit_admin_shipment_path(order.shipment)
+    order.make
+    redirect_to admin_orders_path, :alert => t(:order_state_changed) + t(:wait_ship, :scope => :order)
   end
 
   member_action :cancel  do
@@ -89,7 +99,9 @@ ActiveAdmin.register Order do
       status_tag t(order.state, scope: :order), order_state(order)
     end
 
-    column :identifier, :sortable => :identifier
+    column :identifier, :sortable => :identifier do |order|
+      link_to order.identifier, admin_order_path(order)
+    end
 
     column :transaction_identifier, :sortable => :id do |order|
       link_to order.transaction.identifier,
@@ -98,8 +110,8 @@ ActiveAdmin.register Order do
 
     column :subject_text
 
-    column :total, :sortable => :total do |order|
-      order.total
+    column :ship_method do |order|
+      order.shipment.ship_method if order.shipment
     end
 
     column :sender_info do |order|
@@ -109,11 +121,6 @@ ActiveAdmin.register Order do
     column :delivery_date, sortable: :delivery_date
 
     column :expected_date, sortable: :expected_date
-
-    column :process_order do |order|
-      link_to(t(:edit), edit_admin_order_path(order)) + \
-      link_to(t(:view), admin_order_path(order))
-    end
 
     column :modify_order_state do |order|
       order_state_shift(order)
@@ -128,7 +135,14 @@ ActiveAdmin.register Order do
         status_tag t(order.state, scope: :order), order_state(order)
       end
 
-      row :identifier
+      row :modify_order_state do
+        order_state_shift(order)
+      end
+
+      row :identifier do |order|
+        content_tag('span', order.identifier) + \
+        content_tag('span', order.identifier, class: 'barcode35')
+      end
 
       row :order_content do
         order.subject_text
@@ -162,9 +176,7 @@ ActiveAdmin.register Order do
 
       row :delivery_date
 
-      row :ship_method do
-        order.shipment.try(:ship_method)
-      end
+      row :ship_method
 
       row :receiver_info do
         order.address.full_addr
