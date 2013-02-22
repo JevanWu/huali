@@ -105,6 +105,7 @@ zh-CN:
         coupon: 优惠券
         adjustment: 价格调整
         subject_text: 货品内容
+        created_at: 创建时间
 
       administrator:
         email: 邮箱
