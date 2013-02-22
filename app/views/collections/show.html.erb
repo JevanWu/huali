@@ -1,3 +1,7 @@
+<% content_for :title do %>
+  <%= @collection.name %>
+<% end %>
+
 <div class="collection-wrapper">
   <div class="collection-title row">
     <%= image_tag col_title_img(@collection) %>
