@@ -105,9 +105,7 @@ ActiveAdmin.register Order do
 
     column :subject_text
 
-    column :ship_method do |order|
-      order.shipment.ship_method if order.shipment
-    end
+    column :ship_method
 
     column :sender_info do |order|
       [order[:sender_name], order[:sender_email], order[:sender_phone]].select { |s| !s.blank? }.join(', ')
