@@ -35,7 +35,7 @@ ActiveAdmin.register Order do
   scope :all
   scope :current
   scope :tomorrow
-  scope :next_day_2
+  scope :next_two_day
   scope :within_this_week
   scope :within_this_month
 
