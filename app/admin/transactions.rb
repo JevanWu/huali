@@ -35,7 +35,7 @@ ActiveAdmin.register Transaction do
     selectable_column
 
     column :state, sortable: :state do |transaction|
-      status_tag t(transaction.state, scope: :transaction), transaction_state_class(transaction)
+      status_tag t('models.transaction.state.' + transaction.state), transaction_state_class(transaction)
     end
 
     column :identifier
@@ -68,7 +68,7 @@ ActiveAdmin.register Transaction do
 
     attributes_table do
       row :state do
-        status_tag t(transaction.state, scope: :transaction), transaction_state_class(transaction)
+        status_tag t('models.transaction.state.' + transaction.state), transaction_state_class(transaction)
       end
 
       row :identifier

@@ -33,28 +33,28 @@
 <% end %>
 
 <div id='order-info' class='row'>
-  <h3><span><%= t(:order_info) %></span></h3>
+  <h3><span><%= t('views.order.show.order_info') %></span></h3>
   <table class='table'>
     <tbody>
       <tr>
-        <td rowspan='3'><strong><%= t(:receiver_info) %></strong></td>
-        <td><%= t(:receiver_fullname) %>: <%= @order.address.fullname %></td>
+        <td rowspan='3'><strong><%= t('activerecord.attributes.order.receiver_info') %></strong></td>
+        <td><%= t('activerecord.attributes.order.receiver_fullname') %>: <%= @order.address.fullname %></td>
       </tr>
       <tr>
-        <td><%= t(:receiver_address) %>: <%= @order.address.full_addr %></td>
+        <td><%= t('activerecord.attributes.order.receiver_address) %>: <%= @order.address.full_addr %></td>
       </tr>
       <tr>
-        <td><%= t(:receiver_phonenum) %>: <%= @order.address.phone %></td>
+        <td><%= t('activerecord.attributes.order.receiver_phonenum) %>: <%= @order.address.phone %></td>
       </tr>
     </tbody>
 
     <tbody>
       <tr>
-        <td rowspan='3'><strong><%= t(:pay_and_ship_method) %></strong></td>
-        <td><%= t(:paymethod) %>: <%= @order.transaction ? @order.transaction.paymethod : nil %></td>
+        <td rowspan='3'><strong><%= t('views.order.show.pay_and_ship_method') %></strong></td>
+        <td><%= t('activerecord.attributes.transaction.paymethod') %>: <%= @order.transaction ? @order.transaction.paymethod : nil %></td>
       </tr>
       <tr>
-        <td><%= t(:expected_date) %>: <%= @order.expected_date %></td>
+        <td><%= t('activerecord.attributes.order.expected_date') %>: <%= @order.expected_date %></td>
       </tr>
     </tbody>
   </table>
@@ -65,12 +65,12 @@
   <table id='product_detail' class='item-table table'>
     <thead>
       <tr>
-        <th class="image"><%= t(:image) %></th>
-        <th class="name"><%= t(:name) %></th>
-        <th class="size"><%= t(:size) %></th>
-        <th class="price"><%= t(:price) %></th>
-        <th class="quantity"><%= t(:quantity) %></th>
-        <th class="total"><%= t(:total) %></th>
+        <th class="image"><%= t('views.product.show.image') %></th>
+        <th class="name"><%= t('views.product.show.name') %></th>
+        <th class="size"><%= t('views.product.show.size') %></th>
+        <th class="price"><%= t('views.product.show.price') %></th>
+        <th class="quantity"><%= t('views.order.current.quantity') %></th>
+        <th class="total"><%= t('views.order.current.total') %></th>
       </tr>
     </thead>
     <tbody>

@@ -13,7 +13,7 @@ ActiveAdmin.register Product do
     batch_action I18n.t(action) do |selection|
       products = Product.unscoped.find(selection)
       products.each { |product| product.send(action) }
-      redirect_to :back, :notice => products.count.to_s + t(:product_updated)
+      redirect_to :back, :notice => products.count.to_s + t('views.admin.product.product_updated')
     end
   end
   batch_action :destroy, false

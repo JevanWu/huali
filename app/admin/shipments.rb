@@ -20,7 +20,7 @@ ActiveAdmin.register Shipment do
     selectable_column
 
     column :state, :sortable => :state do |shipment|
-      status_tag t(shipment.state, scope: :shipment), shipment_state_class(shipment)
+      status_tag t('models.shipment.state.' + shipment.state), shipment_state_class(shipment)
     end
 
     column :identifier, :sortable => :identifier do |shipment|
@@ -65,7 +65,7 @@ ActiveAdmin.register Shipment do
 
     attributes_table do
       row :state do |shipment|
-        status_tag t(shipment.state, scope: :shipment), shipment_state_class(shipment)
+        status_tag t('models.shipment.state.' + shipment.state), shipment_state_class(shipment)
       end
 
       row :modify_shipment_state do

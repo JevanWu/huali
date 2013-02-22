@@ -127,7 +127,7 @@ ActiveAdmin.register Order do
   show do
     attributes_table do
       row :state do
-        status_tag t(order.state, scope: :order), order_state(order)
+        status_tag t('models.order.state.' + order.state), order_state(order)
       end
 
       row :modify_order_state do

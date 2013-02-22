@@ -48,7 +48,7 @@ module OrdersHelper
       # for historic compatibility, when order(state = checked) doesn't have shipment generated.
       link_to(t('models.order.state.ship'),
               order.shipment.blank? ? new_admin_shipment_path("shipment[order_id]" => order.id, "shipment[ship_method_id]" => order.ship_method_id) : edit_admin_shipment_path(order.shipment),
-              confirm: t('views.admin.order.confirm_ship')) + \
+              confirm: t('views.admin.shipment.confirm_ship')) + \
       link_to(t('models.order.state.cancel'), cancel_admin_order_path(order), confirm: t('views.admin.order.confirm_cancel'))
     when "wait_refund"
       link_to(t('models.order.state.refund'), refund_admin_order_path(order))
