@@ -44,13 +44,13 @@ class OrdersController < ApplicationController
     if params[:id]
       @order = current_or_guest_user.orders.find_by_id(params[:id])
       if @order.blank?
-        flash[:alert] = t('controllers.order.create.order_not_exist')
+        flash[:alert] = t('controllers.order.checkout.order_not_exist')
         redirect_to :root
       end
     else
       @order = Order.find_by_id(params[:id] || session[:order_id])
       if @order.blank?
-        flash[:alert] = t('controllers.order.create.order.no_items')
+        flash[:alert] = t('controllers.order.checkout.no_items')
         redirect_to :root
       end
     end
@@ -125,7 +125,7 @@ class OrdersController < ApplicationController
       # - no line items present
       # - zero quantity
       if @cart.blank? || @cart.all? { |k, v| v.to_i <= 0 }
-        flash[:alert] = t(:no_items)
+        flash[:alert] = t('controllers.order.checkout.no_items')
         redirect_to :root
       end
     end
