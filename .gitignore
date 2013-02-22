@@ -78,3 +78,6 @@ pickle-email-*.html
 
 # vim artifacts
 **.swp
+
+# tags file
+tags
