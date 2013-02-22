@@ -33,7 +33,7 @@
 <% end %>
 
 <div id='order-info' class='row'>
-  <h3><span><%= t('views.order.show.order_info') %></span></h3>
+  <h3><span><%= t('views.order.order_info') %></span></h3>
   <table class='table'>
     <tbody>
       <tr>
@@ -50,7 +50,7 @@
 
     <tbody>
       <tr>
-        <td rowspan='3'><strong><%= t('views.order.show.pay_and_ship_method') %></strong></td>
+        <td rowspan='3'><strong><%= t('views.order.pay_and_ship_method') %></strong></td>
         <td><%= t('activerecord.attributes.transaction.paymethod') %>: <%= @order.transaction ? @order.transaction.paymethod : nil %></td>
       </tr>
       <tr>
@@ -61,16 +61,16 @@
 </div>
 
 <div id='order-items' class='row'>
-  <h3><span><%= t(:product_info) %></span></h3>
+  <h3><span><%= t('views.product.product_info') %></span></h3>
   <table id='product_detail' class='item-table table'>
     <thead>
       <tr>
-        <th class="image"><%= t('views.product.show.image') %></th>
-        <th class="name"><%= t('views.product.show.name') %></th>
-        <th class="size"><%= t('views.product.show.size') %></th>
-        <th class="price"><%= t('views.product.show.price') %></th>
-        <th class="quantity"><%= t('views.order.current.quantity') %></th>
-        <th class="total"><%= t('views.order.current.total') %></th>
+        <th class="image"><%= t('image') %></th>
+        <th class="name"><%= t('name') %></th>
+        <th class="size"><%= t('size') %></th>
+        <th class="price"><%= t('price') %></th>
+        <th class="quantity"><%= t('quantity') %></th>
+        <th class="total"><%= t('total') %></th>
       </tr>
     </thead>
     <tbody>

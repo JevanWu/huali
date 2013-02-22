@@ -21,7 +21,7 @@
   <tfoot>
     <% if order.total != order.item_total %>
     <tr>
-      <td colspan='2'><%= t('views.order.success.discount') %></td>
+      <td colspan='2'><%= t('views.order.discount') %></td>
       <td> <%= order.total - order.item_total %></td>
     </tr>
     <% end %>

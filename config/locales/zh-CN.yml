@@ -3,6 +3,7 @@ zh-CN:
   edit: 编辑
   view: 查看
   back: 后退
+  cancel: 取消
   checkout: 确定
   action: 操作
   currency: 元
@@ -14,10 +15,21 @@ zh-CN:
   order_list: 订单中心
   express: 快递
   mannual: 人工
+  total: 合计
+  name: 名称
+  price: 价格
+  quantity: 数量
+  soldout: 已经售罄
   available: 有货
   unavailable: 无货
   enable: 生效
   disable: 失效
+  height: 高
+  width: 宽
+  depth: 长
+  size: 尺寸
+  image: 图片
+  price: 价格
 
   distance:
     unit:
@@ -218,6 +230,7 @@ zh-CN:
         processing: 处理中
         failed: 失败
         completed: 成功
+
         complete: 完成
         failure: 失败
         start: 开始
@@ -228,9 +241,10 @@ zh-CN:
         ready: 准备
         shipped: 已发货
         unknown: 未知
+        completed: 已经送达
+
         ship: 发货
         accept: 送达
-        completed: 已经送达
 
   controllers:
     order:
@@ -269,42 +283,23 @@ zh-CN:
 
 
     order:
-      checkout:
-        ta_address: TA的地址是
+      # checkout
+      ta_address: TA的地址是
 
-      success:
-        order_success: 您已经成功创建订单和地址信息
-        address_and_info: 地址和信息
-        choose_pay_method: 选择支付方式
-        paid: 支付完成
-        discount: 优惠
+      # success
+      address_and_info: 地址和信息
+      choose_pay_method: 选择支付方式
+      paid: 支付完成
+      discount: 优惠
 
-      new:
-        cancel: 取消
-
-      show:
-        pay_now: 立即支付
-        cancel_now: 取消支付
-        order_info: 订单信息
-        pay_and_ship_method: 支付和配送方式
-
-      current:
-        total: 合计
-        name: 名称
-        price: 价格
-        quantity: 数量
+      # show
+      pay_now: 立即支付
+      cancel_now: 取消支付
+      order_info: 订单信息
+      pay_and_ship_method: 支付和配送方式
 
     product:
-      show:
-        name: 名称
-        height: 高
-        width: 宽
-        depth: 长
-        size: 尺寸
-        flower_basket: 放入购花篮
-        delivery_charge: 免运费
-        soldout: 已经售罄
-        join_queue: 如需加入订购队列，请联系客服
-        image: 图片
-        price: 价格
-        product_info: 产品信息
+      flower_basket: 放入购花篮
+      delivery_charge: 免运费
+      product_info: 产品信息
+      join_queue: 如需加入订购队列，请联系客服

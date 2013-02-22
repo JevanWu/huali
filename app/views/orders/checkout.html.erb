@@ -9,7 +9,7 @@
     <%= render 'side_order_table', order: @order %>
 
     <div id="order-addr">
-      <p><%= t('views.order.checkout.ta_address') %></p>
+      <p><%= t('views.order.ta_address') %></p>
       <%= @order.address.full_addr %>
       <%= @order.address.fullname %>
       <%= @order.address.phone %>
