@@ -1,6 +1,4 @@
-<!-- 
-<%= content_tag :div, '情人节预订火爆进行中 支持支付宝 Paypal付款. 因快递原因，2.9-2.12号快递无法送达，其余时间正常快递。', class: 'flash', id: "flash_ad"  %>
--->
+<%= content_tag :div, '花里订单系统升级啦，现在开始可以接受一个月内的送花预约', class: 'flash', id: "flash_ad"  %>
 <% flash.each do |name, msg| %>
   <%= content_tag :div, msg, id: "flash_#{name}", class: 'flash' if msg.is_a?(String) %>
 <% end %>
