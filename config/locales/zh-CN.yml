@@ -252,6 +252,7 @@ zh-CN:
       cancel_success: 订单取消成功
       cancel_failed: 订单取消失败, 请联系客服人员
       order_dont_belong_to_you: 这个订单不属于您哦
+      no_orders_for_you: 目前您还没有订单哦
 
     reminder:
       reminder_success: 您已经成功创建提醒
