@@ -12,7 +12,13 @@ class OrdersController < ApplicationController
   end
 
   def show
-    @order = current_or_guest_user.orders.full_info(params[:id])
+    orders = current_or_guest_user.orders
+    if orders.find_by_id(params[:id]).nil?
+      flash[:alert] = t('controllers.order.order_dont_belong_to_you')
+      redirect_to :root
+    else
+      @order = orders.full_info(params[:id])
+    end
   end
 
   def new

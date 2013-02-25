@@ -251,6 +251,7 @@ zh-CN:
       no_items: 还没有花在购花篮, 请先选购
       cancel_success: 订单取消成功
       cancel_failed: 订单取消失败, 请联系客服人员
+      order_dont_belong_to_you: 这个订单不属于您哦
 
     reminder:
       reminder_success: 您已经成功创建提醒
