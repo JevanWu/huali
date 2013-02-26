@@ -11,6 +11,16 @@ class RemindersController < ApplicationController
   end
 
   def create
+    @reminder = Reminder.new(params[:reminder])
+
+    if @reminder.save
+      Notify.delay_until(@reminder.send_date).new_order_user_email(376)
+      flash[:notice] = t(:reminder_success)
+      redirect_to :back
+    else
+      render 'new'
+    end
+
 
   end
 end
