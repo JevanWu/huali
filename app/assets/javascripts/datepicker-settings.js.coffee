@@ -7,3 +7,8 @@ $ ->
       minDate: '+2D'
       maxDate: '+1M'
   )
+
+  $('.datepicker-full').datepicker(
+      gotoCurrent: true
+      minDate: '+1D'
+  )
