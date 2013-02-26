@@ -16,7 +16,7 @@ class RemindersController < ApplicationController
     if @reminder.save
       Notify.delay_until(@reminder.send_date).new_order_user_email(376)
       flash[:notice] = t(:reminder_success)
-      redirect_to :back
+      redirect_to :root
     else
       render 'new'
     end
