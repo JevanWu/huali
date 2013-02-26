@@ -59,7 +59,7 @@ class Page < ActiveRecord::Base
 
   attr_accessible :content_en, :content_zh, :title_en, :title_zh, :permalink, :meta_description, :meta_keywords
 
-  validates :permalink, :exclusion => { :in => reserved_words, :message => "%{value} is reserved" }
+  validates :permalink, exclusion: { in: reserved_words, message: "%{value} is reserved" }
 
   validates_uniqueness_of :permalink
 

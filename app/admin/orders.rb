@@ -29,7 +29,7 @@ ActiveAdmin.register Order do
     end
   end
 
-  actions :all, :except => :new
+  actions :all, except: :new
   batch_action :destroy, false
 
   scope :all
@@ -42,7 +42,7 @@ ActiveAdmin.register Order do
   filter :identifier
   filter :expected_date
   filter :delivery_date
-  filter :state, :as => :select, :collection =>
+  filter :state, as: :select, collection:
   {
     等待付款: 'generated',
     结束: 'completed',
@@ -53,17 +53,17 @@ ActiveAdmin.register Order do
     取消: 'void'
   }
 
-  filter :sender_name, :as => :string
-  filter :address_fullname, :as => :string
-  filter :address_phone, :as => :string
-  filter :address_province_name, :as => :string
-  filter :address_city_name, :as => :string
-  filter :address_address, :as => :string
+  filter :sender_name, as: :string
+  filter :address_fullname, as: :string
+  filter :address_phone, as: :string
+  filter :address_province_name, as: :string
+  filter :address_city_name, as: :string
+  filter :address_address, as: :string
 
   member_action :pay  do
     order = Order.find_by_id(params[:id])
     order.pay
-    redirect_to admin_orders_path, :alert => t('views.admin.order.order_state_changed') + t('models.order.state.wait_check')
+    redirect_to admin_orders_path, alert: t('views.admin.order.order_state_changed') + t('models.order.state.wait_check')
   end
 
   member_action :check do
@@ -78,28 +78,28 @@ ActiveAdmin.register Order do
   member_action :make  do
     order = Order.find_by_id(params[:id])
     order.make
-    redirect_to admin_orders_path, :alert => t('views.admin.order.order_state_changed') + t('models.order.state.wait_ship')
+    redirect_to admin_orders_path, alert: t('views.admin.order.order_state_changed') + t('models.order.state.wait_ship')
   end
 
   member_action :cancel  do
     order = Order.find_by_id(params[:id])
     order.cancel
-    redirect_to admin_orders_path, :alert => t('views.admin.order.order_state_changed') + t('models.order.state.void')
+    redirect_to admin_orders_path, alert: t('views.admin.order.order_state_changed') + t('models.order.state.void')
   end
 
   member_action :refund  do
     order = Order.find_by_id(params[:id])
     order.refund
-    redirect_to admin_orders_path, :alert => t('views.admin.order.order_state_changed') + t('models.order.state.void')
+    redirect_to admin_orders_path, alert: t('views.admin.order.order_state_changed') + t('models.order.state.void')
   end
 
   index do
     selectable_column
-    column :state, :sortable => :state do |order|
+    column :state, sortable: :state do |order|
       status_tag t('models.order.state.' + order.state), order_state(order)
     end
 
-    column :identifier, :sortable => :identifier do |order|
+    column :identifier, sortable: :identifier do |order|
       link_to order.identifier, admin_order_path(order)
     end
 
@@ -120,7 +120,7 @@ ActiveAdmin.register Order do
     end
   end
 
-  form :partial => "form"
+  form partial: "form"
 
   show do
     attributes_table do
@@ -145,7 +145,7 @@ ActiveAdmin.register Order do
         unless order.transactions.blank?
           order.transactions.map do |transaction|
             link_to(transaction.identifier, admin_transaction_path(transaction)) + \
-            label_tag(" " + t(transaction.state, :scope => :transaction))
+            label_tag(" " + t(transaction.state, scope: :transaction))
           end.join('</br>').html_safe
         end
       end
@@ -154,7 +154,7 @@ ActiveAdmin.register Order do
         unless order.shipments.blank?
           order.shipments.map do |shipment|
             link_to(shipment.identifier, admin_shipment_path(shipment)) + \
-            label_tag(" " + t(shipment.state, :scope => :shipment))
+            label_tag(" " + t(shipment.state, scope: :shipment))
           end.join('</br>').html_safe
         end
       end

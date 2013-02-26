@@ -1,5 +1,5 @@
 ActiveAdmin.register Administrator do
-  menu :priority => 1, if: proc { can? :read, Administrator }
+  menu priority: 1, if: proc { can? :read, Administrator }
   controller.authorize_resource
 
   filter :role
@@ -13,7 +13,7 @@ ActiveAdmin.register Administrator do
     default_actions
   end
 
-  form :partial => "form"
+  form partial: "form"
 
   show do
     attributes_table do

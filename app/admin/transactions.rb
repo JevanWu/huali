@@ -9,26 +9,26 @@ ActiveAdmin.register Transaction do
   end
 
   filter :identifier
-  filter :paymethod, :as => :select, :collection => { Paypal: "paypal",  支付宝: "directPay", 网上银行: "bankPay" }
-  filter :state, :as => :select, :collection => { 新建: "generated", 完成: "completed", 处理中: "processing", 失败: "failed" }
+  filter :paymethod, as: :select, collection: { Paypal: "paypal",  支付宝: "directPay", 网上银行: "bankPay" }
+  filter :state, as: :select, collection: { 新建: "generated", 完成: "completed", 处理中: "processing", 失败: "failed" }
   filter :amount
 
   member_action :start do
     transaction = Transaction.find_by_id(params[:id])
     transaction.start
-    redirect_to :back, :alert => t('views.admin.transaction.transaction_state_changed') + t('models.transaction.state.processing')
+    redirect_to :back, alert: t('views.admin.transaction.transaction_state_changed') + t('models.transaction.state.processing')
   end
 
   member_action :complete do
     transaction = Transaction.find_by_id(params[:id])
     transaction.complete
-    redirect_to :back, :alert => t('views.admin.transaction.transaction_state_changed') + t('models.transaction.state.completed')
+    redirect_to :back, alert: t('views.admin.transaction.transaction_state_changed') + t('models.transaction.state.completed')
   end
 
   member_action :fail do
     transaction = Transaction.find_by_id(params[:id])
     transaction.failure
-    redirect_to :back, :alert => t('views.admin.transaction.transaction_state_changed') + t('models.transaction.state.failed')
+    redirect_to :back, alert: t('views.admin.transaction.transaction_state_changed') + t('models.transaction.state.failed')
   end
 
   index do
@@ -62,7 +62,7 @@ ActiveAdmin.register Transaction do
     end
   end
 
-  form :partial => "form"
+  form partial: "form"
 
   show do
 

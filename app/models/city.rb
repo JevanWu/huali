@@ -21,13 +21,13 @@ class City < ActiveRecord::Base
 
   after_save :update_areas_availability
 
-  belongs_to :province, :foreign_key => 'parent_post_code', :primary_key => 'post_code'
+  belongs_to :province, foreign_key: 'parent_post_code', primary_key: 'post_code'
 
   has_many :areas, order: 'post_code ASC', foreign_key: 'parent_post_code', primary_key: 'post_code', dependent: :destroy
 
   has_many :addresses
 
-  validates :province, :name, :post_code, :presence => true
+  validates :province, :name, :post_code, presence: true
 
   def to_s
     post_code

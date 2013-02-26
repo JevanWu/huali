@@ -19,14 +19,14 @@ ActiveAdmin.register Collection do
     column :available
     column :description
     column :products_count do |collection|
-      div :class => 'count' do
+      div class: 'count' do
         collection.products.size
       end
     end
     default_actions
   end
 
-  form :partial => "form"
+  form partial: "form"
 
   show do
     attributes_table do

@@ -92,9 +92,9 @@ class OrdersController < ApplicationController
 
   def notify
     if Transaction.notify(request.raw_post)
-      render :text => "success"
+      render text: "success"
     else
-      render :text => "failed"
+      render text: "failed"
     end
   end
 

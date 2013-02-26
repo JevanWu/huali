@@ -43,9 +43,9 @@ class Product < ActiveRecord::Base
   attr_accessible :collection_id
 
   # asset
-  has_many :assets, :as => :viewable, :dependent => :destroy
+  has_many :assets, as: :viewable, dependent: :destroy
   attr_accessible :assets_attributes
-  accepts_nested_attributes_for :assets, :reject_if => lambda { |a| a[:image].blank? }, :allow_destroy => true
+  accepts_nested_attributes_for :assets, reject_if: lambda { |a| a[:image].blank? }, allow_destroy: true
 
   # lineItems
   has_many :line_items

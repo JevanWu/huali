@@ -10,8 +10,8 @@ ActiveAdmin.register ShipMethod do
   index do
     selectable_column
 
-    column :name, :sortable => :name
-    column :method, :sortable => :method do |ship_method|
+    column :name, sortable: :name
+    column :method, sortable: :method do |ship_method|
       t('views.admin.ship_method.' + ship_method.method)
     end
     column :service_phone
@@ -20,7 +20,7 @@ ActiveAdmin.register ShipMethod do
     default_actions
   end
 
-  form :partial => "form"
+  form partial: "form"
 
   show do
     attributes_table do
