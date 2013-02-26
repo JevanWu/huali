@@ -1,7 +1,4 @@
 <%= simple_form_for @reminder, html: { class: 'form-horizontal', id: 'new-reminder'} do |f| %>
-  <div class="control-group error section-error">
-    <%= f.full_error :email %>
-  </div>
   <fieldset>
     <legend>设置预约提醒</legend>
     <%= f.input :email, require:true, placeholder: '您的姓名' %>
