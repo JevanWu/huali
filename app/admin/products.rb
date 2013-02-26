@@ -43,7 +43,7 @@ ActiveAdmin.register Product do
     column :name_en
 
     column :available do |product|
-      product.available ?  t(:available) : t(:unavailable)
+      product.available ?  t('views.admin.product.available') : t('views.admin.product.unavailable')
     end
 
     column :image do |product|

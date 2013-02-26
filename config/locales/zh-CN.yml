@@ -4,26 +4,13 @@ zh-CN:
   view: 查看
   back: 后退
   cancel: 取消
-  checkout: 确定
   action: 操作
   currency: 元
   more: 更多
-  unhappy: 不高兴了?
-  basket: 购花篮
-  in_total: 总计
   flower_shop: 在线精品花店
-  order_list: 订单中心
-  express: 快递
-  mannual: 人工
   total: 合计
   name: 名称
   price: 价格
-  quantity: 数量
-  soldout: 已经售罄
-  available: 有货
-  unavailable: 无货
-  enable: 生效
-  disable: 失效
   height: 高
   width: 宽
   depth: 长
@@ -276,7 +263,12 @@ zh-CN:
       shipment:
         shipment_state_changed: 递送状态变更为
         confirm_ship: 您选择的快递方式为%{method}, 您填写的快递单号为 %{tracking_num}. 你确定发送这张订单 %{identifier}?
+      ship_method:
+        express: 快递
+        mannual: 人工
       product:
+        available: 有货
+        unavailable: 无货
         product_updated: 个产品已经更新
         add_image: 新增图片
       location:
@@ -284,16 +276,20 @@ zh-CN:
         city_updated: 个城市已经更新
         area_updated: 个地区已经更新
 
-
     order:
       # checkout
       ta_address: TA的地址是
+      checkout: 确定
+      basket: 购花篮
+      order_list: 订单中心
+      in_total: 总计
 
       # success
       address_and_info: 地址和信息
       choose_pay_method: 选择支付方式
       paid: 支付完成
       discount: 优惠
+      quantity: 数量
 
       # show
       pay_now: 立即支付
@@ -302,6 +298,7 @@ zh-CN:
       pay_and_ship_method: 支付和配送方式
 
     product:
+      soldout: 已经售罄
       flower_basket: 放入购花篮
       delivery_charge: 免运费
       product_info: 产品信息
