@@ -9,8 +9,8 @@ ActiveAdmin.register Transaction do
   end
 
   filter :identifier
-  filter :paymethod, :as => :select, :collection => { "Paypal" => "paypal", "支付宝" => "directPay", "网上银行" => "bankPay" }
-  filter :state, :as => :select, :collection => { "新建" => "generated", "完成" => "completed", "处理中" => "processing", "失败" => "failed" }
+  filter :paymethod, :as => :select, :collection => { Paypal: "paypal",  支付宝: "directPay", 网上银行: "bankPay" }
+  filter :state, :as => :select, :collection => { 新建: "generated", 完成: "completed", 处理中: "processing", 失败: "failed" }
   filter :amount
 
   member_action :start do
