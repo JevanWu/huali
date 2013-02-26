@@ -1,6 +1,6 @@
 <div id="product-info">
   <% unless @product.description.empty? %>
-    <h3><%= t('product_info').capitalize %></h3>
+    <h3><%= t('views.product.product_info').capitalize %></h3>
     <p class="size">
       <span><%= t('size').capitalize %>: </span>
       <span><%= t('height').capitalize %> <%= @product.height %> cm </span>

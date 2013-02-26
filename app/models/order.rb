@@ -113,7 +113,7 @@ class Order < ActiveRecord::Base
   scope :all, -> { reorder }
   scope :current, -> { where 'delivery_date = ?', Date.current }
   scope :tomorrow, -> { where 'delivery_date = ?', Date.tomorrow }
-  scope :next_day_2, -> { where 'delivery_date = ?', Date.current.next_day(2) }
+  scope :next_two_day, -> { where 'delivery_date = ?', Date.current.next_day(2) }
   scope :within_this_week, -> { where('delivery_date >= ? AND delivery_date <= ? ', Date.current.beginning_of_week, Date.current.end_of_week) }
   scope :within_this_month, -> { where('delivery_date >= ? AND delivery_date <= ? ', Date.current.beginning_of_month, Date.current.end_of_month) }
 

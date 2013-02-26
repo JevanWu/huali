@@ -20,7 +20,7 @@ ActiveAdmin.register Shipment do
     selectable_column
 
     column :state, :sortable => :state do |shipment|
-      status_tag t(shipment.state, scope: :shipment), shipment_state_class(shipment)
+      status_tag t('models.shipment.state.' + shipment.state), shipment_state_class(shipment)
     end
 
     column :identifier, :sortable => :identifier do |shipment|
@@ -42,7 +42,7 @@ ActiveAdmin.register Shipment do
   member_action :ship do
     @shipment = Shipment.find_by_id(params[:id])
     if @shipment.ship
-      redirect_to admin_orders_path, :alert => t(:shipment_state_changed) + t(:shipped, :scope => :shipment)
+      redirect_to admin_orders_path, :alert => t('views.admin.shipment.shipment_state_changed') + t('models.shipment.state.shipped')
     else
       flash[:error] = "货运订单状态更新失败"
       render 'edit', layout: false
@@ -52,7 +52,7 @@ ActiveAdmin.register Shipment do
   member_action :accept do
     @shipment = Shipment.find_by_id(params[:id])
     if @shipment.accept
-      redirect_to admin_shipments_path, :alert => t(:shipment_state_changed) + t(:completed, :scope => :shipment)
+      redirect_to admin_shipments_path, :alert => t('views.admin.shipment.shipment_state_changed') + t('models.shipment.state.completed')
     else
       flash[:error] = "货运订单状态更新失败"
       render 'edit', layout: false
@@ -65,7 +65,7 @@ ActiveAdmin.register Shipment do
 
     attributes_table do
       row :state do |shipment|
-        status_tag t(shipment.state, scope: :shipment), shipment_state_class(shipment)
+        status_tag t('models.shipment.state.' + shipment.state), shipment_state_class(shipment)
       end
 
       row :modify_shipment_state do

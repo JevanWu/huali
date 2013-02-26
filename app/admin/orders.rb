@@ -35,7 +35,7 @@ ActiveAdmin.register Order do
   scope :all
   scope :current
   scope :tomorrow
-  scope :next_day_2
+  scope :next_two_day
   scope :within_this_week
   scope :within_this_month
 
@@ -63,13 +63,13 @@ ActiveAdmin.register Order do
   member_action :pay  do
     order = Order.find_by_id(params[:id])
     order.pay
-    redirect_to admin_orders_path, :alert => t(:order_state_changed) + t(:wait_check, :scope => :order)
+    redirect_to admin_orders_path, :alert => t('views.admin.order.order_state_changed') + t('models.order.state.wait_check')
   end
 
   member_action :check do
     @order = Order.find_by_id(params[:id])
     if @order.check
-      redirect_to admin_orders_path, alert: t(:order_state_changed) + t(:wait_make, scope: :order)
+      redirect_to admin_orders_path, alert: t('views.admin.order.order_state_changed') + t('models.order.state.wait_make')
     else
       render active_admin_template('edit'), layout: false
     end
@@ -78,25 +78,25 @@ ActiveAdmin.register Order do
   member_action :make  do
     order = Order.find_by_id(params[:id])
     order.make
-    redirect_to admin_orders_path, :alert => t(:order_state_changed) + t(:wait_ship, :scope => :order)
+    redirect_to admin_orders_path, :alert => t('views.admin.order.order_state_changed') + t('models.order.state.wait_ship')
   end
 
   member_action :cancel  do
     order = Order.find_by_id(params[:id])
     order.cancel
-    redirect_to admin_orders_path, :alert => t(:order_state_changed) + t(:void, :scope => :order)
+    redirect_to admin_orders_path, :alert => t('views.admin.order.order_state_changed') + t('models.order.state.void')
   end
 
   member_action :refund  do
     order = Order.find_by_id(params[:id])
     order.refund
-    redirect_to admin_orders_path, :alert => t(:order_state_changed) + t(:void, :scope => :order)
+    redirect_to admin_orders_path, :alert => t('views.admin.order.order_state_changed') + t('models.order.state.void')
   end
 
   index do
     selectable_column
     column :state, :sortable => :state do |order|
-      status_tag t(order.state, scope: :order), order_state(order)
+      status_tag t('models.order.state.' + order.state), order_state(order)
     end
 
     column :identifier, :sortable => :identifier do |order|
@@ -125,7 +125,7 @@ ActiveAdmin.register Order do
   show do
     attributes_table do
       row :state do
-        status_tag t(order.state, scope: :order), order_state(order)
+        status_tag t('models.order.state.' + order.state), order_state(order)
       end
 
       row :modify_order_state do

@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   attr_accessible :email, :password, :password_confirmation, :remember_me,
-                  :anonymous_token, :phone, :name, :humanizer_answer, :humanizer_question_id
+                  :anonymous_token, :phone, :name, :humanizer_answer, :humanizer_question_id 
 
   has_many :addresses
   has_many :orders

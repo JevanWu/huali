@@ -11,16 +11,16 @@
     <tbody>
       <tr>
         <td>
-          <strong><%= t(:identifier) %></strong>: <%= @order.identifier %>
+          <strong><%= t('activerecord.attributes.order.identifier') %></strong>: <%= @order.identifier %>
         </td>
         <td>
-          <strong><%= t(:state) %></strong>: <%= t(@order.state, :scope => :order) %>
+          <strong><%= t('activerecord.attributes.order.state') %></strong>: <%= t('models.order.state.' + @order.state) %>
         </td>
         <td>
-          <strong><%= t(:created_at) %></strong>: <%= l @order.created_at, :format => :short %>
+          <strong><%= t('activerecord.attributes.order.created_at') %></strong>: <%= l @order.created_at, :format => :short %>
         </td>
         <td>
-          <strong><%= t(:expected_date) %></strong>: <%= l @order.expected_date, :format => :short %>
+          <strong><%= t('activerecord.attributes.order.expected_date') %></strong>: <%= l @order.expected_date, :format => :short %>
         </td>
       </tr>
     </tbody>
@@ -33,44 +33,44 @@
 <% end %>
 
 <div id='order-info' class='row'>
-  <h3><span><%= t(:order_info) %></span></h3>
+  <h3><span><%= t('views.order.order_info') %></span></h3>
   <table class='table'>
     <tbody>
       <tr>
-        <td rowspan='3'><strong><%= t(:receiver_info) %></strong></td>
-        <td><%= t(:receiver_fullname) %>: <%= @order.address.fullname %></td>
+        <td rowspan='3'><strong><%= t('activerecord.attributes.order.receiver_info') %></strong></td>
+        <td><%= t('activerecord.attributes.order.receiver_fullname') %>: <%= @order.address.fullname %></td>
       </tr>
       <tr>
-        <td><%= t(:receiver_address) %>: <%= @order.address.full_addr %></td>
+        <td><%= t('activerecord.attributes.order.receiver_address') %>: <%= @order.address.full_addr %></td>
       </tr>
       <tr>
-        <td><%= t(:receiver_phonenum) %>: <%= @order.address.phone %></td>
+        <td><%= t('activerecord.attributes.order.receiver_phonenum') %>: <%= @order.address.phone %></td>
       </tr>
     </tbody>
 
     <tbody>
       <tr>
-        <td rowspan='3'><strong><%= t(:pay_and_ship_method) %></strong></td>
-        <td><%= t(:paymethod) %>: <%= @order.transaction ? @order.transaction.paymethod : nil %></td>
+        <td rowspan='3'><strong><%= t('views.order.pay_and_ship_method') %></strong></td>
+        <td><%= t('activerecord.attributes.transaction.paymethod') %>: <%= @order.transaction ? @order.transaction.paymethod : nil %></td>
       </tr>
       <tr>
-        <td><%= t(:expected_date) %>: <%= @order.expected_date %></td>
+        <td><%= t('activerecord.attributes.order.expected_date') %>: <%= @order.expected_date %></td>
       </tr>
     </tbody>
   </table>
 </div>
 
 <div id='order-items' class='row'>
-  <h3><span><%= t(:product_info) %></span></h3>
+  <h3><span><%= t('views.product.product_info') %></span></h3>
   <table id='product_detail' class='item-table table'>
     <thead>
       <tr>
-        <th class="image"><%= t(:image) %></th>
-        <th class="name"><%= t(:name) %></th>
-        <th class="size"><%= t(:size) %></th>
-        <th class="price"><%= t(:price) %></th>
-        <th class="quantity"><%= t(:quantity) %></th>
-        <th class="total"><%= t(:total) %></th>
+        <th class="image"><%= t('image') %></th>
+        <th class="name"><%= t('name') %></th>
+        <th class="size"><%= t('size') %></th>
+        <th class="price"><%= t('price') %></th>
+        <th class="quantity"><%= t('quantity') %></th>
+        <th class="total"><%= t('total') %></th>
       </tr>
     </thead>
     <tbody>

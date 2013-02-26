@@ -1,132 +1,308 @@
 zh-CN:
-  currency: RMB
-  delivery_charge: 免运费
-  soldout: 已经售罄
+
+  edit: 编辑
+  view: 查看
+  back: 后退
+  cancel: 取消
+  checkout: 确定
+  action: 操作
+  currency: 元
   more: 更多
-  join_queue: 如需加入订购队列，请联系客服
-  stock: 库存
-  product_info: 产品信息
+  unhappy: 不高兴了?
+  basket: 购花篮
+  in_total: 总计
+  flower_shop: 在线精品花店
+  order_list: 订单中心
+  express: 快递
+  mannual: 人工
+  total: 合计
+  name: 名称
+  price: 价格
+  quantity: 数量
+  soldout: 已经售罄
+  available: 有货
+  unavailable: 无货
+  enable: 生效
+  disable: 失效
   height: 高
   width: 宽
   depth: 长
   size: 尺寸
-  flower_shop: 在线精品花店
-  flower_basket: 放入购花篮
-  available: 有货
-  unavailable: 无货
-  edit: 编辑
-  view: 查看
-  new_transaction: 新建交易
-  new_shipment: 新建递送
-  enable: 生效
-  disable: 失效
-  product_updated: 个产品已经更新
-  province_updated: 个省份已经更新
-  city_updated: 个城市已经更新
-  area_updated: 个地区已经更新
-  your_basket: 您的花篮里已经有
-  basket: 购花篮
-  order_list: 订单中心
-  ta_address: TA的地址是
-  in_total: 总计
-  discount: 优惠
-  total: 合计
-  currency: 元
-  name: 名称
-  price: 价格
   image: 图片
-  back: 后退
-  checkout: 确定
-  quantity: 数量
-  confirm_to_pay: 确认支付
-  add_image: 新增图片
+  price: 价格
 
-  # shipmethod
-  express: 快递
-  manual: 人工
+  distance:
+    unit:
+      one: 厘米
+      other: 厘米
 
-  # checkout_nav
-  address_and_info: 地址和信息
-  choose_pay_method: 选择支付方式
-  paid: 支付完成
+  activerecord:
+    format: ! '%{attribute} %{message}'
+    errors:
+      messages:
+        blank: 您需要填写此项
+        unavailable_date: 快递无法为您在这个日期进行递送
+        unavailable_location: 我们无法为您配送到这个地区
+        expired_coupon: 对不起，该优惠券已经过期或者失效
+        non_exist_coupon: 对不起，该优惠券不存在
 
-  # order view
-  identifier: 订单编号
-  order_info: 订单信息
-  expected_date: 送达日期
-  special_instructions: 特殊要求
-  gift_card_text: 卡片信息
-  total: 订单总价
-  state: 订单状态
-  receiver_info: 收货人信息
-  receiver_fullname: 收货人姓名
-  receiver_address: 收货人地址
-  receiver_phonenum: 收货人电话
-  order_content: 订单内容
-  transaction_identifier: 交易编号
-  fullname: 收货人姓名
-  created_at: 下单时间
-  action: 操作
-  pay_now: 立即支付
-  cancel_now: 取消支付
-  pay_and_ship_method: 支付和配送方式
-  paymethod: 支付方式
-  delivery_cost: 递送成本
-  unhappy: 不高兴了?
-  confirm_check: 你确定审核通过此订单?
-  confirm_make: 你确定完成制作该订单?
-  confirm_order_ship: 你确定发送此订单?
-  confirm_accept: 你确定完成此订单?
-  confirm_cancel: 你确定取消此订单?
-  confirm_ship: 您选择的快递方式为%{method}, 您填写的快递单号为 %{tracking_num}. 你确定发送这张订单 %{identifier}?
-  confirm_complete: 你确定完成此交易?
-  confirm_fail: 你确定注销此交易?
+    models:
+      administrator: 管理用户
+      user: 用户
+      transaction: 交易记录
+      product: 产品
+      shipment: 货运记录
+      order: 订单列表
+      asset: 图片
+      coupon: 优惠码
+      page: 单独页面
+      collection: 品类
+      line_item: 条目
+      address: 地址
+      province: 省
+      city: 城市
+      area: 地区
+      ship_method: 递送方式
 
-  #states for order
-  order:
-    wait_check: 等待审核
-    wait_confirm: 已经发货
-    wait_make: 等待制作
-    wait_ship: 等待发货
-    wait_refund: 等待退款
-    generated: 等待付款
-    completed: 已经完成
-    void: 取消
-    pay: 付款
-    check: 审核
-    print: 打印
-    make: 制作
-    ship: 发货
-    init_transaction: 生成交易
-    refund: 退款
-    confirm: 确认
-    cancel: 取消
+    attributes:
+      order: &order
+        identifier: 订单编号
+        transaction_identifier: 交易编号
+        expected_date: 到达日期
+        delivery_date: 发货日期
+        ship_method: 递送方式
+        special_instructions: 特殊要求
+        gift_card_text: 卡片信息
+        item_total: 物品总价
+        total: 订单总价
+        state: 订单状态
+        source: 来源
+        receiver_fullname: 收货人姓名
+        receiver_phonenum: 收货人电话
+        receiver_postcode: 收货人邮编
+        receiver_province: 收货人省份
+        receiver_city: 收货人城市
+        receiver_address: 收货人地址
+        receiver_info: 收货人信息
+        sender_name: 寄件人姓名
+        sender_email: 寄件人邮箱
+        sender_phone: 寄件人电话
+        sender_info: 寄件人信息
+        order_content: 订单内容
+        transaction_identifier: 交易编号
+        transaction_info: 交易信息
+        shipment_info: 递送信息
+        fullname: 收货人姓名
+        process_order: 处理订单
+        modify_order_state: 修改订单状态
+        address_fullname: 收件人姓名
+        address_phone: 收件人电话
+        address_province_name: 收件人省份
+        address_city_name: 收件人城市
+        address_address: 收件人地址
+        images: 产品图
+        coupon_code: 优惠码
+        coupon: 优惠券
+        adjustment: 价格调整
+        subject_text: 货品内容
+        created_at: 创建时间
 
-  #states for transaction
-  transaction:
-    generated: 等待付款
-    processing: 处理中
-    failed: 失败
-    completed: 成功
-    complete: 完成
-    failure: 失败
-    start: 开始
+      administrator:
+        email: 邮箱
+        password: 密码
+        role: 角色
+        current_sign_in_at: 当前登陆时间
+        last_sign_in_at: 上次登陆时间
+        sign_in_count: 登陆次数
 
-  #states for shipment
-  shipment:
-    ready: 准备
-    shipped: 已发货
-    unknown: 未知
-    ship: 发货
-    accept: 送达
-    completed: 已经送达
+      address:
+        address: 收件人地址
+        fullname: 收件人姓名
+        phone: 收件人电话
+        post_code: 邮编
 
-  #flash message
-  order_success: 您已经成功创建订单和地址信息
-  order_not_exist: 此订单不存在
-  no_items: 还没有花在购花篮, 请先选购
-  cancel_success: 订单取消成功
-  cancel_failed: 订单取消失败, 请联系客服人员
-  order_state_changed: 订单状态变更为
-  transaction_state_changed: 交易状态变更为
-  shipment_state_changed: 递送状态变更为
+      ship_method:
+        name: 名字
+        cost: 成本
+        method: 方式
+        website: 网站
+        service_phone: 服务电话
+        kuaidi_com_code: 快递100查询编码
+
+      shipment:
+        order: 订单
+        cost: 成本
+        identifier: 递送编号
+        ship_method: 递送方式
+        state: 递送状态
+        note: 备注
+        tracking_num: 快递单号
+        modify_shipment_state: 修改快递状态
+
+      transaction:
+        order: 订单
+        identifier: 交易编号
+        merchant_name: 商户名
+        merchant_trade_no: 商户交易编号
+        paymethod: 支付方式
+        amount: 金额
+        state: 交易状态
+        subject: 摘要
+        body: 正文
+        to_pay_link: 支付链接
+        processed_at: 处理于
+        created_at: 创建于
+        updated_at: 更新于
+        modify_transaction_state: 修改交易状态
+
+      product:
+        thumbnail: 缩略图
+        image: 图片
+        available: 是否有货
+        name_zh: 中文名
+        name_en: 英文名
+        collection: 集合
+        published_zh: 中文发布
+        published_en: 英文发布
+        inspiration_zh: 中文灵感
+        inspiration_en: 英文灵感
+        description_zh: 中文描述
+        description_en: 英文描述
+        count_on_hand: 库存
+        price: 现价
+        original_price: 原价
+        assets: 图片
+        height: 高度
+        width: 宽度
+        depth: 深度
+        created_at: 创建于
+        updated_at: 更新于
+        cost_price: 成本价
+        add_image: 新增图片
+        meta_keywords: 关键词
+        meta_description: 关键描述
+
+      collection:
+        name_zh: 中文名
+        name_en: 英文名
+        display_name: 显示名称
+        available: 是否有效
+        description: 描述
+        product: 产品
+        created_at: 创建于
+        updated_at: 更新于
+
+      page:
+        title_zh: 中文标题
+
+      coupon:
+        code: 优惠代码
+        expired: 是否失效
+        adjustment: 优惠调整
+        note: 说明
+        available_count: 剩余有效次数
+        used_count: 使用次数
+        expires_at: 过期时间
+
+      user:
+        password: 密码
+        humanizer_answer: 验证问题
+
+  models: 
+    order:
+      state:
+        wait_check: 等待审核
+        wait_confirm: 已经发货
+        wait_ship: 等待发货
+        wait_refund: 等待退款
+        wait_make: 等待制作
+        generated: 等待付款
+        completed: 已经完成
+        void: 取消
+
+        pay: 付款
+        check: 审核
+        ship: 发货
+        make: 制作
+        init_transaction: 生成交易
+        refund: 退款
+        confirm: 确认
+        cancel: 取消
+
+    #states for transaction
+    transaction:
+      state:
+        generated: 等待付款
+        processing: 处理中
+        failed: 失败
+        completed: 成功
+
+        complete: 完成
+        failure: 失败
+        start: 开始
+
+    #states for shipment
+    shipment:
+      state:
+        ready: 准备
+        shipped: 已发货
+        unknown: 未知
+        completed: 已经送达
+
+        ship: 发货
+        accept: 送达
+
+  controllers:
+    order:
+      order_success: 您已经成功创建订单和地址信息
+      order_not_exist: 此订单不存在
+      no_items: 还没有花在购花篮, 请先选购
+      cancel_success: 订单取消成功
+      cancel_failed: 订单取消失败, 请联系客服人员
+  
+  views:
+    admin:
+      order:
+        order_state_changed: 订单状态变更为
+        confirm_check: 你确定审核通过此订单?
+        confirm_make: 你确定完成制作该订单?
+        confirm_order_ship: 你确定发送此订单?
+        confirm_accept: 你确定完成此订单?
+        confirm_cancel: 你确定取消此订单?
+      transaction:
+        transaction_state_changed: 交易状态变更为
+        confirm_complete: 你确定完成此交易?
+        confirm_fail: 你确定注销此交易?
+      shipment:
+        shipment_state_changed: 递送状态变更为
+        confirm_ship: 您选择的快递方式为%{method}, 您填写的快递单号为 %{tracking_num}. 你确定发送这张订单 %{identifier}?
+      product:
+        product_updated: 个产品已经更新
+        add_image: 新增图片
+      location:
+        province_updated: 个省份已经更新
+        city_updated: 个城市已经更新
+        area_updated: 个地区已经更新
+
+
+    order:
+      # checkout
+      ta_address: TA的地址是
+
+      # success
+      address_and_info: 地址和信息
+      choose_pay_method: 选择支付方式
+      paid: 支付完成
+      discount: 优惠
+
+      # show
+      pay_now: 立即支付
+      cancel_now: 取消支付
+      order_info: 订单信息
+      pay_and_ship_method: 支付和配送方式
+
+    product:
+      flower_basket: 放入购花篮
+      delivery_charge: 免运费
+      product_info: 产品信息
+      join_queue: 如需加入订购队列，请联系客服

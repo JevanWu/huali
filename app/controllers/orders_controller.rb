@@ -32,7 +32,7 @@ class OrdersController < ApplicationController
       empty_cart
       update_guest if current_or_guest_user.guest?
 
-      flash[:notice] = t(:order_success)
+      flash[:notice] = t('controllers.order.order_success')
       redirect_to checkout_order_path(@order)
     else
       render 'new'
@@ -44,13 +44,13 @@ class OrdersController < ApplicationController
     if params[:id]
       @order = current_or_guest_user.orders.find_by_id(params[:id])
       if @order.blank?
-        flash[:alert] = t(:order_not_exist)
+        flash[:alert] = t('controllers.order.order_not_exist')
         redirect_to :root
       end
     else
       @order = Order.find_by_id(params[:id] || session[:order_id])
       if @order.blank?
-        flash[:alert] = t(:no_items)
+        flash[:alert] = t('controllers.order.no_items')
         redirect_to :root
       end
     end
@@ -91,9 +91,9 @@ class OrdersController < ApplicationController
   def cancel
     @order = current_or_guest_user.orders.find_by_id(params[:id])
     if @order.cancel
-      flash[:notice] = t(:cancel_success)
+      flash[:notice] = t('controllers.order.cancel_success')
     else
-      flash[:alert] = t(:cancel_failed)
+      flash[:alert] = t('controllers.order.cancel_failed')
     end
     redirect_to orders_path
   end
@@ -125,7 +125,7 @@ class OrdersController < ApplicationController
       # - no line items present
       # - zero quantity
       if @cart.blank? || @cart.all? { |k, v| v.to_i <= 0 }
-        flash[:alert] = t(:no_items)
+        flash[:alert] = t('controllers.order.checkout.no_items')
         redirect_to :root
       end
     end
