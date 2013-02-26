@@ -17,10 +17,12 @@ class RemindersController < ApplicationController
   end
 
   def create
+    product_ids = params[:reminder].delete(:product_ids)
     @reminder = Reminder.new(params[:reminder])
 
+
     if @reminder.save
-      Notify.delay_until(@reminder.send_date).new_order_user_email(376)
+      Notify.delay_until(@reminder.send_date).reminder_user_email(@reminder.id, *product_ids)
       flash[:notice] = t(:reminder_success)
       redirect_to :root
     else

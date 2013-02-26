@@ -4,6 +4,9 @@
     <%= f.input :email, require:true, placeholder: '您的姓名' %>
     <%= f.input :send_date, as: :string, required:true, input_html: { class: 'datepicker-full' }  %>
     <%= f.input :note, placeholder: '以便我们和您核对信息'  %>
+    <% @products.map(&:id).each do |id| %>
+      <input name="reminder[product_ids][]" type="hidden" value='<%= id %>'>
+    <% end %>
   </fieldset>
   <div class="form-actions">
     <%= f.button :submit, class: 'button' %>
