@@ -12,8 +12,8 @@
 
 <div class='row'>
   <div class="span4">
-    <% unless @products.blank? %>
-      <%= render 'orders/side_item_table', items: @products, title: t(:basket) %>
+    <% unless @products.nil? %>
+      <%= render 'side_product_table', products: @products, title: t(:selected_product) %>
     <% end %>
   </div>
 

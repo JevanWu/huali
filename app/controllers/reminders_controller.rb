@@ -8,6 +8,12 @@ class RemindersController < ApplicationController
   def new
     @reminder = Reminder.new
     @reminder.email = current_user.try(:email)
+
+    product_id = params[:product_id]
+
+    unless @cart.keys.include? product_id
+      @products.push Product.find_by_id(product_id)
+    end
   end
 
   def create
@@ -20,7 +26,5 @@ class RemindersController < ApplicationController
     else
       render 'new'
     end
-
-
   end
 end
