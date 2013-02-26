@@ -23,11 +23,4 @@ class ApplicationController < ActionController::Base
     $host = request.host_with_port
   end
 
-  def load_cart
-    begin
-      @cart = JSON.parse(cookies['cart']).select {|k, v| k =~ /^\d+$/}
-    rescue
-      @cart = {}
-    end
-  end
 end

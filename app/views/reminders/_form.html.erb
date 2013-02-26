@@ -1,0 +1,15 @@
+<%= simple_form_for @reminder, html: { class: 'form-horizontal', id: 'new-reminder'} do |f| %>
+  <div class="control-group error section-error">
+    <%= f.full_error :email %>
+  </div>
+  <fieldset>
+    <legend>设置预约提醒</legend>
+    <%= f.input :email, require:true, placeholder: '您的姓名' %>
+    <%= f.input :send_date, as: :string, required:true, input_html: { class: 'datepicker-full' }  %>
+    <%= f.input :note, placeholder: '以便我们和您核对信息'  %>
+  </fieldset>
+  <div class="form-actions">
+    <%= f.button :submit, class: 'button' %>
+    <%= link_to t(:cancel), :back %>
+  </div>
+<% end %>
