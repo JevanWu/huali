@@ -311,3 +311,7 @@ zh-CN:
       delivery_charge: 免运费
       product_info: 产品信息
       join_queue: 如需加入订购队列，请联系客服
+      add_reminder: 添加提醒
+
+    reminder:
+      selected_product: 选择的产品
