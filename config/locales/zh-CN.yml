@@ -253,7 +253,7 @@ zh-CN:
       cancel_failed: 订单取消失败, 请联系客服人员
 
     reminder:
-      order_success: 您已经成功创建提醒
+      reminder_success: 您已经成功创建提醒
 
   views:
     admin:
