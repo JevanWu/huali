@@ -70,5 +70,4 @@ Huali::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
-email.css end
-  eonfig.assets.precompile += %w( email.css mobile.css ie6.css ie7.css active_admin_print.css jquery.ui.datepicker.css home.js collections.js products.js pages.js ga.js html5shiv.js datepicker-settings.js)
+end
