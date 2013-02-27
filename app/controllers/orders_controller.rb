@@ -2,6 +2,7 @@ class OrdersController < ApplicationController
   layout 'horizontal'
   before_filter :load_cart
   before_filter :fetch_items, only: [:new, :create, :current]
+  before_filter :authenticate_user!, only: [:new, :index, :show, :create, :checkout, :cancel]
 
   include ::Extension::Order
 
