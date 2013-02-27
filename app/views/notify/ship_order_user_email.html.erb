@@ -10,12 +10,12 @@
               <p>亲爱的 <%= @order.sender_name %>:</p>
               <p>
                 我们很高兴地通知您，您在花里的订单已经制作完成并且用
-                <%= @order.shipment.ship_method.name %>
-                的方式发送给<%= @order.address.fullname %>发货了。
+                <strong><%= @order.shipment.ship_method.name %></strong>
+                的方式给<strong><%= @order.address.fullname %></strong>发货了。
               </p>
               <p> 
-                订单号码为 <%= @order.identifier %>, 
-                快递编号为 <%= @order.shipment.tracking_num %> 
+                订单号码为 <%= likn_to @order.identifier, order_url(@order) %>, 
+                快递编号为 <%= link_to @order.shipment.tracking_num, @order.shipment.kuai_100_url %> 
               </p>
               <p> 预计它将于 <%= @order.expected_date %> 送达 <%= @order.address %> 的手中.  </p>
               <p> 您也可以在 <%= link_to '这里', order_url(@order) %> 查看该订单的详细信息.  </p>
