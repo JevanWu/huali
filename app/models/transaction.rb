@@ -161,37 +161,37 @@ class Transaction < ActiveRecord::Base
   def to_alipay
     {
       # directPay requires the defaultbank to be blank
-      'pay_bank' => 'directPay',
-      'defaultbank' => '',
-      'out_trade_no' => identifier,
-      'total_fee' => amount,
-      'subject' => subject,
-      'body' => body,
-      'return_url' => return_order_url(host: $host),
-      'notify_url' => notify_order_url(host: $host)
+      pay_bank: 'directPay',
+      defaultbank: '',
+      out_trade_no: identifier,
+      total_fee: amount,
+      subject: subject,
+      body: body,
+      return_url: return_order_url(host: $host),
+      notify_url: notify_order_url(host: $host)
     }
   end
 
   def to_bankpay
     {
-      'pay_bank' => 'bankPay',
-      'out_trade_no' => identifier,
-      'total_fee' => amount,
-      'defaultbank' => merchant_name,
-      'subject' => subject,
-      'body' => body,
-      'return_url' => return_order_url(host: $host),
-      'notify_url' => notify_order_url(host: $host)
+      pay_bank: 'bankPay',
+      out_trade_no: identifier,
+      total_fee: amount,
+      defaultbank: merchant_name,
+      subject: subject,
+      body: body,
+      return_url: return_order_url(host: $host),
+      notify_url: notify_order_url(host: $host)
     }
   end
 
   def to_paypal
     {
-      'item_name' => subject,
-      'amount' => to_dollar(amount),
-      'invoice' => identifier,
-      'return' => return_order_url(host: $host),
-      'notify_url' => notify_order_url(host: $host)
+      item_name: subject,
+      amount: to_dollar(amount),
+      invoice: identifier,
+      return: return_order_url(host: $host),
+      notify_url: notify_order_url(host: $host)
     }
   end
 

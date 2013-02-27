@@ -8,27 +8,27 @@ module Billing
 
       DEFAULT_OPTS = {
         # gateway related
-        "seller_email" => ENV['ALIPAY_EMAIL'],
-        "partner" => ENV['ALIPAY_PID'],
-        "_input_charset" => "utf-8",
-        "service" => "create_direct_pay_by_user",
+        seller_email: ENV['ALIPAY_EMAIL'],
+        partner: ENV['ALIPAY_PID'],
+        _input_charset: "utf-8",
+        service: "create_direct_pay_by_user",
 
         # default options
-        "payment_type" => "1",
-        "paymethod" => "directPay"
+        payment_type: "1",
+        paymethod: "directPay"
       }
 
       # options = {
-      # "out_trade_no" => 'ANS12345678',
-      # "subject" => name,
-      # "total_fee" => '12',
-      # "body" => 'content',
-      # "show_url" => '',
-      # "return_url" => "http://hua.dev/success/file",
-      # "notify_url" => "http =>//hua.dev/notify",
-      # "error_notify_url" => "http =>//hua.dev/notify_error",
-      # "paymethod" => "bankPay",
-      # "defaultbank" => 'CMB'
+      # out_trade_no: 'ANS12345678',
+      # subject: name,
+      # total_fee: '12',
+      # body: 'content',
+      # show_url: '',
+      # return_url: "http://hua.dev/success/file",
+      # notify_url: "http =>//hua.dev/notify",
+      # error_notify_url: "http =>//hua.dev/notify_error",
+      # paymethod: "bankPay",
+      # defaultbank: 'CMB'
       # }
       def initialize(options)
         @options = DEFAULT_OPTS.merge(options)
