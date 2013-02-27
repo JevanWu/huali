@@ -23,7 +23,7 @@ class RemindersController < ApplicationController
 
     if @reminder.save
       Notify.delay_until(@reminder.send_date - 2.day).reminder_user_email(@reminder.id, *product_ids)
-      flash[:notice] = t(:reminder_success)
+      flash[:notice] = t('controllers.reminder.reminder_success')
       redirect_to :root
     else
       render 'new'

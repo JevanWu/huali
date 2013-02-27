@@ -49,6 +49,7 @@ zh-CN:
       city: 城市
       area: 地区
       ship_method: 递送方式
+      reminder: 提醒
 
     attributes:
       order: &order
@@ -194,7 +195,12 @@ zh-CN:
         password: 密码
         humanizer_answer: 验证问题
 
-  models: 
+      reminder:
+        email: 邮件
+        send_date: 提醒时间
+        note: 备注
+
+  models:
     order:
       state:
         wait_check: 等待审核
@@ -245,7 +251,10 @@ zh-CN:
       no_items: 还没有花在购花篮, 请先选购
       cancel_success: 订单取消成功
       cancel_failed: 订单取消失败, 请联系客服人员
-  
+
+    reminder:
+      order_success: 您已经成功创建提醒
+
   views:
     admin:
       order:
