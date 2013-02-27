@@ -35,6 +35,7 @@ gem 'sidekiq-failures'
 gem 'slim'
 gem 'sinatra', :require => nil
 
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
@@ -45,6 +46,8 @@ group :assets do
   gem 'jquery-ui-rails', git: 'https://github.com/yangchenyun/jquery-ui-rails.git'
   gem 'uglifier', '>= 1.0.3'
   gem 'bootstrap-sass', '~> 2.2.1.1'
+  gem 'nokogiri'
+  gem 'premailer-rails3'
 end
 
 group :development, :test do
