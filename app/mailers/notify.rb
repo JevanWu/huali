@@ -30,7 +30,7 @@ class Notify < ActionMailer::Base
 
   def reminder_user_email(reminder_id, *product_ids)
     @reminder = Reminder.find(reminder_id)
-    @products = Product.find(products_ids)
+    @products = Product.find(product_ids)
     mail(to: @reminder.email, subject: subject('您在' + l(@reminder.created_at, format: :short) + '的提醒'))
   end
   private
@@ -45,6 +45,6 @@ class Notify < ActionMailer::Base
   #   => "Huali | Lorem ipsum | Dolor sit amet"
 
   def subject(*extra)
-    "Huali | " << extra.join(' | ')
+    "花里花店 | " << extra.join(' | ')
   end
 end
