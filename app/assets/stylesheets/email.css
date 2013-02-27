@@ -278,7 +278,7 @@ h4, .h4{
 * @section button style
 * @tip Set the styling for your email's button. Choose a style that draws attention.
 */
-.templateButton, .templateButton a:link, .templateButton a:visited, /* Yahoo! Mail Override */ .templateButton a .yshortcuts /* Yahoo! Mail Override */{
+.templateButton, .templateButton a, .templateButton a:link, .templateButton a:visited, /* Yahoo! Mail Override */ .templateButton a .yshortcuts /* Yahoo! Mail Override */{
   /*@editable*/ color:#FFFFFF;
   /*@editable*/ font-family:Arial;
   /*@editable*/ font-size:15px;
