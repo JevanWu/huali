@@ -28,7 +28,7 @@ ActiveAdmin.register Coupon do
     default_actions
   end
 
-  form :partial => "form"
+  form partial: "form"
 
   show do
     attributes_table do

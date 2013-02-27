@@ -56,7 +56,7 @@ class User < ActiveRecord::Base
   class << self
     def build_guest
       u = User.create(email: "guest_#{Time.now.to_i}#{rand(99)}@guest.me")
-      u.save(:validate => false)
+      u.save(validate: false)
       u
     end
   end
@@ -76,7 +76,7 @@ class User < ActiveRecord::Base
     def self.generate_token(column)
       loop do
         token = random_token
-        break token unless find(:first, :conditions => { column => token })
+        break token unless find(:first, conditions: { column => token })
       end
     end
 end

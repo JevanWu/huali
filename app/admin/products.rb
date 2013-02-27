@@ -13,7 +13,7 @@ ActiveAdmin.register Product do
     batch_action I18n.t(action) do |selection|
       products = Product.unscoped.find(selection)
       products.each { |product| product.send(action) }
-      redirect_to :back, :notice => products.count.to_s + t('views.admin.product.product_updated')
+      redirect_to :back, notice: products.count.to_s + t('views.admin.product.product_updated')
     end
   end
   batch_action :destroy, false
@@ -59,7 +59,7 @@ ActiveAdmin.register Product do
     default_actions
   end
 
-  form :partial => "form"
+  form partial: "form"
 
   show do
 
@@ -106,27 +106,27 @@ ActiveAdmin.register Product do
       row :count_on_hand
 
       row :original_price do
-        number_to_currency product.price, :unit => '&yen;'
+        number_to_currency product.price, unit: '&yen;'
       end
 
       row :price do
-        number_to_currency product.price, :unit => '&yen;'
+        number_to_currency product.price, unit: '&yen;'
       end
 
       row :cost_price do
-        number_to_currency product.cost_price, :unit => '&yen;'
+        number_to_currency product.cost_price, unit: '&yen;'
       end
 
       row :height do
-        number_to_human(product.height, :units => :distance) if product.height
+        number_to_human(product.height, units: :distance) if product.height
       end
 
       row :width do
-        number_to_human(product.width, :units => :distance) if product.width
+        number_to_human(product.width, units: :distance) if product.width
       end
 
       row :depth do
-        number_to_human(product.depth, :units => :distance) if product.depth
+        number_to_human(product.depth, units: :distance) if product.depth
       end
 
       row :created_at

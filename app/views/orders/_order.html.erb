@@ -3,7 +3,7 @@
     <%= link_to order.identifier, order_path(order) %>
   </td>
   <td>
-    <%= l order.created_at, :format => :short %>
+    <%= l order.created_at, format: :short %>
   </td>
   <td>
     <%= t('models.order.state.' + order.state) %>

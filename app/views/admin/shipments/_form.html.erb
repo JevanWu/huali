@@ -1,9 +1,9 @@
 <%= semantic_form_for [:admin, @shipment] do |f| %>
   <%= f.inputs "Delivery Info" do %>
     <%= f.input :tracking_num %>
-    <%= f.input :ship_method, :as => :radio, :collection => ShipMethod.all %>
+    <%= f.input :ship_method, as: :radio, collection: ShipMethod.all %>
     <%= f.input :note %>
-    <%= f.input :order_id, :wrapper_html => { :style => "display:none;" } %>
+    <%= f.input :order_id, wrapper_html: { style: "display:none;" } %>
   <% end %>
   <%= f.actions %>
 <% end %>

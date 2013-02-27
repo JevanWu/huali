@@ -46,29 +46,29 @@ class Transaction < ActiveRecord::Base
     message: "%{value} is not a valid merchant name."
   }
 
-  state_machine :state, :initial => :generated do
-    before_transition :to => :completed, :do => :check_return
-    after_transition :to => :completed, :do => :notify_order
+  state_machine :state, initial: :generated do
+    before_transition to: :completed, do: :check_return
+    after_transition to: :completed, do: :notify_order
 
     # use adj. for state with future vision
     # use v. for event name
     state :generated do
-      transition :to => :processing, :on => :start
+      transition to: :processing, on: :start
     end
 
     # processing is a state where controls are handed off to gateway now
     # the events are all returned from gateway
     # FIXME might need a clock to timeout the processing
     state :processing do
-      transition :to => :completed, :on => :complete
+      transition to: :completed, on: :complete
       # fail is reserved for native method name
-      transition :to => :failed, :on => :failure
+      transition to: :failed, on: :failure
     end
   end
 
   class << self
     def by_state(state)
-      where(:state => state)
+      where(state: state)
     end
 
     def return(opts)
@@ -161,37 +161,37 @@ class Transaction < ActiveRecord::Base
   def to_alipay
     {
       # directPay requires the defaultbank to be blank
-      'pay_bank' => 'directPay',
-      'defaultbank' => '',
-      'out_trade_no' => identifier,
-      'total_fee' => amount,
-      'subject' => subject,
-      'body' => body,
-      'return_url' => return_order_url(host: $host),
-      'notify_url' => notify_order_url(host: $host)
+      pay_bank: 'directPay',
+      defaultbank: '',
+      out_trade_no: identifier,
+      total_fee: amount,
+      subject: subject,
+      body: body,
+      return_url: return_order_url(host: $host),
+      notify_url: notify_order_url(host: $host)
     }
   end
 
   def to_bankpay
     {
-      'pay_bank' => 'bankPay',
-      'out_trade_no' => identifier,
-      'total_fee' => amount,
-      'defaultbank' => merchant_name,
-      'subject' => subject,
-      'body' => body,
-      'return_url' => return_order_url(host: $host),
-      'notify_url' => notify_order_url(host: $host)
+      pay_bank: 'bankPay',
+      out_trade_no: identifier,
+      total_fee: amount,
+      defaultbank: merchant_name,
+      subject: subject,
+      body: body,
+      return_url: return_order_url(host: $host),
+      notify_url: notify_order_url(host: $host)
     }
   end
 
   def to_paypal
     {
-      'item_name' => subject,
-      'amount' => to_dollar(amount),
-      'invoice' => identifier,
-      'return' => return_order_url(host: $host),
-      'notify_url' => notify_order_url(host: $host)
+      item_name: subject,
+      amount: to_dollar(amount),
+      invoice: identifier,
+      return: return_order_url(host: $host),
+      notify_url: notify_order_url(host: $host)
     }
   end
 

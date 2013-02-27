@@ -1,8 +1,8 @@
-<%= form_tag(gateway_order_path(order), :method => "post") do %>
+<%= form_tag(gateway_order_path(order), method: "post") do %>
   <div class="form-block">
     <legend>选择支付方式</legend>
     <label class="ALIPAY bank-icon">
-      <%= radio_button_tag(:pay_info, "directPay", :checked => "checked") %>
+      <%= radio_button_tag(:pay_info, "directPay", checked: "checked") %>
     </label>
     <% banks.each do |bank| %>
       <label class="<%= bank %> bank-icon">

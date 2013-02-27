@@ -13,7 +13,18 @@ class OrdersController < ApplicationController
   end
 
   def show
-    @order = current_or_guest_user.orders.full_info(params[:id])
+    orders = current_or_guest_user.orders
+    if orders.find_by_id(params[:id]).nil?
+      flash[:alert] = t('controllers.order.no_orders_for_you')
+      redirect_to :root
+    else
+      if orders.find_by_id(params[:id]).nil?
+        flash[:alert] = t('controllers.order.order_dont_belong_to_you')
+        redirect_to :root
+      else
+        @order = orders.full_info(params[:id])
+      end
+    end
   end
 
   def new
@@ -82,9 +93,9 @@ class OrdersController < ApplicationController
 
   def notify
     if Transaction.notify(request.raw_post)
-      render :text => "success"
+      render text: "success"
     else
-      render :text => "failed"
+      render text: "failed"
     end
   end
 

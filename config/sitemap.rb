@@ -7,28 +7,28 @@
 # Usage: add(path, options={})
 #        (default options are used if you don't specify)
 #
-# Defaults: :priority => 0.5, :changefreq => 'weekly',
-#           :lastmod => Time.now, :host => default_host
+# Defaults: priority: 0.5, changefreq: 'weekly',
+#           lastmod: Time.now, host: default_host
 #
 # Examples:
 #
 # Add '/articles'
 #
-#   add articles_path, :priority => 0.7, :changefreq => 'daily'
+#   add articles_path, priority: 0.7, changefreq: 'daily'
 #
 # Add all articles:
 #
 #   Article.find_each do |article|
-#     add article_path(article), :lastmod => article.updated_at
+#     add article_path(article), lastmod: article.updated_at
 #   end
 
 SitemapGenerator::Sitemap.default_host = "http://www.hua.li"
 
 SitemapGenerator::Sitemap.create do
-  add '/faq', :changefreq => 'weekly'
-  add '/about', :changefreq => 'weekly'
-  add '/help-center', :changefreq => 'weekly'
-  add '/copyright', :changefreq => 'weekly'
+  add '/faq', changefreq: 'weekly'
+  add '/about', changefreq: 'weekly'
+  add '/help-center', changefreq: 'weekly'
+  add '/copyright', changefreq: 'weekly'
 
   I18n.locale = :'zh-CN'
 
@@ -39,7 +39,7 @@ SitemapGenerator::Sitemap.create do
     end
 
     add(product_path(product),
-        :lastmod => product.updated_at,
-        :images => product_images)
+        lastmod: product.updated_at,
+        images: product_images)
   end
 end

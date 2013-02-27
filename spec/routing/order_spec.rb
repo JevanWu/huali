@@ -11,9 +11,9 @@ describe "routes for Order", type: :routing do
 
   it "route to show historic order" do
     { get: "/orders/234" }.should route_to(
-      :controller => "orders",
-      :action => "show",
-      :id => "234"
+      controller: "orders",
+      action: "show",
+      id: "234"
     )
   end
 

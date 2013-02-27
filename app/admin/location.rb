@@ -16,7 +16,7 @@ ActiveAdmin.register Province do
       batch_action action do |selection|
         provinces = Province.find(selection)
         provinces.each { |province| province.send(action) }
-        redirect_to :back, :notice => provinces.count.to_s + t('views.admin.location.province_updated')
+        redirect_to :back, notice: provinces.count.to_s + t('views.admin.location.province_updated')
       end
     end
   batch_action :destroy, false
@@ -25,7 +25,7 @@ ActiveAdmin.register Province do
     province = Province.find_by_id(params[:id])
     province.available = true
     if province.save!
-      redirect_to admin_province_path(province), :alert => "#{province.name} is enabled."
+      redirect_to admin_province_path(province), alert: "#{province.name} is enabled."
     end
   end
 
@@ -33,7 +33,7 @@ ActiveAdmin.register Province do
     province = Province.find_by_id(params[:id])
     province.available = false
     if province.save!
-      redirect_to admin_province_path(province), :alert => "#{province.name} is disabled."
+      redirect_to admin_province_path(province), alert: "#{province.name} is disabled."
     end
   end
 
@@ -95,7 +95,7 @@ ActiveAdmin.register City do
       batch_action action do |selection|
         cities = City.find(selection)
         cities.each { |city| city.send(action) }
-        redirect_to :back, :notice => cities.count.to_s + t('views.admin.location.city_updated')
+        redirect_to :back, notice: cities.count.to_s + t('views.admin.location.city_updated')
       end
     end
   batch_action :destroy, false
@@ -104,7 +104,7 @@ ActiveAdmin.register City do
     city = City.find_by_id(params[:id])
     city.available = true
     if city.save!
-      redirect_to admin_city_path(city), :alert => "#{city.name} is enabled."
+      redirect_to admin_city_path(city), alert: "#{city.name} is enabled."
     end
   end
 
@@ -112,7 +112,7 @@ ActiveAdmin.register City do
     city = City.find_by_id(params[:id])
     city.available = false
     if city.save!
-      redirect_to admin_city_path(city), :alert => "#{city.name} is disabled."
+      redirect_to admin_city_path(city), alert: "#{city.name} is disabled."
     end
   end
 
@@ -172,7 +172,7 @@ ActiveAdmin.register Area do
       batch_action action do |selection|
         areas = Area.find(selection)
         areas.each { |area| area.send(action) }
-        redirect_to :back, :notice => areas.count.to_s + t('views.admin.location.area_updated')
+        redirect_to :back, notice: areas.count.to_s + t('views.admin.location.area_updated')
       end
     end
   batch_action :destroy, false
@@ -181,7 +181,7 @@ ActiveAdmin.register Area do
     area = Area.find_by_id(params[:id])
     area.available = true
     if area.save!
-      redirect_to admin_area_path(area), :alert => "#{area.name} is enabled."
+      redirect_to admin_area_path(area), alert: "#{area.name} is enabled."
     end
   end
 
@@ -189,7 +189,7 @@ ActiveAdmin.register Area do
     area = Area.find_by_id(params[:id])
     area.available = false
     if area.save!
-      redirect_to admin_area_path(area), :alert => "#{area.name} is disabled."
+      redirect_to admin_area_path(area), alert: "#{area.name} is disabled."
     end
   end
 

@@ -22,20 +22,20 @@
 
 set :output, File.expand_path("../../log/cron_log.log", __FILE__)
 
-every :day, :at => '1:00 am' do
+every :day, at: '1:00 am' do
   command "backup perform -t db_backup"
 end
 
-every :day, :at => '2:00 am' do
+every :day, at: '2:00 am' do
   command "backup perform -t asset_backup"
 end
 
-every :day, :at => '5:45 pm' do
+every :day, at: '5:45 pm' do
   rake 'cleanup:guests'
   rake 'cleanup:orders'
   rake 'cleanup:transactions'
 end
 
-every :day, :at => '3:00 am' do
+every :day, at: '3:00 am' do
   rake "sitemap:refresh"
 end

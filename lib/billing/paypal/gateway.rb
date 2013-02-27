@@ -15,16 +15,16 @@ module Billing
       # https://www.x.com/developers/paypal/documentation-tools/paypal-payments-standard/integration-guide/Appx_websitestandard_htmlvariables
 
       DEFAULT_OPTS = {
-        "cmd" => "_ext-enter",
-        "redirect_cmd" => "_xclick",
-        "charset" => "utf-8",
-        "business" => PAYPAL_EMAIL,
-        "currency_code" => "USD"
+        cmd: "_ext-enter",
+        redirect_cmd: "_xclick",
+        charset: "utf-8",
+        business: PAYPAL_EMAIL,
+        currency_code: "USD"
       }
 
       # {
-      #   "item_name" => 'name,
-      #   "amount" => number
+      #   item_name: 'name,
+      #   amount: number
       # }
       def initialize(options)
         @options = DEFAULT_OPTS.merge(options)

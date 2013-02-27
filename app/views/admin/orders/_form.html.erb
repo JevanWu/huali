@@ -11,7 +11,7 @@
 
   <%= f.inputs "Check Info", for: :address do |builder, i| %>
     <%= f.input :delivery_date, as: :string, input_html: { class: 'datepicker' }%>
-    <%= f.input :ship_method, :as => :radio, :collection => ShipMethod.all %>
+    <%= f.input :ship_method, as: :radio, collection: ShipMethod.all %>
   <% end %>
   <%= f.actions %>
 

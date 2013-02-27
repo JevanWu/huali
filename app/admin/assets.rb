@@ -7,14 +7,14 @@ ActiveAdmin.register Asset do
     authorize_resource
   end
 
-  filter :viewable_type, :as => :select, :collection =>  proc { Asset.pluck(:viewable_type).uniq }
+  filter :viewable_type, as: :select, collection:  proc { Asset.pluck(:viewable_type).uniq }
   filter :image_file_name
   filter :image_updated_at
 
-  form :html => { :enctype => "multipart/form-data" } do |f|
+  form html: { enctype: "multipart/form-data" } do |f|
     f.inputs "Details" do
-      f.input :image, :as => :file
-      f.input :viewable_type, :label => "BelongsTo"
+      f.input :image, as: :file
+      f.input :viewable_type, label: "BelongsTo"
     end
     f.buttons
   end

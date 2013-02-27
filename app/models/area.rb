@@ -19,7 +19,7 @@ class Area < ActiveRecord::Base
   scope :available, lambda { where available: true }
   scope :unavailable, lambda { where available: false }
 
-  belongs_to :city, :foreign_key => 'parent_post_code', :primary_key => 'post_code'
+  belongs_to :city, foreign_key: 'parent_post_code', primary_key: 'post_code'
 
   has_many :addresses
 

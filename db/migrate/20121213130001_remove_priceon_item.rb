@@ -4,6 +4,6 @@ class RemovePriceonItem < ActiveRecord::Migration
   end
 
   def down
-    add_column :line_items, :price, :decimal, :precision => 8, :scale => 2, :default => 0.0, :null => false
+    add_column :line_items, :price, :decimal, precision: 8, scale: 2, default: 0.0, null: false
   end
 end

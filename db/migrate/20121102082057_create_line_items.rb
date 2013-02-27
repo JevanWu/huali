@@ -8,7 +8,7 @@ class CreateLineItems < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :line_items, [:order_id],   :name => 'index_line_items_on_order_id'
-    add_index :line_items, [:product_id], :name => 'index_line_items_on_product_id'
+    add_index :line_items, [:order_id],   name: 'index_line_items_on_order_id'
+    add_index :line_items, [:product_id], name: 'index_line_items_on_product_id'
   end
 end

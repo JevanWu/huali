@@ -61,7 +61,7 @@ Huali::Application.configure do
   config.active_support.deprecation = :notify
 
   # ActionMailer Config for staging, no error raised
-  config.action_mailer.default_url_options = { :host => 'staging.hua.li' }
+  config.action_mailer.default_url_options = { host: 'staging.hua.li' }
   config.action_mailer.raise_delivery_errors = false
 
   # ImageMagick Process path on production server (Ubuntu 12.04 LTS)

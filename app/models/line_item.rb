@@ -24,10 +24,10 @@ class LineItem < ActiveRecord::Base
 
   before_validation :adjust_quantity
 
-  validates :product, :presence => true
-  validates :quantity, :numericality => { :only_integer => true, :message => ('quantity must be numbers.'), :greater_than => -1 }
+  validates :product, presence: true
+  validates :quantity, numericality: { only_integer: true, message: ('quantity must be numbers.'), greater_than: -1 }
 
-  delegate :img, :price, :name, :height, :width, :depth, :to => :product
+  delegate :img, :price, :name, :height, :width, :depth, to: :product
 
   # after_save :update_order
   # after_destroy :update_order

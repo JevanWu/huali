@@ -48,7 +48,7 @@ ActiveAdmin.register Page do
     end
   end
 
-  form :partial => "form"
+  form partial: "form"
 
   show do
 

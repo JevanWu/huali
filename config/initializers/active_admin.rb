@@ -138,7 +138,7 @@ ActiveAdmin.setup do |config|
   #   config.register_stylesheet 'my_stylesheet.css'
 
   # You can provide an options hash for more control, which is passed along to stylesheet_link_tag():
-  config.register_stylesheet 'active_admin_print.css', :media => :print
+  config.register_stylesheet 'active_admin_print.css', media: :print
 
   #
   # To load a javascript file:
@@ -159,7 +159,7 @@ ActiveAdmin::ResourceController.class_eval do
   end
 
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to admin_dashboard_path, :alert => exception.message
+    redirect_to admin_dashboard_path, alert: exception.message
   end
 end
 

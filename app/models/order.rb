@@ -69,44 +69,44 @@ class Order < ActiveRecord::Base
   after_validation :adjust_total, if: :adjust_allowed?
   after_validation :use_coupon, unless: lambda { |order| order.coupon_code.blank? }
 
-  state_machine :state, :initial => :generated do
+  state_machine :state, initial: :generated do
     # TODO implement an auth_state dynamically for each state
-    before_transition :to => :wait_refund, :do => :auth_refund
-    before_transition :to => :completed, :do => :complete_order
-    before_transition :to => :wait_check, :do => :pay_order
-    after_transition :to => :wait_ship, :do => :generate_shipment
+    before_transition to: :wait_refund, do: :auth_refund
+    before_transition to: :completed, do: :complete_order
+    before_transition to: :wait_check, do: :pay_order
+    after_transition to: :wait_ship, do: :generate_shipment
 
     # use adj. for state with future vision
     # use v. for event name
     state :generated do
-      transition :to => :wait_check, :on => :pay
-      transition :to => :void, :on => :cancel
+      transition to: :wait_check, on: :pay
+      transition to: :void, on: :cancel
     end
 
     state :wait_check do
       validates_presence_of :payment_total
 
-      transition :to => :wait_make, :on => :check
-      transition :to => :wait_refund, :on => :cancel
+      transition to: :wait_make, on: :check
+      transition to: :wait_refund, on: :cancel
     end
 
     state :wait_make do
       validates_presence_of :ship_method, :delivery_date
-      transition :to => :wait_ship, :on => :make
-      transition :to => :wait_refund, :on => :cancel
+      transition to: :wait_ship, on: :make
+      transition to: :wait_refund, on: :cancel
     end
 
     state :wait_ship do
-      transition :to => :wait_confirm, :on => :ship
-      transition :to => :wait_refund, :on => :cancel
+      transition to: :wait_confirm, on: :ship
+      transition to: :wait_refund, on: :cancel
     end
 
     state :wait_confirm do
-      transition :to => :completed, :on => :confirm
+      transition to: :completed, on: :confirm
     end
 
     state :wait_refund do
-      transition :to => :void, :on => :refund
+      transition to: :void, on: :refund
     end
   end
 
@@ -123,11 +123,11 @@ class Order < ActiveRecord::Base
   class << self
 
     def by_number(number)
-      where(:number => number)
+      where(number: number)
     end
 
     def between(start_date, end_date)
-      where(:created_at => start_date..end_date)
+      where(created_at: start_date..end_date)
     end
 
     def by_customer(customer)
@@ -135,7 +135,7 @@ class Order < ActiveRecord::Base
     end
 
     def by_state(state)
-      where(:state => state)
+      where(state: state)
     end
 
     def complete
@@ -143,7 +143,7 @@ class Order < ActiveRecord::Base
     end
 
     def incomplete
-      where(:completed_at => nil)
+      where(completed_at: nil)
     end
 
     def full_info(key)
