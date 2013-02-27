@@ -15,6 +15,9 @@ body{margin:0; padding:0;}
 img{border:0; height:auto; line-height:100%; outline:none; text-decoration:none;}
 table td{border-collapse:collapse;}
 #backgroundTable{height:100% !important; margin:0; padding:0; width:100% !important;}
+a {
+  color: $tintColor;
+}
 
 /* Template Styles */
 
@@ -46,7 +49,7 @@ body, #backgroundTable{
  * @style heading 1
  */
 h1, .h1{
-  color:#202020;
+  color:$black;
   display:block;
   font-family:Arial;
   font-size:34px;
@@ -66,7 +69,7 @@ h1, .h1{
  * @style heading 2
  */
 h2, .h2{
-  color:#202020;
+  color:$black;
   display:block;
   font-family:Arial;
   font-size:30px;
@@ -86,7 +89,7 @@ h2, .h2{
  * @style heading 3
  */
 h3, .h3{
-  color:#202020;
+  color:$black;
   display:block;
   font-family:Arial;
   font-size:26px;
@@ -106,7 +109,7 @@ h3, .h3{
  * @style heading 4
  */
 h4, .h4{
-  color:#202020;
+  color:$black;
   display:block;
   font-family:Arial;
   font-size:22px;
@@ -138,7 +141,7 @@ h4, .h4{
  * @tip Set the styling for your email's header text. Choose a size and color that is easy to read.
  */
 .headerContent{
-  color:#202020;
+  color:$black;
   font-family:Arial;
   font-size:34px;
   font-weight:bold;
@@ -154,7 +157,7 @@ h4, .h4{
  * @tip Set the styling for your email's header links. Choose a color that helps them stand out from your text.
  */
 .headerContent a:link, .headerContent a:visited, /* Yahoo! Mail Override */ .headerContent a .yshortcuts /* Yahoo! Mail Override */{
-  color:#336699;
+  color: $tintColor;
   font-weight:normal;
   text-decoration:underline;
 }
@@ -195,7 +198,7 @@ h4, .h4{
  * @tip Set the styling for your email's main content links. Choose a color that helps them stand out from your text.
  */
 .bodyContent div a:link, .bodyContent div a:visited, /* Yahoo! Mail Override */ .bodyContent div a .yshortcuts /* Yahoo! Mail Override */{
-  color:#336699;
+  color: $tintColor;
   font-weight:normal;
   text-decoration:underline;
 }
@@ -216,8 +219,8 @@ h4, .h4{
  * @tip Set the styling for your email's data table text. Choose a size and color that is easy to read.
  */
 .dataTableHeading{
-  background-color:#D8E2EA;
-  color:#336699;
+  background-color: #e9e1e1;
+  color: $tintColor;
   font-family:Helvetica;
   font-size:14px;
   font-weight:bold;
@@ -244,12 +247,13 @@ h4, .h4{
 .dataTableContent{
   border-top:1px solid #DDDDDD;
   border-bottom:0;
-  color:#202020;
+  color:$black;
   font-family:Helvetica;
   font-size:12px;
   font-weight:bold;
   line-height:150%;
   text-align:left;
+  vertical-align: middle;
 }
 
 /**
@@ -258,7 +262,7 @@ h4, .h4{
  * @tip Set the styling for your email's data table links. Choose a color that helps them stand out from your text.
  */
 .dataTableContent a:link, .dataTableContent a:visited, /* Yahoo! Mail Override */ .dataTableContent a .yshortcuts /* Yahoo! Mail Override */{
-  color:#202020;
+  color:$black;
   font-weight:bold;
   text-decoration:underline;
 }
@@ -270,7 +274,7 @@ h4, .h4{
  */
 .templateButton{
   @include border-radius(3px);
-  background-color:#336699;
+  background-color: $tintColor;
   border:0;
   border-collapse:separate !important;
 }
@@ -329,7 +333,7 @@ h4, .h4{
  * @tip Set the styling for your email's footer links. Choose a color that helps them stand out from your text.
  */
 .footerContent div a:link, .footerContent div a:visited, /* Yahoo! Mail Override */ .footerContent div a .yshortcuts /* Yahoo! Mail Override */{
-  color:#336699;
+  color: $tintColor;
   font-weight:normal;
   text-decoration:underline;
 }
