@@ -9,7 +9,8 @@
               <h3 class="h3">花里花店提醒</h3>
               <p>亲爱的顾客:</p>
               <p>
-                这是您在<%= l @reminder.send_date, format: :short %>设置的提醒:
+                这是您在<%= l @reminder.created_at, format: :short %>设置的提醒, 
+                您可能需要在<%= l @reminder.send_date, format: :short %>购花.
               </p>
               <p><%= @reminder.note %></p>
             </div>
