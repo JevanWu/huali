@@ -16,8 +16,8 @@ gem 'simple_form'
 gem 'kramdown', '~> 0.13'
 gem 'friendly_id', '~> 4.0.1'
 # backup, whenever probably should be isolated in a server setup script
-gem 'backup', :require => false
-gem 'whenever', :require => false
+gem 'backup', require: false
+gem 'whenever', require: false
 gem 'state_machine'
 gem 'rack-mini-profiler'
 gem 'figaro'
@@ -33,7 +33,7 @@ gem 'squash_rails', git: 'https://github.com/SquareSquash/rails.git', require: '
 gem 'sidekiq', git: 'https://github.com/mperham/sidekiq.git'
 gem 'sidekiq-failures'
 gem 'slim'
-gem 'sinatra', :require => nil
+gem 'sinatra', require: nil
 
 
 group :assets do
@@ -60,7 +60,7 @@ end
 
 group :development do
   gem 'thin', '>= 1.4.1'
-  gem 'rb-fsevent', :require => false
+  gem 'rb-fsevent', require: false
   gem 'growl'
   gem 'guard'
   gem 'guard-rspec'
@@ -70,19 +70,19 @@ group :development do
   gem 'guard-spork'
   gem 'awesome_print'
   # pry setups
-  gem 'pry', :require => false
+  gem 'pry', require: false
   gem 'pry-remote'
   gem 'pry-stack_explorer'
   gem 'pry-debugger'
   gem 'pry-rails'
   gem 'pry-coolline'
-  gem 'better_errors', :git => 'https://github.com/charliesome/better_errors.git'
+  gem 'better_errors', git: 'https://github.com/charliesome/better_errors.git'
   gem 'binding_of_caller'
-  gem 'annotate', :git => 'https://github.com/ctran/annotate_models.git'
+  gem 'annotate', git: 'https://github.com/ctran/annotate_models.git'
   gem 'capistrano', '~>2.0'
-  gem 'capistrano-zen', git: 'https://github.com/zenhacks/capistrano-zen.git', :require => false
+  gem 'capistrano-zen', git: 'https://github.com/zenhacks/capistrano-zen.git', require: false
   gem 'railroady'
-  gem 'ruby-graphviz', :require => 'graphviz' # Optional: only required for graphing
+  gem 'ruby-graphviz', require: 'graphviz' # Optional: only required for graphing
   gem 'meta_request', '0.2.1'
 end
 
@@ -90,7 +90,7 @@ group :test do
   gem "shoulda-matchers"
   gem 'capybara', '>= 1.1.2'
   gem 'spork', '~> 1.0rc'
-  gem 'simplecov', :require => false
+  gem 'simplecov', require: false
   gem 'email_spec', '>= 1.2.1'
   gem 'database_cleaner', '>= 0.8.0'
 end

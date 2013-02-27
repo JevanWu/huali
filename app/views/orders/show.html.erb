@@ -17,10 +17,10 @@
           <strong><%= t('activerecord.attributes.order.state') %></strong>: <%= t('models.order.state.' + @order.state) %>
         </td>
         <td>
-          <strong><%= t('activerecord.attributes.order.created_at') %></strong>: <%= l @order.created_at, :format => :short %>
+          <strong><%= t('activerecord.attributes.order.created_at') %></strong>: <%= l @order.created_at, format: :short %>
         </td>
         <td>
-          <strong><%= t('activerecord.attributes.order.expected_date') %></strong>: <%= l @order.expected_date, :format => :short %>
+          <strong><%= t('activerecord.attributes.order.expected_date') %></strong>: <%= l @order.expected_date, format: :short %>
         </td>
       </tr>
     </tbody>

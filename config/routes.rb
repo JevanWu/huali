@@ -8,16 +8,16 @@ Huali::Application.routes.draw do
     mount Sidekiq::Web, at: "/admin/sidekiq", as: :sidekiq
   end
 
-  get "areas/:area_id", :to => 'areas#show'
-  get "cities/:city_id/areas", :to => 'areas#index'
-  get "cities/:city_id", :to => 'cities#show'
-  get "provinces/:prov_id/cities", :to => 'cities#index'
-  get "provinces/:prov_id", :to => 'provinces#show'
-  get "provinces", :to => 'provinces#index'
+  get "areas/:area_id", to: 'areas#show'
+  get "cities/:city_id/areas", to: 'areas#index'
+  get "cities/:city_id", to: 'cities#show'
+  get "provinces/:prov_id/cities", to: 'cities#index'
+  get "provinces/:prov_id", to: 'provinces#show'
+  get "provinces", to: 'provinces#index'
 
-  resources :products, :only => [:show]
-  resources :collections, :only => [:show]
-  resources :reminders, :only => [:new, :create]
+  resources :products, only: [:show]
+  resources :collections, only: [:show]
+  resources :reminders, only: [:new, :create]
 
   # FIXME refactor this routes to be more elegant
   get 'orders/current', as: :current_order
@@ -26,23 +26,23 @@ Huali::Application.routes.draw do
   put 'orders/cancel/:id', to: 'orders#cancel', as: :cancel_order
   get 'orders/return', as: :return_order
   post 'orders/notify', as: :notify_order
-  resources :orders, :except => [:destroy, :update, :edit]
+  resources :orders, except: [:destroy, :update, :edit]
 
   # non-individual collections routes
-  match '/collections/all', :to => 'collections#all'
-  match '/collections/:id', :to => 'collections#show'
+  match '/collections/all', to: 'collections#all'
+  match '/collections/:id', to: 'collections#show'
 
   devise_for :administrators
 
   devise_for :users
 
-  root :to => "pages#home"
+  root to: "pages#home"
   get 'partner', to: 'pages#partner', as: :partner
 
   ActiveAdmin.routes(self)
 
   authenticated :administrators do
-    root :to => "admin#index"
+    root to: "admin#index"
   end
 
   get ':id', to: 'pages#show', as: :page

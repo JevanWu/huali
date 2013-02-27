@@ -2,7 +2,7 @@ class UseBooleanInProductsAvailableState < ActiveRecord::Migration
   def up
     change_table :products do |t|
       t.remove :available_on, :deleted_at
-      t.boolean :available, :default => true
+      t.boolean :available, default: true
     end
   end
 

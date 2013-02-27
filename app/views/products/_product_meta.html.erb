@@ -8,7 +8,7 @@
 
   <% if @product.count_on_hand > 0 %>
     <p>
-    <%= link_to t('views.product.flower_basket'), current_order_path, :class => 'purchase button', data: { product: @product.id } %>
+    <%= link_to t('views.product.flower_basket'), current_order_path, class: 'purchase button', data: { product: @product.id } %>
     </p>
   <% else %>
     <p><%=t 'views.product.soldout' %></p>

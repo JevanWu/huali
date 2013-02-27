@@ -10,7 +10,7 @@
     <% @products.each do |product| %>
       <div class="collection-unit span4">
         <div class="unit-info">
-          <%= link_to t('flower_basket'), current_order_path, :class => 'purchase button', data: { product: product.id } %>
+          <%= link_to t('flower_basket'), current_order_path, class: 'purchase button', data: { product: product.id } %>
           <p>
             <% unless product.original_price.nil? %>
             <span class="pro-price old-price"> <%= product.original_price %> <%=t 'currency' %>  </span>

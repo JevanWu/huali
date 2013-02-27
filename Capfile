@@ -46,7 +46,7 @@ task :production do
   set :unicorn_workers, 3
 
   # maxwell - 42.121.119.155', aliyun
-  server '42.121.119.155', :web, :app, :db, :primary => true
+  server '42.121.119.155', :web, :app, :db, primary: true
   set :rails_env, "production"
 
   set :deploy_to, "/home/#{user}/repositories/#{application}-production"
@@ -57,7 +57,7 @@ task :staging do
   set :unicorn_workers, 1
 
   # lua - 42.121.3.105, aliyun - steven
-  server '42.121.3.105', :web, :app, :db, :primary => true
+  server '42.121.3.105', :web, :app, :db, primary: true
   set :rails_env, "staging"
 
   set :branch, 'staging'
@@ -67,7 +67,7 @@ task :easymoo do
   set :domain, "hua.li www.hua.li"
 
   # emoo - 74.207.254.157, emoo - linode
-  server '74.207.254.157:1982', :web, :app, :db, :primary => true
+  server '74.207.254.157:1982', :web, :app, :db, primary: true
   set :rails_env, "production"
 
   set :deploy_to, "/home/#{user}/repositories/#{application}"
@@ -75,19 +75,19 @@ end
 
 namespace :deploy do
   # start/stop/restart application
-  task :start, :roles => :app, :except => { :no_release => true } do
+  task :start, roles: :app, except: { no_release: true } do
   	unicorn.start
   end
 
-  task :stop, :roles => :app, :except => { :no_release => true } do
+  task :stop, roles: :app, except: { no_release: true } do
   	unicorn.stop
   end
 
-  task :restart, :roles => :app, :except => { :no_release => true } do
+  task :restart, roles: :app, except: { no_release: true } do
   	unicorn.upgrade
   end
 
-  task :bundle, :roles => :app, :except => { :no_release => true } do
+  task :bundle, roles: :app, except: { no_release: true } do
     run "cd #{release_path} && bundle install --without=development test"
   end
   before "deploy:finalize_update", "deploy:bundle"

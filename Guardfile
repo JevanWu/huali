@@ -1,5 +1,5 @@
 # interactor :off
-interactor :history_file => "#{ENV['HOME']}/.guard_history"
+interactor history_file: "#{ENV['HOME']}/.guard_history"
 
 # bundle exec guard -g frontend
 group :frontend do
@@ -16,7 +16,7 @@ group :frontend do
     watch(%r{^config/.+\.rb$})
   end
 
-  guard :livereload, :host => 'localhost', :port => '35729' do
+  guard :livereload, host: 'localhost', port: '35729' do
     watch(%r{app/.*/[^.][^/]+\.(erb|haml|slim)})
     watch(%r{app/helpers/.*/[^.][^/]+\.rb})
     watch(%r{public/(.*/[^.][^/]+\.(css|js|html))}) {|m| m[1] }
@@ -29,7 +29,7 @@ end
 
 # bundle exec guard -g backend
 group :backend do
-  guard 'spork', :wait => 60, :cucumber => false do
+  guard 'spork', wait: 60, cucumber: false do
     watch('Gemfile')
     watch('Gemfile.lock')
     watch('config/application.rb')
@@ -41,7 +41,7 @@ group :backend do
     watch(%r{^spec/support/.+\.rb})
   end
 
-  guard :rspec, :version => 2, :cli => "--color --drb", :bundler => false, :all_after_pass => false, :all_on_start => false, :keep_failed => false do
+  guard :rspec, version: 2, cli: "--color --drb", bundler: false, all_after_pass: false, all_on_start: false, keep_failed: false do
     watch('spec/spec_helper.rb')                                               { "spec" }
     watch('app/controllers/application_controller.rb')                         { "spec/controllers" }
     watch(%r{^spec/support/(requests|controllers|mailers|models)_helpers\.rb}) { |m| "spec/#{m[1]}" }
