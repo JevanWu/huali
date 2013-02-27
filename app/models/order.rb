@@ -130,10 +130,6 @@ class Order < ActiveRecord::Base
       where(created_at: start_date..end_date)
     end
 
-    def by_customer(customer)
-      joins(:user).where("#{Spree.user_class.table_name}.email" => customer)
-    end
-
     def by_state(state)
       where(state: state)
     end
