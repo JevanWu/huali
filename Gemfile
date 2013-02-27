@@ -46,8 +46,7 @@ group :assets do
   gem 'jquery-ui-rails', git: 'https://github.com/yangchenyun/jquery-ui-rails.git'
   gem 'uglifier', '>= 1.0.3'
   gem 'bootstrap-sass', '~> 2.2.1.1'
-  gem 'nokogiri'
-  gem 'premailer-rails3'
+  gem 'roadie'
 end
 
 group :development, :test do

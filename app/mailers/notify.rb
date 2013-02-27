@@ -3,7 +3,7 @@
 class Notify < ActionMailer::Base
   add_template_helper ApplicationHelper
 
-  default from: 'support@hua.li'
+  default from: 'support@hua.li', content_type: 'text/html', css: :email
   default_url_options[:host] = 'hua.li'
 
   # For User
