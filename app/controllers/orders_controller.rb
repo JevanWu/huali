@@ -3,6 +3,8 @@ class OrdersController < ApplicationController
   before_filter :load_cart
   before_filter :fetch_items, only: [:new, :create, :current]
 
+  include ::Extension::Order
+
   # authorize_resource
 
   def index
@@ -127,24 +129,6 @@ class OrdersController < ApplicationController
       if @cart.blank? || @cart.all? { |k, v| v.to_i <= 0 }
         flash[:alert] = t('controllers.order.checkout.no_items')
         redirect_to :root
-      end
-    end
-
-    def load_cart
-      begin
-        @cart = JSON.parse(cookies['cart']).select {|k, v| k =~ /^\d+$/}
-      rescue
-        @cart = {}
-      end
-    end
-
-    def fetch_items
-      @products = []
-      @cart.keys.each do |key|
-        if product = Product.find_by_id(key)
-          product[:quantity] = @cart[key]
-          @products.push product
-        end
       end
     end
 end

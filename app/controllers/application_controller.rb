@@ -22,4 +22,5 @@ class ApplicationController < ActionController::Base
   def get_host
     $host = request.host_with_port
   end
+
 end

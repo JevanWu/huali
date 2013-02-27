@@ -14,11 +14,16 @@
     <p><%=t 'views.product.soldout' %></p>
     <small class="meta"><%=t 'views.product.join_queue' %></small>
   <% end %>
+
   <p>
-    <%= link_to t('more') + @product.collection.display_name, collection_path(@product.collection), class: 'more-collection' %>
+    <%= link_to t('views.product.add_reminder'), new_reminder_path('product_id' => @product.id), :class => 'link-button' %>
   </p>
 
   <%= render 'jiathis_buttons' %>
+
+  <p>
+    <%= link_to t('more') + @product.collection.display_name, collection_path(@product.collection), class: 'link-button' %>
+  </p>
 
 </div>
 

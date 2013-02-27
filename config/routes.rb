@@ -17,6 +17,7 @@ Huali::Application.routes.draw do
 
   resources :products, :only => [:show]
   resources :collections, :only => [:show]
+  resources :reminders, :only => [:new, :create]
 
   # FIXME refactor this routes to be more elegant
   get 'orders/current', as: :current_order

@@ -10,17 +10,16 @@
   <%= image_tag('title-checkout.png') %>
 <% end %>
 
-<%= render 'checkout_nav' %>
-
 <div class='row'>
   <div class="span4">
-    <%= render 'side_item_table', items: @products, title: t(:basket) %>
+    <% unless @products.nil? %>
+      <%= render 'side_product_table', products: @products, title: t('views.reminder.selected_product') %>
+    <% end %>
   </div>
 
   <div class="span8">
-    <div id='checkout-form'>
+    <div id='reminder-form'>
       <%= render 'form' %>
     </div>
   </div>
 </div>
-<%= render 'notice' %>
