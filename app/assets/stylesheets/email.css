@@ -141,6 +141,9 @@ h4, .h4{
   /*@editable*/ vertical-align:middle;
 }
 
+#headerImage {
+  max-width:600px;
+}
 /**
 * @tab Header
 * @section header link
