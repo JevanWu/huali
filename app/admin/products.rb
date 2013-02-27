@@ -13,7 +13,7 @@ ActiveAdmin.register Product do
     batch_action I18n.t(action) do |selection|
       products = Product.unscoped.find(selection)
       products.each { |product| product.send(action) }
-      redirect_to :back, :notice => products.count.to_s + t(:product_updated)
+      redirect_to :back, :notice => products.count.to_s + t('views.admin.product.product_updated')
     end
   end
   batch_action :destroy, false
@@ -43,7 +43,7 @@ ActiveAdmin.register Product do
     column :name_en
 
     column :available do |product|
-      product.available ?  t(:available) : t(:unavailable)
+      product.available ?  t('views.admin.product.available') : t('views.admin.product.unavailable')
     end
 
     column :image do |product|

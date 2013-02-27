@@ -16,26 +16,26 @@ ActiveAdmin.register Transaction do
   member_action :start do
     transaction = Transaction.find_by_id(params[:id])
     transaction.start
-    redirect_to :back, :alert => t(:transaction_state_changed) + t(:processing, :scope => :transaction)
+    redirect_to :back, :alert => t('views.admin.transaction.transaction_state_changed') + t('models.transaction.state.processing')
   end
 
   member_action :complete do
     transaction = Transaction.find_by_id(params[:id])
     transaction.complete
-    redirect_to :back, :alert => t(:transaction_state_changed) + t(:completed, :scope => :transaction)
+    redirect_to :back, :alert => t('views.admin.transaction.transaction_state_changed') + t('models.transaction.state.completed')
   end
 
   member_action :fail do
     transaction = Transaction.find_by_id(params[:id])
     transaction.failure
-    redirect_to :back, :alert => t(:transaction_state_changed) + t(:failed, :scope => :transaction)
+    redirect_to :back, :alert => t('views.admin.transaction.transaction_state_changed') + t('models.transaction.state.failed')
   end
 
   index do
     selectable_column
 
     column :state, sortable: :state do |transaction|
-      status_tag t(transaction.state, scope: :transaction), transaction_state_class(transaction)
+      status_tag t('models.transaction.state.' + transaction.state), transaction_state_class(transaction)
     end
 
     column :identifier
@@ -68,7 +68,7 @@ ActiveAdmin.register Transaction do
 
     attributes_table do
       row :state do
-        status_tag t(transaction.state, scope: :transaction), transaction_state_class(transaction)
+        status_tag t('models.transaction.state.' + transaction.state), transaction_state_class(transaction)
       end
 
       row :identifier

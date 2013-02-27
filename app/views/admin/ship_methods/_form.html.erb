@@ -2,7 +2,7 @@
   <%= f.semantic_errors :name %>
   <%= f.inputs "Main Info" do %>
     <%= f.input :name %>
-    <%= f.input :method, as: :radio, collection: { t(:manual) => "manual", t(:express) => "express" } %>
+    <%= f.input :method, as: :radio, collection: { t('views.admin.ship_method.mannual') => "mannual", t('views.admin.ship_method.express') => "express" } %>
     <%= f.input :service_phone %>
     <%= f.input :website %>
     <%= f.input :kuaidi_com_code %>

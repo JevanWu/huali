@@ -16,7 +16,7 @@ ActiveAdmin.register Province do
       batch_action action do |selection|
         provinces = Province.find(selection)
         provinces.each { |province| province.send(action) }
-        redirect_to :back, :notice => provinces.count.to_s + t(:province_updated)
+        redirect_to :back, :notice => provinces.count.to_s + t('views.admin.location.province_updated')
       end
     end
   batch_action :destroy, false
@@ -95,7 +95,7 @@ ActiveAdmin.register City do
       batch_action action do |selection|
         cities = City.find(selection)
         cities.each { |city| city.send(action) }
-        redirect_to :back, :notice => cities.count.to_s + t(:city_updated)
+        redirect_to :back, :notice => cities.count.to_s + t('views.admin.location.city_updated')
       end
     end
   batch_action :destroy, false
@@ -172,7 +172,7 @@ ActiveAdmin.register Area do
       batch_action action do |selection|
         areas = Area.find(selection)
         areas.each { |area| area.send(action) }
-        redirect_to :back, :notice => areas.count.to_s + t(:area_updated)
+        redirect_to :back, :notice => areas.count.to_s + t('views.admin.location.area_updated')
       end
     end
   batch_action :destroy, false
