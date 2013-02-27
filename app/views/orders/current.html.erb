@@ -14,7 +14,7 @@
           <th class="image"></th>
           <th class="name"><%= t('name') %></th>
           <th class="price"><%= t('price') %></th>
-          <th class="quantity"><%= t('quantity') %></th>
+          <th class="quantity"><%= t('views.order.quantity') %></th>
           <th class="total"><%= t('total') %></th>
         </tr>
       </thead>
@@ -23,7 +23,7 @@
       </tbody>
       <tfoot>
         <tr>
-          <td colspan='4'><%= t('in_total') %></td>
+          <td colspan='4'><%= t('views.order.in_total') %></td>
           <td><%= count_cart(@products) %></td>
         </tr>
       </tfoot>
@@ -34,7 +34,7 @@
 <% unless @products.blank? %>
   <div class="order-actions">
     <%= link_to t(:back), :back, :class => 'checkout button-alt' %>
-    <%= link_to t(:checkout), new_order_path, :class => 'checkout button' %>
+    <%= link_to t('views.order.checkout'), new_order_path, :class => 'checkout button' %>
   </div>
 <% end %>
 

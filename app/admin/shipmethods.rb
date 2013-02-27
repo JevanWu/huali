@@ -12,7 +12,7 @@ ActiveAdmin.register ShipMethod do
 
     column :name, :sortable => :name
     column :method, :sortable => :method do |ship_method|
-      t(ship_method.method)
+      t('views.admin.ship_method.' + ship_method.method)
     end
     column :service_phone
     column :kuaidi_com_code

@@ -11,7 +11,7 @@
     <%= link_to t('views.product.flower_basket'), current_order_path, :class => 'purchase button', data: { product: @product.id } %>
     </p>
   <% else %>
-    <p><%=t 'soldout' %></p>
+    <p><%=t 'views.product.soldout' %></p>
     <small class="meta"><%=t 'views.product.join_queue' %></small>
   <% end %>
   <p>
