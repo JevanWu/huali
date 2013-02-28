@@ -7,12 +7,14 @@ class AdminAbility
     case user.role
     when "super"
       can :manage, :all
+      cannot :destroy, :all
     when "admin"
       can :manage, :all
       cannot :manage, Administrator
       cannot :manage, Sidekiq
+      cannot :destroy, :all
     when "supplier"
-      can :read, Order, state: ""
+      can :read, Order, state: "wait_ship"
       #cannot :read, Order
       #can :read, Order, state: 'wait_ship'
       #can :manage, Shipment
