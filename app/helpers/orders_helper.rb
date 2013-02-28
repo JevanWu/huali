@@ -53,7 +53,8 @@ module OrdersHelper
     when "wait_refund"
       link_to(t('models.order.state.refund'), refund_admin_order_path(order))
     when "wait_confirm"
-      link_to(t('models.order.state.confirm'), accept_admin_shipment_path(order.shipment), confirm: t('views.admin.order.confirm_accept'))
+      link_to(t('models.order.state.confirm'), accept_admin_shipment_path(order.shipment), confirm: t('views.admin.order.confirm_accept')) + \
+      link_to(t('models.order.state.cancel'), cancel_admin_order_path(order), confirm: t('views.admin.order.confirm_cancel'))
     end
     content_tag('div', buttons, id: 'process-buttons')
   end

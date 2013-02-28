@@ -103,6 +103,7 @@ class Order < ActiveRecord::Base
 
     state :wait_confirm do
       transition to: :completed, on: :confirm
+      transition to: :wait_refund, on: :cancel
     end
 
     state :wait_refund do

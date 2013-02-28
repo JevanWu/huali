@@ -220,6 +220,7 @@ zh-CN:
         refund: 退款
         confirm: 确认
         cancel: 取消
+        print: 打印
 
     #states for transaction
     transaction:
