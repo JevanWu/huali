@@ -107,7 +107,7 @@ class Order < ActiveRecord::Base
     end
 
     state :wait_refund do
-      transition to: :void, on: :refund
+      transition to: :refunded, on: :refund
     end
   end
 

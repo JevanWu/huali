@@ -210,6 +210,7 @@ zh-CN:
         wait_make: 等待制作
         generated: 等待付款
         completed: 已经完成
+        refunded: 退款成功
         void: 取消
 
         pay: 付款

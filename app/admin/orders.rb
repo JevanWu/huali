@@ -45,12 +45,13 @@ ActiveAdmin.register Order do
   filter :state, as: :select, collection:
   {
     等待付款: 'generated',
-    结束: 'completed',
     等待审核: 'wait_check',
     等待发货: 'wait_ship',
     已经发货: 'wait_confirm',
     等待退款: 'wait_refund',
-    取消: 'void'
+    取消: 'void',
+    退款成功: 'refunded',
+    已经完成: 'completed'
   }
 
   filter :sender_name, as: :string
