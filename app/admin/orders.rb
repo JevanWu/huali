@@ -145,7 +145,7 @@ ActiveAdmin.register Order do
         unless order.transactions.blank?
           order.transactions.map do |transaction|
             link_to(transaction.identifier, admin_transaction_path(transaction)) + \
-            label_tag(" " + t(transaction.state, scope: :transaction))
+            label_tag(" " + t('models.transaction.state.' + transaction.state))
           end.join('</br>').html_safe
         end
       end
@@ -154,7 +154,7 @@ ActiveAdmin.register Order do
         unless order.shipments.blank?
           order.shipments.map do |shipment|
             link_to(shipment.identifier, admin_shipment_path(shipment)) + \
-            label_tag(" " + t(shipment.state, scope: :shipment))
+            label_tag(" " + t('models.transaction.state.' + shipment.state))
           end.join('</br>').html_safe
         end
       end
