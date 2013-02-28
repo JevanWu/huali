@@ -86,6 +86,7 @@ class Transaction < ActiveRecord::Base
         false
       else
         transaction = find_by_identifier(result.out_trade_no)
+        return false unless transaction
         if transaction.processed?
           transaction
         else
