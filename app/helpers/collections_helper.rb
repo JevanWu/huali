@@ -10,7 +10,7 @@ module CollectionsHelper
     when 9
       'title-nihong.png'
     when 11
-      'title-dongxi.png'
+      'title-surprise.png'
     end
   end
 end
