@@ -1,0 +1,11 @@
+<%= semantic_form_for [:admin, @user] do |f| %>
+  <%= f.semantic_errors :email, :password %>
+  <%= f.inputs "Main Info" do %>
+    <%= f.input :email, required: true %>
+    <%= f.input :password, required: true %>
+    <%= f.input :humanizer_answer, label: @user.humanizer_question, required: true %>
+    <%= f.hidden_field :humanizer_question_id %>
+  <% end %>
+
+  <%= f.actions %>
+<% end %>

@@ -22,3 +22,5 @@ zh-CN:
       ready: 准备
       shipped: 已经发货
       unknown: 未知
+      guests: guest账户
+      non_guests: 非guest账户
