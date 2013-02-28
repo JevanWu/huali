@@ -4,7 +4,14 @@ class Notify < ActionMailer::Base
   add_template_helper ApplicationHelper
 
   default from: 'support@hua.li', content_type: 'text/html', css: :email
-  default_url_options[:host] = 'hua.li'
+  default_url_options[:host] = case Rails.env
+                               when 'production'
+                                 'hua.li'
+                               when 'staging'
+                                 'staging.hua.li'
+                               when 'development'
+                                 'hua.dev'
+                               end
 
   # For User
   def new_order_user_email(order_id)
