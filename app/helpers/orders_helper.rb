@@ -41,7 +41,7 @@ module OrdersHelper
       link_to(t('models.order.state.check'), check_admin_order_path(order), confirm: t('views.admin.order.confirm_check')) + \
       link_to(t('models.order.state.cancel'), cancel_admin_order_path(order), confirm: t('views.admin.order.confirm_cancel'))
     when "wait_make"
-      link_to(t(:print, scope: :order), '#', class: 'print') + \
+      link_to(t('models.order.state.print', scope: :order), '#', class: 'print') + \
       link_to(t('models.order.state.make'), make_admin_order_path(order), confirm: t('views.admin.order.confirm_make')) + \
       link_to(t('models.order.state.cancel'), cancel_admin_order_path(order), confirm: t('views.admin.order.confirm_cancel'))
     when "wait_ship"
