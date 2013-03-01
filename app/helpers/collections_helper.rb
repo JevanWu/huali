@@ -11,6 +11,8 @@ module CollectionsHelper
       'title-nihong.png'
     when 11
       'title-surprise.png'
+    else
+      'title-dongxi.png'
     end
   end
 end
