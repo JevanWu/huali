@@ -193,6 +193,7 @@ zh-CN:
 
       user:
         email: 邮箱
+        created_at: 注册时间
         password: 密码
         last_sign_in_at: 上次登录时间
         sign_in_count: 登录次数

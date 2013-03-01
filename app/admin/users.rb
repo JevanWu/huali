@@ -23,6 +23,7 @@ ActiveAdmin.register User do
   show do
     attributes_table do
       row :email
+      row :created_at
       row :last_sign_in_at
       row :sign_in_count
       row :orders do
