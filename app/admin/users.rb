@@ -2,10 +2,13 @@ ActiveAdmin.register User do
   menu priority: 1, if: proc { can? :read, User }
   controller.authorize_resource
 
+  controller do
+    def scoped_collection
+      User.non_guests
+    end
+  end
+
   filter :email
-  scope :guests
-  scope :non_guests
-  scope :all
 
   index do
     selectable_column
