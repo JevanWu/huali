@@ -13,7 +13,8 @@ class OrdersController < ApplicationController
   end
 
   def show
-    if current_or_guest_user.orders.find_by_id(params[:id]).nil?
+    orders = current_or_guest_user.orders
+    if orders.find_by_id(params[:id]).nil?
       flash[:alert] = t('controllers.order.no_orders_for_you')
       redirect_to :root
     else
