@@ -22,6 +22,11 @@ ActiveAdmin.register User do
       row :email
       row :last_sign_in_at
       row :sign_in_count
+      row :orders do
+        user.orders.map do |order|
+          link_to(order.identifier, admin_order_path(order))
+        end.join(' ').html_safe
+      end
     end
   end
 end
