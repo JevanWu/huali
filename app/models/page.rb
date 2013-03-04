@@ -61,6 +61,7 @@ class Page < ActiveRecord::Base
 
   validates :permalink, exclusion: { in: reserved_words, message: "%{value} is reserved" }
 
+  validates_presence_of :permalink, :title_zh
   validates_uniqueness_of :permalink
 
   # i18n translation
