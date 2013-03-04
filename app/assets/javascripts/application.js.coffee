@@ -40,7 +40,7 @@ $ ->
     return false
 
   # weibo sharing
-  content = "感情若只低诉，整个世界都将失语。在这个冬日，用明信片来传递一直没能表达的感情。 我从@花里花店 ，免费寄出了一张明信片。你也快来吧~"
+  content = "见字如面，爱时须言。我在@花里花店 免费寄出了一张明信片。你也来看看吧~"
   url = document.location.href.replace('share', 'products')
 
   $('#post-share').attr 'href', weiboUrl(content, url)
