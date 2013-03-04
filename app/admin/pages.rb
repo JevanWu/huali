@@ -56,6 +56,7 @@ ActiveAdmin.register Page do
       row :permalink
       row :title_en
       row :title_zh
+      row :in_footer
       row :content_en do
         markdown(page.content_en)
       end
@@ -77,6 +78,8 @@ ActiveAdmin.register Page do
     column "Link" do |page|
       page.permalink
     end
+
+    column :in_footer
 
     column "Content" do |page|
       markdown(page.content).gsub( %r{</?[^>]+?>}, '' )[0, 40] + '...'

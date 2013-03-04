@@ -57,12 +57,14 @@ class Page < ActiveRecord::Base
     'hosting'
   ]
 
-  attr_accessible :content_en, :content_zh, :title_en, :title_zh, :permalink, :meta_description, :meta_keywords
+  attr_accessible :content_en, :content_zh, :title_en, :title_zh, :permalink, :meta_description, :meta_keywords, :in_footer
 
   validates :permalink, exclusion: { in: reserved_words, message: "%{value} is reserved" }
 
   validates_presence_of :permalink, :title_zh
   validates_uniqueness_of :permalink
+
+  scope :in_footer, -> { where(in_footer: true) }
 
   # i18n translation
   translate :title, :content
