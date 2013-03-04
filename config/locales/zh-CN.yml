@@ -180,7 +180,15 @@ zh-CN:
         updated_at: 更新于
 
       page:
+        permalink: 网址
         title_zh: 中文标题
+        title_en: 英文标题
+        content_zh: 中文内容
+        content_en: 英文内容
+        in_footer: 是否出现在页脚
+        meta_keywords: 关键词
+        meta_description: 关键描述
+
 
       coupon:
         code: 优惠代码
