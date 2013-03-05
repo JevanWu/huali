@@ -11,7 +11,7 @@ module OrdersHelper
   def order_state(order)
     case order.state
     when 'generated'
-      'warning'
+      'info'
     when 'wait_check'
       'error'
     when 'wait_make'
@@ -19,7 +19,7 @@ module OrdersHelper
     when 'wait_ship'
       'ok'
     when 'wait_confirm'
-      'info'
+      'inverse'
     when 'wait_refund'
       'error'
     when 'completed'
