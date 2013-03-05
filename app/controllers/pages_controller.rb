@@ -11,9 +11,6 @@ class PagesController < ApplicationController
     end
   end
 
-  def home
-  end
-
   def partner
   end
 end
