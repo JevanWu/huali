@@ -7,7 +7,6 @@ class AdminAbility
     case user.role
     when "super"
       can :manage, :all
-      cannot :destroy, :all
     when "admin"
       can :manage, :all
       cannot :manage, Administrator
