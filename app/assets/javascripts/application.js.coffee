@@ -49,13 +49,22 @@ $ ->
   allPanels = $('.accordion > dd')
 
   $('.accordion > dt > a').mouseenter ->
+    that = this
     slideUpPanels = ->
       allPanels
+        .filter (index) ->
+          # except the panel which the mouse is over and is opened
+          link = $(this).prev().find('a')
+          if (link.text() is that.innerHTML) and link.hasClass('opened')
+            return false
+          else
+            return true
         .slideUp()
         .prev().find('a')
         .removeClass('opened')
 
     handler = $(@)
+
 
     if handler.hasClass('opened')
       slideUpPanels()
