@@ -10,6 +10,6 @@
   <%= @page.meta_description %>
 <% end %>
 
-<div id="page-wrapper" class="<%= params[:id] %>">
+<div class="page-wrapper" id="<%= params[:id] %>-page">
   <%= markdown @page.content %>
 </div>
