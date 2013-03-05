@@ -200,8 +200,13 @@ zh-CN:
         expires_at: 过期时间
 
       user:
+        email: 邮箱
+        created_at: 注册时间
         password: 密码
+        last_sign_in_at: 上次登录时间
+        sign_in_count: 登录次数
         humanizer_answer: 验证问题
+        orders: 用户订单
 
       reminder:
         email: 邮件
