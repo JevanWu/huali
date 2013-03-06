@@ -1,7 +1,7 @@
 module Billing
   module Paypal
     class Gateway < Billing::Gateway
-      if ENV["RAILS_ENV"] == 'production'
+      if Rails.env == 'production'
         SERVICE_URL = "https://www.paypal.com/cgi-bin/webscr?"
         PAYPAL_EMAIL = ENV['PAYPAL_EMAIL']
         TOKEN = ENV['PAYPAL_TOKEN']
