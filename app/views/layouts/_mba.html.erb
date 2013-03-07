@@ -1,0 +1,85 @@
+<script type="text/javascript">
+// all pages
+var _mvq = _mvq || [];
+_mvq.push(['$setAccount', '<%= ENV['MBA_ACCOUNT'] %>']);
+_mvq.push(['$logConversion']);
+(function() {
+  var mvl = document.createElement('script');
+  mvl.type = 'text/javascript'; mvl.async = true;
+  mvl.src = ('https:' == document.location.protocol ? 'https://static-ssl.mediav.com/mvl.js' : 'http://static.mediav.com/mvl.js');
+  var s = document.getElementsByTagName('script')[0];
+  s.parentNode.insertBefore(mvl, s);
+})();
+
+<% if controller_name == 'products' and action_name == 'show' %>
+// product page
+_mvq.push(['$setGeneral', 'goodsdetail', '', /*用户名*/ '<%= current_user.username if current_user %>', /*用户id*/ '<%= current_user.email if current_user %>']);
+_mvq.push(['$logConversion']);
+_mvq.push(['$addGoods',  /*分类id*/ '<%= @product.collection.id %>', /*品牌id*/ '', /*商品名称*/ '<%= @product.name %>',/*商品ID*/ '<%= @product.id %>',/*商品售价*/ '<%= @product.price %>', /*商品图片url*/ '<%= "http://" + $host + @product.img(:medium) %>', /*分类名*/ '<%= @product.collection.name %>', /*品牌名*/ '', /*商品库存状态1或是0*/ '', /*网络价*/ '',/*收藏人数*/, /*商品下架时间*/,'']);
+_mvq.push(['$logData']);
+<% end %>
+
+<% if controller_name == 'collections' and action_name == 'show' %>
+// collection page
+_mvq.push(['$setGeneral', 'category', '', /*用户名*/ '<%= current_user.username if current_user %>', /*用户id*/ '<%= current_user.email if current_user %>']);
+_mvq.push(['$logConversion']);
+_mvq.push(['$addCategory', /*分类名称*/ '<%= @collection.name %>', /*分类ID*/ '<%= @collection.id %>']);
+_mvq.push(['$logData']);
+<% end %>
+
+<% if controller_name == 'orders' and action_name == 'current' %>
+// Shopping cart page
+_mvq.push(['$setGeneral', 'cartview', '', /*用户名*/ '<%= current_user.username if current_user %>', /*用户id*/ '<%= current_user.email if current_user %>']);
+_mvq.push(['$logConversion']);
+<% end %>
+
+<% if controller_name == 'orders' and action_name == 'show' %>
+// order details page
+_mvq.push(['$setGeneral', 'orderdetail', '', /*用户名*/ '<%= current_user.username if current_user %>', /*用户id*/ '<%= current_user.email if current_user %>']);
+_mvq.push(['$logConversion']);
+_mvq.push(['$addOrderDetail', /*订单号*/ '<%= @order.identifier %>', /*订单金额*/ '<%= @order.total %>', /*运费*/ '', /*省*/ '<%= @order.address.province.name %>', /*市*/ '<%= @order.address.city.name %>']);
+_mvq.push(['$logData']);
+<% end %>
+
+<% if controller_name == 'orders' and action_name == 'return' %>
+// order finished page
+_mvq.push(['$setGeneral', 'ordercreate', '', /*用户名*/ '<%= current_user.username if current_user %>', /*用户id*/ '<%= current_user.email if current_user %>']);
+_mvq.push(['$logConversion']);
+_mvq.push(['$addOrder',/*订单号*/ '<%= @order.identifier %>', /*订单金额*/ '<%= @order.total %>']);
+  <% @order.line_items.each do |item| %>
+    _mvq.push(['$addItem', /*订单号*/ '<%= @order.identifier %>', /*商品id*/ '<%= item.product_id %>', /*商品名称*/ '<%= item.name %>', /*商品价格*/ '<%= item.price %>', /*商品数量*/ '<%= item.quantity %>', /*商品页url*/ '<%= product_url(item.product) %>', /*商品页图片url*/ '<%= "http://" + $host + item.img(:medium) %>']);
+  <% end %>
+_mvq.push(['$logData']);
+<% end %>
+
+<% if controller_name == 'orders' and action_name == 'checkout' %>
+// checkout page
+_mvq.push(['$setGeneral', 'checkout', '', /*用户名*/ '<%= current_user.username if current_user %>', /*用户id*/ '<%= current_user.email if current_user %>']);
+_mvq.push(['$logConversion']);
+  <% @order.line_items.each do |item| %>
+    _mvq.push(['$addCartGoods',/*商品id*/ '<%= item.product_id %>',/*商品名称*/ '<%= item.name %>', /*商品价格*/ '<%= item.price %>', /*商品数量*/ '<%= item.quantity %>']);
+  <% end %>
+_mvq.push(['$logData']);
+<% end %>
+
+<% if controller_name == 'registrations' and action_name == 'new' %>
+// registration form page
+_mvq.push(['$setGeneral', 'register', '', /*用户名*/ '<%= current_user.username if current_user %>', /*用户id*/ '<%= current_user.email if current_user %>']);
+_mvq.push(['$logConversion']);
+<% end %>
+
+// registration clicks
+$(function () {
+  $('.sign-up').click(function () {
+    // for regbutton clicking events
+    _mvq.push(['$logAction', 'regbtnclick']);
+    _mvq.push(['$logData']);
+  });
+
+  $('.purchase').click(function () {
+    // add to cart clicks
+    _mvq.push(['$setGeneral', 'addpkg', '', /*用户名*/ '<%= current_user.username if current_user %>', /*用户id*/ '<%= current_user.email if current_user %>']);
+    _mvq.push(['$logConversion']);
+  });
+});
+</script>

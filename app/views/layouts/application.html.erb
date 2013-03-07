@@ -41,4 +41,5 @@
       <%= javascript_include_tag params[:controller] %>
     <% end %>
     <%= javascript_include_tag "ga" %>
+    <%= render "layouts/mba" if Rails.env = 'production' %>
 </html>
