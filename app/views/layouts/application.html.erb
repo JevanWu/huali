@@ -38,7 +38,7 @@
     <%= yield(:js) %>
     <!-- only include controller-specific js accordingly -->
     <% if controller_name.in? ['products'] %>
-      <%= javascript_include_tag params[:controller] %>
+      <%= javascript_include_tag controller_name %>
     <% end %>
     <%= javascript_include_tag "ga" %>
     <%= render "layouts/mba" if Rails.env = 'production' %>
