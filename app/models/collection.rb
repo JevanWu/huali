@@ -24,6 +24,8 @@ class Collection < ActiveRecord::Base
                   :available, :meta_description, :meta_keywords
   has_many :products
 
+  validates_presence_of :display_name, :name_zh
+
   translate :name
 
   extend FriendlyId
