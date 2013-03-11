@@ -39,3 +39,7 @@ end
 every :day, at: '3:00 am' do
   rake "sitemap:refresh"
 end
+
+every :day, at: '6:00 am' do
+  rake "notice:today_order_sms"
+end
