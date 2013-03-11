@@ -40,6 +40,25 @@ class Notify < ActionMailer::Base
     @products = Product.find(product_ids)
     mail(to: @reminder.email, subject: subject('您在' + l(@reminder.created_at, format: :short) + '的提醒'))
   end
+
+  def date_summary_email(date, *emails)
+    @date = date
+
+    date_history = [date]
+    6.times { |i| date_history << date.prev_day(i + 1)}
+
+    @order_history = date_history.map do |date|
+      {
+        date: date,
+        records: [ Order.accountable.in_day(date).count,
+                  Order.accountable.in_day(date - 1.week).count,
+                  Order.accountable.in_day(date - 1.month).count ]
+      }
+    end
+
+    mail(to: emails, subject: subject("#{@date}的订单小结"))
+  end
+
   private
 
   # Examples
