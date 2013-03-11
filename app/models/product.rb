@@ -40,7 +40,7 @@ class Product < ActiveRecord::Base
   # collection
   has_and_belongs_to_many :collections
   accepts_nested_attributes_for :collections
-  # attr_accessible :collection_id
+  attr_accessible :collection_ids
 
   # asset
   has_many :assets, as: :viewable, dependent: :destroy
