@@ -3,7 +3,6 @@
 # Table name: products
 #
 #  available        :boolean          default(TRUE)
-#  collection_id    :integer
 #  cost_price       :decimal(8, 2)
 #  count_on_hand    :integer          default(0), not null
 #  created_at       :datetime         not null

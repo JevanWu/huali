@@ -11,6 +11,7 @@
 #  meta_keywords    :string(255)
 #  name_en          :string(255)      not null
 #  name_zh          :string(255)      not null
+#  primary_category :boolean          default(FALSE), not null
 #  slug             :string(255)
 #  updated_at       :datetime         not null
 #
