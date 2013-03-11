@@ -148,6 +148,7 @@ zh-CN:
         available: 是否有货
         name_zh: 中文名
         name_en: 英文名
+        tag_list: 标签
         collections: 品类
         published_zh: 中文发布
         published_en: 英文发布

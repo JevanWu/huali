@@ -70,6 +70,8 @@ ActiveAdmin.register Product do
       row :published_zh
       row :published_en
 
+      row :tag_list
+
       row :inspiration_zh do
         markdown(product.inspiration_zh)
       end
