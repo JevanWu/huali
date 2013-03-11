@@ -15,6 +15,19 @@ class Sms
 
   class << self
 
+    def date_wait_make_order(date, *phonenums)
+      orders = Order.by_state('wait_make')
+                    .where('delivery_date = ?', date)
+
+      content = <<STR
+#{date.to_s}当天需要制作的订单是共有#{orders.count}:
+#{orders.map(&:subject_text).join(' ')}
+[花里花店] hua.li
+STR
+
+      sms(to: phonenums.join(','), content: content )
+    end
+
     def pay_order_user_sms(order_id)
       @order = Order.full_info(order_id)
 
@@ -38,6 +51,7 @@ STR
     end
 
     def sms(options)
+      # phone could be a joined string of phone numbers with ','
       phone = options[:to]
       content = options[:content]
 
