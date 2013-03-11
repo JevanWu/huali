@@ -61,6 +61,8 @@ class Product < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name_en, use: :slugged
 
+  acts_as_taggable
+
   before_save do |product|
     product.name_en.downcase!
   end

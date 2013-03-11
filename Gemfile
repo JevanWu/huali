@@ -24,6 +24,7 @@ gem 'figaro'
 gem 'sitemap_generator'
 gem 'humanizer'
 gem 'faraday'
+gem 'acts-as-taggable-on', '~> 2.3.1'
 
 # squash
 gem 'squash_ruby', git: 'https://github.com/SquareSquash/ruby.git', require: 'squash/ruby'
@@ -35,6 +36,7 @@ gem 'sidekiq-failures'
 gem 'slim'
 gem 'sinatra', require: nil
 
+# used for email css styles sane
 gem 'roadie'
 
 group :assets do
