@@ -72,6 +72,10 @@ class Product < ActiveRecord::Base
     end
   end
 
+  def collection
+    collections.primary.blank? ? collections.primary.first : collections.first
+  end
+
   def has_stock?
     @count_on_hand
   end
