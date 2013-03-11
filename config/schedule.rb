@@ -43,3 +43,7 @@ end
 every :day, at: '6:00 am' do
   rake "notice:today_order_sms"
 end
+
+every :day, at: '11:59 pm' do
+  rake "notice:today_order_summary_email"
+end
