@@ -148,7 +148,7 @@ zh-CN:
         available: 是否有货
         name_zh: 中文名
         name_en: 英文名
-        collection: 集合
+        collections: 品类
         published_zh: 中文发布
         published_en: 英文发布
         inspiration_zh: 中文灵感
@@ -178,6 +178,8 @@ zh-CN:
         product: 产品
         created_at: 创建于
         updated_at: 更新于
+        meta_keywords: 关键词
+        meta_description: 关键描述
 
       page:
         permalink: 网址

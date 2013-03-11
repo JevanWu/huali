@@ -29,7 +29,7 @@ ActiveAdmin.register Product do
   controller do
     helper :products
     def scoped_collection
-      Product.unscoped.includes(:assets, :collection)
+      Product.unscoped.includes(:assets, :collections)
     end
   end
 
@@ -50,10 +50,10 @@ ActiveAdmin.register Product do
       image_tag product.img(:thumb)
     end
 
-    column :collection do |product|
-      if product.collection
-        link_to product.collection.name_zh, collection_path(product.collection)
-      end
+    column :collections do |product|
+      product.collections.map do |collection|
+        link_to collection.name, admin_collection_path(collection)
+      end.join(', ').html_safe
     end
 
     default_actions
@@ -86,9 +86,10 @@ ActiveAdmin.register Product do
         markdown(product.description_en)
       end
 
-      row :collection do
-        collection = product.collection
-        link_to collection.name_zh, admin_collection_path(collection) if collection
+      row :collections do
+        product.collections.map do |collection|
+          link_to collection.name, admin_collection_path(collection)
+        end.join(', ').html_safe
       end
 
       row :image do
