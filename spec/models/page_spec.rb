@@ -6,6 +6,7 @@
 #  content_zh       :text
 #  created_at       :datetime         not null
 #  id               :integer          not null, primary key
+#  in_footer        :boolean          default(TRUE)
 #  meta_description :string(255)
 #  meta_keywords    :string(255)
 #  permalink        :string(255)

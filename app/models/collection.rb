@@ -22,7 +22,8 @@
 class Collection < ActiveRecord::Base
   attr_accessible :description, :name_en, :name_zh, :display_name,
                   :available, :meta_description, :meta_keywords
-  has_many :products
+
+  has_and_belongs_to_many :products
 
   validates_presence_of :display_name, :name_zh
 

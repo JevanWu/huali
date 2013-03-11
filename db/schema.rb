@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130304080609) do
+ActiveRecord::Schema.define(:version => 20130311070220) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -104,6 +104,13 @@ ActiveRecord::Schema.define(:version => 20130304080609) do
   end
 
   add_index "collections", ["slug"], :name => "index_collections_on_slug", :unique => true
+
+  create_table "collections_products", :id => false, :force => true do |t|
+    t.integer "product_id"
+    t.integer "collection_id"
+  end
+
+  add_index "collections_products", ["product_id", "collection_id"], :name => "index_collections_products_on_product_id_and_collection_id", :unique => true
 
   create_table "coupons", :force => true do |t|
     t.string   "code",                               :null => false

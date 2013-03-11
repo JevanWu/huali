@@ -17,6 +17,7 @@
 #  sender_email         :string(255)
 #  sender_name          :string(255)
 #  sender_phone         :string(255)
+#  ship_method_id       :string(255)
 #  source               :string(255)      default(""), not null
 #  special_instructions :text
 #  state                :string(255)      default("ready")

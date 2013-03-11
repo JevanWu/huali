@@ -35,12 +35,12 @@
 
 
 class Product < ActiveRecord::Base
-  attr_accessible :name_zh, :name_en, :intro, :description_zh, :description_en, :description2, :meta_description, :meta_keywords, :count_on_hand, :cost_price, :original_price, :price, :height, :width, :depth, :available, :assets, :assets_attributes, :collection_id, :place, :usage, :inspiration_zh, :inspiration_en, :name_char, :published_en, :published_zh
+  attr_accessible :name_zh, :name_en, :intro, :description_zh, :description_en, :description2, :meta_description, :meta_keywords, :count_on_hand, :cost_price, :original_price, :price, :height, :width, :depth, :available, :assets, :assets_attributes, :place, :usage, :inspiration_zh, :inspiration_en, :name_char, :published_en, :published_zh
 
   # collection
-  belongs_to :collection
-  accepts_nested_attributes_for :collection
-  attr_accessible :collection_id
+  has_and_belongs_to_many :collections
+  accepts_nested_attributes_for :collections
+  # attr_accessible :collection_id
 
   # asset
   has_many :assets, as: :viewable, dependent: :destroy
