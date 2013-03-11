@@ -1,5 +1,6 @@
 #= require active_admin/base
 #= require jquery.barcode.0.3
+#= require jquery.tagsinput
 
 $ ->
   $('form').on 'click', '.remove_fields', (event) ->
@@ -16,3 +17,8 @@ $ ->
   $('.barcode35').barcode(code: 'code39')
 
   $('.print').click -> window.print()
+
+  $('.tag-list').tagsInput
+    height: '25px'
+    width: '78%'
+    defaultText:'添加新标签, 逗号分割'
