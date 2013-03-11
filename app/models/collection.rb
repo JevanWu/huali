@@ -21,7 +21,7 @@
 
 class Collection < ActiveRecord::Base
   attr_accessible :description, :name_en, :name_zh, :display_name,
-                  :available, :meta_description, :meta_keywords
+                  :available, :meta_description, :meta_keywords, :primary_category
 
   has_and_belongs_to_many :products
 
@@ -33,6 +33,7 @@ class Collection < ActiveRecord::Base
   friendly_id :name_en, use: :slugged
 
   scope :available, lambda { where(available: true) }
+  scope :primary, lambda { where(primary_category: true) }
 
   def to_s
     "#{self.id} #{self.name_zh}"

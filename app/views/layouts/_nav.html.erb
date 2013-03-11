@@ -5,7 +5,7 @@
     <%= image_tag 'icon-yun.png', id: 'nav-banner', alt: "Decoration Yun" %>
   </h4>
   <dl id='nav-accordion' class='accordion'>
-    <% Collection.available.each do |collection| %>
+    <% Collection.available.primary.each do |collection| %>
       <dt class="accordion-heading nav-header">
         <%= link_to collection.display_name, collection_path(collection) %>
       </dt>

@@ -4,7 +4,8 @@
     <%= f.input :name_zh, required: true %>
     <%= f.input :name_en, required: true %>
     <%= f.input :display_name, required: true %>
-    <%= f.input :available, as: :boolean %>
+    <%= f.input :available, as: :boolean, hint: '有效分类才能被访问' %>
+    <%= f.input :primary_category, as: :boolean, hint: '主要分类会显示在导航条目里' %>
   <% end %>
 
   <%= f.inputs "SEO" do %>

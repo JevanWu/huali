@@ -17,6 +17,7 @@ ActiveAdmin.register Collection do
     column :display_name
     column :name_en
     column :available
+    column :primary_category
     column :description
     column :products_count do |collection|
       div class: 'count' do
@@ -33,6 +34,8 @@ ActiveAdmin.register Collection do
       row :name_zh
       row :display_name
       row :name_en
+      row :available
+      row :primary_category
       row :description
 
       row :product do
