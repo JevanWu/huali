@@ -3,6 +3,11 @@
 var _mvq = _mvq || [];
 _mvq.push(['$setAccount', '<%= ENV['MBA_ACCOUNT'] %>']);
 _mvq.push(['$logConversion']);
+
+var mv_switch = 32;
+_mvq.push(["$setBeacon", "987"]);
+_mvq.push(["$logConversion"]);
+
 (function() {
   var mvl = document.createElement('script');
   mvl.type = 'text/javascript'; mvl.async = true;
@@ -10,6 +15,7 @@ _mvq.push(['$logConversion']);
   var s = document.getElementsByTagName('script')[0];
   s.parentNode.insertBefore(mvl, s);
 })();
+
 
 <% if controller_name == 'products' and action_name == 'show' %>
 // product page
