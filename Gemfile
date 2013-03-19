@@ -25,6 +25,7 @@ gem 'sitemap_generator'
 gem 'humanizer'
 gem 'faraday'
 gem 'acts-as-taggable-on', '~> 2.3.1'
+gem 'gibbon'
 
 # squash
 gem 'squash_ruby', git: 'https://github.com/SquareSquash/ruby.git', require: 'squash/ruby'

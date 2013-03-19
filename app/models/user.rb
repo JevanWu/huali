@@ -63,6 +63,18 @@ class User < ActiveRecord::Base
     end
   end
 
+  def subscribe_to_mailchimp
+    gb = Gibbon.new ENV['MAILCHIMP_API_KEY'], timeout: 60
+    gb.list_subscribe(
+      id: ENV['MAILCHIMP_LIST_ID'],
+      email_address: email,
+      merge_vars: {FNAME: name, LNAME: ''},
+      double_optin: false,
+      update_existing: true,
+      replace_interests: true
+    )
+  end
+
   def guest?
     !!(email =~ /@guest.me/)
   end
