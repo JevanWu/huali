@@ -97,10 +97,10 @@ footer
 
   #chris-new
     position: absolute
-    left: -10px
+    left: -5px
     top: 5px
 
-  .nav-flyout
+  .nav-panel
     dt
       padding-bottom: 5px
 
@@ -113,20 +113,21 @@ footer
           // add some styles or backgrounds
           border-bottom: 1px solid $tintColor
        
-    dd 
+    dd
       display: none
-      position: absolute
-      padding: 10px 10px 10px 15px
-      margin-left: 15px
-      margin-top: -15px
-      width: 130%
-      //hacked width, some products' names too long
-      +background_transparent(white, 0.9)
 
-      //&:last-of-type 
-        //position: relative
-        //top: -1px
-        //what's this last-of-type thing for
+  #nav-flyout
+    display: none
+    position: absolute
+    padding: 10px 10px 10px 20px
+    margin-left: 25px
+    margin-top: -15px
+    z-index: 1
+    width: 105%
+    //hacked width, some products' names too long
+    +background_transparent(#fdfdfd, 0.9)
+    +shadow(#111111, 0.3)
+
 
 // PRODUCT PAGE
 

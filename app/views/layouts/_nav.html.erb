@@ -4,9 +4,9 @@
     <span><%= t 'flower_shop' %>  </span>
     <%= image_tag 'icon-yun.png', id: 'nav-banner', alt: "Decoration Yun" %>
   </h4>
-  <dl id='nav-flyout' class='nav-flyout'>
+  <dl id='nav-panel' class='nav-panel'>
     <% Collection.available.primary.each do |collection| %>
-      <dt class="nav-flyout-heading nav-header">
+      <dt class="nav-panel-heading nav-header">
         <%= link_to collection.display_name, collection_path(collection) %>
       </dt>
       <dd class="nav-subcat">
@@ -29,6 +29,9 @@
         </ul>
       </dd>
     <% end %>
+    <div id="nav-flyout">
+      nav-flyout
+    </div>
   </dl>
 
   <% if I18n.locale == :"zh-CN" %>

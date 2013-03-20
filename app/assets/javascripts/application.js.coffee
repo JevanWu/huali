@@ -15,12 +15,11 @@
 #= require jquery_ujs
 #= require jquery.ui.effect
 #= require jquery.ui.effect-slide
+#= require jquery.hoverIntent.minified
 #= require underscore
 #= require_self
 
 $ ->
-  $('.desktop .nav a').hover(arrowIn, arrowOut)
-
   $('#image-slides img')
     .hover($(this).toggleClass('hover'))
     .first().addClass('current')
@@ -46,38 +45,88 @@ $ ->
 
   $('#post-share').attr 'href', weiboUrl(content, url)
 
-  # nav-flyout
-  allPanels = $('.nav-flyout > dd')
-  allPanels.css({'opacity':50}) #is there any better way to do this via css instead of js?
+  # nav-panel
+  $('.nav-panel > dt')
+    .mouseenter(headingMouseEnter)
+    .mouseleave(headingMouseLeave)
+    .hoverIntent({
+      out: headingMouseLeaveIntent,
+      timeout: 400
+      })
 
-  $('.nav-flyout > dt > a').mouseenter ->
-    that = this
-    slideUpPanels = ->
-      allPanels
-        .filter (index) ->
-          # except the panel which the mouse is over and is opened
-          link = $(this).prev().find('a')
-          if (link.text() is that.innerHTML) and link.hasClass('opened')
-            return false
-          else
-            return true
-        #.hide("slide", {direction: "left"}, "slow")
-        .fadeOut()
-        .prev().find('a')
-        .switchClass('opened','')
+  $('#nav-flyout')
+    .mouseenter(flyoutMouseEnter)
+    .mouseleave(flyoutMouseLeave)
+    .hoverIntent({
+      out: flyoutMouseLeaveIntent,
+      timeout: 400
+      })
 
-    handler = $(@)
+  return false
 
-    if handler.hasClass('opened')
-      slideUpPanels()
-    else
-      slideUpPanels()
-      handler
-        .parent().next().show("slide", {direction: "left"}, "slow")
-        .end().end()
-        .addClass('opened')
+allHeadings = $('.nav-panel > dt')
+flyoutShowed = false
+mouseInHeadings = false
+mouseInFlyout = false
 
-    false
+refreshOpenedClass = (x) ->
+  if x
+    allHeadings.not(x).switchClass('opened','')
+    x.addClass('opened')
+  else
+    allHeadings.switchClass('opened','')
+
+changeFlyout = (x) ->
+  $('#nav-flyout').html(x.next().html())
+  pos = x.position();
+  width = x.outerWidth();
+  $("#nav-flyout").css({
+      top: (pos.top + 25) + "px",
+      left: (pos.left + 10) + "px"
+  });
+  $('#nav-flyout li a').hover(arrowIn, arrowOut)
+
+
+showFlyout = ->
+  $('#nav-flyout').stop().show("slide","fast")
+  flyoutShowed = true
+
+hideFlyout = ->
+  $('#nav-flyout').stop().fadeOut()
+  flyoutShowed = false
+
+headingMouseEnter = ->
+  mouseInHeadings = true
+  handler = $(@)
+  if flyoutShowed
+    if not handler.hasClass('opened')
+      refreshOpenedClass(handler)
+      changeFlyout(handler)
+  else
+    refreshOpenedClass(handler)
+    changeFlyout(handler)
+    showFlyout()
+
+headingMouseLeave = ->
+    mouseInHeadings = false
+
+headingMouseLeaveIntent = ->
+  if not mouseInFlyout and not mouseInHeadings
+    hideFlyout()
+    refreshOpenedClass()
+    flyoutShowed = false
+
+flyoutMouseEnter = ->
+  mouseInFlyout = true
+
+flyoutMouseLeave = ->
+  mouseInFlyout = false
+
+flyoutMouseLeaveIntent = ->
+  if not mouseInFlyout and not mouseInHeadings
+    hideFlyout()
+    refreshOpenedClass()
+    flyoutShowed = false
 
 arrowIn = ->
   $(this).siblings('.arrow')
