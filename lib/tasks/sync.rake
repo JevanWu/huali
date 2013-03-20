@@ -15,12 +15,12 @@ if dbconfig["production"]
   production_db_name = dbconfig["production"]["database"]
 end
 
-ssh_host = 'maxwell'
+ssh_host = '42.121.3.105'
 
 taps_user = "huali"
 taps_password = "3EBhzuiqrN8tSR"
 deploy_user = "deployer"
-repo_name = "huali-production"
+repo_name = "huali-staging"
 
 namespace :db do
 

@@ -14,6 +14,7 @@
 #= require orders
 #= require jquery_ujs
 #= require jquery.ui.effect
+#= require jquery.ui.effect-slide
 #= require underscore
 #= require_self
 
@@ -21,8 +22,8 @@ $ ->
   $('.desktop .nav a').hover(arrowIn, arrowOut)
 
   $('#image-slides img')
-  	.hover($(this).toggleClass('hover'))
-  	.first().addClass('current')
+    .hover($(this).toggleClass('hover'))
+    .first().addClass('current')
 
   $('#image-slides a').click ->
     showcase = $('#image-showcase')
@@ -45,10 +46,10 @@ $ ->
 
   $('#post-share').attr 'href', weiboUrl(content, url)
 
-  # nav accordion
-  allPanels = $('.accordion > dd')
+  # nav-flyout
+  allPanels = $('.nav-flyout > dd')
 
-  $('.accordion > dt > a').mouseenter ->
+  $('.nav-flyout > dt > a').mouseenter ->
     that = this
     slideUpPanels = ->
       allPanels
@@ -59,19 +60,19 @@ $ ->
             return false
           else
             return true
-        .slideUp()
+        #.hide("slide", {direction: "left"}, "slow")
+        .fadeOut()
         .prev().find('a')
-        .removeClass('opened')
+        .switchClass('opened','')
 
     handler = $(@)
-
 
     if handler.hasClass('opened')
       slideUpPanels()
     else
       slideUpPanels()
       handler
-        .parent().next().slideDown()
+        .parent().next().show("slide", {direction: "left"}, "slow")
         .end().end()
         .addClass('opened')
 

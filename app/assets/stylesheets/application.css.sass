@@ -78,6 +78,7 @@ footer
       color: $gray
 
   #nav-banner
+    display: block
     position: relative
     bottom: 10px
 
@@ -98,24 +99,31 @@ footer
     position: absolute
     left: -32px
 
-  .accordion 
+  .nav-flyout
     dt
       padding-bottom: 5px
 
       a
         font-size: 120%
         display: block
+        border-bottom: 1px solid transparent
 
         &.opened
           // add some styles or backgrounds
+          border-bottom: 1px solid $tintColor
        
     dd 
       display: none
-      margin-left: 10px
+      margin-left: 155px
+      margin-top: -25px
+      position: absolute
+      width: 500% 
+      //hacked width
 
-      &:last-of-type 
-        position: relative
-        top: -1px
+      //&:last-of-type 
+        //position: relative
+        //top: -1px
+        //what's this last-of-type thing for
 
 // PRODUCT PAGE
 

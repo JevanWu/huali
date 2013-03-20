@@ -4,12 +4,12 @@
     <span><%= t 'flower_shop' %>  </span>
     <%= image_tag 'icon-yun.png', id: 'nav-banner', alt: "Decoration Yun" %>
   </h4>
-  <dl id='nav-accordion' class='accordion'>
+  <dl id='nav-flyout' class='nav-flyout'>
     <% Collection.available.primary.each do |collection| %>
-      <dt class="accordion-heading nav-header">
+      <dt class="nav-flyout-heading nav-header">
         <%= link_to collection.display_name, collection_path(collection) %>
       </dt>
-      <dd>
+      <dd class="nav-subcat">
         <ul class="nav nav-list">
         <% collection.products.all.each do |product| %>
           <% if @product && @product.id == product.id %>
