@@ -3,3 +3,12 @@
   color: $grayLight
   text-align: justify
   margin-top: 0
+
+@mixin background_transparent($color, $alpha)
+  $rgba: rgba($color, $alpha)
+  $ie-hex-str: ie-hex-str($rgba)
+  background-color: transparent
+  background-color: $rgba
+  -ms-filter: "filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$ie-hex-str},endColorstr=#{$ie-hex-str})"
+  //TODO: chk if this ms-filter work in IE6
+  zoom: 1

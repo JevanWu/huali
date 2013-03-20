@@ -97,7 +97,8 @@ footer
 
   #chris-new
     position: absolute
-    left: -32px
+    left: -10px
+    top: 5px
 
   .nav-flyout
     dt
@@ -114,11 +115,13 @@ footer
        
     dd 
       display: none
-      margin-left: 155px
-      margin-top: -25px
       position: absolute
-      width: 500% 
-      //hacked width
+      padding: 10px 10px 10px 15px
+      margin-left: 15px
+      margin-top: -15px
+      width: 130%
+      //hacked width, some products' names too long
+      +background_transparent(white, 0.9)
 
       //&:last-of-type 
         //position: relative
@@ -182,6 +185,7 @@ footer
 
 #image-slides
   margin-top: 10px
+  text-align: center
   img // same proportion with the full-size image
     width: 80px
     height: #{80 * 600 / 620}px

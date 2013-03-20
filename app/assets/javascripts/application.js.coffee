@@ -48,6 +48,7 @@ $ ->
 
   # nav-flyout
   allPanels = $('.nav-flyout > dd')
+  allPanels.css({'opacity':50}) #is there any better way to do this via css instead of js?
 
   $('.nav-flyout > dt > a').mouseenter ->
     that = this
