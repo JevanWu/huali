@@ -88,12 +88,12 @@ changeFlyout = (x) ->
 
 
 showFlyout = ->
-  $('#nav-flyout').stop().show("slide","fast")
   flyoutShowed = true
+  $('#nav-flyout').stop().show("slide","fast").css('opacity',1)
 
 hideFlyout = ->
-  $('#nav-flyout').stop().fadeOut()
   flyoutShowed = false
+  $('#nav-flyout').stop().fadeOut()
 
 headingMouseEnter = ->
   mouseInHeadings = true
