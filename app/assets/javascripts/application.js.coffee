@@ -80,15 +80,15 @@ changeFlyout = (x) ->
   $('#nav-flyout').html(x.next().html())
   pos = x.position();
   $("#nav-flyout").css({
-      top: (pos.top + 25) + "px",
-      left: (pos.left + 10) + "px"
+      top: "#{pos.top - 10}px",
+      left: "#{pos.left + 30}px"
   });
   $('#nav-flyout li a').hover(arrowIn, arrowOut)
   # must add event listener again, because of the changing of html content
 
 showFlyout = ->
   flyoutShowed = true
-  $('#nav-flyout').stop().show("slide","fast").css('opacity',1)
+  $('#nav-flyout').stop().show("slide", {direction: "left"}, "fast").fadeTo('fast',1)
 
 hideFlyout = ->
   flyoutShowed = false
