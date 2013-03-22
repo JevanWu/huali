@@ -14,7 +14,6 @@
 #= require orders
 #= require jquery_ujs
 #= require jquery.ui.effect
-#= require jquery.ui.effect-slide
 #= require jquery.hoverIntent.minified
 #= require underscore
 #= require_self
@@ -71,28 +70,33 @@ mouseInFlyout = false
 
 refreshOpenedClass = (x) ->
   if x
-    allHeadings.not(x).switchClass('opened','')
+    allHeadings.not(x).removeClass('opened')
+    #if some decoreation in .opened, then removeClass('opened') should be switchClass('opened',''), for the switch animation
     x.addClass('opened')
   else
-    allHeadings.switchClass('opened','')
+    allHeadings.removeClass('opened')
 
 changeFlyout = (x) ->
-  $('#nav-flyout').html(x.next().html())
-  pos = x.position();
-  $("#nav-flyout").css({
-      top: "#{pos.top - 10}px",
-      left: "#{pos.left + 30}px"
+  flyout = $('#nav-flyout')
+  flyout.html(x.next().html())
+  pos = x.position().top - 10;
+  bottomDistance = window.innerHeight - x.offset().top - flyout.innerHeight()
+  if bottomDistance < 30
+    pos -= 30 - bottomDistance
+  flyout.css({
+      top: "#{pos}px",
   });
   $('#nav-flyout li a').hover(arrowIn, arrowOut)
   # must add event listener again, because of the changing of html content
 
 showFlyout = ->
   flyoutShowed = true
-  $('#nav-flyout').stop().show("slide", {direction: "left"}, "fast").fadeTo('fast',1)
+  $('#nav-flyout').stop().show().animate({marginLeft: "30px", opacity: 1}, 'fast')
 
 hideFlyout = ->
   flyoutShowed = false
-  $('#nav-flyout').stop().fadeOut()
+  $('#nav-flyout').stop().fadeOut(->
+    $(this).css(marginLeft: "0px"))
 
 headingMouseEnter = ->
   mouseInHeadings = true
