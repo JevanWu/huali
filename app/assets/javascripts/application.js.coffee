@@ -79,13 +79,12 @@ refreshOpenedClass = (x) ->
 changeFlyout = (x) ->
   $('#nav-flyout').html(x.next().html())
   pos = x.position();
-  width = x.outerWidth();
   $("#nav-flyout").css({
       top: (pos.top + 25) + "px",
       left: (pos.left + 10) + "px"
   });
   $('#nav-flyout li a').hover(arrowIn, arrowOut)
-
+  # must add event listener again, because of the changing of html content
 
 showFlyout = ->
   flyoutShowed = true
