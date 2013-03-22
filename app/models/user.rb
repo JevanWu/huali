@@ -68,7 +68,7 @@ class User < ActiveRecord::Base
     gb.list_subscribe(
       id: ENV['MAILCHIMP_LIST_ID'],
       email_address: email,
-      merge_vars: {FNAME: name, LNAME: ''},
+      merge_vars: { FNAME: name },
       double_optin: false,
       update_existing: true,
       replace_interests: true
