@@ -80,9 +80,9 @@ changeFlyout = (x) ->
   flyout = $('#nav-flyout')
   flyout.html(x.next().html())
   pos = x.position().top - 10;
-  bottomDistance = $(window).height() - x.position().top - flyout.innerHeight()
-  if bottomDistance < 30
-    pos -= 30 - bottomDistance
+  bottomDistance = $(window).height() - ( x.offset().top - $(window).scrollTop() ) - flyout.innerHeight()
+  if bottomDistance < 10
+    pos -= -bottomDistance
   flyout.css({
       top: "#{pos}px",
   });
