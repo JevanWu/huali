@@ -11,11 +11,7 @@ $ ->
 
   $('.purchase').click ->
     pro = Cart.get $(@).data('product')
-
-    if pro
-      Cart.update(id: pro.id, quantity: pro.quantity + 1)
-    else
-      Cart.update(id: pro.id, quantity: 1)
+    Cart.update(id: pro.id, quantity: pro.quantity + 1)
 
   $('.add_quantity, .reduce_quantity, .empty_quantity').click ->
     id = $(@).data('product')
@@ -61,8 +57,8 @@ window.Cart = {
     $.cookie('cart')
 
   get: (id) ->
-    if id of $.cookie('cart')
-      id: id, quantity: $.cookie('cart')[id]
+    quantity = $.cookie('cart') && $.cookie('cart')[id] || 0
+    { id: id, quantity: quantity }
 
   empty: ->
     $.removeCookie('cart', path: '/')

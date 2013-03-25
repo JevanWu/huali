@@ -2,11 +2,12 @@
 /* humanstxt.org */
 
 /* TEAM */
-  Craftman: Steven Yang
-  Site: yangchenyun.com
-  Twitter: yangchenyun
-  Location: Shanghai
+- Craftman: Steven Yang
+- Site: yangchenyun.com
+- Twitter: yangchenyun
+- Location: Shanghai
 
 /* SITE */
   Standards: HTML5, CSS3
+  Components: jQuery
   Software: Ruby on Rails
