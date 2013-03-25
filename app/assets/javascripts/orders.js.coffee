@@ -11,7 +11,7 @@ $ ->
 
   $('.purchase').click ->
     id = $(@).data('product')
-    Cart.update(id: id, quantity: 1)
+    Cart.update(id: id, quantity: if Cart.get(id) then Cart.get(id).quantity + 1 else 1)
 
   $('.add_quantity, .reduce_quantity, .empty_quantity').click ->
     id = $(@).data('product')
