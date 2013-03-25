@@ -10,8 +10,12 @@ $ ->
   $('#cart_amount span').text Cart.quantityAll()
 
   $('.purchase').click ->
-    id = $(@).data('product')
-    Cart.update(id: id, quantity: if Cart.get(id) then Cart.get(id).quantity + 1 else 1)
+    pro = Cart.get $(@).data('product')
+
+    if pro
+      Cart.update(id: pro.id, quantity: pro.quantity + 1)
+    else
+      Cart.update(id: $(@).data('product'), quantity: 1)
 
   $('.add_quantity, .reduce_quantity, .empty_quantity').click ->
     id = $(@).data('product')
@@ -57,6 +61,8 @@ window.Cart = {
     $.cookie('cart')
 
   get: (id) ->
+    if not $.cookie('cart')
+      return undefined
     if id of $.cookie('cart')
       id: id, quantity: $.cookie('cart')[id]
 
