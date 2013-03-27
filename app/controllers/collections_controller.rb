@@ -4,7 +4,7 @@ class CollectionsController < ApplicationController
   def show
     @collection = Collection.available.find(params[:id])
 
-    @products = @collection.products
+    @products = @collection.products.published
 
     respond_to do |format|
       format.html { render 'show'}
@@ -13,7 +13,7 @@ class CollectionsController < ApplicationController
   end
 
   def all
-    @products = Product.all
+    @products = Product.published.all
 
     respond_to do |format|
       format.html { render 'show' }

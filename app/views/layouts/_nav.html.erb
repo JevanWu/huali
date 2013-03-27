@@ -11,7 +11,7 @@
       </dt>
       <dd>
         <ul class="nav nav-list">
-        <% collection.products.all.each do |product| %>
+        <% collection.products.published.each do |product| %>
           <% if @product && @product.id == product.id %>
           <li class="active">
             <% if product.new? %> <%= image_tag 'icon-new.png', id: 'chris-new', alt: "Chrismas new" %> <% end %>

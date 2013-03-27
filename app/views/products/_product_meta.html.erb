@@ -11,7 +11,7 @@
   <p class="pro-price"> <%= @product.price %> <%=t 'currency' %> </p>
   <p class="meta">(<%=t 'views.product.delivery_charge' %>)</p>
 
-  <% if @product.count_on_hand > 0 %>
+  <% if @product.available? && @product.count_on_hand > 0 %>
     <p>
     <%= link_to t('views.product.flower_basket'), current_order_path, class: 'purchase button', data: { product: @product.id } %>
     </p>
