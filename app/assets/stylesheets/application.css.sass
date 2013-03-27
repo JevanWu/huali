@@ -281,8 +281,21 @@ footer
   margin-left: ($gridColumnWidth + $gridGutterWidth) * 2
 
 #home-page
-  margin-top: 0
+  margin-top: 100px
   margin-left: 0
+  padding-right: 100px
+
+  p a
+    display: block
+    margin-bottom: 40px
+    +opacity(20)
+    +transition(all 0.3s)
+
+    &:hover
+      +opacity(100)
+
+  a:hover
+    background-color: transparent
 
 .form-block
   margin: 10px
