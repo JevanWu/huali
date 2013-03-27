@@ -1,18 +1,18 @@
 module CollectionsHelper
   def col_title_img(col)
-    case col.id
-    when 8
+    case col.slug
+    when "preserved"
       'title-yongsheng.png'
-    when 4
+    when "accessories-and-others"
       'title-dongxi.png'
-    when 10
+    when "pure-color"
       'title-chuncui.png'
-    when 9
+    when "designed-and-arranged"
       'title-nihong.png'
-    when 11
+    when "surprise-me"
       'title-surprise.png'
     else
-      'title-dongxi.png'
+      'title-none.png'
     end
   end
 end
