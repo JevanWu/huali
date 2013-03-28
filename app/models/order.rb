@@ -260,6 +260,7 @@ class Order < ActiveRecord::Base
   private
 
   def expected_date_in_range
+    # shift order acceptance date after 17:00 every day
     start_day = Time.now.hour >= 17 ? Date.today.next_day(3) : Date.today.next_day(2)
 
     unless expected_date.in? start_day..Date.today.next_month
