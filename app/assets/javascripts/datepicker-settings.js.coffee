@@ -4,7 +4,7 @@
 $ ->
   $('.datepicker').datepicker(
       gotoCurrent: true
-      minDate: '+2D'
+      minDate: if (new Date().getHours() >= 17) then '+3D' else '+2D'
       maxDate: '+1M'
   )
 
