@@ -30,6 +30,15 @@ $ ->
 
     Cart.update(id: id, quantity: changeTo)
 
+    unless Cart.size() is 0
+
+      if changeTo is 0
+        $(@).parents("tr").remove()
+      else
+        $(@).siblings("input").val(changeTo)
+
+      return false
+
 
 # product = { id: String, quantity: Integer }
 # cart
@@ -38,6 +47,9 @@ $ ->
 
 window.Cart = {
   # FIXME should protect against bad 'cart' cookie during JSON.parse
+
+  size: ->
+    _.size $.cookie('cart')
 
   update: (product) ->
     # initialize cart
@@ -52,9 +64,6 @@ window.Cart = {
       delete cart[id] if quantity <= 0
 
     $.cookie('cart', cart, path: '/')
-
-  all: ->
-    $.cookie('cart')
 
   get: (id) ->
     quantity = $.cookie('cart') && $.cookie('cart')[id] || 0
