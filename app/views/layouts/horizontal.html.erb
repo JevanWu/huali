@@ -29,6 +29,6 @@
   </body>
     <%= javascript_include_tag "application"  %>
     <%= javascript_include_tag "ga" %>
-    <%= render "layouts/mba" if Rails.env = 'production' %>
+    <%= render "layouts/mba" if Rails.env == 'production' %>
     <%= yield(:js) %>
 </html>
