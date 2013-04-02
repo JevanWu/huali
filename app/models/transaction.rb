@@ -141,18 +141,13 @@ class Transaction < ActiveRecord::Base
   end
 
   def check_deal(result)
-    case paymethod
-    when "paypal"
-      to_dollar(amount).to_f == result.payment_fee.to_f
-    else
-      amount.to_f == result.total_fee.to_f
-    end
+    amount.to_f == result.total_fee.to_f
   end
 
   def complete_deal(result)
     if complete
       self.processed_at = Time.now
-      self.merchant_trade_no = (paymethod == "paypal" ? result.txn_id : result.trade_no)
+      self.merchant_trade_no = result.trade_no
       save!
     end
   end

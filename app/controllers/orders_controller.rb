@@ -85,7 +85,7 @@ class OrdersController < ApplicationController
       @order = transaction.order
       render 'success'
     else
-      render 'failed'
+      render 'failed', layout: 'layouts/error'
     end
   end
 

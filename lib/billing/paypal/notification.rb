@@ -9,12 +9,15 @@ module Billing
       attr_accessor :params
       attr_accessor :raw
 
-      def initialize(post)
+      def initialize(query_string)
         reset!
 
         # delegates OpenStruct.new to build all arbitrary attributes
         # cover ALL Paypal notify params
-        super parse(post)
+        result = parse(query_string)
+        result["total_fee"] = to_dollar(result["payment_fee"])
+        result["trade_no"] = trade["txn_id"]
+        super parse(query_string)
       end
 
       private
@@ -26,7 +29,7 @@ module Billing
       end
 
       # Take the posted data and move the relevant data into a hash
-      def parse(post)
+      def parse(query_string)
         @raw = post.to_s
         for line in @raw.split('&')
           key, value = *line.scan( %r{^([A-Za-z0-9_.]+)\=(.*)$} ).flatten
