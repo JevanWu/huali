@@ -73,7 +73,7 @@ class Transaction < ActiveRecord::Base
 
     def return(customdata, opts)
       case customdata["paymethod"]
-      when "directpay", "bankpay"
+      when "directPay", "bankpay"
         result = Billing::Alipay::Return.new(opts)
       when "paypal"
         result = Billing::Paypal::Return.new(opts)
@@ -84,9 +84,8 @@ class Transaction < ActiveRecord::Base
     end
 
     def notify(customdata, opts)
-      binding.pry
       case customdata["paymethod"]
-      when "directpay", "bankpay"
+      when "directPay", "bankpay"
         result = Billing::Alipay::Notification.new(opts)
       when "paypal"
         result = Billing::Paypal::Notification.new(opts)

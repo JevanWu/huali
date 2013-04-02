@@ -77,6 +77,7 @@ class OrdersController < ApplicationController
   end
 
   def return
+    binding.pry
     customdata = JSON.parse(URI.unescape(request.params["customdata"]))
     transaction = Transaction.return(customdata, request.query_string)
     if transaction

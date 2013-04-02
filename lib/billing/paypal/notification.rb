@@ -10,19 +10,21 @@ module Billing
       attr_accessor :raw
 
       def initialize(query_string)
-        # if !acknowledge?
-        #   return false
         reset!
         # delegates OpenStruct.new to build all arbitrary attributes
         # cover ALL Paypal notify params
         result = parse(query_string)
         result["trade_no"] = result["txn_id"]
         # alias
+
+        if !acknowledge?
+          return false
+        end
+
         super result
       end
 
       def acknowledge?
-        binding.pry
         uri = URI.parse(ipn_url)
         request = Net::HTTP::Post.new(ipn_validation_path)
         request['Content-Length'] = "#{raw.size}"
