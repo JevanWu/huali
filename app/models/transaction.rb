@@ -22,6 +22,7 @@
 #  index_transactions_on_order_id    (order_id)
 #
 
+require 'cgi'
 class Transaction < ActiveRecord::Base
   include Rails.application.routes.url_helpers
 
@@ -71,13 +72,28 @@ class Transaction < ActiveRecord::Base
       where(state: state)
     end
 
-    def return(opts)
-      result = Billing::Alipay::Return.new(opts)
+    def return(paymethod, opts)
+      binding.pry
+      case paymethod
+      when "directpay", "bankpay"
+        result = Billing::Alipay::Return.new(opts)
+      when "paypal"
+        result = Billing::Paypal::Return.new(opts)
+      else
+        return false
+      end
       handle_process(result)
     end
 
-    def notify(opts)
-      result = Billing::Alipay::Notification.new(opts)
+    def notify(paymethod, opts)
+      case paymethod
+      when "directpay", "bankpay"
+        result = Billing::Alipay::Notification.new(opts)
+      when "paypal"
+        result = Billing::Paypal::Notification.new(opts)
+      else
+        return false
+      end
       handle_process(result)
     end
 
@@ -85,7 +101,7 @@ class Transaction < ActiveRecord::Base
       unless result.verified? && result.success?
         false
       else
-        transaction = find_by_identifier(result.out_trade_no)
+        transaction = find_by_identifier(result.identifier)
         return false unless transaction
         if transaction.processed?
           transaction
@@ -125,13 +141,18 @@ class Transaction < ActiveRecord::Base
   end
 
   def check_deal(result)
-    amount.to_f == result.total_fee.to_f
+    case paymethod
+    when "paypal"
+      to_dollar(amount).to_f == result.payment_fee.to_f
+    else
+      amount.to_f == result.total_fee.to_f
+    end
   end
 
   def complete_deal(result)
     if complete
       self.processed_at = Time.now
-      self.merchant_trade_no = result.trade_no
+      self.merchant_trade_no = (paymethod == "paypal" ? result.txn_id : result.trade_no)
       save!
     end
   end
@@ -168,8 +189,9 @@ class Transaction < ActiveRecord::Base
       total_fee: amount,
       subject: subject,
       body: body,
-      return_url: return_order_url(host: $host),
-      notify_url: notify_order_url(host: $host)
+      return_url: return_order_url(host: $host) + "?paymethod=directpay%26identifier=#{identifier}",
+      notify_url: notify_order_url(host: $host) + "?paymethod=directpay%26identifier=#{identifier}"
+      # FIXME %26 thing
     }
   end
 
@@ -181,8 +203,8 @@ class Transaction < ActiveRecord::Base
       defaultbank: merchant_name,
       subject: subject,
       body: body,
-      return_url: return_order_url(host: $host),
-      notify_url: notify_order_url(host: $host)
+      return_url: return_order_url(host: $host) + "?paymethod=bankpay%26identifier=#{identifier}",
+      notify_url: notify_order_url(host: $host) + "?paymethod=bankpay%26identifier=#{identifier}"
     }
   end
 
@@ -191,8 +213,8 @@ class Transaction < ActiveRecord::Base
       item_name: subject,
       amount: to_dollar(amount),
       invoice: identifier,
-      return: return_order_url(host: $host),
-      notify_url: notify_order_url(host: $host)
+      return: return_order_url(host: $host) + "?paymethod=paypal%26identifier=#{identifier}",
+      notify_url: notify_order_url(host: $host) + "?paymethod=paypal%26identifier=#{identifier}"
     }
   end
 

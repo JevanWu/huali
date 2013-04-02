@@ -77,7 +77,10 @@ class OrdersController < ApplicationController
   end
 
   def return
-    transaction = Transaction.return(request.query_string)
+    binding.pry
+    reqs = request.query_string.sub("%26", "&")# FIXME BAD PATCH
+    paymethod = reqs.partition("paymethod=")[2].partition("&")[0]
+    transaction = Transaction.return(paymethod, reqs)
     if transaction
       @order = transaction.order
       render 'success'
@@ -87,7 +90,9 @@ class OrdersController < ApplicationController
   end
 
   def notify
-    if Transaction.notify(request.raw_post)
+    reqs = request.query_string.sub("%26", "&")# FIXME BAD PATCH
+    paymethod = reqs.partition("paymethod=")[2].partition("&")[0]
+    if Transaction.notify(paymethod, request.query_string + "&" + request.raw_post)
       render text: "success"
     else
       render text: "failed"
