@@ -14,7 +14,6 @@ module Billing
         # cover ALL Paypal notify params
         result = parse(query_string)
         result["payment_fee"] = result["amt"]
-        result["total_fee"] = to_dollar(result["payment_fee"])
         result["payment_status"] = result["st"]
         result["trade_no"] = result["tx"]
         # add alias

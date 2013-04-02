@@ -22,7 +22,6 @@
 #  index_transactions_on_order_id    (order_id)
 #
 
-require 'cgi'
 class Transaction < ActiveRecord::Base
   include Rails.application.routes.url_helpers
 
@@ -72,9 +71,8 @@ class Transaction < ActiveRecord::Base
       where(state: state)
     end
 
-    def return(paymethod, opts)
-      binding.pry
-      case paymethod
+    def return(customdata, opts)
+      case customdata["paymethod"]
       when "directpay", "bankpay"
         result = Billing::Alipay::Return.new(opts)
       when "paypal"
@@ -82,11 +80,12 @@ class Transaction < ActiveRecord::Base
       else
         return false
       end
-      handle_process(result)
+      handle_process(customdata, result)
     end
 
-    def notify(paymethod, opts)
-      case paymethod
+    def notify(customdata, opts)
+      binding.pry
+      case customdata["paymethod"]
       when "directpay", "bankpay"
         result = Billing::Alipay::Notification.new(opts)
       when "paypal"
@@ -94,14 +93,14 @@ class Transaction < ActiveRecord::Base
       else
         return false
       end
-      handle_process(result)
+      handle_process(customdata, result)
     end
 
-    def handle_process(result)
-      unless result.verified? && result.success?
+    def handle_process(customdata, result)
+      unless result && result.verified? && result.success?
         false
       else
-        transaction = find_by_identifier(result.identifier)
+        transaction = find_by_identifier(customdata["identifier"])
         return false unless transaction
         if transaction.processed?
           transaction
@@ -141,7 +140,12 @@ class Transaction < ActiveRecord::Base
   end
 
   def check_deal(result)
-    amount.to_f == result.total_fee.to_f
+    case paymethod
+    when 'paypal'
+      to_dollar(amount).to_f == result.payment_fee.to_f
+    else
+      amount.to_f == result.total_fee.to_f
+    end
   end
 
   def complete_deal(result)
@@ -175,6 +179,13 @@ class Transaction < ActiveRecord::Base
     end
   end
 
+  def custom_data
+    URI.escape("?customdata=" + {
+      paymethod: paymethod,
+      identifier: identifier
+    }.to_json)
+  end
+
   def to_alipay
     {
       # directPay requires the defaultbank to be blank
@@ -184,9 +195,8 @@ class Transaction < ActiveRecord::Base
       total_fee: amount,
       subject: subject,
       body: body,
-      return_url: return_order_url(host: $host) + "?paymethod=directpay%26identifier=#{identifier}",
-      notify_url: notify_order_url(host: $host) + "?paymethod=directpay%26identifier=#{identifier}"
-      # FIXME %26 thing
+      return_url: return_order_url(host: $host) + custom_data,
+      notify_url: notify_order_url(host: $host) + custom_data
     }
   end
 
@@ -198,8 +208,8 @@ class Transaction < ActiveRecord::Base
       defaultbank: merchant_name,
       subject: subject,
       body: body,
-      return_url: return_order_url(host: $host) + "?paymethod=bankpay%26identifier=#{identifier}",
-      notify_url: notify_order_url(host: $host) + "?paymethod=bankpay%26identifier=#{identifier}"
+      return_url: return_order_url(host: $host) + custom_data,
+      notify_url: notify_order_url(host: $host) + custom_data
     }
   end
 
@@ -208,8 +218,8 @@ class Transaction < ActiveRecord::Base
       item_name: subject,
       amount: to_dollar(amount),
       invoice: identifier,
-      return: return_order_url(host: $host) + "?paymethod=paypal%26identifier=#{identifier}",
-      notify_url: notify_order_url(host: $host) + "?paymethod=paypal%26identifier=#{identifier}"
+      return: return_order_url(host: $host) + custom_data,
+      notify_url: notify_order_url(host: $host) + custom_data
     }
   end
 

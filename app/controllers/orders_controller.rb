@@ -77,10 +77,8 @@ class OrdersController < ApplicationController
   end
 
   def return
-    binding.pry
-    reqs = request.query_string.sub("%26", "&")# FIXME BAD PATCH
-    paymethod = reqs.partition("paymethod=")[2].partition("&")[0]
-    transaction = Transaction.return(paymethod, reqs)
+    customdata = JSON.parse(URI.unescape(request.params["customdata"]))
+    transaction = Transaction.return(customdata, request.query_string)
     if transaction
       @order = transaction.order
       render 'success'
@@ -90,9 +88,9 @@ class OrdersController < ApplicationController
   end
 
   def notify
-    reqs = request.query_string.sub("%26", "&")# FIXME BAD PATCH
-    paymethod = reqs.partition("paymethod=")[2].partition("&")[0]
-    if Transaction.notify(paymethod, request.query_string + "&" + request.raw_post)
+    binding.pry
+    customdata = JSON.parse(URI.unescape(request.params["customdata"]))
+    if Transaction.notify(customdata, request.raw_post)
       render text: "success"
     else
       render text: "failed"
