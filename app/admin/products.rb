@@ -56,6 +56,8 @@ ActiveAdmin.register Product do
       end.join(', ').html_safe
     end
 
+    column :priority
+
     default_actions
   end
 
@@ -69,6 +71,7 @@ ActiveAdmin.register Product do
       row :available
       row :published_zh
       row :published_en
+      row :priority
 
       row :tag_list
 

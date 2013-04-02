@@ -169,6 +169,7 @@ zh-CN:
         add_image: 新增图片
         meta_keywords: 关键词
         meta_description: 关键描述
+        priority: 优先级
 
       collection:
         name_zh: 中文名
