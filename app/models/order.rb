@@ -270,6 +270,10 @@ class Order < ActiveRecord::Base
     if expected_date.monday? or expected_date.sunday?
       errors.add :expected_date, :unavailable_date
     end
+
+    if expected_date.in? [Date.parse('2013-04-03'), Date.parse('2013-04-04'), Date.parse('2013-04-05')]
+      errors.add :expected_date, :unavailable_date
+    end
   end
 
   def phone_validate
