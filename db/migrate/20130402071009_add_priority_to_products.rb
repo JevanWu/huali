@@ -4,6 +4,6 @@ class AddPriorityToProducts < ActiveRecord::Migration
   end
 
   def down
-  	remove_column :products, :priority
+    remove_column :products, :priority
   end
 end
