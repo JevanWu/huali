@@ -95,6 +95,8 @@ class OrdersController < ApplicationController
   end
 
   def current
+    # @suggest_products = [1]
+    @suggest_products = Product.limit(10)
   end
 
   def cancel

@@ -38,6 +38,10 @@
   </div>
 <% end %>
 
+<% unless @suggest_products.blank? %>
+  <%= render partial: 'shared/suggestion' %>
+<% end %>
+
 <div class="row cart_foot">
   <div class="span4">
     <p> 客服工作时间（周日及法定节假日休息）： </p>
