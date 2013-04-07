@@ -39,4 +39,12 @@ class Collection < ActiveRecord::Base
   def to_s
     "#{self.id} #{self.name_zh}"
   end
+
+  def suggest_by_random(amount = 3)
+    r = []
+    Product.joins(:collections).where(:collections => {:id => self.id}).select('products.id').sample(amount).each do |t|
+      r.push(t.id)
+    end
+    r
+  end
 end

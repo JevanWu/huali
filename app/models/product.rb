@@ -72,6 +72,14 @@ class Product < ActiveRecord::Base
       lang = I18n.locale =~ /zh-CN/ ? 'zh' : I18n.locale
       where(:"published_#{lang}" => true)
     end
+
+    def suggest_by_random(amount = 3)
+      r = []
+      Product.random(amount).each do |t|
+        r.push(t.id)
+      end
+      r
+    end
   end
 
   def collection
@@ -111,5 +119,15 @@ class Product < ActiveRecord::Base
 
   def img(size)
     assets.first.image.url(size)
+  end
+
+  def suggest_same_collection_by_random(amount = 3)
+    # product may belongs to multi collections
+    # but may belongs to only one PRIMARY collection?
+    r = []
+    Product.joins(:collections).where(:collections => {:id => self.collection.id}).select('products.id').sample(amount).each do |t|
+      r.push(t.id)
+    end
+    r
   end
 end
