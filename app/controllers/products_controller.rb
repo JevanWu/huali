@@ -2,6 +2,9 @@ class ProductsController < ApplicationController
   #caches_page :show
   # GET /products/1
   # GET /products/1.json
+
+  include ::Extension::Suggestion
+
   def show
     @product = Product.find(params[:id])
 
@@ -18,6 +21,9 @@ class ProductsController < ApplicationController
         thumb: asset.image.url(:thumb)
       }
     end
+
+    # suggestion
+    @suggest_products = suggest_generate
 
     respond_to do |format|
       format.html # show.html.erb

@@ -4,7 +4,7 @@ suggestion
 		<% @suggest_products.each do |product| %>
 			<li>
 				<div class="unit-image">
-				  <%= link_to image_tag(product.img(:medium), width: '150'), product_path(product), title: product.name %>
+				  <%= link_to image_tag(product.img(:medium), width: '120'), product_path(product), title: product.name %>
 				</div>
 				<h3 class="unit-title"> <%= link_to product.name, product_path(product), title: 'Fashion Demo Flowers' %> </h3>
 			</li>

@@ -1,33 +1,29 @@
 module Extension
-  class Suggestion
-    def initialize(products = [], amount = 10)
-      @seeds = products
-      @amount = amount
-    end
+  module Suggestion
 
-    def result
+    def suggest_generate(seeds = [], amount = 10)
       r = []
       # part 1, one special collection
       # FIXME fit for multi collections
       r.concat(Collection.where(slug: "accessories-and-others").first.suggest_by_random)
       # part 2, each seed
-      @seeds.each do |t|
+      seeds.each do |t|
         r.concat(Product.find(t).suggest_same_collection_by_random((amount*0.3).round))
       end
       # unique & remove seed
       times = 0
       while true do
-        if (r = r.uniq).count < @amount
-          r = r.concat(Product.suggest_by_random(@amount - r.count))          
+        if (r = r.uniq).count < amount
+          r = r.concat(Product.suggest_by_random(amount - r.count))
         end
 
         r.each do |t|
-          if @seeds.include?(t)
+          if seeds.include?(t)
             r.delete(t)
           end
         end
 
-        if r.count == @amount
+        if r.count == amount
           break
         end
 
@@ -37,7 +33,15 @@ module Extension
         end
       end
 
-      r.shuffle[0..@amount-1]
+      r.shuffle[0..amount-1]
+
+      # turn id into product object
+      rt = []
+      r.each do |t|
+        rt << Product.find(t)
+      end
+      rt
     end
+
   end
 end

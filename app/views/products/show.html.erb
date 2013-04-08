@@ -18,3 +18,7 @@
   <%= render 'product_img' %>
   <%= render 'product_info' %>
 </div>
+
+<% unless @suggest_products.blank? %>
+  <%= render partial: 'shared/suggestion' %>
+<% end %>

@@ -5,6 +5,7 @@ class OrdersController < ApplicationController
   before_filter :authenticate_user!, only: [:new, :index, :show, :create, :checkout, :cancel]
 
   include ::Extension::Order
+  include ::Extension::Suggestion
 
   # authorize_resource
 
@@ -95,8 +96,8 @@ class OrdersController < ApplicationController
   end
 
   def current
-    # @suggest_products = [1]
-    @suggest_products = Product.limit(10)
+    # @suggest_products = Product.limit(10)
+    @suggest_products = suggest_generate
   end
 
   def cancel
