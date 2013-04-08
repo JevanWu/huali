@@ -1,4 +1,4 @@
-<%= content_tag :div, '清明节三日因为快递公司休息，不能递送订单。预订照常。', class: 'flash', id: "flash_ad"  %>
+<%# <%= content_tag :div, '清明节三日因为快递公司休息，不能递送订单。预订照常。', class: 'flash', id: "flash_ad"  %> %>
 <% flash.each do |name, msg| %>
   <%= content_tag :div, msg, id: "flash_#{name}", class: 'flash' if msg.is_a?(String) %>
 <% end %>
