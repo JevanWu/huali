@@ -74,7 +74,8 @@ class OrdersController < ApplicationController
     # they should be separated
 
     transaction = @order.generate_transaction params[:pay_info]
-    redirect_to transaction.request_process
+    transaction.start
+    redirect_to transaction.request_path
   end
 
   def return
