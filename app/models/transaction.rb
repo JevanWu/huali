@@ -66,11 +66,9 @@ class Transaction < ActiveRecord::Base
     end
   end
 
-  class << self
-    def by_state(state)
-      where(state: state)
-    end
+  scope :by_state, lambda { |state| where(state: state) }
 
+  class << self
     def return(customdata, opts)
       case customdata["paymethod"]
       when "directPay", "bankpay"
