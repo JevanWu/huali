@@ -68,51 +68,6 @@ class Transaction < ActiveRecord::Base
 
   scope :by_state, lambda { |state| where(state: state) }
 
-  class << self
-    def return(customdata, opts)
-      case customdata["paymethod"]
-      when "directPay", "bankpay"
-        result = Billing::Alipay::Return.new(opts)
-      when "paypal"
-        result = Billing::Paypal::Return.new(opts)
-      else
-        return false
-      end
-      handle_process(customdata, result)
-    end
-
-    def notify(customdata, opts)
-      case customdata["paymethod"]
-      when "directPay", "bankpay"
-        result = Billing::Alipay::Notification.new(opts)
-      when "paypal"
-        result = Billing::Paypal::Notification.new(opts)
-      else
-        return false
-      end
-      handle_process(customdata, result)
-    end
-
-    def handle_process(customdata, result)
-      unless result && result.verified? && result.success?
-        false
-      else
-        transaction = find_by_identifier(customdata["identifier"])
-        return false unless transaction
-        if transaction.processed?
-          transaction
-        else
-          if transaction.check_deal(result)
-            transaction.complete_deal(result)
-            transaction
-          else
-            false
-          end
-        end
-      end
-    end
-  end
-
   def initialize(opts = {}, pay_info = nil)
     if pay_info
       pay_opts = parse_pay_info(pay_info)
@@ -122,17 +77,42 @@ class Transaction < ActiveRecord::Base
     end
   end
 
-  def request_process
-    start
-    request_path
-  end
-
   def request_path
     case paymethod
     when 'paypal'
       Billing::Paypal::Gateway.new(gateway).purchase_path
     else
       Billing::Alipay::Gateway.new(gateway).purchase_path
+    end
+  end
+
+  def notify(opts)
+    case paymethod
+    when "directPay", "bankpay"
+      result = Billing::Alipay::Notification.new(opts)
+    when "paypal"
+      result = Billing::Paypal::Notification.new(opts)
+    end
+    process(result)
+  end
+
+  def return(opts)
+    case paymethod
+    when "directPay", "bankpay"
+      result = Billing::Alipay::Return.new(opts)
+    when "paypal"
+      result = Billing::Paypal::Return.new(opts)
+    end
+    process(result)
+  end
+
+  def process(result)
+    return false unless result && result.verified? && result.success?
+
+    if processed?
+      self
+    else
+      check_deal(result) && complete_deal(result) ? self : false
     end
   end
 

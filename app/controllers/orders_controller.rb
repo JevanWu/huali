@@ -79,13 +79,21 @@ class OrdersController < ApplicationController
   end
 
   def return
-    transaction = Transaction.return(customdata, request.query_string)
-    if transaction
-      @order = transaction.order
-      render 'success'
-    else
-      render 'failed', layout: 'layouts/error'
+    # @customdata['identifier']
+    # @customdata['paymethod']
+
+    begin
+      transaction = Transaction.find_by_identifier @customdata['identifier']
+      if transaction.return(request.query_string)
+        @order = transaction.order
+        render 'success'
+      else
+        render 'failed', layout: 'layouts/error'
+      end
+    rescue
+      render 'failed', layout: 'layouts/error', status: 400
     end
+
   end
 
   def notify
