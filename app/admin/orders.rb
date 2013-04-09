@@ -33,6 +33,7 @@ ActiveAdmin.register Order do
   batch_action :destroy, false
 
   scope :all
+  scope :yesterday
   scope :current
   scope :tomorrow
   scope :next_two_day
