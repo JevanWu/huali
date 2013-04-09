@@ -1,13 +1,34 @@
-suggestion
 <div class="suggestion">
-	<ul>
+	<p>您可能还喜欢：</p>
+	<ul class="suggestion-list">
 		<% @suggest_products.each do |product| %>
-			<li>
-				<div class="unit-image">
-				  <%= link_to image_tag(product.img(:medium), width: '120'), product_path(product), title: product.name %>
-				</div>
-				<h3 class="unit-title"> <%= link_to product.name, product_path(product), title: 'Fashion Demo Flowers' %> </h3>
-			</li>
+				<li class="suggestion-cell">
+					<ul>
+				  	<li>
+				  		<%= link_to image_tag(product.img(:medium), width: '120'), product_path(product), title: product.name %>
+				  	</li>
+				  	<li>
+					  	<%= link_to product.name, product_path(product) %>
+				  	</li>
+					</ul>
+				</li>
 		<% end %>
-	</ul>	
+	</ul>
+
+	<table class="suggestion-table">
+	  <tr>
+	  	<% @suggest_products.each do |product| %>
+	  			<td>
+	  			  <%= link_to image_tag(product.img(:medium), width: '120'), product_path(product), title: product.name %>
+	  			</td>
+	  	<% end %>
+	  </tr>
+	  <tr>
+	  	<% @suggest_products.each do |product| %>
+	  			<td>
+	  			  <%= link_to product.name, product_path(product) %>
+	  			</td>
+	  	<% end %>
+	  </tr>
+		</table>
 </div>
