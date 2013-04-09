@@ -1,4 +1,7 @@
-<%= content_tag :div, '花里订单系统升级啦，现在开始可以接受一个月内的送花预约, 并且可设置全年提醒了', class: 'flash', id: "flash_ad"  %>
+<!--
+<%= content_tag :div, '', class: 'flash', id: "flash_ad"  %>
+-->
+
 <% flash.each do |name, msg| %>
   <%= content_tag :div, msg, id: "flash_#{name}", class: 'flash' if msg.is_a?(String) %>
 <% end %>
