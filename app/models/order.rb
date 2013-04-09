@@ -297,8 +297,15 @@ class Order < ActiveRecord::Base
   end
 
   def complete_order
+    update_sales_volume
     self.completed_at = Time.now
     save
+  end
+
+  def update_sales_volume
+    self.line_items.each do |line|
+      Product.find(line.product_id).sales_volume_totally += line.quantity
+    end    
   end
 
   def pay_order
