@@ -3,6 +3,7 @@ class OrdersController < ApplicationController
   before_filter :load_cart
   before_filter :fetch_items, only: [:new, :create, :current]
   before_filter :authenticate_user!, only: [:new, :index, :show, :create, :checkout, :cancel]
+  before_filter :process_custom_data, only: [:return, :notify]
 
   include ::Extension::Order
 
@@ -77,8 +78,6 @@ class OrdersController < ApplicationController
   end
 
   def return
-    binding.pry
-    customdata = JSON.parse(URI.unescape(request.params["customdata"]))
     transaction = Transaction.return(customdata, request.query_string)
     if transaction
       @order = transaction.order
@@ -89,8 +88,6 @@ class OrdersController < ApplicationController
   end
 
   def notify
-    binding.pry
-    customdata = JSON.parse(URI.unescape(request.params["customdata"]))
     if Transaction.notify(customdata, request.raw_post)
       render text: "success"
     else
@@ -141,5 +138,9 @@ class OrdersController < ApplicationController
         flash[:alert] = t('controllers.order.checkout.no_items')
         redirect_to :root
       end
+    end
+
+    def process_custom_data
+      @customdata = JSON.parse URI.unescape(request.params["customdata"])
     end
 end
