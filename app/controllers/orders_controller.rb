@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   layout 'horizontal'
+  before_filter :sub_request
   before_filter :load_cart
   before_filter :fetch_items, only: [:new, :create, :current]
   before_filter :authenticate_user!, only: [:new, :index, :show, :create, :checkout, :cancel]
@@ -58,6 +59,7 @@ class OrdersController < ApplicationController
         redirect_to :root
       end
     else
+      @order = Order.last
       @order = Order.find_by_id(params[:id] || session[:order_id])
       if @order.blank?
         flash[:alert] = t('controllers.order.no_items')
@@ -93,14 +95,18 @@ class OrdersController < ApplicationController
     rescue
       render 'failed', layout: 'layouts/error', status: 400
     end
-
   end
 
   def notify
-    if Transaction.notify(customdata, request.raw_post)
-      render text: "success"
-    else
-      render text: "failed"
+    transaction = Transaction.find_by_identifier @customdata['identifier']
+    begin
+      if transaction.notify(request.raw_post)
+        render text: "success"
+      else
+        render 'failed', layout: 'layouts/error'
+      end
+    rescue
+      render 'failed', layout: 'layouts/error', status: 400
     end
   end
 
@@ -150,6 +156,33 @@ class OrdersController < ApplicationController
     end
 
     def process_custom_data
-      @customdata = JSON.parse URI.unescape(request.params["customdata"])
+      customdata = request.params["customdata"]
+      @customdata = JSON.parse URI.unescape(customdata) if customdata
+    end
+
+    def sub_request
+      request.params = {"customdata"=>"%7B%22paymethod%22:%22directPay%22,%22identifier%22:%22TRd1304090001%22%7D",
+                        "discount"=>"0.00",
+                        "payment_type"=>"1",
+                        "subject"=>"x1,",
+                        "trade_no"=>"2013040939016216",
+                        "buyer_email"=>"jordan0571@163.com",
+                        "gmt_create"=>"2013-04-09 16:41:08",
+                        "notify_type"=>"trade_status_sync",
+                        "quantity"=>"1",
+                        "out_trade_no"=>"TRd1304090001",
+                        "seller_id"=>"2088801670489935",
+                        "notify_time"=>"2013-04-09 16:42:07",
+                        "trade_status"=>"TRADE_SUCCESS",
+                        "is_total_fee_adjust"=>"N",
+                        "total_fee"=>"0.01",
+                        "gmt_payment"=>"2013-04-09 16:42:07",
+                        "seller_email"=>"tzgbusiness@gmail.com",
+                        "price"=>"0.01",
+                        "buyer_id"=>"2088002205666166",
+                        "notify_id"=>"d7cd14d08af6f9a882bd0de63cdc0f5801",
+                        "use_coupon"=>"N",
+                        "sign_type"=>"MD5",
+                        "sign"=>"df96f48e77b917970b2c82980bf4cd59"}
     end
 end
