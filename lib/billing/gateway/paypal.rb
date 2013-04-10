@@ -1,7 +1,8 @@
+require 'billing/gateway/base'
+
 module Billing
   class Gateway
-    class Paypal
-      include Rails.application.routes.url_helpers
+    class Paypal < Base
 
       if Rails.env == 'development'
         SERVICE_URL = "https://www.sandbox.paypal.com/cgi-bin/webscr?"
@@ -11,11 +12,6 @@ module Billing
         SERVICE_URL = "https://www.paypal.com/cgi-bin/webscr?"
         PAYPAL_EMAIL = ENV['PAYPAL_EMAIL']
         TOKEN = ENV['PAYPAL_TOKEN']
-      end
-
-      def initialize(opts)
-        @opts = opts
-        @options = default_opts.merge to_options(opts)
       end
 
       def purchase_path
@@ -57,22 +53,6 @@ module Billing
         adjust = (dollar % 10 > 5) ? 0.01 : (5 + 0.01)
 
         round - adjust
-      end
-
-      def query_string
-        compacted_options.map do |k, v|
-          "#{k}=#{v}"
-        end.sort * '&'
-      end
-
-      def compacted_options
-        @options.select do |key, value|
-          not value.blank?
-        end
-      end
-
-      def custom_data
-        '?' + URI.encode_www_form(custom_id: @opts[:identifier])
       end
     end
   end

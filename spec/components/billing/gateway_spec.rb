@@ -131,7 +131,6 @@ describe Billing::Gateway do
       transaction[:amount] = 399
       gateway = Billing::Gateway.new(transaction)
 
-      puts gateway.purchase_path
       gateway.purchase_path.index('amount=69.99').should_not be_nil
     end
 

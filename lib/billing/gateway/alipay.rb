@@ -1,13 +1,23 @@
 require 'digest/md5'
-require 'uri'
+require 'billing/gateway/base'
 
 module Billing
   class Gateway
-    class Alipay
-      include Rails.application.routes.url_helpers
+    class Alipay < Base
 
       SERVICE_URL = "https://www.alipay.com/cooperate/gateway.do?"
 
+      def initialize(opts)
+        validate_merchant_name(opts) if opts[:paymethod] == 'bankPay'
+        super
+      end
+
+      def purchase_path
+        query = add_sign(query_string)
+        SERVICE_URL + URI.encode(query)
+      end
+
+      private
 
       # options = {
       # out_trade_no: 'ANS12345678',
@@ -21,17 +31,6 @@ module Billing
       # paymethod: "bankPay",
       # defaultbank: 'CMB'
       # }
-      def initialize(opts)
-        @opts = opts
-        validate_merchant_name if @opts[:paymethod] == 'bankPay'
-
-        @options = default_opts.merge to_options(opts)
-
-      end
-
-      def validate_merchant_name
-        raise ArgumentError, 'merchant_name is required for bankPay' if @opts[:merchant_name].nil?
-      end
 
       def default_opts
         {
@@ -55,14 +54,6 @@ module Billing
         }
       end
 
-      def purchase_path
-        check_options!
-        query = add_sign(query_string)
-        SERVICE_URL + URI.encode(query)
-      end
-
-      private
-
       def to_options(opts)
         if opts[:paymethod] == "directPay"
           # directPay requires the defaultbank to be blank
@@ -72,34 +63,14 @@ module Billing
         end
       end
 
-      def check_options!
-        # TODO implement the error handling logic from Alipay Doc
-        # check the presence of required params
-        # check the type of certain params
-        self
+      def validate_merchant_name(opts)
+        raise ArgumentError, 'merchant_name is required for bankPay' if opts[:merchant_name].nil?
       end
+
 
       def add_sign(query)
         sign = Digest::MD5.hexdigest(query + ENV['ALIPAY_KEY'])
         query += "&sign=#{sign}&sign_type=MD5"
-      end
-
-      # FIXME this should be shared between all gateways
-      # maybe use a module
-      def query_string
-        compacted_options.map do |k, v|
-          "#{k}=#{v}"
-        end.sort * '&'
-      end
-
-      def compacted_options
-        @options.select do |key, value|
-          not value.blank?
-        end
-      end
-
-      def custom_data
-        '?' + URI.encode_www_form(custom_id: @opts[:identifier])
       end
     end
   end
