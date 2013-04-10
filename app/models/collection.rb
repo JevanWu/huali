@@ -40,9 +40,17 @@ class Collection < ActiveRecord::Base
     "#{self.id} #{self.name_zh}"
   end
 
-  def suggest_by_random(amount = 3)
+  def suggest_by_random(amount = 4)
     r = []
-    Product.joins(:collections).where(:collections => {:id => self.id}).select('products.id').sample(amount).each do |t|
+    self.products.select("id").sample(amount).each do |t|
+      r.push(t.id)
+    end
+    r
+  end
+
+  def suggest_by_priority(amount = 4)
+    r = []
+    self.products.order("priority desc").limit((amount*1.2).round).shuffle[0..amount-1].each do |t|
       r.push(t.id)
     end
     r

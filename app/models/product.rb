@@ -73,7 +73,7 @@ class Product < ActiveRecord::Base
       where(:"published_#{lang}" => true)
     end
 
-    def suggest_by_random(amount = 3)
+    def suggest_by_random(amount = 4)
       r = []
       Product.random(amount).each do |t|
         r << t.id
@@ -81,7 +81,7 @@ class Product < ActiveRecord::Base
       r
     end
 
-    def suggest_by_priority(amount = 3)
+    def suggest_by_priority(amount = 4)
       r = []
       Product.order("priority desc").limit((amount*1.2).round).shuffle[0..amount-1].each do |t|
         r << t.id
@@ -129,14 +129,21 @@ class Product < ActiveRecord::Base
     assets.first.image.url(size)
   end
 
-  def suggest_same_collection_by_random(amount = 3)
+  def suggest_same_collection_by_random(amount = 4)
     # product may belongs to multi collections
     # but may belongs to only one PRIMARY collection?
     r = []
-    Product.joins(:collections).where(:collections => {:id => self.collection.id}).select('products.id').sample(amount).each do |t|
+    self.collection.products.select("id").sample(amount).each do |t|
       r.push(t.id)
     end
     r
   end
 
+  def suggest_same_collection_by_priority(amount = 4)
+    r = []
+    self.collection.products.select("id").order("priority desc").sample(amount*1.5.round)[0..amount-1].each do |t|
+      r.push(t.id)
+    end
+    r
+  end
 end
