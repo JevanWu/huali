@@ -23,8 +23,6 @@
 #
 
 class Transaction < ActiveRecord::Base
-  include Rails.application.routes.url_helpers
-
   attr_accessible :merchant_name, :paymethod, :amount, :subject, :body, :order_id, :state, :merchant_trade_no
 
   belongs_to :order
@@ -78,12 +76,7 @@ class Transaction < ActiveRecord::Base
   end
 
   def request_path
-    case paymethod
-    when 'paypal'
-      Billing::Paypal::Gateway.new(gateway).purchase_path
-    else
-      Billing::Alipay::Gateway.new(gateway).purchase_path
-    end
+    Billing::Gateway.new(self).purchase_path
   end
 
   def notify(opts)
@@ -147,67 +140,6 @@ class Transaction < ActiveRecord::Base
   end
 
   private
-
-  def gateway
-    case paymethod
-    when 'directPay'; to_alipay
-    when 'paypal'; to_paypal
-    when 'bankPay'; to_bankpay
-    end
-  end
-
-  def custom_data
-    '?' + URI.encode_www_form( custom_id: identifier )
-  end
-
-  def to_alipay
-    {
-      # directPay requires the defaultbank to be blank
-      pay_bank: 'directPay',
-      defaultbank: '',
-      out_trade_no: identifier,
-      total_fee: amount,
-      subject: subject,
-      body: body,
-      return_url: return_order_url(host: $host) + custom_data,
-      notify_url: notify_order_url(host: $host) + custom_data
-    }
-  end
-
-  def to_bankpay
-    {
-      pay_bank: 'bankPay',
-      out_trade_no: identifier,
-      total_fee: amount,
-      defaultbank: merchant_name,
-      subject: subject,
-      body: body,
-      return_url: return_order_url(host: $host) + custom_data,
-      notify_url: notify_order_url(host: $host) + custom_data
-    }
-  end
-
-  def to_paypal
-    {
-      item_name: subject,
-      amount: to_dollar(amount),
-      invoice: identifier,
-      return: return_order_url(host: $host) + custom_data,
-      notify_url: notify_order_url(host: $host) + custom_data
-    }
-  end
-
-  def to_dollar(amount)
-    dollar = amount / 6.0
-    # round the dollar amount to 10x
-    round = (dollar / 10.0).ceil * 10
-
-    # adjust the number to 5x
-    # 124.234 -> 124.99 ; 126.23 -> 129.99
-    adjust = (dollar % 10 > 5) ? 0.01 : (5 + 0.01)
-
-    round - adjust
-  end
 
   def override_merchant_name
     case paymethod

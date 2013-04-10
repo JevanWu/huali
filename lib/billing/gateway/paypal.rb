@@ -1,47 +1,78 @@
 module Billing
   class Gateway
     class Paypal
-      if Rails.env == 'production'
-        SERVICE_URL = "https://www.paypal.com/cgi-bin/webscr?"
-        PAYPAL_EMAIL = ENV['PAYPAL_EMAIL']
-        TOKEN = ENV['PAYPAL_TOKEN']
-      else
+      include Rails.application.routes.url_helpers
+
+      if Rails.env == 'development'
         SERVICE_URL = "https://www.sandbox.paypal.com/cgi-bin/webscr?"
         PAYPAL_EMAIL = ENV['PAYPAL_SANDBOX_EMAIL']
         TOKEN = ENV['PAYPAL_SANDBOX_TOKEN']
+      else
+        SERVICE_URL = "https://www.paypal.com/cgi-bin/webscr?"
+        PAYPAL_EMAIL = ENV['PAYPAL_EMAIL']
+        TOKEN = ENV['PAYPAL_TOKEN']
       end
 
-      # Check the Documentation
-      # https://www.x.com/developers/paypal/documentation-tools/paypal-payments-standard/integration-guide/Appx_websitestandard_htmlvariables
-
-      DEFAULT_OPTS = {
-        cmd: "_ext-enter",
-        redirect_cmd: "_xclick",
-        charset: "utf-8",
-        business: PAYPAL_EMAIL,
-        currency_code: "USD"
-      }
-
-      # {
-      #   item_name: 'name,
-      #   amount: number
-      # }
-      def initialize(options)
-        @options = DEFAULT_OPTS.merge(options)
+      def initialize(opts)
+        @opts = opts
+        @options = default_opts.merge to_options(opts)
       end
 
       def purchase_path
-        check_options!
         SERVICE_URL + URI::encode(query_string)
       end
 
       private
 
-      def check_options!
-        # TODO implement the error handling logic from Alipay Doc
-        # check the presence of required params
-        # check the type of certain params
-        self
+      # Check the Documentation
+      # https://www.x.com/developers/paypal/documentation-tools/paypal-payments-standard/integration-guide/Appx_websitestandard_htmlvariables
+
+      def default_opts
+        {
+          cmd: "_ext-enter",
+          redirect_cmd: "_xclick",
+          charset: "utf-8",
+          business: PAYPAL_EMAIL,
+          currency_code: "USD",
+          return_url: return_order_url(host: $host || 'localhost') + custom_data,
+          notify_url: notify_order_url(host: $host || 'localhost') + custom_data
+        }
+      end
+
+      def to_options(opts)
+        {
+          item_name: opts[:subject],
+          invoice: opts[:identifier],
+          amount: to_dollar(opts[:amount])
+        }
+      end
+
+      def to_dollar(amount)
+        dollar = amount / 6.0
+        # round the dollar amount to 10x
+        round = (dollar / 10.0).ceil * 10
+
+        # adjust the number to 5x
+        # 124.234 -> 124.99 ; 126.23 -> 129.99
+        adjust = (dollar % 10 > 5) ? 0.01 : (5 + 0.01)
+
+        round - adjust
+      end
+
+      def query_string
+        compacted_options.map do |k, v|
+          "#{k}=#{v}"
+        end.sort * '&'
+      end
+
+      def compacted_options
+        @options.select do |key, value|
+          not value.blank?
+        end
+      end
+
+      def custom_data
+        '?' + URI.encode_www_form(custom_id: @opts[:identifier])
       end
     end
   end
