@@ -1,5 +1,3 @@
-require 'billing/gateway/base'
-
 module Billing
   class Gateway
     class Paypal < Base

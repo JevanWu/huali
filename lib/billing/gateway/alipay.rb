@@ -1,5 +1,4 @@
 require 'digest/md5'
-require 'billing/gateway/base'
 
 module Billing
   class Gateway
