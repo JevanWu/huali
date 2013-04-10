@@ -34,9 +34,9 @@ module Billing
         http.verify_mode    = OpenSSL::SSL::VERIFY_NONE unless @ssl_strict
         http.use_ssl        = true
 
-        request = http.request(request, raw)
+        res = http.request(request, raw)
 
-        request.body == "VERIFIED"
+        res.body == "VERIFIED"
         # TODO verified failed
       end
 
