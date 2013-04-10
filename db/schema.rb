@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130402071009) do
+ActiveRecord::Schema.define(:version => 20130410031256) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -138,74 +138,6 @@ ActiveRecord::Schema.define(:version => 20130402071009) do
   add_index "line_items", ["order_id"], :name => "index_line_items_on_order_id"
   add_index "line_items", ["product_id"], :name => "index_line_items_on_product_id"
 
-  create_table "old_alipays", :force => true do |t|
-    t.string   "out_merchant_no"
-    t.string   "identifier"
-    t.string   "source"
-    t.string   "pay_type"
-    t.string   "customer"
-    t.string   "subject_text"
-    t.string   "amount"
-    t.string   "coupon"
-    t.string   "status"
-    t.string   "fee"
-    t.string   "refund"
-    t.string   "note"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-  end
-
-  create_table "old_orders", :force => true do |t|
-    t.string   "order_status"
-    t.string   "order_number"
-    t.string   "buyer_name"
-    t.string   "phonenum"
-    t.string   "email"
-    t.string   "receiver_name"
-    t.string   "province"
-    t.string   "address"
-    t.date     "expect_date"
-    t.boolean  "need_invoice"
-    t.string   "invoice_header"
-    t.text     "requirement"
-    t.string   "receiver_phonenum"
-    t.string   "product_name"
-    t.string   "delivery_code"
-    t.text     "card_info"
-    t.string   "delivery_method"
-    t.string   "zip_code"
-    t.string   "comment"
-    t.boolean  "archived"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-  end
-
-  create_table "old_wufoos", :force => true do |t|
-    t.string   "entry_id"
-    t.string   "status"
-    t.string   "order_identifier"
-    t.string   "name"
-    t.string   "phonenum"
-    t.string   "email"
-    t.string   "receiver_name"
-    t.string   "receiver_prov"
-    t.string   "receiver_addr"
-    t.string   "post_code"
-    t.string   "receiver_phonenum"
-    t.date     "expected_date"
-    t.text     "card_info"
-    t.text     "special_note"
-    t.string   "source"
-    t.string   "other_source"
-    t.string   "created_by"
-    t.string   "updated_by"
-    t.string   "ip_addr"
-    t.string   "last_access"
-    t.string   "completion_status"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-  end
-
   create_table "order_coupons", :force => true do |t|
     t.integer "order_id"
     t.integer "coupon_id"
@@ -256,29 +188,30 @@ ActiveRecord::Schema.define(:version => 20130402071009) do
   add_index "pages", ["permalink"], :name => "index_pages_on_permalink"
 
   create_table "products", :force => true do |t|
-    t.string   "name_zh",                                        :default => "",    :null => false
-    t.string   "name_en",                                        :default => "",    :null => false
+    t.string   "name_zh",                                            :default => "",    :null => false
+    t.string   "name_en",                                            :default => "",    :null => false
     t.text     "description_zh"
     t.string   "meta_description"
     t.string   "meta_keywords"
-    t.integer  "count_on_hand",                                  :default => 0,     :null => false
-    t.decimal  "cost_price",       :precision => 8, :scale => 2
-    t.decimal  "price",            :precision => 8, :scale => 2
-    t.decimal  "height",           :precision => 8, :scale => 2
-    t.decimal  "width",            :precision => 8, :scale => 2
-    t.decimal  "depth",            :precision => 8, :scale => 2
-    t.datetime "created_at",                                                        :null => false
-    t.datetime "updated_at",                                                        :null => false
-    t.boolean  "available",                                      :default => true
+    t.integer  "count_on_hand",                                      :default => 0,     :null => false
+    t.decimal  "cost_price",           :precision => 8, :scale => 2
+    t.decimal  "price",                :precision => 8, :scale => 2
+    t.decimal  "height",               :precision => 8, :scale => 2
+    t.decimal  "width",                :precision => 8, :scale => 2
+    t.decimal  "depth",                :precision => 8, :scale => 2
+    t.datetime "created_at",                                                            :null => false
+    t.datetime "updated_at",                                                            :null => false
+    t.boolean  "available",                                          :default => true
     t.decimal  "original_price"
     t.text     "inspiration_zh"
     t.string   "name_char"
     t.string   "slug"
     t.text     "inspiration_en"
     t.text     "description_en"
-    t.boolean  "published_zh",                                   :default => false
-    t.boolean  "published_en",                                   :default => false
-    t.integer  "priority",                                       :default => 5
+    t.boolean  "published_zh",                                       :default => false
+    t.boolean  "published_en",                                       :default => false
+    t.integer  "priority",                                           :default => 5
+    t.integer  "sales_volume_totally",                               :default => 0
   end
 
   add_index "products", ["name_en"], :name => "index_products_on_name_en"
