@@ -75,7 +75,7 @@ class Product < ActiveRecord::Base
 
     def suggest_by_random(amount = 4)
       r = []
-      Product.random(amount).each do |t|
+      Product.published.random(amount).each do |t|
         r << t.id
       end
       r
@@ -83,7 +83,7 @@ class Product < ActiveRecord::Base
 
     def suggest_by_priority(amount = 4)
       r = []
-      Product.order("priority desc").limit((amount*1.2).round).shuffle[0..amount-1].each do |t|
+      Product.published.order("priority desc").limit((amount*1.2).round).shuffle[0..amount-1].each do |t|
         r << t.id
       end
       r
@@ -133,7 +133,7 @@ class Product < ActiveRecord::Base
     # product may belongs to multi collections
     # but may belongs to only one PRIMARY collection?
     r = []
-    self.collection.products.select("id").sample(amount).each do |t|
+    self.collection.products.published.select("id").sample(amount).each do |t|
       r.push(t.id)
     end
     r
@@ -141,7 +141,7 @@ class Product < ActiveRecord::Base
 
   def suggest_same_collection_by_priority(amount = 4)
     r = []
-    self.collection.products.select("id").order("priority desc").sample(amount*1.5.round)[0..amount-1].each do |t|
+    self.collection.products.published.select("id").order("priority desc").sample(amount*1.5.round)[0..amount-1].each do |t|
       r.push(t.id)
     end
     r

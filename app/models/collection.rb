@@ -42,7 +42,7 @@ class Collection < ActiveRecord::Base
 
   def suggest_by_random(amount = 4)
     r = []
-    self.products.select("id").sample(amount).each do |t|
+    self.products.published.select("id").sample(amount).each do |t|
       r.push(t.id)
     end
     r
@@ -50,7 +50,7 @@ class Collection < ActiveRecord::Base
 
   def suggest_by_priority(amount = 4)
     r = []
-    self.products.order("priority desc").limit((amount*1.2).round).shuffle[0..amount-1].each do |t|
+    self.products.published.order("priority desc").limit((amount*1.2).round).shuffle[0..amount-1].each do |t|
       r.push(t.id)
     end
     r
