@@ -17,7 +17,7 @@ module Extension
       while true do
         if (r = r.uniq).count < amount
           r = r.concat(Product.suggest_by_random((amount - r.count)*0.2.round))
-          r = r.concat(Product.suggest_by_priority(amount - r.count)
+          r = r.concat(Product.suggest_by_priority(amount - r.count))
         end
 
         r.each do |t|
