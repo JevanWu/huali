@@ -157,11 +157,7 @@ class Transaction < ActiveRecord::Base
   end
 
   def custom_data
-    '?' + custom_str = URI.encode_www_form({
-      'customdata' => {
-        identifier: identifier
-      }.to_json
-    })
+    '?' + URI.encode_www_form( custom_id: identifier )
   end
 
   def to_alipay

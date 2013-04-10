@@ -80,7 +80,7 @@ class OrdersController < ApplicationController
 
   def return
     begin
-      transaction = Transaction.find_by_identifier @customdata['identifier']
+      transaction = Transaction.find_by_identifier @custom_id
       if transaction.return(request.query_string)
         @order = transaction.order
         render 'success'
@@ -93,7 +93,7 @@ class OrdersController < ApplicationController
   end
 
   def notify
-    transaction = Transaction.find_by_identifier @customdata['identifier']
+    transaction = Transaction.find_by_identifier @custom_id
     begin
       if transaction.notify(request.raw_post)
         render text: "success"
@@ -151,7 +151,6 @@ class OrdersController < ApplicationController
     end
 
     def process_custom_data
-      customdata = request.params["customdata"]
-      @customdata = JSON.parse URI.unescape(customdata) if customdata
+      @custom_id = request.params["custom_id"]
     end
 end
