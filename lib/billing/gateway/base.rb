@@ -3,14 +3,20 @@ module Billing
     class Base
       include Rails.application.routes.url_helpers
 
-      # need to define **#default_opts** and **#to_options**
-      # to use the Base class
       def initialize(opts)
         @opts = opts
         @options = default_opts.merge to_options(opts)
       end
 
       private
+
+      def default_opts
+        raise NoMethodError, 'need to define #default_opts in inherited class'
+      end
+
+      def to_options
+        raise NoMethodError, 'need to define #to_options in inherited class'
+      end
 
       def query_string
         compacted_options.map do |k, v|

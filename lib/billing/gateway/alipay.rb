@@ -66,7 +66,6 @@ module Billing
         raise ArgumentError, 'merchant_name is required for bankPay' if opts[:merchant_name].nil?
       end
 
-
       def add_sign(query)
         sign = Digest::MD5.hexdigest(query + ENV['ALIPAY_KEY'])
         query += "&sign=#{sign}&sign_type=MD5"
