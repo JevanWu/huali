@@ -2,8 +2,8 @@ require 'uri'
 require 'ostruct'
 
 module Billing
-  module Paypal
-    class Notification < OpenStruct
+  class Notification
+    class Paypal < OpenStruct
       include Helper
 
       attr_accessor :params

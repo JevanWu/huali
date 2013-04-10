@@ -2,8 +2,8 @@ require 'uri'
 require 'ostruct'
 
 module Billing
-  module Alipay
-    class Notification < OpenStruct
+  module Notification
+    class Alipay < OpenStruct
       include Helper
 
       attr_accessor :params

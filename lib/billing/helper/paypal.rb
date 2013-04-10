@@ -2,9 +2,9 @@ require 'digest/md5'
 require 'uri'
 
 module Billing
-  module Paypal
-    module Helper
-      def ipn_url 
+  module Helper
+    module Paypal
+      def ipn_url
         Rails.env == 'production' ? "https://www.paypal.com/cgi-bin/webscr?" : "https://www.sandbox.paypal.com/cgi-bin/webscr?"
       end
       def ipn_validation_path

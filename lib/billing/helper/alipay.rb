@@ -2,8 +2,8 @@ require 'digest/md5'
 require 'uri'
 
 module Billing
-  module Alipay
-    module Helper
+  module Helper
+    module Alipay
 
       def verified?
         verify_sign && verify_seller
