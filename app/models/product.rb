@@ -76,7 +76,15 @@ class Product < ActiveRecord::Base
     def suggest_by_random(amount = 3)
       r = []
       Product.random(amount).each do |t|
-        r.push(t.id)
+        r << t.id
+      end
+      r
+    end
+
+    def suggest_by_priority(amount = 3)
+      r = []
+      Product.order("priority desc").limit((amount*1.2).round).shuffle[0..amount-1].each do |t|
+        r << t.id
       end
       r
     end
@@ -130,4 +138,5 @@ class Product < ActiveRecord::Base
     end
     r
   end
+
 end
