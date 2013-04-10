@@ -304,7 +304,7 @@ class Order < ActiveRecord::Base
 
   def update_sales_volume
     self.line_items.each do |line|
-      Product.find(line.product_id).sales_volume_totally += line.quantity
+      line.product.sales_volume_totally += line.quantity
     end    
   end
 
