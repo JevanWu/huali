@@ -17,7 +17,7 @@ module Extension
       while true do
         if (r = r.uniq).count < amount
           r = r.concat(Product.suggest_by_random((amount - r.count)*0.2.round))
-          r = r.concat(Product.suggest_by_priority(amount - r.count))
+          r = r.concat(Product.suggest_by_priority((amount - r.count)*1.5.round))
         end
 
         r.each do |t|
@@ -36,7 +36,7 @@ module Extension
         end
       end
 
-      r.shuffle[0..amount-1]
+      r = r.shuffle[0..amount-1]
 
       # turn id into product object
       rt = []

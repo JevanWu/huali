@@ -23,7 +23,7 @@ class ProductsController < ApplicationController
     end
 
     # suggestion
-    @suggest_products = suggest_generate
+    @suggest_products = suggest_generate([@product.id])
 
     respond_to do |format|
       format.html # show.html.erb

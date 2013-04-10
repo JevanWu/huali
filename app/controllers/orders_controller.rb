@@ -96,8 +96,12 @@ class OrdersController < ApplicationController
   end
 
   def current
-    # @suggest_products = Product.limit(10)
-    @suggest_products = suggest_generate
+    # @suggest_products = Product.suggest_by_randomlimit(10)
+    seeds = []
+    @products.each do |t|
+      seeds.push t.id
+    end
+    @suggest_products = suggest_generate(seeds, 7)
   end
 
   def cancel
