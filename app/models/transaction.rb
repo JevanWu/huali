@@ -88,7 +88,7 @@ class Transaction < ActiveRecord::Base
 
   def notify(opts)
     case paymethod
-    when "directPay", "bankpay"
+    when "directPay", "bankPay"
       result = Billing::Alipay::Notification.new(opts)
     when "paypal"
       result = Billing::Paypal::Notification.new(opts)
@@ -98,7 +98,7 @@ class Transaction < ActiveRecord::Base
 
   def return(opts)
     case paymethod
-    when "directPay", "bankpay"
+    when "directPay", "bankPay"
       result = Billing::Alipay::Return.new(opts)
     when "paypal"
       result = Billing::Paypal::Return.new(opts)
