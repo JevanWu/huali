@@ -45,7 +45,6 @@ class Transaction < ActiveRecord::Base
   }
 
   state_machine :state, initial: :generated do
-    before_transition to: :completed, do: :check_return
     after_transition to: :completed, do: :notify_order
 
     # use adj. for state with future vision
@@ -56,7 +55,6 @@ class Transaction < ActiveRecord::Base
 
     # processing is a state where controls are handed off to gateway now
     # the events are all returned from gateway
-    # FIXME might need a clock to timeout the processing
     state :processing do
       transition to: :completed, on: :complete
       # fail is reserved for native method name
@@ -76,45 +74,28 @@ class Transaction < ActiveRecord::Base
   end
 
   def request_path
-    Billing::Gateway.new(self).purchase_path
-  end
-
-  def notify(opts)
-    case paymethod
-    when "directPay", "bankpay"
-      result = Billing::Alipay::Notification.new(opts)
-    when "paypal"
-      result = Billing::Paypal::Notification.new(opts)
-    end
-    process(result)
+    Billing::Base.new(:gateway, self).purchase_path
   end
 
   def return(opts)
-    case paymethod
-    when "directPay", "bankpay"
-      result = Billing::Alipay::Return.new(opts)
-    when "paypal"
-      result = Billing::Paypal::Return.new(opts)
-    end
+    result = Billing::Base.new(:return, self, opts)
+    process(result)
+  end
+
+  def notify(opts)
+    result = Billing::Base.new(:notify, self, opts)
     process(result)
   end
 
   def process(result)
-    return false unless result && result.verified? && result.success?
-
-    if processed?
-      self
-    else
-      check_deal(result) && complete_deal(result) ? self : false
+    unless result && result.success?
+      return false
     end
-  end
 
-  def check_deal(result)
-    case paymethod
-    when 'paypal'
-      to_dollar(amount).to_f == result.payment_fee.to_f
+    if processed? or complete_deal(result)
+      return self
     else
-      amount.to_f == result.total_fee.to_f
+      return false
     end
   end
 
@@ -167,11 +148,5 @@ class Transaction < ActiveRecord::Base
 
   def notify_order
     self.order.pay
-  end
-
-  def check_return
-    # It checks Notification to valid the returned result
-    # - paid amount equals the request amount
-    # - the transactionID is the same
   end
 end
