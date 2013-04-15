@@ -4,11 +4,12 @@ require 'ostruct'
 module Billing
   class Return
     class Alipay < OpenStruct
-      include Helper
+      include Billing::Helper::Alipay
 
       attr_accessor :params
 
-      def initialize(query_string)
+      def initialize(opts, query_string)
+        @opts = opts
         reset!
         # delegates OpenStruct.new to build all arbitrary attributes
         # cover ALL Alipay notify params

@@ -2,11 +2,11 @@ require 'digest/md5'
 
 module Billing
   class Gateway
-    class Alipay < Base
+    class Alipay < Gateway::Base
 
       SERVICE_URL = "https://www.alipay.com/cooperate/gateway.do?"
 
-      def initialize(opts)
+      def initialize(opts, query = nil)
         validate_merchant_name(opts) if opts[:paymethod] == 'bankPay'
         super
       end

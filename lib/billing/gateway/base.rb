@@ -3,7 +3,7 @@ module Billing
     class Base
       include Rails.application.routes.url_helpers
 
-      def initialize(opts)
+      def initialize(opts, query = nil)
         @opts = opts
         @options = default_opts.merge to_options(opts)
       end

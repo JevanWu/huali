@@ -4,20 +4,21 @@ require 'ostruct'
 module Billing
   class Return
     class Paypal < OpenStruct
-      include Helper
+      include Billing::Helper::Paypal
 
       attr_accessor :params
 
-      def initialize(query_string)
+      def initialize(opts, query_string)
+        @opts = opts
         reset!
-        # delegates OpenStruct.new to build all arbitrary attributes
-        # cover ALL Paypal notify params
         result = parse(query_string)
-        result["payment_fee"] = result["amt"]
-        result["payment_status"] = result["st"]
-        result["trade_no"] = result["tx"]
-        # add alias
+        result['trade_no'] = result['tx']
+
         super result
+      end
+
+      def success?
+        right_amount? && st == "Completed"
       end
 
       private
@@ -37,6 +38,10 @@ module Billing
           memo[URI.decode(key)] = value
           memo
         end
+      end
+
+      def right_amount?
+        amt.to_f == to_dollar(@opts[:amount])
       end
     end
   end

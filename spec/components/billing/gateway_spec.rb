@@ -2,47 +2,7 @@
 require 'spec_helper'
 
 describe Billing::Gateway do
-  context '#initialize' do
-    let(:transaction) do
-      {
-        # in: %w(paypal directPay bankPay),
-        paymethod: 'directPay', # required
-        identifier: 'TR1303130011', # required
-        amount: 359, # required
-        subject: '琥珀 x 1', # required
-        body: nil,
-        merchant_name: 'CMB'
-      }
-    end
-
-    [:paymethod, :identifier, :amount, :subject].each do |attr|
-      it "should raise an error if #{attr} are missing" do
-        transaction[attr] = nil
-        lambda { Billing::Gateway.new transaction }.should raise_error ArgumentError, "the transaction object missing required attributes #{attr}"
-      end
-    end
-
-    it 'should raise an error if the paymethod is not valid' do
-      transaction[:paymethod] = 'invalid_paymethod'
-      lambda { Billing::Gateway.new transaction }.should raise_error ArgumentError, 'invalid paymethod'
-    end
-
-    it 'should return an Billing::Gateway::Alipay instance if paymethod is directPay' do
-      transaction[:paymethod] = 'directPay'
-      Billing::Gateway.new(transaction).should be_kind_of(Billing::Gateway::Alipay)
-    end
-
-
-    it 'should return an Billing::Gateway::Alipay instance if paymethod is bankPay' do
-      transaction[:paymethod] = 'bankPay'
-      Billing::Gateway.new(transaction).should be_kind_of(Billing::Gateway::Alipay)
-    end
-
-    it 'should return an Billing::Gateway::Paypal instance if paymethod is paypal' do
-      transaction[:paymethod] = 'paypal'
-      Billing::Gateway.new(transaction).should be_kind_of(Billing::Gateway::Paypal)
-    end
-  end
+  let(:type) { :gateway }
 
   context 'transaction#paymethod is directPay' do
     let(:transaction) do
@@ -91,7 +51,7 @@ describe Billing::Gateway do
 
     it 'raise an error if merchant_name is missing' do
       transaction[:merchant_name] = nil
-      lambda { Billing::Gateway.new transaction }.should raise_error ArgumentError, 'merchant_name is required for bankPay'
+      lambda { Billing::Base.new type, transaction }.should raise_error ArgumentError, 'merchant_name is required for bankPay'
     end
 
     describe '#purchase_path' do
@@ -128,14 +88,14 @@ describe Billing::Gateway do
 
     it 'should convert the RMB amount 399 to dollar $69.99' do
       transaction[:amount] = 399
-      gateway = Billing::Gateway.new(transaction)
+      gateway = Billing::Base.new(type, transaction)
 
       gateway.purchase_path.index('amount=69.99').should_not be_nil
     end
 
     it 'should convert the RMB amount 199 to dollar $34.99' do
       transaction[:amount] = 199
-      gateway = Billing::Gateway.new(transaction)
+      gateway = Billing::Base.new(type, transaction)
 
       gateway.purchase_path.index('amount=34.99').should_not be_nil
     end
