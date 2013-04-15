@@ -1,5 +1,9 @@
 <% content_for :title do %>
-  <%= @product.name %>
+  <% if @product.meta_title != "" %>
+    <%= @product.meta_title %>
+  <% else %>
+    <%= @product.name %>
+  <% end %>
 <% end %>
 
 <% content_for :keywords do %>

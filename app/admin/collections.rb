@@ -44,6 +44,7 @@ ActiveAdmin.register Collection do
         end.join(', ').html_safe
       end
 
+      row :meta_title
       row :meta_description
       row :meta_keywords
 

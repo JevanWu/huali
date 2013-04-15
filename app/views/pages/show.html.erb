@@ -1,5 +1,9 @@
 <% content_for :title do %>
-  <%= @page.title %>
+  <% if @page.meta_title != "" %>
+    <%= @page.meta_title %>
+  <% else %>
+    <%= @page.name %>
+  <% end %>  
 <% end %>
 
 <% content_for :keywords do %>

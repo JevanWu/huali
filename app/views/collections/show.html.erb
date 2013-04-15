@@ -1,5 +1,9 @@
 <% content_for :title do %>
-  <%= @collection.name %>
+  <% if @collection.meta_title != "" %>
+    <%= @collection.meta_title %>
+  <% else %>
+    <%= @collection.name %>
+  <% end %>
 <% end %>
 
 <div class="collection-wrapper">
