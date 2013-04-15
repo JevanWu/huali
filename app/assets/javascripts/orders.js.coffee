@@ -47,6 +47,12 @@ $ ->
     )
 
 
+  $('.suggestion-click-to-cart > a').click(
+    ->
+      a += 1
+  )
+
+
 # product = { id: String, quantity: Integer }
 # cart
 #   'product_id': quantity
