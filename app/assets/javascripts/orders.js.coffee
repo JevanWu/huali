@@ -39,10 +39,9 @@ $ ->
 
       return false
 
-  $('.suggestion-cell').children('.suggestion-click-to-cart').css('opacity',0)
   $('.suggestion-cell').hover(
     ->
-      $(@).children('.suggestion-click-to-cart').fadeTo(400,1)
+      $(@).children('.suggestion-click-to-cart').css('opacity',0).css('visibility','visible').fadeTo(400,1)
     ->
       $(@).children('.suggestion-click-to-cart').fadeTo(400,0)
     )
