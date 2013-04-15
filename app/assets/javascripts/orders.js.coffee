@@ -41,8 +41,9 @@ $ ->
 
       return false
 
-  parseWithYen = (x) ->
-    " ¥ "+x+" "
+  number_to_currency = (x, unit) ->
+    " " + unit + " " + x + " "
+
   updatePrice = ->
     priceSum = 0
     $('.item-table tr').slice(1,$('.item-table tr').size()-1).each(->
