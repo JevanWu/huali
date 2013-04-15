@@ -15,7 +15,7 @@ describe Billing::Base do
   end
 
   let(:type) { [:gateway, :return, :notify].sample }
-  let(:query) { '?hello=world' }
+  let(:query) { 'hello=world' }
 
   context 'validate types' do
     let(:type) { :other }
@@ -39,7 +39,7 @@ describe Billing::Base do
     end
   end
 
-  context 'create the billing instance of types' do
+  context 'create the billing instance' do
     context 'type == :gateway' do
       let(:type) { :gateway }
 
@@ -89,6 +89,21 @@ describe Billing::Base do
       it 'should raise an error if the query_string is not present' do
         query = nil
         lambda { Billing::Base.new type, transaction, query }.should raise_error ArgumentError, 'the notify query string is required'
+      end
+
+      it 'should return an Billing::Notify::Alipay instance if paymethod is directPay' do
+        transaction[:paymethod] = 'directPay'
+        Billing::Base.new(type, transaction, query).should be_kind_of Billing::Notify::Alipay
+      end
+
+      it 'should return an Billing::Notify::Alipay instance if paymethod is bankPay' do
+        transaction[:paymethod] = 'bankPay'
+        Billing::Base.new(type, transaction, query).should be_kind_of Billing::Notify::Alipay
+      end
+
+      it 'should return an Billing::Notify::Paypal instance if paymethod is paypal' do
+        transaction[:paymethod] = 'paypal'
+        Billing::Base.new(type, transaction, query).should be_kind_of Billing::Notify::Paypal
       end
     end
   end

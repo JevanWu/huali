@@ -13,12 +13,13 @@ module Billing
         reset!
         result = parse(query_string)
         result['trade_no'] = result['tx']
+        result['payment_status'] = result['st']
 
         super result
       end
 
       def success?
-        right_amount? && st == "Completed"
+        right_amount? && payment_status == "Completed"
       end
 
       private

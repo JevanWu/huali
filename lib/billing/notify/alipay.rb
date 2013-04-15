@@ -2,14 +2,14 @@ require 'uri'
 require 'ostruct'
 
 module Billing
-  module Notification
+  class Notify
     class Alipay < OpenStruct
-      include Helper
+      include Billing::Helper::Alipay
 
-      attr_accessor :params
-      attr_accessor :raw
+      attr_accessor :params, :raw
 
-      def initialize(post)
+      def initialize(opts, post)
+        @opts = opts
         reset!
 
         # delegates OpenStruct.new to build all arbitrary attributes

@@ -4,30 +4,25 @@ require 'uri'
 module Billing
   module Helper
     module Paypal
-      def ipn_url
-        Rails.env == 'production' ? "https://www.paypal.com/cgi-bin/webscr?" : "https://www.sandbox.paypal.com/cgi-bin/webscr?"
-      end
-      def ipn_validation_path
-        URI.parse(ipn_url).path + "?cmd=_notify-validate"
-      end
-      def seller_mail
-        Rails.env == 'production' ? ENV['PAYPAL_EMAIL'] : ENV['PAYPAL_SANDBOX_EMAIL']
-      end
-
-      def verified?
-        verify_seller?
-      end
-
       def success?
-        payment_status == "Completed"
+        right_amount? && payment_status == "Completed"
       end
 
-      def verify_seller?
-        return true
-        # FIXME verify
-        business == seller_mail
+      def right_amount?
+        amt.to_f == to_dollar(@opts[:amount])
       end
 
+      def to_dollar(amount)
+        dollar = amount / 6.0
+        # round the dollar amount to 10x
+        round = (dollar / 10.0).ceil * 10
+
+        # adjust the number to 5x
+        # 124.234 -> 124.99 ; 126.23 -> 129.99
+        adjust = (dollar % 10 > 5) ? 0.01 : (5 + 0.01)
+
+        round - adjust
+      end
     end
   end
 end

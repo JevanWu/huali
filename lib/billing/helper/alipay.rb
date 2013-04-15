@@ -4,16 +4,19 @@ require 'uri'
 module Billing
   module Helper
     module Alipay
+      def success?
+        verified? && right_amount? && trade_status == "TRADE_SUCCESS"
+      end
+
+      private
+
+      def right_amount?
+        total_fee.to_f == @opts[:amount]
+      end
 
       def verified?
         verify_sign && verify_seller
       end
-
-      def success?
-        trade_status == "TRADE_SUCCESS"
-      end
-
-      private
 
       def verify_seller
         seller_email == ENV['ALIPAY_EMAIL']
