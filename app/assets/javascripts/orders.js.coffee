@@ -37,6 +37,8 @@ $ ->
       else
         $(@).siblings("input").val(changeTo)
 
+      updatePrice()
+
       return false
 
   $('.suggestion-cell').hover(
@@ -52,7 +54,19 @@ $ ->
       a += 1
   )
 
+  number_to_currency = (x, unit) ->
+    " " + unit + " " + x + " "
 
+  updatePrice = ->
+    priceSum = 0
+    $('.item-table tr').slice(1,$('.item-table tr').size()-1).each(->
+      pricePerItem = parseFloat($(this).children('.price').html().replace(/[^\d.]/g, ""))
+      quantity = parseInt($(this).children('.quantity').children('input').val())
+      priceSum += (priceSumItem = pricePerItem*quantity)
+      $(this).children('.total').html(parseWithYen(priceSumItem.toFixed(2)))
+      )
+    $('.item-table tr').last().children().last().html(parseWithYen(priceSum.toFixed(2)))
+    
 # product = { id: String, quantity: Integer }
 # cart
 #   'product_id': quantity

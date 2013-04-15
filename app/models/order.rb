@@ -113,6 +113,7 @@ class Order < ActiveRecord::Base
   end
 
   scope :all, -> { reorder }
+  scope :yesterday, -> { where 'delivery_date = ?', Date.yesterday }
   scope :current, -> { where 'delivery_date = ?', Date.current }
   scope :tomorrow, -> { where 'delivery_date = ?', Date.tomorrow }
   scope :next_two_day, -> { where 'delivery_date = ?', Date.current.next_day(2) }

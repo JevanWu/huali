@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title><%= content_for?(:title) ? yield(:title) : "" %> | 花里花店</title>
-    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "花里，专注于花盒礼品配送的在线花店，提供优质的鲜花速递配送服务，并承接定制与个性化礼物方案，致力于打造中国最好的网上花店。" %>">
-    <meta name="keywords" content="<%= content_for?(:keywords) ? yield(:keywords) : ''%> 花里精品花店 网上订花送花 鲜花速递配送 定制花盒礼品">
+    <title><%= content_for?(:title) ? yield(:title) + ' ': ' '%> 花里花店</title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "花里，您身边的鲜花与礼品顾问。在花里，我们明白您的心思与品味，精心设计、制作每一款花盒、礼品，以期更美好地表达你我的情感与感动。只为您和您在乎的人。" %>">
+    <meta name="keywords" content="<%= content_for?(:keywords) ? yield(:keywords) : ''%> 网上订花,网上送花,鲜花礼品,礼品定制">
     <meta name="author" content=""/>
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <!--[if lt IE 9]><%= javascript_include_tag 'html5shiv' %><![endif]-->

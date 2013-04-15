@@ -3,6 +3,7 @@ class OrdersController < ApplicationController
   before_filter :load_cart
   before_filter :fetch_items, only: [:new, :create, :current]
   before_filter :authenticate_user!, only: [:new, :index, :show, :create, :checkout, :cancel]
+  before_filter :process_custom_data, only: [:return, :notify]
 
   include ::Extension::Order
   include ::Extension::Suggestion
@@ -74,24 +75,34 @@ class OrdersController < ApplicationController
     # they should be separated
 
     transaction = @order.generate_transaction params[:pay_info]
-    redirect_to transaction.request_process
+    transaction.start
+    redirect_to transaction.request_path
   end
 
   def return
-    transaction = Transaction.return(request.query_string)
-    if transaction
-      @order = transaction.order
-      render 'success'
-    else
-      render 'failed'
+    begin
+      transaction = Transaction.find_by_identifier @customdata['identifier']
+      if transaction.return(request.query_string)
+        @order = transaction.order
+        render 'success'
+      else
+        render 'failed', layout: 'layouts/error'
+      end
+    rescue
+      render 'failed', layout: 'layouts/error', status: 400
     end
   end
 
   def notify
-    if Transaction.notify(request.raw_post)
-      render text: "success"
-    else
-      render text: "failed"
+    transaction = Transaction.find_by_identifier @customdata['identifier']
+    begin
+      if transaction.notify(request.raw_post)
+        render text: "success"
+      else
+        render 'failed', layout: 'layouts/error'
+      end
+    rescue
+      render 'failed', layout: 'layouts/error', status: 400
     end
   end
 
@@ -144,5 +155,10 @@ class OrdersController < ApplicationController
         flash[:alert] = t('controllers.order.checkout.no_items')
         redirect_to :root
       end
+    end
+
+    def process_custom_data
+      customdata = request.params["customdata"]
+      @customdata = JSON.parse URI.unescape(customdata) if customdata
     end
 end

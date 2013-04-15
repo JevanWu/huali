@@ -66,40 +66,7 @@ class Transaction < ActiveRecord::Base
     end
   end
 
-  class << self
-    def by_state(state)
-      where(state: state)
-    end
-
-    def return(opts)
-      result = Billing::Alipay::Return.new(opts)
-      handle_process(result)
-    end
-
-    def notify(opts)
-      result = Billing::Alipay::Notification.new(opts)
-      handle_process(result)
-    end
-
-    def handle_process(result)
-      unless result.verified? && result.success?
-        false
-      else
-        transaction = find_by_identifier(result.out_trade_no)
-        return false unless transaction
-        if transaction.processed?
-          transaction
-        else
-          if transaction.check_deal(result)
-            transaction.complete_deal(result)
-            transaction
-          else
-            false
-          end
-        end
-      end
-    end
-  end
+  scope :by_state, lambda { |state| where(state: state) }
 
   def initialize(opts = {}, pay_info = nil)
     if pay_info
@@ -108,11 +75,6 @@ class Transaction < ActiveRecord::Base
     else
       super opts
     end
-  end
-
-  def request_process
-    start
-    request_path
   end
 
   def request_path
@@ -124,8 +86,43 @@ class Transaction < ActiveRecord::Base
     end
   end
 
+  def notify(opts)
+    case paymethod
+    when "directPay", "bankPay"
+      result = Billing::Alipay::Notification.new(opts)
+    when "paypal"
+      result = Billing::Paypal::Notification.new(opts)
+    end
+    process(result)
+  end
+
+  def return(opts)
+    case paymethod
+    when "directPay", "bankPay"
+      result = Billing::Alipay::Return.new(opts)
+    when "paypal"
+      result = Billing::Paypal::Return.new(opts)
+    end
+    process(result)
+  end
+
+  def process(result)
+    return false unless result && result.verified? && result.success?
+
+    if processed?
+      self
+    else
+      check_deal(result) && complete_deal(result) ? self : false
+    end
+  end
+
   def check_deal(result)
-    amount.to_f == result.total_fee.to_f
+    case paymethod
+    when 'paypal'
+      to_dollar(amount).to_f == result.payment_fee.to_f
+    else
+      amount.to_f == result.total_fee.to_f
+    end
   end
 
   def complete_deal(result)
@@ -159,6 +156,14 @@ class Transaction < ActiveRecord::Base
     end
   end
 
+  def custom_data
+    '?' + custom_str = URI.encode_www_form({
+      'customdata' => {
+        identifier: identifier
+      }.to_json
+    })
+  end
+
   def to_alipay
     {
       # directPay requires the defaultbank to be blank
@@ -168,8 +173,8 @@ class Transaction < ActiveRecord::Base
       total_fee: amount,
       subject: subject,
       body: body,
-      return_url: return_order_url(host: $host),
-      notify_url: notify_order_url(host: $host)
+      return_url: return_order_url(host: $host) + custom_data,
+      notify_url: notify_order_url(host: $host) + custom_data
     }
   end
 
@@ -181,8 +186,8 @@ class Transaction < ActiveRecord::Base
       defaultbank: merchant_name,
       subject: subject,
       body: body,
-      return_url: return_order_url(host: $host),
-      notify_url: notify_order_url(host: $host)
+      return_url: return_order_url(host: $host) + custom_data,
+      notify_url: notify_order_url(host: $host) + custom_data
     }
   end
 
@@ -191,8 +196,8 @@ class Transaction < ActiveRecord::Base
       item_name: subject,
       amount: to_dollar(amount),
       invoice: identifier,
-      return: return_order_url(host: $host),
-      notify_url: notify_order_url(host: $host)
+      return: return_order_url(host: $host) + custom_data,
+      notify_url: notify_order_url(host: $host) + custom_data
     }
   end
 
