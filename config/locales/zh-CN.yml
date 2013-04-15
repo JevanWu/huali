@@ -60,6 +60,7 @@ zh-CN:
         ship_method: 递送方式
         special_instructions: 特殊要求
         gift_card_text: 卡片信息
+        additional_info: 附加信息
         item_total: 物品总价
         total: 订单总价
         state: 订单状态
