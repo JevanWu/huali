@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130410031256) do
+ActiveRecord::Schema.define(:version => 20130415034333) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -102,6 +102,7 @@ ActiveRecord::Schema.define(:version => 20130410031256) do
     t.string   "meta_keywords"
     t.string   "meta_description"
     t.boolean  "primary_category", :default => false, :null => false
+    t.string   "meta_title",       :default => ""
   end
 
   add_index "collections", ["slug"], :name => "index_collections_on_slug", :unique => true
@@ -183,6 +184,7 @@ ActiveRecord::Schema.define(:version => 20130410031256) do
     t.string   "title_en"
     t.text     "content_en"
     t.boolean  "in_footer",        :default => true
+    t.string   "meta_title",       :default => ""
   end
 
   add_index "pages", ["permalink"], :name => "index_pages_on_permalink"
@@ -211,6 +213,7 @@ ActiveRecord::Schema.define(:version => 20130410031256) do
     t.boolean  "published_zh",                                       :default => false
     t.boolean  "published_en",                                       :default => false
     t.integer  "priority",                                           :default => 5
+    t.string   "meta_title",                                         :default => ""
     t.integer  "sales_volume_totally",                               :default => 0
   end
 

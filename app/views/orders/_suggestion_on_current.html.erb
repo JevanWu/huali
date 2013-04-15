@@ -1,0 +1,16 @@
+<div class="suggestion">
+	<p>您可能还喜欢：</p>
+	<ul class="suggestion-list">
+		<% @suggest_products.each do |product| %>
+				<li class="suggestion-cell">
+			  		<%= link_to image_tag(product.img(:medium), width: '100'), product_path(product), title: product.name, :target => "_blank" %>
+			  		<div class='suggestion-click-to-cart'>
+				  		<%= link_to '加入购花篮', product_path(product), data: { product_id: product.id } %>
+			  		</div>
+				  	<div class='suggestion-link'>
+				  		<%= link_to product.name, product_path(product), :target => "_blank" %>
+				  	</div>
+				</li>
+		<% end %>
+	</ul>
+</div>
