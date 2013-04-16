@@ -99,10 +99,10 @@ class OrdersController < ApplicationController
       if transaction.notify(request.raw_post)
         render text: "success"
       else
-        render 'failed', layout: 'layouts/error'
+        render text: "failed", status: 400
       end
     rescue
-      render 'failed', layout: 'layouts/error', status: 400
+      render text: "failed", status: 400
     end
   end
 
