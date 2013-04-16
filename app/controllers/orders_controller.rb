@@ -86,10 +86,11 @@ class OrdersController < ApplicationController
         @order = transaction.order
         render 'success'
       else
-        render 'failed', layout: 'layouts/error'
+        @order = transaction.order
+        render 'failed', status: 400
       end
     rescue
-      render 'failed', layout: 'layouts/error', status: 400
+      render 'failed', status: 400
     end
   end
 
