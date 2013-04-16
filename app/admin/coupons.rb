@@ -2,11 +2,6 @@
 ActiveAdmin.register Coupon do
   menu parent: '设置', if: proc { can? :read, Coupon }
 
-  controller do
-    include ActiveAdminCanCan
-    authorize_resource
-  end
-
   batch_action :destroy, false
 
   filter :expires_at

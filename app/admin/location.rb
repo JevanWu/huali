@@ -2,11 +2,6 @@
 ActiveAdmin.register Province do
   menu parent: '设置', if: proc { can? :read, Province }
 
-  controller do
-    include ActiveAdminCanCan
-    authorize_resource
-  end
-
   scope :available
   scope :unavailable
 
@@ -76,11 +71,6 @@ end
 
 ActiveAdmin.register City do
   menu parent: '设置', if: proc { can? :read, City }
-
-  controller do
-    include ActiveAdminCanCan
-    authorize_resource
-  end
 
   scope :available
   scope :unavailable
@@ -157,11 +147,6 @@ end
 
 ActiveAdmin.register Area do
   menu parent: '设置', if: proc { can? :read, Area }
-
-  controller do
-    include ActiveAdminCanCan
-    authorize_resource
-  end
 
   scope :available
   scope :unavailable

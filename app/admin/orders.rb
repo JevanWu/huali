@@ -4,8 +4,6 @@ ActiveAdmin.register Order do
   menu parent: '订单', priority:1, unless: proc { cannot? :read, Page }
 
   controller do
-    include ActiveAdminCanCan
-    authorize_resource
     helper :orders
 
     # override methods from **inherited_resource** to specify behavior of controller

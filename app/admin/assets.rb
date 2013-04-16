@@ -2,11 +2,6 @@
 ActiveAdmin.register Asset do
   menu parent: '产品', if: proc { can? :read, Asset }
 
-  controller do
-    include ActiveAdminCanCan
-    authorize_resource
-  end
-
   filter :viewable_type, as: :select, collection:  proc { Asset.pluck(:viewable_type).uniq }
   filter :image_file_name
   filter :image_updated_at

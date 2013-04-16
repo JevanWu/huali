@@ -2,11 +2,6 @@
 ActiveAdmin.register Product do
   menu parent: '产品', if: proc { can? :read, Product }
 
-  controller do
-    include ActiveAdminCanCan
-    authorize_resource
-  end
-
   [ :enable,
     :disable
  ].each do |action|

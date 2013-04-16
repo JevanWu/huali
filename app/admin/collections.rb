@@ -2,11 +2,6 @@
 ActiveAdmin.register Collection do
   menu parent: '产品', if: proc { can? :read, Collection }
 
-  controller do
-    include ActiveAdminCanCan
-    authorize_resource
-  end
-
   filter :name_zh
   filter :display_name
   filter :description

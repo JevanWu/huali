@@ -2,12 +2,6 @@
 ActiveAdmin.register Page do
   menu parent: '设置', if: proc { can? :read, Page }
 
-  controller do
-    include ActiveAdminCanCan
-    authorize_resource
-  end
-
-
   filter :title_zh
   controller do
     def new

@@ -2,11 +2,6 @@
 ActiveAdmin.register ShipMethod do
   menu parent: '设置', if: proc { can? :read, ShipMethod }
 
-  controller do
-    include ActiveAdminCanCan
-    authorize_resource
-  end
-
   index do
     selectable_column
 
