@@ -11,7 +11,7 @@ module Billing
         super
       end
 
-      def purchase_path
+      def to_s
         query = add_sign(query_string)
         SERVICE_URL + URI.encode(query)
       end

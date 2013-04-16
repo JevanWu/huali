@@ -13,7 +13,7 @@ module Billing
         TOKEN = ENV['PAYPAL_TOKEN']
       end
 
-      def purchase_path
+      def to_s
         SERVICE_URL + URI::encode(query_string)
       end
 

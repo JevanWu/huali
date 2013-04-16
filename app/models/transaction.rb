@@ -64,7 +64,7 @@ class Transaction < ActiveRecord::Base
   scope :by_state, lambda { |state| where(state: state) }
 
   def request_path
-    Billing::Base.new(:gateway, self).purchase_path
+    Billing::Base.new(:gateway, self)
   end
 
   def return(opts)

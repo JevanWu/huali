@@ -17,7 +17,7 @@ describe Billing::Gateway do
       }
     end
 
-    describe '#purchase_path' do
+    describe '#to_s' do
       it 'is a valid alipay payment address' do
 
       end
@@ -54,7 +54,7 @@ describe Billing::Gateway do
       lambda { Billing::Base.new type, transaction }.should raise_error ArgumentError, 'merchant_name is required for bankPay'
     end
 
-    describe '#purchase_path' do
+    describe '#to_s' do
       it 'is a valid bankpay payment address' do
         # follow the redirection and validate against the html
       end
@@ -90,17 +90,17 @@ describe Billing::Gateway do
       transaction[:amount] = 399
       gateway = Billing::Base.new(type, transaction)
 
-      gateway.purchase_path.index('amount=69.99').should_not be_nil
+      gateway.to_s.index('amount=69.99').should_not be_nil
     end
 
     it 'should convert the RMB amount 199 to dollar $34.99' do
       transaction[:amount] = 199
       gateway = Billing::Base.new(type, transaction)
 
-      gateway.purchase_path.index('amount=34.99').should_not be_nil
+      gateway.to_s.index('amount=34.99').should_not be_nil
     end
 
-    describe '#purchase_path' do
+    describe '#to_s' do
       it 'is a valid paypal payment address' do
         # follow the redirection and validate against the html
       end
