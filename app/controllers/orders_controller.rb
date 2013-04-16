@@ -4,6 +4,7 @@ class OrdersController < ApplicationController
   before_filter :fetch_items, only: [:new, :create, :current]
   before_filter :authenticate_user!, only: [:new, :index, :show, :create, :checkout, :cancel]
   before_filter :process_custom_data, only: [:return, :notify]
+  skip_before_filter :verify_authenticity_token, only: [:notify]
 
   include ::Extension::Order
 
