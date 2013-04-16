@@ -36,7 +36,7 @@ describe Billing::Return do
   context 'from Paypal' do
     before(:each) do
       @transaction = { identifier: 'TR1302200011', paymethod: 'paypal', amount: 329.00 }
-      @query_str = "tx=1EM7156844322243K&st=Completed&amt=54.99&cc=USD&cm=&item_number="
+      @query_str = "custom_id=TR1302200011&tx=1EM7156844322243K&st=Completed&amt=54.99&cc=USD&cm=&item_number="
 
     end
 
