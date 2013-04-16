@@ -15,7 +15,7 @@ describe Billing::Base do
   end
 
   let(:type) { [:gateway, :return, :notify].sample }
-  let(:query) { 'hello=world' }
+  let(:query) { 'custom_id=TR1303130011' }
 
   context 'validate types' do
     let(:type) { :other }
@@ -27,13 +27,13 @@ describe Billing::Base do
 
   context 'validate transactions' do
     [:paymethod, :identifier, :amount].each do |attr|
-      it "should raise an error if #{attr} are missing" do
+      it "raises an error if #{attr} are missing" do
         transaction[attr] = nil
         lambda { Billing::Base.new type, transaction, query }.should raise_error ArgumentError, "the transaction object missing required attributes #{attr}"
       end
     end
 
-    it 'should raise an error if the paymethod is not valid' do
+    it 'raises an error if the paymethod is not valid' do
       transaction[:paymethod] = 'invalid_paymethod'
       lambda { Billing::Base.new type, transaction, query }.should raise_error ArgumentError, 'invalid paymethod'
     end
@@ -62,22 +62,27 @@ describe Billing::Base do
     context 'type == :return' do
       let(:type) { :return }
 
-      it 'should raise an error if the query_string is not present' do
+      it 'raises StandardError if query_string doesnt belong to current transaction' do
+        query = 'custom_id=TR1303130012'
+        lambda { Billing::Base.new type, transaction, query }.should raise_error StandardError, 'transaction doesnt match the custom_id in query_string'
+      end
+
+      it 'raises an error if the query_string is not present' do
         query = nil
         lambda { Billing::Base.new type, transaction, query }.should raise_error ArgumentError, 'the return query string is required'
       end
 
-      it 'should return an Billing::Return::Alipay instance if paymethod is directPay' do
+      it 'returns an Billing::Return::Alipay instance if paymethod is directPay' do
         transaction[:paymethod] = 'directPay'
         Billing::Base.new(type, transaction, query).should be_kind_of Billing::Return::Alipay
       end
 
-      it 'should return an Billing::Return::Alipay instance if paymethod is bankPay' do
+      it 'returns an Billing::Return::Alipay instance if paymethod is bankPay' do
         transaction[:paymethod] = 'bankPay'
         Billing::Base.new(type, transaction, query).should be_kind_of Billing::Return::Alipay
       end
 
-      it 'should return an Billing::Return::Paypal instance if paymethod is paypal' do
+      it 'returns an Billing::Return::Paypal instance if paymethod is paypal' do
         transaction[:paymethod] = 'paypal'
         Billing::Base.new(type, transaction, query).should be_kind_of Billing::Return::Paypal
       end
@@ -85,6 +90,11 @@ describe Billing::Base do
 
     context 'type == :notify' do
       let(:type) { :notify }
+
+      it 'raises StandardError if query_string doesnt belong to current transaction' do
+        query = 'custom_id=TR1303130012'
+        lambda { Billing::Base.new type, transaction, query }.should raise_error StandardError, 'transaction doesnt match the custom_id in query_string'
+      end
 
       it 'should raise an error if the query_string is not present' do
         query = nil

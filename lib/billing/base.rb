@@ -18,26 +18,32 @@ module Billing
 
       validate_transaction(@transaction)
 
-      validate_query if @type.in? [:return, :notify]
-
       # make the internal shared data structure explicit
-      opts = Hash.new
+      @opts = Hash.new
       [:paymethod, :identifier, :amount, :subject, :body, :merchant_name].each do |attr|
-        opts[attr] = @transaction[attr]
+        @opts[attr] = @transaction[attr]
+      end
+
+      if @type.in? [:return, :notify]
+        validate_query; identify_transaction
       end
 
       # create instance dynamically
       # Billing::Gateway::Alipay
-      case opts[:paymethod]
+      case @opts[:paymethod]
       when "directPay", "bankPay"
-        Billing.const_get(@type.capitalize).const_get(:Alipay).new(opts, @query)
+        Billing.const_get(@type.capitalize).const_get(:Alipay).new(@opts, @query)
       when "paypal"
-        Billing.const_get(@type.capitalize).const_get(:Paypal).new(opts, @query)
+        Billing.const_get(@type.capitalize).const_get(:Paypal).new(@opts, @query)
       end
     end
 
     def self.validate_query
       raise ArgumentError, "the #@type query string is required" unless @query
+    end
+
+    def self.identify_transaction
+      raise StandardError, 'transaction doesnt match the custom_id in query_string' unless @query.match(@opts[:identifier])
     end
 
     def self.validate_transaction(transaction)
