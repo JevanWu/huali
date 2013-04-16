@@ -29,7 +29,6 @@ class Transaction < ActiveRecord::Base
   has_one :user, through: :order
 
   before_validation :generate_identifier, on: :create
-  before_validation :override_merchant_name
 
   validates_presence_of :order, :identifier, :paymethod, :merchant_name, :amount, :subject
   validates :identifier, uniqueness: true
@@ -121,15 +120,6 @@ class Transaction < ActiveRecord::Base
   end
 
   private
-
-  def override_merchant_name
-    case paymethod
-    when 'paypal'
-      self.merchant_name = 'Paypal'
-    when 'directPay'
-      self.merchant_name = 'Alipay'
-    end
-  end
 
   def generate_identifier
     self.identifier = uid_prefixed_by('TR')
