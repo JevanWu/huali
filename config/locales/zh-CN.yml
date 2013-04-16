@@ -60,6 +60,7 @@ zh-CN:
         ship_method: 递送方式
         special_instructions: 特殊要求
         gift_card_text: 卡片信息
+        additional_info: 附加信息
         item_total: 物品总价
         total: 订单总价
         state: 订单状态
@@ -167,6 +168,7 @@ zh-CN:
         updated_at: 更新于
         cost_price: 成本价
         add_image: 新增图片
+        meta_title: 标题（SEO）
         meta_keywords: 关键词
         meta_description: 关键描述
         priority: 优先级
@@ -181,6 +183,7 @@ zh-CN:
         product: 产品
         created_at: 创建于
         updated_at: 更新于
+        meta_title: 标题（SEO）
         meta_keywords: 关键词
         meta_description: 关键描述
 
@@ -191,6 +194,7 @@ zh-CN:
         content_zh: 中文内容
         content_en: 英文内容
         in_footer: 是否出现在页脚
+        meta_title: 标题（SEO）
         meta_keywords: 关键词
         meta_description: 关键描述
 

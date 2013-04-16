@@ -63,6 +63,7 @@ ActiveAdmin.register Page do
       row :content_zh do
         markdown(page.content_zh)
       end
+      row :meta_title
       row :meta_keywords
       row :meta_description
     end

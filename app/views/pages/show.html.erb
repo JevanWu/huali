@@ -1,5 +1,5 @@
 <% content_for :title do %>
-  <%= @page.title %>
+  <%= @page.meta_title.blank? ? @page.title : @page.meta_title %>
 <% end %>
 
 <% content_for :keywords do %>
