@@ -63,13 +63,10 @@ class Transaction < ActiveRecord::Base
 
   scope :by_state, lambda { |state| where(state: state) }
 
-  def initialize(opts = {}, pay_info = nil)
-    if pay_info
-      pay_opts = parse_pay_info(pay_info)
-      super opts.merge(pay_opts)
-    else
-      super opts
-    end
+  def initialize(attrs = nil, options)
+    pay_opts = parse_pay_info attrs.delete(:pay_info)
+    attrs.merge!(pay_opts)
+    super attrs, options
   end
 
   def request_path
