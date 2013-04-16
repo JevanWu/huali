@@ -102,7 +102,7 @@ class Transaction < ActiveRecord::Base
   end
 
   def merchant_trade_link
-    Billing::Base.new(:link, self)
+    "#{Billing::Base.new(:link, self)}"
   end
 
   private
