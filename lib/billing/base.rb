@@ -4,6 +4,8 @@ require 'billing/return/alipay.rb'
 require 'billing/return/paypal.rb'
 require 'billing/notify/alipay.rb'
 require 'billing/notify/paypal.rb'
+require 'billing/link/alipay.rb'
+require 'billing/link/paypal.rb'
 
 module Billing
   class Base
@@ -12,20 +14,24 @@ module Billing
       @transaction = transaction
       @query = query
 
-      unless @type.in? [:gateway, :return, :notify]
-        raise ArgumentError, 'Billing should have the types among gateway, return and notify.'
+      unless @type.in? [:gateway, :return, :notify, :link]
+        raise ArgumentError, "invalid types for Billing"
       end
 
       validate_transaction(@transaction)
 
       # make the internal shared data structure explicit
       @opts = Hash.new
-      [:paymethod, :identifier, :amount, :subject, :body, :merchant_name].each do |attr|
+      [:paymethod, :identifier, :amount, :subject, :body, :merchant_name, :merchant_trade_no].each do |attr|
         @opts[attr] = @transaction[attr]
       end
 
       if @type.in? [:return, :notify]
         validate_query; identify_transaction
+      end
+
+      if @type.in? [:link]
+        validate_merchant_trade_no
       end
 
       # create instance dynamically
@@ -54,6 +60,10 @@ module Billing
       unless transaction[:paymethod].in? %w(paypal directPay bankPay)
         raise ArgumentError, 'invalid paymethod'
       end
+    end
+
+    def self.validate_merchant_trade_no
+      raise ArgumentError, 'merchant_trade_no is required' if @opts[:merchant_trade_no].nil?
     end
   end
 end

@@ -14,14 +14,14 @@ describe Billing::Base do
     }
   end
 
-  let(:type) { [:gateway, :return, :notify].sample }
+  let(:type) { [:gateway, :return, :notify, :link].sample }
   let(:query) { 'custom_id=TR1303130011' }
 
   context 'validate types' do
     let(:type) { :other }
 
     it 'raises error if type isnt among gateway, return and notify' do
-      lambda { Billing::Base.new type, transaction, query }.should raise_error ArgumentError, 'Billing should have the types among gateway, return and notify.'
+      lambda { Billing::Base.new type, transaction, query }.should raise_error ArgumentError, 'invalid types for Billing'
     end
   end
 
@@ -114,6 +114,43 @@ describe Billing::Base do
       it 'should return an Billing::Notify::Paypal instance if paymethod is paypal' do
         transaction[:paymethod] = 'paypal'
         Billing::Base.new(type, transaction, query).should be_kind_of Billing::Notify::Paypal
+      end
+    end
+
+    context 'type == :link' do
+      let(:type) { :link }
+
+      let(:transaction) do
+        {
+          # in: %w(paypal directPay bankPay),
+          paymethod: 'directPay', # required
+          identifier: 'TR1303130011', # required
+          amount: 359, # required
+          subject: '琥珀 x 1', # required
+          body: nil,
+          merchant_name: 'CMB',
+          merchant_trade_no: '2013041137907535'
+        }
+      end
+
+      it 'raises Argument error is merchant_trade_no isnt present' do
+        transaction[:merchant_trade_no] = nil
+        lambda { Billing::Base.new type, transaction }.should raise_error ArgumentError, 'merchant_trade_no is required'
+      end
+
+      it 'returns an Billing::Link::Alipay instance if paymethod is directPay' do
+        transaction[:paymethod] = 'directPay'
+        Billing::Base.new(type, transaction, query).should be_kind_of Billing::Link::Alipay
+      end
+
+      it 'returns an Billing::Link::Alipay instance if paymethod is bankPay' do
+        transaction[:paymethod] = 'bankPay'
+        Billing::Base.new(type, transaction, query).should be_kind_of Billing::Link::Alipay
+      end
+
+      it 'returns an Billing::Link::Paypal instance if paymethod is paypal' do
+        transaction[:paymethod] = 'paypal'
+        Billing::Base.new(type, transaction, query).should be_kind_of Billing::Link::Paypal
       end
     end
   end
