@@ -63,12 +63,6 @@ class Transaction < ActiveRecord::Base
 
   scope :by_state, lambda { |state| where(state: state) }
 
-  def initialize(attrs = nil, options)
-    pay_opts = parse_pay_info attrs.delete(:pay_info)
-    attrs.merge!(pay_opts)
-    super attrs, options
-  end
-
   def request_path
     Billing::Base.new(:gateway, self).purchase_path
   end
@@ -120,17 +114,6 @@ class Transaction < ActiveRecord::Base
 
   def generate_identifier
     self.identifier = uid_prefixed_by('TR')
-  end
-
-  def parse_pay_info(pay_info)
-    case pay_info
-    when 'directPay'
-      { paymethod: 'directPay', merchant_name: 'Alipay' }
-    when 'paypal'
-      { paymethod: 'paypal', merchant_name: 'Paypal' }
-    else
-      { paymethod: 'bankPay', merchant_name: pay_info }
-    end
   end
 
   def notify_order

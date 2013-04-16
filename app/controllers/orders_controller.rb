@@ -70,11 +70,11 @@ class OrdersController < ApplicationController
   def gateway
     @order = Order.find_by_id(params[:id] || session[:order_id])
 
-    # TODO make params[:pay_info] more clear
-    # currently it is mixed with two kinds of inf - pay method and merchant_name
-    # they should be separated
+    # params[:pay_info] is mixed with two kinds of info - pay method and merchant_name
+    # these two are closed bound together
 
-    transaction = @order.generate_transaction params[:pay_info]
+    payment_opts = process_pay_info(params[:pay_info])
+    transaction = @order.generate_transaction payment_opts
     transaction.start
     redirect_to transaction.request_path
   end
@@ -154,5 +154,16 @@ class OrdersController < ApplicationController
 
     def process_custom_data
       @custom_id = request.params["custom_id"]
+    end
+
+    def process_pay_info(pay_info)
+      case pay_info
+      when 'directPay'
+        { paymethod: 'directPay', merchant_name: 'Alipay' }
+      when 'paypal'
+        { paymethod: 'paypal', merchant_name: 'Paypal' }
+      else
+        { paymethod: 'bankPay', merchant_name: pay_info }
+      end
     end
 end
