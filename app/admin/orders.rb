@@ -1,7 +1,7 @@
 # encoding: utf-8
 ActiveAdmin.register Order do
   # i18n isn't evaluated here
-  menu parent: '订单', priority:1, unless: proc { cannot? :read, Page }
+  menu parent: '订单', priority:1, unless: proc { !!authorized?(:read, Order) }
 
   controller do
     helper :orders

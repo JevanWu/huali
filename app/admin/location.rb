@@ -1,6 +1,6 @@
 # encoding: utf-8
 ActiveAdmin.register Province do
-  menu parent: '设置', if: proc { can? :read, Province }
+  menu parent: '设置', if: proc { authorized? :read, Province }
 
   scope :available
   scope :unavailable
@@ -70,7 +70,7 @@ ActiveAdmin.register Province do
 end
 
 ActiveAdmin.register City do
-  menu parent: '设置', if: proc { can? :read, City }
+  menu parent: '设置', if: proc { authorized? :read, City }
 
   scope :available
   scope :unavailable
@@ -146,7 +146,7 @@ ActiveAdmin.register City do
 end
 
 ActiveAdmin.register Area do
-  menu parent: '设置', if: proc { can? :read, Area }
+  menu parent: '设置', if: proc { authorized? :read, Area }
 
   scope :available
   scope :unavailable

@@ -1,6 +1,6 @@
 # encoding: utf-8
 ActiveAdmin.register Transaction do
-  menu parent: '订单', if: proc { can? :read, Transaction }
+  menu parent: '订单', if: proc { authorized? :read, Transaction }
 
   controller do
     helper :transactions

@@ -1,6 +1,6 @@
 # encoding: utf-8
 ActiveAdmin.register Coupon do
-  menu parent: '设置', if: proc { can? :read, Coupon }
+  menu parent: '设置', if: proc { authorized? :read, Coupon }
 
   batch_action :destroy, false
 

@@ -1,6 +1,6 @@
 # encoding: utf-8
 ActiveAdmin.register Page do
-  menu parent: '设置', if: proc { can? :read, Page }
+  menu parent: '设置', if: proc { authorized? :read, Page }
 
   filter :title_zh
   controller do

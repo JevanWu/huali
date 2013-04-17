@@ -1,6 +1,6 @@
 # encoding: utf-8
 ActiveAdmin.register Collection do
-  menu parent: '产品', if: proc { can? :read, Collection }
+  menu parent: '产品', if: proc { authorized? :read, Collection }
 
   filter :name_zh
   filter :display_name

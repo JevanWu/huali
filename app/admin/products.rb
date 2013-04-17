@@ -1,6 +1,6 @@
 # encoding: utf-8
 ActiveAdmin.register Product do
-  menu parent: '产品', if: proc { can? :read, Product }
+  menu parent: '产品', if: proc { authorized? :read, Product }
 
   [ :enable,
     :disable
