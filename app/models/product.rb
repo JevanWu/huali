@@ -49,6 +49,12 @@ class Product < ActiveRecord::Base
   # lineItems
   has_many :line_items
 
+  # collocations
+  has_and_belongs_to_many :products,
+    :join_table => "collocation_relations",
+    :foreign_key => "product_a_id",
+    :association_foreign_key => "product_b_id"
+
   # i18n translation
   translate :name, :description, :inspiration
 
