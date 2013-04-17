@@ -51,8 +51,35 @@ $ ->
 
   $('.suggestion-click-to-cart > a').click(
     ->
-      a += 1
+      pid = $(@).data('product-id')
+      pro = Cart.get pid
+      if (Cart.get(pid).quantity != 0)
+        # FIXME, add logic for if already in cart
+          # method 1, add quantity in cart
+          # method 2, after click-to-cart, fadeOut and fadeIn another image        
+      else
+        Cart.update(id: pro.id, quantity: pro.quantity + 1)
+        dataClone = $(@).data()
+        newimg = $(@).parent().siblings("a").html().replace("width=\"100\"","width=\"150\"")
+        dataClone['img'] = newimg
+        dataClone['ahref'] = $(@).attr('href')
+        append_to_cart_table dataClone
+      return false
   )
+
+  append_to_cart_table = (p) ->
+    content = "<tr>" +
+    "<td class=\"image\">" + p.img + "</td>" +
+    "<td class=\"name\"><a href=\"" + p.ahref + "\">" + p.productName + "</a></td>"+
+    "<td class=\"price\" data-price=\"" + p.productPrice + "\">¥ " + p.productPrice + "</td>"+
+    "<td class=\"quantity\">"+
+      "<a href=\"/orders/current\" class=\"add_quantity trigger\" data-product='"+p.productId.toString()+"'><i class=\"icon-plus\"></i></a>"+
+      "<input type=\"text\" value=\"1\">"+
+      "<a href=\"/orders/current\" class=\"reduce_quantity trigger\" data-product='"+p.productId.toString()+"'><i class=\"icon-minus\"></i></a>"+
+      "<a href=\"/orders/current\" class=\"empty_quantity trigger\" data-product='"+p.productId.toString()+"'><i class=\"icon-trash\"></i></a>"+
+    "</td>"+
+    "</tr>"
+    $(".cart-table tbody").append(content)
 
   number_to_currency = (x, unit) ->
     " " + unit + " " + x + " "
