@@ -54,6 +54,7 @@ class Product < ActiveRecord::Base
     :join_table => "collocation_relations",
     :foreign_key => "product_a_id",
     :association_foreign_key => "product_b_id"
+  attr_accessible :product_ids
 
   # i18n translation
   translate :name, :description, :inspiration

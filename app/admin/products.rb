@@ -97,6 +97,12 @@ ActiveAdmin.register Product do
         end.join(', ').html_safe
       end
 
+      row :products do
+        product.products.map do |collocation|
+          collocation
+        end.join(', ').html_safe
+      end
+
       row :image do
         product.assets.map do |asset|
           image_tag asset.image.url(:medium)
