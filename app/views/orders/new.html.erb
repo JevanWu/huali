@@ -15,6 +15,9 @@
 <div class='row'>
   <div class="span4">
     <%= render 'side_item_table', items: @products, title: t(:basket) %>
+    <% unless @suggest_products.blank? %>
+      <%= render 'suggestion_on_checkout', items: @suggest_products, title: t('views.order.you_may_also_like') %>
+    <% end %>
   </div>
 
   <div class="span8">

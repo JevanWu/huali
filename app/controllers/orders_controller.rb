@@ -29,6 +29,13 @@ class OrdersController < ApplicationController
     @order = Order.new
     @order.build_address
     populate_sender_info unless current_or_guest_user.guest?
+
+    seeds = []
+    @products.each do |t|
+      seeds.push t.id
+    end
+    @suggest_products = suggest_generate(seeds, 7)
+
   end
 
   def create
@@ -107,7 +114,6 @@ class OrdersController < ApplicationController
   end
 
   def current
-    # @suggest_products = Product.suggest_by_randomlimit(10)
     seeds = []
     @products.each do |t|
       seeds.push t.id

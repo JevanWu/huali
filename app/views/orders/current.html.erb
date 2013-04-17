@@ -38,7 +38,7 @@
   </div>
 <% end %>
 
-<% unless @suggest_products.blank? && @products.blank? %>
+<% unless @suggest_products.blank? || @products.blank? %>
   <%= render partial: 'suggestion_on_current' %>
 <% end %>
 

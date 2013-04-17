@@ -13,7 +13,7 @@ $ ->
     pro = Cart.get $(@).data('product')
     Cart.update(id: pro.id, quantity: pro.quantity + 1)
 
-  $('.add_quantity, .reduce_quantity, .empty_quantity').click ->
+  bindTriggersClick = ->
     id = $(@).data('product')
     quantity = Cart.get(id)['quantity']
     action = $(@).attr('class').match(/(\w+)_quantity/)[1]
@@ -37,15 +37,17 @@ $ ->
       else
         $(@).siblings("input").val(changeTo)
 
-      updatePrice()
+      update_price()
 
       return false
 
+  $('.add_quantity, .reduce_quantity, .empty_quantity').click(bindTriggersClick)
+
   $('.suggestion-cell').hover(
     ->
-      $(@).children('.suggestion-click-to-cart').css('opacity',0).css('visibility','visible').fadeTo(400,1)
+      $(@).find('.suggestion-click-to-cart').css('opacity',0).css('visibility','visible').fadeTo(400,1)
     ->
-      $(@).children('.suggestion-click-to-cart').fadeTo(400,0)
+      $(@).find('.suggestion-click-to-cart').fadeTo(400,0)
     )
 
 
@@ -60,40 +62,70 @@ $ ->
       else
         Cart.update(id: pro.id, quantity: pro.quantity + 1)
         dataClone = $(@).data()
-        newimg = $(@).parent().siblings("a").html().replace("width=\"100\"","width=\"150\"")
-        dataClone['img'] = newimg
         dataClone['ahref'] = $(@).attr('href')
-        append_to_cart_table dataClone
+        if ($('.suggestion-on-checkout').size() == 0)
+          dataClone['img'] = $(@).parent().siblings("a").html()
+          append_to_cart_table dataClone
+          $('.add_quantity, .reduce_quantity, .empty_quantity').click(bindTriggersClick)
+          update_price()
+        else
+          dataClone['img'] = $(@).closest("td").siblings(".image").html()
+          append_to_cart_table_checkout dataClone
+          update_price_checkout()          
+
       return false
   )
 
   append_to_cart_table = (p) ->
-    content = "<tr>" +
-    "<td class=\"image\">" + p.img + "</td>" +
-    "<td class=\"name\"><a href=\"" + p.ahref + "\">" + p.productName + "</a></td>"+
-    "<td class=\"price\" data-price=\"" + p.productPrice + "\">¥ " + p.productPrice + "</td>"+
-    "<td class=\"quantity\">"+
-      "<a href=\"/orders/current\" class=\"add_quantity trigger\" data-product='"+p.productId.toString()+"'><i class=\"icon-plus\"></i></a>"+
-      "<input type=\"text\" value=\"1\">"+
-      "<a href=\"/orders/current\" class=\"reduce_quantity trigger\" data-product='"+p.productId.toString()+"'><i class=\"icon-minus\"></i></a>"+
-      "<a href=\"/orders/current\" class=\"empty_quantity trigger\" data-product='"+p.productId.toString()+"'><i class=\"icon-trash\"></i></a>"+
-    "</td>"+
-    "</tr>"
+    content = "<tr>
+    <td class=\"image\">#{p.img.replace("width=\"100\"","width=\"150\"")}</td>
+    <td class=\"name\"><a href=\"#{p.ahref}\">#{p.productName}</a></td>
+    <td class=\"price\" data-price=\"#{p.productPrice}\">¥ #{p.productPrice}</td>
+    <td class=\"quantity\">
+    <a href=\"/orders/current\" class=\"add_quantity trigger\" data-product='#{p.productId}'><i class=\"icon-plus\"></i></a>
+    <input type=\"text\" value=\"1\">
+    <a href=\"/orders/current\" class=\"reduce_quantity trigger\" data-product='#{p.productId}'><i class=\"icon-minus\"></i></a>
+    <a href=\"/orders/current\" class=\"empty_quantity trigger\" data-product='#{p.productId}'><i class=\"icon-trash\"></i></a>
+    </td>
+    <td class=\"total\"> ¥ #{p.productPrice} </td>
+    </tr>"
     $(".cart-table tbody").append(content)
 
-  number_to_currency = (x, unit) ->
+  append_to_cart_table_checkout = (p) ->
+    content=
+    "<tr>
+      <td class=\"image\">#{p.img}</td>
+      <td class=\"content\">
+        <p>
+          <a href=\"#{p.ahref}\">#{p.productName}</a>
+          <span>x 1 </span>
+        </p>
+      </td>
+      <td class=\"total\"> ¥ #{p.productPrice} </td>
+    </tr>"
+
+    $(".side-table tbody").append(content)
+    
+
+  number_to_currency = (x, unit="¥") ->
     " " + unit + " " + x + " "
 
-  updatePrice = ->
+  update_price = ->
     priceSum = 0
     $('.item-table tr').slice(1,$('.item-table tr').size()-1).each(->
       pricePerItem = parseFloat($(this).children('.price').html().replace(/[^\d.]/g, ""))
       quantity = parseInt($(this).children('.quantity').children('input').val())
       priceSum += (priceSumItem = pricePerItem*quantity)
-      $(this).children('.total').html(parseWithYen(priceSumItem.toFixed(2)))
+      $(this).children('.total').html(number_to_currency(priceSumItem.toFixed(2)))
       )
-    $('.item-table tr').last().children().last().html(parseWithYen(priceSum.toFixed(2)))
+    $('.item-table tr').last().children().last().html(number_to_currency(priceSum.toFixed(2)))
     
+  update_price_checkout = ->
+    priceSum = 0
+    $('.side-table tbody tr .total').each(->
+      priceSum += parseFloat($(@).html().replace(/[^\d.]/g, ""))
+      )
+    $('.side-table tfoot tr td:last').html(number_to_currency(priceSum.toFixed(2)))
 # product = { id: String, quantity: Integer }
 # cart
 #   'product_id': quantity
