@@ -49,12 +49,12 @@ class Product < ActiveRecord::Base
   # lineItems
   has_many :line_items
 
-  # collocations
-  has_and_belongs_to_many :products,
-    :join_table => "collocation_relations",
-    :foreign_key => "product_a_id",
-    :association_foreign_key => "product_b_id"
-  attr_accessible :product_ids
+  # recommendations
+  has_many :recommendation_relations
+  has_many :recommendations, :through => :recommendation_relations  
+  has_many :inverse_recommendation_relations, :class_name => "RecommendationRelation", :foreign_key => "recommendation_id"
+  has_many :inverse_recommendations, :through => :inverse_recommendation_relations, :source => :product
+  attr_accessible :recommendations, :recommendation_relations
 
   # i18n translation
   translate :name, :description, :inspiration
@@ -78,6 +78,10 @@ class Product < ActiveRecord::Base
     def published
       lang = I18n.locale =~ /zh-CN/ ? 'zh' : I18n.locale
       where(:"published_#{lang}" => true)
+    end
+
+    def group_by_collection
+      published.sort_by { |p| p.collections.primary.map(&:id) }
     end
 
     def suggest_by_random(amount = 4)

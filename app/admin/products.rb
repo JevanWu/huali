@@ -97,10 +97,8 @@ ActiveAdmin.register Product do
         end.join(', ').html_safe
       end
 
-      row :products do
-        product.products.map do |collocation|
-          collocation
-        end.join(', ').html_safe
+      row :recommendation do
+        product.recommendation_ids.join(',').html_safe
       end
 
       row :image do

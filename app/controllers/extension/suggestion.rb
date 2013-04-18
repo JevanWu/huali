@@ -2,11 +2,11 @@ module Extension
   module Suggestion
 
     def suggest_generate(seeds = [], amount = 5)
-      r = []
-      # part 0, collocations
+      result = []
+      # part 0, recommendation
       seeds.each do |t|
-        t.products.each do |p|
-          r.push p.id
+        Product.find(t).recommendations.each do |p|
+          result.push p.id
         end
       end
 
@@ -22,19 +22,19 @@ module Extension
       # unique & remove seed
       times = 0
       while true do
-        if (r = r.uniq).count < amount
+        if (result = result.uniq).count < amount
           # r = r.concat(Product.suggest_by_random((amount - r.count)*0.2.round))
           # r = r.concat(Product.suggest_by_priority((amount - r.count)*1.5.round))
-          r = r.concat(Product.suggest_by_sales_volume_totally(amount-r.count))
+          result = result.concat(Product.suggest_by_sales_volume_totally(amount-result.count))
         end
 
-        r.each do |t|
+        result.each do |t|
           if seeds.include?(t)
-            r.delete(t)
+            result.delete(t)
           end
         end
 
-        if (r = r.uniq).count >= amount
+        if (result = result.uniq).count >= amount
           break
         end
 
@@ -45,14 +45,14 @@ module Extension
       end
 
       # r = r.shuffle[0..amount-1]
-      r = r[0..amount-1]
+      result = result[0..amount-1]
 
       # turn id into product object
-      rt = []
-      r.each do |t|
-        rt << Product.find(t)
+      resultTmp = []
+      result.each do |t|
+        resultTmp << Product.find(t)
       end
-      rt
+      resultTmp
     end
 
   end

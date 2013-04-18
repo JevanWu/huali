@@ -170,7 +170,7 @@ zh-CN:
         meta_keywords: 关键词
         meta_description: 关键描述
         priority: 优先级
-        products: 搭配
+        recommendations: 搭配
 
       collection:
         name_zh: 中文名

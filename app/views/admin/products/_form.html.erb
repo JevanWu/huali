@@ -10,10 +10,7 @@
 
     <%= f.input :tag_list, input_html: { class: 'tag-list' } %>
 
-    <!-- FIXME too many check_boxes, try another view -->
-    <%= f.input :collections, as: :check_boxes %>
-
-    <%= f.input :products, as: :check_boxes %>
+    <%= f.input :recommendations, as: :check_boxes, :collection => Product.group_by_collection %>
 
     <%= f.input :inspiration_zh, hint: "Use Markdown to write the content" , input_html: {rows: 10} %>
     <%= f.input :inspiration_en, hint: "Use Markdown to write the content" , input_html: {rows: 10} %>
