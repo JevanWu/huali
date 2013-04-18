@@ -4,6 +4,7 @@ class OrdersController < ApplicationController
   before_filter :fetch_items, only: [:new, :create, :current]
   before_filter :authenticate_user!, only: [:new, :index, :show, :create, :checkout, :cancel]
   before_filter :process_custom_data, only: [:return, :notify]
+  skip_before_filter :verify_authenticity_token, only: [:notify]
 
   include ::Extension::Order
   include ::Extension::Suggestion
@@ -77,39 +78,40 @@ class OrdersController < ApplicationController
   def gateway
     @order = Order.find_by_id(params[:id] || session[:order_id])
 
-    # TODO make params[:pay_info] more clear
-    # currently it is mixed with two kinds of inf - pay method and merchant_name
-    # they should be separated
+    # params[:pay_info] is mixed with two kinds of info - pay method and merchant_name
+    # these two are closed bound together
 
-    transaction = @order.generate_transaction params[:pay_info]
+    payment_opts = process_pay_info(params[:pay_info])
+    transaction = @order.generate_transaction payment_opts
     transaction.start
     redirect_to transaction.request_path
   end
 
   def return
     begin
-      transaction = Transaction.find_by_identifier @customdata['identifier']
+      transaction = Transaction.find_by_identifier @custom_id
       if transaction.return(request.query_string)
         @order = transaction.order
         render 'success'
       else
-        render 'failed', layout: 'layouts/error'
+        @order = transaction.order
+        render 'failed', status: 400
       end
     rescue
-      render 'failed', layout: 'layouts/error', status: 400
+      render 'failed', status: 400
     end
   end
 
   def notify
-    transaction = Transaction.find_by_identifier @customdata['identifier']
+    transaction = Transaction.find_by_identifier @custom_id
     begin
       if transaction.notify(request.raw_post)
         render text: "success"
       else
-        render 'failed', layout: 'layouts/error'
+        render text: "failed", status: 400
       end
     rescue
-      render 'failed', layout: 'layouts/error', status: 400
+      render text: "failed", status: 400
     end
   end
 
@@ -164,7 +166,17 @@ class OrdersController < ApplicationController
     end
 
     def process_custom_data
-      customdata = request.params["customdata"]
-      @customdata = JSON.parse URI.unescape(customdata) if customdata
+      @custom_id = request.params["custom_id"]
+    end
+
+    def process_pay_info(pay_info)
+      case pay_info
+      when 'directPay'
+        { paymethod: 'directPay', merchant_name: 'Alipay' }
+      when 'paypal'
+        { paymethod: 'paypal', merchant_name: 'Paypal' }
+      else
+        { paymethod: 'bankPay', merchant_name: pay_info }
+      end
     end
 end

@@ -1,11 +1,6 @@
 # encoding: utf-8
 ActiveAdmin.register Collection do
-  menu parent: '产品', if: proc { can? :read, Collection }
-
-  controller do
-    include ActiveAdminCanCan
-    authorize_resource
-  end
+  menu parent: '产品', if: proc { authorized? :read, Collection }
 
   filter :name_zh
   filter :display_name
@@ -44,6 +39,7 @@ ActiveAdmin.register Collection do
         end.join(', ').html_safe
       end
 
+      row :meta_title
       row :meta_description
       row :meta_keywords
 

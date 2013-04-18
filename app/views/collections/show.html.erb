@@ -1,5 +1,13 @@
 <% content_for :title do %>
-  <%= @collection.name %>
+  <%= @collection.meta_title.blank? ? @collection.name : @collection.meta_title %>
+<% end %>
+
+<% content_for :keywords do %>
+  <%= @collection.meta_keywords %>
+<% end %>
+
+<% content_for :description do %>
+  <%= @collection.meta_description %>
 <% end %>
 
 <div class="collection-wrapper">

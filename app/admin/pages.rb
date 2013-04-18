@@ -1,12 +1,6 @@
 # encoding: utf-8
 ActiveAdmin.register Page do
-  menu parent: '设置', if: proc { can? :read, Page }
-
-  controller do
-    include ActiveAdminCanCan
-    authorize_resource
-  end
-
+  menu parent: '设置', if: proc { authorized? :read, Page }
 
   filter :title_zh
   controller do
@@ -63,6 +57,7 @@ ActiveAdmin.register Page do
       row :content_zh do
         markdown(page.content_zh)
       end
+      row :meta_title
       row :meta_keywords
       row :meta_description
     end

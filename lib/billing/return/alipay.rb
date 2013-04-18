@@ -2,22 +2,18 @@ require 'uri'
 require 'ostruct'
 
 module Billing
-  module Paypal
-    class Return < OpenStruct
-      include Helper
+  class Return
+    class Alipay < OpenStruct
+      include Billing::Helper::Alipay
 
       attr_accessor :params
 
-      def initialize(query_string)
+      def initialize(opts, query_string)
+        @opts = opts
         reset!
         # delegates OpenStruct.new to build all arbitrary attributes
-        # cover ALL Paypal notify params
-        result = parse(query_string)
-        result["payment_fee"] = result["amt"]
-        result["payment_status"] = result["st"]
-        result["trade_no"] = result["tx"]
-        # add alias
-        super result
+        # cover ALL Alipay notify params
+        super parse(query_string)
       end
 
       private

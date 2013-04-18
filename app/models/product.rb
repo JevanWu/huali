@@ -34,7 +34,7 @@
 
 
 class Product < ActiveRecord::Base
-  attr_accessible :name_zh, :name_en, :intro, :description_zh, :description_en, :description2, :meta_description, :meta_keywords, :count_on_hand, :cost_price, :original_price, :price, :height, :width, :depth, :available, :assets, :assets_attributes, :place, :usage, :inspiration_zh, :inspiration_en, :name_char, :published_en, :published_zh, :tag_list, :priority
+  attr_accessible :name_zh, :name_en, :intro, :description_zh, :description_en, :description2, :meta_title, :meta_description, :meta_keywords, :count_on_hand, :cost_price, :original_price, :price, :height, :width, :depth, :available, :assets, :assets_attributes, :place, :usage, :inspiration_zh, :inspiration_en, :name_char, :published_en, :published_zh, :tag_list, :priority
 
   # collection
   has_and_belongs_to_many :collections

@@ -1,10 +1,8 @@
 # encoding: utf-8
 ActiveAdmin.register Shipment do
-  menu parent: '订单', if: proc { can? :read, Shipment }
+  menu parent: '订单', if: proc { authorized? :read, Shipment }
 
   controller do
-    include ActiveAdminCanCan
-    authorize_resource
     helper :shipments
   end
 

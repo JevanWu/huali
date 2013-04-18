@@ -1,6 +1,5 @@
 ActiveAdmin.register Administrator do
-  menu priority: 1, if: proc { can? :read, Administrator }
-  controller.authorize_resource
+  menu priority: 1, if: proc { authorized? :read, Administrator }
 
   filter :role
   filter :email

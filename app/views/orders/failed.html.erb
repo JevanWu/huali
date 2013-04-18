@@ -1,1 +1,17 @@
-failed
+<% content_for(:title_img) do %>
+  <%= image_tag('title-checkout.png') %>
+<% end %>
+
+<div class='row'>
+  <%= render 'checkout_nav' %>
+</div>
+
+<div class='row'>
+  <div id='failed-info' class="offset5 span6">
+    <p>
+      <span>非常抱歉您的订单可能没有成功处理。</span>
+      <span>我们会人工处理订单，如果处理成功您会收到邮件和短信提醒.</span>
+    </p>
+    <p>您也可以拨打我们的客服电话寻求帮助: 400-001-6936</p>
+  </div>
+</div>

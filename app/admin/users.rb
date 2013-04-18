@@ -1,6 +1,6 @@
 ActiveAdmin.register User do
-  menu priority: 1, if: proc { can? :read, User }
-  controller.authorize_resource
+
+  menu priority: 1, if: proc { authorized? :read, User }
 
   controller do
     def scoped_collection

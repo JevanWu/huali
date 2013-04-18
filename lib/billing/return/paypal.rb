@@ -2,17 +2,24 @@ require 'uri'
 require 'ostruct'
 
 module Billing
-  module Alipay
-    class Return < OpenStruct
-      include Helper
+  class Return
+    class Paypal < OpenStruct
+      include Billing::Helper::Paypal
 
       attr_accessor :params
 
-      def initialize(query_string)
+      def initialize(opts, query_string)
+        @opts = opts
         reset!
-        # delegates OpenStruct.new to build all arbitrary attributes
-        # cover ALL Alipay notify params
-        super parse(query_string)
+        result = parse(query_string)
+        result['trade_no'] = result['tx']
+        result['payment_status'] = result['st']
+
+        super result
+      end
+
+      def success?
+        right_amount? && payment_status == "Completed"
       end
 
       private
@@ -32,6 +39,10 @@ module Billing
           memo[URI.decode(key)] = value
           memo
         end
+      end
+
+      def right_amount?
+        amt.to_f == to_dollar(@opts[:amount])
       end
     end
   end
