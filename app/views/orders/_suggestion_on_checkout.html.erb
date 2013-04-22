@@ -15,7 +15,7 @@
         </td>
         <td>
           <div class='suggestion-click-to-cart'>
-            <%= link_to t('views.order.click_to_cart'), product_path(item), data: { product_id: item.id, product_name: item.name, product_price: item.price } %>
+            <%= link_to t('views.order.click_to_cart'), "#", data: { product_id: item.id, field_for_table: (render :partial => 'side_item_table_each', :collection => [item], :as => :item).to_str } %>
           </div>
         </td>
       </tr>

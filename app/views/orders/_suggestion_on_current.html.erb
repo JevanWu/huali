@@ -1,16 +1,16 @@
 <div class="suggestion-on-current">
-	<p><%= t('views.order.you_may_also_like') %></p>
-	<ul class="suggestion-list">
-		<% @suggest_products.each do |product| %>
-				<li class="suggestion-cell">
-			  		<%= link_to image_tag(product.img(:medium), width: '100'), product_path(product), title: product.name, :target => "_blank" %>
-			  		<div class='suggestion-click-to-cart'>
-				  		<%= link_to t('views.order.click_to_cart'), product_path(product), data: { product_id: product.id, product_name: product.name, product_price: product.price } %>
-			  		</div>
-				  	<div class='suggestion-link'>
-				  		<%= link_to product.name, product_path(product), :target => "_blank" %>
-				  	</div>
-				</li>
-		<% end %>
-	</ul>
+  <p><%= t('views.order.you_may_also_like') %></p>
+  <ul class="suggestion-list">
+    <% @suggest_products.each do |product| %>
+      <li class="suggestion-cell">
+          <%= link_to image_tag(product.img(:medium), width: '100'), product_path(product), title: product.name, :target => "_blank" %>
+          <div class='suggestion-click-to-cart'>
+            <%= link_to t('views.order.click_to_cart'), "#", data: { product_id: product.id, field_for_table: (render partial: 'product_in_cart', collection: [product]).to_str } %>
+          </div>
+          <div class='suggestion-link'>
+            <%= link_to product.name, product_path(product), :target => "_blank" %>
+          </div>
+        </li>
+    <% end %>
+  </ul>
 </div>

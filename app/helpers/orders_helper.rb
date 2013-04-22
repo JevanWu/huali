@@ -1,11 +1,15 @@
 module OrdersHelper
   def count_total(item)
-    number_to_currency (item[:quantity] * item.price), unit: '&yen;'
+    if item[:quantity]
+      number_to_currency (item[:quantity] * item.price), unit: '&yen;'
+    end
   end
 
   def count_cart(items)
-    item_total = items.inject(0.0) {|sum, item| sum + item[:quantity] * item.price}
-    number_to_currency item_total, unit: '&yen;'
+    if items[0][:quantity]
+      item_total = items.inject(0.0) {|sum, item| sum + item[:quantity] * item.price}
+      number_to_currency item_total, unit: '&yen;'
+    end
   end
 
   def order_state(order)
@@ -63,4 +67,5 @@ module OrdersHelper
     end
     content_tag('div', buttons, id: 'process-buttons')
   end
+
 end

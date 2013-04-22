@@ -29,6 +29,7 @@ $ ->
         quantity
 
     Cart.update(id: id, quantity: changeTo)
+    # update_basket_cart_amount()
 
     unless Cart.size() is 0
 
@@ -37,7 +38,7 @@ $ ->
       else
         $(@).siblings("input").val(changeTo)
 
-      update_price()
+      update_price_current()
 
       return false
 
@@ -54,63 +55,36 @@ $ ->
   $('.suggestion-click-to-cart > a').click(
     ->
       pid = $(@).data('product-id')
-      pro = Cart.get pid
       if (Cart.get(pid).quantity != 0)
         # FIXME, add logic for if already in cart
           # method 1, add quantity in cart
           # method 2, after click-to-cart, fadeOut and fadeIn another image        
       else
-        Cart.update(id: pro.id, quantity: pro.quantity + 1)
-        dataClone = $(@).data()
-        dataClone['ahref'] = $(@).attr('href')
-        if ($('.suggestion-on-checkout').size() == 0)
-          dataClone['img'] = $(@).parent().siblings("a").html()
-          append_to_cart_table dataClone
-          $('.add_quantity, .reduce_quantity, .empty_quantity').click(bindTriggersClick)
-          update_price()
-        else
-          dataClone['img'] = $(@).closest("td").siblings(".image").html()
-          append_to_cart_table_checkout dataClone
-          update_price_checkout()          
+        Cart.update(id: pid, quantity: 1)
+
+        append_to_cart_table_current($(@).data('field-for-table'))
+        update_price_current()
+
+        append_to_cart_table_checkout($(@).data('field-for-table'))
+        update_price_checkout()
+
+        update_basket_cart_amount()
+
+        $('.add_quantity, .reduce_quantity, .empty_quantity').click(bindTriggersClick)
 
       return false
   )
 
-  append_to_cart_table = (p) ->
-    content = "<tr>
-    <td class=\"image\">#{p.img.replace("width=\"100\"","width=\"150\"")}</td>
-    <td class=\"name\"><a href=\"#{p.ahref}\">#{p.productName}</a></td>
-    <td class=\"price\" data-price=\"#{p.productPrice}\">¥ #{p.productPrice}</td>
-    <td class=\"quantity\">
-    <a href=\"/orders/current\" class=\"add_quantity trigger\" data-product='#{p.productId}'><i class=\"icon-plus\"></i></a>
-    <input type=\"text\" value=\"1\">
-    <a href=\"/orders/current\" class=\"reduce_quantity trigger\" data-product='#{p.productId}'><i class=\"icon-minus\"></i></a>
-    <a href=\"/orders/current\" class=\"empty_quantity trigger\" data-product='#{p.productId}'><i class=\"icon-trash\"></i></a>
-    </td>
-    <td class=\"total\"> ¥ #{p.productPrice} </td>
-    </tr>"
+  append_to_cart_table_current = (content) ->
     $(".cart-table tbody").append(content)
 
-  append_to_cart_table_checkout = (p) ->
-    content=
-    "<tr>
-      <td class=\"image\">#{p.img}</td>
-      <td class=\"content\">
-        <p>
-          <a href=\"#{p.ahref}\">#{p.productName}</a>
-          <span>x 1 </span>
-        </p>
-      </td>
-      <td class=\"total\"> ¥ #{p.productPrice} </td>
-    </tr>"
-
+  append_to_cart_table_checkout = (content) ->
     $(".side-table tbody").append(content)
     
-
   number_to_currency = (x, unit="¥") ->
     " " + unit + " " + x + " "
 
-  update_price = ->
+  update_price_current = ->
     priceSum = 0
     $('.item-table tr').slice(1,$('.item-table tr').size()-1).each(->
       pricePerItem = parseFloat($(this).children('.price').html().replace(/[^\d.]/g, ""))
@@ -126,6 +100,10 @@ $ ->
       priceSum += parseFloat($(@).html().replace(/[^\d.]/g, ""))
       )
     $('.side-table tfoot tr td:last').html(number_to_currency(priceSum.toFixed(2)))
+
+  update_basket_cart_amount = ->
+    $("#basket #cart_amount span").html(Cart.size())
+
 # product = { id: String, quantity: Integer }
 # cart
 #   'product_id': quantity

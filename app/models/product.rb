@@ -94,7 +94,7 @@ class Product < ActiveRecord::Base
 
     def suggest_by_priority(amount = 4)
       r = []
-      Product.published.order("priority desc").limit((amount*1.2).round).shuffle[0..amount-1].each do |t|
+      Product.published.order("priority desc").limit((amount*1.2).round).each do |t|
         r << t.id
       end
       r
@@ -102,7 +102,7 @@ class Product < ActiveRecord::Base
 
     def suggest_by_sales_volume_totally(amount = 4)
       r = []
-      Product.published.order("sales_volume_totally desc").limit((amount*1.2).round).shuffle[0..amount-1].each do |t|
+      Product.published.order("sales_volume_totally desc").limit((amount*1.2).round).each do |t|
         r << t.id
       end
       r
@@ -160,7 +160,7 @@ class Product < ActiveRecord::Base
 
   def suggest_same_collection_by_priority(amount = 4)
     r = []
-    self.collection.products.published.select("id").order("priority desc").sample(amount*1.5.round)[0..amount-1].each do |t|
+    self.collection.products.published.select("id").order("priority desc")[0..amount-1].each do |t|
       r.push(t.id)
     end
     r
@@ -168,7 +168,7 @@ class Product < ActiveRecord::Base
 
   def suggest_same_collection_by_sales_volume_totally(amount = 4)
     r = []
-    self.collection.products.published.select("id").order("sales_volume_totally desc").sample(amount*1.5.round)[0..amount-1].each do |t|
+    self.collection.products.published.select("id").order("sales_volume_totally desc")[0..amount-1].each do |t|
       r.push(t.id)
     end
     r

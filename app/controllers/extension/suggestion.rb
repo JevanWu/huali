@@ -25,9 +25,10 @@ module Extension
         if (result = result.uniq).count < amount
           # r = r.concat(Product.suggest_by_random((amount - r.count)*0.2.round))
           # r = r.concat(Product.suggest_by_priority((amount - r.count)*1.5.round))
-          result = result.concat(Product.suggest_by_sales_volume_totally(amount-result.count))
+          result = result.concat(Product.suggest_by_sales_volume_totally((amount-result.count)*2)).uniq
+          result = result.concat(Product.suggest_by_random((amount)*1)).uniq
         end
-
+        
         result.each do |t|
           if seeds.include?(t)
             result.delete(t)
