@@ -45,11 +45,15 @@ class Address < ActiveRecord::Base
   end
 
   def print_addr
-    [province.name, city.name, area.try(:name), address].select {|s| !s.blank? }.join(', ')
+    [province.name, city.name, area.try(:name), trimmed_addr].select {|s| !s.blank? }.join(', ')
+  end
+
+  def trimmed_addr
+    address.delete(province.name).delete(city.name).delete(area.try(:name)).delete(fullname).strip
   end
 
   def full_addr
-    [post_code, province.name, city.name, area.try(:name), address].select {|s| !s.blank? }.join(', ')
+    [post_code, province.name, city.name, area.try(:name), trimmed_addr].select {|s| !s.blank? }.join(', ')
   end
 
   def same_as?(other)
