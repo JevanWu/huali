@@ -22,7 +22,7 @@
 
 class Collection < ActiveRecord::Base
   attr_accessible :description, :name_en, :name_zh, :display_name,
-                  :available, :meta_description,:meta_title, :meta_keywords, :primary_category
+                  :available, :meta_description,:meta_title, :meta_keywords, :primary_category, :priority
 
   has_and_belongs_to_many :products
 
