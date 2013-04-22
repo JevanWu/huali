@@ -1,8 +1,8 @@
 $top: 155pt
-$lineHeight: 19pt
+$lineHeight: 18pt
 $lineMargin: 2pt
 $lineWidth: 215pt
-$fontSize: 12pt
+$fontSize: 11pt
 
 #sheet-bg
   /* adjustment to the actual print layout */
@@ -18,16 +18,16 @@ $fontSize: 12pt
   width: 23 * 28pt
   height: 12.7 * 28pt
 
-#text p 
-  position: absolute
-  border: 1px red solid
-  height: $lineHeight - 2 * $lineMargin
-  margin: 0
-  padding: 0
-
+p
   font-family: sans-serif
   font-size: $fontSize
   font-weight: bold
+  position: absolute
+  border: 1px red solid
+  height: $lineHeight - 2 * $lineMargin
+  line-height: $lineHeight
+  margin: 0
+  padding: 0
 
 #receipt 
   top: $top
@@ -44,16 +44,11 @@ $fontSize: 12pt
   left: 208pt
   width: $lineWidth / 2
 
-#addr1 
+#addr 
   top: $top + 3 * $lineHeight
-  left: 71pt
+  left: 65pt
   width: $lineWidth
-
-
-#addr2 
-  top: $top + 4 * $lineHeight
-  left: 48pt
-  width: $lineWidth * 0.6
+  font-size: $fontSize * 0.9
 
 #post 
   top: $top + 4 * $lineHeight
@@ -65,5 +60,5 @@ $fontSize: 12pt
   #sheet-bg img
     display: none
 
-  #text p
+  p
     border: none

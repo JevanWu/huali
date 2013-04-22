@@ -44,6 +44,10 @@ class Address < ActiveRecord::Base
     "#{fullname}: #{address}"
   end
 
+  def print_addr
+    [province.name, city.name, area.try(:name), address].select {|s| !s.blank? }.join(', ')
+  end
+
   def full_addr
     [post_code, province.name, city.name, area.try(:name), address].select {|s| !s.blank? }.join(', ')
   end

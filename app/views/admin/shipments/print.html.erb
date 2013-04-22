@@ -6,10 +6,9 @@
   <%= image_tag "shipment_sheet.jpg" %>
 </div>
 <div id="text">
-  <p id="receipt">Luo YuLong</p>
-  <p id="phone">134123412</p>
-  <p id="cell">123412341234</p>
-  <p id="addr1">Hello World, Here is the Address</p>
-  <p id="addr2">Hello, NewYork, US.</p>
-  <p id="post">210003</p>
+  <p id="receipt"><%= @address.fullname %></p>
+  <p id="phone"></p>
+  <p id="cell"><%= @address.phone %></p>
+  <p id="addr"><%= @address.print_addr %></p>
+  <p id="post"><%= @address.post_code %></p>
 </div>
