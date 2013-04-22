@@ -36,6 +36,8 @@ class Collection < ActiveRecord::Base
   scope :available, lambda { where(available: true) }
   scope :primary, lambda { where(primary_category: true) }
 
+  default_scope lambda { order('priority DESC') }
+
   def to_s
     "#{self.id} #{self.name_zh}"
   end
