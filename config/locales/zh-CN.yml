@@ -267,6 +267,7 @@ zh-CN:
 
         ship: 发货
         accept: 送达
+        print: 打印
 
   controllers:
     order:

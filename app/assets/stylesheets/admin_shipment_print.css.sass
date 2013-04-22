@@ -1,0 +1,69 @@
+$top: 155pt
+$lineHeight: 19pt
+$lineMargin: 2pt
+$lineWidth: 215pt
+$fontSize: 12pt
+
+#sheet-bg
+  /* adjustment to the actual print layout */
+  /* in Chrome */
+  position: relative
+  top: -24pt
+  left: -23pt
+
+#sheet-bg img 
+  /* w: 23cm, h, 12.7cm */
+  /* http://en.wikipedia.org/wiki/Dots_per_inch */
+  /* dpi: 28dot/cm */
+  width: 23 * 28pt
+  height: 12.7 * 28pt
+
+#text p 
+  position: absolute
+  border: 1px red solid
+  height: $lineHeight - 2 * $lineMargin
+  margin: 0
+  padding: 0
+
+  font-family: sans-serif
+  font-size: $fontSize
+  font-weight: bold
+
+#receipt 
+  top: $top
+  left: 95pt
+  width: $lineWidth
+
+#phone 
+  top: $top + $lineHeight
+  left: 74pt
+  width: $lineWidth / 2
+
+#cell 
+  top: $top + $lineHeight
+  left: 208pt
+  width: $lineWidth / 2
+
+#addr1 
+  top: $top + 3 * $lineHeight
+  left: 71pt
+  width: $lineWidth
+
+
+#addr2 
+  top: $top + 4 * $lineHeight
+  left: 48pt
+  width: $lineWidth * 0.6
+
+#post 
+  top: $top + 4 * $lineHeight
+  left: 209pt
+  width: $lineWidth * 0.4
+
+@media print
+
+  #sheet-bg img
+    display: none
+
+  #text p
+    border: none
