@@ -66,7 +66,7 @@ class Shipment < ActiveRecord::Base
   end
 
   def kuai_100_url
-    ship_method.kuaidi_com_code && tracking_num ? "http://www.kuaidi100.com/chaxun?com=#{ship_method.kuaidi_com_code}&nu=#{tracking_num}" : ""
+    ship_method.kuaidi_query_code && tracking_num ? "http://www.kuaidi100.com/chaxun?com=#{ship_method.kuaidi_query_code}&nu=#{tracking_num}" : ""
   end
 
   private
