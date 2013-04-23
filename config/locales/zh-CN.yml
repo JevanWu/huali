@@ -186,6 +186,7 @@ zh-CN:
         meta_title: 标题（SEO）
         meta_keywords: 关键词
         meta_description: 关键描述
+        priority: 优先级
 
       page:
         permalink: 网址
