@@ -36,6 +36,7 @@ class Shipment < ActiveRecord::Base
   state_machine :state, initial: :ready do
     after_transition to: :completed, do: :confirm_order
     before_transition to: :shipped, do: :ship_order
+    after_transition to: :shipped, do: :kuaidi100_poll, if: :is_express?
 
     # use adj. for state with future vision
     # use v. for event namen
@@ -70,7 +71,23 @@ class Shipment < ActiveRecord::Base
   end
 
   def kuaidi100_poll
-    
+    param = {
+      company: self.ship_method.kuaidi_api_code,
+      number: self.tracking_num,
+      key: ENV['KUAIDI100_KEY'],
+      parameters: {
+        callbackurl: "http://dev.hua.li/shipments/kuaidi100_notify?identifier=#{self.identifier}"
+      }
+    }
+
+    response = Faraday.new(:url => 'http://www.kuaidi100.com') do |req|
+      req.request  :url_encoded
+      req.adapter  Faraday.default_adapter
+    end.post '/poll', { :schema => 'json', :param => param.to_json }
+
+    unless (JSON.parse response.body)['result']
+      raise StandardError, ERROR_CODE[response.body] + ". " + "shipment is #{self}"
+    end
   end
 
   private
