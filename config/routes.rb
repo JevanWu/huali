@@ -28,6 +28,8 @@ Huali::Application.routes.draw do
   post 'orders/notify', as: :notify_order
   resources :orders, except: [:destroy, :update, :edit]
 
+  post 'shipments/kuaidi100_notify', to: 'shipments#kuaidi100_notify'
+
   # non-individual collections routes
   match '/collections/all', to: 'collections#all'
   match '/collections/:id', to: 'collections#show'
