@@ -69,6 +69,10 @@ class Shipment < ActiveRecord::Base
     ship_method.kuaidi_query_code && tracking_num ? "http://www.kuaidi100.com/chaxun?com=#{ship_method.kuaidi_query_code}&nu=#{tracking_num}" : ""
   end
 
+  def kuaidi100_poll
+    
+  end
+
   private
 
   def is_express?
