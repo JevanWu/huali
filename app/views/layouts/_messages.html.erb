@@ -1,6 +1,4 @@
-<!--
-<%= content_tag :div, '', class: 'flash', id: "flash_ad"  %>
--->
+<%= content_tag :div, '2013，花里期望没有一位母亲被忽略, 母亲节产品8折预售中', class: 'flash', id: "flash_ad"  %>
 
 <% flash.each do |name, msg| %>
   <%= content_tag :div, msg, id: "flash_#{name}", class: 'flash' if msg.is_a?(String) %>
