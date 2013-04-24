@@ -9,9 +9,11 @@
 #  id               :integer          not null, primary key
 #  meta_description :string(255)
 #  meta_keywords    :string(255)
+#  meta_title       :string(255)
 #  name_en          :string(255)      not null
 #  name_zh          :string(255)      not null
 #  primary_category :boolean          default(FALSE), not null
+#  priority         :integer          default(5)
 #  slug             :string(255)
 #  updated_at       :datetime         not null
 #
