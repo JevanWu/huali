@@ -261,6 +261,10 @@ class Order < ActiveRecord::Base
   private
 
   def expected_date_in_range
+    if expected_date.in? [Date.parse('2013-04-28')]
+      return true
+    end
+
     # shift order acceptance date after 17:00 every day
     start_day = Time.now.hour >= 17 ? Date.today.next_day(3) : Date.today.next_day(2)
 
@@ -269,10 +273,6 @@ class Order < ActiveRecord::Base
     end
 
     if expected_date.monday? or expected_date.sunday?
-      errors.add :expected_date, :unavailable_date
-    end
-
-    if expected_date.in? [Date.parse('2013-04-03'), Date.parse('2013-04-04'), Date.parse('2013-04-05')]
       errors.add :expected_date, :unavailable_date
     end
   end
