@@ -49,7 +49,7 @@ class Address < ActiveRecord::Base
   end
 
   def trimmed_addr
-    address.delete(province.name).delete(city.name).delete(area.try(:name)).delete(fullname).strip
+    address.gsub(province.name, '').gsub(city.name, '').gsub(fullname, '').strip
   end
 
   def full_addr
