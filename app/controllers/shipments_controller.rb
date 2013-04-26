@@ -12,7 +12,6 @@ class ShipmentsController < ApplicationController
     shipment.kuaidi100_result = jsonPost['lastResult'].to_json
     shipment.kuaidi100_status = status
     shipment.save
-
-    
+        
     end
 end

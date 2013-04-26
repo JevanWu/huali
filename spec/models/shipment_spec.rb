@@ -24,5 +24,10 @@
 require 'spec_helper'
 
 describe Shipment do
-  pending "add some examples to (or delete) #{__FILE__}"
+  
+  context 'kuaidi100' do
+    it 'calls kuaidi100_poll after state transit to shipped' do
+    end
+  end
+
 end

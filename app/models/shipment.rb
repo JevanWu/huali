@@ -71,7 +71,6 @@ class Shipment < ActiveRecord::Base
   end
 
   def kuaidi100_poll
-    binding.pry
     param = {
       company: self.ship_method.kuaidi_api_code,
       number: self.tracking_num,
