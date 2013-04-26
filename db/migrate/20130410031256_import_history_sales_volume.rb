@@ -1,10 +1,5 @@
 class ImportHistorySalesVolume < ActiveRecord::Migration
   def up
-    Product.all.each do |p|
-      p.sales_volume_totally = 0
-      p.save
-    end
-
   	Order.where(state: "completed").each do |o|
   	  o.line_items.each do |line|
   	    p = line.product
