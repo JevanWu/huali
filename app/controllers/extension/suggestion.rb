@@ -16,8 +16,8 @@ module Extension
       # r.concat(Collection.where(slug: "accessories-and-others").first.suggest_by_priority(amount*0.6.round))
       # part 2, each seed
       # seeds.each do |t|
-        # r.concat(Product.find(t).suggest_same_collection_by_random([(amount*0.2).round,1].max))
-        # r.concat(Product.find(t).suggest_same_collection_by_priority([(amount*0.2).round,1].max))
+      # r.concat(Product.find(t).suggest_same_collection_by_random([(amount*0.2).round,1].max))
+      # r.concat(Product.find(t).suggest_same_collection_by_priority([(amount*0.2).round,1].max))
       # end
       # unique & remove seed
       times = 0
@@ -28,7 +28,7 @@ module Extension
           result = result.concat(Product.suggest_by_sales_volume_totally((amount-result.count)*2)).uniq
           result = result.concat(Product.suggest_by_random((amount)*1)).uniq
         end
-        
+
         result.each do |t|
           if seeds.include?(t)
             result.delete(t)

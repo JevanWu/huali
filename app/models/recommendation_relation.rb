@@ -1,4 +1,4 @@
 class RecommendationRelation < ActiveRecord::Base
-	belongs_to :product
-	belongs_to :recommendation, :class_name => "Product"
+  belongs_to :product
+  belongs_to :recommendation, :class_name => "Product"
 end

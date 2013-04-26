@@ -4,6 +4,6 @@ class AddSalesVolumeToProducts < ActiveRecord::Migration
   end
 
   def down
-  	remove_column :products, :sales_volume_totally
+    remove_column :products, :sales_volume_totally
   end
 end
