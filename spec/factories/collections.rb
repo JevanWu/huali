@@ -22,9 +22,12 @@
 
 FactoryGirl.define do
   factory :collection do
-    name_cn { Forgery(:lorem_ipsum).word }
+    name_zh { Forgery(:lorem_ipsum).word }
     name_en { Forgery(:lorem_ipsum).word }
+    display_name { Forgery(:lorem_ipsum).word }
     description { Forgery(:lorem_ipsum).sentence }
+    available true
+    primary_category true
 
     factory :collection_with_products do
       after(:build) do |collection|
