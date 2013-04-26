@@ -55,7 +55,7 @@ FactoryGirl.define do
     meta_description { Forgery(:lorem_ipsum).sentence }
     meta_keywords { Forgery(:lorem_ipsum).words(20) }
 
-    before(:create) do |product|
+    after(:build) do |product|
       [1, 2, 3, 4].sample.times do
         product.assets << create(:asset)
       end
