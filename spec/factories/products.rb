@@ -55,6 +55,12 @@ FactoryGirl.define do
     meta_description { Forgery(:lorem_ipsum).sentence }
     meta_keywords { Forgery(:lorem_ipsum).words(20) }
 
+    before(:create) do |product|
+      [1, 2, 3, 4].sample.times do
+        product.assets << create(:asset)
+      end
+    end
+
     trait :available do
       available true
     end
@@ -65,12 +71,6 @@ FactoryGirl.define do
 
     trait :with_collection do
       collection
-    end
-
-    trait :with_pics do
-      after(:build) do |product|
-        create_list(:asset, Forgery(:basic).number, viewable: product )
-      end
     end
 
     # collection_id
