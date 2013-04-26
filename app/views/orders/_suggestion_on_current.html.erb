@@ -5,7 +5,7 @@
       <li class="suggestion-cell">
     <%= link_to image_tag(product.img(:medium), width: '100'), product_path(product), title: product.name, :target => "_blank" %>
     <div class='suggestion-click-to-cart'>
-      <%= link_to t('views.order.click_to_cart'), "#", data: { product_id: product.id, field_for_table: (render partial: 'product_in_cart', collection: [product]).to_str } %>
+      <%= link_to_add_row_partial t('views.order.click_to_cart'), "#", product, 'product_in_cart' %>
     </div>
     <div class='suggestion-link'>
       <%= link_to product.name, product_path(product), :target => "_blank" %>
