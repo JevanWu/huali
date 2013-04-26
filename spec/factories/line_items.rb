@@ -21,9 +21,5 @@ FactoryGirl.define do
   factory :line_item do
     product
     quantity { Forgery(:basic).number }
-
-    trait :with_order do
-      order
-    end
   end
 end
