@@ -74,6 +74,7 @@ class Order < ActiveRecord::Base
     # TODO implement an auth_state dynamically for each state
     before_transition to: :wait_refund, do: :auth_refund
     before_transition to: :completed, do: :complete_order
+    after_transition to: :completed, do: :update_sold_total
     before_transition to: :wait_check, do: :pay_order
     after_transition to: :wait_ship, do: :generate_shipment
 
@@ -298,15 +299,16 @@ class Order < ActiveRecord::Base
   end
 
   def complete_order
-    update_sales_volume
     self.completed_at = Time.now
     save
   end
 
-  def update_sales_volume
-    self.line_items.each do |line|
-      line.product.sales_volume_totally += line.quantity
-    end    
+  def update_sold_total
+    line_items.each do |item|
+      product = item.product
+      product.sold_total += item.quantity
+      product.save
+    end
   end
 
   def pay_order
