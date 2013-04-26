@@ -51,7 +51,7 @@ class Product < ActiveRecord::Base
 
   # recommendations
   has_many :recommendation_relations
-  has_many :recommendations, :through => :recommendation_relations  
+  has_many :recommendations, :through => :recommendation_relations
   has_many :inverse_recommendation_relations, :class_name => "RecommendationRelation", :foreign_key => "recommendation_id"
   has_many :inverse_recommendations, :through => :inverse_recommendation_relations, :source => :product
   attr_accessible :recommendations, :recommendation_relations
@@ -100,9 +100,9 @@ class Product < ActiveRecord::Base
       r
     end
 
-    def suggest_by_sales_volume_totally(amount = 4)
+    def suggest_by_sold_total(amount = 4)
       r = []
-      Product.published.order("sales_volume_totally desc").limit((amount*1.2).round).each do |t|
+      Product.published.order("sold_total desc").limit((amount*1.2).round).each do |t|
         r << t.id
       end
       r
@@ -166,9 +166,9 @@ class Product < ActiveRecord::Base
     r
   end
 
-  def suggest_same_collection_by_sales_volume_totally(amount = 4)
+  def suggest_same_collection_by_sold_total(amount = 4)
     r = []
-    self.collection.products.published.select("id").order("sales_volume_totally desc")[0..amount-1].each do |t|
+    self.collection.products.published.select("id").order("sold_total desc")[0..amount-1].each do |t|
       r.push(t.id)
     end
     r

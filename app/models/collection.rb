@@ -56,9 +56,9 @@ class Collection < ActiveRecord::Base
     r
   end
 
-  def suggest_by_sales_volume_totally(amount = 4)
+  def suggest_by_sold_total(amount = 4)
     r = []
-    self.products.published.order("sales_volume_totally desc").limit((amount*1.2).round).each do |t|
+    self.products.published.order("sold_total desc").limit((amount*1.2).round).each do |t|
       r.push(t.id)
     end
     r

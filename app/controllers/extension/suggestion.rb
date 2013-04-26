@@ -25,7 +25,7 @@ module Extension
         if (result = result.uniq).count < amount
           # r = r.concat(Product.suggest_by_random((amount - r.count)*0.2.round))
           # r = r.concat(Product.suggest_by_priority((amount - r.count)*1.5.round))
-          result = result.concat(Product.suggest_by_sales_volume_totally((amount-result.count)*2)).uniq
+          result = result.concat(Product.suggest_by_sold_total((amount-result.count)*2)).uniq
           result = result.concat(Product.suggest_by_random((amount)*1)).uniq
         end
 
@@ -42,8 +42,7 @@ module Extension
         if (times += 1) == 10
           break
           # avoid while forever
-        end
-      end
+        end end
 
       # r = r.shuffle[0..amount-1]
       result = result[0..amount-1]
