@@ -43,7 +43,7 @@ FactoryGirl.define do
     sender_email { Forgery(:internet).email_address }
     sender_phone { Forgery(:address).phone }
 
-    before(:create) do |order|
+    after(:build) do |order|
       [1, 2, 3].sample.times do
         order.line_items << create(:line_item)
       end
