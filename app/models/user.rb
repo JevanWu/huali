@@ -43,7 +43,8 @@ class User < ActiveRecord::Base
   has_many :shipments, through: :orders
 
   include Humanizer
-  require_human_on :create
+  attr_accessor :bypass_humanizer
+  require_human_on :create, :unless => :bypass_humanizer
 
   scope :registered, where("#{self.table_name}.email NOT LIKE ?", "%@guest.me")
   scope :guests, where("#{self.table_name}.email LIKE ?", "%@guest.me")
