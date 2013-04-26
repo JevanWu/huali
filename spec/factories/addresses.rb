@@ -34,25 +34,46 @@ FactoryGirl.define do
   factory :province do
     name { Forgery(:address).province}
     post_code { Forgery(:address).zip }
+    available true
 
     after(:build) do |prov|
       create_list(:city, Forgery(:basic).number, province: prov )
+      # FIXME
+      # needs to reload to make the .cities fetch the records just created
+      prov.reload
+    end
+
+    trait :unavailable do
+      available false
     end
   end
 
   factory :city do
-    name { Forgery(:address).city}
+    name { Forgery(:address).city }
     post_code { Forgery(:address).zip }
+    available true
     province
 
     after(:build) do |city|
+      # FIXME
+      # needs to reload to make the .cities fetch the records just created
       create_list(:area, Forgery(:basic).number, city: city )
+      city.reload
+    end
+
+    trait :unavailable do
+      available false
     end
   end
 
   factory :area do
     name { Forgery(:address).city}
     post_code { Forgery(:address).zip }
+    available true
     city
+
+    trait :unavailable do
+      available false
+    end
   end
 end
