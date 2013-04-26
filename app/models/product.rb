@@ -83,30 +83,60 @@ class Product < ActiveRecord::Base
     def group_by_collection
       published.sort_by { |p| p.collections.primary.map(&:id) }
     end
+  end
 
-    def suggest_by_random(amount = 4)
-      r = []
-      Product.published.random(amount).each do |t|
-        r << t.id
-      end
-      r
+  def suggest_by_random(amount = 4)
+    r = []
+    Product.published.random(amount).each do |t|
+      r << t.id
     end
+    r
+  end
 
-    def suggest_by_priority(amount = 4)
-      r = []
-      Product.published.order("priority desc").limit((amount*1.2).round).each do |t|
-        r << t.id
-      end
-      r
+  def suggest_by_priority(amount = 4)
+    r = []
+    Product.published.order("priority desc").limit((amount*1.2).round).each do |t|
+      r << t.id
     end
+    r
+  end
 
-    def suggest_by_sold_total(amount = 4)
-      r = []
-      Product.published.order("sold_total desc").limit((amount*1.2).round).each do |t|
-        r << t.id
-      end
-      r
+  def suggest_by_sold_total(amount = 4)
+    r = []
+    Product.published.order("sold_total desc").limit((amount*1.2).round).each do |t|
+      r << t.id
     end
+    r
+  end
+
+  def suggest_same_collection_by_random(amount = 4)
+    # product may belongs to multi collections
+    # but may belongs to only one PRIMARY collection?
+    r = []
+    self.collection.products.published.select("id").sample(amount).each do |t|
+      r.push(t.id)
+    end
+    r
+  end
+
+  def suggest_same_collection_by_priority(amount = 4)
+    r = []
+    self.collection.products.published.select("id").order("priority desc")[0..amount-1].each do |t|
+      r.push(t.id)
+    end
+    r
+  end
+
+  def suggest_same_collection_by_sold_total(amount = 4)
+    r = []
+    self.collection.products.published.select("id").order("sold_total desc")[0..amount-1].each do |t|
+      r.push(t.id)
+    end
+    r
+  end
+
+  def suggested_products(amount = 4, pool = :all, type = :random)
+    []
   end
 
   def collection
@@ -146,31 +176,5 @@ class Product < ActiveRecord::Base
 
   def img(size)
     assets.first.image.url(size)
-  end
-
-  def suggest_same_collection_by_random(amount = 4)
-    # product may belongs to multi collections
-    # but may belongs to only one PRIMARY collection?
-    r = []
-    self.collection.products.published.select("id").sample(amount).each do |t|
-      r.push(t.id)
-    end
-    r
-  end
-
-  def suggest_same_collection_by_priority(amount = 4)
-    r = []
-    self.collection.products.published.select("id").order("priority desc")[0..amount-1].each do |t|
-      r.push(t.id)
-    end
-    r
-  end
-
-  def suggest_same_collection_by_sold_total(amount = 4)
-    r = []
-    self.collection.products.published.select("id").order("sold_total desc")[0..amount-1].each do |t|
-      r.push(t.id)
-    end
-    r
   end
 end
