@@ -2,14 +2,12 @@ class OrdersController < ApplicationController
   layout 'horizontal'
   before_filter :load_cart
   before_filter :fetch_items, only: [:new, :create, :current]
+  before_filter :fetch_related_products, only: [:new, :current]
   before_filter :authenticate_user!, only: [:new, :index, :show, :create, :checkout, :cancel]
   before_filter :process_custom_data, only: [:return, :notify]
   skip_before_filter :verify_authenticity_token, only: [:notify]
 
   include ::Extension::Order
-  include ::Extension::Suggestion
-
-  # authorize_resource
 
   def index
     @orders = current_or_guest_user.orders
@@ -30,13 +28,6 @@ class OrdersController < ApplicationController
     @order = Order.new
     @order.build_address
     populate_sender_info unless current_or_guest_user.guest?
-
-    seeds = []
-    @products.each do |t|
-      seeds.push t.id
-    end
-    @suggest_products = suggest_generate(seeds, 7)
-
   end
 
   def create
@@ -115,13 +106,7 @@ class OrdersController < ApplicationController
     end
   end
 
-  def current
-    seeds = []
-    @products.each do |t|
-      seeds.push t.id
-    end
-    @suggest_products = suggest_generate(seeds, 7)
-  end
+  def current ; end
 
   def cancel
     @order = current_or_guest_user.orders.find_by_id(params[:id])

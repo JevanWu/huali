@@ -38,8 +38,23 @@
   </div>
 <% end %>
 
-<% unless @suggest_products.blank? || @products.blank? %>
-  <%= render partial: 'suggestion_on_current' %>
+<% unless @related_products.blank? || @products.blank? %>
+  <div class="suggestion-on-current">
+  <p><%= t('views.order.you_may_also_like') %></p>
+  <ul class="suggestion-list">
+    <% @related_products.each do |product| %>
+      <li class="suggestion-cell">
+    <%= link_to image_tag(product.img(:medium), width: '100'), product_path(product), title: product.name, :target => "_blank" %>
+    <div class='suggestion-click-to-cart'>
+      <%= link_to_add_row_partial t('views.order.click_to_cart'), "#", product, 'product_in_cart' %>
+    </div>
+    <div class='suggestion-link'>
+      <%= link_to product.name, product_path(product), :target => "_blank" %>
+    </div>
+    </li>
+  <% end %>
+  </ul>
+</div>
 <% end %>
 
 <div class="row cart_foot">
