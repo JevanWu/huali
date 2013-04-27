@@ -55,9 +55,6 @@ class Product < ActiveRecord::Base
   # recommendations
   has_many :recommendation_relations
   has_many :recommendations, :through => :recommendation_relations
-  has_many :inverse_recommendation_relations, :class_name => "RecommendationRelation", :foreign_key => "recommendation_id"
-  has_many :inverse_recommendations, :through => :inverse_recommendation_relations, :source => :product
-  attr_accessible :recommendations, :recommendation_relations
 
   # i18n translation
   translate :name, :description, :inspiration
