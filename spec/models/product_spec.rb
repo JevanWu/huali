@@ -53,9 +53,9 @@ describe Product do
       @col1.save!
       @col2.save!
 
-      @all_set = Set.new Product.all.map(&:id)
-      @col1_set = Set.new @col1.products.map(&:id)
-      @col2_set = Set.new @col1.products.map(&:id)
+      @all_set = Set.new Product.all
+      @col1_set = Set.new @col1.products
+      @col2_set = Set.new @col1.products
     end
 
     after(:each) do
@@ -92,12 +92,12 @@ describe Product do
 
     it "selects products by the order of priority" do
       expected = Product.order(:priority).limit(5).map(&:id)
-      @product.suggested_products(5, :all, :priority).should == expected
+      @product.suggested_products(5, :all, :priority).map(&:id).should == expected
     end
 
     it "selects products by the order of sold_total amount" do
       expected = Product.order(:sold_total).limit(5).map(&:id)
-      @product.suggested_products(5, :all, :sold_total).should == expected
+      @product.suggested_products(5, :all, :sold_total).map(&:id).should == expected
     end
   end
 end

@@ -92,16 +92,16 @@ class Product < ActiveRecord::Base
     # the pools
     select_pool =
       if pool == :collection && collection
-        collection.products.published.select('id')
+        collection.products.published
       else
-        Product.published.select('id')
+        Product.published
       end
 
     # the ordersing and amount
     if order.in? [:priority, :sold_total]
-      select_pool.order(order).limit(amount).map(&:id)
+      select_pool.order(order).limit(amount)
     else
-      select_pool.sample(amount).map(&:id)
+      select_pool.sample(amount)
     end
   end
 
