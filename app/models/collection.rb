@@ -43,28 +43,4 @@ class Collection < ActiveRecord::Base
   def to_s
     "#{self.id} #{self.name_zh}"
   end
-
-  def suggest_by_random(amount = 4)
-    r = []
-    self.products.published.select("id").sample(amount).each do |t|
-      r.push(t.id)
-    end
-    r
-  end
-
-  def suggest_by_priority(amount = 4)
-    r = []
-    self.products.published.order("priority desc").limit((amount*1.2).round).each do |t|
-      r.push(t.id)
-    end
-    r
-  end
-
-  def suggest_by_sold_total(amount = 4)
-    r = []
-    self.products.published.order("sold_total desc").limit((amount*1.2).round).each do |t|
-      r.push(t.id)
-    end
-    r
-  end
 end
