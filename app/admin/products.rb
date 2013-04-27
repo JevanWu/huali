@@ -94,7 +94,7 @@ ActiveAdmin.register Product do
 
       row :recommendations do
         product.recommendations.map do |product|
-          link_to product.name, admin_collection_path(collection)
+          link_to product.name, admin_product_path(product)
         end.join(', ').html_safe
       end
 
