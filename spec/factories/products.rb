@@ -57,6 +57,9 @@ FactoryGirl.define do
     width { Forgery(:basic).number({at_least: 10, at_most: 1000}) }
     depth { Forgery(:basic).number({at_least: 10, at_most: 1000}) }
 
+    published_en true
+    published_zh true
+
     meta_description { Forgery(:lorem_ipsum).sentence }
     meta_keywords { Forgery(:lorem_ipsum).words(20) }
 
