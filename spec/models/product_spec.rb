@@ -39,7 +39,7 @@ require 'spec_helper'
 require 'set'
 
 describe Product do
-  describe "#suggested_products" do
+  describe "#suggestions" do
     before(:each) do
       @col1 = FactoryGirl.create(:collection)
       @col2 = FactoryGirl.create(:collection)
