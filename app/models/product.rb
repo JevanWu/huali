@@ -88,7 +88,11 @@ class Product < ActiveRecord::Base
     end
   end
 
-  def suggestions(amount = 4, pool = :all, order = :random)
+  def related_products(limit = 5)
+    (recommendations + suggestions).take(limit)
+  end
+
+  def suggestions(amount = 5, pool = :all, order = :random)
     # the pools
     select_pool =
       if pool == :collection && collection

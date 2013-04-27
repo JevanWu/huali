@@ -3,8 +3,6 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
 
-  include ::Extension::Suggestion
-
   def show
     @product = Product.find(params[:id])
 
@@ -23,7 +21,7 @@ class ProductsController < ApplicationController
     end
 
     # suggestion
-    @suggest_products = suggest_generate([@product.id])
+    @related_products = @product.related_products
 
     respond_to do |format|
       format.html # show.html.erb
