@@ -19,6 +19,7 @@ ActiveAdmin.register Collection do
         collection.products.size
       end
     end
+    column :priority
     default_actions
   end
 
@@ -32,6 +33,7 @@ ActiveAdmin.register Collection do
       row :available
       row :primary_category
       row :description
+      row :priority
 
       row :product do
         collection.products.map do |product|

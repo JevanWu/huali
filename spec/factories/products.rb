@@ -78,7 +78,7 @@ FactoryGirl.define do
     end
 
     trait :with_collection do
-      collections
+      collection
     end
 
     # collection_id

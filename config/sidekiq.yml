@@ -4,6 +4,6 @@
 ---
 :verbose: true
 # :namespace: sidekiq:huali
-:concurrency: 50
+:concurrency: 10
 :queues:
   - [default, 5]

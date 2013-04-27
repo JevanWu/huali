@@ -44,8 +44,16 @@ class Address < ActiveRecord::Base
     "#{fullname}: #{address}"
   end
 
+  def print_addr
+    [province.name, city.name, area.try(:name), trimmed_addr].select {|s| !s.blank? }.join(', ')
+  end
+
+  def trimmed_addr
+    address.gsub(province.name, '').gsub(city.name, '').gsub(fullname, '').strip
+  end
+
   def full_addr
-    [post_code, province.name, city.name, area.try(:name), address].select {|s| !s.blank? }.join(', ')
+    [post_code, province.name, city.name, area.try(:name), trimmed_addr].select {|s| !s.blank? }.join(', ')
   end
 
   def same_as?(other)
