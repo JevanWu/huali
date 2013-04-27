@@ -88,58 +88,21 @@ class Product < ActiveRecord::Base
     end
   end
 
-  def suggest_by_random(amount = 4)
-    r = []
-    Product.published.random(amount).each do |t|
-      r << t.id
-    end
-    r
-  end
+  def suggested_products(amount = 4, pool = :all, order = :random)
+    # the pools
+    select_pool =
+      if pool == :collection && collection
+        collection.products.published.select('id')
+      else
+        Product.published.select('id')
+      end
 
-  def suggest_by_priority(amount = 4)
-    r = []
-    Product.published.order("priority desc").limit((amount*1.2).round).each do |t|
-      r << t.id
+    # the ordersing and amount
+    if order.in? [:priority, :sold_total]
+      select_pool.order(order).limit(amount).map(&:id)
+    else
+      select_pool.sample(amount).map(&:id)
     end
-    r
-  end
-
-  def suggest_by_sold_total(amount = 4)
-    r = []
-    Product.published.order("sold_total desc").limit((amount*1.2).round).each do |t|
-      r << t.id
-    end
-    r
-  end
-
-  def suggest_same_collection_by_random(amount = 4)
-    # product may belongs to multi collections
-    # but may belongs to only one PRIMARY collection?
-    r = []
-    self.collection.products.published.select("id").sample(amount).each do |t|
-      r.push(t.id)
-    end
-    r
-  end
-
-  def suggest_same_collection_by_priority(amount = 4)
-    r = []
-    self.collection.products.published.select("id").order("priority desc")[0..amount-1].each do |t|
-      r.push(t.id)
-    end
-    r
-  end
-
-  def suggest_same_collection_by_sold_total(amount = 4)
-    r = []
-    self.collection.products.published.select("id").order("sold_total desc")[0..amount-1].each do |t|
-      r.push(t.id)
-    end
-    r
-  end
-
-  def suggested_products(amount = 4, pool = :all, type = :random)
-    []
   end
 
   def collection

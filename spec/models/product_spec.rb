@@ -92,12 +92,12 @@ describe Product do
 
     it "selects products by the order of priority" do
       expected = Product.order(:priority).limit(5).map(&:id)
-      @product.suggested_products(5).should == expected
+      @product.suggested_products(5, :all, :priority).should == expected
     end
 
     it "selects products by the order of sold_total amount" do
       expected = Product.order(:sold_total).limit(5).map(&:id)
-      @product.suggested_products(5).should == expected
+      @product.suggested_products(5, :all, :sold_total).should == expected
     end
   end
 end
