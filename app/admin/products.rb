@@ -92,8 +92,10 @@ ActiveAdmin.register Product do
         end.join(', ').html_safe
       end
 
-      row :recommendation do
-        product.recommendation_ids.join(',').html_safe
+      row :recommendations do
+        product.recommendations.map do |product|
+          link_to product.name, admin_collection_path(collection)
+        end.join(', ').html_safe
       end
 
       row :image do
