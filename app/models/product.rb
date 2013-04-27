@@ -83,7 +83,7 @@ class Product < ActiveRecord::Base
       where(:"published_#{lang}" => true)
     end
 
-    def group_by_collection
+    def sort_by_collection
       published.sort_by { |p| p.collections.primary.map(&:id) }
     end
   end
