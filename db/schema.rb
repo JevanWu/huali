@@ -116,11 +116,6 @@ ActiveRecord::Schema.define(:version => 20130427023620) do
 
   add_index "collections_products", ["product_id", "collection_id"], :name => "index_collections_products_on_product_id_and_collection_id", :unique => true
 
-  create_table "collocation_relations", :force => true do |t|
-    t.integer "product_a_id", :null => false
-    t.integer "product_b_id", :null => false
-  end
-
   create_table "coupons", :force => true do |t|
     t.string   "code",                               :null => false
     t.string   "adjustment",                         :null => false
