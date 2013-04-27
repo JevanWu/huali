@@ -15,14 +15,17 @@
 #  inspiration_zh   :text
 #  meta_description :string(255)
 #  meta_keywords    :string(255)
+#  meta_title       :string(255)
 #  name_char        :string(255)
 #  name_en          :string(255)      default(""), not null
 #  name_zh          :string(255)      default(""), not null
 #  original_price   :decimal(, )
 #  price            :decimal(8, 2)
+#  priority         :integer          default(5)
 #  published_en     :boolean          default(FALSE)
 #  published_zh     :boolean          default(FALSE)
 #  slug             :string(255)
+#  sold_total       :integer          default(0)
 #  updated_at       :datetime         not null
 #  width            :decimal(8, 2)
 #
