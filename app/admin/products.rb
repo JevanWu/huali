@@ -13,18 +13,10 @@ ActiveAdmin.register Product do
   end
   batch_action :destroy, false
 
-  scope_to do
-    Class.new do
-      def self.products
-        Product.unscoped
-      end
-    end
-  end
-
   controller do
     helper :products
     def scoped_collection
-      Product.unscoped.includes(:assets, :collections)
+      Product.includes(:assets, :collections)
     end
   end
 
