@@ -42,7 +42,7 @@ $ ->
 
       return false
 
-  $('.add_quantity, .reduce_quantity, .empty_quantity').click(bindTriggersClick)
+  $('.add_quantity, .reduce_quantity, .empty_quantity').one(click, bindTriggersClick)
 
   $('.suggestion-cell').hover(
     ->
@@ -70,7 +70,7 @@ $ ->
 
         update_basket_cart_amount()
 
-        $('.add_quantity, .reduce_quantity, .empty_quantity').click(bindTriggersClick)
+        $('.add_quantity, .reduce_quantity, .empty_quantity').one(click, bindTriggersClick)
 
       return false
   )
