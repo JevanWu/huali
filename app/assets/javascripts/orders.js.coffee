@@ -51,14 +51,13 @@ $ ->
       $(@).find('.suggestion-click-to-cart').fadeTo(400,0)
     )
 
-
   $('.suggestion-click-to-cart > a').click(
     ->
       pid = $(@).data('product-id')
       if (Cart.get(pid).quantity != 0)
         # FIXME, add logic for if already in cart
           # method 1, add quantity in cart
-          # method 2, after click-to-cart, fadeOut and fadeIn another image        
+          # method 2, after click-to-cart, fadeOut and fadeIn another image
       else
         Cart.update(id: pid, quantity: 1)
 
@@ -86,13 +85,12 @@ $ ->
 
   update_price_current = ->
     priceSum = 0
-    $('.item-table tr').slice(1,$('.item-table tr').size()-1).each(->
-      pricePerItem = parseFloat($(this).children('.price').html().replace(/[^\d.]/g, ""))
+    $('.item-table tbody tr').each(->
+      pricePerItem = $(this).children('.price').data('price')
       quantity = parseInt($(this).children('.quantity').children('input').val())
       priceSum += (priceSumItem = pricePerItem*quantity)
-      $(this).children('.total').html(number_to_currency(priceSumItem.toFixed(2)))
-      )
-    $('.item-table tr').last().children().last().html(number_to_currency(priceSum.toFixed(2)))
+      $(this).children('.total').html(number_to_currency(priceSumItem.toFixed(2))))
+    $('.item-table tfoot tr td:last').html(number_to_currency(priceSum.toFixed(2)))
     
   update_price_checkout = ->
     priceSum = 0
@@ -102,7 +100,7 @@ $ ->
     $('.side-table tfoot tr td:last').html(number_to_currency(priceSum.toFixed(2)))
 
   update_basket_cart_amount = ->
-    $("#basket #cart_amount span").html(Cart.size())
+    $("#basket #cart_amount span").html(Cart.quantityAll())
 
 # product = { id: String, quantity: Integer }
 # cart
