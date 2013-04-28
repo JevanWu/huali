@@ -265,6 +265,10 @@ class Order < ActiveRecord::Base
       return true
     end
 
+    if expected_date.in? [Date.parse('2013-04-29'), Date.parse('2013-04-30'), Date.parse('2013-05-01')]
+      errors.add :expected_date, :unavailable_date
+    end
+
     # shift order acceptance date after 17:00 every day
     start_day = Time.now.hour >= 17 ? Date.today.next_day(3) : Date.today.next_day(2)
 
