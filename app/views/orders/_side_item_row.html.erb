@@ -6,5 +6,5 @@
       <span>x <%= side_item_row[:quantity] %> </span>
     </p>
   </td>
-  <td class="total"> <%= count_total(side_item_row) %> </td>
+  <td class="total" data-total="<%= side_item_row.price * side_item_row[:quantity] %>"> <%= count_total(side_item_row) %> </td>
 </tr>

@@ -13,36 +13,57 @@ $ ->
     pro = Cart.get $(@).data('product')
     Cart.update(id: pro.id, quantity: pro.quantity + 1)
 
-  bindTriggersClick = ->
+  # tableCurrentClick = ->
+  #   update_basket_cart_amount()
+
+  # tableCheckoutClick = ->
+  #   update_basket_cart_amount()
+
+  updateRowCurrent = (row) ->
+    price = row.children('.price').data('price')
+    quantity = parseInt(row.children('.quantity').children('input').val())
+    total = price*quantity
+    row.children('.total').data('total',total).html(number_to_currency(total.toFixed(2)))
+    updateTableCurrent()
+
+  updateTableCurrent = ->
+    sum = 0  
+    $('.item-table tbody tr').each(->
+      sum += $(this).children('.total').data('total'))
+    $('.item-table tfoot tr td:last').html(number_to_currency(sum.toFixed(2)))
+    update_basket_cart_amount()
+
+  updateTableCheckout = ->
+    sum = 0
+    $('.side-table tbody tr .total').each(->
+      sum += $(@).data('total')
+      )
+    $('.side-table tfoot tr td:last').html(number_to_currency(sum.toFixed(2)))
+    update_basket_cart_amount()
+
+  triggersClick = ->
     id = $(@).data('product')
-    quantity = Cart.get(id)['quantity']
+    quantity_ori = Cart.get(id)['quantity']
     action = $(@).attr('class').match(/(\w+)_quantity/)[1]
 
-    changeTo = switch action
-      when 'add'
-        quantity + 1
-      when 'reduce'
-        quantity - 1
-      when 'empty'
-        0
-      else
-        quantity
-
+    changes = { 'add': 1, 'reduce': -1, 'empty': -quantity_ori }
+    changeTo = quantity_ori + changes[action]
     Cart.update(id: id, quantity: changeTo)
-    # update_basket_cart_amount()
 
-    unless Cart.size() is 0
-
-      if changeTo is 0
-        $(@).parents("tr").remove()
-      else
-        $(@).siblings("input").val(changeTo)
-
-      update_price_current()
-
+    if (Cart.size() == 0)
+      location.reload()
       return false
+    if (changeTo == 0)
+      $(@).parents("tr").remove()
+      updateTableCurrent()
+      return false
+    $(@).siblings("input").val(changeTo)
 
-  $('.add_quantity, .reduce_quantity, .empty_quantity').one(click, bindTriggersClick)
+    updateRowCurrent($(@).parents('tr'))
+
+    return false
+
+  $('.add_quantity, .reduce_quantity, .empty_quantity').click(triggersClick)
 
   $('.suggestion-cell').hover(
     ->
@@ -55,21 +76,20 @@ $ ->
     ->
       pid = $(@).data('product-id')
       if (Cart.get(pid).quantity != 0)
+        return false
         # FIXME, add logic for if already in cart
           # method 1, add quantity in cart
           # method 2, after click-to-cart, fadeOut and fadeIn another image
       else
         Cart.update(id: pid, quantity: 1)
 
-        append_to_cart_table_current($(@).data('field-for-table'))
-        update_price_current()
-
-        append_to_cart_table_checkout($(@).data('field-for-table'))
-        update_price_checkout()
-
-        update_basket_cart_amount()
-
-        $('.add_quantity, .reduce_quantity, .empty_quantity').one(click, bindTriggersClick)
+        if $(".suggestion-on-current").length is 0
+          append_to_cart_table_checkout($(@).data('field-for-table'))
+          updateTableCheckout()
+        else
+          append_to_cart_table_current($(@).data('field-for-table'))
+          updateTableCurrent()
+          $('.add_quantity, .reduce_quantity, .empty_quantity').click(triggersClick)
 
       return false
   )
@@ -83,21 +103,21 @@ $ ->
   number_to_currency = (x, unit="¥") ->
     " " + unit + " " + x + " "
 
-  update_price_current = ->
-    priceSum = 0
-    $('.item-table tbody tr').each(->
-      pricePerItem = $(this).children('.price').data('price')
-      quantity = parseInt($(this).children('.quantity').children('input').val())
-      priceSum += (priceSumItem = pricePerItem*quantity)
-      $(this).children('.total').html(number_to_currency(priceSumItem.toFixed(2))))
-    $('.item-table tfoot tr td:last').html(number_to_currency(priceSum.toFixed(2)))
+  # update_price_current = ->
+  #   priceSum = 0
+  #   $('.item-table tbody tr').each(->
+  #     pricePerItem = $(this).children('.price').data('price')
+  #     quantity = parseInt($(this).children('.quantity').children('input').val())
+  #     priceSum += (priceSumItem = pricePerItem*quantity)
+  #     $(this).children('.total').html(number_to_currency(priceSumItem.toFixed(2))))
+  #   $('.item-table tfoot tr td:last').html(number_to_currency(priceSum.toFixed(2)))
     
-  update_price_checkout = ->
-    priceSum = 0
-    $('.side-table tbody tr .total').each(->
-      priceSum += parseFloat($(@).html().replace(/[^\d.]/g, ""))
-      )
-    $('.side-table tfoot tr td:last').html(number_to_currency(priceSum.toFixed(2)))
+  # update_price_checkout = ->
+  #   priceSum = 0
+  #   $('.side-table tbody tr .total').each(->
+  #     priceSum += parseFloat($(@).html().replace(/[^\d.]/g, ""))
+  #     )
+  #   $('.side-table tfoot tr td:last').html(number_to_currency(priceSum.toFixed(2)))
 
   update_basket_cart_amount = ->
     $("#basket #cart_amount span").html(Cart.quantityAll())
