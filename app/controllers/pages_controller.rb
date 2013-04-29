@@ -13,4 +13,8 @@ class PagesController < ApplicationController
 
   def partner
   end
+
+  def mother
+    render 'mother', layout: 'horizontal'
+  end
 end
