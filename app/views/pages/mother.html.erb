@@ -1,1 +1,17 @@
-<%= image_tag 'mothersday/mother-01.jpg' %>
+<% 30.times do |i| %>
+<% pic_index = sprintf("%02d", i + 1) %>
+<% pro_map = { 
+    4..7 => 'young',
+    8..11 => 'harvest', 
+    12..15 => 'alocasia', 
+    16..19 => 'fashion', 
+    20..23 => 'cook', 
+    24..27 => 'beauty'
+  } %>
+<% product_name = pro_map.find { |k, v| k === (i + 1) }.try(:last) %>
+<% if product_name %>
+  <%= link_to image_tag("mothersday/mother-#{pic_index}.jpg"), product_path(product_name)%>
+<% else %>
+  <%= image_tag("mothersday/mother-#{pic_index}.jpg") %>
+<% end %>
+<% end %>
