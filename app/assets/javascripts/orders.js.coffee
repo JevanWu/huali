@@ -74,19 +74,15 @@ $ ->
     )
 
   $('.suggestion-click-to-cart > a').click ->
-    pid = $(@).data('product-id')
-    if (Cart.get(pid).quantity != 0)
-      return false
-    else
-      Cart.update(id: pid, quantity: 1)
+    productId = $(@).data('product-id')
+    if Cart.get(productId).quantity is 0
+      Cart.update(id: productId, quantity: 1)
 
-      if $(".suggestion-on-current").length is 0
-        appendToTable('.side-table', $(@).data('field-for-table'))
-        updateTable('.side-table')
-      else
-        appendToTable('.item-table', $(@).data('field-for-table'))
-        updateTable('.item-table')
-        $('.add_quantity, .reduce_quantity, .empty_quantity').click(triggersClick)
+      table = if $('.suggestion-on-current').length is 0 then '.side-table' else '.item-table'
+
+      appendToTable(table, $(@).data('field-for-table'))
+      updateTable(table)
+
     return false
 
 # product = { id: String, quantity: Integer }
