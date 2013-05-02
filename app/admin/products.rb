@@ -13,18 +13,10 @@ ActiveAdmin.register Product do
   end
   batch_action :destroy, false
 
-  scope_to do
-    Class.new do
-      def self.products
-        Product.unscoped
-      end
-    end
-  end
-
   controller do
     helper :products
     def scoped_collection
-      Product.unscoped.includes(:assets, :collections)
+      Product.includes(:assets, :collections)
     end
   end
 
@@ -89,6 +81,12 @@ ActiveAdmin.register Product do
       row :collections do
         product.collections.map do |collection|
           link_to collection.name, admin_collection_path(collection)
+        end.join(', ').html_safe
+      end
+
+      row :recommendations do
+        product.recommendations.map do |product|
+          link_to product.name, admin_product_path(product)
         end.join(', ').html_safe
       end
 

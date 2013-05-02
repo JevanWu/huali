@@ -53,6 +53,10 @@ FactoryGirl.define do
       state 'wait_check'
     end
 
+    trait :wait_confirm do
+      state 'wait_confirm'
+    end
+
     trait :with_one_transaction do
       after(:build) do |order|
         create_list(:transaction, 1, order: order )

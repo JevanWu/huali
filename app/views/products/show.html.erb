@@ -18,3 +18,19 @@
   <%= render 'product_img' %>
   <%= render 'product_info' %>
 </div>
+
+<% unless @related_products.blank? %>
+  <div class="suggestion-on-product">
+    <p><%= t('views.order.you_may_also_like') %></p>
+    <ul class="suggestion-list">
+      <% @related_products.each do |product| %>
+        <li class="suggestion-cell">
+        <%= link_to image_tag(product.img(:medium), width: '100'), product_path(product), title: product.name, :target => "_blank" %>
+        <div class='suggestion-link'>
+          <%= link_to product.name, product_path(product), :target => "_blank" %>
+        </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130422091644) do
+ActiveRecord::Schema.define(:version => 20130427023620) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(:version => 20130422091644) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.datetime "created_at"
   end
 
   add_index "assets", ["viewable_id"], :name => "index_assets_on_viewable_id"
@@ -279,11 +280,11 @@ ActiveRecord::Schema.define(:version => 20130422091644) do
     t.string   "slug"
     t.text     "inspiration_en"
     t.text     "description_en"
-    t.boolean  "published_zh",                                       :default => false
-    t.boolean  "published_en",                                       :default => false
-    t.integer  "priority",                                           :default => 5
+    t.boolean  "published_zh",                                   :default => false
+    t.boolean  "published_en",                                   :default => false
+    t.integer  "priority",                                       :default => 5
     t.string   "meta_title"
-    t.integer  "sales_volume_totally",                               :default => 0
+    t.integer  "sold_total",                                     :default => 0
   end
 
   add_index "products", ["name_en"], :name => "index_products_on_name_en"
@@ -296,6 +297,13 @@ ActiveRecord::Schema.define(:version => 20130422091644) do
   end
 
   add_index "provinces", ["post_code"], :name => "index_provinces_on_post_code", :unique => true
+
+  create_table "recommendation_relations", :force => true do |t|
+    t.integer  "product_id"
+    t.integer  "recommendation_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
 
   create_table "reminders", :force => true do |t|
     t.string   "email",      :null => false

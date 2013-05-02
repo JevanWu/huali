@@ -172,6 +172,7 @@ zh-CN:
         meta_keywords: 关键词
         meta_description: 关键描述
         priority: 优先级
+        recommendations: 搭配
 
       collection:
         name_zh: 中文名
@@ -331,6 +332,10 @@ zh-CN:
       cancel_now: 取消支付
       order_info: 订单信息
       pay_and_ship_method: 支付和配送方式
+
+      # suggestion
+      you_may_also_like: 您可能还喜欢
+      click_to_cart: 加入购花篮
 
     product:
       soldout: 已经售罄

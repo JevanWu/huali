@@ -13,32 +13,77 @@ $ ->
     pro = Cart.get $(@).data('product')
     Cart.update(id: pro.id, quantity: pro.quantity + 1)
 
-  $('.add_quantity, .reduce_quantity, .empty_quantity').click ->
+  freshCart = ->
     id = $(@).data('product')
-    quantity = Cart.get(id)['quantity']
+    originQuantity = parseInt Cart.get(id)['quantity']
     action = $(@).attr('class').match(/(\w+)_quantity/)[1]
 
-    changeTo = switch action
-      when 'add'
-        quantity + 1
-      when 'reduce'
-        quantity - 1
-      when 'empty'
-        0
-      else
-        quantity
+    changes =
+      'add': originQuantity + 1,
+      'reduce': originQuantity - 1,
+      'empty': 0
 
+    changeTo = changes[action]
     Cart.update(id: id, quantity: changeTo)
 
-    unless Cart.size() is 0
-
-      if changeTo is 0
-        $(@).parents("tr").remove()
-      else
-        $(@).siblings("input").val(changeTo)
-
+    if (Cart.size() == 0)
+      location.reload()
+      return false
+    if (changeTo == 0)
+      $(@).parents('tr').remove()
+      updateTable('.item-table')
       return false
 
+    $(@).siblings('input').val(changeTo)
+    updateItemRow($(@).parents('tr'))
+    return false
+
+  $('.item-table').on 'click', '.add_quantity, .reduce_quantity, .empty_quantity', freshCart
+
+  updateItemRow = (row) ->
+    price = $('.price', row).data('price')
+    quantity = parseInt $('.quantity > input', row).val()
+    total = price * quantity
+    $('.total', row).data('total', total).html toCurrency(total.toFixed(2))
+    updateTable('.item-table')
+
+  updateTable = (tablename) ->
+    total = _.reduce($("#{tablename} tbody tr"),
+      ((sum, row) ->
+        rowTotal = parseInt $('.total', row).data('total')
+        sum + rowTotal)
+      , 0)
+
+    $("#{tablename} tfoot tr td:last").html toCurrency(total)
+    updateCartAmount()
+
+  appendToTable = (tablename, content) ->
+    $("#{tablename} tbody").append(content)
+
+  toCurrency = (x, unit = '¥') ->
+    " #{unit} #{x} "
+
+  updateCartAmount = ->
+    $('#basket #cart_amount span').html Cart.quantityAll()
+
+  $('.suggestion-cell').hover(
+    ->
+      $(@).find('.suggestion-click-to-cart').css('opacity',0).css('visibility','visible').fadeTo(400,1)
+    ->
+      $(@).find('.suggestion-click-to-cart').fadeTo(400,0)
+    )
+
+  $('.suggestion-click-to-cart > a').click ->
+    productId = $(@).data('product-id')
+    if Cart.get(productId).quantity is 0
+      Cart.update(id: productId, quantity: 1)
+
+      table = if $('.suggestion-on-current').length is 0 then '.side-table' else '.item-table'
+
+      appendToTable(table, $(@).data('field-for-table'))
+      updateTable(table)
+
+    return false
 
 # product = { id: String, quantity: Integer }
 # cart

@@ -37,7 +37,7 @@
 
 
 class Product < ActiveRecord::Base
-  attr_accessible :name_zh, :name_en, :intro, :description_zh, :description_en, :description2, :meta_title, :meta_description, :meta_keywords, :count_on_hand, :cost_price, :original_price, :price, :height, :width, :depth, :available, :assets, :assets_attributes, :place, :usage, :inspiration_zh, :inspiration_en, :name_char, :published_en, :published_zh, :tag_list, :priority
+  attr_accessible :name_zh, :name_en, :intro, :description_zh, :description_en, :description2, :meta_title, :meta_description, :meta_keywords, :count_on_hand, :cost_price, :original_price, :price, :height, :width, :depth, :available, :assets, :assets_attributes, :place, :usage, :inspiration_zh, :inspiration_en, :name_char, :published_en, :published_zh, :tag_list, :priority, :recommendation_ids
 
   # collection
   has_and_belongs_to_many :collections
@@ -52,11 +52,15 @@ class Product < ActiveRecord::Base
   # lineItems
   has_many :line_items
 
+  # recommendations
+  has_many :recommendation_relations
+  has_many :recommendations, :through => :recommendation_relations
+
   # i18n translation
   translate :name, :description, :inspiration
 
   # validations
-  validates_presence_of :name_en, :name_zh, :count_on_hand, :assets
+  validates_presence_of :name_en, :name_zh, :count_on_hand, :assets, :collections
 
   # scopes
   default_scope lambda { order('priority DESC') }
@@ -74,6 +78,31 @@ class Product < ActiveRecord::Base
     def published
       lang = I18n.locale =~ /zh-CN/ ? 'zh' : I18n.locale
       where(:"published_#{lang}" => true)
+    end
+
+    def sort_by_collection
+      published.sort_by { |p| p.collection.id }
+    end
+  end
+
+  def related_products(limit = 5)
+    (recommendations + suggestions).take(limit)
+  end
+
+  def suggestions(amount = 5, pool = :all, order = :random)
+    # the pools
+    select_pool =
+      if pool == :collection && collection
+        collection.products.published
+      else
+        Product.published
+      end
+
+    # the ordersing and amount
+    if order.in? [:priority, :sold_total]
+      select_pool.order(order).limit(amount)
+    else
+      select_pool.sample(amount)
     end
   end
 

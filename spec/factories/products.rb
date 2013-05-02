@@ -45,7 +45,9 @@ FactoryGirl.define do
     inspiration_en { Forgery(:lorem_ipsum).sentence }
     inspiration_zh { Forgery(:lorem_ipsum).sentence }
 
+    priority { Forgery(:basic).number }
     count_on_hand { Forgery(:basic).number }
+    sold_total { Forgery(:basic).number({at_least: 1, at_most: 1000}) }
 
     cost_price { Forgery(:monetary).money }
     price { Forgery(:monetary).money }
@@ -54,6 +56,9 @@ FactoryGirl.define do
     height { Forgery(:basic).number({at_least: 10, at_most: 1000}) }
     width { Forgery(:basic).number({at_least: 10, at_most: 1000}) }
     depth { Forgery(:basic).number({at_least: 10, at_most: 1000}) }
+
+    published_en true
+    published_zh true
 
     meta_description { Forgery(:lorem_ipsum).sentence }
     meta_keywords { Forgery(:lorem_ipsum).words(20) }

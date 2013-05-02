@@ -33,5 +33,25 @@
 require 'spec_helper'
 
 describe Order do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "#update_sold_total" do
+    let(:order) { FactoryGirl.create(:order, :wait_confirm) }
+
+    it 'is called after order state changes to complete' do
+      order.should_receive(:update_sold_total).once
+      order.confirm
+    end
+
+    it 'increments the products quantity by the line items quantity' do
+      former_quantities = order.line_items.map(&:sold_total)
+      increment_amounts = order.line_items.map(&:quantity)
+
+      order.send(:update_sold_total)
+
+      result_quantities = order.line_items.map(&:sold_total)
+
+      former_quantities.each_with_index do |amount, i|
+        (former_quantities[i] + increment_amounts[i]).should == result_quantities[i]
+      end
+    end
+  end
 end

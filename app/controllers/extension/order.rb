@@ -17,5 +17,12 @@ module Extension
         end
       end
     end
+
+    def fetch_related_products
+      recommendations = @products.inject([]) { |s, p| s + p.recommendations }
+      suggestions = @products.inject([]) { |s, p| s + p.suggestions }
+
+      @related_products = (recommendations + suggestions).take(7)
+    end
   end
 end
