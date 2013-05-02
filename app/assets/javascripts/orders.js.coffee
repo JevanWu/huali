@@ -13,12 +13,6 @@ $ ->
     pro = Cart.get $(@).data('product')
     Cart.update(id: pro.id, quantity: pro.quantity + 1)
 
-  # tableCurrentClick = ->
-  #   update_basket_cart_amount()
-
-  # tableCheckoutClick = ->
-  #   update_basket_cart_amount()
-
   updateRowCurrent = (row) ->
     price = row.children('.price').data('price')
     quantity = parseInt(row.children('.quantity').children('input').val())
@@ -65,6 +59,18 @@ $ ->
 
   $('.add_quantity, .reduce_quantity, .empty_quantity').click(triggersClick)
 
+  append_to_cart_table_current = (content) ->
+    $(".cart-table tbody").append(content)
+
+  append_to_cart_table_checkout = (content) ->
+    $(".side-table tbody").append(content)
+
+  number_to_currency = (x, unit = '¥') ->
+    " #{unit} x "
+
+  update_basket_cart_amount = ->
+    $("#basket #cart_amount span").html(Cart.quantityAll())
+
   $('.suggestion-cell').hover(
     ->
       $(@).find('.suggestion-click-to-cart').css('opacity',0).css('visibility','visible').fadeTo(400,1)
@@ -93,34 +99,6 @@ $ ->
 
       return false
   )
-
-  append_to_cart_table_current = (content) ->
-    $(".cart-table tbody").append(content)
-
-  append_to_cart_table_checkout = (content) ->
-    $(".side-table tbody").append(content)
-    
-  number_to_currency = (x, unit="¥") ->
-    " " + unit + " " + x + " "
-
-  # update_price_current = ->
-  #   priceSum = 0
-  #   $('.item-table tbody tr').each(->
-  #     pricePerItem = $(this).children('.price').data('price')
-  #     quantity = parseInt($(this).children('.quantity').children('input').val())
-  #     priceSum += (priceSumItem = pricePerItem*quantity)
-  #     $(this).children('.total').html(number_to_currency(priceSumItem.toFixed(2))))
-  #   $('.item-table tfoot tr td:last').html(number_to_currency(priceSum.toFixed(2)))
-    
-  # update_price_checkout = ->
-  #   priceSum = 0
-  #   $('.side-table tbody tr .total').each(->
-  #     priceSum += parseFloat($(@).html().replace(/[^\d.]/g, ""))
-  #     )
-  #   $('.side-table tfoot tr td:last').html(number_to_currency(priceSum.toFixed(2)))
-
-  update_basket_cart_amount = ->
-    $("#basket #cart_amount span").html(Cart.quantityAll())
 
 # product = { id: String, quantity: Integer }
 # cart
