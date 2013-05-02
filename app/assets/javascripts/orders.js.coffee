@@ -14,26 +14,22 @@ $ ->
     Cart.update(id: pro.id, quantity: pro.quantity + 1)
 
   updateRowCurrent = (row) ->
-    price = row.children('.price').data('price')
-    quantity = parseInt(row.children('.quantity').children('input').val())
-    total = price*quantity
-    row.children('.total').data('total',total).html(number_to_currency(total.toFixed(2)))
-    updateTableCurrent()
+    price = $('.price', row).data('price')
+    quantity = parseInt $('.quantity > input', row).val()
+    total = price * quantity
+    $('.total', row).data('total', total).html(toCurrency(total.toFixed(2)))
+    updateTable('.item-table')
 
-  updateTableCurrent = ->
-    sum = 0  
-    $('.item-table tbody tr').each(->
-      sum += $(this).children('.total').data('total'))
-    $('.item-table tfoot tr td:last').html(number_to_currency(sum.toFixed(2)))
-    update_basket_cart_amount()
+  updateTable = (tablename) ->
+    total = _.reduce($("#{tablename} tbody tr"),
+      ((sum, row) ->
+        rowTotal = parseInt $('.total', row).data('total')
+        sum + rowTotal)
+      , 0)
 
-  updateTableCheckout = ->
-    sum = 0
-    $('.side-table tbody tr .total').each(->
-      sum += $(@).data('total')
-      )
-    $('.side-table tfoot tr td:last').html(number_to_currency(sum.toFixed(2)))
-    update_basket_cart_amount()
+    $("#{tablename} tfoot tr td:last").html toCurrency(total)
+    updateCartAmount()
+    return false
 
   triggersClick = ->
     id = $(@).data('product')
@@ -49,7 +45,7 @@ $ ->
       return false
     if (changeTo == 0)
       $(@).parents("tr").remove()
-      updateTableCurrent()
+      updateTable('.item-table')
       return false
     $(@).siblings("input").val(changeTo)
 
@@ -59,16 +55,16 @@ $ ->
 
   $('.add_quantity, .reduce_quantity, .empty_quantity').click(triggersClick)
 
-  append_to_cart_table_current = (content) ->
+  appendToTableCurrent = (content) ->
     $(".cart-table tbody").append(content)
 
-  append_to_cart_table_checkout = (content) ->
+  appendToTableCheckout = (content) ->
     $(".side-table tbody").append(content)
 
-  number_to_currency = (x, unit = '¥') ->
+  toCurrency = (x, unit = '¥') ->
     " #{unit} x "
 
-  update_basket_cart_amount = ->
+  updateCartAmount = ->
     $("#basket #cart_amount span").html(Cart.quantityAll())
 
   $('.suggestion-cell').hover(
@@ -90,11 +86,11 @@ $ ->
         Cart.update(id: pid, quantity: 1)
 
         if $(".suggestion-on-current").length is 0
-          append_to_cart_table_checkout($(@).data('field-for-table'))
-          updateTableCheckout()
+          appendToTableCheckout($(@).data('field-for-table'))
+          updateTable('.side-table')
         else
-          append_to_cart_table_current($(@).data('field-for-table'))
-          updateTableCurrent()
+          appendToTableCurrent($(@).data('field-for-table'))
+          updateTable('.item-table')
           $('.add_quantity, .reduce_quantity, .empty_quantity').click(triggersClick)
 
       return false
