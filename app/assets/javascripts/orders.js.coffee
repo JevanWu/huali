@@ -30,11 +30,11 @@ $ ->
       location.reload()
       return false
     if (changeTo == 0)
-      $(@).parents("tr").remove()
+      $(@).parents('tr').remove()
       updateTable('.item-table')
       return false
 
-    $(@).siblings("input").val(changeTo)
+    $(@).siblings('input').val(changeTo)
     updateItemRow($(@).parents('tr'))
     return false
 
@@ -64,7 +64,7 @@ $ ->
     " #{unit} #{x} "
 
   updateCartAmount = ->
-    $("#basket #cart_amount span").html Cart.quantityAll()
+    $('#basket #cart_amount span').html Cart.quantityAll()
 
   $('.suggestion-cell').hover(
     ->
