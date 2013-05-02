@@ -38,7 +38,7 @@ $ ->
     updateItemRow($(@).parents('tr'))
     return false
 
-  $('.add_quantity, .reduce_quantity, .empty_quantity').click(freshCart)
+  $('.item-table').on 'click', '.add_quantity, .reduce_quantity, .empty_quantity', freshCart
 
   updateItemRow = (row) ->
     price = $('.price', row).data('price')
