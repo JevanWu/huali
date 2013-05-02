@@ -13,11 +13,38 @@ $ ->
     pro = Cart.get $(@).data('product')
     Cart.update(id: pro.id, quantity: pro.quantity + 1)
 
-  updateRowCurrent = (row) ->
+  freshCart = ->
+    id = $(@).data('product')
+    originQuantity = parseInt Cart.get(id)['quantity']
+    action = $(@).attr('class').match(/(\w+)_quantity/)[1]
+
+    changes =
+      'add': originQuantity + 1,
+      'reduce': originQuantity - 1,
+      'empty': 0
+
+    changeTo = changes[action]
+    Cart.update(id: id, quantity: changeTo)
+
+    if (Cart.size() == 0)
+      location.reload()
+      return false
+    if (changeTo == 0)
+      $(@).parents("tr").remove()
+      updateTable('.item-table')
+      return false
+
+    $(@).siblings("input").val(changeTo)
+    updateItemRow($(@).parents('tr'))
+    return false
+
+  $('.add_quantity, .reduce_quantity, .empty_quantity').click(freshCart)
+
+  updateItemRow = (row) ->
     price = $('.price', row).data('price')
     quantity = parseInt $('.quantity > input', row).val()
     total = price * quantity
-    $('.total', row).data('total', total).html(toCurrency(total.toFixed(2)))
+    $('.total', row).data('total', total).html toCurrency(total.toFixed(2))
     updateTable('.item-table')
 
   updateTable = (tablename) ->
@@ -29,43 +56,15 @@ $ ->
 
     $("#{tablename} tfoot tr td:last").html toCurrency(total)
     updateCartAmount()
-    return false
 
-  triggersClick = ->
-    id = $(@).data('product')
-    quantity_ori = Cart.get(id)['quantity']
-    action = $(@).attr('class').match(/(\w+)_quantity/)[1]
-
-    changes = { 'add': 1, 'reduce': -1, 'empty': -quantity_ori }
-    changeTo = quantity_ori + changes[action]
-    Cart.update(id: id, quantity: changeTo)
-
-    if (Cart.size() == 0)
-      location.reload()
-      return false
-    if (changeTo == 0)
-      $(@).parents("tr").remove()
-      updateTable('.item-table')
-      return false
-    $(@).siblings("input").val(changeTo)
-
-    updateRowCurrent($(@).parents('tr'))
-
-    return false
-
-  $('.add_quantity, .reduce_quantity, .empty_quantity').click(triggersClick)
-
-  appendToTableCurrent = (content) ->
-    $(".cart-table tbody").append(content)
-
-  appendToTableCheckout = (content) ->
-    $(".side-table tbody").append(content)
+  appendToTable = (tablename, content) ->
+    $("#{tablename} tbody").append(content)
 
   toCurrency = (x, unit = '¥') ->
-    " #{unit} x "
+    " #{unit} #{x} "
 
   updateCartAmount = ->
-    $("#basket #cart_amount span").html(Cart.quantityAll())
+    $("#basket #cart_amount span").html Cart.quantityAll()
 
   $('.suggestion-cell').hover(
     ->
@@ -74,27 +73,21 @@ $ ->
       $(@).find('.suggestion-click-to-cart').fadeTo(400,0)
     )
 
-  $('.suggestion-click-to-cart > a').click(
-    ->
-      pid = $(@).data('product-id')
-      if (Cart.get(pid).quantity != 0)
-        return false
-        # FIXME, add logic for if already in cart
-          # method 1, add quantity in cart
-          # method 2, after click-to-cart, fadeOut and fadeIn another image
-      else
-        Cart.update(id: pid, quantity: 1)
-
-        if $(".suggestion-on-current").length is 0
-          appendToTableCheckout($(@).data('field-for-table'))
-          updateTable('.side-table')
-        else
-          appendToTableCurrent($(@).data('field-for-table'))
-          updateTable('.item-table')
-          $('.add_quantity, .reduce_quantity, .empty_quantity').click(triggersClick)
-
+  $('.suggestion-click-to-cart > a').click ->
+    pid = $(@).data('product-id')
+    if (Cart.get(pid).quantity != 0)
       return false
-  )
+    else
+      Cart.update(id: pid, quantity: 1)
+
+      if $(".suggestion-on-current").length is 0
+        appendToTable('.side-table', $(@).data('field-for-table'))
+        updateTable('.side-table')
+      else
+        appendToTable('.item-table', $(@).data('field-for-table'))
+        updateTable('.item-table')
+        $('.add_quantity, .reduce_quantity, .empty_quantity').click(triggersClick)
+    return false
 
 # product = { id: String, quantity: Integer }
 # cart
