@@ -246,6 +246,7 @@ zh-CN:
         confirm: 确认
         cancel: 取消
         print: 打印
+        print_card: 打印贺卡
 
     #states for transaction
     transaction:

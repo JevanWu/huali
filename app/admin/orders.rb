@@ -93,6 +93,10 @@ ActiveAdmin.register Order do
     redirect_to admin_orders_path, alert: t('views.admin.order.order_state_changed') + t('models.order.state.void')
   end
 
+  member_action :print_card do
+    render 'print_card', layout: 'plain_print'
+  end
+
   index do
     selectable_column
     column :state, sortable: :state do |order|

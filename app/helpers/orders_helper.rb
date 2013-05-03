@@ -49,11 +49,13 @@ module OrdersHelper
       link_to(t('models.order.state.check'), check_admin_order_path(order), confirm: t('views.admin.order.confirm_check')) + \
       link_to(t('models.order.state.cancel'), cancel_admin_order_path(order), confirm: t('views.admin.order.confirm_cancel'))
     when "wait_make"
+      link_to(t('models.order.state.print_card'), print_card_admin_order_path(order), html_options = {target: '_blank'}) + \
       link_to(t('models.order.state.print'), '#', class: 'print') + \
       link_to(t('models.order.state.make'), make_admin_order_path(order), confirm: t('views.admin.order.confirm_make')) + \
       link_to(t('models.order.state.cancel'), cancel_admin_order_path(order), confirm: t('views.admin.order.confirm_cancel'))
     when "wait_ship"
       # for historic compatibility, when order(state = checked) doesn't have shipment generated.
+      link_to(t('models.order.state.print_card'), print_card_admin_order_path(order), html_options = {target: '_blank'}) + \
       link_to(t('models.order.state.ship'),
               if order.shipment.blank?
                 new_admin_shipment_path("shipment[order_id]" => order.id,
