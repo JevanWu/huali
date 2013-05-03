@@ -1,10 +1,70 @@
+<% content_for :js do %>
+  <%= javascript_include_tag "admin_order_print" %>
+<% end %>
+
 <% content_for :css do %>
-  <%= stylesheet_link_tag "admin_shipment_print", media: "all" %>
+  <%= stylesheet_link_tag "admin_order_print", media: "all" %>
 <% end %>
 
 <div id="sheet-bg">
-  <%= image_tag "shipment_sheet.jpg" %>
+  <%= image_tag "gift_card.jpg" %>
+  <div id="content">
+    <p id="receiver"></p>
+    <p id="sender"></p>
+    <div id="body">
+      <p> <%= @order.gift_card_text %> </p>
+    </div>
+  </div>
 </div>
-<div id="text">
-  hello
+
+<div id="control-panel">
+  <form class="form-horizontal">
+    <div class="control-group">
+      <label class="control-label" for="receiver-input">抬头</label>
+      <div class="controls">
+        <input name="receiver-input" id="receiver-input" type="text">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="sender-input">落款</label>
+      <div class="controls">
+        <input name="sender-input" id="sender-input" type="text">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="body-input">内容</label>
+      <div class="controls">
+        <textarea class="input-large" rows="5" name="body-input" id="body-input"></textarea>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="font-family-input">字体</label>
+      <div class="controls">
+        <select name="font-family-input" id="font-family-input" class="span2">
+          <option>Arial</option>
+          <option>Helvetica</option>
+          <option>宋体</option>
+          <option>微软雅黑</option>
+          <option>Georgia</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="line-height">行高</label>
+      <div class="controls">
+        <input type="" id="line-height" class='slider'/>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="font-size">字体大小</label>
+      <div class="controls">
+        <input type="" id="font-size" class='slider'/>
+      </div>
+    </div>
+  </form>
 </div>

@@ -94,6 +94,7 @@ ActiveAdmin.register Order do
   end
 
   member_action :print_card do
+    @order = Order.find_by_id(params[:id])
     render 'print_card', layout: 'plain_print'
   end
 
