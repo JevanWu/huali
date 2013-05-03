@@ -158,7 +158,7 @@ ActiveAdmin.register Order do
         unless order.shipments.blank?
           order.shipments.map do |shipment|
             link_to(shipment.identifier, admin_shipment_path(shipment)) + \
-            label_tag(" " + t('models.transaction.state.' + shipment.state))
+            label_tag(" " + t('models.shipment.state.' + shipment.state))
           end.join('</br>').html_safe
         end
       end
