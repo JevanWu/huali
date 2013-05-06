@@ -11,6 +11,6 @@ namespace :notice do
 
   desc "Notify about Mother's Day Preparation"
   task product_day_email: :environment do
-    Notify.delay.date_summary_email('team@zenhacks.org')
+    Notify.delay.product_day_email('team@zenhacks.org')
   end
 end
