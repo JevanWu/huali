@@ -10,6 +10,7 @@ $ ->
   $sender = $('#sender')
   content = $body.text().trim()
   $('#body-input').val(content)
+  $('p', $content).css 'font-family', $('#font-family-input').val()
 
   $("#receiver-input").on 'change', ->
     $receiver.html preserveText $(@).val()
