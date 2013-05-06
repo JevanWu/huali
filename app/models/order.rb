@@ -1,3 +1,4 @@
+# encoding: utf-8
 # == Schema Information
 #
 # Table name: orders
@@ -263,6 +264,10 @@ class Order < ActiveRecord::Base
 
   def body_text
     # prepare body text for transaction
+  end
+
+  def from_taobao?
+    source == '淘宝' or special_instructions.index('淘宝')
   end
 
   private
