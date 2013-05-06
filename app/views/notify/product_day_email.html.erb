@@ -1,0 +1,55 @@
+<table border="0" cellpadding="0" cellspacing="0" width="600" id="templateBody">
+  <tr>
+    <td valign="top">
+      <!-- // Begin Module: Standard Content \\ -->
+      <table border="0" cellpadding="20" cellspacing="0" width="100%">
+        <tr>
+          <td valign="top" class="bodyContent">
+            <div mc:edit="std_content00">
+              <h3 class='h3'>母亲节备货提醒</h3>
+              <p>截至到<%= l Time.now, format: :short %>, 母亲节的备货需要如下:</p>
+            </div>
+          </td>
+        </tr>
+
+        <% @watched_result.each do |result| %>
+        <tr>
+          <td valign="top" style="padding-top:0; padding-bottom:0;">
+            <table border="0" cellpadding="10" cellspacing="0" width="100%" class="templateDataTable verticalDataTable">
+              <tr>
+                <td> <p><h4 class='h4'><%= result[:date] %></h4></p> </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr>
+          <td valign="top" style="padding-top:0; padding-bottom:0;">
+            <table border="0" cellpadding="10" cellspacing="0" width="100%" class="templateDataTable">
+              <tr>
+                <th scope="col" valign="top" width="40%" class="dataTableHeading" mc:edit="data_table_heading00">
+                  产品名称
+                </th>
+                <th scope="col" valign="top" width="20%" class="dataTableHeading" mc:edit="data_table_heading01">
+                  数量
+                </th>
+              </tr>
+              <% result[:result].each do |product_count| %>
+              <tr>
+                <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
+                  <%= product_count['name_zh'] %>
+                </td>
+                <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
+                  <%= product_count['productscount'] %>
+                </td>
+              </tr>
+              <% end %>
+            </table>
+          </td>
+        </tr>
+        <% end %>
+      </table>
+      <!-- // End Module: Standard Content \\ -->
+    </td>
+  </tr>
+</table>

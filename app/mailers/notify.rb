@@ -59,6 +59,30 @@ class Notify < ActionMailer::Base
     mail(to: emails, subject: subject("#{@date}的订单小结"))
   end
 
+  def product_day_email(*emails)
+    watched_date = ['2013-05-07', '2013-05-08', '2013-05-09', '2013-05-10', '2013-05-11']
+
+    def product_on_day(date)
+      <<-SQL
+      select products.name_zh, count(line_items.quantity) as productsCount
+      from orders, line_items, products
+      where orders.id = line_items.order_id
+      and line_items.product_id = products.id
+      and orders.delivery_date = '#{date}'
+      and (orders.state != 'void' and orders.state != 'generated' and orders.state != 'wait_confirm')
+      group by products.name_zh
+      order by productsCount desc;
+      SQL
+    end
+
+    @watched_result = watched_date.map! do |date|
+      result = ActiveRecord::Base.connection.execute product_on_day(date)
+      { date: date, result: result.to_a }
+    end
+
+    mail(to: emails, subject: subject("#母亲节备货提醒#{Time.now}"))
+  end
+
   private
 
   # Examples
