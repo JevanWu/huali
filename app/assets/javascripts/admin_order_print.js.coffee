@@ -10,16 +10,19 @@ $ ->
   $sender = $('#sender')
   content = $body.text().trim()
   $('#body-input').val(content)
-  $('p', $content).css 'font-family', $('#font-family-input').val()
+  refreshFont()
 
   $("#receiver-input").on 'change', ->
     $receiver.html preserveText $(@).val()
+    refreshFont()
 
   $("#sender-input").on 'change', ->
     $sender.html preserveText $(@).val()
+    refreshFont()
 
   $('#body-input').on 'change', ->
     $body.html preserveText $(@).val()
+    refreshFont()
 
   $('#font-family-input').on 'change', ->
     fontFamily = $(@).val()
@@ -48,3 +51,6 @@ preserveText = (text) ->
     start + line
 
   _.reduce text.split('\n'), reducer, ""
+
+refreshFont = ->
+  $('p', "#content").css 'font-family', $('#font-family-input').val()
