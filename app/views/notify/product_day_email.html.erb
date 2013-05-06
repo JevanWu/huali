@@ -12,6 +12,41 @@
           </td>
         </tr>
 
+        <tr>
+          <td valign="top" style="padding-top:0; padding-bottom:0;">
+            <table border="0" cellpadding="10" cellspacing="0" width="100%" class="templateDataTable verticalDataTable">
+              <tr>
+                <td> <p><h4 class='h4'>备货总数</h4></p> </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr>
+          <td valign="top" style="padding-top:0; padding-bottom:0;">
+            <table border="0" cellpadding="10" cellspacing="0" width="100%" class="templateDataTable">
+              <tr>
+                <th scope="col" valign="top" width="40%" class="dataTableHeading" mc:edit="data_table_heading00">
+                  产品名称
+                </th>
+                <th scope="col" valign="top" width="20%" class="dataTableHeading" mc:edit="data_table_heading01">
+                  数量
+                </th>
+              </tr>
+              <% @total_count.to_a.each do |product_count| %>
+              <tr>
+                <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
+                  <%= product_count['name_zh'] %>
+                </td>
+                <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
+                  <%= product_count['productscount'] %>
+                </td>
+              </tr>
+              <% end %>
+            </table>
+          </td>
+        </tr>
+
         <% @watched_result.each do |result| %>
         <tr>
           <td valign="top" style="padding-top:0; padding-bottom:0;">
@@ -44,6 +79,14 @@
                 </td>
               </tr>
               <% end %>
+              <tr>
+                <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
+                  合计
+                </td>
+                <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
+                  <%= result[:result].inject(0) {|sum, count| sum + count['productscount'].to_i }%>
+                </td>
+              </tr>
             </table>
           </td>
         </tr>
