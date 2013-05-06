@@ -5,7 +5,7 @@
 $ ->
   # content initialize and updates
   $content = $("#content")
-  $body = $('#body')
+  $body = $('#body div')
   $receiver = $('#receiver')
   $sender = $('#sender')
   content = $body.text().trim()

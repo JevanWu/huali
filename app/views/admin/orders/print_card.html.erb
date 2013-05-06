@@ -10,9 +10,12 @@
   <%= image_tag "gift_card.jpg" %>
   <div id="content">
     <p id="receiver"></p>
-    <p id="sender"></p>
     <div id="body">
-      <p> <%= @order.gift_card_text %> </p>
+      <div> 
+        <p> <%= @order.gift_card_text %> </p>
+      </div>
+      <p></p>
+      <p id="sender"></p>
     </div>
   </div>
 </div>
