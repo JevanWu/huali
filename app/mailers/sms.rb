@@ -25,7 +25,7 @@ class Sms
 [花里花店] hua.li
 STR
 
-      sms(to: phonenums.join(','), content: content )
+      sms(to: phonenums.join(','), body: content )
     end
 
     def pay_order_user_sms(order_id)
@@ -36,7 +36,7 @@ STR
 [花里花店] hua.li
 STR
 
-      sms(to: @order.sender_phone, content: content )
+      sms(to: @order.sender_phone, body: content )
     end
 
     def ship_order_user_sms(order_id)
@@ -47,13 +47,13 @@ STR
 [花里花店] hua.li
 STR
 
-      sms(to: @order.sender_phone, content: content)
+      sms(to: @order.sender_phone, body: content)
     end
 
     def sms(options)
       # phone could be a joined string of phone numbers with ','
       phone = options[:to]
-      content = options[:content]
+      content = options[:body]
 
       conn = Faraday.new url: 'http://www.smsbao.com' do |faraday|
         faraday.request  :url_encoded             # form-encode POST params
@@ -69,6 +69,18 @@ STR
       unless response.body == '0'
         raise StandardError, ERROR_CODE[response.body] + ". " + "phone number is #{phone}. " + "content is #{content}."
       end
+    end
+
+    def twilio(options)
+      client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_TOKEN']
+      default_option = { :from => '+15713832992' }
+      options.reverse_merge!(default_option)
+
+      # {
+        # :to => '+16105557069',
+        # :body => 'Hey there!'
+      # }
+      client.account.sms.messages.create(options)
     end
   end
 end
