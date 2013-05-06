@@ -31,12 +31,9 @@ FactoryGirl.define do
     # FIXME use a real mock for tracking_num
     tracking_num { Forgery(:address).zip}
 
-    trait :with_cost do
-      cost { Forgery(:monetary).money }
-    end
-
     trait :ready do
       state 'ready'
+      association :order, state: 'wait_ship'
     end
   end
 end

@@ -12,7 +12,6 @@
 
 FactoryGirl.define do
   factory :ship_method do
-    cost { Forgery(:monetary).money }
     method { %w(express mannual).sample }
     name { Forgery(:lorem_ipsum).word }
     service_phone { Forgery(:address).phone }
