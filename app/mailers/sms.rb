@@ -53,10 +53,17 @@ STR
     def confirm_order_user_sms(order_id)
       @order = Order.full_info(order_id)
 
-      content = <<STR
-尊敬的#{@order.sender_name},订单#{@order.identifier}已经送达并签收。
+      regular_content = <<STR
+亲爱的#{@order.sender_name}, 您选购的商品已经在今日#{Time.now.to_s(:time)}送达#{@order.address.fullname}的手中，感谢您的选购，期待您再次光临.
 [花里花店] hua.li
 STR
+
+      taobao_content = <<STR
+亲爱的#{@order.sender_name}, 您选购的商品已经在今日#{Time.now.to_s(:time)}送达#{@order.address.fullname}的手中，感谢您的选购，您的全5分好评对我们特别重要。我期待您再次光临.
+[花里花店] hua.li
+STR
+
+      content = @order.from_taobao? ? taobao_content : regular_content
 
       sms(to: @order.sender_phone, content: content)
     end
