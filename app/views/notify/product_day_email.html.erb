@@ -33,6 +33,14 @@
                   数量
                 </th>
               </tr>
+              <tr>
+                <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
+                  总数
+                </td>
+                <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
+                  <%= @total_count.inject(0) {|sum, count| sum + count['productscount'].to_i }%>
+                </td>
+              </tr>
               <% @total_count.to_a.each do |product_count| %>
               <tr>
                 <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
