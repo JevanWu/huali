@@ -1,27 +1,24 @@
 # encoding: utf-8
 class ShipmentsController < ApplicationController
   def kuaidi100_notify
-    File.open('kuaidi100_notify.out', 'a') { |file| file.write("query_string\n"+request.query_string+"\nraw_post"+request.raw_post+"\n") }
     render json: {result: 'true', returnCode: '200', message: '成功'}
 
-    identifier = CGI.parse(query_string)['identifier'].first
-    shipment = Shipment.where(identifier: identifier).first
-
-    kuaidi100_notifier = Kuaidi100Notifier.new(shipment, request.raw_post)
-    return if updated_time < shipment.kuaidi100_notifier.updated_time
-    kuaidi100_notifier.update_shipment
+    identifier = CGI.parse(request.query_string)['identifier'].first
+    kuaidi100_notifier = Kuaidi100Notifier.new(identifier, request.raw_post)
+    kuaidi100_notifier.update_shipment if kuaidi100_notifier.need_update?
   end
 end
 
 class Kuaidi100Notifier
-  attr_reader :update_time, :status
+  attr_reader :update_time, :status, :need_update
 
-  def initialize(@shipment, raw_post)
+  def initialize(identifier, raw_post)
     # parsing
+    @shipment = Shipment.find_by_identifier(identifier)
     post = JSON.parse URI.unescape(raw_post).sub('param=','')
     @last_result = post['lastResult']
-    @status = last_result['state']
-    @updated_time = DateTime.parse(last_result['data'][0]['ftime'])
+    @status = @last_result['state'].to_i
+    @updated_time = DateTime.parse(@last_result['data'][0]['ftime'])
   end
 
   def update_shipment
@@ -38,5 +35,9 @@ class Kuaidi100Notifier
     when 3
       @shipment.accept
     end
+  end
+
+  def need_update?
+    @updated_time > @shipment.kuaidi100_updated_at
   end
 end
