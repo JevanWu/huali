@@ -51,6 +51,7 @@ class Shipment < ActiveRecord::Base
 
       transition to: :completed, on: :accept
       transition to: :unknown, on: :time_out
+      transition to: :unknown, on: :got_unknown_status
     end
 
     state :unknown do

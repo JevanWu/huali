@@ -6,12 +6,25 @@ class ShipmentsController < ApplicationController
 
     identifier = CGI.parse(request.query_string)['identifier'].first
     shipment = Shipment.where(identifier: identifier).first
-    jsonPost = JSON.parse URI.unescape(request.raw_post).sub('param=','')
-    status = jsonPost['lastResult']['state']
+    post = JSON.parse URI.unescape(request.raw_post).sub('param=','')
+    lastResult = post['lastResult']
+    status = lastResult['state']
+    latestUpdatedTime = DateTime.parse(lastResult['data'][0]['ftime'])
 
-    shipment.kuaidi100_result = jsonPost['lastResult'].to_json
+    return if latestUpdatedTime < shipment.kuaidi100_updated_at
+
+    shipment.kuaidi100_result = lastResult.to_json
     shipment.kuaidi100_status = status
+    shipment.kuaidi100_updated_at = latestUpdatedTime
     shipment.save
-        
+
+    case status
+    when 0,1
+      shipment.ship
+    when 2
+      shipment.got_unknown_status
+    when 3
+      shipment.accept
     end
+  end
 end
