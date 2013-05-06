@@ -9,9 +9,11 @@
 #  id               :integer          not null, primary key
 #  meta_description :string(255)
 #  meta_keywords    :string(255)
+#  meta_title       :string(255)
 #  name_en          :string(255)      not null
 #  name_zh          :string(255)      not null
 #  primary_category :boolean          default(FALSE), not null
+#  priority         :integer          default(5)
 #  slug             :string(255)
 #  updated_at       :datetime         not null
 #
@@ -22,7 +24,7 @@
 
 class Collection < ActiveRecord::Base
   attr_accessible :description, :name_en, :name_zh, :display_name,
-                  :available, :meta_description,:meta_title, :meta_keywords, :primary_category
+                  :available, :meta_description,:meta_title, :meta_keywords, :primary_category, :priority
 
   has_and_belongs_to_many :products
 
@@ -35,6 +37,8 @@ class Collection < ActiveRecord::Base
 
   scope :available, lambda { where(available: true) }
   scope :primary, lambda { where(primary_category: true) }
+
+  default_scope lambda { order('priority DESC') }
 
   def to_s
     "#{self.id} #{self.name_zh}"

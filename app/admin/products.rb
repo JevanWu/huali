@@ -13,18 +13,10 @@ ActiveAdmin.register Product do
   end
   batch_action :destroy, false
 
-  scope_to do
-    Class.new do
-      def self.products
-        Product.unscoped
-      end
-    end
-  end
-
   controller do
     helper :products
     def scoped_collection
-      Product.unscoped.includes(:assets, :collections)
+      Product.includes(:assets, :collections)
     end
   end
 
@@ -92,6 +84,12 @@ ActiveAdmin.register Product do
         end.join(', ').html_safe
       end
 
+      row :recommendations do
+        product.recommendations.map do |product|
+          link_to product.name, admin_product_path(product)
+        end.join(', ').html_safe
+      end
+
       row :image do
         product.assets.map do |asset|
           image_tag asset.image.url(:medium)
@@ -107,7 +105,7 @@ ActiveAdmin.register Product do
       row :count_on_hand
 
       row :original_price do
-        number_to_currency product.price, unit: '&yen;'
+        number_to_currency product.original_price, unit: '&yen;'
       end
 
       row :price do

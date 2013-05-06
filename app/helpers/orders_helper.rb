@@ -8,6 +8,14 @@ module OrdersHelper
     number_to_currency item_total, unit: '&yen;'
   end
 
+  def link_to_add_row_partial(name, link, product, partial_name)
+    product[:quantity] ||= 1
+    # FIXME how to direct compile the erb
+    row_html = render(partial: partial_name, collection: [product]).to_str
+
+    link_to name, link, data: { product_id: product.id, field_for_table: row_html }
+  end
+
   def order_state(order)
     case order.state
     when 'generated'
@@ -41,11 +49,13 @@ module OrdersHelper
       link_to(t('models.order.state.check'), check_admin_order_path(order), confirm: t('views.admin.order.confirm_check')) + \
       link_to(t('models.order.state.cancel'), cancel_admin_order_path(order), confirm: t('views.admin.order.confirm_cancel'))
     when "wait_make"
+      link_to(t('models.order.state.print_card'), print_card_admin_order_path(order), html_options = {target: '_blank'}) + \
       link_to(t('models.order.state.print'), '#', class: 'print') + \
       link_to(t('models.order.state.make'), make_admin_order_path(order), confirm: t('views.admin.order.confirm_make')) + \
       link_to(t('models.order.state.cancel'), cancel_admin_order_path(order), confirm: t('views.admin.order.confirm_cancel'))
     when "wait_ship"
       # for historic compatibility, when order(state = checked) doesn't have shipment generated.
+      link_to(t('models.order.state.print_card'), print_card_admin_order_path(order), html_options = {target: '_blank'}) + \
       link_to(t('models.order.state.ship'),
               if order.shipment.blank?
                 new_admin_shipment_path("shipment[order_id]" => order.id,
@@ -63,4 +73,5 @@ module OrdersHelper
     end
     content_tag('div', buttons, id: 'process-buttons')
   end
+
 end

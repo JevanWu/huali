@@ -1,6 +1,12 @@
 <%= semantic_form_for [:admin, @order] do |f| %>
   <%= f.semantic_errors %>
 
+  <%= f.inputs "Sender Info" do %>
+    <%= f.input :sender_name %>
+    <%= f.input :sender_email %>
+    <%= f.input :sender_phone %>
+  <% end %>
+
   <%= f.inputs "Delivery Info", for: :address do |builder, i| %>
     <%= builder.input :address %>
     <%= builder.input :post_code %>
@@ -23,6 +29,7 @@
   <% end %>
 
   <%= f.inputs "Order Info" do %>
+    <%= f.input :source, as: :radio, collection: ['微博', '微信', '人人', '豆瓣', '平面媒体', '朋友推荐', '传单', '淘宝', '搜索引擎', '其他'] %>
     <%= f.input :special_instructions %>
     <%= f.input :gift_card_text %>
   <% end %>

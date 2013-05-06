@@ -1,0 +1,44 @@
+<div class="row" style="text-align: center; margin-bottom: 15px;">
+  <%= image_tag("mothersday/mother-01.jpg") %>
+</div>
+
+<div class="row">
+  <% @products.each do |product| %>
+    <div class="collection-unit span4">
+      <div class="unit-info">
+        <%= link_to t('views.product.flower_basket'), current_order_path, class: 'purchase button', data: { product: product.id } %>
+        <p>
+          <% unless product.original_price.nil? %>
+          <span class="pro-price old-price"> <%= product.original_price %> <%=t 'currency' %>  </span>
+          <% end %>
+          <span class="pro-price"><%= product.price %> <%=t 'currency' %>  </span>
+        </p>
+        
+      </div>
+      <div class="unit-image">
+        <%= link_to image_tag(product.img(:medium)), product_path(product), title: product.name %>
+      </div>
+      <h3 class="unit-title"> <%= link_to product.name, product_path(product), title: 'Fashion Demo Flowers' %> </h3>
+    </div>
+  <% end %>
+</div>
+
+<div class="row" style="text-align: center;">
+<% 29.times do |i| %>
+<% pic_index = sprintf("%02d", i + 2) %>
+<% pro_map = { 
+    4..7 => 'young',
+    8..11 => 'harvest', 
+    12..15 => 'alocasia', 
+    16..19 => 'fashion', 
+    20..23 => 'cook', 
+    24..27 => 'beauty'
+  } %>
+<% product_name = pro_map.find { |k, v| k === (i + 1) }.try(:last) %>
+<% if product_name %>
+  <%= link_to image_tag("mothersday/mother-#{pic_index}.jpg"), product_path(product_name), target: "_blank" %>
+<% else %>
+  <%= image_tag("mothersday/mother-#{pic_index}.jpg") %>
+<% end %>
+<% end %>
+</div>

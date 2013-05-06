@@ -9,9 +9,11 @@
 #  id               :integer          not null, primary key
 #  meta_description :string(255)
 #  meta_keywords    :string(255)
+#  meta_title       :string(255)
 #  name_en          :string(255)      not null
 #  name_zh          :string(255)      not null
 #  primary_category :boolean          default(FALSE), not null
+#  priority         :integer          default(5)
 #  slug             :string(255)
 #  updated_at       :datetime         not null
 #
@@ -22,9 +24,12 @@
 
 FactoryGirl.define do
   factory :collection do
-    name_cn { Forgery(:lorem_ipsum).word }
+    name_zh { Forgery(:lorem_ipsum).word }
     name_en { Forgery(:lorem_ipsum).word }
+    display_name { Forgery(:lorem_ipsum).word }
     description { Forgery(:lorem_ipsum).sentence }
+    available true
+    primary_category true
 
     factory :collection_with_products do
       after(:build) do |collection|

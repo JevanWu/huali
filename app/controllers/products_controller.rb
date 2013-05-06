@@ -2,6 +2,7 @@ class ProductsController < ApplicationController
   #caches_page :show
   # GET /products/1
   # GET /products/1.json
+
   def show
     @product = Product.find(params[:id])
 
@@ -18,6 +19,9 @@ class ProductsController < ApplicationController
         thumb: asset.image.url(:thumb)
       }
     end
+
+    # suggestion
+    @related_products = @product.related_products
 
     respond_to do |format|
       format.html # show.html.erb

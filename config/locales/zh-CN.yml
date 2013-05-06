@@ -172,6 +172,7 @@ zh-CN:
         meta_keywords: 关键词
         meta_description: 关键描述
         priority: 优先级
+        recommendations: 搭配
 
       collection:
         name_zh: 中文名
@@ -186,6 +187,7 @@ zh-CN:
         meta_title: 标题（SEO）
         meta_keywords: 关键词
         meta_description: 关键描述
+        priority: 优先级
 
       page:
         permalink: 网址
@@ -244,6 +246,7 @@ zh-CN:
         confirm: 确认
         cancel: 取消
         print: 打印
+        print_card: 打印贺卡
 
     #states for transaction
     transaction:
@@ -267,6 +270,7 @@ zh-CN:
 
         ship: 发货
         accept: 送达
+        print: 打印
 
   controllers:
     order:
@@ -329,6 +333,10 @@ zh-CN:
       cancel_now: 取消支付
       order_info: 订单信息
       pay_and_ship_method: 支付和配送方式
+
+      # suggestion
+      you_may_also_like: 您可能还喜欢
+      click_to_cart: 加入购花篮
 
     product:
       soldout: 已经售罄

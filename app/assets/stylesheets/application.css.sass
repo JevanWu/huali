@@ -70,8 +70,11 @@ footer
   width: 120px
   font-size: 90%
 
+  #nav-top
+    visibility: hidden 
+
   h4
-    margin: 0 0 5px 0
+    margin: 0 0 10px 0
 
     span
       padding: 3px 2px
@@ -119,10 +122,10 @@ footer
     position: absolute
     padding: 10px 10px 10px 20px
     z-index: 1
-    width: 105%
+    width: 125%
     //hacked width, some products' names too long
     +background_transparent(#fdfdfd, 0.9)
-    +shadow(#111111, 0.3)
+    +shadow(#111, 0.3)
     +transition(top 0.3s ease-in-out)
 
 // PRODUCT PAGE
@@ -273,6 +276,47 @@ footer
 
   h3, strong
     color: $grayDark
+
+// Suggestion
+.suggestion-on-current, .suggestion-on-product
+  border-top: 1px solid $tintColor
+  margin-top: 30px
+  margin-bottom: 50px
+
+  .suggestion-list
+    list-style-type: none
+    padding: 0px
+    text-align: center
+
+  .suggestion-cell
+    list-style-type: none
+    display: inline-block
+    padding-left: 10px
+
+    .suggestion-click-to-cart
+      margin-top: -20px
+      visibility: hidden
+
+      a
+        padding: 5px
+        +background_transparent(#ffffff, 0.8)
+        &:hover
+          color: $white
+          background-color: $linkColor
+
+    .suggestion-link
+      padding-top: 10px
+      text-align: center
+
+.suggestion-on-checkout
+  .suggestion-cell
+    .suggestion-click-to-cart
+      visibility: hidden
+      position: absolute
+      margin-top: 60px
+      left: 200px
+      a
+        padding: 5px
 
 // STATIC PAGE
 .page-wrapper

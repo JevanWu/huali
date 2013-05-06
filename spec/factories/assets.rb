@@ -2,6 +2,7 @@
 #
 # Table name: assets
 #
+#  created_at         :datetime
 #  id                 :integer          not null, primary key
 #  image_content_type :string(255)
 #  image_file_name    :string(255)
@@ -19,6 +20,5 @@
 FactoryGirl.define do
   factory :asset do
     image Rails.root.join('spec/fixtures/sample.jpg').open
-    viewable
   end
 end

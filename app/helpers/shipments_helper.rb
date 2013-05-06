@@ -2,6 +2,7 @@ module ShipmentsHelper
   def shipment_state_shift(shipment)
     buttons = case shipment.state
     when "ready"
+      link_to(t('models.shipment.state.print'), print_admin_shipment_path(shipment), html_options = {target: '_blank'}) + \
       link_to(t('models.shipment.state.ship'), ship_admin_shipment_path(shipment),
               confirm: t('views.admin.shipment.confirm_ship',
                          method: shipment.ship_method, identifier: shipment.identifier, tracking_num: shipment.tracking_num))

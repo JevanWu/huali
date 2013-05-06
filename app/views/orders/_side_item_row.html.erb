@@ -1,0 +1,10 @@
+<tr>
+  <td class="image"><%= image_tag side_item_row.img(:thumb) %></td>
+  <td class="content">
+    <p>
+      <%= link_to side_item_row.name, product_path(side_item_row) %>
+      <span>x <%= side_item_row[:quantity] %> </span>
+    </p>
+  </td>
+  <td class="total" data-total="<%= side_item_row.price * side_item_row[:quantity] %>"> <%= count_total(side_item_row) %> </td>
+</tr>

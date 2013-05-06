@@ -33,21 +33,28 @@
 FactoryGirl.define do
   factory :order do
     address
-    delivery_date { Date.current.next_week }
+    expected_date { Date.current.next_week.next_week.beginning_of_week + 1 } # thuesday
+    delivery_date { expected_date - 1 }
     gift_card_text { Forgery(:lorem_ipsum).paragraph }
     special_instructions { Forgery(:lorem_ipsum).paragraph }
 
-    after(:build) do |order|
-      create_list(:line_item, Forgery(:basic).number, :with_order, order: order )
+    source { Forgery(:lorem_ipsum).word }
+    sender_name { Forgery(:name).full_name }
+    sender_email { Forgery(:internet).email_address }
+    sender_phone { Forgery(:address).phone }
 
-      # FIXME the instance needs to be reloaded before access child collections(line_items)
-      # only problems in this case
-      order.reload
-      order.save
+    after(:build) do |order|
+      [1, 2, 3].sample.times do
+        order.line_items << create(:line_item)
+      end
     end
 
     trait :wait_check do
       state 'wait_check'
+    end
+
+    trait :wait_confirm do
+      state 'wait_confirm'
     end
 
     trait :with_one_transaction do

@@ -93,6 +93,11 @@ ActiveAdmin.register Order do
     redirect_to admin_orders_path, alert: t('views.admin.order.order_state_changed') + t('models.order.state.void')
   end
 
+  member_action :print_card do
+    @order = Order.find_by_id(params[:id])
+    render 'print_card', layout: 'plain_print'
+  end
+
   index do
     selectable_column
     column :state, sortable: :state do |order|
@@ -154,7 +159,7 @@ ActiveAdmin.register Order do
         unless order.shipments.blank?
           order.shipments.map do |shipment|
             link_to(shipment.identifier, admin_shipment_path(shipment)) + \
-            label_tag(" " + t('models.transaction.state.' + shipment.state))
+            label_tag(" " + t('models.shipment.state.' + shipment.state))
           end.join('</br>').html_safe
         end
       end

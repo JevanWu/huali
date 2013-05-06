@@ -9,6 +9,7 @@
 #  in_footer        :boolean          default(TRUE)
 #  meta_description :string(255)
 #  meta_keywords    :string(255)
+#  meta_title       :string(255)
 #  permalink        :string(255)
 #  title_en         :string(255)
 #  title_zh         :string(255)

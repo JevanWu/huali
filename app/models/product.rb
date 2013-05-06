@@ -15,14 +15,17 @@
 #  inspiration_zh   :text
 #  meta_description :string(255)
 #  meta_keywords    :string(255)
+#  meta_title       :string(255)
 #  name_char        :string(255)
 #  name_en          :string(255)      default(""), not null
 #  name_zh          :string(255)      default(""), not null
 #  original_price   :decimal(, )
 #  price            :decimal(8, 2)
+#  priority         :integer          default(5)
 #  published_en     :boolean          default(FALSE)
 #  published_zh     :boolean          default(FALSE)
 #  slug             :string(255)
+#  sold_total       :integer          default(0)
 #  updated_at       :datetime         not null
 #  width            :decimal(8, 2)
 #
@@ -34,7 +37,7 @@
 
 
 class Product < ActiveRecord::Base
-  attr_accessible :name_zh, :name_en, :intro, :description_zh, :description_en, :description2, :meta_title, :meta_description, :meta_keywords, :count_on_hand, :cost_price, :original_price, :price, :height, :width, :depth, :available, :assets, :assets_attributes, :place, :usage, :inspiration_zh, :inspiration_en, :name_char, :published_en, :published_zh, :tag_list, :priority
+  attr_accessible :name_zh, :name_en, :intro, :description_zh, :description_en, :description2, :meta_title, :meta_description, :meta_keywords, :count_on_hand, :cost_price, :original_price, :price, :height, :width, :depth, :available, :assets, :assets_attributes, :place, :usage, :inspiration_zh, :inspiration_en, :name_char, :published_en, :published_zh, :tag_list, :priority, :recommendation_ids
 
   # collection
   has_and_belongs_to_many :collections
@@ -49,11 +52,15 @@ class Product < ActiveRecord::Base
   # lineItems
   has_many :line_items
 
+  # recommendations
+  has_many :recommendation_relations
+  has_many :recommendations, :through => :recommendation_relations
+
   # i18n translation
   translate :name, :description, :inspiration
 
   # validations
-  validates_presence_of :name_en, :name_zh, :count_on_hand, :assets
+  validates_presence_of :name_en, :name_zh, :count_on_hand, :assets, :collections
 
   # scopes
   default_scope lambda { order('priority DESC') }
@@ -72,6 +79,31 @@ class Product < ActiveRecord::Base
       lang = I18n.locale =~ /zh-CN/ ? 'zh' : I18n.locale
       where(:"published_#{lang}" => true)
     end
+
+    def sort_by_collection
+      published.sort_by { |p| p.collection.id }
+    end
+  end
+
+  def related_products(limit = 5)
+    (recommendations + suggestions).take(limit)
+  end
+
+  def suggestions(amount = 5, pool = :all, order = :random)
+    # the pools
+    select_pool =
+      if pool == :collection && collection
+        collection.products.published
+      else
+        Product.published
+      end
+
+    # the ordersing and amount
+    if order.in? [:priority, :sold_total]
+      select_pool.order(order).limit(amount)
+    else
+      select_pool.sample(amount)
+    end
   end
 
   def collection
@@ -84,6 +116,10 @@ class Product < ActiveRecord::Base
 
   def available?
     @available
+  end
+
+  def discount?
+    !original_price.nil? && price < original_price
   end
 
   def published?

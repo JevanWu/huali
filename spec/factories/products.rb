@@ -15,14 +15,17 @@
 #  inspiration_zh   :text
 #  meta_description :string(255)
 #  meta_keywords    :string(255)
+#  meta_title       :string(255)
 #  name_char        :string(255)
 #  name_en          :string(255)      default(""), not null
 #  name_zh          :string(255)      default(""), not null
 #  original_price   :decimal(, )
 #  price            :decimal(8, 2)
+#  priority         :integer          default(5)
 #  published_en     :boolean          default(FALSE)
 #  published_zh     :boolean          default(FALSE)
 #  slug             :string(255)
+#  sold_total       :integer          default(0)
 #  updated_at       :datetime         not null
 #  width            :decimal(8, 2)
 #
@@ -42,7 +45,9 @@ FactoryGirl.define do
     inspiration_en { Forgery(:lorem_ipsum).sentence }
     inspiration_zh { Forgery(:lorem_ipsum).sentence }
 
+    priority { Forgery(:basic).number }
     count_on_hand { Forgery(:basic).number }
+    sold_total { Forgery(:basic).number({at_least: 1, at_most: 1000}) }
 
     cost_price { Forgery(:monetary).money }
     price { Forgery(:monetary).money }
@@ -52,8 +57,17 @@ FactoryGirl.define do
     width { Forgery(:basic).number({at_least: 10, at_most: 1000}) }
     depth { Forgery(:basic).number({at_least: 10, at_most: 1000}) }
 
+    published_en true
+    published_zh true
+
     meta_description { Forgery(:lorem_ipsum).sentence }
     meta_keywords { Forgery(:lorem_ipsum).words(20) }
+
+    after(:build) do |product|
+      [1, 2, 3, 4].sample.times do
+        product.assets << create(:asset)
+      end
+    end
 
     trait :available do
       available true
@@ -65,12 +79,6 @@ FactoryGirl.define do
 
     trait :with_collection do
       collection
-    end
-
-    trait :with_pics do
-      after(:build) do |product|
-        create_list(:asset, Forgery(:basic).number, viewable: product )
-      end
     end
 
     # collection_id

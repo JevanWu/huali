@@ -46,7 +46,8 @@ Huali::Application.configure do
   # config.action_controller.asset_host = "http://assets.example.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w( email.css mobile.css ie6.css ie7.css active_admin_print.css jquery.ui.datepicker.css home.js collections.js products.js pages.js ga.js html5shiv.js datepicker-settings.js)
+  config.assets.precompile += %w( admin_shipment_print.css email.css mobile.css ie6.css ie7.css active_admin_print.css jquery.ui.datepicker.css home.js collections.js products.js pages.js ga.js html5shiv.js datepicker-settings.js)
+  config.assets.precompile += %w( admin_order_print.css admin_order_print.js bootstrap-slider.js bootstrap-slider.css)
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false

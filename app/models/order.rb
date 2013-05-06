@@ -74,6 +74,7 @@ class Order < ActiveRecord::Base
     # TODO implement an auth_state dynamically for each state
     before_transition to: :wait_refund, do: :auth_refund
     before_transition to: :completed, do: :complete_order
+    after_transition to: :completed, do: :update_sold_total
     before_transition to: :wait_check, do: :pay_order
     after_transition to: :wait_ship, do: :generate_shipment
 
@@ -198,6 +199,8 @@ class Order < ActiveRecord::Base
   def use_coupon
     # respect the manual adjustment
     return unless adjustment.blank?
+    # cannot use double discount
+    return if item_discount?
 
     # if the coupon is already used by this order
     if already_use_the_coupon?
@@ -223,7 +226,7 @@ class Order < ActiveRecord::Base
   end
 
   def adjust_allowed?
-    state == 'generated' && !adjustment.blank?
+    state == 'generated' && !adjustment.blank? && !item_discount?
   end
 
   def checkout_allowed?
@@ -232,6 +235,10 @@ class Order < ActiveRecord::Base
 
   def cancel_allowed?
     state.in? ['generated', 'wait_check']
+  end
+
+  def item_discount?
+    line_items.any? { |item| item.discount? }
   end
 
   def transaction_state
@@ -261,6 +268,14 @@ class Order < ActiveRecord::Base
   private
 
   def expected_date_in_range
+    if expected_date.in? [Date.parse('2013-04-28')]
+      return true
+    end
+
+    if expected_date.in? [Date.parse('2013-04-29'), Date.parse('2013-04-30'), Date.parse('2013-05-01')]
+      errors.add :expected_date, :unavailable_date
+    end
+
     # shift order acceptance date after 17:00 every day
     start_day = Time.now.hour >= 17 ? Date.today.next_day(3) : Date.today.next_day(2)
 
@@ -269,10 +284,6 @@ class Order < ActiveRecord::Base
     end
 
     if expected_date.monday? or expected_date.sunday?
-      errors.add :expected_date, :unavailable_date
-    end
-
-    if expected_date.in? [Date.parse('2013-04-03'), Date.parse('2013-04-04'), Date.parse('2013-04-05')]
       errors.add :expected_date, :unavailable_date
     end
   end
@@ -300,6 +311,14 @@ class Order < ActiveRecord::Base
   def complete_order
     self.completed_at = Time.now
     save
+  end
+
+  def update_sold_total
+    line_items.each do |item|
+      product = item.product
+      product.sold_total += item.quantity
+      product.save
+    end
   end
 
   def pay_order

@@ -2,6 +2,7 @@
 #
 # Table name: assets
 #
+#  created_at         :datetime
 #  id                 :integer          not null, primary key
 #  image_content_type :string(255)
 #  image_file_name    :string(255)

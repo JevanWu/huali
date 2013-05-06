@@ -5,18 +5,7 @@
     </tr>
   </thead>
   <tbody>
-    <% items.each do |item| %>
-      <tr>
-        <td class="image"><%= image_tag item.img(:thumb) %></td>
-        <td class="content">
-          <p>
-            <%= link_to item.name, product_path(item) %>
-            <span>x <%= item[:quantity] %> </span>
-          </p>
-        </td>
-        <td class="total"> <%= count_total(item) %> </td>
-      </tr>
-    <% end %>
+    <%= render :partial => 'side_item_row', :collection => items %>
   </tbody>
   <tfoot>
     <tr>

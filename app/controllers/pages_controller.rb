@@ -13,4 +13,9 @@ class PagesController < ApplicationController
 
   def partner
   end
+
+  def mother
+    @products = Collection.find('mother').products
+    render 'mother', layout: 'horizontal'
+  end
 end
