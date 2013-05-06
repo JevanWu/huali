@@ -50,6 +50,17 @@ STR
       sms(to: @order.sender_phone, content: content)
     end
 
+    def confirm_order_user_sms(order_id)
+      @order = Order.full_info(order_id)
+
+      content = <<STR
+尊敬的#{@order.sender_name},订单#{@order.identifier}已经送达并签收。
+[花里花店] hua.li
+STR
+
+      sms(to: @order.sender_phone, content: content)
+    end
+
     def sms(options)
       # phone could be a joined string of phone numbers with ','
       phone = options[:to]

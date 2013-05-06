@@ -14,4 +14,8 @@ class OrderObserver < ActiveRecord::Observer
     Notify.delay.ship_order_user_email(order.id)
     Sms.delay.ship_order_user_sms(order.id)
   end
+
+  def after_confirm(order, transition)
+    Sms.delay.confirm_order_user_sms(order.id)
+  end
 end
