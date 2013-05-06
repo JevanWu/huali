@@ -36,6 +36,15 @@ module OrdersHelper
     end
   end
 
+  def print_order(order)
+    buttons =
+    link_to(t('models.order.state.print'), '#', class: 'print') + \
+    link_to(t('models.order.state.print_card'), print_card_admin_order_path(order), html_options = {target: '_blank'}) + \
+    link_to(t('models.order.state.print_shipment'), print_shipment_admin_order_path(order), html_options = {target: '_blank'})
+
+    content_tag('div', buttons, id: 'print-buttons')
+  end
+
   def order_state_shift(order)
     buttons = case order.state
     when "generated"
@@ -49,8 +58,6 @@ module OrdersHelper
       link_to(t('models.order.state.check'), check_admin_order_path(order), confirm: t('views.admin.order.confirm_check')) + \
       link_to(t('models.order.state.cancel'), cancel_admin_order_path(order), confirm: t('views.admin.order.confirm_cancel'))
     when "wait_make"
-      link_to(t('models.order.state.print_card'), print_card_admin_order_path(order), html_options = {target: '_blank'}) + \
-      link_to(t('models.order.state.print'), '#', class: 'print') + \
       link_to(t('models.order.state.make'), make_admin_order_path(order), confirm: t('views.admin.order.confirm_make')) + \
       link_to(t('models.order.state.cancel'), cancel_admin_order_path(order), confirm: t('views.admin.order.confirm_cancel'))
     when "wait_ship"

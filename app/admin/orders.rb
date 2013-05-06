@@ -98,6 +98,11 @@ ActiveAdmin.register Order do
     render 'print_card', layout: 'plain_print'
   end
 
+  member_action :print_shipment do
+    @address = Order.find_by_id(params[:id]).address
+    render 'admin/shipments/print', layout: 'plain_print'
+  end
+
   index do
     selectable_column
     column :state, sortable: :state do |order|
@@ -135,6 +140,10 @@ ActiveAdmin.register Order do
 
       row :modify_order_state do
         order_state_shift(order)
+      end
+
+      row :print_order do
+        print_order(order)
       end
 
       row :identifier do |order|

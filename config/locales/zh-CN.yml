@@ -83,6 +83,7 @@ zh-CN:
         fullname: 收货人姓名
         process_order: 处理订单
         modify_order_state: 修改订单状态
+        print_order: 打印订单
         address_fullname: 收件人姓名
         address_phone: 收件人电话
         address_province_name: 收件人省份
@@ -245,8 +246,9 @@ zh-CN:
         refund: 退款
         confirm: 确认
         cancel: 取消
-        print: 打印
+        print: 打印订单
         print_card: 打印贺卡
+        print_shipment: 打印快递
 
     #states for transaction
     transaction:
