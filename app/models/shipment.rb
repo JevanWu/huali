@@ -83,12 +83,14 @@ class Shipment < ActiveRecord::Base
 
     response = Faraday.new(:url => 'http://www.kuaidi100.com') do |req|
       req.request  :url_encoded
-      req.adapter  Faraday.default_adapter
     end.post '/poll', { :schema => 'json', :param => param.to_json }
 
     unless (JSON.parse response.body)['result']
       raise StandardError, ERROR_CODE[response.body] + ". " + "shipment is #{self}"
     end
+
+    rescue
+      # maybe not valid json str
   end
 
   private

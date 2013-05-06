@@ -34,5 +34,9 @@ FactoryGirl.define do
     trait :with_cost do
       cost { Forgery(:monetary).money }
     end
+
+    trait :ready do
+      state 'ready'
+    end
   end
 end

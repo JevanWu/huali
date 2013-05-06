@@ -23,11 +23,11 @@
 
 require 'spec_helper'
 
-describe Shipment do
-  
-  context 'kuaidi100' do
-    it 'calls kuaidi100_poll after state transit to shipped' do
-    end
-  end
+describe "#kuaidi100_poll" do
+  let(:shipment) {FactoryGirl.create(:shipment, :ready)}
 
+  it 'is called after shipment state changes to shipped' do
+    shipment.should_receive(:kuaidi100_poll).once
+    shipment.ship
+  end
 end
