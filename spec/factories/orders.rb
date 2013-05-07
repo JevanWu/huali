@@ -14,6 +14,7 @@
 #  identifier           :string(255)
 #  item_total           :decimal(8, 2)    default(0.0), not null
 #  payment_total        :decimal(8, 2)    default(0.0)
+#  printed              :boolean          default(FALSE)
 #  sender_email         :string(255)
 #  sender_name          :string(255)
 #  sender_phone         :string(255)

@@ -14,6 +14,7 @@
 #  identifier           :string(255)
 #  item_total           :decimal(8, 2)    default(0.0), not null
 #  payment_total        :decimal(8, 2)    default(0.0)
+#  printed              :boolean          default(FALSE)
 #  sender_email         :string(255)
 #  sender_name          :string(255)
 #  sender_phone         :string(255)
@@ -34,8 +35,7 @@ class Order < ActiveRecord::Base
 
   attr_accessible :line_items, :special_instructions, :address_attributes,
                   :gift_card_text, :delivery_date, :expected_date, :identifier, :state,
-                  :sender_name, :sender_phone, :sender_email, :source, :adjustment, :coupon_code,
-                  :ship_method_id
+                  :sender_name, :sender_phone, :sender_email, :source, :adjustment, :coupon_code, :ship_method_id
 
   belongs_to :address
   belongs_to :user
@@ -263,6 +263,11 @@ class Order < ActiveRecord::Base
 
   def body_text
     # prepare body text for transaction
+  end
+
+  def print
+    self.printed = true
+    save
   end
 
   private

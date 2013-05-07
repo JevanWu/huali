@@ -95,6 +95,7 @@ zh-CN:
         adjustment: 价格调整
         subject_text: 货品内容
         created_at: 创建时间
+        printed: 已打印
 
       administrator:
         email: 邮箱
@@ -289,6 +290,7 @@ zh-CN:
   views:
     admin:
       order:
+        printed: 订单已经打印完毕
         order_state_changed: 订单状态变更为
         confirm_check: 你确定审核通过此订单?
         confirm_make: 你确定完成制作该订单?
