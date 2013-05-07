@@ -302,7 +302,7 @@ zh-CN:
         confirm_ship: 您选择的快递方式为%{method}, 您填写的快递单号为 %{tracking_num}. 你确定发送这张订单 %{identifier}?
       ship_method:
         express: 快递
-        mannual: 人工
+        manual: 人工
       product:
         available: 有货
         unavailable: 无货

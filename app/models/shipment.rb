@@ -100,9 +100,9 @@ class Shipment < ActiveRecord::Base
     ship_method.method == 'express'
   end
 
-  def is_mannual?
+  def is_manual?
     return false unless ship_method
-    ship_method.method == 'mannual'
+    ship_method.method == 'manual'
   end
 
   def ship_order
