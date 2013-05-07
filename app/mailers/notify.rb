@@ -68,7 +68,7 @@ class Notify < ActionMailer::Base
       from orders, line_items, products
       where orders.id = line_items.order_id
       and line_items.product_id = products.id
-      and orders.expected_date = '#{date}'
+      and orders.delivery_date = '#{date}'
       and (orders.state != 'void' and orders.state != 'generated' and orders.state != 'wait_confirm')
       group by products.name_zh
       order by productsCount desc;
@@ -80,7 +80,7 @@ select products.name_zh, sum(line_items.quantity) as productsCount
 from orders, line_items, products
 where orders.id = line_items.order_id
 and line_items.product_id = products.id
-and orders.expected_date > '2013-05-07' and orders.expected_date < '2013-05-12'
+and orders.delivery_date > '2013-05-07' and orders.delivery_date < '2013-05-12'
 and (orders.state != 'void' and orders.state != 'generated' and orders.state != 'wait_confirm')
 group by products.name_zh
 order by productsCount desc ;
