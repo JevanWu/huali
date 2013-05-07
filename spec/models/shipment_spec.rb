@@ -24,10 +24,30 @@
 require 'spec_helper'
 
 describe "#kuaidi100_poll" do
-  let(:shipment) {FactoryGirl.create(:shipment, :ready)}
-
   it 'is called after shipment state changes to shipped' do
+    shipment = FactoryGirl.create(:shipment)
     shipment.should_receive(:kuaidi100_poll).once
     shipment.ship
+  end
+
+  describe '#sync_with_kuaidi100_status' do
+    before(:each) do
+      @shipment = FactoryGirl.create(:shipment)
+      @shipment.ship
+    end
+
+    it 'syncs with unknown' do
+      @shipment.kuaidi100_status = 2
+      @shipment.send(:sync_with_kuaidi100_status)
+
+      @shipment.state.should == 'unknown'
+    end
+
+    it 'syncs with confirmed' do
+      @shipment.kuaidi100_status = 3
+      @shipment.send(:sync_with_kuaidi100_status)
+
+      @shipment.state.should == 'completed'
+    end
   end
 end

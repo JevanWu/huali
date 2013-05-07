@@ -12,9 +12,13 @@
 
 FactoryGirl.define do
   factory :ship_method do
-    method { %w(express mannual).sample }
+    method 'express'
     name { Forgery(:lorem_ipsum).word }
     service_phone { Forgery(:address).phone }
     website { Forgery(:internet).domain_name }
+
+    trait :manual do
+      method 'manual'
+    end
   end
 end

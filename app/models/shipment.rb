@@ -29,13 +29,15 @@ class Shipment < ActiveRecord::Base
   belongs_to :order
   has_one :user, through: :order
 
+  after_update :sync_with_kuaidi100_status
+
   before_validation :copy_address, :generate_identifier, on: :create
 
   validates_presence_of :order, :address, :ship_method
 
   state_machine :state, initial: :ready do
-    after_transition to: :completed, do: :confirm_order
     before_transition to: :shipped, do: :ship_order
+    after_transition to: :completed, do: :confirm_order
     after_transition to: :shipped, do: :kuaidi100_poll, if: :is_express?
 
     # use adj. for state with future vision
@@ -50,8 +52,7 @@ class Shipment < ActiveRecord::Base
       validates_presence_of :tracking_num, if: :is_express?
 
       transition to: :completed, on: :accept
-      transition to: :unknown, on: :time_out
-      transition to: :unknown, on: :got_unknown_status
+      transition to: :unknown, on: :mistake
     end
 
     state :unknown do
@@ -94,6 +95,15 @@ class Shipment < ActiveRecord::Base
   end
 
   private
+
+  def sync_with_kuaidi100_status
+    case kuaidi100_status
+    when 2
+      mistake
+    when 3
+      accept
+    end
+  end
 
   def is_express?
     return false unless ship_method

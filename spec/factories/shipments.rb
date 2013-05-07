@@ -25,15 +25,15 @@
 
 FactoryGirl.define do
   factory :shipment do
-    order
+    state :ready
+    association :order, state: 'wait_ship'
     ship_method
     note { Forgery(:lorem_ipsum).paragraph }
     # FIXME use a real mock for tracking_num
-    tracking_num { Forgery(:address).zip}
+    tracking_num { Forgery(:address).zip }
 
-    trait :ready do
-      state 'ready'
-      association :order, state: 'wait_ship'
+    trait :is_manual do
+      association :ship_method, :manual
     end
   end
 end
