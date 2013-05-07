@@ -98,9 +98,9 @@ class Shipment < ActiveRecord::Base
 
   def sync_with_kuaidi100_status
     case kuaidi100_status
-    when 2
+    when '2'
       mistake
-    when 3
+    when '3'
       accept
     end
   end
