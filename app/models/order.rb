@@ -200,7 +200,7 @@ class Order < ActiveRecord::Base
     # respect the manual adjustment
     return unless adjustment.blank?
     # cannot use double discount
-    return if item_discount?
+    # return if item_discount?
 
     # if the coupon is already used by this order
     if already_use_the_coupon?
@@ -226,7 +226,7 @@ class Order < ActiveRecord::Base
   end
 
   def adjust_allowed?
-    state == 'generated' && !adjustment.blank? && !item_discount?
+    state == 'generated' && !adjustment.blank?
   end
 
   def checkout_allowed?
