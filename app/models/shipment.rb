@@ -68,6 +68,10 @@ class Shipment < ActiveRecord::Base
     self.address_id = self.order.address_id
   end
 
+  def older_than_kuaidi100_notifier(notifier)
+    kuaidi100_updated_at.nil? or kuaidi100_updated_at < notifier.updated_time
+  end
+
   def kuai_100_url
     ship_method.kuaidi_query_code && tracking_num ? "http://www.kuaidi100.com/chaxun?com=#{ship_method.kuaidi_query_code}&nu=#{tracking_num}" : ""
   end
