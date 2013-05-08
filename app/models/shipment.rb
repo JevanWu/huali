@@ -22,6 +22,8 @@
 #
 
 class Shipment < ActiveRecord::Base
+  include Rails.application.routes.url_helpers
+
   attr_accessible :identifier, :note, :state, :tracking_num, :ship_method_id, :address_id, :order_id, :kuaidi100_result, :kuaidi100_status
 
   belongs_to :address
@@ -78,11 +80,11 @@ class Shipment < ActiveRecord::Base
 
   def kuaidi100_poll
     param = {
-      company: self.ship_method.kuaidi_api_code,
-      number: self.tracking_num,
+      company: ship_method.kuaidi_api_code,
+      number: tracking_num,
       key: ENV['KUAIDI100_KEY'],
       parameters: {
-        callbackurl: "http://dev.hua.li/shipments/kuaidi100_notify?identifier=#{self.identifier}"
+        callbackurl: notify_shipment_url(identifier, host: $host || 'localhost')
       }
     }
 
@@ -93,9 +95,6 @@ class Shipment < ActiveRecord::Base
     unless (JSON.parse response.body)['result']
       raise StandardError, ERROR_CODE[response.body] + ". " + "shipment is #{self}"
     end
-
-    rescue
-      # maybe not valid json str
   end
 
   private

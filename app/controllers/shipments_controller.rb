@@ -2,7 +2,7 @@
 require 'ostruct'
 
 class ShipmentsController < ApplicationController
-  def kuaidi100_notify
+  def notify
     shipment = Shipment.find_by_identifier params['identifier']
     notifier= ShipmentNotifier.new(params['param'])
 
@@ -16,7 +16,6 @@ class ShipmentsController < ApplicationController
       end
     end
   end
-
 end
 
 class ShipmentNotifier < OpenStruct
