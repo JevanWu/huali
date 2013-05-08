@@ -69,6 +69,17 @@ STR
     end
 
     def sms(options)
+      phone = PhoneNumber.new options[:to]
+      options[:to] = phone.to_s
+
+      if phone.international?
+        twilio(options)
+      else
+        smsbao(options)
+      end
+    end
+
+    def smsbao(options)
       # phone could be a joined string of phone numbers with ','
       phone = options[:to]
       content = options[:body]
