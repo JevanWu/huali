@@ -4,14 +4,14 @@ $lineMargin: 2pt
 $lineWidth: 215pt
 $fontSize: 11pt
 
-#sheet-bg
+.sheet-bg
   /* adjustment to the actual print layout */
   /* in Chrome */
   position: relative
   top: -24pt
   left: -23pt
 
-#sheet-bg img 
+.sheet-bg img 
   /* w: 23cm, h, 12.7cm */
   /* http://en.wikipedia.org/wiki/Dots_per_inch */
   /* dpi: 28dot/cm */
@@ -29,35 +29,35 @@ p
   margin: 0
   padding: 0
 
-#receipt 
+.receipt 
   top: $top
   left: 95pt
   width: $lineWidth
 
-#phone 
+.phone 
   top: $top + $lineHeight
   left: 74pt
   width: $lineWidth / 2
 
-#cell 
+.cell 
   top: $top + $lineHeight
   left: 208pt
   width: $lineWidth / 2
 
-#addr 
+.addr 
   top: $top + 3 * $lineHeight
   left: 65pt
   width: $lineWidth
   font-size: $fontSize * 0.9
 
-#post 
+.post 
   top: $top + 4 * $lineHeight
   left: 209pt
   width: $lineWidth * 0.4
 
 @media print
 
-  #sheet-bg img
+  .sheet-bg img
     display: none
 
   p

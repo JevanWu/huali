@@ -106,8 +106,10 @@ ActiveAdmin.register Order do
   end
 
   member_action :print_shipment do
-    @address = Order.find_by_id(params[:id]).address
-    render 'admin/shipments/print/lianbang', layout: 'plain_print'
+    order= Order.find_by_id(params[:id])
+    @address = order.address
+    @type = order.ship_method.kuaidi_query_code
+    render 'admin/shipments/print', layout: 'plain_print'
   end
 
   index do

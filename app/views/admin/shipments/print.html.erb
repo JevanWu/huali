@@ -1,0 +1,15 @@
+<% content_for :css do %>
+  <%= stylesheet_link_tag "admin_shipment_print", media: "all" %>
+<% end %>
+
+<div class="sheet-bg <%= @type %>">
+  <%= image_tag "print/#@type.jpg" %>
+</div>
+
+<div class="text <%= @type %>">
+  <p class="receipt"><%= @address.fullname %></p>
+  <p class="phone"></p>
+  <p class="cell"><%= @address.phone %></p>
+  <p class="addr"><%= @address.print_addr %></p>
+  <p class="post"><%= @address.post_code %></p>
+</div>
