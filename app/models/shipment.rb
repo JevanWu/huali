@@ -78,6 +78,14 @@ class Shipment < ActiveRecord::Base
     ship_method.kuaidi_query_code && tracking_num ? "http://www.kuaidi100.com/chaxun?com=#{ship_method.kuaidi_query_code}&nu=#{tracking_num}" : ""
   end
 
+  def is_express?
+    ship_method.method == 'express'
+  end
+
+  def is_manual?
+    ship_method.method == 'manual'
+  end
+
   def kuaidi100_poll
     param = {
       company: ship_method.kuaidi_api_code,
@@ -106,16 +114,6 @@ class Shipment < ActiveRecord::Base
     when '3'
       accept
     end
-  end
-
-  def is_express?
-    return false unless ship_method
-    ship_method.method == 'express'
-  end
-
-  def is_manual?
-    return false unless ship_method
-    ship_method.method == 'manual'
   end
 
   def ship_order
