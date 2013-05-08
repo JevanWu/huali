@@ -75,6 +75,20 @@ class Notify < ActionMailer::Base
       SQL
     end
 
+    def product_shanghai_on_day(date)
+      <<-SQL
+      select products.name_zh, count(line_items.quantity) as productsCount
+      from orders, line_items, products, addresses, provinces
+      where orders.id = line_items.order_id
+      and orders.address_id = addresses.id and provinces.id = addresses.province_id and provinces.id = 9
+      and line_items.product_id = products.id
+      and orders.delivery_date = '#{date}'
+      and orders.state = 'wait_make'
+      group by products.name_zh
+      order by productsCount desc
+      SQL
+    end
+
     product_total_count_sql = <<-SQL
 select products.name_zh, sum(line_items.quantity) as productsCount
 from orders, line_items, products
@@ -86,10 +100,28 @@ group by products.name_zh
 order by productsCount desc ;
 SQL
 
-    @total_count = ActiveRecord::Base.connection.execute product_total_count_sql
+    product_shanghai_total_count_sql = <<-SQL
+select products.name_zh, count(line_items.quantity) as productsCount
+from orders, line_items, products, addresses, provinces
+where orders.id = line_items.order_id
+and orders.address_id = addresses.id and provinces.id = addresses.province_id and provinces.id = 9
+and line_items.product_id = products.id
+and orders.delivery_date > '2013-05-07' and orders.delivery_date < '2013-05-12'
+and orders.state = 'wait_make'
+group by products.name_zh
+order by productsCount desc
+SQL
 
-    @watched_result = watched_date.map! do |date|
+    @total_count = ActiveRecord::Base.connection.execute product_total_count_sql
+    @total_shanghai_count = ActiveRecord::Base.connection.execute product_shanghai_total_count_sql
+
+    @watched_result = watched_date.map do |date|
       result = ActiveRecord::Base.connection.execute product_on_day(date)
+      { date: date, result: result.to_a }
+    end
+
+    @watched_shanghai_result = watched_date.map do |date|
+      result = ActiveRecord::Base.connection.execute product_shanghai_on_day(date)
       { date: date, result: result.to_a }
     end
 

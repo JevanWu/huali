@@ -41,15 +41,24 @@
                 </td>
                 <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
                   <%= @total_count.inject(0) {|sum, count| sum + count['productscount'].to_i }%>
+                  (上海:
+                  <%= @total_shanghai_count.inject(0) {|sum, count| sum + count['productscount'].to_i }%>
+                  )
                 </td>
               </tr>
               <% @total_count.to_a.each do |product_count| %>
               <tr>
                 <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
                   <%= product_count['name_zh'] %>
+                  (上海:
+                  <%= @total_shanghai_count.select { |p| p['name_zh'] == product_count['name_zh'] }.first.try(:"[]", 'name_zh') %>
+                  )
                 </td>
                 <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
                   <%= product_count['productscount'] %>
+                  (上海:
+                  <%= @total_shanghai_count.select { |p| p['name_zh'] == product_count['name_zh'] }.first.try(:"[]", 'productscount') %>
+                  )
                 </td>
               </tr>
               <% end %>
@@ -58,6 +67,7 @@
         </tr>
 
         <% @watched_result.each do |result| %>
+          <% shanghai_result = @watched_shanghai_result.select { |p| p[:date] == result[:date] }.first[:result] %>
         <tr>
           <td valign="top" style="padding-top:0; padding-bottom:0;">
             <table border="0" cellpadding="10" cellspacing="0" width="100%" class="templateDataTable verticalDataTable">
@@ -83,9 +93,15 @@
               <tr>
                 <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
                   <%= product_count['name_zh'] %>
+                  (上海:
+                  <%= shanghai_result.select { |p| p['name_zh'] == product_count['name_zh'] }.first.try(:"[]", 'name_zh') %>
+                  )
                 </td>
                 <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
                   <%= product_count['productscount'] %>
+                  (上海:
+                  <%= shanghai_result.select { |p| p['name_zh'] == product_count['name_zh'] }.first.try(:"[]", 'productscount') %>
+                  )
                 </td>
               </tr>
               <% end %>
@@ -95,6 +111,9 @@
                 </td>
                 <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
                   <%= result[:result].inject(0) {|sum, count| sum + count['productscount'].to_i }%>
+                  (上海:
+                  <%= shanghai_result.inject(0) {|sum, count| sum + count['productscount'].to_i }%>
+                  )
                 </td>
               </tr>
             </table>
