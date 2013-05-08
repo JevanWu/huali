@@ -282,7 +282,7 @@ class Order < ActiveRecord::Base
       return true
     end
 
-    if expected_date.in? [Date.parse('2013-04-29'), Date.parse('2013-04-30'), Date.parse('2013-05-01')]
+    if expected_date.in?  %w('2013-05-10').map! { |date| Date.parse(date) }
       errors.add :expected_date, :unavailable_date
     end
 
