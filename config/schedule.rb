@@ -48,6 +48,6 @@ every :day, at: '11:59 pm' do
   rake "notice:today_order_summary_email"
 end
 
-every 4.hours do
+every 2.hours do
   rake "notice:product_day_email"
 end

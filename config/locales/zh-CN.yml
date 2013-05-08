@@ -95,6 +95,7 @@ zh-CN:
         adjustment: 价格调整
         subject_text: 货品内容
         created_at: 创建时间
+        printed: 已打印
 
       administrator:
         email: 邮箱
@@ -116,7 +117,8 @@ zh-CN:
         method: 方式
         website: 网站
         service_phone: 服务电话
-        kuaidi_com_code: 快递100查询编码
+        kuaidi_query_code: 快递100 查询编码
+        kuaidi_api_code: 快递100 API编码
 
       shipment:
         order: 订单
@@ -289,6 +291,7 @@ zh-CN:
   views:
     admin:
       order:
+        printed: 订单已经打印完毕
         order_state_changed: 订单状态变更为
         confirm_check: 你确定审核通过此订单?
         confirm_make: 你确定完成制作该订单?
@@ -304,7 +307,7 @@ zh-CN:
         confirm_ship: 您选择的快递方式为%{method}, 您填写的快递单号为 %{tracking_num}. 你确定发送这张订单 %{identifier}?
       ship_method:
         express: 快递
-        mannual: 人工
+        manual: 人工
       product:
         available: 有货
         unavailable: 无货
