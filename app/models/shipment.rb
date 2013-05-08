@@ -87,6 +87,14 @@ class Shipment < ActiveRecord::Base
   end
 
   def kuaidi100_poll
+    ERROR_CODE = {
+      '200' => '提交成功',
+      '701' => '拒绝订阅的快递公司',
+      '700' => '不支持的快递公司',
+      '600' => '您不是合法的订阅者',
+      '500' => '服务器错误'
+    }
+
     param = {
       company: ship_method.kuaidi_api_code,
       number: tracking_num,
@@ -97,11 +105,12 @@ class Shipment < ActiveRecord::Base
     }
 
     response = Faraday.post 'http://www.kuaidi100.com/poll', { :schema => 'json', :param => param.to_json }
+    response_json = JSON.parse response
 
-    result = JSON.parse response.body['result']
+    result = response_json['result']
 
     unless result
-      raise StandardError, ERROR_CODE[response.body] + ". " + "shipment is #{self}"
+      raise StandardError, ERROR_CODE[response_json['returnCode']] + ". " + "shipment is #{self}"
     end
   end
 
