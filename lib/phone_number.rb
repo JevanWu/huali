@@ -52,7 +52,8 @@ class PhoneNumber
   private
 
   def normalize(str)
-    str.gsub!(/[\s()\-]/, '')
+    str.gsub! /^(\+|0+)86/, ''
+    str.gsub! /[\s()\-]/, ''
     return str
   end
 end

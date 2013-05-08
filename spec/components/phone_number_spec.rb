@@ -20,6 +20,12 @@ describe PhoneNumber do
       PhoneNumber.new("021-55034540").number.should == "02155034540"
     end
 
+    it 'removes leading country numbers of China' do
+      PhoneNumber.new("+86021-55034540").number.should == "02155034540"
+      PhoneNumber.new("0860210345540").number.should == "0210345540"
+      PhoneNumber.new("008602155034540").number.should == "02155034540"
+    end
+
     it 'preserves leading +' do
       PhoneNumber.new("+447784663458").number.should == "+447784663458"
     end
