@@ -65,7 +65,7 @@ STR
 
       content = @order.from_taobao? ? taobao_content : regular_content
 
-      sms(to: @order.sender_phone, content: content)
+      sms(to: @order.sender_phone, body: content)
     end
 
     def sms(options)
