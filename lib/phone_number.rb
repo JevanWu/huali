@@ -5,6 +5,14 @@ class PhoneNumber
     @number = normalize(str)
   end
 
+  def domestic?
+    ! international?
+  end
+
+  def international?
+    hk? || us? || uk? || au? || no? || de? || it? || sg? || fr?
+  end
+
   def hk?
     @number =~ /^\+?0*852/
   end

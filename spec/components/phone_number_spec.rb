@@ -41,16 +41,30 @@ describe PhoneNumber do
     end
   end
 
-  describe '#us?' do
-    it 'detects us number' do
-      numbers['us'].each do |num|
-        PhoneNumber.new(num).should be_us, "the number is #{num}"
+  describe '#international?' do
+    it 'detects international numbers' do
+      numbers.except('other').values.flatten.each do |num|
+        PhoneNumber.new(num).should be_international, "the number is #{num}"
       end
     end
 
-    it 'doesnt mistake number which is not us' do
-      numbers.except('us').values.flatten.each do |num|
-        PhoneNumber.new(num).should_not be_us, "the number is #{num}"
+    it 'doesnt mistake domestic numbers' do
+      numbers['other'].each do |num|
+        PhoneNumber.new(num).should_not be_international, "the number is #{num}"
+      end
+    end
+  end
+
+  describe '#domestic?' do
+    it 'detects domestic numbers' do
+      numbers.except('other').values.flatten.each do |num|
+        PhoneNumber.new(num).should_not be_domestic, "the number is #{num}"
+      end
+    end
+
+    it 'doesnt mistake domestic numbers' do
+      numbers['other'].each do |num|
+        PhoneNumber.new(num).should be_domestic, "the number is #{num}"
       end
     end
   end
