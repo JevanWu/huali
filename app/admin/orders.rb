@@ -52,6 +52,7 @@ ActiveAdmin.register Order do
     等待付款: 'generated',
     等待审核: 'wait_check',
     等待发货: 'wait_ship',
+    等待制作: 'wait_make',
     已经发货: 'wait_confirm',
     等待退款: 'wait_refund',
     取消: 'void',
