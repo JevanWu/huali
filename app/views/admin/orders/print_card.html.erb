@@ -10,9 +10,12 @@
   <%= image_tag "gift_card.jpg" %>
   <div id="content">
     <p id="receiver"></p>
-    <p id="sender"></p>
     <div id="body">
-      <p> <%= @order.gift_card_text %> </p>
+      <div> 
+        <p> <%= @order.gift_card_text %> </p>
+      </div>
+      <p></p>
+      <p id="sender"></p>
     </div>
   </div>
 </div>
@@ -44,11 +47,16 @@
       <label class="control-label" for="font-family-input">字体</label>
       <div class="controls">
         <select name="font-family-input" id="font-family-input" class="span2">
-          <option>Arial</option>
-          <option>Helvetica</option>
-          <option>宋体</option>
-          <option>微软雅黑</option>
-          <option>Georgia</option>
+          <% fonts = [
+            { text: '方正硬笔行书简体', name: 'FZYingBiXingShu-S16S' }, 
+            { text: '方正硬笔楷书简体', name: 'FZYingBiKaiShu-S15S' }, 
+            { text: '方正启体简体', name: 'FZQiTi-S14S' },
+            { text: '迷你简瘦金书', name: '迷你简瘦金书' }
+          ] %>
+        <% fonts.each do |font| %>
+          <%# Chrome on win only recoginze the name %>
+          <option value="<%= font[:text] %>"><%= font[:text] %></option>
+        <% end %>
         </select>
       </div>
     </div>

@@ -15,6 +15,7 @@
 #  identifier           :string(255)
 #  item_total           :decimal(8, 2)    default(0.0), not null
 #  payment_total        :decimal(8, 2)    default(0.0)
+#  printed              :boolean          default(FALSE)
 #  sender_email         :string(255)
 #  sender_name          :string(255)
 #  sender_phone         :string(255)
@@ -35,8 +36,7 @@ class Order < ActiveRecord::Base
 
   attr_accessible :line_items, :special_instructions, :address_attributes,
                   :gift_card_text, :delivery_date, :expected_date, :identifier, :state,
-                  :sender_name, :sender_phone, :sender_email, :source, :adjustment, :coupon_code,
-                  :ship_method_id
+                  :sender_name, :sender_phone, :sender_email, :source, :adjustment, :coupon_code, :ship_method_id
 
   belongs_to :address
   belongs_to :user
@@ -201,7 +201,7 @@ class Order < ActiveRecord::Base
     # respect the manual adjustment
     return unless adjustment.blank?
     # cannot use double discount
-    return if item_discount?
+    # return if item_discount?
 
     # if the coupon is already used by this order
     if already_use_the_coupon?
@@ -227,7 +227,7 @@ class Order < ActiveRecord::Base
   end
 
   def adjust_allowed?
-    state == 'generated' && !adjustment.blank? && !item_discount?
+    state == 'generated' && !adjustment.blank?
   end
 
   def checkout_allowed?
@@ -268,6 +268,11 @@ class Order < ActiveRecord::Base
 
   def from_taobao?
     source == '淘宝' or special_instructions.index('淘宝')
+  end
+
+  def print
+    self.printed = true
+    save
   end
 
   private

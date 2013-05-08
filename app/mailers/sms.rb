@@ -85,7 +85,7 @@ STR
         c: content
 
       unless response.body == '0'
-        raise StandardError, ERROR_CODE[response.body] + ". " + "phone number is #{phone}"
+        raise StandardError, ERROR_CODE[response.body] + ". " + "phone number is #{phone}. " + "content is #{content}."
       end
     end
   end
