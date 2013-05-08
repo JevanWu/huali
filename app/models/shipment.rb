@@ -1,4 +1,5 @@
 # encoding: utf-8
+#
 # == Schema Information
 #
 # Table name: shipments
@@ -23,8 +24,6 @@
 #
 
 class Shipment < ActiveRecord::Base
-  include Rails.application.routes.url_helpers
-
   attr_accessible :identifier, :note, :state, :tracking_num, :ship_method_id, :address_id, :order_id, :kuaidi100_result, :kuaidi100_status
 
   belongs_to :address
@@ -41,7 +40,6 @@ class Shipment < ActiveRecord::Base
   state_machine :state, initial: :ready do
     before_transition to: :shipped, do: :ship_order
     after_transition to: :completed, do: :confirm_order
-    after_transition to: :shipped, do: :kuaidi100_poll, if: :is_express?
 
     # use adj. for state with future vision
     # use v. for event namen
@@ -49,8 +47,6 @@ class Shipment < ActiveRecord::Base
       transition to: :shipped, on: :ship
     end
 
-    # FIXME might need a clock to timeout the processing
-    # Might need a bad path for it
     state :shipped do
       validates_presence_of :tracking_num, if: :is_express?
 
@@ -60,6 +56,50 @@ class Shipment < ActiveRecord::Base
 
     state :unknown do
       transition to: :completed, on: :accept
+    end
+  end
+
+  # FIXME mixed into the instance methods
+  # but better be class methods
+  include Rails.application.routes.url_helpers
+
+  def self.kuaidi100_poll(shipment_id)
+
+    error_code = {
+      '200' => '提交成功',
+      '701' => '拒绝订阅的快递公司',
+      '700' => '不支持的快递公司',
+      '600' => '您不是合法的订阅者',
+      '500' => '服务器错误'
+    }
+
+    shipment = Shipment.find(shipment_id)
+
+    param = {
+      company: shipment.ship_method.kuaidi_api_code,
+      number: shipment.tracking_num,
+      key: ENV['KUAIDI100_KEY'],
+      parameters: {
+        callbackurl: shipment.notify_shipment_url(shipment.identifier, host: $host || 'localhost')
+      }
+    }
+
+    conn = Faraday.new url: 'http://www.kuaidi100.com' do |faraday|
+      faraday.request :url_encoded
+      faraday.adapter Faraday.default_adapter
+    end
+
+    response = conn.post '/poll', schema: 'json', param: param.to_json
+
+    # {
+    #   "message" => "POLL:服务器错误",
+    #   "result" => false,
+    #   "returnCode" => "500"
+    # }
+    result = JSON.parse(response.body)
+
+    unless result['result']
+      raise StandardError, result['returnCode'] + ': ' + error_code[result['returnCode']] + ". " + "shipment_id: #{shipment_id}"
     end
   end
 
@@ -85,34 +125,6 @@ class Shipment < ActiveRecord::Base
 
   def is_manual?
     ship_method.method == 'manual'
-  end
-
-  def kuaidi100_poll
-    ERROR_CODE = {
-      '200' => '提交成功',
-      '701' => '拒绝订阅的快递公司',
-      '700' => '不支持的快递公司',
-      '600' => '您不是合法的订阅者',
-      '500' => '服务器错误'
-    }
-
-    param = {
-      company: ship_method.kuaidi_api_code,
-      number: tracking_num,
-      key: ENV['KUAIDI100_KEY'],
-      parameters: {
-        callbackurl: notify_shipment_url(identifier, host: $host || 'localhost')
-      }
-    }
-
-    response = Faraday.post 'http://www.kuaidi100.com/poll', { :schema => 'json', :param => param.to_json }
-    response_json = JSON.parse response
-
-    result = response_json['result']
-
-    unless result
-      raise StandardError, ERROR_CODE[response_json['returnCode']] + ". " + "shipment is #{self}"
-    end
   end
 
   private
