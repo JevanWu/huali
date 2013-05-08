@@ -25,18 +25,18 @@ describe PhoneNumber do
     end
   end
 
-  describe '#hk?' do
-    it 'detects hk number' do
-      numbers['hk'].each do |num|
-        PhoneNumber.new(num).should be_hk, "the number is #{num}"
-
+  %w(hk us uk au no de it sg fr).each do |country|
+    describe "##{country}?" do
+      it "detects #{country} number" do
+        numbers[country].each do |num|
+          PhoneNumber.new(num).send(:"#{country}?").should be_true, "the number is #{num}; the country is #{country}"
+        end
       end
-    end
 
-    it 'doesnt mistake number which is not hk' do
-      numbers.except('hk').values.flatten.each do |num|
-        PhoneNumber.new(num).should_not be_hk, "the number is #{num}"
-
+      it "doesnt mistake number which is not #{country}" do
+        numbers.except(country).values.flatten.each do |num|
+          PhoneNumber.new(num).send(:"#{country}?").should_not be_true, "the number is #{num}; the country is #{country}"
+        end
       end
     end
   end
