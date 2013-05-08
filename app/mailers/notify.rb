@@ -69,7 +69,7 @@ class Notify < ActionMailer::Base
       where orders.id = line_items.order_id
       and line_items.product_id = products.id
       and orders.delivery_date = '#{date}'
-      and (orders.state != 'void' and orders.state != 'generated' and orders.state != 'wait_confirm')
+      and orders.state = 'wait_make'
       group by products.name_zh
       order by productsCount desc;
       SQL
@@ -81,7 +81,7 @@ from orders, line_items, products
 where orders.id = line_items.order_id
 and line_items.product_id = products.id
 and orders.delivery_date > '2013-05-07' and orders.delivery_date < '2013-05-12'
-and (orders.state != 'void' and orders.state != 'generated' and orders.state != 'wait_confirm')
+and orders.state = 'wait_make'
 group by products.name_zh
 order by productsCount desc ;
 SQL
