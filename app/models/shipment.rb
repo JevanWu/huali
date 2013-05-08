@@ -66,7 +66,7 @@ class Shipment < ActiveRecord::Base
   # but better be class methods
   include Rails.application.routes.url_helpers
 
-  def self.kuaidi100_poll(shipment_id)
+  def self.kuaidi100_poll(shipment_id, host)
 
     error_code = {
       '200' => '提交成功',
@@ -83,7 +83,7 @@ class Shipment < ActiveRecord::Base
       number: shipment.tracking_num,
       key: ENV['KUAIDI100_KEY'],
       parameters: {
-        callbackurl: shipment.notify_shipment_url(shipment.identifier, host: $host || 'localhost')
+        callbackurl: shipment.notify_shipment_url(shipment.identifier, host: host)
       }
     }
 
