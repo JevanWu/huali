@@ -11,6 +11,7 @@ ActiveAdmin.register ShipMethod do
     end
     column :service_phone
     column :kuaidi_query_code
+    column :kuaidi_api_code
 
     default_actions
   end
@@ -26,6 +27,7 @@ ActiveAdmin.register ShipMethod do
       row :service_phone
       row :website
       row :kuaidi_query_code
+      row :kuaidi_api_code
     end
   end
 end
