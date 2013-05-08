@@ -107,7 +107,7 @@ ActiveAdmin.register Order do
 
   member_action :print_shipment do
     @address = Order.find_by_id(params[:id]).address
-    render 'admin/shipments/print', layout: 'plain_print'
+    render 'admin/shipments/print/lianbang', layout: 'plain_print'
   end
 
   index do
