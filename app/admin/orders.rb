@@ -116,7 +116,7 @@ ActiveAdmin.register Order do
     end
 
     column :identifier, sortable: :identifier do |order|
-      link_to order.identifier, admin_order_path(order)
+      link_to order.identifier + ', ' + order.id, admin_order_path(order)
     end
 
     column :subject_text
