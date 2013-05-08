@@ -74,4 +74,20 @@ describe PhoneNumber do
       end
     end
   end
+
+  describe "#to_s" do
+    it 'provides normalized format for domestic numbers' do
+      PhoneNumber.new('1-530-400-4526').to_s.should == '15304004526'
+      PhoneNumber.new('13891999399').to_s.should == '13891999399'
+      PhoneNumber.new('0571-88204320').to_s.should == '057188204320'
+      PhoneNumber.new('0086 18616972453').to_s.should == '18616972453'
+    end
+
+    it 'provides standard formatted international numbers' do
+      PhoneNumber.new('00852-67402312').to_s.should == '+85267402312'
+      PhoneNumber.new('+13105628811').to_s.should == '+13105628811'
+      PhoneNumber.new('01-510-816-0792').to_s.should == '+15108160792'
+      PhoneNumber.new('044(0)7907300484').to_s.should == '+4407907300484'
+    end
+  end
 end

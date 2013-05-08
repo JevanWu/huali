@@ -5,6 +5,14 @@ class PhoneNumber
     @number = normalize(str)
   end
 
+  def to_s
+    if domestic?
+      @number
+    else
+      @number.gsub(/^(\+|0+)(\d+)/, '\2').prepend('+')
+    end
+  end
+
   def domestic?
     ! international?
   end
