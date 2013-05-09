@@ -69,7 +69,7 @@ class Notify < ActionMailer::Base
       where orders.id = line_items.order_id
       and line_items.product_id = products.id
       and orders.delivery_date = '#{date}'
-      and orders.state = 'wait_make'
+      and ( orders.state = 'wait_make' or orders.state = 'wait_ship' )
       group by products.name_zh
       order by productsCount desc;
       SQL
@@ -83,7 +83,7 @@ class Notify < ActionMailer::Base
       and orders.address_id = addresses.id and provinces.id = addresses.province_id and provinces.id = 9
       and line_items.product_id = products.id
       and orders.delivery_date = '#{date}'
-      and orders.state = 'wait_make'
+      and ( orders.state = 'wait_make' or orders.state = 'wait_ship' )
       group by products.name_zh
       order by productsCount desc
       SQL
@@ -95,7 +95,7 @@ from orders, line_items, products
 where orders.id = line_items.order_id
 and line_items.product_id = products.id
 and orders.delivery_date > '2013-05-07' and orders.delivery_date < '2013-05-12'
-and orders.state = 'wait_make'
+and ( orders.state = 'wait_make' or orders.state = 'wait_ship' )
 group by products.name_zh
 order by productsCount desc ;
 SQL
@@ -107,7 +107,7 @@ where orders.id = line_items.order_id
 and orders.address_id = addresses.id and provinces.id = addresses.province_id and provinces.id = 9
 and line_items.product_id = products.id
 and orders.delivery_date > '2013-05-07' and orders.delivery_date < '2013-05-12'
-and orders.state = 'wait_make'
+and ( orders.state = 'wait_make' or orders.state = 'wait_ship' )
 group by products.name_zh
 order by productsCount desc
 SQL
