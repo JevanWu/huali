@@ -59,7 +59,6 @@ ActiveAdmin.register Order do
     退款成功: 'refunded',
     已经完成: 'completed'
   }
-
   filter :sender_name, as: :string
   filter :address_fullname, as: :string
   filter :address_phone, as: :string
@@ -139,6 +138,12 @@ ActiveAdmin.register Order do
     end
 
     column :printed
+
+    column :tracking_num do |order|
+      if shipment = order.shipment
+        shipment.tracking_num
+      end
+    end
   end
 
   form partial: "form"

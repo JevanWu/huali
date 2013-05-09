@@ -96,6 +96,8 @@ zh-CN:
         subject_text: 货品内容
         created_at: 创建时间
         printed: 已打印
+        tracking_num: 快递单号
+
 
       administrator:
         email: 邮箱
