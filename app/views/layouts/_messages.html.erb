@@ -1,4 +1,6 @@
-<%= content_tag :div, '由于母亲节订单过多，5月9日上午暂停下单，全站产品售罄.', class: 'flash', id: "flash_ad"  %>
+<!-- 
+<%= content_tag :div, '', class: 'flash', id: "flash_ad"  %>
+-->
 
 <% flash.each do |name, msg| %>
   <%= content_tag :div, msg, id: "flash_#{name}", class: 'flash' if msg.is_a?(String) %>
