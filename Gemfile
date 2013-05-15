@@ -28,6 +28,7 @@ gem 'acts-as-taggable-on', '~> 2.3.1'
 gem 'gibbon'
 # oauth
 gem 'omniauth'
+gem 'omniauth-weibo-oauth2'
 
 # squash
 gem 'squash_ruby', git: 'https://github.com/SquareSquash/ruby.git', require: 'squash/ruby'
