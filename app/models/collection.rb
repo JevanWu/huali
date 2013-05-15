@@ -40,7 +40,7 @@ class Collection < ActiveRecord::Base
 
   default_scope lambda { order('priority DESC') }
 
-  def display_name
+  def show_name
     display_name || name
   end
 
