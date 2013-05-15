@@ -31,8 +31,9 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :omniauthable, :omniauth_providers => [:weibo], :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable,
+         :omniauthable, :omniauth_providers => [:douban]
 
   attr_accessible :email, :password, :password_confirmation, :remember_me,
                   :anonymous_token, :phone, :name, :humanizer_answer, :humanizer_question_id

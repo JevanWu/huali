@@ -295,12 +295,12 @@ GEM
     omniauth (1.1.4)
       hashie (>= 1.2, < 3)
       rack
+    omniauth-douban-oauth2 (0.0.6)
+      omniauth (~> 1.0)
+      omniauth-oauth2 (~> 1.1)
     omniauth-oauth2 (1.1.1)
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
-    omniauth-weibo-oauth2 (0.2.0)
-      omniauth (~> 1.0)
-      omniauth-oauth2 (~> 1.0)
     open4 (1.3.0)
     orm_adapter (0.4.0)
     paperclip (3.4.0)
@@ -524,7 +524,7 @@ DEPENDENCIES
   meta_request (= 0.2.1)
   newrelic_rpm
   omniauth
-  omniauth-weibo-oauth2
+  omniauth-douban-oauth2
   paperclip (~> 3.0)
   pg (>= 0.14.1)
   pry

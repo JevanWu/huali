@@ -34,11 +34,11 @@ Huali::Application.routes.draw do
 
   devise_for :administrators
 
-  devise_for :users
+  devise_for :users, :controllers => { :omniauth_callbacks => "oauth_services" }
 
   # oauth
-  match '/oauth/:oauth_service/callback' => 'oauth_services#create'
-  resources :oauth_services, :only => [:index, :create]
+  # match '/auth/:oauth_service/callback' => 'oauth_services#create'
+  # resources :oauth_services, :only => [:index, :create, :destroy]
 
   root to: "pages#show", id: 'home'
   get 'partner', to: 'pages#partner', as: :partner
