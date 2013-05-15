@@ -40,6 +40,10 @@ class Collection < ActiveRecord::Base
 
   default_scope lambda { order('priority DESC') }
 
+  def display_name
+    display_name || name
+  end
+
   def to_s
     "#{self.id} #{self.name_zh}"
   end
