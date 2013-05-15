@@ -37,7 +37,7 @@ Huali::Application.routes.draw do
   devise_for :users
 
   # oauth
-  match '/auth/:oauth_service/callback' => 'oauth_services#create'
+  match '/oauth/:oauth_service/callback' => 'oauth_services#create'
   resources :oauth_services, :only => [:index, :create]
 
   root to: "pages#show", id: 'home'
