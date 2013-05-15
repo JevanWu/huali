@@ -81,7 +81,7 @@ class Product < ActiveRecord::Base
     end
 
     def sort_by_collection
-      published.sort_by { |p| p.collection.id }
+      published.sort_by { |p| p.collection.try(:id) || 0 }
     end
   end
 
