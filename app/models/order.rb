@@ -278,7 +278,7 @@ class Order < ActiveRecord::Base
   private
 
   def expected_date_in_range
-    if expected_date.in? [Date.parse('2013-04-28')]
+    if expected_date.in? [Date.parse('2013-05-20')]
       return true
     end
 
