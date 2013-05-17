@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
   has_many :orders
   has_many :transactions, through: :orders
   has_many :shipments, through: :orders
-  has_many :oauth_services
+  has_many :oauth_services, :dependent => :destroy
 
   include Humanizer
   attr_accessor :bypass_humanizer
