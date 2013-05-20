@@ -21,7 +21,7 @@ _mvq.push(["$logConversion"]);
 // product page
 _mvq.push(['$setGeneral', 'goodsdetail', '', /*用户名*/ '<%= current_user.username if current_user %>', /*用户id*/ '<%= current_user.email if current_user %>']);
 _mvq.push(['$logConversion']);
-_mvq.push(['$addGoods',  /*分类id*/ '<%= @product.collection.id %>', /*品牌id*/ '', /*商品名称*/ '<%= @product.name %>',/*商品ID*/ '<%= @product.id %>',/*商品售价*/ '<%= @product.price %>', /*商品图片url*/ '<%= "http://" + $host + @product.img(:medium) %>', /*分类名*/ '<%= @product.collection.name %>', /*品牌名*/ '', /*商品库存状态1或是0*/ '', /*网络价*/ '',/*收藏人数*/, /*商品下架时间*/,'']);
+_mvq.push(['$addGoods',  /*分类id*/ '<%= @product.collection.try(:id) %>', /*品牌id*/ '', /*商品名称*/ '<%= @product.name %>',/*商品ID*/ '<%= @product.id %>',/*商品售价*/ '<%= @product.price %>', /*商品图片url*/ '<%= "http://" + $host + @product.img(:medium) %>', /*分类名*/ '<%= @product.collection.name %>', /*品牌名*/ '', /*商品库存状态1或是0*/ '', /*网络价*/ '',/*收藏人数*/, /*商品下架时间*/,'']);
 _mvq.push(['$logData']);
 <% end %>
 
