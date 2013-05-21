@@ -83,7 +83,7 @@ group :development do
   gem 'pry-stack_explorer'
   gem 'pry-debugger'
   gem 'pry-rails'
-  gem 'better_errors', git: 'https://github.com/charliesome/better_errors.git'
+  gem 'better_errors'
   gem 'binding_of_caller'
   gem 'annotate', git: 'https://github.com/ctran/annotate_models.git'
   gem 'capistrano', '~>2.0'
