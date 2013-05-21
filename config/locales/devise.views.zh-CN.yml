@@ -63,3 +63,6 @@ zh-CN:
     unlocks:
       new:
         resend_unlock_instructions: 重发解锁指示
+    oauth_services:
+      user:
+        failure:关联失败

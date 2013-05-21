@@ -29,6 +29,8 @@ gem 'gibbon'
 # oauth
 gem 'omniauth'
 gem 'omniauth-douban-oauth2'
+gem 'omniauth-weibo-oauth2'
+gem 'omniauth-qq-connect'
 
 # squash
 gem 'squash_ruby', git: 'https://github.com/SquareSquash/ruby.git', require: 'squash/ruby'

@@ -1,5 +1,5 @@
 class OauthServicesController < Devise::OmniauthCallbacksController
-  def passthru
+  def passthru(*args)
     render 'errors/error_404', status: 404, layout: 'error'
   end
 
@@ -7,10 +7,17 @@ class OauthServicesController < Devise::OmniauthCallbacksController
     oauthorize 'douban'
   end
 
+  def weibo
+    oauthorize 'weibo'
+  end
+
+  def qq_connect
+    oauthorize 'qq_connect'
+  end
+
   private
 
   def oauthorize(provider)
-    binding.pry
     session[:oauth] = env["omniauth.auth"]
     if @user = OauthService.find_user(provider, env['omniauth.auth']['uid'])
       # FIXME, 'douban' in this notice should be chinese one via i18n

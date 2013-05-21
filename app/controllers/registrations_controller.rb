@@ -6,7 +6,7 @@ class RegistrationsController < Devise::RegistrationsController
 
     build_resource({})
     case session[:oauth].provider
-    when 'douban'
+    when 'douban', 'weibo'
       name = session[:oauth].info.name
     end
     respond_with(self.resource, locals: { oauth_data_name: name })
@@ -18,7 +18,6 @@ class RegistrationsController < Devise::RegistrationsController
     # FIXME 1.2 username from db VS username from oauth
     # FIXME 2 handle if save failed, return false
     # FIXME 3 skip password validation or just generate a random password
-    binding.pry
     if not u = User.find_by_email(params[:user][:email])
       u = User.new(
         email: params[:user][:email],

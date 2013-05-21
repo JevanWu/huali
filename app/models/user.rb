@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :omniauthable, :omniauth_providers => [:douban]
+         :omniauthable, :omniauth_providers => [:douban, :weibo, :qq_connect]
 
   attr_accessible :email, :password, :password_confirmation, :remember_me,
                   :anonymous_token, :phone, :name, :humanizer_answer, :humanizer_question_id
@@ -87,7 +87,10 @@ class User < ActiveRecord::Base
   end
 
   def apply_oauth(oauth_info)
-    oauth_services.build(provider: oauth_info['provider'], uid: oauth_info['uid']).save
+    oauth_services.build(
+      provider: oauth_info['provider'],
+      uid: oauth_info['uid']
+    ).save
   end  
 
   private
