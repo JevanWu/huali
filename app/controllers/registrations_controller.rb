@@ -6,10 +6,8 @@ class RegistrationsController < Devise::RegistrationsController
 
     build_resource({})
     case session[:oauth].provider
-    when 'douban', 'weibo'
+    when 'douban', 'weibo', 'qq_connect'
       name = session[:oauth].info.name
-    when 'qq_connect'
-      # FIXME get name from qq_connect
     end
     respond_with(self.resource, locals: { oauth_data_provider: session[:oauth].provider, oauth_data_name: name })
   end
