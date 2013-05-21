@@ -4,7 +4,7 @@
 
 <div class='authentication'>
   <div class='row'>
-    <p class='span4 meta'> 通过邮箱注册>> </p>
+    <p class='span4 meta'> <%= t('.youre_sign_in_with_provider', provider: oauth_data_provider) %> >> </p>
     <%= simple_form_for resource,
       as: resource_name,
       url: new_oauth_user_registration_path,
@@ -17,12 +17,6 @@
 
       <div class="form-actions">
         <%= f.button :submit, t('.sign_up'), class: 'sign-up button' %>
-      </div>
-
-      <div class='control-group'>
-        <div class='controls'>
-          <%= link_to t(".forgot_your_password"), new_password_path(resource_name), class:'forget-psw' %>
-        </div>
       </div>
 
     <% end %>

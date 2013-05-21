@@ -49,6 +49,9 @@ zh-CN:
         sign_up: 注册
         sign_in: 登录
         forgot_your_password: 忘记密码
+      new_from_oauth:
+        youre_sign_in_with_provider:  您正在通过第三方网站 %{provider} 登录
+        sign_up: 注册并绑定
     sessions:
       new:
         *new
