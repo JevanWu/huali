@@ -32,9 +32,8 @@
         </div>
       </div>
       <% end %>
-
-      <%= link_to image_tag('login-with-douban-18.png'), user_omniauth_authorize_path(:douban) %>
-
     <% end %>
+    <p class='span4 meta'> 使用第三方账户登录>> </p>
+    <%= render 'devise/menu/login_use_oauth' %>
   </div>
 </div>
