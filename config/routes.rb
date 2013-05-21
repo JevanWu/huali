@@ -34,7 +34,10 @@ Huali::Application.routes.draw do
 
   devise_for :administrators
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "oauth_services" }
+  devise_for :users, controllers: { omniauth_callbacks: 'oauth_services', registrations: 'registrations' } do
+    get 'sign_up_oauth' => 'registrations#new_from_oauth', as: :new_oauth_user_registration
+    post 'sign_up_oauth' => 'registrations#create_from_oauth'
+  end
 
   root to: "pages#show", id: 'home'
   get 'partner', to: 'pages#partner', as: :partner

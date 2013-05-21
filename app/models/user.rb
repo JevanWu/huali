@@ -58,6 +58,9 @@ class User < ActiveRecord::Base
     message: "%{value} is not a valid user role."
   }
 
+  # attr_writer :dont_validate_password
+  # validates_presence_of :password, unless: dont_validate_password
+
   class << self
     def build_guest
       u = User.create(email: "guest_#{Time.now.to_i}#{rand(99)}@guest.me")
@@ -85,6 +88,10 @@ class User < ActiveRecord::Base
   def username
     email.sub(/(@.+)/,'').truncate(15)
   end
+
+  def apply_oauth(oauth_info)
+    oauth_services.build(provider: oauth_info['provider'], uid: oauth_info['uid'])
+  end  
 
   private
 
