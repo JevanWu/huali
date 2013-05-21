@@ -14,8 +14,9 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create_from_oauth
     # FIXME 1 handle if email already exist
+    # FIXME 1.1 show user a page for binding their accounts
+    # FIXME 1.2 username from db VS username from oauth
     # FIXME 2 handle if save failed, return false
-    # FIXME 2.1 show user a page for binding their accounts
     # FIXME 3 skip password validation or just generate a random password
     binding.pry
     if not u = User.find_by_email(params[:user][:email])
