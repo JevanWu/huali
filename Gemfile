@@ -75,11 +75,14 @@ group :development do
   gem 'awesome_print'
   # pry setups
   gem 'pry', require: false
+  gem 'bond'
+  gem 'pry-doc'
+  gem 'pry-docmore'
   gem 'pry-remote'
+  gem 'pry-rescue'
   gem 'pry-stack_explorer'
   gem 'pry-debugger'
   gem 'pry-rails'
-  gem 'pry-coolline'
   gem 'better_errors', git: 'https://github.com/charliesome/better_errors.git'
   gem 'binding_of_caller'
   gem 'annotate', git: 'https://github.com/ctran/annotate_models.git'
