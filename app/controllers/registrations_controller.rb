@@ -15,12 +15,16 @@ class RegistrationsController < Devise::RegistrationsController
   def create_from_oauth
     # FIXME 1 handle if email already exist
     # FIXME 2 handle if save failed, return false
+    # FIXME 2.1 show user a page for binding their accounts
     # FIXME 3 skip password validation or just generate a random password
-    u = User.new(
-      email: params[:user][:email],
-      phone: params[:user][:phone],
-      name: params[:user][:name],
-      password: Devise.friendly_token[0,20])
+    binding.pry
+    if not u = User.find_by_email(params[:user][:email])
+      u = User.new(
+        email: params[:user][:email],
+        phone: params[:user][:phone],
+        name: params[:user][:name],
+        password: Devise.friendly_token[0,20])
+    end
     u.apply_oauth session[:oauth]
     u.bypass_humanizer = true
 
