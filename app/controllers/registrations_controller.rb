@@ -16,7 +16,6 @@ class RegistrationsController < Devise::RegistrationsController
     # FIXME 1 handle if email already exist
     # FIXME 2 handle if save failed, return false
     # FIXME 3 skip password validation or just generate a random password
-    binding.pry
     u = User.new(
       email: params[:user][:email],
       phone: params[:user][:phone],
@@ -26,18 +25,19 @@ class RegistrationsController < Devise::RegistrationsController
     u.bypass_humanizer = true
 
     if u.save
-      sign_in_and_redirect u, :event => :authentication
+      sign_in u, :event => :authentication
+      redirect_to :root
     end
   end
 
   # FIXME use this override build_resource correctly
-  private
+  # private
 
-  def build_resource(*args)
-    super
-    if session[:oauth]
-      @user.apply_oauth(session[:oauth])
-      # @user.valid?
-    end
-  end
+  # def build_resource(*args)
+  #   super
+  #   if session[:oauth]
+  #     @user.apply_oauth(session[:oauth])
+  #     # @user.valid?
+  #   end
+  # end
 end
