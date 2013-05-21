@@ -1,0 +1,1 @@
+BetterErrors.use_pry!
