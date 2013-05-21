@@ -1,1 +1,1 @@
-BetterErrors.use_pry!
+BetterErrors.use_pry! if defined?(BetterErrors)
