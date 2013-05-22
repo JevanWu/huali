@@ -50,6 +50,7 @@ zh-CN:
         sign_in: 登录
         forgot_your_password: 忘记密码
       new_from_oauth:
+
         youre_sign_in_with_provider:  您正在通过第三方网站 %{provider} 登录
         email_already_signed_up: 该邮箱已经在花里注册，请输入您在花里的密码
         sign_in_and_bind: 登录并绑定
@@ -69,6 +70,8 @@ zh-CN:
       new:
         resend_unlock_instructions: 重发解锁指示
     oauth_services:
+      views:
+        sign_in_use_oauth: 使用第三方账户登录
       providers:
         douban: 豆瓣
         qq_connect: QQ
