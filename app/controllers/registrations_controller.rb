@@ -34,14 +34,4 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  # FIXME use this override build_resource correctly
-  # private
-
-  # def build_resource(*args)
-  #   super
-  #   if session[:oauth]
-  #     @user.apply_oauth(session[:oauth])
-  #     # @user.valid?
-  #   end
-  # end
 end
