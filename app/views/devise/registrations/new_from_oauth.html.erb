@@ -1,3 +1,7 @@
+<% content_for :js do %>
+  <%= javascript_include_tag "oauth" %>
+<% end %>
+
 <% content_for(:title_img) do %>
   <%= image_tag('title-reg.png') %>
 <% end %>
@@ -8,16 +12,36 @@
     <%= simple_form_for resource,
       as: resource_name,
       url: new_oauth_user_registration_path,
-      html: { class: 'span8 form-horizontal' } do |f| %>
+      html: { class: 'span8 form-horizontal sign-up-oauth' } do |f| %>
       <%= devise_error_messages! %>
 
       <%= f.input :email, required: true %>
-      <%= f.input :name, input_html: { value: oauth_data_name } %>
-      <%= f.input :phone, placeholder: '以便我们和您核对信息' %>
+      <div class='loading-gif'><%= image_tag('loading.gif') %></div>
 
-      <div class="form-actions">
-        <%= f.button :submit, t('.sign_up'), class: 'sign-up button' %>
+      <div class='user-exist'>
+        <%= f.input :name_via_oauth, disabled: true %>
+        <%= f.input :name, disabled: true %>
+        <%= f.input :password, required: true, hint: t('.email_already_signed_up') %>
+
+        <div class="form-actions">
+          <%= f.button :submit, t('.sign_in_and_bind'), class: 'sign-in button' %>
+        </div>
       </div>
+
+
+      <div class='user-dont-exist'>
+        <%= f.input :password, required: true%>
+        <%= f.input :password_confirmation, required: true %>
+        <%= f.input :name, placeholder: '您的称呼, 以便我们和您联系' %>
+        <%= f.input :phone, placeholder: '以便我们和您核对信息'  %>
+        <%= f.input :humanizer_answer, label: resource.humanizer_question, required: true %>
+        <%= f.hidden_field :humanizer_question_id %>
+
+        <div class="form-actions">
+          <%= f.button :submit, t('.sign_up_and_bind'), class: 'sign-up button' %>
+        </div>
+      </div>
+
 
     <% end %>
     </div>

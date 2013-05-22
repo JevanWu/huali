@@ -219,6 +219,7 @@ zh-CN:
         sign_in_count: 登录次数
         humanizer_answer: 验证问题
         orders: 用户订单
+        name_via_oauth: 您在第三方网站上的账户
 
       reminder:
         email: 邮件

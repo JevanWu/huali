@@ -39,6 +39,8 @@ Huali::Application.routes.draw do
     post 'sign_up_oauth' => 'registrations#create_from_oauth'
   end
 
+  get 'users/check_user_exist', to: 'users#show'
+
   root to: "pages#show", id: 'home'
   get 'partner', to: 'pages#partner', as: :partner
   get 'mother', to: 'pages#mother', as: :mother

@@ -38,6 +38,8 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me,
                   :anonymous_token, :phone, :name, :humanizer_answer, :humanizer_question_id
 
+  attr_accessor :name_via_oauth
+
   has_many :addresses
   has_many :orders
   has_many :transactions, through: :orders

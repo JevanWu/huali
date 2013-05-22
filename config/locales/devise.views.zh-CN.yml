@@ -51,7 +51,9 @@ zh-CN:
         forgot_your_password: 忘记密码
       new_from_oauth:
         youre_sign_in_with_provider:  您正在通过第三方网站 %{provider} 登录
-        sign_up: 注册并绑定
+        email_already_signed_up: 该邮箱已经在花里注册，请输入您在花里的密码
+        sign_in_and_bind: 登录并绑定
+        sign_up_and_bind: 注册并绑定
     sessions:
       new:
         *new
