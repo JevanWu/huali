@@ -4,7 +4,7 @@
 
 <div class='authentication'>
   <div class='row'>
-    <p class='span4 meta'> <%= t('.youre_sign_in_with_provider', provider: oauth_data_provider) %> >> </p>
+    <p class='span4 meta'> <%= t('.youre_sign_in_with_provider', provider: t("devise.oauth_services.providers.#{oauth_data_provider}")) %> >> </p>
     <%= simple_form_for resource,
       as: resource_name,
       url: new_oauth_user_registration_path,
