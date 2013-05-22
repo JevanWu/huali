@@ -86,7 +86,7 @@ class Product < ActiveRecord::Base
   end
 
   def related_products(limit = 5)
-    (recommendations + suggestions).take(limit)
+    (recommendations.published + suggestions).take(limit)
   end
 
   def suggestions(amount = 5, pool = :all, order = :random)
