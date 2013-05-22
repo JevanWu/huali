@@ -29,7 +29,7 @@
     </div> <!--! end of #container -->
   </body>
     <%= javascript_include_tag "application"  %>
-    <%= javascript_include_tag "ga" %>
+    <%= javascript_include_tag "segmentio" %>
     <%= render "layouts/mba" if Rails.env == 'production' %>
     <%= yield(:js) %>
 </html>
