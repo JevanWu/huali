@@ -35,7 +35,25 @@ analytics.load = function(apiKey) {
 
 // Load analytics.js with your API key, which will automatically load all of the
 // analytics integrations you've turned on for your account. Boosh!
-analytics.load('<%= ENV['SEGMENTIO_KEY'] %>');
+analytics.load('<%= Rails.env == 'production' ? ENV['SEGMENTIO_KEY'] : ENV['SEGMENTIO_DEV_KEY'] %>');
+
+// Store the cliendId with API access into the cookie 
+// to be used to sync backend and frontend events
+// Because it might be changed without warnings
+// https://developers.google.com/analytics/devguides/collection/analyticsjs/domains#getClientId
+
+analytics.ready(function () {
+  ga(function(tracker) {
+    // FIXME need to reset to previous cookie parse mode
+    oldmode = $.cookie.json;
+    $.cookie.json = false;
+
+    var clientId = tracker.get('clientId');
+    $.cookie('huali::gaClientId', clientId);
+
+    $.cookie.json = oldmode;
+  });
+});
 
 // Record the current pageview
 analytics.pageview();
