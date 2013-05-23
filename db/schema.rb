@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130427023620) do
+ActiveRecord::Schema.define(:version => 20130508050209) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -115,6 +115,11 @@ ActiveRecord::Schema.define(:version => 20130427023620) do
   end
 
   add_index "collections_products", ["product_id", "collection_id"], :name => "index_collections_products_on_product_id_and_collection_id", :unique => true
+
+  create_table "collocation_relations", :force => true do |t|
+    t.integer "product_a_id", :null => false
+    t.integer "product_b_id", :null => false
+  end
 
   create_table "coupons", :force => true do |t|
     t.string   "code",                               :null => false
@@ -239,6 +244,7 @@ ActiveRecord::Schema.define(:version => 20130427023620) do
     t.string   "adjustment"
     t.string   "coupon_code"
     t.string   "ship_method_id"
+    t.boolean  "printed",                                            :default => false
   end
 
   add_index "orders", ["identifier"], :name => "index_orders_on_identifier", :unique => true
@@ -260,20 +266,20 @@ ActiveRecord::Schema.define(:version => 20130427023620) do
   add_index "pages", ["permalink"], :name => "index_pages_on_permalink"
 
   create_table "products", :force => true do |t|
-    t.string   "name_zh",                                            :default => "",    :null => false
-    t.string   "name_en",                                            :default => "",    :null => false
+    t.string   "name_zh",                                        :default => "",    :null => false
+    t.string   "name_en",                                        :default => "",    :null => false
     t.text     "description_zh"
     t.string   "meta_description"
     t.string   "meta_keywords"
-    t.integer  "count_on_hand",                                      :default => 0,     :null => false
-    t.decimal  "cost_price",           :precision => 8, :scale => 2
-    t.decimal  "price",                :precision => 8, :scale => 2
-    t.decimal  "height",               :precision => 8, :scale => 2
-    t.decimal  "width",                :precision => 8, :scale => 2
-    t.decimal  "depth",                :precision => 8, :scale => 2
-    t.datetime "created_at",                                                            :null => false
-    t.datetime "updated_at",                                                            :null => false
-    t.boolean  "available",                                          :default => true
+    t.integer  "count_on_hand",                                  :default => 0,     :null => false
+    t.decimal  "cost_price",       :precision => 8, :scale => 2
+    t.decimal  "price",            :precision => 8, :scale => 2
+    t.decimal  "height",           :precision => 8, :scale => 2
+    t.decimal  "width",            :precision => 8, :scale => 2
+    t.decimal  "depth",            :precision => 8, :scale => 2
+    t.datetime "created_at",                                                        :null => false
+    t.datetime "updated_at",                                                        :null => false
+    t.boolean  "available",                                      :default => true
     t.decimal  "original_price"
     t.text     "inspiration_zh"
     t.string   "name_char"
@@ -318,7 +324,8 @@ ActiveRecord::Schema.define(:version => 20130427023620) do
     t.string "service_phone"
     t.string "method"
     t.string "website"
-    t.string "kuaidi_com_code"
+    t.string "kuaidi_query_code"
+    t.string "kuaidi_api_code"
   end
 
   create_table "shipments", :force => true do |t|
@@ -329,8 +336,11 @@ ActiveRecord::Schema.define(:version => 20130427023620) do
     t.integer  "address_id"
     t.integer  "ship_method_id"
     t.integer  "order_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+    t.text     "kuaidi100_result"
+    t.string   "kuaidi100_status"
+    t.datetime "kuaidi100_updated_at"
   end
 
   add_index "shipments", ["identifier"], :name => "index_shipments_on_identifier"

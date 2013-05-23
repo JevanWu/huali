@@ -7,7 +7,7 @@
   <dl id='nav-panel' class='nav-panel'>
     <% Collection.available.primary.each do |collection| %>
       <dt class="nav-header">
-        <%= link_to collection.display_name, collection_path(collection) %>
+        <%= link_to collection.show_name, collection_path(collection) %>
       </dt>
       <dd>
         <ul class="nav nav-list">

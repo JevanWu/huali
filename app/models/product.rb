@@ -81,12 +81,12 @@ class Product < ActiveRecord::Base
     end
 
     def sort_by_collection
-      published.sort_by { |p| p.collection.id }
+      published.sort_by { |p| p.collection.try(:id) || 0 }
     end
   end
 
   def related_products(limit = 5)
-    (recommendations + suggestions).take(limit)
+    (recommendations.published + suggestions).take(limit)
   end
 
   def suggestions(amount = 5, pool = :all, order = :random)

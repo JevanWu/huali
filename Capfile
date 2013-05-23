@@ -42,7 +42,7 @@ set :application, "huali"
 
 # multistage settings
 task :production do
-  set :domain, "en.hua.li www.hua.li hua.li *.hua.li"
+  set :domain, "en.hua.li www.hua.li hua.li *.hua.li hualistore.com www.hualistore.com"
   set :unicorn_workers, 3
 
   # maxwell - 42.121.119.155', aliyun

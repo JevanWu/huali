@@ -29,6 +29,11 @@ ActiveAdmin.register Order do
 
   actions :all, except: :new
   batch_action :destroy, false
+  batch_action :printed do |selection|
+    orders = Order.find(selection)
+    orders.each { |o| o.print }
+    redirect_to :back, notice: orders.count.to_s + t('views.admin.order.printed')
+  end
 
   scope :all
   scope :yesterday
@@ -39,6 +44,7 @@ ActiveAdmin.register Order do
   scope :within_this_month
 
   filter :identifier
+  filter :printed, as: :select, collection: { 是: true, 否: false }
   filter :expected_date
   filter :delivery_date
   filter :state, as: :select, collection:
@@ -46,13 +52,13 @@ ActiveAdmin.register Order do
     等待付款: 'generated',
     等待审核: 'wait_check',
     等待发货: 'wait_ship',
+    等待制作: 'wait_make',
     已经发货: 'wait_confirm',
     等待退款: 'wait_refund',
     取消: 'void',
     退款成功: 'refunded',
     已经完成: 'completed'
   }
-
   filter :sender_name, as: :string
   filter :address_fullname, as: :string
   filter :address_phone, as: :string
@@ -99,7 +105,9 @@ ActiveAdmin.register Order do
   end
 
   member_action :print_shipment do
-    @address = Order.find_by_id(params[:id]).address
+    order= Order.find_by_id(params[:id])
+    @address = order.address
+    @type = order.ship_method.kuaidi_query_code
     render 'admin/shipments/print', layout: 'plain_print'
   end
 
@@ -110,7 +118,7 @@ ActiveAdmin.register Order do
     end
 
     column :identifier, sortable: :identifier do |order|
-      link_to order.identifier, admin_order_path(order)
+      link_to order.identifier + ', ' + order.id.to_s, admin_order_path(order)
     end
 
     column :subject_text
@@ -128,6 +136,14 @@ ActiveAdmin.register Order do
     column :modify_order_state do |order|
       order_state_shift(order)
     end
+
+    column :printed
+
+    column :tracking_num do |order|
+      if shipment = order.shipment
+        shipment.tracking_num
+      end
+    end
   end
 
   form partial: "form"
@@ -137,6 +153,8 @@ ActiveAdmin.register Order do
       row :state do
         status_tag t('models.order.state.' + order.state), order_state(order)
       end
+
+      row :printed
 
       row :modify_order_state do
         order_state_shift(order)

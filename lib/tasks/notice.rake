@@ -6,11 +6,11 @@ namespace :notice do
 
   desc "Notify about Today's Summary"
   task today_order_summary_email: :environment do
-    Notify.delay.date_summary_email(Date.current, 'team@zenhacks.org')
+    Notify.delay.date_summary_email(Date.current, 'team@hua.li')
   end
 
   desc "Notify about Mother's Day Preparation"
   task product_day_email: :environment do
-    Notify.delay.product_day_email('team@zenhacks.org')
+    Notify.delay.product_day_email('team@hua.li')
   end
 end

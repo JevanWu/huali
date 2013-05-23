@@ -27,7 +27,9 @@
   <%= render 'jiathis_buttons' %>
 
   <p>
-    <%= link_to t('more') + @product.collection.display_name, collection_path(@product.collection), class: 'link-button' %>
+    <% unless @product.collection.nil? %>
+      <%= link_to t('more') + @product.collection.show_name, collection_path(@product.collection), class: 'link-button' %>
+    <% end %>
   </p>
 
 </div>

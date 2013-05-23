@@ -58,8 +58,11 @@ ActiveAdmin.register Shipment do
   end
 
   member_action :print do
-    @address = Shipment.find_by_id(params[:id]).order.address
-    render 'print', layout: 'plain_print'
+    order = Shipment.find_by_id(params[:id]).order
+    @address = order.address
+    # type = ["ems", "lianbang", "shunfeng"]
+    @type = order.ship_method.kuaidi_query_code
+    render "print", layout: 'plain_print'
   end
 
   form partial: "form"

@@ -40,7 +40,7 @@ $ ->
 
   # weibo sharing
   content = "见字如面，爱时须言。我在@花里花店 免费寄出了一张明信片。你也来看看吧~"
-  url = 'http://s.zenhacks.org/adec943'
+  url = 'http://s.hua.li/adec943'
 
   $('#post-share').attr 'href', weiboUrl(content, url)
 

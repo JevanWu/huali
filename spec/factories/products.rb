@@ -66,6 +66,7 @@ FactoryGirl.define do
     after(:build) do |product|
       [1, 2, 3, 4].sample.times do
         product.assets << create(:asset)
+        product.collections << create(:collection)
       end
     end
 
@@ -75,10 +76,6 @@ FactoryGirl.define do
 
     trait :unavailable do
       available false
-    end
-
-    trait :with_collection do
-      collection
     end
 
     # collection_id

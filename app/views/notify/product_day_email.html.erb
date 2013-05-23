@@ -8,6 +8,8 @@
             <div mc:edit="std_content00">
               <h3 class='h3'>母亲节备货提醒</h3>
               <p>截至到<%= l Time.now, format: :short %>, 母亲节的备货需要如下:</p>
+              <p style="color:red;">时间按发货日期来计算(未审核订单, 已经发货订单不计入)</p>
+              <p style="color:red;">总数包含0507 - 0511共计5天<b>需要发货</b>的货源</p>
             </div>
           </td>
         </tr>
@@ -38,7 +40,9 @@
                   总数
                 </td>
                 <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
-                  <%= @total_count.inject(0) {|sum, count| sum + count['productscount'].to_i }%>
+                  <%= @total_count.inject(0) {|sum, count| sum + count['productscount'].to_i } %>
+                  <span>上海: </span>
+                  <%= @total_shanghai_count.inject(0) {|sum, count| sum + count['productscount'].to_i } %>
                 </td>
               </tr>
               <% @total_count.to_a.each do |product_count| %>
@@ -48,6 +52,8 @@
                 </td>
                 <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
                   <%= product_count['productscount'] %>
+                  <span>上海: </span>
+                  <%= @total_shanghai_count.select { |p| p['name_zh'] == product_count['name_zh'] }.first.try(:"[]", 'productscount') %>
                 </td>
               </tr>
               <% end %>
@@ -56,6 +62,7 @@
         </tr>
 
         <% @watched_result.each do |result| %>
+          <% shanghai_result = @watched_shanghai_result.select { |p| p[:date] == result[:date] }.first[:result] %>
         <tr>
           <td valign="top" style="padding-top:0; padding-bottom:0;">
             <table border="0" cellpadding="10" cellspacing="0" width="100%" class="templateDataTable verticalDataTable">
@@ -84,6 +91,8 @@
                 </td>
                 <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
                   <%= product_count['productscount'] %>
+                  <span>上海: </span>
+                  <%= shanghai_result.select { |p| p['name_zh'] == product_count['name_zh'] }.first.try(:"[]", 'productscount') %>
                 </td>
               </tr>
               <% end %>
@@ -93,6 +102,8 @@
                 </td>
                 <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
                   <%= result[:result].inject(0) {|sum, count| sum + count['productscount'].to_i }%>
+                  <span>上海: </span>
+                  <%= shanghai_result.inject(0) {|sum, count| sum + count['productscount'].to_i } %>
                 </td>
               </tr>
             </table>
