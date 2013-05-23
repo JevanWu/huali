@@ -1,15 +1,11 @@
 class OauthRegistrationsController < Devise::RegistrationsController
   def new_from_oauth
-    if session[:oauth].nil?
-      render 'errors/error_404', status: 404, layout: 'error'
-    end
-
     build_resource({})
     case session[:oauth].provider
     when 'douban', 'weibo', 'qq_connect'
       name = session[:oauth].info.name
     end
-    respond_with(self.resource, locals: { oauth_data_provider: session[:oauth].provider, oauth_data_name: name })
+    respond_with(self.resource)
   end
 
   def create_from_oauth
@@ -17,7 +13,7 @@ class OauthRegistrationsController < Devise::RegistrationsController
     # FIXME 1.1 show user a page for binding their accounts
     # FIXME 1.2 username from db VS username from oauth
     # FIXME 2 handle if save failed, return false
-    # FIXME 3 skip password validation or just generate a random password
+    # FIXME 3 skip password validation or just generate a random password    
     if not u = User.find_by_email(params[:user][:email])
       u = User.new(
         email: params[:user][:email],
@@ -33,5 +29,4 @@ class OauthRegistrationsController < Devise::RegistrationsController
       redirect_to :root
     end
   end
-
 end
