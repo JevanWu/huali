@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130508050209) do
+ActiveRecord::Schema.define(:version => 20130523124302) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -103,7 +103,7 @@ ActiveRecord::Schema.define(:version => 20130508050209) do
     t.string   "meta_keywords"
     t.string   "meta_description"
     t.boolean  "primary_category", :default => false, :null => false
-    t.string   "meta_title"
+    t.string   "meta_title",       :default => ""
     t.integer  "priority",         :default => 5
   end
 
@@ -146,73 +146,17 @@ ActiveRecord::Schema.define(:version => 20130508050209) do
   add_index "line_items", ["order_id"], :name => "index_line_items_on_order_id"
   add_index "line_items", ["product_id"], :name => "index_line_items_on_product_id"
 
-  create_table "old_alipays", :force => true do |t|
-    t.string   "out_merchant_no"
-    t.string   "identifier"
-    t.string   "source"
-    t.string   "pay_type"
-    t.string   "customer"
-    t.string   "subject_text"
-    t.string   "amount"
-    t.string   "coupon"
-    t.string   "status"
-    t.string   "fee"
-    t.string   "refund"
-    t.string   "note"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+  create_table "oauth_services", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "provider"
+    t.string   "uid"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.string   "oauth_token"
+    t.datetime "oauth_expires_at"
   end
 
-  create_table "old_orders", :force => true do |t|
-    t.string   "order_status"
-    t.string   "order_number"
-    t.string   "buyer_name"
-    t.string   "phonenum"
-    t.string   "email"
-    t.string   "receiver_name"
-    t.string   "province"
-    t.string   "address"
-    t.date     "expect_date"
-    t.boolean  "need_invoice"
-    t.string   "invoice_header"
-    t.text     "requirement"
-    t.string   "receiver_phonenum"
-    t.string   "product_name"
-    t.string   "delivery_code"
-    t.text     "card_info"
-    t.string   "delivery_method"
-    t.string   "zip_code"
-    t.string   "comment"
-    t.boolean  "archived"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-  end
-
-  create_table "old_wufoos", :force => true do |t|
-    t.string   "entry_id"
-    t.string   "status"
-    t.string   "order_identifier"
-    t.string   "name"
-    t.string   "phonenum"
-    t.string   "email"
-    t.string   "receiver_name"
-    t.string   "receiver_prov"
-    t.string   "receiver_addr"
-    t.string   "post_code"
-    t.string   "receiver_phonenum"
-    t.date     "expected_date"
-    t.text     "card_info"
-    t.text     "special_note"
-    t.string   "source"
-    t.string   "other_source"
-    t.string   "created_by"
-    t.string   "updated_by"
-    t.string   "ip_addr"
-    t.string   "last_access"
-    t.string   "completion_status"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-  end
+  add_index "oauth_services", ["provider", "uid"], :name => "index_oauth_services_on_provider_and_uid"
 
   create_table "order_coupons", :force => true do |t|
     t.integer "order_id"
@@ -260,7 +204,7 @@ ActiveRecord::Schema.define(:version => 20130508050209) do
     t.string   "title_en"
     t.text     "content_en"
     t.boolean  "in_footer",        :default => true
-    t.string   "meta_title"
+    t.string   "meta_title",       :default => ""
   end
 
   add_index "pages", ["permalink"], :name => "index_pages_on_permalink"
@@ -289,7 +233,7 @@ ActiveRecord::Schema.define(:version => 20130508050209) do
     t.boolean  "published_zh",                                   :default => false
     t.boolean  "published_en",                                   :default => false
     t.integer  "priority",                                       :default => 5
-    t.string   "meta_title"
+    t.string   "meta_title",                                     :default => ""
     t.integer  "sold_total",                                     :default => 0
   end
 
@@ -319,6 +263,17 @@ ActiveRecord::Schema.define(:version => 20130508050209) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "settings", :force => true do |t|
+    t.string   "var",                      :null => false
+    t.text     "value"
+    t.integer  "thing_id"
+    t.string   "thing_type", :limit => 30
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
+
+  add_index "settings", ["thing_type", "thing_id", "var"], :name => "index_settings_on_thing_type_and_thing_id_and_var", :unique => true
+
   create_table "ship_methods", :force => true do |t|
     t.string "name"
     t.string "service_phone"
@@ -336,11 +291,11 @@ ActiveRecord::Schema.define(:version => 20130508050209) do
     t.integer  "address_id"
     t.integer  "ship_method_id"
     t.integer  "order_id"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+    t.datetime "created_at",                                              :null => false
+    t.datetime "updated_at",                                              :null => false
     t.text     "kuaidi100_result"
     t.string   "kuaidi100_status"
-    t.datetime "kuaidi100_updated_at"
+    t.datetime "kuaidi100_updated_at", :default => '1970-01-01 00:00:00'
   end
 
   add_index "shipments", ["identifier"], :name => "index_shipments_on_identifier"
