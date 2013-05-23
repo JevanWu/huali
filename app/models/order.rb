@@ -253,6 +253,10 @@ class Order < ActiveRecord::Base
     shipment.state
   end
 
+  def product_names
+    products.map(&:name)
+  end
+
   def transaction
     transactions.last
   end
