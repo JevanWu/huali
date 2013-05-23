@@ -12,6 +12,10 @@ $ ->
   $('.purchase').click ->
     pro = Cart.get $(@).data('product')
     Cart.update(id: pro.id, quantity: pro.quantity + 1)
+    analytics.track 'Added Item To Cart',
+      # FIXME added track for price / category
+      product_id: pro.id
+      quantity: pro.quantity
 
   freshCart = ->
     id = $(@).data('product')
