@@ -51,6 +51,7 @@ class Order < ActiveRecord::Base
   has_one :coupon, through: :order_coupon
 
   delegate :province_name, :city_name, to: :address
+  delegate :paymethod, to: :transaction
 
   accepts_nested_attributes_for :line_items
   accepts_nested_attributes_for :address
