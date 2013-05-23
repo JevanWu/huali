@@ -50,7 +50,7 @@ zh-CN:
         sign_in: 登录
         forgot_your_password: 忘记密码
       new_from_oauth:
-
+        name_via_oauth: 您在第三方网站上的账户
         youre_sign_in_with_provider:  您正在通过第三方网站 %{provider} 登录
         email_already_signed_up: 该邮箱已经在花里注册，请输入您在花里的密码
         sign_in_and_bind: 登录并绑定

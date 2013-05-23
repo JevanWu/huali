@@ -15,22 +15,26 @@
       html: { class: 'span8 form-horizontal sign-up-oauth' } do |f| %>
       <%= devise_error_messages! %>
 
+      <div class='control-group name-via-oauth'>
+        <%= f.label t('.name_via_oauth') %>
+        <div class='controls'>
+          <%= f.label session[:oauth].info.name %>
+        </div>
+      </div>
+      
       <%= f.input :email, required: true %>
       <div class='loading-gif'><%= image_tag('loading.gif') %></div>
+      <%= f.input :password, required: true%>
 
       <div class='user-exist'>
-        <%= f.input :name_via_oauth, disabled: true %>
-        <%= f.input :name, disabled: true %>
-        <%= f.input :password, required: true, hint: t('.email_already_signed_up') %>
-
         <div class="form-actions">
+          <%= f.hint t('.email_already_signed_up'), class: 'hint-user-exist' %>
           <%= f.button :submit, t('.sign_in_and_bind'), class: 'sign-in button' %>
         </div>
       </div>
 
 
       <div class='user-dont-exist'>
-        <%= f.input :password, required: true%>
         <%= f.input :password_confirmation, required: true %>
         <%= f.input :name, placeholder: '您的称呼, 以便我们和您联系' %>
         <%= f.input :phone, placeholder: '以便我们和您核对信息'  %>

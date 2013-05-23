@@ -2,10 +2,14 @@ $ ->
   showLoadingGif = ->
     $('.loading-gif').fadeIn().css('display','inline-block')
 
-  hideLoadingGif = (forever = false) ->
+  hideLoadingGif = ->
     $('.loading-gif').fadeOut()
-    if forever is true
-      $('.loading-gif').css('visibility', 'hidden')
+
+  ajaxPool = []
+  ajaxPool.abortAll = ->
+    $(@).each( (idx, jqXHR) ->
+      jqXHR.abort())
+    ajaxPool.length = 0
 
   chkUserExist = (email) ->
     # FIXME, should abort other ajax first
@@ -14,15 +18,21 @@ $ ->
       cache: false
       dataType: 'json'
       data: ({ user_email: email })
+      beforeSend: (jqXHR) ->
+        ajaxPool.abortAll()
+        ajaxPool.push jqXHR
       success: (result) -> 
         if result.found is true
-          hideLoadingGif(true)
+          hideLoadingGif()
           $('.user-dont-exist').hide()
-          $('.user-exist').fadeIn(200, ->
-            $('input#user_email').prop('disabled', true).val(result.email)
-            $('.user-exist input#user_name_via_oauth').val(result.name_via_oauth)
-            $('.user-exist input#user_name').val(result.name))
+          $('.user-exist').fadeIn()
+          $('input#user_email').val(result.email)
+        else
+          $('.user-exist').hide()
+          $('.user-dont-exist').fadeIn()
 
-  $('form.sign-up-oauth input#user_email').on('change keypress paste textInput input', ->
+  $('form.sign-up-oauth input#user_email').on('keypress paste textInput input', ->
     showLoadingGif()
-    chkUserExist $(@).val())
+    chkUserExist $(@).val()
+  ).on('blur', ->
+    hideLoadingGif())
