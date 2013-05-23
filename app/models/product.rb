@@ -111,6 +111,7 @@ class Product < ActiveRecord::Base
   end
 
   def category_name
+    # FIXME collection should always be contained in a product
     collection.try(:name)
   end
 

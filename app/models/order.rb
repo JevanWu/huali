@@ -257,6 +257,10 @@ class Order < ActiveRecord::Base
     products.map(&:name)
   end
 
+  def category_names
+    products.map(&:category_name)
+  end
+
   def transaction
     transactions.last
   end
