@@ -27,6 +27,9 @@ class Address < ActiveRecord::Base
   has_many :orders
   has_many :shipments
 
+  delegate :name, to: :province, prefix: true
+  delegate :name, to: :city, prefix: true
+
   accepts_nested_attributes_for :province, :area, :city
 
   before_validation :check_postcode

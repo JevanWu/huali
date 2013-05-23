@@ -44,6 +44,25 @@ $ ->
 
   $('#post-share').attr 'href', weiboUrl(content, url)
 
+  $('#product-share').on 'click', (e) ->
+    spanText = $(e.target).attr('class')
+    socialAction = 'Share'
+    socialTarget = 'document.location.href'
+    socialNetwork =
+      if spanText.indexOf('sina')
+        'weibo'
+      else if spanText.indexOf('tqq')
+        'qqweibo'
+      else if spanText.indexOf('douban')
+        'douban'
+      else if spanText.indexOf('renren')
+        'renren'
+      else
+        undefined
+
+    if socialNetwork
+      analytics.ready -> ga 'send', 'social', socialNetwork, socialAction, socialTarget
+
   # nav-panel
   $('.nav-panel > dt')
     .mouseenter(headingMouseEnter)

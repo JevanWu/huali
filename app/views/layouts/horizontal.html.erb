@@ -30,6 +30,7 @@
   </body>
     <%= javascript_include_tag "application"  %>
     <%= javascript_include_tag "segmentio" %>
+    <%= yield(:analytic_js) %>
     <%= render "layouts/mba" if Rails.env == 'production' %>
     <%= yield(:js) %>
 </html>

@@ -110,6 +110,11 @@ class Product < ActiveRecord::Base
     collections.primary.blank? ? collections.primary.first : collections.first
   end
 
+  def category_name
+    # FIXME collection should always be contained in a product
+    collection.try(:name)
+  end
+
   def has_stock?
     @count_on_hand
   end
