@@ -5,6 +5,16 @@ $ ->
   hideLoadingGif = ->
     $('.loading-gif').fadeOut()
 
+  userExist = ->
+    hideLoadingGif()
+    $('.user-dont-exist').hide()
+    $('.user-exist').fadeIn()
+    $('input#user_email').val(result.email)
+
+  userNotExist = ->
+    $('.user-exist').hide()
+    $('.user-dont-exist').fadeIn()
+
   ajaxPool = []
   ajaxPool.abortAll = ->
     $(@).each( (idx, jqXHR) ->
@@ -23,16 +33,15 @@ $ ->
         ajaxPool.push jqXHR
       success: (result) -> 
         if result.found is true
-          hideLoadingGif()
-          $('.user-dont-exist').hide()
-          $('.user-exist').fadeIn()
-          $('input#user_email').val(result.email)
+          userExist()
         else
-          $('.user-exist').hide()
-          $('.user-dont-exist').fadeIn()
+          userNotExist()
 
   $('form.sign-up-oauth input#user_email').on('keypress paste textInput input', ->
     showLoadingGif()
     chkUserExist $(@).val()
   ).on('blur', ->
-    hideLoadingGif())
+    hideLoadingGif()
+  ).each( ->
+    chkUserExist $(@).val()
+  )

@@ -90,7 +90,7 @@ class User < ActiveRecord::Base
     oauth_services.build(
       provider: oauth_info['provider'],
       uid: oauth_info['uid']
-    ).save
+    )
   end  
 
   private
