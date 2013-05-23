@@ -1,4 +1,4 @@
-class RegistrationsController < Devise::RegistrationsController
+class OauthRegistrationsController < Devise::RegistrationsController
   def new_from_oauth
     if session[:oauth].nil?
       render 'errors/error_404', status: 404, layout: 'error'
