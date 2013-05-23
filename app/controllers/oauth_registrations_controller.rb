@@ -1,4 +1,5 @@
 class OauthRegistrationsController < Devise::RegistrationsController
+  before_filter :verify_session
   # FIXME should redirect if user already binded this provider
   def new_from_oauth
     build_resource({})
@@ -38,4 +39,9 @@ class OauthRegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def verify_session
+    if session[:oauth].nil?
+      redirect_to :root, status: 403
+    end
+  end
 end
