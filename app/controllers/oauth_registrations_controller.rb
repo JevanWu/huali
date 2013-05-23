@@ -1,6 +1,5 @@
 class OauthRegistrationsController < Devise::RegistrationsController
   before_filter :verify_session
-  # FIXME should redirect if user already binded this provider
   def new_from_oauth
     build_resource({})
     case session[:oauth].provider
@@ -25,8 +24,10 @@ class OauthRegistrationsController < Devise::RegistrationsController
     end
 
     u.apply_oauth session[:oauth]
-    u.save
-    # FIXME handle save failed
+    if not u.save!
+      flash[:alert] = I18n.t 'devise.registrations.new_from_oauth.save_failed'
+      redirect_to new_oauth_user_registration
+    end
     flash[:notice] = I18n.t 'devise.sessions.signed_in'
     sign_in_and_redirect u, :event => :authentication
   end
