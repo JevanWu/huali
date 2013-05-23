@@ -18,6 +18,7 @@ class OauthRegistrationsController < Devise::RegistrationsController
       end
     else
       u = User.new(params[:user])
+      u.bypass_humanizer = true
       if not u.valid?
         respond_with(u, location: new_oauth_user_registration_path)
       end
