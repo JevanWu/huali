@@ -12,7 +12,6 @@ $ ->
     ajaxPool.length = 0
 
   chkUserExist = (email) ->
-    # FIXME, should abort other ajax first
     $.ajax
       url: "/users/check_user_exist"
       cache: false
