@@ -24,7 +24,7 @@ class OauthServicesController < Devise::OmniauthCallbacksController
       flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: (I18n.t "devise.oauth_services.providers.#{provider}")
       sign_in_and_redirect @user, :event => :authentication
     else
-      redirect_to new_oauth_user_registration_url
+      redirect_to new_oauth_user_registration_path
     end
   end
 
