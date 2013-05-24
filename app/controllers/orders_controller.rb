@@ -65,7 +65,6 @@ class OrdersController < ApplicationController
         event: 'Filled Order Form',
         properties: {
           category: 'order',
-          identifier: @order.identifier,
           revenue: @order.payment_total,
           coupon_code: @order.coupon_code,
           province: @order.province_name,
@@ -129,7 +128,6 @@ class OrdersController < ApplicationController
           event: 'Completed Order Payment',
           properties: {
             category: 'order',
-            identifier: @order.identifier,
             revenue: @order.payment_total,
             coupon_code: @order.coupon_code,
             province: @order.province_name,
@@ -139,7 +137,6 @@ class OrdersController < ApplicationController
             categories: @order.category_names,
             paymethod: @order.paymethod
           },
-          timestamp: @order.created_at,
           context: {
             'Google Analytics' => {
               clientId: cookies['ga_client_id']
