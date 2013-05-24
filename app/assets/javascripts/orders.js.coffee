@@ -14,6 +14,7 @@ $ ->
     Cart.update(id: pro.id, quantity: pro.quantity + 1)
     analytics.track 'Added Item To Cart',
       # FIXME added track for price / category
+      category: 'order'
       product_id: pro.id
       quantity: pro.quantity
 
