@@ -42,7 +42,7 @@ Huali::Application.routes.draw do
     post '/users/bind_with_oauth' => 'oauth_registrations#bind_with_oauth'
   end
 
-  get 'users/check_user_exist', to: 'users#show'
+  get 'users/check_user_exist', to: 'users#check_user_exist'
 
   root to: "pages#show", id: 'home'
   get 'partner', to: 'pages#partner', as: :partner

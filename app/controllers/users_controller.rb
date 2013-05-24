@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  def show
+  def check_user_exist
     if u = User.find_by_email(params[:user_email])
-      result = { found: true, email: u.email, name: u.name, phone: u.phone }
+      result = { found: true, email: u.email }
     else
       result = { found: false }
     end
