@@ -1,19 +1,9 @@
 $ ->
   showLoadingGif = ->
-    $('.loading-gif').fadeIn().css('display','inline-block')
+    $('.loading-gif').fadeTo(200,1)
 
   hideLoadingGif = ->
-    $('.loading-gif').fadeOut()
-
-  userExist = ->
-    hideLoadingGif()
-    $('.user-dont-exist').hide()
-    $('.user-exist').fadeIn()
-    $('input#user_email').val(result.email)
-
-  userNotExist = ->
-    $('.user-exist').hide()
-    $('.user-dont-exist').fadeIn()
+    $('.loading-gif').fadeTo(200,0)
 
   ajaxPool = []
   ajaxPool.abortAll = ->
@@ -33,9 +23,11 @@ $ ->
         ajaxPool.push jqXHR
       success: (result) -> 
         if result.found is true
-          userExist()
+          $('input#user_email').val(result.email)
+          $('form.sign-up-oauth').removeClass('user-not-exist').addClass('user-exist')
+          hideLoadingGif()
         else
-          userNotExist()
+          $('form.sign-up-oauth').removeClass('user-exist').addClass('user-not-exist')
 
   $('form.sign-up-oauth input#user_email').on('keypress paste textInput input', ->
     showLoadingGif()

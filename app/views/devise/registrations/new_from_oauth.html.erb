@@ -12,7 +12,8 @@
     <%= simple_form_for resource,
       as: resource_name,
       url: new_oauth_user_registration_path,
-      html: { class: 'span8 form-horizontal sign-up-oauth' } do |f| %>
+      html: { class: 'span8 form-horizontal sign-up-oauth' },
+      class: 'user-not-exist' do |f| %>
       <%= devise_error_messages! %>
 
       <div class='control-group name-via-oauth'>
@@ -23,21 +24,20 @@
       </div>
       
       <%= f.input :email, required: true %>
-      <div class='loading-gif'><%= image_tag('loading.gif') %></div>
+      <%= image_tag 'loading.gif', class: 'loading-gif' %>
       <%= f.input :password, required: true%>
 
-      <div class='user-exist'>
+      <div class='show-when-user-exist hide-when-user-not-exist'>
         <div class="form-actions">
           <%= f.hint t('.email_already_signed_up'), class: 'hint-user-exist' %>
           <%= f.button :submit, t('.sign_in_and_bind'), class: 'sign-in button' %>
         </div>
       </div>
 
-      <div class='user-dont-exist'>
+      <div class='show-when-user-not-exist hide-when-user-exist'>
         <%= f.input :password_confirmation, required: true %>
         <%= f.input :name, placeholder: '您的称呼, 以便我们和您联系' %>
         <%= f.input :phone, placeholder: '以便我们和您核对信息'  %>
->
         <%= f.hidden_field :humanizer_question_id %>
 
         <div class="form-actions">

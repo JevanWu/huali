@@ -376,6 +376,10 @@ form.sign-up-oauth
   .control-group.email
     display: inline-block
 
+  .loading-gif
+    display: inline
+    +opacity(0)
+
   .control-group.name-via-oauth .controls label
     text-align: left
 
@@ -383,8 +387,16 @@ form.sign-up-oauth
     margin-top: -10px
     margin-bottom: 10px
 
-  .loading-gif
+form.sign-up-oauth.user-exist
+  .show-when-user-exist
+    display: block
+  .hide-when-user-exist
     display: none
+  +transition(all 0.2s ease-in-out)
 
-  .user-exist
+form.sign-up-oauth.user-not-exist
+  .show-when-user-not-exist
+    display: block
+  .hide-when-user-not-exist
     display: none
+  +transition(all 0.2s ease-in-out)

@@ -9,7 +9,7 @@ class OauthService < ActiveRecord::Base
 
   class << self
     def find_user(provider, uid)
-      OauthService.where(provider: provider, uid: uid).first
+      OauthService.where(provider: provider, uid: uid).first.try(:user)
     end
   end
 end
