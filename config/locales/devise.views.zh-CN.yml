@@ -55,7 +55,6 @@ zh-CN:
         email_already_signed_up: 该邮箱已经在花里注册，请输入您在花里的密码
         sign_in_and_bind: 登录并绑定
         sign_up_and_bind: 注册并绑定
-        save_failed: 保存失败，请稍后重试
     sessions:
       new:
         *new
@@ -78,4 +77,4 @@ zh-CN:
         qq_connect: QQ
         weibo: 新浪微博
       user:
-        failure:关联失败
+        failure: 关联失败

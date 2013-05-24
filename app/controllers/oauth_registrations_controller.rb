@@ -1,45 +1,34 @@
 class OauthRegistrationsController < Devise::RegistrationsController
   before_filter :verify_session
+
   def new_from_oauth
-    build_resource({})
-    case session[:oauth].provider
-    when 'douban', 'weibo', 'qq_connect'
-      name = session[:oauth].info.name
-    end
-    respond_with(self.resource)
+    build_resource
+    respond_with resource
   end
 
   def bind_with_oauth
-    if u = User.find_by_email(params[:user][:email])
-      if not u.valid_password?(params[:user][:password])
-        flash[:alert] = I18n.t 'devise.failure.invalid'
-        respond_with(u, location: new_oauth_user_registration_path)
+    begin
+      if u = User.find_by_email(params[:user][:email])
+        unless u.valid_password? params[:user][:password]
+          raise ActiveRecord::RecordInvalid.new(u), 'invalid password'
+        end
+      else
+        u = build_resource params[:user]
       end
-    else
-      u = User.new(params[:user])
-      u.bypass_humanizer = true
-      if not u.valid?
-        respond_with(u, location: new_oauth_user_registration_path)
-      end
-    end
 
-    u.apply_oauth session[:oauth]
-    if not u.save!
-      flash[:alert] = I18n.t 'devise.registrations.new_from_oauth.save_failed'
-      redirect_to new_oauth_user_registration
+      u.bypass_humanizer = true
+      u.apply_oauth session[:oauth]
+      u.save!
+
+      flash[:notice] = I18n.t 'devise.sessions.signed_in'
+      sign_in_and_redirect u, :event => :authentication
+    rescue
+      flash[:alert] = I18n.t 'devise.failure.invalid'
+      render 'devise/registrations/new_from_oauth'
     end
-    flash[:notice] = I18n.t 'devise.sessions.signed_in'
-    sign_in_and_redirect u, :event => :authentication
   end
 
   private
-
-  def build_resource(*args)
-    super
-    if session[:oauth]
-      @user.apply_oauth(session[:oauth])
-    end
-  end
 
   def verify_session
     if session[:oauth].nil?
