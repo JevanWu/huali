@@ -28,7 +28,7 @@ class OrdersController < ApplicationController
     @order = Order.new
     @order.build_address
     populate_sender_info unless current_or_guest_user.guest?
-    OrderAnalytics.open_order(current_user.id, @cart.keys, cookies['ga_client_id'])
+    AnalyticWorker.delay.open_order(current_user.id, @cart.keys, cookies['ga_client_id'])
   end
 
   def create
@@ -45,7 +45,7 @@ class OrdersController < ApplicationController
 
       flash[:notice] = t('controllers.order.order_success')
 
-      OrderAnalytics.fill_order(@order, cookies['ga_client_id'])
+      AnalyticWorker.delay.fill_order(@order.id, cookies['ga_client_id'])
 
       redirect_to checkout_order_path(@order)
     else
@@ -87,7 +87,7 @@ class OrdersController < ApplicationController
       transaction = Transaction.find_by_identifier @custom_id
       if transaction.return(request.query_string)
         @order = transaction.order
-        OrderAnalytics.complete_order(@order, cookies['ga_client_id'])
+        AnalyticWorker.delay.complete_order(@order.id, cookies['ga_client_id'])
         render 'success'
       else
         @order = transaction.order
