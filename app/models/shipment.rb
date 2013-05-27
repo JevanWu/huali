@@ -1,5 +1,4 @@
 # encoding: utf-8
-#
 # == Schema Information
 #
 # Table name: shipments
@@ -9,7 +8,7 @@
 #  id                   :integer          not null, primary key
 #  identifier           :string(255)
 #  kuaidi100_result     :text
-#  kuaidi100_status     :integer
+#  kuaidi100_status     :string(255)
 #  kuaidi100_updated_at :datetime
 #  note                 :text
 #  order_id             :integer
@@ -26,6 +25,7 @@
 #  index_shipments_on_tracking_num    (tracking_num)
 #
 
+#
 class Shipment < ActiveRecord::Base
   attr_accessible :identifier, :note, :state, :tracking_num, :ship_method_id, :address_id, :order_id, :kuaidi100_result, :kuaidi100_status
 
