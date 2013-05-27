@@ -9,14 +9,33 @@ $ ->
 
   $('#cart_amount span').text Cart.quantityAll()
 
-  $('.purchase').click ->
-    pro = Cart.get $(@).data('product')
+  $('.purchase').click (e) ->
+    link = $(@)
+    pro = Cart.get link.data('product')
     Cart.update(id: pro.id, quantity: pro.quantity + 1)
     analytics.track 'Added Item To Cart',
       # FIXME added track for price / category
       category: 'order'
       product_id: pro.id
       quantity: pro.quantity
+
+    # ported from https://github.com/segmentio/analytics.js/blob/master/src/analytics.js
+    # delayed a bit to shot the tracking out
+    # To justify us preventing the default behavior we must:
+
+    # * Have an `href` to use.
+    # * Not have a `target="_blank"` attribute.
+    # * Not have any special keys pressed, because they might be trying to
+      # open in a new tab, or window, or download.
+
+    # This might not cover all cases, but we'd rather throw out an event
+    # than miss a case that breaks the user experience.
+    if link.attr('href') && link.attr('target') != '_blank' && !isMeta(e)
+      console.log e.metaKey
+      e.preventDefault()
+      # Navigate to the url after just enough of a timeout.
+      followLink = -> window.location.href = link.attr('href')
+      setTimeout(followLink, 300)
 
   freshCart = ->
     id = $(@).data('product')
@@ -128,3 +147,19 @@ window.Cart = {
     amounts = _.map(cart, (quantity, id) -> quantity)
     total = _.reduce(amounts, (sum, quan) -> sum + quan)
 }
+
+# ported from https://github.com/segmentio/is-meta
+window.isMeta = (e) ->
+  if (e.metaKey || e.altKey || e.ctrlKey || e.shiftKey)
+    return true
+
+  # Logic that handles checks for the middle mouse button, based
+  # on [jQuery](https://github.com/jquery/jquery/blob/master/src/event.js#L466).
+  which = e.which; button = e.button
+
+  if (!which && button != undefined)
+    return (!button & 1) && (!button & 2) && (button & 4);
+  else if (which == 2)
+    return true
+
+  return false
