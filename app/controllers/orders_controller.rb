@@ -28,22 +28,7 @@ class OrdersController < ApplicationController
     @order = Order.new
     @order.build_address
     populate_sender_info unless current_or_guest_user.guest?
-
-    Analytics.track(
-      user_id: current_user.id,
-      event: 'Opened Order Form',
-      properties: {
-        category: 'order',
-        products: @cart.keys,
-        # FIXME added property to calculate user visits before submit form
-        # visited_pages_count: 2
-      },
-      context: {
-        'Google Analytics' => {
-          clientId: cookies['ga_client_id']
-        }
-      }
-    )
+    OrderAnalytics.open_order(current_user.id, @cart.keys, cookies['ga_client_id'])
   end
 
   def create
@@ -60,28 +45,7 @@ class OrdersController < ApplicationController
 
       flash[:notice] = t('controllers.order.order_success')
 
-      Analytics.track(
-        user_id: @order.user_id,
-        event: 'Filled Order Form',
-        properties: {
-          category: 'order',
-          identifier: @order.identifier,
-          revenue: @order.payment_total,
-          coupon_code: @order.coupon_code,
-          province: @order.province_name,
-          city: @order.city_name,
-          source: @order.source,
-          products: @order.product_names,
-          categories: @order.category_names,
-          paymethod: @order.paymethod
-        },
-        timestamp: @order.created_at,
-        context: {
-          'Google Analytics' => {
-            clientId: cookies['ga_client_id']
-          }
-        }
-      )
+      OrderAnalytics.fill_order(@order, cookies['ga_client_id'])
 
       redirect_to checkout_order_path(@order)
     else
@@ -123,30 +87,8 @@ class OrdersController < ApplicationController
       transaction = Transaction.find_by_identifier @custom_id
       if transaction.return(request.query_string)
         @order = transaction.order
-
-        Analytics.track(
-          user_id: @order.user_id,
-          event: 'Completed Order Payment',
-          properties: {
-            category: 'order',
-            identifier: @order.identifier,
-            revenue: @order.payment_total,
-            coupon_code: @order.coupon_code,
-            province: @order.province_name,
-            city: @order.city_name,
-            source: @order.source,
-            products: @order.product_names,
-            categories: @order.category_names,
-            paymethod: @order.paymethod
-          },
-          timestamp: @order.created_at,
-          context: {
-            'Google Analytics' => {
-              clientId: cookies['ga_client_id']
-            }
-          }
-        )
-
+        OrderAnalytics.complete_order(@order, cookies['ga_client_id'])
+        sleep(5)
         render 'success'
       else
         @order = transaction.order
