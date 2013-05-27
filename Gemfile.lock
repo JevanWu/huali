@@ -41,7 +41,7 @@ GIT
 
 GIT
   remote: https://github.com/zenhacks/capistrano-zen.git
-  revision: d7171088d7302fe25568f445b2d2fce1aa1b911b
+  revision: a8111103f5876f95cb45e9c95e49c3a8a8b6b7ce
   specs:
     capistrano-zen (0.0.3)
       capistrano (>= 2.5.3)
@@ -124,7 +124,7 @@ GEM
       mocha (= 0.10.5)
     builder (3.0.4)
     cancan (1.6.9)
-    capistrano (2.14.2)
+    capistrano (2.15.4)
       highline
       net-scp (>= 1.0.0)
       net-sftp (>= 2.0.0)
@@ -228,7 +228,7 @@ GEM
       guard (>= 1.1)
       spork (>= 0.8.4)
     has_scope (0.5.1)
-    highline (1.6.15)
+    highline (1.6.19)
     hike (1.2.2)
     http_parser.rb (0.5.3)
     httparty (0.9.0)
@@ -276,11 +276,11 @@ GEM
     multi_json (1.7.2)
     multi_xml (0.5.3)
     multipart-post (1.1.5)
-    net-scp (1.1.0)
+    net-scp (1.1.1)
       net-ssh (>= 2.6.5)
-    net-sftp (2.1.1)
+    net-sftp (2.1.2)
       net-ssh (>= 2.6.5)
-    net-ssh (2.6.5)
+    net-ssh (2.6.7)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
     newrelic_rpm (3.5.7.59)
