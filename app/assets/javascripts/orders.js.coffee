@@ -31,7 +31,6 @@ $ ->
     # This might not cover all cases, but we'd rather throw out an event
     # than miss a case that breaks the user experience.
     if link.attr('href') && link.attr('target') != '_blank' && !isMeta(e)
-      console.log e.metaKey
       e.preventDefault()
       # Navigate to the url after just enough of a timeout.
       followLink = -> window.location.href = link.attr('href')
