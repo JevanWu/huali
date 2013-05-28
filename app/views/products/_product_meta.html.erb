@@ -1,10 +1,5 @@
 <div id="product-side">
   <h2 class="product-name"><span><%= @product.name %></span></h2>
-  <ul class="tag-list">
-    <% @product.tags.each do |tag| %>
-      <li><span><%= tag.name %></span></li>
-    <% end %>
-  </ul>
   <% unless @product.original_price.nil? %>
   <p class="pro-price old-price"> <%= @product.original_price %> RMB </p>
   <% end %>
