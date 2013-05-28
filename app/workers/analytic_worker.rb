@@ -81,6 +81,24 @@ class AnalyticWorker
       track(options)
     end
 
+    def identify_user(user_id)
+      user = User.find user_id
+      options = {
+        user_id: user.id,
+        traits: {
+          email: user.email,
+          name: user.name,
+          phone: user.phone,
+          created: user.created_at
+        },
+        timestamp: user.created_at,
+        context: {
+          'Mixpanel' => { ignore_time: true }
+        }
+      }
+      identify(options)
+    end
+
     # public: Tracks an event
     #
     # options - Hash
