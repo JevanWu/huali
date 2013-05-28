@@ -36,7 +36,6 @@ class AnalyticWorker
         event: 'Filled Order Form',
         properties: {
           category: 'order',
-          revenue: order.payment_total,
           coupon_code: order.coupon_code,
           province: order.province_name,
           city: order.city_name,
