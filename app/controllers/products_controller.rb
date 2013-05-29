@@ -1,10 +1,6 @@
 class ProductsController < ApplicationController
-  #caches_page :show
-  # GET /products/1
-  # GET /products/1.json
-
   def show
-    @product = Product.find(params[:id])
+    @product = Product.published.find(params[:id])
 
     # FIXME products always have assets now
     assets  = @product.assets || []

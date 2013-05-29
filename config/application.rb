@@ -39,7 +39,10 @@ module Huali
 
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
-    config.autoload_paths += %W(#{config.root}/lib)
+    config.autoload_paths += %W(#{config.root}/lib #{config.root}/app/workers)
+
+    # FIXME manully eagerload autoload_paths for threadsafty, could be moved when threadsafe! = true
+    config.eager_load_paths += %W(#{config.root}/lib #{config.root}/app/workers)
 
 
     # Only load the plugins named here, in the order given (default is alphabetical).
@@ -47,7 +50,7 @@ module Huali
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
 
     # Activate observers that should always be running.
-    config.active_record.observers = :order_observer, :shipment_observer
+    config.active_record.observers = :order_observer, :shipment_observer, :user_observer
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.

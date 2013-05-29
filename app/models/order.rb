@@ -50,13 +50,16 @@ class Order < ActiveRecord::Base
   has_one :order_coupon
   has_one :coupon, through: :order_coupon
 
+  delegate :province_name, :city_name, to: :address
+  delegate :paymethod, to: :transaction, allow_nil: true
+
   accepts_nested_attributes_for :line_items
   accepts_nested_attributes_for :address
 
   before_validation :generate_identifier, on: :create
 
   validates_format_of :adjustment,
-                      with: %r{\A[+-x*%/][\s\d.]+}, # +/-/*/%1234.0
+                      with: %r{\A[+-x*%/][\s\d.]+\z}, # +/-/*/%1234.0
                       unless: lambda { |order| order.adjustment.blank? }
 
   validates_presence_of :identifier, :line_items, :expected_date, :state, :total, :item_total, :sender_email, :sender_phone, :sender_name, :source
@@ -248,6 +251,14 @@ class Order < ActiveRecord::Base
 
   def shipment_state
     shipment.state
+  end
+
+  def product_names
+    products.map(&:name)
+  end
+
+  def category_names
+    products.map(&:category_name)
   end
 
   def transaction

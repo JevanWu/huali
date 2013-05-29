@@ -27,7 +27,7 @@ class Coupon < ActiveRecord::Base
 
   validates_presence_of :adjustment, :code, :expires_at, :available_count
   # +/-/*/%1234.0
-  validates_format_of :adjustment, with: %r{\A[+-x*%/][\s\d.]+}
+  validates_format_of :adjustment, with: %r{\A[+-x*%/][\s\d.]+\z}
 
   has_many :order_coupons
   has_many :orders, through: :order_coupons

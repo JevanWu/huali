@@ -20,5 +20,4 @@ class CollectionsController < ApplicationController
       format.json { render json: @collection }
     end
   end
-
 end

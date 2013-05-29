@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130523124302) do
+ActiveRecord::Schema.define(:version => 20130529044900) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -280,32 +280,25 @@ ActiveRecord::Schema.define(:version => 20130523124302) do
   create_table "products", :force => true do |t|
     t.string   "name_zh",                                        :default => "",    :null => false
     t.string   "name_en",                                        :default => "",    :null => false
-    t.text     "description_zh"
+    t.text     "description"
     t.string   "meta_description"
     t.string   "meta_keywords"
     t.integer  "count_on_hand",                                  :default => 0,     :null => false
-    t.decimal  "cost_price",       :precision => 8, :scale => 2
     t.decimal  "price",            :precision => 8, :scale => 2
     t.decimal  "height",           :precision => 8, :scale => 2
     t.decimal  "width",            :precision => 8, :scale => 2
     t.decimal  "depth",            :precision => 8, :scale => 2
     t.datetime "created_at",                                                        :null => false
     t.datetime "updated_at",                                                        :null => false
-    t.boolean  "available",                                      :default => true
     t.decimal  "original_price"
-    t.text     "inspiration_zh"
-    t.string   "name_char"
+    t.text     "inspiration"
     t.string   "slug"
-    t.text     "inspiration_en"
-    t.text     "description_en"
-    t.boolean  "published_zh",                                   :default => false
-    t.boolean  "published_en",                                   :default => false
+    t.boolean  "published",                                      :default => false
     t.integer  "priority",                                       :default => 5
     t.string   "meta_title"
     t.integer  "sold_total",                                     :default => 0
   end
 
-  add_index "products", ["name_en"], :name => "index_products_on_name_en"
   add_index "products", ["slug"], :name => "index_products_on_slug", :unique => true
 
   create_table "provinces", :force => true do |t|

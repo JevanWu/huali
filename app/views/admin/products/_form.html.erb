@@ -1,9 +1,7 @@
 <%= semantic_form_for [:admin, @product] do |f| %>
   <%= f.semantic_errors :assets, :inspiration_zh, :name_en, :name_zh %>
   <%= f.inputs "Main Info" do %>
-    <%= f.input :available, as: :boolean %>
-    <%= f.input :published_zh, as: :boolean %>
-    <%= f.input :published_en, as: :boolean %>
+    <%= f.input :published, as: :boolean %>
     <%= f.input :name_zh, required: true %>
     <%= f.input :name_en, required: true %>
     <%= f.input :priority %>
@@ -14,11 +12,9 @@
 
     <%= f.input :recommendations, as: :check_boxes, :collection => Product.sort_by_collection %>
 
-    <%= f.input :inspiration_zh, hint: "Use Markdown to write the content" , input_html: {rows: 10} %>
-    <%= f.input :inspiration_en, hint: "Use Markdown to write the content" , input_html: {rows: 10} %>
+    <%= f.input :inspiration, hint: "Use Markdown to write the content" , input_html: {rows: 10} %>
 
-    <%= f.input :description_zh, hint: "Use Markdown to write the content" , input_html: {rows: 10} %>
-    <%= f.input :description_en, hint: "Use Markdown to write the content" , input_html: {rows: 10} %>
+    <%= f.input :description, hint: "Use Markdown to write the content" , input_html: {rows: 10} %>
 
     <%= f.inputs for: :assets, class: 'image_field' do |builder, i| %>
       <% if @product.assets[i - 1].image %>
@@ -40,7 +36,6 @@
     <%= f.input :count_on_hand, required: true %>
     <%= f.input :price %>
     <%= f.input :original_price %>
-    <%= f.input :cost_price %>
     <%= f.input :width %>
     <%= f.input :depth %>
     <%= f.input :height %>

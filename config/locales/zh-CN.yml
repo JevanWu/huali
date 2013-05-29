@@ -17,6 +17,9 @@ zh-CN:
   size: 尺寸
   image: 图片
 
+  publish: 发布
+  unpublish: 撤销发布
+
   distance:
     unit:
       one: 厘米
@@ -151,17 +154,13 @@ zh-CN:
       product:
         thumbnail: 缩略图
         image: 图片
-        available: 是否有货
         name_zh: 中文名
         name_en: 英文名
         tag_list: 标签
         collections: 品类
-        published_zh: 中文发布
-        published_en: 英文发布
-        inspiration_zh: 中文灵感
-        inspiration_en: 英文灵感
-        description_zh: 中文描述
-        description_en: 英文描述
+        published: 是否发布
+        inspiration: 产品灵感
+        description: 产品描述
         count_on_hand: 库存
         price: 现价
         original_price: 原价
@@ -178,6 +177,7 @@ zh-CN:
         meta_description: 关键描述
         priority: 优先级
         recommendations: 搭配
+        sold_total: 销售总计
 
       collection:
         name_zh: 中文名
@@ -311,8 +311,6 @@ zh-CN:
         express: 快递
         manual: 人工
       product:
-        available: 有货
-        unavailable: 无货
         product_updated: 个产品已经更新
         add_image: 新增图片
       location:

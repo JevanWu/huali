@@ -8,6 +8,7 @@
     <meta name="keywords" content="<%= yield(:keywords) %>">
     <meta name="author" content=""/>
     <meta property="qc:admins" content="1441500013641" />
+    <meta property="wb:webmaster" content="32b90a1d2131b590" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <!--[if lt IE 9]><%= javascript_include_tag 'html5shiv' %><![endif]-->
     <%= stylesheet_link_tag "application", media: "all" %>
@@ -41,6 +42,11 @@
     <% if controller_name.in? ['products'] %>
       <%= javascript_include_tag controller_name %>
     <% end %>
+
+    <!-- segmentio library code and frontend related tracking -->
     <%= javascript_include_tag "segmentio" %>
+    <%= render "layouts/segmentio" %>
+    <!-- end of segmentio -->
+
     <%= render "layouts/mba" if Rails.env == 'production' %>
 </html>

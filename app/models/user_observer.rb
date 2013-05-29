@@ -1,5 +1,6 @@
 class UserObserver < ActiveRecord::Observer
   def after_create(user)
-    user.delay.subscribe_to_mailchimp
+    User.delay.subscribe_to_mailchimp(user.id)
+    AnalyticWorker.delay.identify_user(user.id)
   end
 end

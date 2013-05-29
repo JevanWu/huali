@@ -7,3 +7,4 @@
 :concurrency: 10
 :queues:
   - [default, 5]
+  - [analytics, 10]
