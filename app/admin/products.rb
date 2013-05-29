@@ -2,8 +2,8 @@
 ActiveAdmin.register Product do
   menu parent: '产品', if: proc { authorized? :read, Product }
 
-  [ :enable,
-    :disable
+  [ :publish,
+    :unpublish
  ].each do |action|
     batch_action I18n.t(action) do |selection|
       products = Product.find(selection)
@@ -29,10 +29,6 @@ ActiveAdmin.register Product do
     column :name_zh
     column :name_en
 
-    column :available do |product|
-      product.available ?  t('views.admin.product.available') : t('views.admin.product.unavailable')
-    end
-
     column :image do |product|
       image_tag product.img(:thumb)
     end
@@ -55,7 +51,6 @@ ActiveAdmin.register Product do
     attributes_table do
       row :name_zh
       row :name_en
-      row :available
       row :published
       row :priority
 

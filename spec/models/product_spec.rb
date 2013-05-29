@@ -2,7 +2,6 @@
 #
 # Table name: products
 #
-#  available        :boolean          default(TRUE)
 #  count_on_hand    :integer          default(0), not null
 #  created_at       :datetime         not null
 #  depth            :decimal(8, 2)

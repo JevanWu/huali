@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130529032917) do
+ActiveRecord::Schema.define(:version => 20130529041347) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -290,7 +290,6 @@ ActiveRecord::Schema.define(:version => 20130529032917) do
     t.decimal  "depth",            :precision => 8, :scale => 2
     t.datetime "created_at",                                                        :null => false
     t.datetime "updated_at",                                                        :null => false
-    t.boolean  "available",                                      :default => true
     t.decimal  "original_price"
     t.text     "inspiration"
     t.string   "slug"

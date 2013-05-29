@@ -2,7 +2,6 @@
 #
 # Table name: products
 #
-#  available        :boolean          default(TRUE)
 #  count_on_hand    :integer          default(0), not null
 #  created_at       :datetime         not null
 #  depth            :decimal(8, 2)
@@ -60,12 +59,8 @@ FactoryGirl.define do
       end
     end
 
-    trait :available do
-      available true
-    end
-
-    trait :unavailable do
-      available false
+    trait :published do
+      published false
     end
 
     # collection_id

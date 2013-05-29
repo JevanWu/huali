@@ -2,7 +2,6 @@
 #
 # Table name: products
 #
-#  available        :boolean          default(TRUE)
 #  count_on_hand    :integer          default(0), not null
 #  created_at       :datetime         not null
 #  depth            :decimal(8, 2)
@@ -32,7 +31,7 @@
 
 
 class Product < ActiveRecord::Base
-  attr_accessible :name_zh, :name_en, :description, :meta_title, :meta_description, :meta_keywords, :count_on_hand, :original_price, :price, :height, :width, :depth, :available, :inspiration, :published, :priority
+  attr_accessible :name_zh, :name_en, :description, :meta_title, :meta_description, :meta_keywords, :count_on_hand, :original_price, :price, :height, :width, :depth, :inspiration, :published, :priority
 
   attr_accessible :tag_list, :recommendation_ids, :assets, :assets_attributes
 
@@ -116,21 +115,17 @@ class Product < ActiveRecord::Base
     @count_on_hand
   end
 
-  def available?
-    @available
-  end
-
   def discount?
     !original_price.nil? && price < original_price
   end
 
-  def enable
-    self.available = true
+  def publish
+    self.published = true
     self.save
   end
 
-  def disable
-    self.available = false
+  def unpublish
+    self.published = false
     self.save
   end
 

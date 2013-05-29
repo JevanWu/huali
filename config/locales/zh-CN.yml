@@ -17,6 +17,9 @@ zh-CN:
   size: 尺寸
   image: 图片
 
+  publish: 发布
+  unpublish: 撤销发布
+
   distance:
     unit:
       one: 厘米
@@ -151,7 +154,6 @@ zh-CN:
       product:
         thumbnail: 缩略图
         image: 图片
-        available: 是否有货
         name_zh: 中文名
         name_en: 英文名
         tag_list: 标签
@@ -308,8 +310,6 @@ zh-CN:
         express: 快递
         manual: 人工
       product:
-        available: 有货
-        unavailable: 无货
         product_updated: 个产品已经更新
         add_image: 新增图片
       location:
