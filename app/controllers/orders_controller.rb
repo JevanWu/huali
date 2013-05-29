@@ -28,7 +28,7 @@ class OrdersController < ApplicationController
     @order = Order.new
     @order.build_address
     populate_sender_info unless current_or_guest_user.guest?
-    AnalyticWorker.delay.open_order(current_user.id, @products.map(&:name))
+    AnalyticWorker.delay.open_order(current_user.id, @products.map(&:name), Time.now)
   end
 
   def create

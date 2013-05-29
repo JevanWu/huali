@@ -10,17 +10,17 @@ class AnalyticWorker
   @@secret = (Rails.env == 'production' ? ENV['SEGMENTIO_SECRET'] : ENV['SEGMENTIO_DEV_SECRET']).freeze
 
   class << self
-    def open_order(user_id, product_names)
+    def open_order(user_id, product_names, current_time)
       user = User.find user_id
       options = {
         user_id: user.id,
         event: 'Opened Order Form',
         properties: {
           category: 'order',
-          products: product_names,
-          # FIXME added property to calculate user visits before submit form
-          # visited_pages_count: 2
+          products: product_names
         },
+        # To be idempotent
+        timestamp: current_time,
         context: {
           'Google Analytics' => {
             clientId: user.ga_client_id
