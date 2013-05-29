@@ -100,8 +100,10 @@ class OrdersController < ApplicationController
 
   def notify
     transaction = Transaction.find_by_identifier @custom_id
+    old_state = transaction.state
     begin
       if transaction.notify(request.raw_post)
+        AnalyticWorker.delay.complete_order(@order.id) unless old_state == 'completed'
         render text: "success"
       else
         render text: "failed", status: 400
