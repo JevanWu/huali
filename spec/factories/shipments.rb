@@ -7,7 +7,7 @@
 #  id                   :integer          not null, primary key
 #  identifier           :string(255)
 #  kuaidi100_result     :text
-#  kuaidi100_status     :integer
+#  kuaidi100_status     :string(255)
 #  kuaidi100_updated_at :datetime
 #  note                 :text
 #  order_id             :integer
