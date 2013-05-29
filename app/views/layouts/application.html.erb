@@ -16,6 +16,10 @@
     <!--[if IE 6]><%= stylesheet_link_tag 'ie6' %><![endif]-->
     <!--[if IE 7]><%= stylesheet_link_tag 'ie7' %><![endif]-->
     <%= csrf_meta_tags %>
+    <!-- segmentio library code and frontend related tracking -->
+    <%= javascript_include_tag "segmentio" %>
+    <%= render "layouts/segmentio" %>
+    <!-- end of segmentio -->
   </head>
   <body class="desktop">
     <div id="wrapper" class="container">
@@ -42,11 +46,5 @@
     <% if controller_name.in? ['products'] %>
       <%= javascript_include_tag controller_name %>
     <% end %>
-
-    <!-- segmentio library code and frontend related tracking -->
-    <%= javascript_include_tag "segmentio" %>
-    <%= render "layouts/segmentio" %>
-    <!-- end of segmentio -->
-
     <%= render "layouts/mba" if Rails.env == 'production' %>
 </html>
