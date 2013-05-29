@@ -6,7 +6,7 @@ ActiveAdmin.register Product do
     :disable
  ].each do |action|
     batch_action I18n.t(action) do |selection|
-      products = Product.unscoped.find(selection)
+      products = Product.find(selection)
       products.each { |product| product.send(action) }
       redirect_to :back, notice: products.count.to_s + t('views.admin.product.product_updated')
     end
@@ -56,26 +56,17 @@ ActiveAdmin.register Product do
       row :name_zh
       row :name_en
       row :available
-      row :published_zh
-      row :published_en
+      row :published
       row :priority
 
       row :tag_list
 
-      row :inspiration_zh do
-        markdown(product.inspiration_zh)
+      row :inspiration do
+        markdown(product.inspiration)
       end
 
-      row :inspiration_en do
-        markdown(product.inspiration_en)
-      end
-
-      row :description_zh do
-        markdown(product.description_zh)
-      end
-
-      row :description_en do
-        markdown(product.description_en)
+      row :description do
+        markdown(product.description)
       end
 
       row :collections do
@@ -110,10 +101,6 @@ ActiveAdmin.register Product do
 
       row :price do
         number_to_currency product.price, unit: '&yen;'
-      end
-
-      row :cost_price do
-        number_to_currency product.cost_price, unit: '&yen;'
       end
 
       row :height do

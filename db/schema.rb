@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130508050209) do
+ActiveRecord::Schema.define(:version => 20130529032917) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -146,6 +146,18 @@ ActiveRecord::Schema.define(:version => 20130508050209) do
   add_index "line_items", ["order_id"], :name => "index_line_items_on_order_id"
   add_index "line_items", ["product_id"], :name => "index_line_items_on_product_id"
 
+  create_table "oauth_services", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "provider"
+    t.string   "uid"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.string   "oauth_token"
+    t.datetime "oauth_expires_at"
+  end
+
+  add_index "oauth_services", ["provider", "uid"], :name => "index_oauth_services_on_provider_and_uid"
+
   create_table "old_alipays", :force => true do |t|
     t.string   "out_merchant_no"
     t.string   "identifier"
@@ -268,11 +280,10 @@ ActiveRecord::Schema.define(:version => 20130508050209) do
   create_table "products", :force => true do |t|
     t.string   "name_zh",                                        :default => "",    :null => false
     t.string   "name_en",                                        :default => "",    :null => false
-    t.text     "description_zh"
+    t.text     "description"
     t.string   "meta_description"
     t.string   "meta_keywords"
     t.integer  "count_on_hand",                                  :default => 0,     :null => false
-    t.decimal  "cost_price",       :precision => 8, :scale => 2
     t.decimal  "price",            :precision => 8, :scale => 2
     t.decimal  "height",           :precision => 8, :scale => 2
     t.decimal  "width",            :precision => 8, :scale => 2
@@ -281,13 +292,9 @@ ActiveRecord::Schema.define(:version => 20130508050209) do
     t.datetime "updated_at",                                                        :null => false
     t.boolean  "available",                                      :default => true
     t.decimal  "original_price"
-    t.text     "inspiration_zh"
-    t.string   "name_char"
+    t.text     "inspiration"
     t.string   "slug"
-    t.text     "inspiration_en"
-    t.text     "description_en"
-    t.boolean  "published_zh",                                   :default => false
-    t.boolean  "published_en",                                   :default => false
+    t.boolean  "published",                                      :default => false
     t.integer  "priority",                                       :default => 5
     t.string   "meta_title"
     t.integer  "sold_total",                                     :default => 0

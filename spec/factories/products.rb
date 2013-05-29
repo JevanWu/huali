@@ -3,27 +3,22 @@
 # Table name: products
 #
 #  available        :boolean          default(TRUE)
-#  cost_price       :decimal(8, 2)
 #  count_on_hand    :integer          default(0), not null
 #  created_at       :datetime         not null
 #  depth            :decimal(8, 2)
-#  description_en   :text
-#  description_zh   :text
+#  description      :text
 #  height           :decimal(8, 2)
 #  id               :integer          not null, primary key
-#  inspiration_en   :text
-#  inspiration_zh   :text
+#  inspiration      :text
 #  meta_description :string(255)
 #  meta_keywords    :string(255)
 #  meta_title       :string(255)
-#  name_char        :string(255)
 #  name_en          :string(255)      default(""), not null
 #  name_zh          :string(255)      default(""), not null
 #  original_price   :decimal(, )
 #  price            :decimal(8, 2)
 #  priority         :integer          default(5)
-#  published_en     :boolean          default(FALSE)
-#  published_zh     :boolean          default(FALSE)
+#  published        :boolean          default(FALSE)
 #  slug             :string(255)
 #  sold_total       :integer          default(0)
 #  updated_at       :datetime         not null
@@ -39,17 +34,13 @@ FactoryGirl.define do
   factory :product, aliases: [:viewable] do
     name_zh { Forgery(:lorem_ipsum).word }
     name_en { Forgery(:lorem_ipsum).word }
-    name_char { Forgery(:lorem_ipsum).character }
-    description_en { Forgery(:lorem_ipsum).paragraph }
-    description_zh { Forgery(:lorem_ipsum).paragraph }
-    inspiration_en { Forgery(:lorem_ipsum).sentence }
-    inspiration_zh { Forgery(:lorem_ipsum).sentence }
+    description { Forgery(:lorem_ipsum).paragraph }
+    inspiration { Forgery(:lorem_ipsum).sentence }
 
     priority { Forgery(:basic).number }
     count_on_hand { Forgery(:basic).number }
     sold_total { Forgery(:basic).number({at_least: 1, at_most: 1000}) }
 
-    cost_price { Forgery(:monetary).money }
     price { Forgery(:monetary).money }
     original_price { Forgery(:monetary).money }
 
@@ -57,8 +48,7 @@ FactoryGirl.define do
     width { Forgery(:basic).number({at_least: 10, at_most: 1000}) }
     depth { Forgery(:basic).number({at_least: 10, at_most: 1000}) }
 
-    published_en true
-    published_zh true
+    published true
 
     meta_description { Forgery(:lorem_ipsum).sentence }
     meta_keywords { Forgery(:lorem_ipsum).words(20) }

@@ -3,27 +3,22 @@
 # Table name: products
 #
 #  available        :boolean          default(TRUE)
-#  cost_price       :decimal(8, 2)
 #  count_on_hand    :integer          default(0), not null
 #  created_at       :datetime         not null
 #  depth            :decimal(8, 2)
-#  description_en   :text
-#  description_zh   :text
+#  description      :text
 #  height           :decimal(8, 2)
 #  id               :integer          not null, primary key
-#  inspiration_en   :text
-#  inspiration_zh   :text
+#  inspiration      :text
 #  meta_description :string(255)
 #  meta_keywords    :string(255)
 #  meta_title       :string(255)
-#  name_char        :string(255)
 #  name_en          :string(255)      default(""), not null
 #  name_zh          :string(255)      default(""), not null
 #  original_price   :decimal(, )
 #  price            :decimal(8, 2)
 #  priority         :integer          default(5)
-#  published_en     :boolean          default(FALSE)
-#  published_zh     :boolean          default(FALSE)
+#  published        :boolean          default(FALSE)
 #  slug             :string(255)
 #  sold_total       :integer          default(0)
 #  updated_at       :datetime         not null
@@ -37,7 +32,9 @@
 
 
 class Product < ActiveRecord::Base
-  attr_accessible :name_zh, :name_en, :intro, :description_zh, :description_en, :description2, :meta_title, :meta_description, :meta_keywords, :count_on_hand, :cost_price, :original_price, :price, :height, :width, :depth, :available, :assets, :assets_attributes, :place, :usage, :inspiration_zh, :inspiration_en, :name_char, :published_en, :published_zh, :tag_list, :priority, :recommendation_ids
+  attr_accessible :name_zh, :name_en, :description, :meta_title, :meta_description, :meta_keywords, :count_on_hand, :original_price, :price, :height, :width, :depth, :available, :inspiration, :published, :priority
+
+  attr_accessible :tag_list, :recommendation_ids, :assets, :assets_attributes
 
   # collection
   has_and_belongs_to_many :collections
@@ -57,7 +54,7 @@ class Product < ActiveRecord::Base
   has_many :recommendations, :through => :recommendation_relations
 
   # i18n translation
-  translate :name, :description, :inspiration
+  translate :name
 
   # validations
   validates_presence_of :name_en, :name_zh, :count_on_hand, :assets, :collections
@@ -76,11 +73,11 @@ class Product < ActiveRecord::Base
 
   class << self
     def published
-      lang = I18n.locale =~ /zh-CN/ ? 'zh' : I18n.locale
-      where(:"published_#{lang}" => true)
+      where(published: true)
     end
 
     def sort_by_collection
+      #FIXME remove try when assert products always have an associated collection
       published.sort_by { |p| p.collection.try(:id) || 0 }
     end
   end

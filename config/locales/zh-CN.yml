@@ -156,12 +156,9 @@ zh-CN:
         name_en: 英文名
         tag_list: 标签
         collections: 品类
-        published_zh: 中文发布
-        published_en: 英文发布
-        inspiration_zh: 中文灵感
-        inspiration_en: 英文灵感
-        description_zh: 中文描述
-        description_en: 英文描述
+        published: 是否发布
+        inspiration: 产品灵感
+        description: 产品描述
         count_on_hand: 库存
         price: 现价
         original_price: 原价

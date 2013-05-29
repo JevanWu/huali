@@ -3,27 +3,22 @@
 # Table name: products
 #
 #  available        :boolean          default(TRUE)
-#  cost_price       :decimal(8, 2)
 #  count_on_hand    :integer          default(0), not null
 #  created_at       :datetime         not null
 #  depth            :decimal(8, 2)
-#  description_en   :text
-#  description_zh   :text
+#  description      :text
 #  height           :decimal(8, 2)
 #  id               :integer          not null, primary key
-#  inspiration_en   :text
-#  inspiration_zh   :text
+#  inspiration      :text
 #  meta_description :string(255)
 #  meta_keywords    :string(255)
 #  meta_title       :string(255)
-#  name_char        :string(255)
 #  name_en          :string(255)      default(""), not null
 #  name_zh          :string(255)      default(""), not null
 #  original_price   :decimal(, )
 #  price            :decimal(8, 2)
 #  priority         :integer          default(5)
-#  published_en     :boolean          default(FALSE)
-#  published_zh     :boolean          default(FALSE)
+#  published        :boolean          default(FALSE)
 #  slug             :string(255)
 #  sold_total       :integer          default(0)
 #  updated_at       :datetime         not null
