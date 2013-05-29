@@ -44,9 +44,6 @@ class OrdersController < ApplicationController
       update_guest if current_or_guest_user.guest?
 
       flash[:notice] = t('controllers.order.order_success')
-
-      AnalyticWorker.delay.fill_order(@order.id)
-
       redirect_to checkout_order_path(@order)
     else
       render 'new'
@@ -75,7 +72,6 @@ class OrdersController < ApplicationController
 
     # params[:pay_info] is mixed with two kinds of info - pay method and merchant_name
     # these two are closed bound together
-
     payment_opts = process_pay_info(params[:pay_info])
     transaction = @order.generate_transaction payment_opts
     transaction.start
@@ -87,7 +83,6 @@ class OrdersController < ApplicationController
       transaction = Transaction.find_by_identifier @custom_id
       if transaction.return(request.query_string)
         @order = transaction.order
-        AnalyticWorker.delay.complete_order(@order.id)
         render 'success'
       else
         @order = transaction.order
@@ -100,10 +95,8 @@ class OrdersController < ApplicationController
 
   def notify
     transaction = Transaction.find_by_identifier @custom_id
-    old_state = transaction.state
     begin
       if transaction.notify(request.raw_post)
-        AnalyticWorker.delay.complete_order(@order.id) unless old_state == 'completed'
         render text: "success"
       else
         render text: "failed", status: 400
