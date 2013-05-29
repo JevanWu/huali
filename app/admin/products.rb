@@ -56,6 +56,8 @@ ActiveAdmin.register Product do
 
       row :tag_list
 
+      row :sold_total
+
       row :inspiration do
         markdown(product.inspiration)
       end

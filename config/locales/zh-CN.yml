@@ -177,6 +177,7 @@ zh-CN:
         meta_description: 关键描述
         priority: 优先级
         recommendations: 搭配
+        sold_total: 销售总计
 
       collection:
         name_zh: 中文名
