@@ -10,13 +10,13 @@ class AnalyticWorker
   @@secret = (Rails.env == 'production' ? ENV['SEGMENTIO_SECRET'] : ENV['SEGMENTIO_DEV_SECRET']).freeze
 
   class << self
-    def open_order(user_id, products, ga_client_id)
+    def open_order(user_id, product_names, ga_client_id)
       options = {
         user_id: user_id,
         event: 'Opened Order Form',
         properties: {
           category: 'order',
-          products: products,
+          products: product_names,
           # FIXME added property to calculate user visits before submit form
           # visited_pages_count: 2
         },
