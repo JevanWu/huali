@@ -127,11 +127,6 @@ class Product < ActiveRecord::Base
     !original_price.nil? && price < original_price
   end
 
-  def published?
-    lang = I18n.locale =~ /zh-CN/ ? 'zh' : I18n.locale
-    self.send("published_#{lang}".to_sym)
-  end
-
   def enable
     self.available = true
     self.save
