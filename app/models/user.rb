@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
   has_many :oauth_services, :dependent => :destroy
   has_one :tracking_cookie, :dependent => :destroy
 
-  delegate :ga_client_id, to: :tracking_cookie
+  delegate :ga_client_id, to: :tracking_cookie, allow_nil: true
 
   include Humanizer
   attr_accessor :bypass_humanizer
