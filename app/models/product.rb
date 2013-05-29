@@ -25,8 +25,7 @@
 #
 # Indexes
 #
-#  index_products_on_name_en  (name_en)
-#  index_products_on_slug     (slug) UNIQUE
+#  index_products_on_slug  (slug) UNIQUE
 #
 
 
