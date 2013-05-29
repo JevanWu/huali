@@ -10,9 +10,10 @@ class AnalyticWorker
   @@secret = (Rails.env == 'production' ? ENV['SEGMENTIO_SECRET'] : ENV['SEGMENTIO_DEV_SECRET']).freeze
 
   class << self
-    def open_order(user_id, product_names, ga_client_id)
+    def open_order(user_id, product_names)
+      user = User.find user_id
       options = {
-        user_id: user_id,
+        user_id: user.id,
         event: 'Opened Order Form',
         properties: {
           category: 'order',
@@ -22,14 +23,14 @@ class AnalyticWorker
         },
         context: {
           'Google Analytics' => {
-            clientId: ga_client_id
+            clientId: user.ga_client_id
           }
         }
       }
       track(options)
     end
 
-    def fill_order(order_id, ga_client_id)
+    def fill_order(order_id)
       order = Order.find order_id
       options = {
         user_id: order.user_id,
@@ -47,14 +48,14 @@ class AnalyticWorker
         timestamp: order.created_at,
         context: {
           'Google Analytics' => {
-            clientId: ga_client_id
+            clientId: order.user.ga_client_id
           }
         }
       }
       track(options)
     end
 
-    def complete_order(order_id, ga_client_id)
+    def complete_order(order_id)
       order = Order.find order_id
       options = {
         user_id: order.user_id,
@@ -73,7 +74,7 @@ class AnalyticWorker
         timestamp: order.created_at,
         context: {
           'Google Analytics' => {
-            clientId: ga_client_id
+            clientId: order.user.ga_client_id
           }
         }
       }
