@@ -43,6 +43,9 @@ class User < ActiveRecord::Base
   has_many :transactions, through: :orders
   has_many :shipments, through: :orders
   has_many :oauth_services, :dependent => :destroy
+  has_one :tracking_cookie, :dependent => :destroy
+
+  delegate :ga_client_id, to: :tracking_cookie
 
   include Humanizer
   attr_accessor :bypass_humanizer
@@ -92,7 +95,7 @@ class User < ActiveRecord::Base
       provider: oauth_info['provider'],
       uid: oauth_info['uid']
     )
-  end  
+  end
 
   private
 

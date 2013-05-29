@@ -16,6 +16,7 @@ module Extension
       case resource
       when User
         migrate_from_guest
+        touch_or_create_tracking_cookie(resource)
         session[:previous_url] || root_path
       when Administrator
         admin_root_path

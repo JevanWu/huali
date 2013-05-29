@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130529044900) do
+ActiveRecord::Schema.define(:version => 20130529074128) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -369,6 +369,15 @@ ActiveRecord::Schema.define(:version => 20130529044900) do
   create_table "tags", :force => true do |t|
     t.string "name"
   end
+
+  create_table "tracking_cookies", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "ga_client_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "tracking_cookies", ["user_id"], :name => "index_tracking_cookies_on_user_id"
 
   create_table "transactions", :force => true do |t|
     t.string   "identifier"
