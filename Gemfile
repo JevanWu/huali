@@ -34,6 +34,9 @@ gem 'omniauth-douban-oauth2'
 gem 'omniauth-weibo-oauth2'
 gem 'omniauth-qq-connect'
 
+# server-side google analytics
+gem 'gooa', git: 'git@git.zenhacks.org:yangchenyun/gooa.git'
+
 # squash
 gem 'squash_ruby', git: 'https://github.com/SquareSquash/ruby.git', require: 'squash/ruby'
 gem 'squash_rails', git: 'https://github.com/SquareSquash/rails.git', require: 'squash/rails'
