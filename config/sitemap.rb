@@ -38,8 +38,17 @@ SitemapGenerator::Sitemap.create do
       { loc: asset.image.url(:medium), title: product.name }
     end
 
-    add(product_path(product),
-        lastmod: product.updated_at,
-        images: product_images)
+    add(product_path(product), lastmod: product.updated_at, images: product_images)
+  end
+
+  Collection.find_each do |collection|
+    collection_images = []
+    collection.products.each do |product|
+      product.assets.map do |asset|
+        collection_images << { loc: asset.image.url(:medium), title: product.name }
+      end
+    end
+
+    add(collection_path(collection), lastmod: collection.updated_at, images: collection_images)
   end
 end
