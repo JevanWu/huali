@@ -37,6 +37,5 @@
     </div> <!--! end of #container -->
   </body>
     <%= javascript_include_tag "application"  %>
-    <%= render "layouts/mba" if Rails.env == 'production' %>
     <%= yield(:js) %>
 </html>
