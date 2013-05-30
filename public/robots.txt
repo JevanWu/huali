@@ -6,4 +6,4 @@ Crawl-delay: 5
 Disallow: /admin
 Disallow: /administrator
 
-Sitemap: http://hua.li/sitemap_index.xml
+Sitemap: http://hua.li/sitemap.xml.gz
