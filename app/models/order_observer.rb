@@ -10,6 +10,7 @@ class OrderObserver < ActiveRecord::Observer
     Notify.delay.pay_order_admin_email(order.id)
     Sms.delay.pay_order_user_sms(order.id)
     AnalyticWorker.delay.complete_order(order.id)
+    GaTrackWorker.delay.order_track(order.id)
   end
 
   def after_ship(order, transition)
