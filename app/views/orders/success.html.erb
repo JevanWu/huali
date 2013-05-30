@@ -2,31 +2,6 @@
   <%= image_tag('title-checkout.png') %>
 <% end %>
 
-<% content_for(:analytic_js) do %>
-  <script>
-  analytics.ready(function () {
-    ga('require', 'ecommerce', 'ecommerce.js');
-    ga('set', 'currencyCode', 'CNY');
-    ga('ecommerce:addTransaction', {
-      'id': '<%= @order.identifier %>', // Transaction ID. Required.
-      'affiliation': 'Hua.Li', // Affiliation or store name.
-      'revenue': '<%= @order.payment_total %>' // Grand Total.
-    });
-    <% @order.line_items.each do |item| %>
-    ga('ecommerce:addItem', {
-      'id': '<%= @order.identifier %>', // Transaction ID. Required.
-      'name': '<%= item.name %>',    // Product name. Required.
-      'sku': '<%= item.product_id %>',                 // SKU/code.
-      'category': '<%= item.category_name %>',         // Category or variation.
-      'price': '<%= item.price %>',                 // Unit price.
-      'quantity': '<%= item.quantity %>'                   // Quantity.
-    });
-    <% end %>
-    ga('ecommerce:send');
-  });
-  </script>
-<% end %>
-
 <div class='row'>
   <%= render 'checkout_nav' %>
 </div>
