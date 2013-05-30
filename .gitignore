@@ -81,3 +81,6 @@ pickle-email-*.html
 
 # tags file
 tags
+
+# sitemap file
+public/sitemap.xml.gz
