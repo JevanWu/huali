@@ -313,6 +313,9 @@ zh-CN:
     reminder:
       reminder_success: 您已经成功创建提醒
 
+    survey:
+      survey_success: 感谢您的填写，下面是为您挑选的商品
+
   views:
     admin:
       order:
