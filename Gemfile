@@ -35,7 +35,7 @@ gem 'omniauth-weibo-oauth2'
 gem 'omniauth-qq-connect'
 
 # server-side google analytics
-gem 'gooa', git: 'git@git.zenhacks.org:yangchenyun/gooa.git'
+gem 'gooa', git: 'git@git.zenhacks.org:yangchenyun/gooa.git', require: 'gooa'
 
 # squash
 gem 'squash_ruby', git: 'https://github.com/SquareSquash/ruby.git', require: 'squash/ruby'
