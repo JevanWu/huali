@@ -234,6 +234,7 @@ zh-CN:
         gender: 您的性别
         receiver_gender: 对方性别
         gift_purpose: 送礼目的
+        user: 填写用户
 
   models:
     order:
