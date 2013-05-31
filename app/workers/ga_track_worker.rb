@@ -1,5 +1,3 @@
-require 'gooa'
-
 class GaTrackWorker < Gooa::Client
   include Sidekiq::Worker
   sidekiq_options queue: :analytics, backtrace: true
