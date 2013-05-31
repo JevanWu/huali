@@ -1,12 +1,4 @@
 GIT
-  remote: git@git.zenhacks.org:yangchenyun/gooa.git
-  revision: b864792c75c1e416bbe50a3346ebacc1ae515052
-  specs:
-    gooa (0.0.1)
-      faraday (>= 0.8, < 0.10)
-      faraday_middleware (>= 0.8, < 0.10)
-
-GIT
   remote: https://github.com/SquareSquash/rails.git
   revision: d5b11a0b2d8e58468f07fb839c60273a469c4520
   specs:
@@ -530,7 +522,6 @@ DEPENDENCIES
   formtastic
   friendly_id (~> 4.0.1)
   gibbon
-  gooa!
   growl
   guard
   guard-bundler
