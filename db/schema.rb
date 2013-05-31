@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130529074128) do
+ActiveRecord::Schema.define(:version => 20130531093113) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -352,6 +352,15 @@ ActiveRecord::Schema.define(:version => 20130529074128) do
   add_index "shipments", ["order_id"], :name => "index_shipments_on_order_id"
   add_index "shipments", ["ship_method_id"], :name => "index_shipments_on_ship_method_id"
   add_index "shipments", ["tracking_num"], :name => "index_shipments_on_tracking_num"
+
+  create_table "surveys", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "gender"
+    t.string   "receiver_gender"
+    t.string   "gift_purpose"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"
