@@ -4,5 +4,5 @@ class Survey < ActiveRecord::Base
   extend Enumerize
   enumerize :gender, in: [:male, :female]
   enumerize :receiver_gender, in: [:male, :female]
-  enumerize :gift_purpose, in: [:male, :female]
+  enumerize :gift_purpose, in: [:lover, :friend, :client, :older, :other]
 end

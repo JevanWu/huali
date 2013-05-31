@@ -53,6 +53,7 @@ zh-CN:
       area: 地区
       ship_method: 递送方式
       reminder: 提醒
+      survey: 调查问卷
 
     attributes:
       order: &order
@@ -229,6 +230,11 @@ zh-CN:
         send_date: 提醒时间
         note: 备注
 
+      survey:
+        gender: 您的性别
+        receiver_gender: 对方性别
+        gift_purpose: 送礼目的
+
   models:
     order:
       state:
@@ -277,6 +283,23 @@ zh-CN:
         ship: 发货
         accept: 送达
         print: 打印
+
+  enumerize:
+    survey:
+      gender:
+        male: 男
+        female: 女
+
+      receiver_gender:
+        male: 男
+        female: 女
+
+      gift_purpose:
+        lover: 爱人
+        friend: 朋友
+        client: 客户
+        older: 长辈
+        other: 其他
 
   controllers:
     order:
