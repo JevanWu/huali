@@ -1,6 +1,6 @@
 source "http://ruby.taobao.org"
 # source "http://bundler-api.herokuapp.com"
-# source 'http://rubygems.org'
+source 'http://rubygems.org'
 
 gem 'rails', '3.2.13'
 gem 'pg', '>= 0.14.1'
@@ -35,7 +35,7 @@ gem 'omniauth-weibo-oauth2'
 gem 'omniauth-qq-connect'
 
 # server-side google analytics
-gem 'gooa', git: 'git@git.zenhacks.org:yangchenyun/gooa.git', require: 'gooa'
+gem 'gooa'
 
 # squash
 gem 'squash_ruby', git: 'https://github.com/SquareSquash/ruby.git', require: 'squash/ruby'
