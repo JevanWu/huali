@@ -18,7 +18,7 @@ class ShipMethod < ActiveRecord::Base
 
   validates_presence_of :name, :method
   validates :method, inclusion: {
-    in: %w(express mannual),
+    in: %w(express manual),
     message: "%{value} is not a valid shipment_method."
   }
 
