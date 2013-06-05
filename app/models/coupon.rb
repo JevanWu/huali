@@ -62,6 +62,12 @@ class Coupon < ActiveRecord::Base
   private
 
   def generate_code
-    self.code = SecureRandom.hex[0...8]
+    loop do
+      generated_code = SecureRandom.hex[0...8]
+
+      unless self.class.where(code: generate_code).exists?
+        self.code = generated_code and break
+      end
+    end
   end
 end
