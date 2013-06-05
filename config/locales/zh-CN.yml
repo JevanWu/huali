@@ -231,9 +231,9 @@ zh-CN:
         note: 备注
 
       survey:
-        gender: 您的性别
-        receiver_gender: 对方性别
-        gift_purpose: 送礼目的
+        gender: 您是男生/女生
+        receiver_gender: 您准备送花给哪个ta
+        gift_purpose: ta是您的
         user: 填写用户
 
   models:
@@ -288,12 +288,12 @@ zh-CN:
   enumerize:
     survey:
       gender:
-        male: 男
-        female: 女
+        male: 男生
+        female: 女生
 
       receiver_gender:
-        male: 男
-        female: 女
+        male: 他
+        female: 她
 
       gift_purpose:
         lover: 爱人
