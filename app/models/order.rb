@@ -289,11 +289,11 @@ class Order < ActiveRecord::Base
   private
 
   def expected_date_in_range
-    if expected_date.in? [Date.parse('2013-05-20')]
+    if expected_date.in?  %w(06-08 06-09 06-16).map! { |date| Date.parse(date) }
       return true
     end
 
-    if expected_date.in?  %w('2013-05-10').map! { |date| Date.parse(date) }
+    if expected_date.in?  %w(06-10 06-11 06-12).map! { |date| Date.parse(date) }
       errors.add :expected_date, :unavailable_date
     end
 

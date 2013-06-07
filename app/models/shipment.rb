@@ -78,6 +78,8 @@ class Shipment < ActiveRecord::Base
 
     shipment = Shipment.find(shipment_id)
 
+    return unless shipment.is_express?
+
     param = {
       company: shipment.ship_method.kuaidi_api_code,
       number: shipment.tracking_num,
