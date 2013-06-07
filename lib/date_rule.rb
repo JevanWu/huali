@@ -1,7 +1,16 @@
 require 'active_support/core_ext/object/inclusion'
 
+# Usage
+# all params support either date string or Date object
+#
+# DateRule.new(range: ['2013-12-01', '2014-01-02'])
+# DateRule.new(range: ['2013-12-01', '2014-01-02'], exclude: ['2013-11-01', '2013-12-01'])
+# DateRule.new(range: ['2013-12-01', '2014-01-02'], include: ['2013-11-01', '2013-12-01'])
+#
+# more generic rules could be passed to :delete_if or :keep_if
 # rule = lambda { |date| date.monday? }
-# DateRule.new(range: ['2013-12-01', '2014-01-02'], exclude: ['2013-11-01', '2013-12-01'], include: ['2013-08-01', '2013-07-01'], keep_if: [ rule ], delete_if: [])
+# DateRule.new(range: ['2013-12-01', '2014-01-02'], keep_if: rule)
+# DateRule.new(range: ['2013-12-01', '2014-01-02'], delete_if: rule)
 
 class DateRule
   def initialize(options)
