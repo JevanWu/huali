@@ -31,6 +31,11 @@ ActiveAdmin.register Coupon do
       row :adjustment
       row :available_count
       row :used_count
+      row :orders do
+        coupon.orders.map do |order|
+          link_to(order.identifier, admin_order_path(order))
+        end.join(' ').html_safe
+      end
       row :note
       row :expired
       row :expires_at
