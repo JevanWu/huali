@@ -1,4 +1,4 @@
-require 'set'
+require 'active_support/core_ext/object/inclusion'
 
 # rule = lambda { |date| date.monday? }
 # DateRule.new(range: ['2013-12-01', '2014-01-02'], exclude: ['2013-11-01', '2013-12-01'], include: ['2013-08-01', '2013-07-01'], keep_if: [ rule ], delete_if: [])
@@ -6,16 +6,19 @@ require 'set'
 class DateRule
   def initialize(options)
     @start_date, @end_date = init_range(*options[:range])
-    @date_set = (@start_date..@end_date).to_set
-    exclude_date(options[:exclude])
-    include_date(options[:include])
-    apply_keep_rules(options[:keep_if])
-    apply_delete_rules(options[:delete_if])
+    @date_range = @start_date..@end_date
+    @exclude_date = parse_date options[:exclude]
+    @include_date = parse_date options[:include]
+    @keep_rules = parse_rule options[:keep_if]
+    @delete_rules = parse_rule options[:delete_if]
   end
 
   def apply_test(date)
     date = Date.parse(date) unless Date === date
-    date.in? @date_set
+    return true if @include_date && date.in?(@include_date)
+    return false if @exclude_date && date.in?(@exclude_date)
+
+    date.in?(@date_range) && apply_keep_rules(date) && apply_delete_rules(date)
   end
 
   private
@@ -26,34 +29,31 @@ class DateRule
     [ Date.parse(start_date), Date.parse(end_date) ]
   end
 
-  def exclude_date(dates)
-    return if dates.nil?
-    @date_set.subtract unified_date(dates)
-  end
-
-  def include_date(dates)
-    return if dates.nil?
-    @date_set.merge unified_date(dates)
-  end
-
-  def unified_date(dates)
+  def parse_date(dates)
+    return nil if dates.nil?
     dates = [dates] unless Array === dates
     dates.map { |date| date.kind_of?(Date) ? date : Date.parse(date) }
   end
 
-  def apply_keep_rules(rules)
-    return if rules.nil?
+  def parse_rule(rules)
+    return nil if rules.nil?
     rules = [rules] unless Array === rules
-    @date_set = rules.map do |rule|
-      @date_set.dup.keep_if(&rule)
-    end.inject(:+)
+    rules
   end
 
-  def apply_delete_rules(rules)
-    return if rules.nil?
-    rules = [rules] unless Array === rules
-    rules.each do |rule|
-      @date_set.delete_if(&rule)
+  def apply_keep_rules(date)
+    return true if @keep_rules.nil?
+    for rule in @keep_rules
+      return true if rule.call(date)
     end
+    false
+  end
+
+  def apply_delete_rules(date)
+    return true if @delete_rules.nil?
+    for rule in @delete_rules
+      return false if rule.call(date)
+    end
+    true
   end
 end
