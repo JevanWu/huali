@@ -3,7 +3,7 @@ require 'set'
 # rule = lambda { |date| date.monday? }
 # DateRule.new(range: ['2013-12-01', '2014-01-02'], exclude: ['2013-11-01', '2013-12-01'], include: ['2013-08-01', '2013-07-01'], keep_if: [ rule ], delete_if: [])
 
-class DateRule
+class DateRuleEngine
   def initialize(options)
     @start_date, @end_date = init_range(*options[:range])
     @date_set = (@start_date..@end_date).to_set
