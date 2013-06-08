@@ -57,21 +57,21 @@ describe Product do
 
     context "default - amount: 4, pool: all, type: random" do
       it "returns an Array of product_ids" do
-        @product.suggested_products.should be_a_kind_of Array
+        @product.suggestions.should be_a_kind_of Array
 
-        selected_set = Set.new @product.suggested_products
+        selected_set = Set.new @product.suggestions
 
         selected_set.should be_subset(@all_set)
       end
 
       it "select ids according to the amount" do
         amount = Forgery(:basic).number
-        @product.suggested_products(amount).length.should == amount
+        @product.suggestions(amount).length.should == amount
       end
 
       it "selects ids randomly" do
-        result1 = @product.suggested_products(10).sort
-        result2 = @product.suggested_products(10).sort
+        result1 = @product.suggestions(10).sort
+        result2 = @product.suggestions(10).sort
 
         (result1 == result2).should be_false
       end
@@ -79,18 +79,18 @@ describe Product do
 
     it "selects products from the products in the same collection" do
 
-      selected_set = Set.new @product.suggested_products(5, :collection)
+      selected_set = Set.new @product.suggestions(5, :collection)
       selected_set.should be_subset(@col1_set)
     end
 
     it "selects products by the order of priority" do
       expected = Product.order(:priority).limit(5).map(&:id)
-      @product.suggested_products(5, :all, :priority).map(&:id).should == expected
+      @product.suggestions(5, :all, :priority).map(&:id).should == expected
     end
 
     it "selects products by the order of sold_total amount" do
       expected = Product.order(:sold_total).limit(5).map(&:id)
-      @product.suggested_products(5, :all, :sold_total).map(&:id).should == expected
+      @product.suggestions(5, :all, :sold_total).map(&:id).should == expected
     end
   end
 end
