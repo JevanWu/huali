@@ -14,6 +14,10 @@
 #  updated_at  :datetime         not null
 #  user_id     :integer
 #
+# Indexes
+#
+#  index_addresses_on_user_id  (user_id)
+#
 
 class Address < ActiveRecord::Base
   attr_accessible :address, :fullname, :phone, :post_code,

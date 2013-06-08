@@ -30,6 +30,7 @@
 # Indexes
 #
 #  index_orders_on_identifier  (identifier) UNIQUE
+#  index_orders_on_user_id     (user_id)
 #
 
 class Order < ActiveRecord::Base

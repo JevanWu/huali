@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: surveys
+#
+#  created_at      :datetime         not null
+#  gender          :string(255)
+#  gift_purpose    :string(255)
+#  id              :integer          not null, primary key
+#  receiver_gender :string(255)
+#  updated_at      :datetime         not null
+#  user_id         :integer
+#
+
 class Survey < ActiveRecord::Base
   attr_accessible :gender, :gift_purpose, :receiver_gender, :user_id
   belongs_to :user
