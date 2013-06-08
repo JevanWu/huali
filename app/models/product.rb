@@ -51,6 +51,10 @@ class Product < ActiveRecord::Base
   has_many :recommendation_relations
   has_many :recommendations, :through => :recommendation_relations
 
+  # Area and Date rules
+  has_one :region_rule, dependent: :destroy
+  has_one :date_rule, dependent: :destroy
+
   # i18n translation
   translate :name
 

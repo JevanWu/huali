@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130531093113) do
+ActiveRecord::Schema.define(:version => 20130608025029) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -40,6 +40,8 @@ ActiveRecord::Schema.define(:version => 20130531093113) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  add_index "addresses", ["user_id"], :name => "index_addresses_on_user_id"
 
   create_table "administrators", :force => true do |t|
     t.string   "email",                  :default => "",      :null => false
@@ -116,11 +118,6 @@ ActiveRecord::Schema.define(:version => 20130531093113) do
 
   add_index "collections_products", ["product_id", "collection_id"], :name => "index_collections_products_on_product_id_and_collection_id", :unique => true
 
-  create_table "collocation_relations", :force => true do |t|
-    t.integer "product_a_id", :null => false
-    t.integer "product_b_id", :null => false
-  end
-
   create_table "coupons", :force => true do |t|
     t.string   "code",                               :null => false
     t.string   "adjustment",                         :null => false
@@ -134,6 +131,19 @@ ActiveRecord::Schema.define(:version => 20130531093113) do
   end
 
   add_index "coupons", ["code"], :name => "coupons_on_code", :unique => true
+
+  create_table "date_rules", :force => true do |t|
+    t.integer  "product_id"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.string   "included_dates"
+    t.string   "excluded_dates"
+    t.string   "excluded_weekdays"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  add_index "date_rules", ["product_id"], :name => "index_date_rules_on_product_id"
 
   create_table "line_items", :force => true do |t|
     t.integer  "order_id"
@@ -157,74 +167,6 @@ ActiveRecord::Schema.define(:version => 20130531093113) do
   end
 
   add_index "oauth_services", ["provider", "uid"], :name => "index_oauth_services_on_provider_and_uid"
-
-  create_table "old_alipays", :force => true do |t|
-    t.string   "out_merchant_no"
-    t.string   "identifier"
-    t.string   "source"
-    t.string   "pay_type"
-    t.string   "customer"
-    t.string   "subject_text"
-    t.string   "amount"
-    t.string   "coupon"
-    t.string   "status"
-    t.string   "fee"
-    t.string   "refund"
-    t.string   "note"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-  end
-
-  create_table "old_orders", :force => true do |t|
-    t.string   "order_status"
-    t.string   "order_number"
-    t.string   "buyer_name"
-    t.string   "phonenum"
-    t.string   "email"
-    t.string   "receiver_name"
-    t.string   "province"
-    t.string   "address"
-    t.date     "expect_date"
-    t.boolean  "need_invoice"
-    t.string   "invoice_header"
-    t.text     "requirement"
-    t.string   "receiver_phonenum"
-    t.string   "product_name"
-    t.string   "delivery_code"
-    t.text     "card_info"
-    t.string   "delivery_method"
-    t.string   "zip_code"
-    t.string   "comment"
-    t.boolean  "archived"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-  end
-
-  create_table "old_wufoos", :force => true do |t|
-    t.string   "entry_id"
-    t.string   "status"
-    t.string   "order_identifier"
-    t.string   "name"
-    t.string   "phonenum"
-    t.string   "email"
-    t.string   "receiver_name"
-    t.string   "receiver_prov"
-    t.string   "receiver_addr"
-    t.string   "post_code"
-    t.string   "receiver_phonenum"
-    t.date     "expected_date"
-    t.text     "card_info"
-    t.text     "special_note"
-    t.string   "source"
-    t.string   "other_source"
-    t.string   "created_by"
-    t.string   "updated_by"
-    t.string   "ip_addr"
-    t.string   "last_access"
-    t.string   "completion_status"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-  end
 
   create_table "order_coupons", :force => true do |t|
     t.integer "order_id"
@@ -260,6 +202,7 @@ ActiveRecord::Schema.define(:version => 20130531093113) do
   end
 
   add_index "orders", ["identifier"], :name => "index_orders_on_identifier", :unique => true
+  add_index "orders", ["user_id"], :name => "index_orders_on_user_id"
 
   create_table "pages", :force => true do |t|
     t.string   "title_zh"
@@ -315,6 +258,20 @@ ActiveRecord::Schema.define(:version => 20130531093113) do
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
   end
+
+  add_index "recommendation_relations", ["product_id"], :name => "index_recommendation_relations_on_product_id"
+  add_index "recommendation_relations", ["recommendation_id"], :name => "index_recommendation_relations_on_recommendation_id"
+
+  create_table "region_rules", :force => true do |t|
+    t.integer  "product_id"
+    t.string   "province_ids"
+    t.string   "city_ids"
+    t.string   "area_ids"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "region_rules", ["product_id"], :name => "index_region_rules_on_product_id"
 
   create_table "reminders", :force => true do |t|
     t.string   "email",      :null => false

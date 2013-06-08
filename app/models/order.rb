@@ -65,6 +65,9 @@ class Order < ActiveRecord::Base
 
   validates_presence_of :identifier, :line_items, :expected_date, :state, :total, :item_total, :sender_email, :sender_phone, :sender_name, :source
 
+  validates_with ProductRegionValidator
+  validates_with ProductDateValidator
+
   # only validate once on Date.today, because in future Date.today will change
   validate :expected_date_in_range, on: :create
   validate :phone_validate, unless: lambda { |order| order.sender_phone.blank? }
