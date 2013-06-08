@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130531093113) do
+ActiveRecord::Schema.define(:version => 20130607061559) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -40,6 +40,8 @@ ActiveRecord::Schema.define(:version => 20130531093113) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  add_index "addresses", ["user_id"], :name => "index_addresses_on_user_id"
 
   create_table "administrators", :force => true do |t|
     t.string   "email",                  :default => "",      :null => false
@@ -187,6 +189,7 @@ ActiveRecord::Schema.define(:version => 20130531093113) do
   end
 
   add_index "orders", ["identifier"], :name => "index_orders_on_identifier", :unique => true
+  add_index "orders", ["user_id"], :name => "index_orders_on_user_id"
 
   create_table "pages", :force => true do |t|
     t.string   "title_zh"
@@ -222,8 +225,8 @@ ActiveRecord::Schema.define(:version => 20130531093113) do
     t.string   "slug"
     t.boolean  "published",                                      :default => false
     t.integer  "priority",                                       :default => 5
-    t.integer  "sold_total",                                     :default => 0
     t.string   "meta_title"
+    t.integer  "sold_total",                                     :default => 0
   end
 
   add_index "products", ["slug"], :name => "index_products_on_slug", :unique => true
@@ -242,6 +245,9 @@ ActiveRecord::Schema.define(:version => 20130531093113) do
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
   end
+
+  add_index "recommendation_relations", ["product_id"], :name => "index_recommendation_relations_on_product_id"
+  add_index "recommendation_relations", ["recommendation_id"], :name => "index_recommendation_relations_on_recommendation_id"
 
   create_table "reminders", :force => true do |t|
     t.string   "email",      :null => false
