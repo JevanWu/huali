@@ -1,4 +1,5 @@
 require 'active_support/core_ext/object/inclusion'
+require 'active_support/core_ext/array/wrap'
 
 # Usage
 # all params support either date string or Date object
@@ -40,14 +41,13 @@ class DateRuleEngine
 
   def parse_date(dates)
     return nil if dates.nil?
-    dates = [dates] unless Array === dates
+    dates = Array.wrap(dates)
     dates.map { |date| date.kind_of?(Date) ? date : Date.parse(date) }
   end
 
   def parse_rule(rules)
     return nil if rules.nil?
-    rules = [rules] unless Array === rules
-    rules
+    Array.wrap(rules)
   end
 
   def apply_keep_rules(date)
