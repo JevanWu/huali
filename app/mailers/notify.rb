@@ -41,6 +41,13 @@ class Notify < ActionMailer::Base
     mail(to: @reminder.email, subject: subject('您在' + l(@reminder.created_at, format: :short) + '的提醒'))
   end
 
+  def unpaid_orders_email
+    @unpaid_orders_today = Order.unpaid_today(2)
+    return if @unpaid_orders_today.blank?
+
+    mail(to: 'support@hua.li', subject: subject("未支付订单"))
+  end
+
   def date_summary_email(date, *emails)
     @date = date
 

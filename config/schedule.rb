@@ -47,3 +47,7 @@ end
 every :day, at: '11:59 pm' do
   rake "notice:today_order_summary_email"
 end
+
+every 2.hours do
+  rake "notice:unpaid_orders_email"
+end

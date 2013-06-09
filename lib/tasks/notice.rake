@@ -13,4 +13,9 @@ namespace :notice do
   task product_day_email: :environment do
     Notify.delay.product_day_email('team@hua.li')
   end
+
+  desc "Notify about unpaid orders today"
+  task unpaid_orders_email: :environment do
+    Notify.delay.unpaid_orders_email
+  end
 end

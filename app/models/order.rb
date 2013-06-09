@@ -126,6 +126,7 @@ class Order < ActiveRecord::Base
   scope :within_this_month, -> { where('delivery_date >= ? AND delivery_date <= ? ', Date.current.beginning_of_month, Date.current.end_of_month) }
   scope :accountable, -> { where("state != 'void' and state != 'generated'") }
   scope :in_day, lambda { |date| where("DATE(created_at) = DATE(?)", date) }
+  scope :unpaid_today, lambda { |hours_ago| in_day(Date.current).where(state: 'generated').where("created_at <= ?", hours_ago.hours.ago) }
 
   default_scope -> { order("created_at DESC") }
 
