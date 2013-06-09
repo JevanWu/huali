@@ -6,12 +6,12 @@ class OrderProductDateValidator < ActiveModel::Validator
       next if product.date_rule.blank?
 
       date_rule = product.date_rule
-      rule_engine_options = {}
-
-      rule_engine_options[:range] = [date_rule.start_date, date_rule.end_date]
-      rule_engine_options[:include] = date_rule.included_dates
-      rule_engine_options[:exclude] = date_rule.excluded_dates
-      rule_engine_options[:delete_if] = Proc.new { |date| date.wday.in? date_rule.excluded_weekdays }
+      rule_engine_options = {
+        range: [date_rule.start_date, date_rule.end_date],
+        include: date_rule.included_dates,
+        exclude: date_rule.excluded_dates,
+        delete_if: Proc.new { |date| date.wday.in? date_rule.excluded_weekdays }
+      }
 
       date_valid = DateRuleEngine.new(rule_engine_options).apply_test(order.expected_date)
 
