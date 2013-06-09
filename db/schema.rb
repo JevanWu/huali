@@ -11,7 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(:version => 20130608025029) do
+=======
+ActiveRecord::Schema.define(:version => 20130607061559) do
+>>>>>>> master
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -262,6 +266,7 @@ ActiveRecord::Schema.define(:version => 20130608025029) do
   add_index "recommendation_relations", ["product_id"], :name => "index_recommendation_relations_on_product_id"
   add_index "recommendation_relations", ["recommendation_id"], :name => "index_recommendation_relations_on_recommendation_id"
 
+<<<<<<< HEAD
   create_table "region_rules", :force => true do |t|
     t.integer  "product_id"
     t.text     "province_ids"
@@ -273,6 +278,8 @@ ActiveRecord::Schema.define(:version => 20130608025029) do
 
   add_index "region_rules", ["product_id"], :name => "index_region_rules_on_product_id"
 
+=======
+>>>>>>> master
   create_table "reminders", :force => true do |t|
     t.string   "email",      :null => false
     t.datetime "send_date",  :null => false

@@ -106,7 +106,7 @@ class Product < ActiveRecord::Base
   end
 
   def collection
-    collections.primary.blank? ? collections.primary.first : collections.first
+    collections.primary.blank? ? collections.first : collections.primary.first
   end
 
   def category_name
@@ -115,11 +115,11 @@ class Product < ActiveRecord::Base
   end
 
   def has_stock?
-    @count_on_hand
+    !!@count_on_hand
   end
 
   def discount?
-    !original_price.nil? && price < original_price
+    original_price.present? && price < original_price
   end
 
   def publish
