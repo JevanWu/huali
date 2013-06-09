@@ -1,4 +1,4 @@
-class ProductRegionValidator < ActiveModel::Validator
+class OrderProductRegionValidator < ActiveModel::Validator
   def validate(order)
     order_valid = true
 

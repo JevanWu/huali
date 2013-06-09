@@ -1,4 +1,4 @@
-class ProductDateValidator < ActiveModel::Validator
+class OrderProductDateValidator < ActiveModel::Validator
   def validate(order)
     order_valid = true
 
