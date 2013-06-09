@@ -53,6 +53,7 @@ class Order < ActiveRecord::Base
 
   delegate :province_name, :city_name, to: :address
   delegate :paymethod, to: :transaction, allow_nil: true
+  delegate :province_id, :city_id, :area_id, to: :address, prefix: 'address'
 
   accepts_nested_attributes_for :line_items
   accepts_nested_attributes_for :address

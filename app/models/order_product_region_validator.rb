@@ -9,7 +9,9 @@ class OrderProductRegionValidator < ActiveModel::Validator
                                                 product.region_rule.city_ids,
                                                 product.region_rule.area_ids)
 
-      region_valid = region_rule_engine.apply_test(order.address.province_id, order.address.city_id, order.address.area_id)
+      region_valid = region_rule_engine.apply_test(order.address_province_id,
+                                                   order.address_city_id,
+                                                   order.address_area_id)
 
       unless region_valid
         product.errors[:base] = :product_in_unavailable_region
