@@ -4,8 +4,8 @@ class CreateDateRules < ActiveRecord::Migration
       t.references :product
       t.date :start_date
       t.date :end_date
-      t.string :included_dates
-      t.string :excluded_dates
+      t.text :included_dates
+      t.text :excluded_dates
       t.string :excluded_weekdays
 
       t.timestamps

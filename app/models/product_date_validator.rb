@@ -3,6 +3,8 @@ class ProductDateValidator < ActiveModel::Validator
     order_valid = true
 
     order.products.each do |product|
+      next if product.date_rule.blank?
+
       date_rule = product.date_rule
       rule_engine_options = {}
 
@@ -20,6 +22,6 @@ class ProductDateValidator < ActiveModel::Validator
       end
     end
 
-    order.errors[:base] = :undeliverable_products unless order_valid
+    order.errors[:base] = :unavailable_date unless order_valid
   end
 end

@@ -3,7 +3,11 @@ class ProductRegionValidator < ActiveModel::Validator
     order_valid = true
 
     order.products.each do |product|
-      region_rule_engine = RegionRuleEngine.new(product.province_ids, product.city_ids, product.area_ids)
+      next if product.region_rule.blank?
+
+      region_rule_engine = RegionRuleEngine.new(product.region_rule.province_ids,
+                                                product.region_rule.city_ids,
+                                                product.region_rule.area_ids)
 
       region_valid = region_rule_engine.apply_test(order.address.province_id, order.address.city_id, order.address.area_id)
 
@@ -14,6 +18,6 @@ class ProductRegionValidator < ActiveModel::Validator
       end
     end
 
-    order.errors[:base] = :undeliverable_products unless order_valid
+    order.errors[:base] = :unavailable_location unless order_valid
   end
 end

@@ -65,11 +65,10 @@ class Order < ActiveRecord::Base
 
   validates_presence_of :identifier, :line_items, :expected_date, :state, :total, :item_total, :sender_email, :sender_phone, :sender_name, :source
 
-  validates_with ProductRegionValidator
-  validates_with ProductDateValidator
+  validates_with ProductRegionValidator, if: lambda { |order| order.state.in? ['generated', 'wait_check', 'wait_make'] }
+  validates_with ProductDateValidator, if: lambda { |order| order.state.in? ['generated', 'wait_check', 'wait_make'] }
 
   # only validate once on Date.today, because in future Date.today will change
-  validate :expected_date_in_range, on: :create
   validate :phone_validate, unless: lambda { |order| order.sender_phone.blank? }
   # skip coupon code validation for empty coupon and already used coupon
   validate :coupon_code_validate, unless: lambda { |order| order.coupon_code.blank? || order.already_use_the_coupon? }
@@ -291,27 +290,6 @@ class Order < ActiveRecord::Base
   end
 
   private
-
-  def expected_date_in_range
-    if expected_date.in?  %w(06-08 06-09 06-16).map! { |date| Date.parse(date) }
-      return true
-    end
-
-    if expected_date.in?  %w(06-10 06-11 06-12).map! { |date| Date.parse(date) }
-      errors.add :expected_date, :unavailable_date
-    end
-
-    # shift order acceptance date after 17:00 every day
-    start_day = Time.now.hour >= 17 ? Date.today.next_day(3) : Date.today.next_day(2)
-
-    unless expected_date.in? start_day..Date.today.next_month
-      errors.add :expected_date, :unavailable_date
-    end
-
-    if expected_date.monday? or expected_date.sunday?
-      errors.add :expected_date, :unavailable_date
-    end
-  end
 
   def phone_validate
     n_digits = sender_phone.scan(/[0-9]/).size

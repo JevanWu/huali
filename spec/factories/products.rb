@@ -55,13 +55,15 @@ FactoryGirl.define do
       [1, 2, 3, 4].sample.times do
         product.assets << create(:asset)
         product.collections << create(:collection)
-
-        create(:region_rule, product: product)
-        create(:date_rule, product: product)
       end
     end
 
-    trait :published do
+    after(:create) do |product|
+      product.region_rule = build(:region_rule, product: product)
+      product.date_rule = build(:date_rule, product: product)
+    end
+
+    trait :unpublished do
       published false
     end
 

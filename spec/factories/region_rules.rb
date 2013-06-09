@@ -19,9 +19,9 @@
 
 FactoryGirl.define do
   factory :region_rule do
-    province_ids Province.limit(20).select("id").map(&:id)
-    city_ids City.limit(200).select("id").map(&:id)
-    area_ids Area.limit(2000).select("id").map(&:id)
+    province_ids []
+    city_ids []
+    area_ids []
     product
   end
 end

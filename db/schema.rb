@@ -136,8 +136,8 @@ ActiveRecord::Schema.define(:version => 20130608025029) do
     t.integer  "product_id"
     t.date     "start_date"
     t.date     "end_date"
-    t.string   "included_dates"
-    t.string   "excluded_dates"
+    t.text     "included_dates"
+    t.text     "excluded_dates"
     t.string   "excluded_weekdays"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
@@ -264,9 +264,9 @@ ActiveRecord::Schema.define(:version => 20130608025029) do
 
   create_table "region_rules", :force => true do |t|
     t.integer  "product_id"
-    t.string   "province_ids"
-    t.string   "city_ids"
-    t.string   "area_ids"
+    t.text     "province_ids"
+    t.text     "city_ids"
+    t.text     "area_ids"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end

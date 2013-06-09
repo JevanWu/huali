@@ -56,4 +56,58 @@ describe Order do
       end
     end
   end
+
+  describe "validates with ProductDateValidator" do
+    let(:order) { FactoryGirl.create(:order, expected_date: "2013-02-05".to_date) }
+    before(:each) do
+      order.line_items.each do |line|
+        line.product.region_rule = nil
+      end
+    end
+
+    context "against valid expected_date" do
+      it "should pass" do
+        order.should be_valid
+      end
+    end
+
+    context "against invalid expected_date" do
+      it "should fail" do
+        order.expected_date = "2013-01-05"
+        order.products.reload.map(&:date_rule)
+
+        order.should_not be_valid
+        order.errors[:base].should include(:unavailable_date)
+      end
+    end
+  end
+
+  describe "validates with ProductRegionValidator" do
+    let(:order) { FactoryGirl.create(:order, expected_date: "2013-02-05".to_date) }
+    before(:each) do
+      order.line_items.each do |line|
+        line.product.date_rule = nil
+      end
+    end
+
+    context "against invalid region" do
+      it "should fail" do
+        order.products.reload.map(&:region_rule)
+        order.address = create(:address)
+
+        # Differ region rule address from order
+        new_addr = create(:address)
+        order.line_items.each do |line|
+          line.product.region_rule = build(:region_rule,
+                                           province_ids: [new_addr.province_id],
+                                           city_ids: [new_addr.city_id],
+                                           area_ids: [new_addr.area_id],
+                                           product: line.product)
+        end
+
+        order.should_not be_valid
+        order.errors[:base].should include(:unavailable_location)
+      end
+    end
+  end
 end
