@@ -36,7 +36,10 @@ class DateRuleEngine
   def init_range(start_date = nil, end_date = nil)
     start_date ||= '0000-01-01'
     end_date ||= '2099-12-31'
-    [ Date.parse(start_date), Date.parse(end_date) ]
+    [
+      start_date.kind_of?(Date) ? start_date : Date.parse(start_date),
+      end_date.kind_of?(Date) ? end_date : Date.parse(end_date)
+    ]
   end
 
   def parse_date(dates)
