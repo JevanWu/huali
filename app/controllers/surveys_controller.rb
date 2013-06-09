@@ -7,7 +7,7 @@ class SurveysController < ApplicationController
     @survey = Survey.new(params[:survey])
     @survey.user = current_user if current_user
 
-    @products = Product
+    @products = Product.published
       .tagged_with([params[:survey][:receiver_gender]], any: true)
       .tagged_with([params[:survey][:gift_purpose]], any: true)
 
