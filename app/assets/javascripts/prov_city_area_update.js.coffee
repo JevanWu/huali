@@ -3,12 +3,14 @@ $ ->
     $(@).attr('id').match /address_attributes/
 
   updateCitySelector = (prov_id) ->
+    return unless prov_id?.length > 0
     $.ajax
       url: "/provinces/#{prov_id}/cities"
       dataType: 'json'
       success: (data) -> $(citySelector).empty().append reduceToOptions(data)
 
   updateAreaSelector = (city_id) ->
+    return unless city_id?.length > 0
     $.ajax
       url: "/cities/#{city_id}/areas"
       dataType: 'json'
@@ -31,4 +33,3 @@ $ ->
 
   $(citySelector).on 'change', ->
     updateAreaSelector $(@).val()
-
