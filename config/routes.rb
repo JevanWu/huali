@@ -47,7 +47,7 @@ Huali::Application.routes.draw do
 
   root to: "pages#show", id: 'home'
   get 'partner', to: 'pages#partner', as: :partner
-  get 'mother', to: 'pages#mother', as: :mother
+  get 'graduate', to: 'pages#graduate', as: :graduate
 
   ActiveAdmin.routes(self)
 
