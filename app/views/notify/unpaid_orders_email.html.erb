@@ -15,13 +15,13 @@
         <% @unpaid_orders_today.each do |order| %>
           <tr>
             <td class='dataTableHeading'>
-              <%= link_to @order.identifier, admin_order_url(@order) %>
+              <%= link_to order.identifier, admin_order_url(order) %>
             </td>
             <td class='dataTableHeading'>
-              <%= @order.address.phone %>
+              <%= order.address.phone %>
             </td>
             <td class='dataTableHeading'>
-              <%= @order.line_items.map { |item| item.name + ' x ' + item[:quantity] } %>
+              <%= order.line_items.map { |item| item.name + ' x ' + item[:quantity].to_s } %>
             </td>
           </tr>
         <% end %>
