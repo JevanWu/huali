@@ -21,7 +21,7 @@
               <%= order.address.phone %>
             </td>
             <td class='dataTableHeading'>
-              <%= order.line_items.map { |item| item.name + ' x ' + item[:quantity].to_s } %>
+              <%= order.subject_text %>
             </td>
           </tr>
         <% end %>
