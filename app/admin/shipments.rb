@@ -62,7 +62,12 @@ ActiveAdmin.register Shipment do
     @address = order.address
     # type = ["ems", "lianbang", "shunfeng"]
     @type = order.ship_method.kuaidi_query_code
-    render "print", layout: 'plain_print'
+
+    if @type.blank?
+      redirect_to :back, alert: t('views.admin.shipment.cannot_print')
+    else
+      render "print", layout: 'plain_print'
+    end
   end
 
   form partial: "form"
