@@ -99,6 +99,7 @@ group :development do
   gem 'railroady'
   gem 'ruby-graphviz', require: 'graphviz' # Optional: only required for graphing
   gem 'meta_request', '0.2.1'
+  gem "letter_opener"
 end
 
 group :test do
