@@ -108,7 +108,12 @@ ActiveAdmin.register Order do
     order= Order.find_by_id(params[:id])
     @address = order.address
     @type = order.ship_method.kuaidi_query_code
-    render 'admin/shipments/print', layout: 'plain_print'
+
+    if @type.blank?
+      redirect_to :back, alert: t('views.admin.shipment.cannot_print')
+    else
+      render 'admin/shipments/print', layout: 'plain_print'
+    end
   end
 
   index do

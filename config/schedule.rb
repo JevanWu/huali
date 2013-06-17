@@ -40,11 +40,11 @@ every :day, at: '3:00 am' do
   rake "sitemap:refresh"
 end
 
-every :day, at: '8:00 am' do
+every :weekday, at: '8:00 am' do
   rake "notice:today_order_sms"
 end
 
-every :day, at: '11:59 pm' do
+every :weekday, at: '11:59 pm' do
   rake "notice:today_order_summary_email"
 end
 
