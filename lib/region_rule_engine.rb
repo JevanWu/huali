@@ -11,9 +11,9 @@ class RegionRuleEngine
     region_valid = false
 
     if area_id.present?
-      region_valid = true if area_ids.include?(area_id)
+      region_valid = true if area_ids.include?(area_id.to_s)
     else
-      region_valid = true if city_ids.include?(city_id)
+      region_valid = true if city_ids.include?(city_id.to_s)
     end
 
     region_valid
