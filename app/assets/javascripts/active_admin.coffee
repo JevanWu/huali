@@ -26,6 +26,15 @@ $ ->
 
 # Product Region Rule Edit
 $ ->
+  $province_ids = $("#product_region_rule_attributes_province_ids")
+  $city_ids = $("#product_region_rule_attributes_city_ids")
+  $area_ids = $("#product_region_rule_attributes_area_ids")
+
+  # Set ids to memory
+  window.huali_province_ids = $province_ids.val().split(',')
+  window.huali_city_ids = $city_ids.val().split(',')
+  window.huali_area_ids = $area_ids.val().split(',')
+
   $(".cities").dialog
     autoOpen: false
     height: 400
@@ -54,12 +63,6 @@ $ ->
     event.preventDefault()
 
   $("input:checkbox[pid]").change ->
-    $province_ids = $("#product_region_rule_attributes_province_ids")
-    $city_ids = $("#product_region_rule_attributes_city_ids")
-
-    province_ids = $province_ids.val().split(',')
-    city_ids = $city_ids.val().split(',')
-
     pid = $(@).attr("pid")
     $city_forms = $(".city[pid='" + pid + "']")
 
@@ -67,38 +70,28 @@ $ ->
       $(@).attr("cid")).get()
 
     if @checked
-      # Add the province_id to province_ids
-      province_ids.push(pid)
-      province_ids = $.unique(province_ids)
-      $province_ids.val(province_ids.join(','))
+      # Add the province_id to window.huali_province_ids
+      window.huali_province_ids.push(pid)
+      window.huali_province_ids = $.unique(window.huali_province_ids)
 
-      # Add cities of the province to city_ids and then check the city checkboxes of the province
-      city_ids = city_ids.concat(city_ids_of_province)
-      city_ids = $.unique(city_ids)
-      $city_ids.val(city_ids.join(','))
+      # Add cities of the province to window.huali_city_ids and then check the city checkboxes of the province
+      window.huali_city_ids = window.huali_city_ids.concat(city_ids_of_province)
+      window.huali_city_ids = $.unique(window.huali_city_ids)
       $city_forms.prev().find("input:checkbox").prop("checked", true)
     else
-      # Remove the province_id from province_ids
-      index = province_ids.indexOf(pid)
-      province_ids.splice(index, 1)
-      $province_ids.val(province_ids.join(','))
+      # Remove the province_id from window.huali_province_ids
+      index = window.huali_province_ids.indexOf(pid)
+      window.huali_province_ids.splice(index, 1)
 
-      # Remove cities of the province from city_ids and then uncheck the city checkboxes
+      # Remove cities of the province from window.huali_city_ids and then uncheck the city checkboxes
       $.each city_ids_of_province, (i, v) ->
-        c_index = city_ids.indexOf(v)
+        c_index = window.huali_city_ids.indexOf(v)
         if c_index != -1
-          city_ids.splice(c_index, 1)
+          window.huali_city_ids.splice(c_index, 1)
 
-      $city_ids.val(city_ids.join(','))
       $city_forms.prev().find("input:checkbox").prop("checked", false)
 
   $("input:checkbox[cid]").change ->
-    $city_ids = $("#product_region_rule_attributes_city_ids")
-    $area_ids = $("#product_region_rule_attributes_area_ids")
-
-    city_ids = $city_ids.val().split(',')
-    area_ids = $area_ids.val().split(',')
-
     cid = $(@).attr("cid")
     $area_forms = $(".area[cid='" + cid + "']")
 
@@ -106,44 +99,41 @@ $ ->
       $(@).attr("aid")).get()
 
     if @checked
-      # Add the city_id to city_ids
-      city_ids.push(cid)
-      city_ids = $.unique(city_ids)
-      $city_ids.val(city_ids.join(','))
+      # Add the city_id to window.huali_city_ids
+      window.huali_city_ids.push(cid)
+      window.huali_city_ids = $.unique(window.huali_city_ids)
 
-      # Add areas of the city to area_ids and then check the area checkboxes of the city
-      area_ids = area_ids.concat(area_ids_of_city)
-      area_ids = $.unique(area_ids)
-      $area_ids.val(area_ids.join(','))
+      # Add areas of the city to window.huali_area_ids and then check the area checkboxes of the city
+      window.huali_area_ids = window.huali_area_ids.concat(area_ids_of_city)
+      window.huali_area_ids = $.unique(window.huali_area_ids)
       $area_forms.prev().find("input:checkbox").prop("checked", true)
     else
       # Remove the city_id from city_ids
-      index = city_ids.indexOf(cid)
-      city_ids.splice(index, 1)
-      $city_ids.val(city_ids.join(','))
+      index = window.huali_city_ids.indexOf(cid)
+      window.huali_city_ids.splice(index, 1)
 
-      # Remove areas of the city from area_ids and then uncheck the area checkboxes
+      # Remove areas of the city from window.huali_area_ids and then uncheck the area checkboxes
       $.each area_ids_of_city, (i, v) ->
-        a_index = area_ids.indexOf(v)
+        a_index = window.huali_area_ids.indexOf(v)
         if a_index != -1
-          area_ids.splice(a_index, 1)
+          window.huali_area_ids.splice(a_index, 1)
 
-      $area_ids.val(area_ids.join(','))
       $area_forms.prev().find("input:checkbox").prop("checked", false)
 
   $("input:checkbox[aid]").change ->
-    $area_ids = $("#product_region_rule_attributes_area_ids")
-
-    area_ids = $area_ids.val().split(',')
     aid = $(@).attr("aid")
 
     if @checked
       # Add the area_id to area_ids
-      area_ids.push(aid)
-      area_ids = $.unique(area_ids)
-      $area_ids.val(area_ids.join(','))
+      window.huali_area_ids.push(aid)
+      window.huali_area_ids = $.unique(window.huali_area_ids)
     else
       # Remove the area_id from area_ids
-      index = area_ids.indexOf(aid)
-      area_ids.splice(index, 1)
-      $area_ids.val(area_ids.join(','))
+      index = window.huali_area_ids.indexOf(aid)
+      window.huali_area_ids.splice(index, 1)
+
+  $("#save_region_rule").click (event)->
+    $province_ids.val(window.huali_province_ids.join(','))
+    $city_ids.val(window.huali_city_ids.join(','))
+    $area_ids.val(window.huali_area_ids.join(','))
+    event.preventDefault()
