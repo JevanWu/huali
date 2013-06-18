@@ -15,8 +15,23 @@ ActiveAdmin.register Product do
 
   controller do
     helper :products
+    before_filter :setup_params, only: [:create, :update]
+
     def scoped_collection
       Product.includes(:assets, :collections)
+    end
+
+    private
+
+    def setup_params
+      # For date rule
+      params[:product][:date_rule_attributes][:included_dates] = params[:product][:date_rule_attributes][:included_dates].split(/[,，]/)
+      params[:product][:date_rule_attributes][:excluded_dates] = params[:product][:date_rule_attributes][:excluded_dates].split(/[,，]/)
+
+      # For region rule
+      params[:product][:region_rule_attributes][:province_ids] = params[:product][:region_rule_attributes][:province_ids].split(',')
+      params[:product][:region_rule_attributes][:city_ids] = params[:product][:region_rule_attributes][:city_ids].split(',')
+      params[:product][:region_rule_attributes][:area_ids] = params[:product][:region_rule_attributes][:area_ids].split(',')
     end
   end
 

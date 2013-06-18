@@ -32,7 +32,7 @@
 class Product < ActiveRecord::Base
   attr_accessible :name_zh, :name_en, :description, :meta_title, :meta_description, :meta_keywords, :count_on_hand, :original_price, :price, :height, :width, :depth, :inspiration, :published, :priority
 
-  attr_accessible :tag_list, :recommendation_ids, :assets, :assets_attributes
+  attr_accessible :tag_list, :recommendation_ids, :assets, :assets_attributes, :date_rule_attributes, :region_rule_attributes
 
   # collection
   has_and_belongs_to_many :collections
@@ -53,7 +53,12 @@ class Product < ActiveRecord::Base
 
   # Area and Date rules
   has_one :region_rule, dependent: :destroy
+  accepts_nested_attributes_for :region_rule, allow_destroy: true, update_only: true,
+    reject_if: :all_blank
+
   has_one :date_rule, dependent: :destroy
+  accepts_nested_attributes_for :date_rule, allow_destroy: true, update_only: true,
+    reject_if: proc { |d| d[:start_date].blank? || d[:end_date].blank? }
 
   # i18n translation
   translate :name
