@@ -10,7 +10,7 @@ class OrderProductDateValidator < ActiveModel::Validator
         range: [date_rule.start_date, date_rule.end_date],
         include: date_rule.included_dates,
         exclude: date_rule.excluded_dates,
-        delete_if: Proc.new { |date| date.wday.in? date_rule.excluded_weekdays }
+        delete_if: Proc.new { |date| date.wday.to_s.in? date_rule.excluded_weekdays }
       }
 
       date_valid = DateRuleEngine.new(rule_engine_options).apply_test(order.expected_date)
