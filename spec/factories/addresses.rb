@@ -28,7 +28,7 @@ FactoryGirl.define do
     fullname { Forgery(:name).full_name }
     address { Forgery(:address).street_address }
     phone { Forgery(:address).phone }
-    post_code { Forgery(:address).zip }
+    sequence(:post_code) { |n| Forgery(:address).zip + n.to_s }
 
     trait :with_user do
       user
@@ -37,7 +37,7 @@ FactoryGirl.define do
 
   factory :province do
     name { Forgery(:address).province}
-    post_code { Forgery(:address).zip }
+    sequence(:post_code) { |n| Forgery(:address).zip + n.to_s }
     available true
 
     after(:build) do |prov|
@@ -54,7 +54,7 @@ FactoryGirl.define do
 
   factory :city do
     name { Forgery(:address).city }
-    post_code { Forgery(:address).zip }
+    sequence(:post_code) { |n| Forgery(:address).zip + n.to_s }
     available true
     province
 
@@ -72,7 +72,7 @@ FactoryGirl.define do
 
   factory :area do
     name { Forgery(:address).city}
-    post_code { Forgery(:address).zip }
+    sequence(:post_code) { |n| Forgery(:address).zip + n.to_s }
     available true
     city
 
