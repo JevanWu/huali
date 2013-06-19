@@ -4,6 +4,7 @@ class OrdersController < ApplicationController
   before_filter :fetch_items, only: [:new, :backorder_new, :create, :backorder_create, :current]
   before_filter :fetch_related_products, only: [:backorder_new, :current]
   before_filter :authenticate_user!, only: [:new, :index, :show, :create, :checkout, :cancel]
+  before_filter :authenticate_administrator!, only: [:backorder_new, :backorder_create]
   before_filter :process_custom_data, only: [:return, :notify]
   skip_before_filter :verify_authenticity_token, only: [:notify]
 
@@ -34,13 +35,14 @@ class OrdersController < ApplicationController
   # backorder
   # - used for internal usage
   # - no transaction is issued
-  def backorder_new
+  # - tracking is skipped
+  def back_order_new
     validate_cart
     @order = Order.new
     @order.build_address
   end
 
-  def backorder_create
+  def back_order_create
     @order = current_or_guest_user.orders.build(params[:order])
 
     # create line items
@@ -64,7 +66,7 @@ class OrdersController < ApplicationController
       flash[:notice] = t('controllers.order.order_success')
       redirect_to new_back_order_path(@order)
     else
-      render 'backorder_new'
+      render 'back_order_new'
     end
   end
 
