@@ -68,6 +68,7 @@ class Order < ActiveRecord::Base
 
   validates_with OrderProductRegionValidator, if: lambda { |order| order.state.in? ['generated', 'wait_check', 'wait_make'] }
   validates_with OrderProductDateValidator, if: lambda { |order| order.state.in? ['generated', 'wait_check', 'wait_make'] }
+  validates_with GlobalOrderProductDateValidator, if: lambda { |order| order.state.in? ['generated', 'wait_check', 'wait_make'] }
 
   # only validate once on Date.today, because in future Date.today will change
   validate :phone_validate, unless: lambda { |order| order.sender_phone.blank? }

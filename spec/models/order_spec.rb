@@ -146,4 +146,41 @@ describe Order do
       it { should be_valid }
     end
   end
+
+  describe GlobalOrderProductDateValidator do
+    before(:each) do
+      order.line_items.each do |line|
+        line.product.region_rule = nil
+        line.product.date_rule = nil
+      end
+
+    end
+
+    before(:all) do
+      Settings.date_rule = OpenStruct.new(attributes_for(:date_rule))
+    end
+
+    context "when expected_date valid" do
+      let(:order) { FactoryGirl.create(:order, expected_date: "2013-02-05".to_date) }
+
+      subject { order }
+
+      it { should be_valid }
+    end
+
+    context "when expected_date invalid " do
+      let(:order) { FactoryGirl.create(:order, expected_date: "2013-01-05".to_date) }
+      before(:each) do
+        order.products.reload.map(&:date_rule)
+        order.valid?
+      end
+
+      subject { order }
+
+      it { should_not be_valid }
+      it "has unavailable_date error" do
+        subject.errors[:base].should include(:unavailable_date)
+      end
+    end
+  end
 end
