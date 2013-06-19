@@ -148,4 +148,40 @@ class Product < ActiveRecord::Base
   def img(size)
     assets.first.image.url(size)
   end
+
+  def available_provinces
+    region_rule = self.region_rule || Settings.region_rule
+
+    possible_city_ids = region_rule.city_ids
+    Area.includes(:city).find_all_by_id(region_rule.area_ids).each do |area|
+      possible_city_ids << area.city.id unless possible_city_ids.include?(area.city.id)
+    end
+
+    available = Province.find_all_by_id(region_rule.province_ids)
+
+    City.includes(:province).find_all_by_id(possible_city_ids).each do |city|
+      available << city.province unless available.include?(city.province)
+    end
+
+    available
+  end
+
+  def available_cities_of_province(province_id)
+    region_rule = self.region_rule || Settings.region_rule
+
+    available = Province.find(province_id).cities.find_all_by_id(region_rule.city_ids)
+
+    # Append cities of area
+    Area.where(parent_post_code: available.map(&:post_code)).find_all_by_id(region_rule.area_ids).map do |area|
+      available << area.city unless available.include?(area.city)
+    end
+
+    available
+  end
+
+  def available_areas_of_city(city_id)
+    region_rule = self.region_rule || Settings.region_rule
+
+    City.find(city_id).areas.find_all_by_id(region_rule.area_ids)
+  end
 end
