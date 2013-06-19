@@ -57,57 +57,93 @@ describe Order do
     end
   end
 
-  describe "validates with ProductDateValidator" do
-    let(:order) { FactoryGirl.create(:order, expected_date: "2013-02-05".to_date) }
+  describe OrderProductDateValidator do
     before(:each) do
       order.line_items.each do |line|
         line.product.region_rule = nil
       end
     end
 
-    context "against valid expected_date" do
-      it "should pass" do
-        order.should be_valid
-      end
+    context "when expected_date valid" do
+      let(:order) { FactoryGirl.create(:order, expected_date: "2013-02-05".to_date) }
+
+      subject { order }
+
+      it { should be_valid }
     end
 
-    context "against invalid expected_date" do
-      it "should fail" do
-        order.expected_date = "2013-01-05"
+    context "when expected_date invalid " do
+      let(:order) { FactoryGirl.create(:order, expected_date: "2013-01-05".to_date) }
+      before(:each) do
         order.products.reload.map(&:date_rule)
+        order.valid?
+      end
 
-        order.should_not be_valid
-        order.errors[:base].should include(:unavailable_date)
+      subject { order }
+
+      it { should_not be_valid }
+      it "has unavailable_date error" do
+        subject.errors[:base].should include(:unavailable_date)
       end
     end
   end
 
-  describe "validates with ProductRegionValidator" do
-    let(:order) { FactoryGirl.create(:order, expected_date: "2013-02-05".to_date) }
+  describe OrderProductRegionValidator do
     before(:each) do
       order.line_items.each do |line|
         line.product.date_rule = nil
       end
     end
 
-    context "against invalid region" do
-      it "should fail" do
-        order.products.reload.map(&:region_rule)
+    context "when region invalid" do
+      let(:order) { FactoryGirl.create(:order, expected_date: "2013-02-05".to_date) }
+
+      before(:each) do
+        order.products.reload
         order.address = create(:address)
 
         # Differ region rule address from order
         new_addr = create(:address)
-        order.line_items.each do |line|
+        order.line_items.reload.each do |line|
           line.product.region_rule = build(:region_rule,
-                                           province_ids: [new_addr.province_id],
-                                           city_ids: [new_addr.city_id],
-                                           area_ids: [new_addr.area_id],
+                                           province_ids: [new_addr.province_id.to_s],
+                                           city_ids: [new_addr.city_id.to_s],
+                                           area_ids: [new_addr.area_id.to_s],
                                            product: line.product)
         end
 
-        order.should_not be_valid
-        order.errors[:base].should include(:unavailable_location)
+        order.valid?
       end
+
+      subject { order }
+
+      it { should_not be_valid }
+
+      it "has unavailable_location error" do
+        subject.errors[:base].should include(:unavailable_location)
+      end
+    end
+
+    context "when region valid" do
+      let(:order) { FactoryGirl.create(:order, expected_date: "2013-02-05".to_date) }
+
+      before(:each) do
+        order.products.reload
+        address = create(:address)
+        order.address = address
+
+        order.line_items.reload.each do |line|
+          line.product.region_rule = build(:region_rule,
+                                           province_ids: [address.province_id.to_s],
+                                           city_ids: [address.city_id.to_s],
+                                           area_ids: [address.area_id.to_s],
+                                           product: line.product)
+        end
+      end
+
+      subject { order }
+
+      it { should be_valid }
     end
   end
 end
