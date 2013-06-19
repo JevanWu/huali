@@ -67,6 +67,7 @@ class Order < ActiveRecord::Base
   validates_presence_of :identifier, :line_items, :expected_date, :state, :total, :item_total, :sender_email, :sender_phone, :sender_name, :source
 
   validates_with OrderProductRegionValidator, if: lambda { |order| order.state.in? ['generated', 'wait_check', 'wait_make'] }
+  validates_with GlobalOrderProductRegionValidator, if: lambda { |order| order.state.in? ['generated', 'wait_check', 'wait_make'] }
   validates_with OrderProductDateValidator, if: lambda { |order| order.state.in? ['generated', 'wait_check', 'wait_make'] }
   validates_with GlobalOrderProductDateValidator, if: lambda { |order| order.state.in? ['generated', 'wait_check', 'wait_make'] }
 

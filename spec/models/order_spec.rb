@@ -183,4 +183,48 @@ describe Order do
       end
     end
   end
+
+  describe GlobalOrderProductRegionValidator do
+    before(:each) do
+      order.line_items.reload.each do |line|
+        line.product.date_rule = nil
+        line.product.region_rule = nil
+      end
+    end
+
+    context "when region invalid" do
+      let(:order) { FactoryGirl.create(:order, expected_date: "2013-02-05".to_date) }
+
+      before(:each) do
+        Settings.region_rule = OpenStruct.new(attributes_for(:region_rule))
+        order.products.reload.map(&:region_rule)
+        order.valid?
+      end
+
+      subject { order }
+
+      it { should_not be_valid }
+
+      it "has unavailable_location error" do
+        subject.errors[:base].should include(:unavailable_location)
+      end
+    end
+
+    context "when region valid" do
+      let(:order) { FactoryGirl.create(:order, expected_date: "2013-02-05".to_date) }
+
+      before(:each) do
+        address = create(:address)
+        order.address = address
+
+        Settings.region_rule = OpenStruct.new(province_ids: [order.address_province_id.to_s],
+                                              city_ids: [order.address_city_id.to_s],
+                                              area_ids: [order.address_area_id.to_s])
+      end
+
+      subject { order }
+
+      it { should be_valid }
+    end
+  end
 end
