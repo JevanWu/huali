@@ -116,6 +116,9 @@ $ ->
 window.Cart = {
   # FIXME should protect against bad 'cart' cookie during JSON.parse
 
+  product_ids: ->
+    _.map($.cookie('cart'), (quantity, id) -> id)
+
   size: ->
     _.size $.cookie('cart')
 

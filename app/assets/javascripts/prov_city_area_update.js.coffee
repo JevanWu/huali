@@ -2,11 +2,19 @@ $ ->
   [proSelector, citySelector, areaSelector] = $('select').filter (index) ->
     $(@).attr('id').match /address_attributes/
 
+  updateProvinceSelector = ->
+    $.ajax
+      url: "/provinces"
+      dataType: 'json'
+      data: { product_ids: Cart.product_ids().join(',') }
+      success: (data) -> $(proSelector).empty().append reduceToOptions(data)
+
   updateCitySelector = (prov_id) ->
     return unless prov_id?.length > 0
     $.ajax
       url: "/provinces/#{prov_id}/cities"
       dataType: 'json'
+      data: { product_ids: Cart.product_ids().join(',') }
       success: (data) -> $(citySelector).empty().append reduceToOptions(data)
 
   updateAreaSelector = (city_id) ->
@@ -14,6 +22,7 @@ $ ->
     $.ajax
       url: "/cities/#{city_id}/areas"
       dataType: 'json'
+      data: { product_ids: Cart.product_ids().join(',') }
       success: (data) -> $(areaSelector).empty().append reduceToOptions(data)
 
   emptyAreaSelector = ->
@@ -33,3 +42,5 @@ $ ->
 
   $(citySelector).on 'change', ->
     updateAreaSelector $(@).val()
+
+  updateProvinceSelector()
