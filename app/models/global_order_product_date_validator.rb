@@ -6,7 +6,7 @@ class GlobalOrderProductDateValidator < ActiveModel::Validator
       next if product.date_rule.present?
 
       date_rule = Settings.date_rule
-      break if date_rule.blank?
+      raise "No global date_rule settings found" if date_rule.blank?
 
       rule_engine_options = {
         range: [date_rule.start_date, date_rule.end_date],
