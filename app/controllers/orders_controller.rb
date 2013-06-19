@@ -184,7 +184,7 @@ class OrdersController < ApplicationController
       # - no line items present
       # - zero quantity
       if @cart.blank? || @cart.all? { |k, v| v.to_i <= 0 }
-        flash[:alert] = t('controllers.order.checkout.no_items')
+        flash[:alert] = t('controllers.order.no_items')
         redirect_to :root
       end
     end
