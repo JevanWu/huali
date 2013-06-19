@@ -36,6 +36,8 @@ gem 'omniauth-qq-connect'
 
 gem 'enumerize'
 
+gem "rails-settings-cached", "0.2.4"
+
 # squash
 gem 'squash_ruby', git: 'https://github.com/SquareSquash/ruby.git', require: 'squash/ruby'
 gem 'squash_rails', git: 'https://github.com/SquareSquash/rails.git', require: 'squash/rails'

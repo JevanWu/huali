@@ -369,6 +369,8 @@ GEM
       railties (= 3.2.13)
     rails-i18n (0.7.3)
       i18n (~> 0.5)
+    rails-settings-cached (0.2.4)
+      rails (>= 3.0.0)
     railties (3.2.13)
       actionpack (= 3.2.13)
       activesupport (= 3.2.13)
@@ -559,6 +561,7 @@ DEPENDENCIES
   railroady
   rails (= 3.2.13)
   rails-i18n
+  rails-settings-cached (= 0.2.4)
   rb-fsevent
   redis-rails
   roadie

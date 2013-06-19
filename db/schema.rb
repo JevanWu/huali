@@ -11,11 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(:version => 20130608025029) do
-=======
-ActiveRecord::Schema.define(:version => 20130607061559) do
->>>>>>> master
+ActiveRecord::Schema.define(:version => 20130618080832) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -266,7 +262,6 @@ ActiveRecord::Schema.define(:version => 20130607061559) do
   add_index "recommendation_relations", ["product_id"], :name => "index_recommendation_relations_on_product_id"
   add_index "recommendation_relations", ["recommendation_id"], :name => "index_recommendation_relations_on_recommendation_id"
 
-<<<<<<< HEAD
   create_table "region_rules", :force => true do |t|
     t.integer  "product_id"
     t.text     "province_ids"
@@ -278,8 +273,6 @@ ActiveRecord::Schema.define(:version => 20130607061559) do
 
   add_index "region_rules", ["product_id"], :name => "index_region_rules_on_product_id"
 
-=======
->>>>>>> master
   create_table "reminders", :force => true do |t|
     t.string   "email",      :null => false
     t.datetime "send_date",  :null => false
@@ -287,6 +280,17 @@ ActiveRecord::Schema.define(:version => 20130607061559) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "settings", :force => true do |t|
+    t.string   "var",                      :null => false
+    t.text     "value"
+    t.integer  "thing_id"
+    t.string   "thing_type", :limit => 30
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
+
+  add_index "settings", ["thing_type", "thing_id", "var"], :name => "index_settings_on_thing_type_and_thing_id_and_var", :unique => true
 
   create_table "ship_methods", :force => true do |t|
     t.string "name"
