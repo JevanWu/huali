@@ -64,7 +64,7 @@ class Order < ActiveRecord::Base
                       with: %r{\A[+-x*%/][\s\d.]+\z}, # +/-/*/%1234.0
                       unless: lambda { |order| order.adjustment.blank? }
 
-  validates_presence_of :identifier, :line_items, :expected_date, :state, :total, :item_total, :sender_email, :sender_phone, :sender_name, :source
+  validates_presence_of :identifier, :line_items, :expected_date, :state, :total, :item_total, :sender_email, :sender_phone, :sender_name
 
   # only validate once on Date.today, because in future Date.today will change
   validate :expected_date_in_range, on: :create
