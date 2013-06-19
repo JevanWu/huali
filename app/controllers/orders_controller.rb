@@ -1,8 +1,8 @@
 class OrdersController < ApplicationController
   layout 'horizontal'
   before_filter :load_cart
-  before_filter :fetch_items, only: [:new, :create, :current]
-  before_filter :fetch_related_products, only: [:new, :current]
+  before_filter :fetch_items, only: [:new, :backorder_new, :create, :backorder_create, :current]
+  before_filter :fetch_related_products, only: [:backorder_new, :current]
   before_filter :authenticate_user!, only: [:new, :index, :show, :create, :checkout, :cancel]
   before_filter :process_custom_data, only: [:return, :notify]
   skip_before_filter :verify_authenticity_token, only: [:notify]
@@ -29,6 +29,43 @@ class OrdersController < ApplicationController
     @order.build_address
     populate_sender_info unless current_or_guest_user.guest?
     AnalyticWorker.delay.open_order(current_user.id, @products.map(&:name), Time.now)
+  end
+
+  # backorder
+  # - used for internal usage
+  # - no transaction is issued
+  def backorder_new
+    validate_cart
+    @order = Order.new
+    @order.build_address
+  end
+
+  def backorder_create
+    @order = current_or_guest_user.orders.build(params[:order])
+
+    # create line items
+    @cart.keys.each do |key|
+      @order.add_line_item(key, @cart[key])
+    end
+
+    # default sender_info
+    @order.sender_name = 'Huali'
+    @order.sender_email = 'support@hua.li'
+    @order.sender_phone = '400-001-6936'
+
+    # add type
+    @order.type = :backorder
+
+    # jump to wait_make states
+    @order.state = 'wait_make'
+
+    if @order.save
+      empty_cart
+      flash[:notice] = t('controllers.order.order_success')
+      redirect_to new_back_order_path(@order)
+    else
+      render 'backorder_new'
+    end
   end
 
   def create

@@ -62,6 +62,7 @@ zh-CN:
         expected_date: 到达日期
         delivery_date: 发货日期
         ship_method: 递送方式
+        ship_method_id: 递送方式
         special_instructions: 特殊要求
         gift_card_text: 卡片信息
         additional_info: 附加信息
