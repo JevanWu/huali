@@ -30,6 +30,9 @@ Huali::Application.routes.draw do
   # back order urls
   get 'orders/backorder', to: 'orders#back_order_new', as: :new_back_order
   post 'orders/backorder', to: 'orders#back_order_create', as: :create_back_order
+  # taobao order urls
+  get 'orders/taobaoorder', to: 'orders#taobao_order_new', as: :new_taobao_order
+  post 'orders/taobaoorder', to: 'orders#taobao_order_create', as: :create_taobao_order
   resources :orders, except: [:destroy, :update, :edit]
 
   post 'shipments/notify/:identifier', to: 'shipments#notify', as: :notify_shipment

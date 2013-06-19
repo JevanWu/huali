@@ -1,10 +1,11 @@
+# encoding: utf-8
 class OrdersController < ApplicationController
   layout 'horizontal'
   before_filter :load_cart
   before_filter :fetch_items, only: [:new, :back_order_new, :taobao_order_new, :create, :back_order_create, :taobao_order_create, :current]
   before_filter :fetch_related_products, only: [:back_order_new, :taobao_order_create, :current]
   before_filter :authenticate_user!, only: [:new, :index, :show, :create, :checkout, :cancel]
-  before_filter :authenticate_administrator!, only: [:backorder_new, :backorder_create]
+  before_filter :authenticate_administrator!, only: [:back_order_new, :back_order_create, :taobao_order_new, :taobao_order_create]
   before_filter :process_custom_data, only: [:return, :notify]
   skip_before_filter :verify_authenticity_token, only: [:notify]
 
@@ -30,6 +31,42 @@ class OrdersController < ApplicationController
     @order.build_address
     populate_sender_info unless current_or_guest_user.guest?
     AnalyticWorker.delay.open_order(current_user.id, @products.map(&:name), Time.now)
+  end
+
+  # taobao order
+  # - used for taobao order input
+  # - transaction is completed beforehand
+  # - tracking is skipped
+  def taobao_order_new
+    validate_cart
+    @order = Order.new
+    @order.build_address
+  end
+
+  def taobao_order_create
+    merchant_trade_no = params[:order].extract!(:merchant_trade_no)
+
+    @order = current_or_guest_user.orders.build(params[:order])
+
+    # create line items
+    @cart.keys.each do |key|
+      @order.add_line_item(key, @cart[key])
+    end
+
+    # add type
+    @order.type = :taobao
+
+    # add source
+    @order.type = '淘宝'
+
+    opts = { paymethod: 'directPay', merchant_name: 'Alipay' }.merge(merchant_trade_no)
+    if @order.save and @order.complete_transaction(opts)
+      empty_cart
+      flash[:notice] = t('controllers.order.order_success')
+      redirect_to root_path
+    else
+      render 'taobao_order_new'
+    end
   end
 
   # backorder
@@ -64,7 +101,7 @@ class OrdersController < ApplicationController
     if @order.save
       empty_cart
       flash[:notice] = t('controllers.order.order_success')
-      redirect_to new_back_order_path(@order)
+      redirect_to root_path
     else
       render 'back_order_new'
     end

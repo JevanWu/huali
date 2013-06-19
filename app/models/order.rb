@@ -177,6 +177,14 @@ class Order < ActiveRecord::Base
     self.transactions.create default.merge(opts)
   end
 
+  def complete_transaction(opts)
+    # generate and process transaction
+    t = generate_transaction(opts)
+    t.start
+    t.processed_at = Time.now
+    t.complete
+  end
+
   # options = {
     # tracking_num: String
     # ship_method_id: Integer
