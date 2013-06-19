@@ -27,8 +27,9 @@ Huali::Application.routes.draw do
   put 'orders/cancel/:id', to: 'orders#cancel', as: :cancel_order
   get 'orders/return', as: :return_order
   post 'orders/notify', as: :notify_order
-  get 'orders/backorder', to: 'orders#backorder_new', as: :new_back_order
-  post 'orders/backorder', to: 'orders#backorder_create', as: :create_back_order
+  # back order urls
+  get 'orders/backorder', to: 'orders#back_order_new', as: :new_back_order
+  post 'orders/backorder', to: 'orders#back_order_create', as: :create_back_order
   resources :orders, except: [:destroy, :update, :edit]
 
   post 'shipments/notify/:identifier', to: 'shipments#notify', as: :notify_shipment
