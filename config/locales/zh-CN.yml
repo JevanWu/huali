@@ -101,6 +101,7 @@ zh-CN:
         created_at: 创建时间
         printed: 已打印
         tracking_num: 快递单号
+        type: 类型
 
 
       administrator:
@@ -287,6 +288,12 @@ zh-CN:
         print: 打印
 
   enumerize:
+    order:
+      type:
+        backorder: 特殊订单
+        taobao: 淘宝订单
+        normal: 普通订单
+
     survey:
       gender:
         male: 男生

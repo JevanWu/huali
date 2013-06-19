@@ -238,28 +238,28 @@ ActiveRecord::Schema.define(:version => 20130619081531) do
 
   create_table "orders", :force => true do |t|
     t.string   "identifier"
-    t.decimal  "item_total",           :precision => 8, :scale => 2, :default => 0.0,     :null => false
-    t.decimal  "total",                :precision => 8, :scale => 2, :default => 0.0,     :null => false
+    t.decimal  "item_total",           :precision => 8, :scale => 2, :default => 0.0,      :null => false
+    t.decimal  "total",                :precision => 8, :scale => 2, :default => 0.0,      :null => false
     t.decimal  "payment_total",        :precision => 8, :scale => 2, :default => 0.0
     t.string   "state",                                              :default => "ready"
     t.text     "special_instructions"
     t.integer  "address_id"
     t.integer  "user_id"
     t.datetime "completed_at"
-    t.datetime "created_at",                                                              :null => false
-    t.datetime "updated_at",                                                              :null => false
+    t.datetime "created_at",                                                               :null => false
+    t.datetime "updated_at",                                                               :null => false
     t.text     "gift_card_text"
-    t.date     "expected_date",                                                           :null => false
+    t.date     "expected_date",                                                            :null => false
     t.string   "sender_email"
     t.string   "sender_phone"
     t.string   "sender_name"
     t.date     "delivery_date"
-    t.string   "source",                                             :default => "",      :null => false
+    t.string   "source",                                             :default => "",       :null => false
     t.string   "adjustment"
     t.string   "coupon_code"
     t.string   "ship_method_id"
     t.boolean  "printed",                                            :default => false
-    t.string   "type",                                               :default => ""
+    t.string   "type",                                               :default => "normal", :null => false
   end
 
   add_index "orders", ["identifier"], :name => "index_orders_on_identifier", :unique => true

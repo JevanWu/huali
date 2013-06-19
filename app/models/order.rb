@@ -24,7 +24,7 @@
 #  special_instructions :text
 #  state                :string(255)      default("ready")
 #  total                :decimal(8, 2)    default(0.0), not null
-#  type                 :string(255)      default("")
+#  type                 :string(255)      default("normal"), not null
 #  updated_at           :datetime         not null
 #  user_id              :integer
 #
@@ -35,6 +35,7 @@
 #
 
 class Order < ActiveRecord::Base
+  self.inheritance_column = 'sti_type'
 
   attr_accessible :line_items, :special_instructions, :address_attributes,
                   :gift_card_text, :delivery_date, :expected_date, :identifier, :state,
@@ -51,6 +52,9 @@ class Order < ActiveRecord::Base
   has_many :products, through: :line_items
   has_one :order_coupon
   has_one :coupon, through: :order_coupon
+
+  extend Enumerize
+  enumerize :type, in: [:normal, :backorder, :taobao], default: :normal
 
   delegate :province_name, :city_name, to: :address
   delegate :paymethod, to: :transaction, allow_nil: true
