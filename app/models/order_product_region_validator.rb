@@ -3,7 +3,7 @@ class OrderProductRegionValidator < ActiveModel::Validator
     order_valid = true
 
     order.products.each do |product|
-      region_rule = product.region_rule || Settings.region_rule
+      region_rule = product.region_rule
 
       raise "No global region_rule settings found" if region_rule.blank?
 

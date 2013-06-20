@@ -187,4 +187,8 @@ class Product < ActiveRecord::Base
 
     City.find(city_id).areas.find_all_by_id(region_rule.area_ids)
   end
+
+  def region_rule
+    self.local_region_rule || self.default_region_rule
+  end
 end

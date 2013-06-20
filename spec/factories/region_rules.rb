@@ -20,10 +20,17 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :region_rule do
+  factory :local_region_rule do
     province_ids []
     city_ids []
     area_ids []
     product
+  end
+
+  factory :default_region_rule do
+    sequence(:name) { |n| "Default#{n}" }
+    province_ids []
+    city_ids []
+    area_ids []
   end
 end

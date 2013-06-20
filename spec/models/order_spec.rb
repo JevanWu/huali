@@ -58,12 +58,6 @@ describe Order do
   end
 
   describe OrderProductDateValidator do
-    before(:each) do
-      order.line_items.each do |line|
-        line.product.region_rule = nil
-      end
-    end
-
     context "when expected_date valid" do
       let(:order) { FactoryGirl.create(:order, expected_date: "2013-02-05".to_date) }
 
@@ -105,7 +99,7 @@ describe Order do
         # Differ region rule address from order
         new_addr = create(:address)
         order.line_items.reload.each do |line|
-          line.product.region_rule = build(:region_rule,
+          line.product.local_region_rule = build(:local_region_rule,
                                            province_ids: [new_addr.province_id.to_s],
                                            city_ids: [new_addr.city_id.to_s],
                                            area_ids: [new_addr.area_id.to_s],
@@ -133,7 +127,7 @@ describe Order do
         order.address = address
 
         order.line_items.reload.each do |line|
-          line.product.region_rule = build(:region_rule,
+          line.product.local_region_rule = build(:local_region_rule,
                                            province_ids: [address.province_id.to_s],
                                            city_ids: [address.city_id.to_s],
                                            area_ids: [address.area_id.to_s],

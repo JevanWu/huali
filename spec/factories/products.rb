@@ -53,6 +53,8 @@ FactoryGirl.define do
     meta_description { Forgery(:lorem_ipsum).sentence }
     meta_keywords { Forgery(:lorem_ipsum).words(20) }
 
+    default_region_rule
+
     after(:build) do |product|
       [1, 2, 3, 4].sample.times do
         product.assets << create(:asset)
@@ -61,7 +63,6 @@ FactoryGirl.define do
     end
 
     after(:create) do |product|
-      product.region_rule = build(:region_rule, product: product)
       product.date_rule = build(:date_rule, product: product)
     end
 
