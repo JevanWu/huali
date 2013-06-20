@@ -15,7 +15,7 @@ ActiveAdmin.register Product do
 
   controller do
     helper :products
-    before_filter :setup_params, only: [:create, :update]
+    before_filter :setup_rule_params, only: [:create, :update]
 
     def scoped_collection
       Product.includes(:assets, :collections)
@@ -23,7 +23,7 @@ ActiveAdmin.register Product do
 
     private
 
-    def setup_params
+    def setup_rule_params
       # For date rule
       params[:product][:date_rule_attributes][:included_dates] = params[:product][:date_rule_attributes][:included_dates].split(/[,，]/)
       params[:product][:date_rule_attributes][:excluded_dates] = params[:product][:date_rule_attributes][:excluded_dates].split(/[,，]/)
