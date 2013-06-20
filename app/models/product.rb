@@ -67,7 +67,7 @@ class Product < ActiveRecord::Base
   translate :name
 
   # validations
-  validates_presence_of :name_en, :name_zh, :count_on_hand, :assets, :collections
+  validates_presence_of :name_en, :name_zh, :count_on_hand, :assets, :collections, :default_region_rule
 
   # scopes
   default_scope lambda { order('priority DESC') }
