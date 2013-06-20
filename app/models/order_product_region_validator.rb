@@ -3,11 +3,13 @@ class OrderProductRegionValidator < ActiveModel::Validator
     order_valid = true
 
     order.products.each do |product|
-      next if product.region_rule.blank?
+      region_rule = product.region_rule || Settings.region_rule
 
-      region_rule_engine = RegionRuleEngine.new(product.region_rule.province_ids,
-                                                product.region_rule.city_ids,
-                                                product.region_rule.area_ids)
+      raise "No global region_rule settings found" if region_rule.blank?
+
+      region_rule_engine = RegionRuleEngine.new(region_rule.province_ids,
+                                                region_rule.city_ids,
+                                                region_rule.area_ids)
 
       region_valid = region_rule_engine.apply_test(order.address_province_id,
                                                    order.address_city_id,

@@ -3,9 +3,10 @@ class OrderProductDateValidator < ActiveModel::Validator
     order_valid = true
 
     order.products.each do |product|
-      next if product.date_rule.blank?
+      date_rule = product.date_rule || Settings.date_rule
 
-      date_rule = product.date_rule
+      raise "No global date_rule settings found" if date_rule.blank?
+
       rule_engine_options = {
         range: [date_rule.start_date, date_rule.end_date],
         include: date_rule.included_dates,
