@@ -26,14 +26,15 @@ $ ->
 
 # Product Region Rule Edit
 $ ->
-  $province_ids = $("#product_region_rule_attributes_province_ids")
-  $city_ids = $("#product_region_rule_attributes_city_ids")
-  $area_ids = $("#product_region_rule_attributes_area_ids")
+  $provinceIds = $("#product_region_rule_attributes_province_ids")
+  $cityIds = $("#product_region_rule_attributes_city_ids")
+  $areaIds = $("#product_region_rule_attributes_area_ids")
 
   # Set ids to memory
-  window.huali_province_ids = $province_ids.val().split(',')
-  window.huali_city_ids = $city_ids.val().split(',')
-  window.huali_area_ids = $area_ids.val().split(',')
+  window.RegionRule = {}
+  RegionRule.provinceIds = $provinceIds.val().split(',')
+  RegionRule.cityIds = $cityIds.val().split(',')
+  RegionRule.areaIds = $areaIds.val().split(',')
 
   $(".cities").dialog
     autoOpen: false
@@ -64,76 +65,76 @@ $ ->
 
   $("input:checkbox[pid]").change ->
     pid = $(@).attr("pid")
-    $city_forms = $(".city[pid='" + pid + "']")
+    $cityForms = $(".city[pid='" + pid + "']")
 
-    city_ids_of_province = ($city_forms.map ->
+    cityIdsOfProvince = ($cityForms.map ->
       $(@).attr("cid")).get()
 
     if @checked
-      # Add the province_id to window.huali_province_ids
-      window.huali_province_ids.push(pid)
-      window.huali_province_ids = $.unique(window.huali_province_ids)
+      # Add the province_id to RegionRule.provinceIds
+      RegionRule.provinceIds.push(pid)
+      RegionRule.provinceIds = $.unique(RegionRule.provinceIds)
 
-      # Add cities of the province to window.huali_city_ids and then check the city checkboxes of the province
-      window.huali_city_ids = window.huali_city_ids.concat(city_ids_of_province)
-      window.huali_city_ids = $.unique(window.huali_city_ids)
-      $city_forms.prev().find("input:checkbox").prop("checked", true)
+      # Add cities of the province to RegionRule.cityIds and then check the city checkboxes of the province
+      RegionRule.cityIds = RegionRule.cityIds.concat(cityIdsOfProvince)
+      RegionRule.cityIds = $.unique(RegionRule.cityIds)
+      $cityForms.prev().find("input:checkbox").prop("checked", true)
     else
-      # Remove the province_id from window.huali_province_ids
-      index = window.huali_province_ids.indexOf(pid)
-      window.huali_province_ids.splice(index, 1)
+      # Remove the province_id from RegionRule.provinceIds
+      index = RegionRule.provinceIds.indexOf(pid)
+      RegionRule.provinceIds.splice(index, 1)
 
-      # Remove cities of the province from window.huali_city_ids and then uncheck the city checkboxes
-      $.each city_ids_of_province, (i, v) ->
-        c_index = window.huali_city_ids.indexOf(v)
+      # Remove cities of the province from RegionRule.cityIds and then uncheck the city checkboxes
+      $.each cityIdsOfProvince, (i, v) ->
+        c_index = RegionRule.cityIds.indexOf(v)
         if c_index != -1
-          window.huali_city_ids.splice(c_index, 1)
+          RegionRule.cityIds.splice(c_index, 1)
 
-      $city_forms.prev().find("input:checkbox").prop("checked", false)
+      $cityForms.prev().find("input:checkbox").prop("checked", false)
 
   $("input:checkbox[cid]").change ->
     cid = $(@).attr("cid")
-    $area_forms = $(".area[cid='" + cid + "']")
+    $areaForms = $(".area[cid='" + cid + "']")
 
-    area_ids_of_city = ($area_forms.map ->
+    areaIdsOfCity = ($areaForms.map ->
       $(@).attr("aid")).get()
 
     if @checked
-      # Add the city_id to window.huali_city_ids
-      window.huali_city_ids.push(cid)
-      window.huali_city_ids = $.unique(window.huali_city_ids)
+      # Add the city_id to RegionRule.cityIds
+      RegionRule.cityIds.push(cid)
+      RegionRule.cityIds = $.unique(RegionRule.cityIds)
 
-      # Add areas of the city to window.huali_area_ids and then check the area checkboxes of the city
-      window.huali_area_ids = window.huali_area_ids.concat(area_ids_of_city)
-      window.huali_area_ids = $.unique(window.huali_area_ids)
-      $area_forms.prev().find("input:checkbox").prop("checked", true)
+      # Add areas of the city to RegionRule.areaIds and then check the area checkboxes of the city
+      RegionRule.areaIds = RegionRule.areaIds.concat(areaIdsOfCity)
+      RegionRule.areaIds = $.unique(RegionRule.areaIds)
+      $areaForms.prev().find("input:checkbox").prop("checked", true)
     else
       # Remove the city_id from city_ids
-      index = window.huali_city_ids.indexOf(cid)
-      window.huali_city_ids.splice(index, 1)
+      index = RegionRule.cityIds.indexOf(cid)
+      RegionRule.cityIds.splice(index, 1)
 
-      # Remove areas of the city from window.huali_area_ids and then uncheck the area checkboxes
-      $.each area_ids_of_city, (i, v) ->
-        a_index = window.huali_area_ids.indexOf(v)
+      # Remove areas of the city from RegionRule.areaIds and then uncheck the area checkboxes
+      $.each areaIdsOfCity, (i, v) ->
+        a_index = RegionRule.areaIds.indexOf(v)
         if a_index != -1
-          window.huali_area_ids.splice(a_index, 1)
+          RegionRule.areaIds.splice(a_index, 1)
 
-      $area_forms.prev().find("input:checkbox").prop("checked", false)
+      $areaForms.prev().find("input:checkbox").prop("checked", false)
 
   $("input:checkbox[aid]").change ->
     aid = $(@).attr("aid")
 
     if @checked
       # Add the area_id to area_ids
-      window.huali_area_ids.push(aid)
-      window.huali_area_ids = $.unique(window.huali_area_ids)
+      RegionRule.areaIds.push(aid)
+      RegionRule.areaIds = $.unique(RegionRule.areaIds)
     else
       # Remove the area_id from area_ids
-      index = window.huali_area_ids.indexOf(aid)
-      window.huali_area_ids.splice(index, 1)
+      index = RegionRule.areaIds.indexOf(aid)
+      RegionRule.areaIds.splice(index, 1)
 
   $("#save_region_rule").click (event)->
-    $province_ids.val(window.huali_province_ids.join(','))
-    $city_ids.val(window.huali_city_ids.join(','))
-    $area_ids.val(window.huali_area_ids.join(','))
+    $provinceIds.val(RegionRule.provinceIds.join(','))
+    $cityIds.val(RegionRule.cityIds.join(','))
+    $areaIds.val(RegionRule.areaIds.join(','))
     event.preventDefault()
