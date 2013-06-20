@@ -29,9 +29,9 @@ ActiveAdmin.register Product do
       params[:product][:date_rule_attributes][:excluded_dates] = params[:product][:date_rule_attributes][:excluded_dates].split(/[,，]/)
 
       # For region rule
-      params[:product][:region_rule_attributes][:province_ids] = params[:product][:region_rule_attributes][:province_ids].split(',')
-      params[:product][:region_rule_attributes][:city_ids] = params[:product][:region_rule_attributes][:city_ids].split(',')
-      params[:product][:region_rule_attributes][:area_ids] = params[:product][:region_rule_attributes][:area_ids].split(',')
+      params[:product][:local_region_rule_attributes][:province_ids] = params[:product][:local_region_rule_attributes][:province_ids].split(',')
+      params[:product][:local_region_rule_attributes][:city_ids] = params[:product][:local_region_rule_attributes][:city_ids].split(',')
+      params[:product][:local_region_rule_attributes][:area_ids] = params[:product][:local_region_rule_attributes][:area_ids].split(',')
     end
   end
 
