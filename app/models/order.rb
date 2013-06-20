@@ -24,15 +24,18 @@
 #  special_instructions :text
 #  state                :string(255)      default("ready")
 #  total                :decimal(8, 2)    default(0.0), not null
+#  type                 :string(255)      default("normal"), not null
 #  updated_at           :datetime         not null
 #  user_id              :integer
 #
 # Indexes
 #
 #  index_orders_on_identifier  (identifier) UNIQUE
+#  index_orders_on_user_id     (user_id)
 #
 
 class Order < ActiveRecord::Base
+  self.inheritance_column = 'sti_type'
 
   attr_accessible :line_items, :special_instructions, :address_attributes,
                   :gift_card_text, :delivery_date, :expected_date, :identifier, :state,
@@ -50,6 +53,9 @@ class Order < ActiveRecord::Base
   has_one :order_coupon
   has_one :coupon, through: :order_coupon
 
+  extend Enumerize
+  enumerize :type, in: [:normal, :backorder, :taobao], default: :normal
+
   delegate :province_name, :city_name, to: :address
   delegate :paymethod, to: :transaction, allow_nil: true
 
@@ -62,7 +68,7 @@ class Order < ActiveRecord::Base
                       with: %r{\A[+-x*%/][\s\d.]+\z}, # +/-/*/%1234.0
                       unless: lambda { |order| order.adjustment.blank? }
 
-  validates_presence_of :identifier, :line_items, :expected_date, :state, :total, :item_total, :sender_email, :sender_phone, :sender_name, :source
+  validates_presence_of :identifier, :line_items, :expected_date, :state, :total, :item_total, :sender_email, :sender_phone, :sender_name
 
   # only validate once on Date.today, because in future Date.today will change
   validate :expected_date_in_range, on: :create
@@ -169,6 +175,14 @@ class Order < ActiveRecord::Base
       body: body_text
     }
     self.transactions.create default.merge(opts)
+  end
+
+  def complete_transaction(opts)
+    # generate and process transaction
+    t = generate_transaction(opts)
+    t.start
+    t.processed_at = Time.now
+    t.complete
   end
 
   # options = {

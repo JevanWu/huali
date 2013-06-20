@@ -23,12 +23,14 @@
 #  special_instructions :text
 #  state                :string(255)      default("ready")
 #  total                :decimal(8, 2)    default(0.0), not null
+#  type                 :string(255)      default("normal"), not null
 #  updated_at           :datetime         not null
 #  user_id              :integer
 #
 # Indexes
 #
 #  index_orders_on_identifier  (identifier) UNIQUE
+#  index_orders_on_user_id     (user_id)
 #
 
 require 'spec_helper'

@@ -159,6 +159,8 @@ ActiveAdmin.register Order do
         status_tag t('models.order.state.' + order.state), order_state(order)
       end
 
+      row :type
+
       row :printed
 
       row :modify_order_state do

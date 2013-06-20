@@ -62,6 +62,7 @@ zh-CN:
         expected_date: 到达日期
         delivery_date: 发货日期
         ship_method: 递送方式
+        ship_method_id: 递送方式
         special_instructions: 特殊要求
         gift_card_text: 卡片信息
         additional_info: 附加信息
@@ -101,6 +102,7 @@ zh-CN:
         created_at: 创建时间
         printed: 已打印
         tracking_num: 快递单号
+        type: 类型
 
 
       administrator:
@@ -287,6 +289,12 @@ zh-CN:
         print: 打印
 
   enumerize:
+    order:
+      type:
+        backorder: 特殊订单
+        taobao: 淘宝订单
+        normal: 普通订单
+
     survey:
       gender:
         male: 男生
@@ -351,6 +359,8 @@ zh-CN:
       # checkout
       ta_address: TA的地址是
       checkout: 确定
+      back_checkout: 特殊订单
+      taobao_checkout: 淘宝订单
       basket: 购花篮
       order_list: 订单中心
       in_total: 总计
