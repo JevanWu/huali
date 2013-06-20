@@ -153,8 +153,6 @@ class Product < ActiveRecord::Base
   end
 
   def available_provinces
-    region_rule = self.region_rule || Settings.region_rule
-
     possible_city_ids = region_rule.city_ids
     Area.includes(:city).find_all_by_id(region_rule.area_ids).each do |area|
       possible_city_ids << area.city.id unless possible_city_ids.include?(area.city.id)
@@ -170,8 +168,6 @@ class Product < ActiveRecord::Base
   end
 
   def available_cities_of_province(province_id)
-    region_rule = self.region_rule || Settings.region_rule
-
     available = Province.find(province_id).cities.find_all_by_id(region_rule.city_ids)
 
     # Append cities of area
@@ -183,8 +179,6 @@ class Product < ActiveRecord::Base
   end
 
   def available_areas_of_city(city_id)
-    region_rule = self.region_rule || Settings.region_rule
-
     City.find(city_id).areas.find_all_by_id(region_rule.area_ids)
   end
 
