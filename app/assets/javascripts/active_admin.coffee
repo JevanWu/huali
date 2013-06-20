@@ -26,9 +26,9 @@ $ ->
 
 # Product Region Rule Edit
 $ ->
-  $provinceIds = $("#product_region_rule_attributes_province_ids")
-  $cityIds = $("#product_region_rule_attributes_city_ids")
-  $areaIds = $("#product_region_rule_attributes_area_ids")
+  $provinceIds = $("#region_rule_province_ids")
+  $cityIds = $("#region_rule_city_ids")
+  $areaIds = $("#region_rule_area_ids")
 
   # Set ids to memory
   window.RegionRule = {}
