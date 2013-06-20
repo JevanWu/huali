@@ -8,6 +8,8 @@ class RegionRuleEngine
   end
 
   def apply_test(province_id, city_id, area_id)
+    return true if province_ids.blank? && city_ids.blank? && area_ids.blank?
+
     region_valid = false
 
     if area_id.present?
