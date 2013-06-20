@@ -1,0 +1,41 @@
+<%= semantic_form_for [:admin, @default_region_rule] do |f| %>
+  <%= f.hidden_field :province_ids, value: @default_region_rule.province_ids.join(','), id: "region_rule_province_ids" %>
+  <%= f.hidden_field :city_ids, value: @default_region_rule.city_ids.join(','), id: "region_rule_city_ids" %>
+  <%= f.hidden_field :area_ids, value: @default_region_rule.area_ids.join(','), id: "region_rule_area_ids" %>
+
+  <%= f.inputs "Rule" do %>
+    <div id="region_rules">
+      <% Province.includes(cities: :areas).each do |province| %>
+        <div class="item">
+          <label><input pid="<%= province.id %>" type="checkbox" <%= @default_region_rule.province_ids.include?(province.id.to_s) ? "checked" : "" %> /><%= province.name %></label>
+          <span pid="<%= province.id %>" class="province">+</span>
+          <div pid="<%= province.id %>" class="cities" title="<%= province.name %>的城市">
+            <% province.cities.each do |city| %>
+              <div>
+                <label><input cid="<%= city.id %>" type="checkbox" <%= @default_region_rule.city_ids.include?(city.id.to_s) ? "checked" : "" %> /><%= city.name %></label>
+                <span pid="<%= province.id %>" cid="<%= city.id %>" class="city">+</span>
+              </div>
+
+              <% if city.areas.present? %>
+                <div cid="<%= city.id %>" class="areas" title="<%= city.name %>的地区">
+                  <% city.areas.each do |area| %>
+                    <div>
+                      <label><input aid="<%= area.id %>" type="checkbox" <%= @default_region_rule.area_ids.include?(area.id.to_s) ? "checked" : "" %> /><%= area.name %></label>
+                      <input type="hidden" cid="<%= city.id %>" aid="<%= area.id %>" class="area" />
+                    </div>
+                  <% end %>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <button id="save_region_rule">Save</button>
+    </div>
+  <% end %>
+
+  <%= f.inputs "Name" do %>
+    <%= f.input :name %>
+  <% end %>
+  <%= f.submit %>
+<% end %>
