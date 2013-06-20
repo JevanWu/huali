@@ -2,11 +2,19 @@
 namespace :migrate do
   desc "Migrate old region rule to new Global Region Rule"
   task region_rule: :environment do
-    new_region_rule = OpenStruct.new
-    new_region_rule.province_ids = Province.available.select(:id).map(&:id)
-    new_region_rule.city_ids = City.available.select(:id).map(&:id)
-    new_region_rule.area_ids = Area.available.select(:id).map(&:id)
+    default_name = "默认地域规则"
+    unless DefaultRegionRule.where(name: default_name).exists?
+      DefaultRegionRule.create(name: default_name,
+                               province_ids: Province.available.select(:id).map(&:id),
+                               city_ids: City.available.select(:id).map(&:id),
+                               area_ids: Area.available.select(:id).map(&:id))
+    end
 
-    Settings.region_rule = new_region_rule
+    default_rule = DefaultRegionRule.where(name: default_name).first
+
+    Product.unscoped.each do |product|
+      product.default_region_rule = default_rule
+      product.save(validate: false)
+    end
   end
 end
