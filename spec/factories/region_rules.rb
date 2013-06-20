@@ -2,12 +2,14 @@
 #
 # Table name: region_rules
 #
-#  area_ids     :string(255)
-#  city_ids     :string(255)
+#  area_ids     :text
+#  city_ids     :text
 #  created_at   :datetime         not null
 #  id           :integer          not null, primary key
+#  name         :string(255)
 #  product_id   :integer
-#  province_ids :string(255)
+#  province_ids :text
+#  type         :string(255)
 #  updated_at   :datetime         not null
 #
 # Indexes

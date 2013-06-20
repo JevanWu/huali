@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130618080832) do
+ActiveRecord::Schema.define(:version => 20130620064033) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -221,27 +221,29 @@ ActiveRecord::Schema.define(:version => 20130618080832) do
   add_index "pages", ["permalink"], :name => "index_pages_on_permalink"
 
   create_table "products", :force => true do |t|
-    t.string   "name_zh",                                        :default => "",    :null => false
-    t.string   "name_en",                                        :default => "",    :null => false
+    t.string   "name_zh",                                              :default => "",    :null => false
+    t.string   "name_en",                                              :default => "",    :null => false
     t.text     "description"
     t.string   "meta_description"
     t.string   "meta_keywords"
-    t.integer  "count_on_hand",                                  :default => 0,     :null => false
-    t.decimal  "price",            :precision => 8, :scale => 2
-    t.decimal  "height",           :precision => 8, :scale => 2
-    t.decimal  "width",            :precision => 8, :scale => 2
-    t.decimal  "depth",            :precision => 8, :scale => 2
-    t.datetime "created_at",                                                        :null => false
-    t.datetime "updated_at",                                                        :null => false
+    t.integer  "count_on_hand",                                        :default => 0,     :null => false
+    t.decimal  "price",                  :precision => 8, :scale => 2
+    t.decimal  "height",                 :precision => 8, :scale => 2
+    t.decimal  "width",                  :precision => 8, :scale => 2
+    t.decimal  "depth",                  :precision => 8, :scale => 2
+    t.datetime "created_at",                                                              :null => false
+    t.datetime "updated_at",                                                              :null => false
     t.decimal  "original_price"
     t.text     "inspiration"
     t.string   "slug"
-    t.boolean  "published",                                      :default => false
-    t.integer  "priority",                                       :default => 5
+    t.boolean  "published",                                            :default => false
+    t.integer  "priority",                                             :default => 5
     t.string   "meta_title"
-    t.integer  "sold_total",                                     :default => 0
+    t.integer  "sold_total",                                           :default => 0
+    t.integer  "default_region_rule_id"
   end
 
+  add_index "products", ["default_region_rule_id"], :name => "index_products_on_default_region_rule_id"
   add_index "products", ["slug"], :name => "index_products_on_slug", :unique => true
 
   create_table "provinces", :force => true do |t|
@@ -269,6 +271,8 @@ ActiveRecord::Schema.define(:version => 20130618080832) do
     t.text     "area_ids"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.string   "name"
+    t.string   "type"
   end
 
   add_index "region_rules", ["product_id"], :name => "index_region_rules_on_product_id"

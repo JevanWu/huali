@@ -17,10 +17,6 @@
 #  index_region_rules_on_product_id  (product_id)
 #
 
-class RegionRule < ActiveRecord::Base
-  attr_accessible :name, :area_ids, :city_ids, :province_ids
-
-  serialize :area_ids, Array
-  serialize :city_ids, Array
-  serialize :province_ids, Array
+class DefaultRegionRule < RegionRule
+  validates :name, presence: true
 end

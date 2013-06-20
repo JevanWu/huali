@@ -4,10 +4,10 @@
 #
 #  created_at        :datetime         not null
 #  end_date          :date
-#  excluded_dates    :string(255)
+#  excluded_dates    :text
 #  excluded_weekdays :string(255)
 #  id                :integer          not null, primary key
-#  included_dates    :string(255)
+#  included_dates    :text
 #  product_id        :integer
 #  start_date        :date
 #  updated_at        :datetime         not null
