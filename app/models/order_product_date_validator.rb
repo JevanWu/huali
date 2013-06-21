@@ -1,11 +1,12 @@
 class OrderProductDateValidator < ActiveModel::Validator
   def validate(order)
+    raise "No global date_rule settings found" if Settings.date_rule.blank?
+
     order_valid = true
 
     order.products.each do |product|
-      date_rule = product.date_rule || Settings.date_rule
 
-      raise "No global date_rule settings found" if date_rule.blank?
+      date_rule = intersect_rules(Settings.date_rule, product.date_rule)
 
       rule_engine_options = {
         range: [date_rule.start_date, date_rule.end_date],
@@ -24,5 +25,31 @@ class OrderProductDateValidator < ActiveModel::Validator
     end
 
     order.errors[:base] = :unavailable_date unless order_valid
+  end
+
+  private
+
+  def intersect_rules(global_rule, local_rule)
+    return global_rule if local_rule.nil?
+
+    new_rule = OpenStruct.new
+
+    new_rule.start_date =
+      (global_rule.start_date.to_date >= local_rule.start_date) ?
+      global_rule.start_date
+    :
+      local_rule.start_date
+
+    new_rule.end_date =
+      (global_rule.end_date.to_date <= local_rule.end_date) ?
+      global_rule.end_date
+    :
+      local_rule.end_date
+
+    new_rule.included_dates = (global_rule.included_dates & local_rule.included_dates)
+    new_rule.excluded_dates = (global_rule.excluded_dates & local_rule.excluded_dates)
+    new_rule.excluded_weekdays = (global_rule.excluded_weekdays & local_rule.excluded_weekdays)
+
+    new_rule
   end
 end
