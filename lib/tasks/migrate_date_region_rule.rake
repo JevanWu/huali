@@ -17,4 +17,13 @@ namespace :migrate do
       product.save(validate: false)
     end
   end
+
+  desc "Migrate old date rule to new Global Date Rule"
+  task date_rule: :environment do
+    Settings.date_rule = OpenStruct.new(start_date: nil,
+                                        end_date: nil,
+                                        included_dates: [],
+                                        excluded_dates: [],
+                                        excluded_weekdays: ["0", "1"])
+  end
 end
