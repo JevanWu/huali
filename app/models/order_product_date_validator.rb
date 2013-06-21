@@ -30,20 +30,34 @@ class OrderProductDateValidator < ActiveModel::Validator
   private
 
   def merge_rules(global_rule, local_rule)
-    return global_rule if local_rule.nil?
-
     new_rule = OpenStruct.new
 
-    # Local rule override global_rule in start dates and end dates
-    new_rule.start_date = local_rule.start_date
-    new_rule.end_date = local_rule.end_date
+    if local_rule.nil?
+      new_rule.start_date = global_rule.start_date.nil? ?
+        (Time.current.hour >= 17 ? Date.current.next_day(3) : Date.current.next_day(2))
+      :
+        global_rule.start_date
 
-    # Union included_dates
-    new_rule.included_dates = (global_rule.included_dates | local_rule.included_dates)
+      new_rule.end_date = global_rule.end_date.nil? ?
+        new_rule.start_date.to_date.next_month
+      :
+        global_rule.end_date
 
-    # Union excluded_dates and excluded_weekdays
-    new_rule.excluded_dates = (global_rule.excluded_dates | local_rule.excluded_dates)
-    new_rule.excluded_weekdays = (global_rule.excluded_weekdays | local_rule.excluded_weekdays)
+      new_rule.included_dates = global_rule.included_dates
+      new_rule.excluded_dates = global_rule.excluded_dates
+      new_rule.excluded_weekdays = global_rule.excluded_weekdays
+    else
+      # Local rule override global_rule in start dates and end dates
+      new_rule.start_date = local_rule.start_date
+      new_rule.end_date = local_rule.end_date
+
+      # Union included_dates
+      new_rule.included_dates = (global_rule.included_dates | local_rule.included_dates)
+
+      # Union excluded_dates and excluded_weekdays
+      new_rule.excluded_dates = (global_rule.excluded_dates | local_rule.excluded_dates)
+      new_rule.excluded_weekdays = (global_rule.excluded_weekdays | local_rule.excluded_weekdays)
+    end
 
     new_rule
   end
