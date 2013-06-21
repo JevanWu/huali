@@ -26,7 +26,7 @@ FactoryGirl.define do
 
     included_dates ["2013-02-02", "2013-02-05"]
     excluded_dates ["2013-01-02", "2013-01-05"]
-    excluded_weekdays [6,7]
+    excluded_weekdays ["6","0"]
     product
   end
 end
