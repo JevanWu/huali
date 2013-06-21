@@ -37,7 +37,7 @@
     <%= link_to t('views.order.checkout'), new_order_path, class: 'checkout button' %>
     <% if current_administrator %>
       <%= link_to t('views.order.back_checkout'), new_back_order_path, class: 'checkout button' %>
-      <%# <%= link_to t('views.order.taobao_checkout'), new_taobao_order_path, class: 'checkout button' %> %>
+      <%= link_to t('views.order.taobao_checkout'), new_taobao_order_path, class: 'checkout button' %>
     <% end %>
   </div>
 <% end %>
