@@ -57,9 +57,10 @@ class OrdersController < ApplicationController
     @order.type = :taobao
 
     # add source
-    @order.type = '淘宝'
+    @order.source = '淘宝'
 
     opts = { paymethod: 'directPay', merchant_name: 'Alipay' }.merge(merchant_trade_no)
+
     if @order.save and @order.complete_transaction(opts)
       empty_cart
       flash[:notice] = t('controllers.order.order_success')
