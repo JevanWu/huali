@@ -475,6 +475,9 @@ GEM
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
+    turbo-sprockets-rails3 (0.3.6)
+      railties (> 3.2.8, < 4.0.0)
+      sprockets (>= 2.0.0)
     twilio-ruby (3.9.0)
       builder (>= 2.1.2)
       jwt (>= 0.1.2)
@@ -579,6 +582,7 @@ DEPENDENCIES
   squash_ruby!
   state_machine
   thin (>= 1.4.1)
+  turbo-sprockets-rails3
   twilio-ruby
   uglifier (>= 1.0.3)
   unicorn
