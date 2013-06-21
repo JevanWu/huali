@@ -185,4 +185,10 @@ class Product < ActiveRecord::Base
   def region_rule
     self.local_region_rule || self.default_region_rule
   end
+
+  def build_local_region_rule_upon_default
+    build_local_region_rule(province_ids: default_region_rule.province_ids,
+                            city_ids: default_region_rule.city_ids,
+                            area_ids: default_region_rule.area_ids)
+  end
 end

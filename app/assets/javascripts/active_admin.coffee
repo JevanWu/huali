@@ -5,7 +5,7 @@
 
 $ ->
   $('form').on 'click', '.remove_fields', (event) ->
-    $(this).prev('input[type=hidden]').val('1')
+    $(this).parent().find('input[id$="_destroy"]').val('1')
     $(this).closest('fieldset').hide()
     event.preventDefault()
 
@@ -23,3 +23,10 @@ $ ->
     height: '25px'
     width: '78%'
     defaultText:'添加新标签, 逗号分割'
+
+  $('form').on 'click', '.add_region_rule', (event) ->
+    $(this).parent().find('input[id$="_destroy"]').val(false)
+    $('div#region_rules').show()
+    event.preventDefault()
+    $(this).hide()
+    $(this).next().show()

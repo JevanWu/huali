@@ -62,13 +62,12 @@
     <%= f.input :default_region_rule, prompt: "No Prompt", required: true %>
   <% end %>
 
-  <% @product.build_local_region_rule unless @product.local_region_rule %>
+  <% @product.build_local_region_rule_upon_default unless @product.local_region_rule %>
   <%= f.inputs "Local region rule", for: :local_region_rule do |builder| %>
     <%= builder.hidden_field :province_ids, value: @product.region_rule.province_ids.join(','), id: "region_rule_province_ids" %>
-    <%= builder.hidden_field :city_ids, value: @product.region_rule.city_ids.join(','), id: "region_rule_city_ids" %>
-    <%= builder.hidden_field :area_ids, value: @product.region_rule.area_ids.join(','), id: "region_rule_area_ids" %>
+    <%= builder.hidden_field :city_ids, value: @product.region_rule.city_ids.join(','), id: "region_rule_city_ids" %> <%= builder.hidden_field :area_ids, value: @product.region_rule.area_ids.join(','), id: "region_rule_area_ids" %>
 
-    <div id="region_rules">
+    <div id="region_rules" class="<%= "hide" if @product.local_region_rule.new_record? %>">
       <% Province.includes(cities: :areas).each do |province| %>
         <div class="item">
           <label><input pid="<%= province.id %>" type="checkbox" <%= @product.region_rule.province_ids.include?(province.id.to_s) ? "checked" : "" %> /><%= province.name %></label>
@@ -95,11 +94,12 @@
         </div>
       <% end %>
       <button id="save_region_rule">Save</button>
-      <p><strong>Remember save region rule before submit!</strong></p>
+      <p><strong>Remember to save region rule before submit!</strong></p>
     </div>
 
-    <%= builder.hidden_field :_destroy %>
-    <%= link_to "Remove rule", "#", class: "remove_fields" %>
+    <%= builder.hidden_field :_destroy, value: (@product.local_region_rule.new_record? ? true : false) %>
+    <a href="#" class="add_region_rule <%= "hide" unless @product.local_region_rule.new_record? %>">Add rule</a>
+    <a href="#" class="remove_fields <%= "hide" if @product.local_region_rule.new_record? %>">Remove rule</a>
   <% end %>
 
   <%= f.actions %>
