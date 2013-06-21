@@ -1,5 +1,9 @@
+# encoding: utf-8
 ActiveAdmin.register_page "Global Settings" do
-  menu if: proc { authorized? :manage, Settings }
+  menu parent: "设置", label: -> { I18n.t("active_admin.global_settings") }, if: proc { authorized? :manage, Settings }
+
+  content :title => proc{ I18n.t("active_admin.global_settings")  } do
+  end
 
   controller do
     def edit_product_rules

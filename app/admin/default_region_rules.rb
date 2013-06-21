@@ -1,5 +1,6 @@
+# encoding: utf-8
 ActiveAdmin.register DefaultRegionRule do
-  menu if: proc { authorized? :manage, DefaultRegionRule }
+  menu parent: "设置", if: proc { authorized? :manage, DefaultRegionRule }
 
   config.filters = false
 
