@@ -286,7 +286,7 @@ GEM
     net-ssh (2.6.7)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
-    newrelic_rpm (3.6.2.96)
+    newrelic_rpm (3.6.4.122)
     nokogiri (1.5.9)
     oauth2 (0.8.1)
       faraday (~> 0.8)
