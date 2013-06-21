@@ -130,7 +130,7 @@ class Order < ActiveRecord::Base
   scope :next_two_day, -> { where 'delivery_date = ?', Date.current.next_day(2) }
   scope :within_this_week, -> { where('delivery_date >= ? AND delivery_date <= ? ', Date.current.beginning_of_week, Date.current.end_of_week) }
   scope :within_this_month, -> { where('delivery_date >= ? AND delivery_date <= ? ', Date.current.beginning_of_month, Date.current.end_of_month) }
-  scope :accountable, -> { where("state != 'void' and state != 'generated'") }
+  scope :accountable, -> { where("type = 'normal'").where("state != 'void' and state != 'generated'") }
   scope :in_day, lambda { |date| where("DATE(created_at AT TIME ZONE 'utc') = DATE(?)", date) }
   scope :unpaid_today, lambda { |hours_ago| in_day(Date.current).where(state: 'generated').where("created_at <= ?", hours_ago.hours.ago) }
 
