@@ -53,7 +53,7 @@
     <%= builder.input :end_date, as: :string, input_html: { class: 'datepicker' } %>
     <%= builder.input :included_dates, as: :string, hint: "Dates separated by comma", input_html: { value: @product.date_rule.included_dates.join(',') } %>
     <%= builder.input :excluded_dates, as: :string, hint: "Dates separated by comma", input_html: { value: @product.date_rule.excluded_dates.join(',') } %>
-    <%= builder.input :excluded_weekdays, as: :check_boxes, collection: [ ["Monday", "1"], ["Tuesday", "2"], ["Wednesday", "3"], ["Thursday", "4"], ["Friday", "5"], ["Saturday", "6"], ["Sunday", "7"] ], default: @product.date_rule.excluded_weekdays %>
+    <%= builder.input :excluded_weekdays, as: :check_boxes, collection: [ ["Monday", "1"], ["Tuesday", "2"], ["Wednesday", "3"], ["Thursday", "4"], ["Friday", "5"], ["Saturday", "6"], ["Sunday", "0"] ], default: @product.date_rule.excluded_weekdays %>
     <%= builder.hidden_field :_destroy %>
     <%= link_to "Remove rule", "#", class: "remove_fields" %>
   <% end %>
