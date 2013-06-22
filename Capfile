@@ -16,7 +16,6 @@ require 'capistrano-zen/config'
 require "whenever/capistrano"
 set :whenever_roles, [:db, :app]
 
-require 'sidekiq/capistrano'
 require 'squash/rails/capistrano'
 
 # Use Git as Version Control System
@@ -50,6 +49,8 @@ task :production do
   set :rails_env, "production"
 
   set :deploy_to, "/home/#{user}/repositories/#{application}-production"
+
+  require 'sidekiq/capistrano'
 end
 
 task :staging do
