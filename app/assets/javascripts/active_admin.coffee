@@ -25,15 +25,13 @@ $ ->
     defaultText:'添加新标签, 逗号分割'
 
   $('form').on 'click', '.add_region_rule', (event) ->
-    $(this).parent().find('input[id$="_destroy"]').val(false)
-    $('div#region_rules').show()
-    event.preventDefault()
+    $(this).prev().find('input[id$="_destroy"]').val(false)
+    $(this).prev().show()
     $(this).hide()
-    $(this).next().show()
+    event.preventDefault()
 
   $('form').on 'click', '.add_date_rule', (event) ->
-    $(this).parent().find('input[id$="_destroy"]').val(false)
-    $('div#date_rules').show()
-    event.preventDefault()
+    $(this).prev().find('input[id$="_destroy"]').val(false)
+    $(this).prev().show()
     $(this).hide()
-    $(this).next().show()
+    event.preventDefault()
