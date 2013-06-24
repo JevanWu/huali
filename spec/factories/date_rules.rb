@@ -22,7 +22,7 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :date_rule do
+  factory :local_date_rule do
     start_date "2013-01-01"
     end_date "2013-02-01"
 
@@ -30,5 +30,15 @@ FactoryGirl.define do
     excluded_dates ["2013-01-02", "2013-01-05"]
     excluded_weekdays ["6","0"]
     product
+  end
+
+  factory :default_date_rule do
+    start_date "2013-01-01"
+    end_date "2013-12-01"
+
+    included_dates []
+    excluded_dates []
+    excluded_weekdays []
+    sequence(:name) { |n| "name#{n}" }
   end
 end

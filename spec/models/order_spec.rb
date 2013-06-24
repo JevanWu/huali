@@ -35,13 +35,6 @@
 require 'spec_helper'
 
 describe Order do
-  before(:each) do
-    Settings.date_rule = OpenStruct.new(start_date: "2013-01-01",
-                                        end_date: "2013-12-01",
-                                        included_dates: [],
-                                        excluded_dates: [],
-                                        excluded_weekdays: [])
-  end
 
   describe "#update_sold_total" do
     let(:order) { FactoryGirl.create(:order, :wait_confirm) }
@@ -134,7 +127,7 @@ describe Order do
   describe OrderProductRegionValidator do
     before(:each) do
       order.line_items.each do |line|
-        line.product.date_rule = nil
+        line.product.local_date_rule = nil
       end
     end
 

@@ -56,6 +56,7 @@ FactoryGirl.define do
     meta_keywords { Forgery(:lorem_ipsum).words(20) }
 
     default_region_rule
+    default_date_rule
 
     after(:build) do |product|
       [1, 2, 3, 4].sample.times do
@@ -65,7 +66,7 @@ FactoryGirl.define do
     end
 
     after(:create) do |product|
-      product.date_rule = build(:date_rule, product: product)
+      product.local_date_rule = build(:local_date_rule, product: product)
     end
 
     trait :unpublished do

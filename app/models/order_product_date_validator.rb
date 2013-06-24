@@ -1,12 +1,11 @@
 class OrderProductDateValidator < ActiveModel::Validator
   def validate(order)
-    raise "No global date_rule settings found" if Settings.date_rule.blank?
-
     order_valid = true
 
     order.products.each do |product|
+      raise "No global date_rule settings found" if product.default_date_rule.blank?
 
-      date_rule = merge_rules(Settings.date_rule, product.date_rule)
+      date_rule = merge_rules(product.default_date_rule, product.local_date_rule)
 
       rule_engine_options = {
         range: [date_rule.start_date, date_rule.end_date],
