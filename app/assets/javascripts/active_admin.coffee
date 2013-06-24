@@ -30,3 +30,10 @@ $ ->
     event.preventDefault()
     $(this).hide()
     $(this).next().show()
+
+  $('form').on 'click', '.add_date_rule', (event) ->
+    $(this).parent().find('input[id$="_destroy"]').val(false)
+    $('div#date_rules').show()
+    event.preventDefault()
+    $(this).hide()
+    $(this).next().show()

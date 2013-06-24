@@ -47,19 +47,27 @@
     <%= f.input :meta_description %>
   <% end %>
 
-  <% @product.build_date_rule unless @product.date_rule %>
-  <%= f.inputs "Date Rule", for: :date_rule do |builder| %>
-    <%= builder.input :start_date, as: :string, input_html: { class: 'datepicker' } %>
-    <%= builder.input :end_date, as: :string, input_html: { class: 'datepicker' } %>
-    <%= builder.input :included_dates, as: :string, hint: "Dates separated by comma", input_html: { value: @product.date_rule.included_dates.join(',') } %>
-    <%= builder.input :excluded_dates, as: :string, hint: "Dates separated by comma", input_html: { value: @product.date_rule.excluded_dates.join(',') } %>
-    <%= builder.input :excluded_weekdays, as: :check_boxes, collection: [ ["Monday", "1"], ["Tuesday", "2"], ["Wednesday", "3"], ["Thursday", "4"], ["Friday", "5"], ["Saturday", "6"], ["Sunday", "0"] ], default: @product.date_rule.excluded_weekdays %>
+  <%= f.inputs "Default Date Rule" do %>
+    <%= f.input :default_date_rule, include_blank: false, required: true %>
+  <% end %>
+
+  <% @product.build_local_date_rule unless @product.local_date_rule %>
+  <%= f.inputs "Local Date Rule", for: :local_date_rule, id: "date_rules" do |builder| %>
+    <div id="date_rules" class="section <%= "hide" if @product.local_date_rule.new_record? %>">
+      <%= builder.input :start_date, as: :string, input_html: { class: 'datepicker' } %>
+      <%= builder.input :end_date, as: :string, input_html: { class: 'datepicker' } %>
+      <%= builder.input :included_dates, as: :string, hint: "Dates separated by comma", input_html: { value: @product.date_rule.included_dates.join(',') } %>
+      <%= builder.input :excluded_dates, as: :string, hint: "Dates separated by comma", input_html: { value: @product.date_rule.excluded_dates.join(',') } %>
+      <%= builder.input :excluded_weekdays, as: :check_boxes, collection: [ ["Monday", "1"], ["Tuesday", "2"], ["Wednesday", "3"], ["Thursday", "4"], ["Friday", "5"], ["Saturday", "6"], ["Sunday", "0"] ], default: @product.date_rule.excluded_weekdays %>
+    </div>
+
     <%= builder.hidden_field :_destroy %>
+    <a href="#" class="add_date_rule <%= "hide" unless @product.local_date_rule.new_record? %>">Add rule</a>
     <%= link_to "Remove rule", "#", class: "remove_fields" %>
   <% end %>
 
   <%= f.inputs "Default Region Rule" do %>
-    <%= f.input :default_region_rule, prompt: "No Prompt", required: true %>
+    <%= f.input :default_region_rule, include_blank: false, required: true %>
   <% end %>
 
   <% @product.build_local_region_rule_upon_default unless @product.local_region_rule %>
