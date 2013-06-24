@@ -5,6 +5,9 @@
 
 $ ->
   $('form').on 'click', '.remove_fields', (event) ->
+    if (!confirm('Are you sure?'))
+      return false
+
     $(this).parent().find('input[id$="_destroy"]').val('1')
     $(this).closest('fieldset').hide()
     event.preventDefault()
