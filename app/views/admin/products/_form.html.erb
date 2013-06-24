@@ -66,7 +66,7 @@
     </li>
 
   <% end %>
-  <a href="#" class="add_date_rule <%= "hide" unless @product.local_date_rule.new_record? %>">Add local rule</a>
+  <a href="#" class="add_date_rule <%= "hide" unless @product.local_date_rule.new_record? %>"><%= t('views.admin.product.add_rule') %></a>
 
   <%= f.inputs "Default Region Rule" do %>
     <%= f.input :default_region_rule, include_blank: false, required: true %>
@@ -110,7 +110,7 @@
     <%= link_to t('views.admin.product.remove_rule'), "#", class: "remove_fields" %>
     </li>
   <% end %>
-  <a href="#" class="add_region_rule <%= "hide" unless @product.local_region_rule.new_record? %>">Add local rule</a>
+  <a href="#" class="add_region_rule <%= "hide" unless @product.local_region_rule.new_record? %>"><%= t('views.admin.product.add_rule') %></a>
 
   <%= f.actions %>
 <% end %>

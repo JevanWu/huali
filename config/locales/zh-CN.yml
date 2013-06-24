@@ -372,6 +372,7 @@ zh-CN:
         add_image: 新增图片
         remove_rule: 移除规则
         edit_rule: 修改规则
+        add_rule: 添加规则
       location:
         province_updated: 个省份已经更新
         city_updated: 个城市已经更新
