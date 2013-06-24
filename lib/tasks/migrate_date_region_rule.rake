@@ -20,10 +20,22 @@ namespace :migrate do
 
   desc "Migrate old date rule to new Global Date Rule"
   task date_rule: :environment do
-    Settings.date_rule = OpenStruct.new(start_date: nil,
-                                        end_date: nil,
-                                        included_dates: [],
-                                        excluded_dates: [],
-                                        excluded_weekdays: ["0", "1"])
+    default_name = "默认时间规则"
+    unless DefaultDateRule.where(name: default_name).exists?
+      DefaultDateRule.create(name: default_name,
+                             start_date: nil,
+                             end_date: nil,
+                             included_dates: [],
+                             excluded_dates: [],
+                             excluded_weekdays: ["0", "1"])
+
+    end
+
+    default_rule = DefaultDateRule.where(name: default_name).first
+
+    Product.unscoped.each do |product|
+      product.default_date_rule = default_rule
+      product.save(validate: false)
+    end
   end
 end
