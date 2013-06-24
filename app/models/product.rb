@@ -87,8 +87,7 @@ class Product < ActiveRecord::Base
     end
 
     def sort_by_collection
-      #FIXME remove try when assert products always have an associated collection
-      published.sort_by { |p| p.collection.try(:id) || 0 }
+      Product.published.joins(:collections).order(:collection_id)
     end
   end
 
