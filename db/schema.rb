@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130620064033) do
+ActiveRecord::Schema.define(:version => 20130624062503) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -141,6 +141,8 @@ ActiveRecord::Schema.define(:version => 20130620064033) do
     t.string   "excluded_weekdays"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.string   "name"
+    t.string   "type"
   end
 
   add_index "date_rules", ["product_id"], :name => "index_date_rules_on_product_id"
@@ -241,8 +243,10 @@ ActiveRecord::Schema.define(:version => 20130620064033) do
     t.string   "meta_title"
     t.integer  "sold_total",                                           :default => 0
     t.integer  "default_region_rule_id"
+    t.integer  "default_date_rule_id"
   end
 
+  add_index "products", ["default_date_rule_id"], :name => "index_products_on_default_date_rule_id"
   add_index "products", ["default_region_rule_id"], :name => "index_products_on_default_region_rule_id"
   add_index "products", ["slug"], :name => "index_products_on_slug", :unique => true
 

@@ -8,8 +8,10 @@
 #  excluded_weekdays :string(255)
 #  id                :integer          not null, primary key
 #  included_dates    :text
+#  name              :string(255)
 #  product_id        :integer
 #  start_date        :date
+#  type              :string(255)
 #  updated_at        :datetime         not null
 #
 # Indexes

@@ -4,6 +4,7 @@
 #
 #  count_on_hand          :integer          default(0), not null
 #  created_at             :datetime         not null
+#  default_date_rule_id   :integer
 #  default_region_rule_id :integer
 #  depth                  :decimal(8, 2)
 #  description            :text
@@ -26,6 +27,7 @@
 #
 # Indexes
 #
+#  index_products_on_default_date_rule_id    (default_date_rule_id)
 #  index_products_on_default_region_rule_id  (default_region_rule_id)
 #  index_products_on_slug                    (slug) UNIQUE
 #

@@ -4,6 +4,7 @@
 #
 #  count_on_hand          :integer          default(0), not null
 #  created_at             :datetime         not null
+#  default_date_rule_id   :integer
 #  default_region_rule_id :integer
 #  depth                  :decimal(8, 2)
 #  description            :text
@@ -26,6 +27,7 @@
 #
 # Indexes
 #
+#  index_products_on_default_date_rule_id    (default_date_rule_id)
 #  index_products_on_default_region_rule_id  (default_region_rule_id)
 #  index_products_on_slug                    (slug) UNIQUE
 #
@@ -59,8 +61,9 @@ class Product < ActiveRecord::Base
   accepts_nested_attributes_for :local_region_rule, allow_destroy: true, update_only: true,
     reject_if: :all_blank
 
-  has_one :date_rule, dependent: :destroy
-  accepts_nested_attributes_for :date_rule, allow_destroy: true, update_only: true,
+  belongs_to :default_date_rule
+  has_one :local_date_rule, dependent: :destroy
+  accepts_nested_attributes_for :local_date_rule, allow_destroy: true, update_only: true,
     reject_if: proc { |d| d[:start_date].blank? || d[:end_date].blank? }
 
   # i18n translation
@@ -184,6 +187,10 @@ class Product < ActiveRecord::Base
 
   def region_rule
     self.local_region_rule || self.default_region_rule
+  end
+
+  def date_rule
+    self.local_date_rule || self.default_date_rule
   end
 
   def build_local_region_rule_upon_default

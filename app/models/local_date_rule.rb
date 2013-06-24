@@ -19,10 +19,6 @@
 #  index_date_rules_on_product_id  (product_id)
 #
 
-class DateRule < ActiveRecord::Base
-  attr_accessible :end_date, :excluded_dates, :excluded_weekdays, :included_dates, :start_date, :name
-
-  serialize :included_dates, Array
-  serialize :excluded_dates, Array
-  serialize :excluded_weekdays, Array
+class LocalDateRule < DateRule
+  belongs_to :product
 end
