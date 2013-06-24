@@ -352,6 +352,8 @@ zh-CN:
       product:
         product_updated: 个产品已经更新
         add_image: 新增图片
+        remove_rule: 移除规则
+        edit_rule: 修改规则
       location:
         province_updated: 个省份已经更新
         city_updated: 个城市已经更新
