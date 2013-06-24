@@ -60,7 +60,11 @@
     <%= builder.input :excluded_weekdays, as: :check_boxes, collection: [ ["Monday", "1"], ["Tuesday", "2"], ["Wednesday", "3"], ["Thursday", "4"], ["Friday", "5"], ["Saturday", "6"], ["Sunday", "0"] ], default: @product.date_rule.excluded_weekdays %>
 
     <%= builder.hidden_field :_destroy %>
-    <%= link_to "Remove rule", "#", class: "remove_fields" %>
+    <li class="file input">
+    <label class="label"><%= t('views.admin.product.remove_rule') %></label>
+    <%= link_to t('views.admin.product.remove_rule'), "#", class: "remove_fields" %>
+    </li>
+
   <% end %>
   <a href="#" class="add_date_rule <%= "hide" unless @product.local_date_rule.new_record? %>">Add local rule</a>
 
@@ -101,7 +105,10 @@
     <button id="save_region_rule" class='hide'>Save</button>
 
     <%= builder.hidden_field :_destroy, value: (@product.local_region_rule.new_record? ? true : false) %>
-    <a href="#" class="remove_fields">Remove rule</a>
+    <li class="file input">
+    <label class="label"><%= t('views.admin.product.remove_rule') %></label>
+    <%= link_to t('views.admin.product.remove_rule'), "#", class: "remove_fields" %>
+    </li>
   <% end %>
   <a href="#" class="add_region_rule <%= "hide" unless @product.local_region_rule.new_record? %>">Add local rule</a>
 

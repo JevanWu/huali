@@ -24,6 +24,7 @@
 #  special_instructions :text
 #  state                :string(255)      default("ready")
 #  total                :decimal(8, 2)    default(0.0), not null
+#  type                 :string(255)      default("normal"), not null
 #  updated_at           :datetime         not null
 #  user_id              :integer
 #
@@ -34,6 +35,7 @@
 #
 
 class Order < ActiveRecord::Base
+  self.inheritance_column = 'sti_type'
 
   attr_accessible :line_items, :special_instructions, :address_attributes,
                   :gift_card_text, :delivery_date, :expected_date, :identifier, :state,
@@ -51,6 +53,9 @@ class Order < ActiveRecord::Base
   has_one :order_coupon
   has_one :coupon, through: :order_coupon
 
+  extend Enumerize
+  enumerize :type, in: [:normal, :backorder, :taobao], default: :normal
+
   delegate :province_name, :city_name, to: :address
   delegate :paymethod, to: :transaction, allow_nil: true
   delegate :province_id, :city_id, :area_id, to: :address, prefix: 'address'
@@ -64,7 +69,7 @@ class Order < ActiveRecord::Base
                       with: %r{\A[+-x*%/][\s\d.]+\z}, # +/-/*/%1234.0
                       unless: lambda { |order| order.adjustment.blank? }
 
-  validates_presence_of :identifier, :line_items, :expected_date, :state, :total, :item_total, :sender_email, :sender_phone, :sender_name, :source
+  validates_presence_of :identifier, :line_items, :expected_date, :state, :total, :item_total, :sender_email, :sender_phone, :sender_name
 
   validates_with OrderProductRegionValidator, if: lambda { |order| order.state.in? ['generated', 'wait_check', 'wait_make'] }
   validates_with OrderProductDateValidator, if: lambda { |order| order.state.in? ['generated', 'wait_check', 'wait_make'] }
@@ -128,7 +133,7 @@ class Order < ActiveRecord::Base
   scope :next_two_day, -> { where 'delivery_date = ?', Date.current.next_day(2) }
   scope :within_this_week, -> { where('delivery_date >= ? AND delivery_date <= ? ', Date.current.beginning_of_week, Date.current.end_of_week) }
   scope :within_this_month, -> { where('delivery_date >= ? AND delivery_date <= ? ', Date.current.beginning_of_month, Date.current.end_of_month) }
-  scope :accountable, -> { where("state != 'void' and state != 'generated'") }
+  scope :accountable, -> { where("type = 'normal'").where("state != 'void' and state != 'generated'") }
   scope :in_day, lambda { |date| where("DATE(created_at AT TIME ZONE 'utc') = DATE(?)", date) }
   scope :unpaid_today, lambda { |hours_ago| in_day(Date.current).where(state: 'generated').where("created_at <= ?", hours_ago.hours.ago) }
 
@@ -173,6 +178,14 @@ class Order < ActiveRecord::Base
       body: body_text
     }
     self.transactions.create default.merge(opts)
+  end
+
+  def complete_transaction(opts)
+    # generate and process transaction
+    t = generate_transaction(opts)
+    t.start
+    t.processed_at = Time.now
+    t.complete
   end
 
   # options = {

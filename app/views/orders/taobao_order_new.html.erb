@@ -1,0 +1,26 @@
+<% content_for(:css) do %>
+  <%= stylesheet_link_tag "jquery.ui.datepicker" %>
+<% end %>
+
+<% content_for(:js) do %>
+  <%= javascript_include_tag "datepicker-settings" %>
+<% end %>
+
+<% content_for(:title_img) do %>
+  <%= image_tag('title-checkout.png') %>
+<% end %>
+
+<%= render 'checkout_nav' %>
+
+<div class='row'>
+  <div class="span4">
+    <%= render 'side_item_table', items: @products, title: t(:basket) %>
+  </div>
+
+  <div class="span8">
+    <h1>淘宝订单录入</h1>
+    <div id='checkout-form'>
+      <%= render 'taobao_order_form' %>
+    </div>
+  </div>
+</div>

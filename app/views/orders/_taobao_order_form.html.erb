@@ -1,0 +1,51 @@
+<%= simple_form_for @order, url: { action: 'taobao_order_create' }, html: { class: 'form-horizontal', id: 'new-order' } do |f| %>
+  <div class="control-group error section-error">
+    <%= f.full_error :line_items %>
+  </div>
+  <fieldset>
+    <legend>顾客个人信息</legend>
+    <%= f.input :sender_name, require:true, placeholder: '您的姓名' %>
+    <%= f.input :sender_email, required:true, placeholder: '以便及时收到订单更新'  %>
+    <%= f.input :sender_phone, required:true, placeholder: '以便我们和您核对信息'  %>
+  </fieldset>
+
+  <fieldset>
+    <%# FIXME a hack get order[:merchant_trade_no] from form%>
+    <legend>支付信息</legend>
+    <div class="control-group">
+      <label class="required control-label"><abbr title="required">*</abbr> 支付宝交易号</label>
+      <div class="controls">
+        <input class="string required" type="text" name="order[merchant_trade_no]" placeholder="支付宝交易号" size="50">
+      </div>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend>订单信息</legend>
+    <%= f.input :adjustment, 
+      placeholder: '价格调整 +20.0, -30.0, x1.1, *0.9 etc.',
+      hint: 'support multiple calculation(+,-,*,x,%,/), validate format includes "-20.0", "x1.1", "%2" etc.' %>
+    <%= f.input :coupon_code, placeholder: '如果您有优惠券，请在这里填写' %>
+    <%= f.input :gift_card_text, input_html: { rows: 3 }, placeholder: '我们可以代您书写给TA的话，请注明落款哦！' %>
+    <%= f.input :special_instructions, input_html: { rows: 3 }, placeholder: '您可将一些特殊要求罗列与此，我们将尽力满足您的要求。' %>
+  </fieldset>
+  <fieldset>
+    <legend>递送信息</legend>
+    <%= f.input :ship_method_id, as: :radio, required:true, collection: ShipMethod.all %>
+    <%= f.input :expected_date, as: :string, required:true, input_html: { class: 'datepicker' }, placeholder: '寄给TA的时间' %>
+    <%= f.input :delivery_date, as: :string, required: true, input_html: { class: 'datepicker-full' }%>
+
+    <%= f.fields_for :address do |builder|%>
+      <%= builder.input :fullname, require:true, placeholder: '收件人姓名' %>
+      <%= builder.input :phone, required:true, placeholder: '收件人联系方式'  %>
+      <%= builder.association :province, collection: proc { Province.available }, prompt: "请选择省份", required:true %>
+      <%= builder.association :city, collection: [], prompt: "请选择城市", required:true %>
+      <%= builder.association :area, collection: [] %>
+      <%= builder.input :post_code, placeholder: '邮编', required: true %>
+      <%= builder.input :address, as: 'text', required:true, input_html: { rows: 3 }, placeholder: '详细地址' %>
+    <% end %>
+  </fieldset>
+  <div class="form-actions">
+    <%= f.button :submit, class: 'button' %>
+    <%= link_to t('cancel'), current_order_path %>
+  </div>
+<% end %>
