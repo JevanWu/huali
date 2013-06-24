@@ -98,8 +98,7 @@
         </div>
       </div>
     <% end %>
-    <button id="save_region_rule">Save</button>
-    <p><strong>Remember to save region rule before submit!</strong></p>
+    <button id="save_region_rule" class='hide'>Save</button>
 
     <%= builder.hidden_field :_destroy, value: (@product.local_region_rule.new_record? ? true : false) %>
     <a href="#" class="remove_fields">Remove rule</a>

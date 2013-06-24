@@ -30,13 +30,12 @@
           </div>
         </div>
       <% end %>
-      <button id="save_region_rule">Save</button>
+      <button id="save_region_rule" class='hide'>Save</button>
     </div>
   <% end %>
 
   <%= f.inputs "Name" do %>
     <%= f.input :name %>
   <% end %>
-  <p><strong>Remember to save region rule before submit!</strong></p>
   <%= f.submit %>
 <% end %>

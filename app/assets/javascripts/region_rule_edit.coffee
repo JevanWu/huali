@@ -112,3 +112,6 @@ $ ->
     $cityIds.val(RegionRule.cityIds.join(','))
     $areaIds.val(RegionRule.areaIds.join(','))
     event.preventDefault()
+
+  $('input:submit').click ->
+    $("#save_region_rule").click()
