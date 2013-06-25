@@ -19,7 +19,7 @@ gem 'friendly_id', '~> 4.0.1'
 gem 'backup', require: false
 gem 'whenever', require: false
 gem 'state_machine'
-gem 'rack-mini-profiler'
+gem 'rack-mini-profiler', git: 'https://github.com/SamSaffron/MiniProfiler.git'
 gem 'figaro'
 gem 'sitemap_generator'
 gem 'humanizer'
