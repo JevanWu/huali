@@ -22,14 +22,14 @@
   <%= f.actions %>
 
   <%= f.inputs "Payment Info" do %>
-    <%= f.input :adjustment, 
+    <%= f.input :adjustment,
       placeholder: '+20.0, -30.0, x1.1, *0.9 etc.',
       hint: 'support multiple calculation(+,-,*,x,%,/), validate format includes "-20.0", "x1.1", "%2" etc.' %>
     <%= f.input :coupon_code %>
   <% end %>
 
   <%= f.inputs "Order Info" do %>
-    <%= f.input :source, as: :radio, collection: ['微博', '微信', '人人', '豆瓣', '平面媒体', '朋友推荐', '传单', '淘宝', '搜索引擎', '其他'] %>
+    <%= f.input :source, as: :radio, collection: ["微博", "人人", "豆瓣", "Facebook", "微信", "杂志等平面媒体", "搜素引擎", "朋友推荐", "网络广告", "视频网站", "淘宝", "其他"] %>
     <%= f.input :special_instructions %>
     <%= f.input :gift_card_text %>
   <% end %>
