@@ -14,7 +14,7 @@ class OrderProductDateValidator < ActiveModel::Validator
         delete_if: Proc.new { |date| date.wday.to_s.in? date_rule.excluded_weekdays }
       }
 
-      date_valid = DateRuleEngine.new(rule_engine_options).apply_test(order.expected_date)
+      date_valid = DateRuleRunner.new(rule_engine_options).apply_test(order.expected_date)
 
       unless date_valid
         product.errors[:base] = :product_in_unavailable_date

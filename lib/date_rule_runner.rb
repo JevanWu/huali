@@ -4,16 +4,16 @@ require 'active_support/core_ext/array/wrap'
 # Usage
 # all params support either date string or Date object
 #
-# DateRule.new(range: ['2013-12-01', '2014-01-02'])
-# DateRule.new(range: ['2013-12-01', '2014-01-02'], exclude: ['2013-11-01', '2013-12-01'])
-# DateRule.new(range: ['2013-12-01', '2014-01-02'], include: ['2013-11-01', '2013-12-01'])
+# DateRuleRunner.new(range: ['2013-12-01', '2014-01-02'])
+# DateRuleRunner.new(range: ['2013-12-01', '2014-01-02'], exclude: ['2013-11-01', '2013-12-01'])
+# DateRuleRunner.new(range: ['2013-12-01', '2014-01-02'], include: ['2013-11-01', '2013-12-01'])
 #
 # more generic rules could be passed to :delete_if or :keep_if
 # rule = lambda { |date| date.monday? }
-# DateRule.new(range: ['2013-12-01', '2014-01-02'], keep_if: rule)
-# DateRule.new(range: ['2013-12-01', '2014-01-02'], delete_if: rule)
+# DateRuleRunner.new(range: ['2013-12-01', '2014-01-02'], keep_if: rule)
+# DateRuleRunner.new(range: ['2013-12-01', '2014-01-02'], delete_if: rule)
 
-class DateRuleEngine
+class DateRuleRunner
   def initialize(options)
     @start_date, @end_date = init_range(*options[:range])
     @date_range = @start_date..@end_date

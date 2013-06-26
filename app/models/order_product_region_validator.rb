@@ -7,7 +7,7 @@ class OrderProductRegionValidator < ActiveModel::Validator
 
       raise "No global region_rule settings found" if region_rule.blank?
 
-      region_rule_engine = RegionRuleEngine.new(region_rule.province_ids,
+      region_rule_engine = RegionRuleRunner.new(region_rule.province_ids,
                                                 region_rule.city_ids,
                                                 region_rule.area_ids)
 

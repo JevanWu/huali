@@ -1,4 +1,4 @@
-class RegionRuleEngine
+class RegionRuleRunner
   attr_accessor :province_ids, :city_ids, :area_ids
 
   def initialize(province_ids, city_ids, area_ids)

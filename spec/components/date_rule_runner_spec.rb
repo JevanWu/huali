@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe DateRuleEngine do
+describe DateRuleRunner do
 
   describe '#apply_test' do
     before(:each) do
@@ -9,7 +9,7 @@ describe DateRuleEngine do
     end
 
     let(:daterule) do
-      daterule = DateRuleEngine.new range: [@start, @end]
+      daterule = DateRuleRunner.new range: [@start, @end]
     end
 
     it 'tests against valid Date string' do
@@ -25,19 +25,19 @@ describe DateRuleEngine do
 
     context 'when ranges' do
       it 'has no start limit when range starts with nil' do
-        daterule = DateRuleEngine.new range: [nil, @end]
+        daterule = DateRuleRunner.new range: [nil, @end]
         date = Date.new(0)
         daterule.apply_test(date).should be_true
       end
 
       it 'has no end limit when range ends with nil' do
-        daterule = DateRuleEngine.new range: [@start, nil]
+        daterule = DateRuleRunner.new range: [@start, nil]
         date = Date.new(2099, 12, 31)
         daterule.apply_test(date).should be_true
       end
 
       it 'has no end limit when range is nil' do
-        daterule = DateRuleEngine.new range: nil
+        daterule = DateRuleRunner.new range: nil
         [Date.new(2099, 12, 31), Date.new(0)].each do |date|
           daterule.apply_test(date).should be_true
         end
@@ -46,26 +46,26 @@ describe DateRuleEngine do
 
     context 'when exclude' do
       it 'a single date string' do
-        daterule = DateRuleEngine.new range: [@start, @end], exclude: '2013-02-03'
+        daterule = DateRuleRunner.new range: [@start, @end], exclude: '2013-02-03'
         date = Date.new(2013,2,3)
         daterule.apply_test(date).should be_false
       end
 
       it 'an array of single date strings' do
-        daterule = DateRuleEngine.new range: [@start, @end], exclude: ['2013-02-03', '2013-02-05']
+        daterule = DateRuleRunner.new range: [@start, @end], exclude: ['2013-02-03', '2013-02-05']
         [Date.new(2013,2,3), Date.new(2013,2,5)].each do |date|
           daterule.apply_test(date).should be_false
         end
       end
 
       it 'a Date object' do
-        daterule = DateRuleEngine.new range: [@start, @end], exclude: Date.new(2013,2,3)
+        daterule = DateRuleRunner.new range: [@start, @end], exclude: Date.new(2013,2,3)
         date = Date.new(2013,2,3)
         daterule.apply_test(date).should be_false
       end
 
       it 'an array of Date objects' do
-        daterule = DateRuleEngine.new range: [@start, @end], exclude: [Date.new(2013,2,3), Date.new(2013,2,5)]
+        daterule = DateRuleRunner.new range: [@start, @end], exclude: [Date.new(2013,2,3), Date.new(2013,2,5)]
         [Date.new(2013,2,3), Date.new(2013,2,5)].each do |date|
           daterule.apply_test(date).should be_false
         end
@@ -74,33 +74,33 @@ describe DateRuleEngine do
 
     context 'when include' do
       it 'a single date string' do
-        daterule = DateRuleEngine.new range: [@start, @end], include: '2014-02-03'
+        daterule = DateRuleRunner.new range: [@start, @end], include: '2014-02-03'
         date = Date.new(2014,2,3)
         daterule.apply_test(date).should be_true
       end
 
       it 'an array of single date strings' do
-        daterule = DateRuleEngine.new range: [@start, @end], include: ['2014-02-03', '2014-02-05']
+        daterule = DateRuleRunner.new range: [@start, @end], include: ['2014-02-03', '2014-02-05']
         [Date.new(2014,2,3), Date.new(2014,2,5)].each do |date|
           daterule.apply_test(date).should be_true
         end
       end
 
       it 'a Date object' do
-        daterule = DateRuleEngine.new range: [@start, @end], include: Date.new(2014,2,3)
+        daterule = DateRuleRunner.new range: [@start, @end], include: Date.new(2014,2,3)
         date = Date.new(2014,2,3)
         daterule.apply_test(date).should be_true
       end
 
       it 'an array of Date objects' do
-        daterule = DateRuleEngine.new range: [@start, @end], include: [Date.new(2014,2,3), Date.new(2014,2,5)]
+        daterule = DateRuleRunner.new range: [@start, @end], include: [Date.new(2014,2,3), Date.new(2014,2,5)]
         [Date.new(2014,2,3), Date.new(2014,2,5)].each do |date|
           daterule.apply_test(date).should be_true
         end
       end
 
       it 'overrides exclude dates' do
-        daterule = DateRuleEngine.new range: [@start, @end], exclude: '2013-02-04', include: ['2013-02-04']
+        daterule = DateRuleRunner.new range: [@start, @end], exclude: '2013-02-04', include: ['2013-02-04']
         date = Date.new(2013,2,3)
         daterule.apply_test(date).should be_true
       end
@@ -109,7 +109,7 @@ describe DateRuleEngine do
     context 'with generic keep_if filters' do
       it 'accepts date which passes the rule' do
         filter = lambda { |date| date.monday? }
-        daterule = DateRuleEngine.new range: [@start, @end], keep_if: filter
+        daterule = DateRuleRunner.new range: [@start, @end], keep_if: filter
 
         monday = Date.new(2013,6,10)
         tuesday = Date.new(2013,6,11)
@@ -120,7 +120,7 @@ describe DateRuleEngine do
       it 'accepts date which passes any one of the rules' do
         filter1 = lambda { |date| date.monday? }
         filter2 = lambda { |date| date.tuesday? }
-        daterule = DateRuleEngine.new range: [@start, @end], keep_if: [filter1, filter2]
+        daterule = DateRuleRunner.new range: [@start, @end], keep_if: [filter1, filter2]
 
         monday = Date.new(2013,6,10)
         tuesday = Date.new(2013,6,11)
@@ -134,7 +134,7 @@ describe DateRuleEngine do
     context 'with generic delete_if filters' do
       it 'excludes date which passes the rule' do
         filter = lambda { |date| date.monday? }
-        daterule = DateRuleEngine.new range: [@start, @end], delete_if: filter
+        daterule = DateRuleRunner.new range: [@start, @end], delete_if: filter
 
         monday = Date.new(2013,6,10)
         tuesday = Date.new(2013,6,11)
@@ -145,7 +145,7 @@ describe DateRuleEngine do
       it 'excludes date which matches any one of the rules' do
         filter1 = lambda { |date| date.monday? }
         filter2 = lambda { |date| date.tuesday? }
-        daterule = DateRuleEngine.new range: [@start, @end], delete_if: [filter1, filter2]
+        daterule = DateRuleRunner.new range: [@start, @end], delete_if: [filter1, filter2]
 
         monday = Date.new(2013,6,10)
         tuesday = Date.new(2013,6,11)
