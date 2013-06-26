@@ -9,7 +9,7 @@ namespace :assets do
 
   desc "push the assets to the server"
   task :push, :server do |t, args|
-    host, repo = config_server args[:server]
+    host, user, repo = config_server args[:server]
 
     system("rsync -rvz public/system #{user}@#{host}:~/repositories/#{repo}/shared/")
     system("rsync -rvz --include '*.txt' --include '*.ico' --exclude '*' public/ #{user}@#{host}:~/repositories/#{repo}/shared/")
