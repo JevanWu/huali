@@ -38,7 +38,7 @@ class Order < ActiveRecord::Base
   self.inheritance_column = 'sti_type'
 
   attr_accessible :line_items, :special_instructions, :address_attributes,
-                  :gift_card_text, :delivery_date, :expected_date, :identifier, :state,
+                  :gift_card_text, :delivery_date, :expected_date, :identifier, :state, :type,
                   :sender_name, :sender_phone, :sender_email, :source, :adjustment, :coupon_code, :ship_method_id
 
   belongs_to :address
@@ -54,7 +54,7 @@ class Order < ActiveRecord::Base
   has_one :coupon, through: :order_coupon
 
   extend Enumerize
-  enumerize :type, in: [:normal, :backorder, :taobao], default: :normal
+  enumerize :type, in: [:normal, :marketing, :customer, :taobao], default: :normal
 
   delegate :province_name, :city_name, to: :address
   delegate :paymethod, to: :transaction, allow_nil: true

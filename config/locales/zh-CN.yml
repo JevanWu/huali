@@ -291,7 +291,8 @@ zh-CN:
   enumerize:
     order:
       type:
-        backorder: 特殊订单
+        marketing: 媒体订单
+        customer: 顾客订单
         taobao: 淘宝订单
         normal: 普通订单
 
