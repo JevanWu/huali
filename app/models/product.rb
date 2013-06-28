@@ -177,7 +177,16 @@ class Product < ActiveRecord::Base
     available = Province.find(province_id).cities.find_all_by_id(region_rule.city_ids)
 
     # Append cities of area
-    Area.where(parent_post_code: available.map(&:post_code)).find_all_by_id(region_rule.area_ids).map do |area|
+    Area.where(parent_post_code: available.map(&:post_code)).find_all_by_id(region_rule.area_ids).each do |area|
+      available << area.city unless available.include?(area.city)
+    end
+
+    # Append cities of area which is not in available
+    Area.joins(city: :province).
+      where("provinces.id = ?", province_id).
+      where("cities.id NOT IN (?)", available.map(&:id)).
+      find_all_by_id(region_rule.area_ids).each do |area|
+
       available << area.city unless available.include?(area.city)
     end
 
