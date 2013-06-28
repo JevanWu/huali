@@ -1,6 +1,5 @@
 #= require underscore-min
 #= require backbone
-#= require backbone.localStorage-min
 #= require backbone-relational
 
 window.RegionRule =
@@ -26,13 +25,13 @@ class RegionRule.Models.Province extends Backbone.RelationalModel
 
   # Toggle the `available` state of this province and its cities and their areas
   toggle: ->
-    @save(available: !@get('available'))
+    @set(available: !@get('available'))
 
     @get('cities').each (city) =>
-      city.save(available: @get('available'))
+      city.set(available: @get('available'))
 
       city.get('areas').each (area) =>
-        area.save(available: @get('available'))
+        area.set(available: @get('available'))
 
 class RegionRule.Models.City extends Backbone.RelationalModel
   defaults:
@@ -50,10 +49,10 @@ class RegionRule.Models.City extends Backbone.RelationalModel
 
   # Toggle the `available` state of this city and its areas
   toggle: ->
-    @save(available: !@get('available'))
+    @set(available: !@get('available'))
 
     @get('areas').each (area) =>
-      area.save(available: @get('available'))
+      area.set(available: @get('available'))
 
 class RegionRule.Models.Area extends Backbone.RelationalModel
   defaults:
@@ -61,29 +60,32 @@ class RegionRule.Models.Area extends Backbone.RelationalModel
 
   # Toggle the `available` state of this area
   toggle: ->
-    @save(available: !@get('available'))
+    @set(available: !@get('available'))
 
 # Collections
 class RegionRule.Collections.ProvinceCollection extends Backbone.Collection
   model: RegionRule.Models.Province
 
   # Save all of the todo items under the `region-rule-backbone` namespace.
-  localStorage: new Backbone.LocalStorage('ProvinceCollection', 'session'),
-
-RegionRule.ProvinceList = new RegionRule.Collections.ProvinceCollection
+  #localStorage: new Backbone.LocalStorage('ProvinceCollection', 'session'),
 
 class RegionRule.Collections.CityCollection extends Backbone.Collection
   model: RegionRule.Models.City
 
   # Save all of the todo items under the `region-rule-backbone` namespace.
-  localStorage: new Backbone.LocalStorage('CityCollection', 'session'),
+  #localStorage: new Backbone.LocalStorage('CityCollection', 'session'),
 
 
 class RegionRule.Collections.AreaCollection extends Backbone.Collection
   model: RegionRule.Models.Area
 
   # Save all of the todo items under the `region-rule-backbone` namespace.
-  localStorage: new Backbone.LocalStorage('AreaCollection', 'session'),
+  #localStorage: new Backbone.LocalStorage('AreaCollection', 'session'),
+
+# Collections in memory
+RegionRule.ProvinceList = new RegionRule.Collections.ProvinceCollection
+RegionRule.CityList = new RegionRule.Collections.CityCollection
+RegionRule.AreaList = new RegionRule.Collections.AreaCollection
 
 # Templates
 RegionRule.Templates.region_template = """
@@ -194,21 +196,26 @@ $ ->
       name: $(_province).attr("name")
       available: !!parseInt($(_province).attr("available")))
 
+    RegionRule.ProvinceList.add(province)
+
     $(_province).find("div[cid]").each (i, _city) ->
       city = new RegionRule.Models.City(
         id: $(_city).attr("cid")
         name: $(_city).attr("name")
         available: !!parseInt($(_city).attr("available")))
-      province.get("cities").create(city)
+      province.get("cities").add(city)
+
+      RegionRule.CityList.add(city)
 
       $(_city).find("div[aid]").each (i, _area) ->
         area = new RegionRule.Models.Area(
           id: $(_area).attr("aid")
           name: $(_area).attr("name")
           available: !!parseInt($(_area).attr("available")))
-        city.get("areas").create(area)
+        city.get("areas").add(area)
 
-    RegionRule.ProvinceList.create(province)
+        RegionRule.AreaList.add(area)
+
 
   (new RegionRule.Views.ProvinceList).render()
 
@@ -217,20 +224,13 @@ $ ->
     provinceIds = RegionRule.ProvinceList.where(available: true).
       map (province) -> province.get('id')
 
-    cityList = new RegionRule.Collections.CityCollection
-    cityList.fetch()
-    cityIds = cityList.where(available: true).map (city) ->
+
+    cityIds = RegionRule.CityList.where(available: true).map (city) ->
       city.get('id')
 
-    areaList = new RegionRule.Collections.AreaCollection
-    areaList.fetch()
-    areaIds = areaList.where(available: true).map (area) ->
+    areaIds = RegionRule.AreaList.where(available: true).map (area) ->
       area.get('id')
 
     $provinceIds.val(provinceIds.join(','))
     $cityIds.val(cityIds.join(','))
     $areaIds.val(areaIds.join(','))
-
-    console.log(provinceIds.length)
-    console.log(cityIds.length)
-    console.log(areaIds.length)
