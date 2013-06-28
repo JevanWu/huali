@@ -5,9 +5,9 @@ namespace :migrate do
     default_name = "默认地域规则"
     unless DefaultRegionRule.where(name: default_name).exists?
       DefaultRegionRule.create(name: default_name,
-                               province_ids: Province.available.select(:id).map(&:id),
-                               city_ids: City.available.select(:id).map(&:id),
-                               area_ids: Area.available.select(:id).map(&:id))
+                               province_ids: Province.available.select(:id).map { |p| p.id.to_s },
+                               city_ids: City.available.select(:id).map { |c| c.id.to_s },
+                               area_ids: Area.available.select(:id).map { |a| a.id.to_s })
     end
 
     default_rule = DefaultRegionRule.where(name: default_name).first
