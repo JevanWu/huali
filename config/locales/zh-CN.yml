@@ -7,7 +7,7 @@ zh-CN:
   action: 操作
   currency: 元
   more: 更多
-  flower_shop: 在线精品花店
+  product-list: 全部产品列表
   total: 合计
   name: 名称
   price: 价格
@@ -311,7 +311,8 @@ zh-CN:
   enumerize:
     order:
       type:
-        backorder: 特殊订单
+        marketing: 媒体订单
+        customer: 顾客订单
         taobao: 淘宝订单
         normal: 普通订单
 

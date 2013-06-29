@@ -104,7 +104,7 @@
                     <%= image_tag item.img(:thumb) %>
                   </td>
                   <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
-                    <%= link_to item.name, product_url(item) %>
+                    <%= link_to item.name, product_url(item.product) %>
                   </td>
                   <td valign="top" class="dataTableContent" mc:edit="data_table_content01">
                     <%= item[:quantity] %>
