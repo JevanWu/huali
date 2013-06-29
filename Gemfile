@@ -98,6 +98,7 @@ group :development do
   gem 'capistrano', '~>2.0'
   gem 'capistrano-zen', git: 'https://github.com/zenhacks/capistrano-zen.git', require: false
   gem 'railroady'
+  gem "rails-erd"
   gem 'ruby-graphviz', require: 'graphviz' # Optional: only required for graphing
   gem 'meta_request', '0.2.1'
   gem "letter_opener"
