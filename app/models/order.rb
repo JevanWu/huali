@@ -199,8 +199,7 @@ class Order < ActiveRecord::Base
   end
 
   def add_line_item(product_id, quantity)
-    this_item = LineItem.create(product_id: product_id, quantity: quantity)
-    self.line_items << this_item
+    self.line_items.build(product_id: product_id, quantity: quantity)
   end
 
   def cal_item_total
@@ -302,6 +301,14 @@ class Order < ActiveRecord::Base
   def print
     self.printed = true
     save
+  end
+
+  def fetch_products
+    if self.persisted?
+      products
+    else
+      line_items.map { |l| Product.find(l.product_id) }
+    end
   end
 
   private
