@@ -66,21 +66,11 @@ class RegionRule.Models.Area extends Backbone.RelationalModel
 class RegionRule.Collections.ProvinceCollection extends Backbone.Collection
   model: RegionRule.Models.Province
 
-  # Save all of the todo items under the `region-rule-backbone` namespace.
-  #localStorage: new Backbone.LocalStorage('ProvinceCollection', 'session'),
-
 class RegionRule.Collections.CityCollection extends Backbone.Collection
   model: RegionRule.Models.City
 
-  # Save all of the todo items under the `region-rule-backbone` namespace.
-  #localStorage: new Backbone.LocalStorage('CityCollection', 'session'),
-
-
 class RegionRule.Collections.AreaCollection extends Backbone.Collection
   model: RegionRule.Models.Area
-
-  # Save all of the todo items under the `region-rule-backbone` namespace.
-  #localStorage: new Backbone.LocalStorage('AreaCollection', 'session'),
 
 # Collections in memory
 RegionRule.ProvinceList = new RegionRule.Collections.ProvinceCollection
