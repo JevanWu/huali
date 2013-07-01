@@ -2,7 +2,7 @@ class OrderProductDateValidator < ActiveModel::Validator
   def validate(order)
     order_valid = true
 
-    order.products.each do |product|
+    order.fetch_products.each do |product|
       raise "No global date_rule settings found" if product.default_date_rule.blank?
 
       date_rule = merge_rules(product.default_date_rule, product.local_date_rule)
@@ -23,7 +23,7 @@ class OrderProductDateValidator < ActiveModel::Validator
       end
     end
 
-    order.errors[:base] = :unavailable_date unless order_valid
+    order.errors.add(:expected_date, :unavailable_date) unless order_valid
   end
 
   private

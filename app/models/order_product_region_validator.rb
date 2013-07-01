@@ -2,7 +2,7 @@ class OrderProductRegionValidator < ActiveModel::Validator
   def validate(order)
     order_valid = true
 
-    order.products.each do |product|
+    order.fetch_products.each do |product|
       region_rule = product.region_rule
 
       raise "No global region_rule settings found" if region_rule.blank?
@@ -22,6 +22,10 @@ class OrderProductRegionValidator < ActiveModel::Validator
       end
     end
 
-    order.errors[:base] = :unavailable_location unless order_valid
+    unless order_valid
+      order.address.errors.add(:province, :unavailable_location) if order.address.province
+      order.address.errors.add(:city, :unavailable_location) if order.address.city
+      order.address.errors.add(:area, :unavailable_location) if order.address.area
+    end
   end
 end
