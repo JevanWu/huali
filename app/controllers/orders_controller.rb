@@ -93,13 +93,10 @@ class OrdersController < ApplicationController
     @order.sender_email = 'support@hua.li'
     @order.sender_phone = '400-001-6936'
 
-    # add type
-    @order.type = :backorder
-
     # jump to wait_make states
     @order.state = 'wait_make'
 
-    if @order.save
+    if @order.type.in?('marketing', 'customer') && @order.save
       empty_cart
       flash[:notice] = t('controllers.order.order_success')
       redirect_to root_path

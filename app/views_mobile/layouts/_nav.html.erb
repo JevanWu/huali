@@ -1,5 +1,5 @@
 <ul id="product-nav" class="nav">
-  <% Product.all.each do |product| %>
+  <% Product.published.each do |product| %>
     <% if @product && @product.id == product.id %>
       <li class="active"> <%= link_to product.name, product_path(product), title: product.name %> </li>
     <% else %>
