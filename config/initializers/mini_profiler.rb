@@ -1,2 +1,4 @@
 # set FileStore in /tmp/miniprofiler
-Rack::MiniProfiler.config.storage = Rack::MiniProfiler::FileStore
+if Rails.env == 'development'
+  Rack::MiniProfiler.config.storage = Rack::MiniProfiler::FileStore
+end

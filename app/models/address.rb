@@ -14,6 +14,10 @@
 #  updated_at  :datetime         not null
 #  user_id     :integer
 #
+# Indexes
+#
+#  index_addresses_on_user_id  (user_id)
+#
 
 class Address < ActiveRecord::Base
   attr_accessible :address, :fullname, :phone, :post_code,
@@ -34,7 +38,7 @@ class Address < ActiveRecord::Base
 
   before_validation :check_postcode
   validates_presence_of :fullname, :address, :phone, :province, :city, :post_code
-  validate :phone_validate, :location_available
+  validate :phone_validate
 
   # after_validation :fill_in_post_code
 
@@ -97,11 +101,5 @@ class Address < ActiveRecord::Base
     n_digits = phone.scan(/[0-9]/).size
     valid_chars = (phone =~ /^[-+()\/\s\d]+$/)
     errors.add :phone, :invalid unless (n_digits >= 8 && valid_chars)
-  end
-
-  def location_available
-    errors.add :province, :unavailable_location if province && !province.available
-    errors.add :city, :unavailable_location if city && !city.available
-    errors.add :area, :unavailable_location if area && !area.available
   end
 end

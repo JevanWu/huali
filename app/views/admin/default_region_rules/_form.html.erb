@@ -1,0 +1,31 @@
+<%= semantic_form_for [:admin, @default_region_rule] do |f| %>
+  <%= f.hidden_field :province_ids, value: @default_region_rule.province_ids.join(','), id: "region_rule_province_ids" %>
+  <%= f.hidden_field :city_ids, value: @default_region_rule.city_ids.join(','), id: "region_rule_city_ids" %>
+  <%= f.hidden_field :area_ids, value: @default_region_rule.area_ids.join(','), id: "region_rule_area_ids" %>
+
+  <%= f.inputs "Rule" do %>
+    <div id="region_rules">
+      <div class="provinces">
+      <% Province.includes(cities: :areas).each do |province| %>
+        <div pid="<%= province.id %>" name="<%= province.name %>" available="<%= @default_region_rule.province_ids.include?(province.id.to_s) ? "1" : "0" %>">
+          <% province.cities.each do |city| %>
+            <div cid="<%= city.id %>" name="<%= city.name %>" available="<%= @default_region_rule.city_ids.include?(city.id.to_s) ? "1" : "0" %>">
+              <% city.areas.each do |area| %>
+                <div aid="<%= area.id %>" name="<%= area.name %>" available="<%= @default_region_rule.area_ids.include?(area.id.to_s) ? "1" : "0" %>"></div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+      </div>
+
+      <ul id="province_list">
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.inputs "Name" do %>
+    <%= f.input :name %>
+  <% end %>
+  <%= f.submit %>
+<% end %>

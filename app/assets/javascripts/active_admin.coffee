@@ -1,10 +1,14 @@
 #= require active_admin/base
 #= require jquery.barcode.0.3
 #= require jquery.tagsinput
+#= require region_rule_edit
 
 $ ->
   $('form').on 'click', '.remove_fields', (event) ->
-    $(this).prev('input[type=hidden]').val('1')
+    if (!confirm('Are you sure?'))
+      return false
+
+    $(this).parent().parent().find('input[id$="_destroy"]').val('1')
     $(this).closest('fieldset').hide()
     event.preventDefault()
 
@@ -22,3 +26,15 @@ $ ->
     height: '25px'
     width: '78%'
     defaultText:'添加新标签, 逗号分割'
+
+  $('form').on 'click', '.add_region_rule', (event) ->
+    $(this).prev().find('input[id$="_destroy"]').val(false)
+    $(this).prev().show()
+    $(this).hide()
+    event.preventDefault()
+
+  $('form').on 'click', '.add_date_rule', (event) ->
+    $(this).prev().find('input[id$="_destroy"]').val(false)
+    $(this).prev().show()
+    $(this).hide()
+    event.preventDefault()

@@ -19,7 +19,6 @@ gem 'friendly_id', '~> 4.0.1'
 gem 'backup', require: false
 gem 'whenever', require: false
 gem 'state_machine'
-gem 'rack-mini-profiler'
 gem 'figaro'
 gem 'sitemap_generator'
 gem 'humanizer'
@@ -35,6 +34,8 @@ gem 'omniauth-weibo-oauth2'
 gem 'omniauth-qq-connect'
 
 gem 'enumerize'
+
+gem "rails-settings-cached", "0.2.4"
 
 # squash
 gem 'squash_ruby', git: 'https://github.com/SquareSquash/ruby.git', require: 'squash/ruby'
@@ -102,6 +103,7 @@ group :development do
   gem 'ruby-graphviz', require: 'graphviz' # Optional: only required for graphing
   gem 'meta_request', '0.2.1'
   gem "letter_opener"
+  gem 'rack-mini-profiler', git: 'https://github.com/SamSaffron/MiniProfiler.git'
 end
 
 group :test do
