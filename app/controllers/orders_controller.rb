@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
   layout 'horizontal'
   before_filter :load_cart
   before_filter :fetch_items, only: [:new, :back_order_new, :taobao_order_new, :create, :back_order_create, :taobao_order_create, :current]
-  before_filter :fetch_related_products, only: [:back_order_new, :taobao_order_create, :current]
+  before_filter :fetch_related_products, only: [:back_order_create, :taobao_order_create, :current]
   before_filter :authenticate_user!, only: [:new, :index, :show, :create, :checkout, :cancel]
   before_filter :authenticate_administrator!, only: [:back_order_new, :back_order_create, :taobao_order_new, :taobao_order_create]
   before_filter :process_custom_data, only: [:return, :notify]
