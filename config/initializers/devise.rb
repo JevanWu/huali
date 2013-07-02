@@ -206,9 +206,15 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
-  config.omniauth :weibo, ENV['WEIBO_OAUTH_KEY'], ENV['WEIBO_OAUTH_SECRET']
-  config.omniauth :douban, ENV['DOUBAN_OAUTH_KEY'], ENV['DOUBAN_OAUTH_SECRET']
-  config.omniauth :qq_connect, ENV['QQ_CONNECT_OAUTH_KEY'], ENV['QQ_CONNECT_OAUTH_SECRET']
+  if Rails.env == 'production'
+    config.omniauth :weibo, ENV['WEIBO_OAUTH_KEY'], ENV['WEIBO_OAUTH_SECRET']
+    config.omniauth :douban, ENV['DOUBAN_OAUTH_KEY'], ENV['DOUBAN_OAUTH_SECRET']
+    config.omniauth :qq_connect, ENV['QQ_CONNECT_OAUTH_KEY'], ENV['QQ_CONNECT_OAUTH_SECRET']
+  else
+    config.omniauth :weibo, ENV['WEIBO_DEV_OAUTH_KEY'], ENV['WEIBO_DEV_OAUTH_SECRET']
+    config.omniauth :douban, ENV['DOUBAN_DEV_OAUTH_KEY'], ENV['DOUBAN_DEV_OAUTH_SECRET']
+    config.omniauth :qq_connect, ENV['QQ_CONNECT_DEV_OAUTH_KEY'], ENV['QQ_CONNECT_DEV_OAUTH_SECRET']
+  end
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
