@@ -24,21 +24,30 @@ class RegionRule < ActiveRecord::Base
   serialize :city_ids, Array
   serialize :province_ids, Array
 
-  def available_areas_of_city(city_id)
-    Area.joins(:city).where("cities.id = ?", city_id).where("areas.id in (?)", area_ids).all
+  def available_area_ids_in_a_city(city_id)
+    area_ids_of_one_city(city_id) & area_ids
   end
 
-  def available_cities_of_province(province_id)
-    available_city_ids = (Area.parent_cities(area_ids) + city_ids).uniq
-
-    City.joins(:province).where("provinces.id = ?", province_id).
-      where("cities.id in (?)", available_city_ids).all
+  def available_city_ids_in_a_prov(prov_id)
+    city_ids_of_one_prov(prov_id) & effective_city_ids
   end
 
-  def available_provinces
-    available_city_ids = (Area.parent_cities(area_ids) + city_ids).uniq
-    available_province_ids = (City.parent_provinces(available_city_ids) + province_ids).uniq
+  def effective_city_ids
+    city_ids | Area.parent_cities(area_ids)
+  end
 
-    Province.find_all_by_id(available_province_ids.to_a)
+  def effective_prov_ids
+    province_ids | City.parent_provinces(effective_city_ids)
+  end
+  alias :available_prov_ids :effective_prov_ids
+
+  private
+
+  def area_ids_of_one_city(city_id)
+    City.find(city_id).areas.map(&:id).map(&:to_s)
+  end
+
+  def city_ids_of_one_prov(prov_id)
+    Province.find(prov_id).cities.map(&:id).map(&:to_s)
   end
 end
