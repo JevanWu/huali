@@ -1,7 +1,7 @@
 class AreasController < ApplicationController
   def index
     areas = params[:product_ids].split(',').map do |product_id|
-      Product.find(product_id).available_areas_of_city(params[:city_id])
+      Product.find(product_id).region_rule.available_areas_of_city(params[:city_id])
     end.reduce(:&)
 
     respond_to do |format|
