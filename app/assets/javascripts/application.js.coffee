@@ -68,6 +68,7 @@ $ ->
     .mouseenter(headingMouseEnter)
     .mouseleave(headingMouseLeave)
     .hoverIntent({
+      over: ->,
       out: headingMouseLeaveIntent,
       timeout: 400
       })
@@ -76,6 +77,7 @@ $ ->
     .mouseenter(flyoutMouseEnter)
     .mouseleave(flyoutMouseLeave)
     .hoverIntent({
+      over: ->,
       out: flyoutMouseLeaveIntent,
       timeout: 400
       })
