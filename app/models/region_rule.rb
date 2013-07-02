@@ -29,15 +29,15 @@ class RegionRule < ActiveRecord::Base
   end
 
   def available_cities_of_province(province_id)
-    available_city_ids = (Area.parent_cities(area_ids) + city_ids).to_set
+    available_city_ids = (Area.parent_cities(area_ids) + city_ids).uniq
 
     City.joins(:province).where("provinces.id = ?", province_id).
       where("cities.id in (?)", available_city_ids).all
   end
 
   def available_provinces
-    available_city_ids = (Area.parent_cities(area_ids) + city_ids).to_set
-    available_province_ids = (City.parent_provinces(available_city_ids) + province_ids).to_set
+    available_city_ids = (Area.parent_cities(area_ids) + city_ids).uniq
+    available_province_ids = (City.parent_provinces(available_city_ids) + province_ids).uniq
 
     Province.find_all_by_id(available_province_ids.to_a)
   end
