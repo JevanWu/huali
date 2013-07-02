@@ -1,7 +1,6 @@
 # encoding: utf-8
 require 'spec_helper'
 require 'active_support/core_ext/hash/except'
-require 'pry'
 
 describe PhoneNumber do
   numbers_fixture = File.join(File.dirname(__FILE__), 'phone_number_fixture.yml')

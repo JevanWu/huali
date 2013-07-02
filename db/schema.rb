@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130619081531) do
+ActiveRecord::Schema.define(:version => 20130624062503) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -136,6 +136,21 @@ ActiveRecord::Schema.define(:version => 20130619081531) do
   end
 
   add_index "coupons", ["code"], :name => "coupons_on_code", :unique => true
+
+  create_table "date_rules", :force => true do |t|
+    t.integer  "product_id"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.text     "included_dates"
+    t.text     "excluded_dates"
+    t.string   "excluded_weekdays"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.string   "name"
+    t.string   "type"
+  end
+
+  add_index "date_rules", ["product_id"], :name => "index_date_rules_on_product_id"
 
   create_table "line_items", :force => true do |t|
     t.integer  "order_id"
@@ -282,27 +297,31 @@ ActiveRecord::Schema.define(:version => 20130619081531) do
   add_index "pages", ["permalink"], :name => "index_pages_on_permalink"
 
   create_table "products", :force => true do |t|
-    t.string   "name_zh",                                        :default => "",    :null => false
-    t.string   "name_en",                                        :default => "",    :null => false
+    t.string   "name_zh",                                              :default => "",    :null => false
+    t.string   "name_en",                                              :default => "",    :null => false
     t.text     "description"
     t.string   "meta_description"
     t.string   "meta_keywords"
-    t.integer  "count_on_hand",                                  :default => 0,     :null => false
-    t.decimal  "price",            :precision => 8, :scale => 2
-    t.decimal  "height",           :precision => 8, :scale => 2
-    t.decimal  "width",            :precision => 8, :scale => 2
-    t.decimal  "depth",            :precision => 8, :scale => 2
-    t.datetime "created_at",                                                        :null => false
-    t.datetime "updated_at",                                                        :null => false
+    t.integer  "count_on_hand",                                        :default => 0,     :null => false
+    t.decimal  "price",                  :precision => 8, :scale => 2
+    t.decimal  "height",                 :precision => 8, :scale => 2
+    t.decimal  "width",                  :precision => 8, :scale => 2
+    t.decimal  "depth",                  :precision => 8, :scale => 2
+    t.datetime "created_at",                                                              :null => false
+    t.datetime "updated_at",                                                              :null => false
     t.decimal  "original_price"
     t.text     "inspiration"
     t.string   "slug"
-    t.boolean  "published",                                      :default => false
-    t.integer  "priority",                                       :default => 5
+    t.boolean  "published",                                            :default => false
+    t.integer  "priority",                                             :default => 5
     t.string   "meta_title"
-    t.integer  "sold_total",                                     :default => 0
+    t.integer  "sold_total",                                           :default => 0
+    t.integer  "default_region_rule_id"
+    t.integer  "default_date_rule_id"
   end
 
+  add_index "products", ["default_date_rule_id"], :name => "index_products_on_default_date_rule_id"
+  add_index "products", ["default_region_rule_id"], :name => "index_products_on_default_region_rule_id"
   add_index "products", ["slug"], :name => "index_products_on_slug", :unique => true
 
   create_table "provinces", :force => true do |t|
@@ -323,6 +342,19 @@ ActiveRecord::Schema.define(:version => 20130619081531) do
   add_index "recommendation_relations", ["product_id"], :name => "index_recommendation_relations_on_product_id"
   add_index "recommendation_relations", ["recommendation_id"], :name => "index_recommendation_relations_on_recommendation_id"
 
+  create_table "region_rules", :force => true do |t|
+    t.integer  "product_id"
+    t.text     "province_ids"
+    t.text     "city_ids"
+    t.text     "area_ids"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.string   "name"
+    t.string   "type"
+  end
+
+  add_index "region_rules", ["product_id"], :name => "index_region_rules_on_product_id"
+
   create_table "reminders", :force => true do |t|
     t.string   "email",      :null => false
     t.datetime "send_date",  :null => false
@@ -330,6 +362,17 @@ ActiveRecord::Schema.define(:version => 20130619081531) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "settings", :force => true do |t|
+    t.string   "var",                      :null => false
+    t.text     "value"
+    t.integer  "thing_id"
+    t.string   "thing_type", :limit => 30
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
+
+  add_index "settings", ["thing_type", "thing_id", "var"], :name => "index_settings_on_thing_type_and_thing_id_and_var", :unique => true
 
   create_table "ship_methods", :force => true do |t|
     t.string "name"
