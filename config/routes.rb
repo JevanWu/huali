@@ -10,10 +10,14 @@ Huali::Application.routes.draw do
 
   get "areas/:area_id", to: 'areas#show'
   get "cities/:city_id/areas", to: 'areas#index'
+  get "cities/:city_id/areas/available_for_products", to: 'areas#available_for_products'
   get "cities/:city_id", to: 'cities#show'
+
   get "provinces/:prov_id/cities", to: 'cities#index'
-  get "provinces/:prov_id", to: 'provinces#show'
+  get "provinces/:prov_id/cities/available_for_products", to: 'cities#available_for_products'
   get "provinces", to: 'provinces#index'
+  get "provinces/available_for_products", to: 'provinces#available_for_products'
+  get "provinces/:prov_id", to: 'provinces#show'
 
   resources :products, only: [:show]
   resources :collections, only: [:show]
