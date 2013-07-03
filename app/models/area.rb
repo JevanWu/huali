@@ -38,4 +38,9 @@ class Area < ActiveRecord::Base
     self.available = false
     self.save
   end
+
+  def self.parent_cities(area_ids)
+    Area.select("DISTINCT(cities.id) as city_id").joins(:city).
+      where("areas.id in (?)", area_ids).map(&:city_id)
+  end
 end

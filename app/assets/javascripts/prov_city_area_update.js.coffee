@@ -4,7 +4,7 @@ $ ->
 
   updateProvinceSelector = ->
     $.ajax
-      url: "/provinces"
+      url: "/provinces/available_for_products"
       dataType: 'json'
       data: { product_ids: Cart.product_ids().join(',') }
       success: (data) -> $(proSelector).empty().append reduceToOptions(data)
@@ -12,7 +12,7 @@ $ ->
   updateCitySelector = (prov_id) ->
     return unless prov_id?.length > 0
     $.ajax
-      url: "/provinces/#{prov_id}/cities"
+      url: "/provinces/#{prov_id}/cities/available_for_products"
       dataType: 'json'
       data: { product_ids: Cart.product_ids().join(',') }
       success: (data) -> $(citySelector).empty().append reduceToOptions(data)
@@ -20,7 +20,7 @@ $ ->
   updateAreaSelector = (city_id) ->
     return unless city_id?.length > 0
     $.ajax
-      url: "/cities/#{city_id}/areas"
+      url: "/cities/#{city_id}/areas/available_for_products"
       dataType: 'json'
       data: { product_ids: Cart.product_ids().join(',') }
       success: (data) -> $(areaSelector).empty().append reduceToOptions(data)
