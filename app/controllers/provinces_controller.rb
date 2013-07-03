@@ -9,7 +9,7 @@ class ProvincesController < ApplicationController
 
   def available_for_products
     if params[:product_ids].blank?
-      render nothing: true and return
+      render text: "Parameter product_ids is required", status: 400 and return
     end
 
     prov_ids = params[:product_ids].split(',').map do |product_id|
