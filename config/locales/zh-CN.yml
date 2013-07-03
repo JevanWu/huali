@@ -283,6 +283,7 @@ zh-CN:
         print: 打印订单
         print_card: 打印贺卡
         print_shipment: 打印快递
+        add_shipment: 添加货运记录
 
     #states for transaction
     transaction:
