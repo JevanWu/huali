@@ -17,7 +17,7 @@ class CitiesController < ApplicationController
   end
 
   def index
-    cities = City.all
+    cities = City.joins(:province).where("provinces.id = ?", params[:prov_id]).all
 
     respond_to do |format|
       format.json { render json: cities }

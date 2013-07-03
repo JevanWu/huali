@@ -17,7 +17,7 @@ class AreasController < ApplicationController
   end
 
   def index
-    areas = Area.all
+    areas = Area.joins(:city).where("cities.id = ?", params[:city_id]).all
 
     respond_to do |format|
       format.json { render json: areas }
