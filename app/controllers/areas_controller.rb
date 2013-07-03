@@ -1,5 +1,9 @@
 class AreasController < ApplicationController
   def available_for_products
+    if params[:product_ids].blank?
+      render nothing: true and return
+    end
+
     area_ids = params[:product_ids].split(',').map do |product_id|
       Product.find(product_id)
         .region_rule.available_area_ids_in_a_city(params[:city_id])

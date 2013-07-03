@@ -8,6 +8,10 @@ class ProvincesController < ApplicationController
   end
 
   def available_for_products
+    if params[:product_ids].blank?
+      render nothing: true and return
+    end
+
     prov_ids = params[:product_ids].split(',').map do |product_id|
       Product.find(product_id).region_rule.available_prov_ids
     end.reduce(:&)
