@@ -130,6 +130,16 @@ class Order < ActiveRecord::Base
     end
   end
 
+  # Skip date and region validation in statemachine
+  [:check, :make].each do |m|
+    define_method(m) do |*args|
+      self.bypass_date_validation = true
+      self.bypass_region_validation = true
+
+      super(*args)
+    end
+  end
+
   scope :all, -> { reorder }
   scope :yesterday, -> { where 'delivery_date = ?', Date.yesterday }
   scope :current, -> { where 'delivery_date = ?', Date.current }
