@@ -3,12 +3,12 @@ require 'sidekiq'
 namespace :sidekiq do
   desc "Stop sidekiq"
   task :stop do
-    system "bundle exec sidekiqctl stop #{pidfile}"
+    system "bundle exec sidekiqctl stop #{sidekiq_pidfile}"
   end
 
   desc "Start sidekiq"
   task start: :requeue do
-    system "nohup bundle exec sidekiq -e #{Rails.env} -P #{pidfile} -C #{config_file}>> #{Rails.root.join("log", "sidekiq.log")} 2>&1 &"
+    system "nohup bundle exec sidekiq -e #{Rails.env} -P #{sidekiq_pidfile} -C #{config_file}>> #{Rails.root.join("log", "sidekiq.log")} 2>&1 &"
   end
 
   desc "Restart sidekiq"
@@ -17,7 +17,7 @@ namespace :sidekiq do
   desc "Restart if not exist"
   task restart_if_not_exist: :ping do
     begin
-      Process.kill(0, pid)
+      Process.kill(0, sidekiq_pid)
     rescue
       Rake::Task['sidekiq:restart'].invoke
     end
@@ -26,14 +26,14 @@ namespace :sidekiq do
   desc "Ping sidekiq"
   task :ping do
     begin
-      Process.kill(0, pid)
-      puts "sidekiq is running with pid: #{pid}"
+      Process.kill(0, sidekiq_pid)
+      puts "sidekiq is running with pid: #{sidekiq_pid}"
     rescue Errno::EPERM # changed uid
-      puts "No permission to query #{pid}!"
+      puts "No permission to query #{sidekiq_pid}!"
     rescue Errno::ESRCH, Errno::ENOENT
       puts "sidekiq is NOT running."
     rescue
-      puts "Unable to determine status for #{pid} : #{$!}"
+      puts "Unable to determine status for #{sidekiq_pid} : #{$!}"
     end
   end
 
@@ -46,13 +46,13 @@ namespace :sidekiq do
     reset_worker_list
   end
 
-  def pid
-    result = `cat #{pidfile}`
+  def sidekiq_pid
+    result = `cat #{sidekiq_pidfile}`
     raise Errno::ENOENT if result.empty?
     return result.to_i
   end
 
-  def pidfile
+  def sidekiq_pidfile
     Rails.root.join("tmp", "pids", "sidekiq.pid")
   end
 
