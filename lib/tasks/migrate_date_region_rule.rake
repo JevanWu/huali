@@ -24,7 +24,7 @@ namespace :migrate do
     unless DefaultDateRule.where(name: default_name).exists?
       DefaultDateRule.create(name: default_name,
                              start_date: nil,
-                             end_date: nil,
+                             period_length: "+2M",
                              included_dates: [],
                              excluded_dates: [],
                              excluded_weekdays: ["0", "1"])
