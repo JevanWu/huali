@@ -51,3 +51,7 @@ end
 every 2.hours do
   rake "notice:unpaid_orders_email"
 end
+
+every 30.minutes do
+  rake "sidekiq:restart_if_not_exist"
+end

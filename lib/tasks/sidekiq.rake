@@ -14,14 +14,27 @@ namespace :sidekiq do
   desc "Restart sidekiq"
   task restart: [:stop, :start]
 
+  desc "Restart if not exist"
+  task :restart_if_not_exist do
+    begin
+      Process.kill(0, pid)
+    rescue
+      Rake::Task['sidekiq:restart'].invoke
+    end
+  end
+
   desc "Ping sidekiq"
   task :ping do
-    system <<-HERE
-      if [ -f #{pidfile} ];
-        then echo 'sidekiq is running';
-        else echo 'sidekiq is not running';
-      fi
-    HERE
+    begin
+      Process.kill(0, pid)
+      puts "sidekiq is running with pid: #{pid}"
+    rescue Errno::EPERM # changed uid
+      puts "No permission to query #{pid}!"
+    rescue Errno::ESRCH, Errno::ENOENT
+      puts "sidekiq is NOT running."
+    rescue
+      puts "Unable to determine status for #{pid} : #{$!}"
+    end
   end
 
   desc "Requeue dangling sidekiq workers"
@@ -31,6 +44,12 @@ namespace :sidekiq do
     end
     # FIXME, better to manipulate on individual workers one by one
     reset_worker_list
+  end
+
+  def pid
+    result = `cat #{pidfile}`
+    raise Errno::ENOENT if result.empty?
+    return result.to_i
   end
 
   def pidfile
