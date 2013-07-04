@@ -1,3 +1,5 @@
+require 'sidekiq'
+
 namespace :sidekiq do
   desc "Stop sidekiq"
   task :stop do
@@ -5,18 +7,31 @@ namespace :sidekiq do
   end
 
   desc "Start sidekiq"
-  task :start do
+  task start: :requeue do
     system "nohup bundle exec sidekiq -e #{Rails.env} -P #{pidfile} -C #{config_file}>> #{Rails.root.join("log", "sidekiq.log")} 2>&1 &"
+  end
+
+  desc "Restart sidekiq"
+  task restart: [:stop, :start]
+
+  desc "Ping sidekiq"
+  task :ping do
+    system <<-HERE
+      if [ -f #{pidfile} ];
+        then echo 'sidekiq is running';
+        else echo 'sidekiq is not running';
+      fi
+    HERE
   end
 
   desc "Requeue dangling sidekiq workers"
   task :requeue do
-    Sidekiq::Workers.each do |name, work, started_at|
+    Sidekiq::Workers.new.each do |name, work, started_at|
       Sidekiq::Client.push work['payload'].except('jid', 'enqueued_at', 'run_at')
     end
-    # FIXME, might need to manipulate on individual workers one by one
+    # FIXME, better to manipulate on individual workers one by one
     reset_worker_list
-  end 
+  end
 
   def pidfile
     Rails.root.join("tmp", "pids", "sidekiq.pid")
