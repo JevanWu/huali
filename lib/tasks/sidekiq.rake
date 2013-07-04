@@ -15,7 +15,7 @@ namespace :sidekiq do
   task restart: [:stop, :start]
 
   desc "Restart if not exist"
-  task :restart_if_not_exist do
+  task restart_if_not_exist: :ping do
     begin
       Process.kill(0, pid)
     rescue
