@@ -17,7 +17,7 @@ class AreasController < ApplicationController
   end
 
   def index
-    areas = Area.all
+    areas = City.find(params[:city_id]).areas
 
     respond_to do |format|
       format.json { render json: areas }

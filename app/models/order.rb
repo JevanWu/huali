@@ -39,7 +39,9 @@ class Order < ActiveRecord::Base
 
   attr_accessible :line_items, :special_instructions, :address_attributes,
                   :gift_card_text, :delivery_date, :expected_date, :identifier, :state, :type,
-                  :sender_name, :sender_phone, :sender_email, :source, :adjustment, :coupon_code, :ship_method_id
+                  :sender_name, :sender_phone, :sender_email, :source, :adjustment, :coupon_code,
+                  :ship_method_id, :bypass_region_validation, :bypass_date_validation
+  attr_accessor :bypass_region_validation, :bypass_date_validation
 
   belongs_to :address
   belongs_to :user
@@ -71,8 +73,10 @@ class Order < ActiveRecord::Base
 
   validates_presence_of :identifier, :line_items, :expected_date, :state, :total, :item_total, :sender_email, :sender_phone, :sender_name
 
-  validates_with OrderProductRegionValidator, if: lambda { |order| order.state.in? ['generated', 'wait_check', 'wait_make'] }
-  validates_with OrderProductDateValidator, if: lambda { |order| order.expected_date.present? && order.state.in?(['generated', 'wait_check', 'wait_make']) }
+  validates_with OrderProductRegionValidator,
+    if: lambda { |order| order.not_yet_shipped? && !order.bypass_region_validation }
+  validates_with OrderProductDateValidator,
+    if: lambda { |order| order.expected_date.present? && order.not_yet_shipped? && !order.bypass_date_validation }
 
   # only validate once on Date.today, because in future Date.today will change
   validate :phone_validate, unless: lambda { |order| order.sender_phone.blank? }
@@ -165,6 +169,18 @@ class Order < ActiveRecord::Base
     def full_info(key)
       includes(:user, :address, :transactions, :shipments).find_by_id(key)
     end
+  end
+
+  def bypass_region_validation=(value)
+    @bypass_region_validation = ActiveRecord::ConnectionAdapters::Column.value_to_boolean(value)
+  end
+
+  def bypass_date_validation=(value)
+    @bypass_date_validation = ActiveRecord::ConnectionAdapters::Column.value_to_boolean(value)
+  end
+
+  def not_yet_shipped?
+    state.in?(['generated', 'wait_check', 'wait_make'])
   end
 
   def generate_identifier
