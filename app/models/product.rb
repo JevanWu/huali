@@ -68,7 +68,7 @@ class Product < ActiveRecord::Base
   belongs_to :default_date_rule
   has_one :local_date_rule, dependent: :destroy
   accepts_nested_attributes_for :local_date_rule, allow_destroy: true, update_only: true,
-    reject_if: proc { |d| d[:start_date].blank? || d[:end_date].blank? }
+    reject_if: proc { |d| d[:start_date].blank? }
 
   # i18n translation
   translate :name
