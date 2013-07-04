@@ -106,6 +106,8 @@ zh-CN:
         printed: 已打印
         tracking_num: 快递单号
         type: 类型
+        bypass_region_validation: 跳过递送区域验证
+        bypass_date_validation: 跳过递送时间验证
 
 
       administrator:
@@ -117,6 +119,9 @@ zh-CN:
         sign_in_count: 登陆次数
 
       address:
+        province: 省份
+        city: 城市
+        area: 地区
         address: 收件人地址
         fullname: 收件人姓名
         phone: 收件人电话
