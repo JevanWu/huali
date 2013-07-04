@@ -83,46 +83,6 @@ describe Order do
         subject.errors[:expected_date].should_not be_blank
       end
     end
-
-    context "merge local rule with global rule" do
-      let(:order) { FactoryGirl.create(:order, expected_date: "2013-01-01".to_date) }
-
-      before(:each) do
-        order.products.reload.map(&:date_rule)
-      end
-
-      it "override start dates and end dates" do
-        order.expected_date = "2013-02-01"
-        order.should be_valid
-
-        order.expected_date = "2013-12-01"
-        order.should_not be_valid
-      end
-
-      it "union included dates" do
-        order.expected_date = "2013-02-02"
-        order.should be_valid
-
-        order.expected_date = "2013-02-05"
-        order.should be_valid
-      end
-
-      it "union excluded_dates" do
-        order.expected_date = "2013-01-02"
-        order.should_not be_valid
-
-        order.expected_date = "2013-01-05"
-        order.should_not be_valid
-      end
-
-      it "union excluded_weekdays" do
-        order.expected_date = "2013-01-13"
-        order.should_not be_valid
-
-        order.expected_date = "2013-01-19"
-        order.should_not be_valid
-      end
-    end
   end
 
   describe OrderProductRegionValidator do

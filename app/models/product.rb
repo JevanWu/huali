@@ -166,6 +166,10 @@ class Product < ActiveRecord::Base
     self.local_date_rule || self.default_date_rule
   end
 
+  def merged_date_rule
+    self.default_date_rule.merge(self.local_date_rule)
+  end
+
   def build_local_region_rule_upon_default
     build_local_region_rule(province_ids: default_region_rule.province_ids,
                             city_ids: default_region_rule.city_ids,

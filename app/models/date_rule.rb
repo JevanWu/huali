@@ -3,12 +3,12 @@
 # Table name: date_rules
 #
 #  created_at        :datetime         not null
-#  end_date          :date
 #  excluded_dates    :text
 #  excluded_weekdays :string(255)
 #  id                :integer          not null, primary key
 #  included_dates    :text
 #  name              :string(255)
+#  period_length     :string(255)
 #  product_id        :integer
 #  start_date        :date
 #  type              :string(255)
@@ -20,9 +20,27 @@
 #
 
 class DateRule < ActiveRecord::Base
-  attr_accessible :end_date, :excluded_dates, :excluded_weekdays, :included_dates, :start_date, :name
+  attr_accessible :period_length, :excluded_dates, :excluded_weekdays, :included_dates, :start_date, :name
 
   serialize :included_dates, Array
   serialize :excluded_dates, Array
   serialize :excluded_weekdays, Array
+
+  def start_date
+    super || (Time.current.hour >= 17 ?
+              Date.current.next_day(3) : Date.current.next_day(2))
+  end
+
+  def end_date
+    case
+    when period_length =~ /(\d+)Y/
+      start_date.next_year(period_length.match(/(\d+)Y/)[1].to_i)
+    when period_length =~ /(\d+)M/
+      start_date.next_month(period_length.match(/(\d+)M/)[1].to_i)
+    when period_length =~ /(\d+)D/
+      start_date.next_year(period_length.match(/(\d+)D/)[1].to_i)
+    else
+      start_date.next_month(2)
+    end
+  end
 end
