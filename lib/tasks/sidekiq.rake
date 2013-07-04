@@ -3,25 +3,38 @@ require 'sidekiq'
 namespace :sidekiq do
   desc "Stop sidekiq"
   task :stop do
-    system "bundle exec sidekiqctl stop #{pidfile}"
+    system "bundle exec sidekiqctl stop #{sidekiq_pidfile}"
   end
 
   desc "Start sidekiq"
   task start: :requeue do
-    system "nohup bundle exec sidekiq -e #{Rails.env} -P #{pidfile} -C #{config_file}>> #{Rails.root.join("log", "sidekiq.log")} 2>&1 &"
+    system "nohup bundle exec sidekiq -e #{Rails.env} -P #{sidekiq_pidfile} -C #{config_file}>> #{Rails.root.join("log", "sidekiq.log")} 2>&1 &"
   end
 
   desc "Restart sidekiq"
   task restart: [:stop, :start]
 
+  desc "Restart if not exist"
+  task restart_if_not_exist: :ping do
+    begin
+      Process.kill(0, sidekiq_pid)
+    rescue
+      Rake::Task['sidekiq:restart'].invoke
+    end
+  end
+
   desc "Ping sidekiq"
   task :ping do
-    system <<-HERE
-      if [ -f #{pidfile} ];
-        then echo 'sidekiq is running';
-        else echo 'sidekiq is not running';
-      fi
-    HERE
+    begin
+      Process.kill(0, sidekiq_pid)
+      puts "sidekiq is running with pid: #{sidekiq_pid}"
+    rescue Errno::EPERM # changed uid
+      puts "No permission to query #{sidekiq_pid}!"
+    rescue Errno::ESRCH, Errno::ENOENT
+      puts "sidekiq is NOT running."
+    rescue
+      puts "Unable to determine status for #{sidekiq_pid} : #{$!}"
+    end
   end
 
   desc "Requeue dangling sidekiq workers"
@@ -33,7 +46,13 @@ namespace :sidekiq do
     reset_worker_list
   end
 
-  def pidfile
+  def sidekiq_pid
+    result = `cat #{sidekiq_pidfile}`
+    raise Errno::ENOENT if result.empty?
+    return result.to_i
+  end
+
+  def sidekiq_pidfile
     Rails.root.join("tmp", "pids", "sidekiq.pid")
   end
 
