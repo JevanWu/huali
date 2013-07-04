@@ -2,6 +2,7 @@
 #= require jquery.barcode.0.3
 #= require jquery.tagsinput
 #= require region_rule_edit
+#= require admin_prov_city_area_update
 
 $ ->
   $('form').on 'click', '.remove_fields', (event) ->

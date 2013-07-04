@@ -67,6 +67,7 @@ FactoryGirl.define do
 
     after(:create) do |product|
       product.local_date_rule = build(:local_date_rule, product: product)
+      product.local_region_rule = build(:local_region_rule, product: product)
     end
 
     trait :unpublished do

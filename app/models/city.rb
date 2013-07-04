@@ -49,4 +49,9 @@ class City < ActiveRecord::Base
     self.available = false
     self.save
   end
+
+  def self.parent_provinces(city_ids)
+    City.select("DISTINCT(provinces.id) as province_id").joins(:province).
+      where("cities.id in (?)", city_ids).map(&:province_id)
+  end
 end

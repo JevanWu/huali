@@ -8,11 +8,16 @@
   <% end %>
 
   <%= f.inputs "Delivery Info", for: :address do |builder, i| %>
+    <%= builder.input :province, prompt: "请选择" %>
+    <%= builder.input :city, prompt: "请选择", collection: builder.object.province.cities %>
+    <%= builder.input :area, prompt: "请选择", collection: builder.object.city.areas %>
     <%= builder.input :address %>
+    <%= f.input :bypass_region_validation, as: :boolean %>
     <%= builder.input :post_code %>
     <%= builder.input :fullname %>
     <%= builder.input :phone %>
     <%= f.input :expected_date, as: :string, required: true, input_html: { class: 'datepicker' }%>
+    <%= f.input :bypass_date_validation, as: :boolean %>
   <% end %>
 
   <%= f.inputs "Check Info" do %>

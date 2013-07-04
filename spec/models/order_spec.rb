@@ -69,7 +69,7 @@ describe Order do
     end
 
     context "when expected_date invalid " do
-      let(:order) { FactoryGirl.create(:order, expected_date: "2012-12-01".to_date) }
+      let(:order) { FactoryGirl.build(:order, expected_date: "2012-12-01".to_date) }
 
       before(:each) do
         order.products.reload.map(&:date_rule)
@@ -79,8 +79,8 @@ describe Order do
       subject { order }
 
       it { should_not be_valid }
-      it "has unavailable_date error" do
-        subject.errors[:base].should include(:unavailable_date)
+      it "has unavailable_date error in expected_date" do
+        subject.errors[:expected_date].should_not be_blank
       end
     end
 
@@ -136,28 +136,23 @@ describe Order do
       let(:order) { FactoryGirl.create(:order, expected_date: "2013-02-05".to_date) }
 
       before(:each) do
-        order.products.reload
-        order.address = create(:address)
-
-        # Differ region rule address from order
-        new_addr = create(:address)
-        order.line_items.reload.each do |line|
-          line.product.local_region_rule = build(:local_region_rule,
-                                           province_ids: [new_addr.province_id.to_s],
-                                           city_ids: [new_addr.city_id.to_s],
-                                           area_ids: [new_addr.area_id.to_s],
-                                           product: line.product)
+        order.products.reload.each do |product|
+          product.create_local_region_rule(province_ids: [199999],
+                                           city_ids: [11111111],
+                                           area_ids: [22222222])
         end
+
+        order.address = create(:address)
 
         order.valid?
       end
 
-      subject { order }
-
-      it { should_not be_valid }
+      subject { order.address }
 
       it "has unavailable_location error" do
-        subject.errors[:base].should include(:unavailable_location)
+        subject.errors[:province].should_not be_blank
+        subject.errors[:city].should_not be_blank
+        subject.errors[:area].should_not be_blank
       end
     end
 
