@@ -251,6 +251,7 @@ zh-CN:
 
       default_date_rule:
         start_date: 开始日期
+        period_length: 周期长度
         end_date: 结束日期
         included_dates: 包含日期
         excluded_dates: 排除日期
@@ -259,6 +260,7 @@ zh-CN:
 
       local_date_rule:
         start_date: 开始日期
+        period_length: 周期长度
         end_date: 结束日期
         included_dates: 包含日期
         excluded_dates: 排除日期
