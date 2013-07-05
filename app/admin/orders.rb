@@ -126,7 +126,7 @@ ActiveAdmin.register Order do
       link_to order.identifier + ', ' + order.id.to_s, admin_order_path(order)
     end
 
-    column :subject_text
+    column :subject_text, sortable: false
 
     column :ship_method
 
