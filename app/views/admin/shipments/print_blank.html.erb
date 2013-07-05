@@ -1,0 +1,11 @@
+<% 3.times do %>
+  <div class="text <%= @type %>" style="margin: 50px 0; padding-left: 25px;">
+    <p class="shipment_id">快递单号: <%= @shipment_id %></p>
+    <p class="receipt">收件人: <%= @address.fullname %></p>
+    <p class="addr">收件地址: <%= @address.post_code %>, <%= @address.print_addr %></p>
+    <p class="cell">收件电话: <%= @address.phone %></p>
+    <p>发件人: 花里花店</p>
+    <p>快递公司: 神鸽速递</p>
+  </div>
+  <hr/>
+<% end %>
