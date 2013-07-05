@@ -159,15 +159,15 @@ class Product < ActiveRecord::Base
   end
 
   def region_rule
-    self.local_region_rule || self.default_region_rule
+    local_region_rule || default_region_rule
   end
 
   def date_rule
-    self.local_date_rule || self.default_date_rule
+    local_date_rule || default_date_rule
   end
 
   def merged_date_rule
-    self.default_date_rule.merge(self.local_date_rule)
+    default_date_rule.merge(local_date_rule)
   end
 
   def build_local_region_rule_upon_default
