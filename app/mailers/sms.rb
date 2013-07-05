@@ -2,7 +2,8 @@
 require 'digest/md5'
 
 class Sms
-  ERROR_CODE = {
+
+  SMSBAO_ERROR_CODE = {
     '30' => '密码错误',
     '40' => '账号不存在',
     '41' => '余额不足',
@@ -13,11 +14,76 @@ class Sms
     '-1' => '短信发送未成功'
   }
 
+  attr_reader :phone_number, :body, :delivery_method
+
+  # Possible delivery_methods:
+  #   :file
+  #     log sms to file
+  #   :sms
+  #     send real sms
+  def initialize(options)
+    @phone_number = PhoneNumber.new(options[:phone_number])
+    @body = options[:body]
+    @delivery_method = options[:delivery_method] ||
+      Rails.configuration.sms_delivery_method
+  end
+
+  def deliver
+    case delivery_method
+    when :sms
+      send_sms
+    when :file
+      log_to_file
+    end
+  end
+
+  private
+
+  def send_sms
+    phone_number.international? ? twilio : smsbao
+  end
+
+  def smsbao
+    conn = Faraday.new url: 'http://www.smsbao.com' do |faraday|
+      faraday.request  :url_encoded             # form-encode POST params
+      faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
+    end
+
+    response = conn.get '/sms',
+      u: ENV['SMS_USERNAME'],
+      p: Digest::MD5.hexdigest(ENV['SMS_PASSWORD']),
+      m: phone_number.to_s,
+      c: body
+
+    unless response.body == '0'
+      raise StandardError, SMSBAO_ERROR_CODE[response.body] + ". " + "phone number is #{phone_number}. " + "content is #{body}."
+    end
+  end
+
+  def twilio
+    client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_TOKEN']
+
+    # {
+      # :to => '+16105557069',
+      # :body => 'Hey there!'
+    # }
+    client.account.sms.messages.create(from: '+15713832992',
+                                       to: phone_number.to_s,
+                                       body: body)
+  end
+
+  def log_to_file
+    log_file = File.join(Rails.root, 'log/sms.log')
+    content = "Send at: #{Time.now} To: #{phone_number.to_s} Content: #{body}"
+
+    a_logger = Logger.new(log_file)
+    a_logger.info(content)
+  end
+
   class << self
 
     def date_wait_make_order(date, *phonenums)
-      orders = Order.by_state('wait_make')
-                    .where('delivery_date = ?', date)
+      orders = Order.by_state('wait_make').where('delivery_date = ?', date)
 
       content = <<STR
 #{date.to_s}当天需要制作的订单是共有#{orders.count}:
@@ -25,7 +91,7 @@ class Sms
 [花里花店] hua.li
 STR
 
-      sms(to: phonenums.join(','), body: content )
+      new(phone_number: phonenums.join(','), body: content).deliver
     end
 
     def pay_order_user_sms(order_id)
@@ -36,7 +102,7 @@ STR
 [花里花店] hua.li
 STR
 
-      sms(to: @order.sender_phone, body: content )
+      new(phone_number: @order.sender_phone, body: content).deliver
     end
 
     def ship_order_user_sms(order_id)
@@ -47,7 +113,7 @@ STR
 [花里花店] hua.li
 STR
 
-      sms(to: @order.sender_phone, body: content)
+      new(phone_number: @order.sender_phone, body: content).deliver
     end
 
     def confirm_order_user_sms(order_id)
@@ -65,51 +131,8 @@ STR
 
       content = @order.from_taobao? ? taobao_content : regular_content
 
-      sms(to: @order.sender_phone, body: content)
+      new(phone_number: @order.sender_phone, body: content).deliver
     end
 
-    def sms(options)
-      phone = PhoneNumber.new options[:to]
-      options[:to] = phone.to_s
-
-      if phone.international?
-        twilio(options)
-      else
-        smsbao(options)
-      end
-    end
-
-    def smsbao(options)
-      # phone could be a joined string of phone numbers with ','
-      phone = options[:to]
-      content = options[:body]
-
-      conn = Faraday.new url: 'http://www.smsbao.com' do |faraday|
-        faraday.request  :url_encoded             # form-encode POST params
-        faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
-      end
-
-      response = conn.get '/sms',
-        u: ENV['SMS_USERNAME'],
-        p: Digest::MD5.hexdigest(ENV['SMS_PASSWORD']),
-        m: phone,
-        c: content
-
-      unless response.body == '0'
-        raise StandardError, ERROR_CODE[response.body] + ". " + "phone number is #{phone}. " + "content is #{content}."
-      end
-    end
-
-    def twilio(options)
-      client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_TOKEN']
-      default_option = { :from => '+15713832992' }
-      options.reverse_merge!(default_option)
-
-      # {
-        # :to => '+16105557069',
-        # :body => 'Hey there!'
-      # }
-      client.account.sms.messages.create(options)
-    end
   end
 end
