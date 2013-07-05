@@ -1,17 +1,17 @@
 require 'spec_helper'
 
-describe DefaultDateRule do
+describe DateRule do
   describe "#merge" do
     let(:default_date_rule) { create(:default_date_rule) }
     let(:local_date_rule) { create(:local_date_rule) }
 
-    context "with nil local_date_rule" do
+    context "with nil" do
       it "returns self" do
         default_date_rule.merge(nil).should == default_date_rule
       end
     end
 
-    context "with local_date_rule" do
+    context "with other rule" do
       subject { default_date_rule.merge(local_date_rule) }
 
       it "returns new rule" do
@@ -19,11 +19,11 @@ describe DefaultDateRule do
         subject.should_not == local_date_rule
       end
 
-      it "overwrites start_date with local_date_rule's" do
+      it "overwrites start_date with other's" do
         subject.start_date.should == local_date_rule.start_date
       end
 
-      it "overwrites end_date with local_date_rule's" do
+      it "overwrites end_date with other's" do
         subject.end_date.should == local_date_rule.end_date
       end
 
