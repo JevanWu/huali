@@ -33,12 +33,12 @@ class DateRule < ActiveRecord::Base
 
   def end_date
     case
-    when period_length =~ /(\d+)Y/
-      start_date.next_year(period_length.match(/(\d+)Y/)[1].to_i)
-    when period_length =~ /(\d+)M/
-      start_date.next_month(period_length.match(/(\d+)M/)[1].to_i)
-    when period_length =~ /(\d+)D/
-      start_date.next_year(period_length.match(/(\d+)D/)[1].to_i)
+    when period_length =~ /\+(\d+)Y/
+      start_date.next_year($1.to_i)
+    when period_length =~ /\+(\d+)M/
+      start_date.next_month($1.to_i)
+    when period_length =~ /\+(\d+)D/
+      start_date.next_day($1.to_i)
     else
       start_date.next_month(2)
     end
