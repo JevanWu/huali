@@ -1,0 +1,12 @@
+<%= semantic_form_for [:admin, @setting] do |f| %>
+  <%= f.semantic_errors %>
+
+  <%= f.inputs 'Setting' do %>
+    <%= f.input :var, as: :string, input_html: { disabled: @setting.new_record? ? false : true } %>
+    <li class="string input optional stringish" id="setting_var_input">
+      <%= f.label :value %>
+      <%= text_field_tag 'setting[value]', @setting[:value].nil? ? '' : YAML.load(@setting[:value]) %>
+    </li>
+  <% end %>
+  <%= f.actions %>
+<% end %>
