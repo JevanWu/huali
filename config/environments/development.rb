@@ -42,4 +42,8 @@ Huali::Application.configure do
 
   # Paperclip path
   Paperclip.options[:command_path] = "/usr/local/bin/"
+
+  # Custome configurations
+  # Log sms to file(Rails.root/tmp/sms/) instead really sending it
+  config.sms_delivery_method = :file
 end
