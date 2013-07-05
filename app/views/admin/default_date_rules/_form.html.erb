@@ -1,7 +1,7 @@
 <%= semantic_form_for [:admin, @default_date_rule] do |f| %>
   <%= f.inputs do %>
     <%= f.input :start_date, as: :string, input_html: { class: 'datepicker' } %>
-    <%= f.input :end_date, as: :string, input_html: { class: 'datepicker' } %>
+    <%= f.input :period_length, as: :string, hint: 'support period format: +1Y, +1M, +1D' %>
     <%= f.input :included_dates, as: :string, hint: "Dates separated by comma", input_html: { value: @default_date_rule.included_dates.join(',') } %>
     <%= f.input :excluded_dates, as: :string, hint: "Dates separated by comma", input_html: { value: @default_date_rule.excluded_dates.join(',') } %>
     <%= f.input :excluded_weekdays, as: :check_boxes, collection: [ ["Monday", "1"], ["Tuesday", "2"], ["Wednesday", "3"], ["Thursday", "4"], ["Friday", "5"], ["Saturday", "6"], ["Sunday", "0"] ], default: @default_date_rule.excluded_weekdays %>

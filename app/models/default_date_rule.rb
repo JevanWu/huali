@@ -3,12 +3,12 @@
 # Table name: date_rules
 #
 #  created_at        :datetime         not null
-#  end_date          :date
 #  excluded_dates    :text
 #  excluded_weekdays :string(255)
 #  id                :integer          not null, primary key
 #  included_dates    :text
 #  name              :string(255)
+#  period_length     :string(255)
 #  product_id        :integer
 #  start_date        :date
 #  type              :string(255)

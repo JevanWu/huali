@@ -68,7 +68,7 @@ class Product < ActiveRecord::Base
   belongs_to :default_date_rule
   has_one :local_date_rule, dependent: :destroy
   accepts_nested_attributes_for :local_date_rule, allow_destroy: true, update_only: true,
-    reject_if: proc { |d| d[:start_date].blank? || d[:end_date].blank? }
+    reject_if: proc { |d| d[:start_date].blank? }
 
   # i18n translation
   translate :name
@@ -159,11 +159,15 @@ class Product < ActiveRecord::Base
   end
 
   def region_rule
-    self.local_region_rule || self.default_region_rule
+    local_region_rule || default_region_rule
   end
 
   def date_rule
-    self.local_date_rule || self.default_date_rule
+    local_date_rule || default_date_rule
+  end
+
+  def merged_date_rule
+    default_date_rule.merge(local_date_rule)
   end
 
   def build_local_region_rule_upon_default
