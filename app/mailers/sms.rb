@@ -72,12 +72,19 @@ STR
       phone = PhoneNumber.new options[:to]
       options[:to] = phone.to_s
 
-      if phone.international?
-        twilio(options)
-      else
-        smsbao(options)
+      case Rails.configuration.sms_delivery_method
+      when :sms
+        if phone.international?
+          twilio(options)
+        else
+          smsbao(options)
+        end
+      when :file
+        log_to_file(options)
       end
     end
+
+    private
 
     def smsbao(options)
       # phone could be a joined string of phone numbers with ','
@@ -110,6 +117,18 @@ STR
         # :body => 'Hey there!'
       # }
       client.account.sms.messages.create(options)
+    end
+
+    def log_to_file(options)
+      log_dir = File.join(Rails.root, 'tmp/sms/')
+      `mkdir -p #{log_dir}`
+
+      log_file = File.join(log_dir, options[:to])
+      content = "Send at: #{Time.now} Content: #{options[:body]}"
+
+      File.open(log_file, 'w+') do |file|
+        file.puts(content)
+      end
     end
   end
 end

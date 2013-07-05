@@ -65,6 +65,8 @@ Huali::Application.configure do
   # ActionMailer Config for staging, no error raised
   config.action_mailer.default_url_options = { host: 'staging.hua.li' }
   config.action_mailer.raise_delivery_errors = false
+  # Log mail instead of really sending it
+  config.action_mailer.delivery_method = :file
 
   # ImageMagick Process path on production server (Ubuntu 12.04 LTS)
   Paperclip.options[:command_path] = "/usr/bin/"
@@ -72,4 +74,8 @@ Huali::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
+
+  # Custome configurations
+  # Log sms to file(Rails.root/tmp/sms/) instead really sending it
+  config.sms_delivery_method = :file
 end
