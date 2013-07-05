@@ -60,13 +60,18 @@ ActiveAdmin.register Shipment do
   member_action :print do
     order = Shipment.find_by_id(params[:id]).order
     @address = order.address
-    # type = ["ems", "lianbang", "shunfeng"]
-    @type = order.ship_method.kuaidi_query_code
+    begin
+      @type = order.ship_method.kuaidi_query_code
+      @shipment_id = order.shipment.identifier
 
-    if @type.blank?
+      case @type
+      when 'manual'
+        render 'admin/shipments/print_blank', layout: 'plain_print'
+      else
+        render 'admin/shipments/print', layout: 'plain_print'
+      end
+    rescue NoMethodError => e
       redirect_to :back, alert: t('views.admin.shipment.cannot_print')
-    else
-      render "print", layout: 'plain_print'
     end
   end
 

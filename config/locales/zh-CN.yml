@@ -372,7 +372,7 @@ zh-CN:
       shipment:
         shipment_state_changed: 递送状态变更为
         confirm_ship: 您选择的快递方式为%{method}, 您填写的快递单号为 %{tracking_num}. 你确定发送这张订单 %{identifier}?
-        cannot_print: 该货单不需要或者无法打印。请查看货单的类型
+        cannot_print: 货单未生成, 请先生成货单。
       ship_method:
         express: 快递
         manual: 人工
