@@ -2,7 +2,8 @@
 require 'digest/md5'
 
 class Sms
-  ERROR_CODE = {
+
+  SMSBAO_ERROR_CODE = {
     '30' => '密码错误',
     '40' => '账号不存在',
     '41' => '余额不足',
@@ -13,7 +14,7 @@ class Sms
     '-1' => '短信发送未成功'
   }
 
-  attr_accessor :phone_number, :body, :delivery_method
+  attr_reader :phone_number, :body, :delivery_method
 
   # Possible delivery_methods:
   #   :file
@@ -30,13 +31,17 @@ class Sms
   def deliver
     case delivery_method
     when :sms
-      phone_number.international? ? twilio : smsbao
+      send_sms
     when :file
       log_to_file
     end
   end
 
   private
+
+  def send_sms
+    phone_number.international? ? twilio : smsbao
+  end
 
   def smsbao
     conn = Faraday.new url: 'http://www.smsbao.com' do |faraday|
@@ -51,7 +56,7 @@ class Sms
       c: body
 
     unless response.body == '0'
-      raise StandardError, ERROR_CODE[response.body] + ". " + "phone number is #{phone_number}. " + "content is #{body}."
+      raise StandardError, SMSBAO_ERROR_CODE[response.body] + ". " + "phone number is #{phone_number}. " + "content is #{body}."
     end
   end
 
