@@ -1,4 +1,6 @@
-<%= content_tag :div, Setting.head_service_notice, class: 'flash', id: "flash_ad"  %>
+<% if Setting.head_service_notice.present? %>
+  <%= content_tag :div, Setting.head_service_notice, class: 'flash', id: "flash_ad"  %>
+<% end %>
 
 <% flash.each do |name, msg| %>
   <%= content_tag :div, msg, id: "flash_#{name}", class: 'flash' if msg.is_a?(String) %>
