@@ -17,8 +17,8 @@ class OauthRegistrationsController < Devise::RegistrationsController
       end
 
       u.bypass_humanizer = true
-      u.apply_oauth session[:oauth]
       u.save!
+      u.apply_oauth session[:oauth]
 
       flash[:notice] = I18n.t 'devise.sessions.signed_in'
       sign_in_and_redirect u, :event => :authentication

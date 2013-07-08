@@ -96,6 +96,7 @@ class User < ActiveRecord::Base
       provider: oauth_info['provider'],
       uid: oauth_info['uid']
     )
+    self.save!
   end
 
   private
