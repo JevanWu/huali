@@ -5,7 +5,7 @@
     <%= f.input :var, as: :string, input_html: { disabled: @setting.new_record? ? false : true } %>
     <li class="string input optional stringish" id="setting_var_input">
       <%= f.label :value %>
-      <%= text_field_tag 'setting[value]', @setting[:value].nil? ? '' : YAML.load(@setting[:value]) %>
+      <%= text_field_tag 'setting[value]', (YAML.load(@setting[:value]) rescue '') %>
     </li>
   <% end %>
   <%= f.actions %>
