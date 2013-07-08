@@ -17,6 +17,13 @@
   </fieldset>
   <fieldset>
     <legend>递送信息</legend>
+    <div class="control-group error section-error">
+      <% @order.fetch_products.each do |product| %>
+        <% product.errors[:base].each do |err| %>
+          <span class='help-block'><%= "#{product.name} #{err}" %></span>
+        <% end %>
+      <% end %>
+    </div>
     <%= f.input :expected_date, as: :string, required:true, input_html: { class: 'datepicker' }, placeholder: '寄给TA的时间', hint: Setting.expected_date_notice %>
 
     <%= f.fields_for :address do |builder|%>
