@@ -1,10 +1,12 @@
-<fieldset class="image_field">
-  <ol>
-    <li class="input optional">
-    <%= f.input :product, include_blank: false %>
-    <%= f.input :quantity %>
-    <%= f.hidden_field :_destroy %>
-    <%= link_to "Remove Product", "#", class: "remove_fields" %>
-    </li>
-  </ol>
-</fieldset>
+<li class="input">
+  <fieldset class="">
+    <ol>
+      <li class="input optional">
+      <%= f.input :product, include_blank: false, input_html: { class: 'chosen' } %>
+      <%= f.input :quantity %>
+      <%= f.hidden_field :_destroy %>
+      <%= link_to "Remove Product", "#", class: "remove_fields" %>
+      </li>
+    </ol>
+  </fieldset>
+</li>
