@@ -40,7 +40,7 @@
   <% end %>
 
   <%= f.inputs "Line Items", for: :line_items do |builder, i| %>
-    <%= builder.input :product %>
+    <%= builder.input :product, include_blank: false %>
     <%= builder.input :quantity %>
     <%= builder.hidden_field :_destroy %>
     <%= link_to "Remove Product", "#", class: "remove_fields" %>
