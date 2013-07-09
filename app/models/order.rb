@@ -40,8 +40,9 @@ class Order < ActiveRecord::Base
   attr_accessible :line_items, :special_instructions, :address_attributes, :line_items_attributes,
                   :gift_card_text, :delivery_date, :expected_date, :identifier, :state, :type,
                   :sender_name, :sender_phone, :sender_email, :source, :adjustment, :coupon_code,
-                  :ship_method_id, :bypass_region_validation, :bypass_date_validation
-  attr_accessor :bypass_region_validation, :bypass_date_validation
+                  :ship_method_id, :bypass_region_validation, :bypass_date_validation,
+                  :bypass_product_validation
+  attr_accessor :bypass_region_validation, :bypass_date_validation, :bypass_product_validation
 
   belongs_to :address
   belongs_to :user
@@ -77,6 +78,7 @@ class Order < ActiveRecord::Base
     if: lambda { |order| order.not_yet_shipped? && !order.bypass_region_validation }
   validates_with OrderProductDateValidator,
     if: lambda { |order| order.expected_date.present? && order.not_yet_shipped? && !order.bypass_date_validation }
+  validates_with OrderProductValidator, if: lambda { |order| !order.bypass_product_validation }
 
   # only validate once on Date.today, because in future Date.today will change
   validate :phone_validate, unless: lambda { |order| order.sender_phone.blank? }
@@ -181,12 +183,10 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def bypass_region_validation=(value)
-    @bypass_region_validation = ActiveRecord::ConnectionAdapters::Column.value_to_boolean(value)
-  end
-
-  def bypass_date_validation=(value)
-    @bypass_date_validation = ActiveRecord::ConnectionAdapters::Column.value_to_boolean(value)
+  [:bypass_region_validation, :bypass_date_validation, :bypass_product_validation].each do |m|
+    define_method(:"#{m}=") do |value|
+      instance_variable_set(:"@#{m}", ActiveRecord::ConnectionAdapters::Column.value_to_boolean(value))
+    end
   end
 
   def not_yet_shipped?

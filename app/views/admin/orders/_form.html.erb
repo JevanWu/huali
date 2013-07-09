@@ -50,6 +50,7 @@
       <label class="label"><%= t('views.admin.order.add_product') %></label>
       <%= link_to_add_line_items t('views.admin.order.add_product'), f, :line_items %>
     </li>
+    <%= f.input :bypass_product_validation, as: :boolean %>
   <% end %>
 
   <%= f.actions %>
