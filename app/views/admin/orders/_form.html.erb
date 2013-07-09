@@ -38,5 +38,19 @@
     <%= f.input :special_instructions %>
     <%= f.input :gift_card_text %>
   <% end %>
+
+  <%= f.inputs "Line Items", for: :line_items do |builder, i| %>
+    <%= builder.input :product %>
+    <%= builder.input :quantity %>
+    <%= builder.hidden_field :_destroy %>
+    <%= link_to "Remove Product", "#", class: "remove_fields" %>
+
+    <li class="input">
+      <label class="label"><%= t('views.admin.order.add_product') %></label>
+      <%= link_to_add_line_items t('views.admin.order.add_product'), f, :line_items %>
+    </li>
+  <% end %>
+
+
   <%= f.actions %>
 <% end %>

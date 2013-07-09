@@ -365,6 +365,7 @@ zh-CN:
         confirm_order_ship: 你确定发送此订单?
         confirm_accept: 你确定完成此订单?
         confirm_cancel: 你确定取消此订单?
+        add_product: 添加产品
       transaction:
         transaction_state_changed: 交易状态变更为
         confirm_complete: 你确定完成此交易?
