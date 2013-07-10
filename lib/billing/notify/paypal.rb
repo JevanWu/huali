@@ -1,23 +1,9 @@
 require 'uri'
-require 'ostruct'
 
 module Billing
   class Notify
-    class Paypal < OpenStruct
+    class Paypal < Base
       include Billing::Helper::Paypal
-
-      attr_accessor :params, :raw
-
-      def initialize(opts, post)
-        @opts = opts
-        reset!
-
-        result = parse(post)
-        result['trade_no'] = result['txn_id']
-        result['amt'] = result['payment_gross']
-
-        super result
-      end
 
       def success?
         acknowledge? && right_amount? && payment_status == "Completed"
@@ -25,20 +11,11 @@ module Billing
 
       private
 
-      # reset the notification.
-      def reset!
-        @params  = {}
-        @raw     = ""
-      end
-
-      # Take the posted data and move the relevant data into a hash
-      def parse(query_string)
-        @raw = query_string.to_s
-        for line in @raw.split('&')
-          key, value = *line.scan( %r{^([A-Za-z0-9_.]+)\=(.*)$} ).flatten
-          params[key] = URI.decode(value)
-        end
-        params
+      def parse(post)
+        super
+        @params['trade_no'] = @params['txn_id']
+        @params['amt'] = @params['payment_gross']
+        @params
       end
 
       def ipn_url
