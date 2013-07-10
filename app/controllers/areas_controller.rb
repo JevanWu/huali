@@ -1,4 +1,6 @@
 class AreasController < ApplicationController
+  respond_to :json
+
   def available_for_products
     if params[:product_ids].blank?
       render text: "Parameter product_ids is required", status: 400 and return
@@ -10,25 +12,16 @@ class AreasController < ApplicationController
     end.reduce(:&)
 
     areas = Area.find_all_by_id(area_ids)
-
-    respond_to do |format|
-      format.json { render json: areas }
-    end
+    respond_with(areas)
   end
 
   def index
     areas = City.find(params[:city_id]).areas
-
-    respond_to do |format|
-      format.json { render json: areas }
-    end
+    respond_with(areas)
   end
 
   def show
     area = Area.available.find_by_id params[:area_id]
-
-    respond_to do |format|
-      format.json { render json: area }
-    end
+    respond_with(area)
   end
 end

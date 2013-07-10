@@ -1,4 +1,6 @@
 class CitiesController < ApplicationController
+  respond_to :json
+
   def available_for_products
     if params[:product_ids].blank?
       render text: "Parameter product_ids is required", status: 400 and return
@@ -10,25 +12,16 @@ class CitiesController < ApplicationController
     end.reduce(:&)
 
     cities = City.find_all_by_id(city_ids)
-
-    respond_to do |format|
-      format.json { render json: cities }
-    end
+    respond_with(cities)
   end
 
   def index
     cities = Province.find(params[:prov_id]).cities
-
-    respond_to do |format|
-      format.json { render json: cities }
-    end
+    respond_with(cities)
   end
 
   def show
     city = City.available.find params[:city_id]
-
-    respond_to do |format|
-      format.json { render json: city }
-    end
+    respond_with(city)
   end
 end
