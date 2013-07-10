@@ -12,6 +12,7 @@ $ ->
     ajaxPool.length = 0
 
   chkUserExist = (email) ->
+    showLoadingGif()
     $.ajax
       url: "/users/check_user_exist"
       cache: false
@@ -29,10 +30,11 @@ $ ->
           $('form.sign-up-oauth').removeClass('user-exist').addClass('user-not-exist')
 
   $('form.sign-up-oauth input#user_email').on('keypress paste textInput input', ->
-    showLoadingGif()
     chkUserExist $(@).val()
   ).on('blur', ->
     hideLoadingGif()
   ).each( ->
     chkUserExist $(@).val()
   )
+
+  chkUserExist( $('form.sign-up-oauth input#user_email').val() )
