@@ -20,6 +20,10 @@ ActiveAdmin.register DefaultRegionRule do
 
     private
 
+    def permitted_params
+      params.require(:default_region_rule).permit!
+    end
+
     def setup_rule_params
       params[:default_region_rule][:province_ids] = params[:default_region_rule][:province_ids].split(',')
       params[:default_region_rule][:city_ids] = params[:default_region_rule][:city_ids].split(',')

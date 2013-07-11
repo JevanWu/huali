@@ -22,6 +22,10 @@ ActiveAdmin.register DefaultDateRule do
 
     private
 
+    def permitted_params
+      params.require(:default_date_rule).permit!
+    end
+
     def setup_rule_params
       params[:default_date_rule][:included_dates] = params[:default_date_rule][:included_dates].split(',')
       params[:default_date_rule][:excluded_dates] = params[:default_date_rule][:excluded_dates].split(',')

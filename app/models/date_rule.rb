@@ -20,8 +20,6 @@
 #
 
 class DateRule < ActiveRecord::Base
-  attr_accessible :period_length, :excluded_dates, :excluded_weekdays, :included_dates, :start_date, :name
-
   serialize :included_dates, Array
   serialize :excluded_dates, Array
   serialize :excluded_weekdays, Array
