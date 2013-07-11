@@ -54,7 +54,6 @@ gem 'roadie'
 
 # rails-4 upgrade
 gem 'rails-observers'
-gem 'rails4_upgrade', github: 'alindeman/rails4_upgrade'
 gem 'sprockets-rails', github: 'rails/sprockets-rails', require: 'sprockets/railtie'
 
 gem 'sass-rails', github: 'rails/sass-rails'
