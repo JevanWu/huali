@@ -27,8 +27,6 @@
 
 #
 class Shipment < ActiveRecord::Base
-  attr_accessible :identifier, :note, :state, :tracking_num, :ship_method_id, :address_id, :order_id, :kuaidi100_result, :kuaidi100_status
-
   belongs_to :address
   belongs_to :ship_method
   belongs_to :order

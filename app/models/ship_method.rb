@@ -12,8 +12,6 @@
 #
 
 class ShipMethod < ActiveRecord::Base
-  attr_accessible :name, :service_phone, :method, :website, :kuaidi_query_code, :kuaidi_api_code
-
   has_many :shipments
 
   validates_presence_of :name, :method
