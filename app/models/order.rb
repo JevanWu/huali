@@ -37,10 +37,6 @@
 class Order < ActiveRecord::Base
   self.inheritance_column = 'sti_type'
 
-  attr_accessible :line_items, :special_instructions, :address_attributes,
-                  :gift_card_text, :delivery_date, :expected_date, :identifier, :state, :type,
-                  :sender_name, :sender_phone, :sender_email, :source, :adjustment, :coupon_code,
-                  :ship_method_id, :bypass_region_validation, :bypass_date_validation
   attr_accessor :bypass_region_validation, :bypass_date_validation
 
   belongs_to :address
@@ -61,9 +57,6 @@ class Order < ActiveRecord::Base
   delegate :province_name, :city_name, to: :address
   delegate :paymethod, to: :transaction, allow_nil: true
   delegate :province_id, :city_id, :area_id, to: :address, prefix: 'address'
-
-  accepts_nested_attributes_for :line_items
-  accepts_nested_attributes_for :address
 
   before_validation :generate_identifier, on: :create
 

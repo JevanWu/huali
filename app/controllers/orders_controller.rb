@@ -44,9 +44,9 @@ class OrdersController < ApplicationController
   end
 
   def taobao_order_create
-    merchant_trade_no = params[:order].extract!(:merchant_trade_no)
+    merchant_trade_no = taobao_order_params[:merchant_trade_no]
 
-    @order = current_or_guest_user.orders.build(params[:order])
+    @order = current_or_guest_user.orders.build(taobao_order_params.except(:merchant_trade_no))
 
     # create line items
     @cart.keys.each do |key|
@@ -81,7 +81,7 @@ class OrdersController < ApplicationController
   end
 
   def back_order_create
-    @order = current_or_guest_user.orders.build(params[:order])
+    @order = current_or_guest_user.orders.build(back_order_params)
 
     # create line items
     @cart.keys.each do |key|
@@ -106,7 +106,7 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = current_or_guest_user.orders.build(params[:order])
+    @order = current_or_guest_user.orders.build(user_order_params)
 
     # create line items
     @cart.keys.each do |key|
@@ -193,6 +193,30 @@ class OrdersController < ApplicationController
   end
 
   private
+    def user_order_params
+      params
+        .require(:order)
+        .permit(:sender_name, :sender_email, :sender_phone)
+        .permit(:coupon_code, :gift_card_text, :special_instructions, :source, :expected_date)
+        .permit(address_attributes: [:fullname, :phone, :province_id, :city_id, :area_id, :post_code, :address])
+    end
+
+    def back_order_params
+      user_order_params
+      params
+        .require(:order)
+        .permit(:type)
+        .permit(:ship_method_id)
+        .permit(:delivery_date)
+    end
+
+    def taobao_order_params
+      back_order_params
+      params
+        .require(:order)
+        .permit(:merchant_trade_no)
+    end
+
     def empty_cart
       session[:order_id] = @order.id
       cookies.delete :cart

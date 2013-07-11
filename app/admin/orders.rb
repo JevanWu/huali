@@ -25,6 +25,10 @@ ActiveAdmin.register Order do
         super
       end
     end
+
+    def permitted_params
+      params.require(:order).permit!
+    end
   end
 
   actions :all, except: :new
@@ -117,7 +121,7 @@ ActiveAdmin.register Order do
       else
         render 'admin/shipments/print', layout: 'plain_print'
       end
-    rescue NoMethodError => e
+    rescue NoMethodError
       redirect_to :back, alert: t('views.admin.shipment.cannot_print')
     end
   end
