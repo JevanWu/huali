@@ -16,6 +16,13 @@ ActiveAdmin.register Province do
     end
   batch_action :destroy, false
 
+  controller do
+    def permitted_params
+      params.require(:province).permit(:available)
+    end
+  end
+  actions :all, except: :new
+
   member_action :enable  do
     province = Province.find_by_id(params[:id])
     province.available = true
@@ -90,6 +97,13 @@ ActiveAdmin.register City do
     end
   batch_action :destroy, false
 
+  controller do
+    def permitted_params
+      params.require(:city).permit(:available)
+    end
+  end
+  actions :all, except: :new
+
   member_action :enable  do
     city = City.find_by_id(params[:id])
     city.available = true
@@ -161,6 +175,13 @@ ActiveAdmin.register Area do
       end
     end
   batch_action :destroy, false
+
+  controller do
+    def permitted_params
+      params.require(:area).permit(:available)
+    end
+  end
+  actions :all, except: :new
 
   member_action :enable  do
     area = Area.find_by_id(params[:id])

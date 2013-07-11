@@ -14,8 +14,6 @@
 #
 
 class City < ActiveRecord::Base
-  # mainly read-only Model
-  attr_accessible :available
   scope :available, -> { where available: true }
   scope :unavailable, -> { where available: false }
 
