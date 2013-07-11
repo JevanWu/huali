@@ -20,9 +20,6 @@
 #
 
 class Address < ActiveRecord::Base
-  attr_accessible :address, :fullname, :phone, :post_code,
-                  :province_id, :area_id, :city_id
-
   belongs_to :province
   belongs_to :city
   belongs_to :area
@@ -33,8 +30,6 @@ class Address < ActiveRecord::Base
 
   delegate :name, to: :province, prefix: true
   delegate :name, to: :city, prefix: true
-
-  accepts_nested_attributes_for :province, :area, :city
 
   before_validation :check_postcode
   validates_presence_of :fullname, :address, :phone, :province, :city, :post_code
