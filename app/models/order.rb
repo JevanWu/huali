@@ -51,6 +51,9 @@ class Order < ActiveRecord::Base
   has_one :order_coupon
   has_one :coupon, through: :order_coupon
 
+  accepts_nested_attributes_for :line_items
+  accepts_nested_attributes_for :address
+
   extend Enumerize
   enumerize :type, in: [:normal, :marketing, :customer, :taobao], default: :normal
 
