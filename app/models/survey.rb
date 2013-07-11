@@ -12,7 +12,6 @@
 #
 
 class Survey < ActiveRecord::Base
-  attr_accessible :gender, :gift_purpose, :receiver_gender, :user_id
   belongs_to :user
 
   extend Enumerize
