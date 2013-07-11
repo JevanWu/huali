@@ -23,9 +23,6 @@
 #
 
 class Collection < ActiveRecord::Base
-  attr_accessible :description, :name_en, :name_zh, :display_name,
-                  :available, :meta_description,:meta_title, :meta_keywords, :primary_category, :priority
-
   # FIXME disallow removal of collection when it has associated products
   has_and_belongs_to_many :products
 

@@ -6,6 +6,12 @@ ActiveAdmin.register Collection do
   filter :display_name
   filter :description
 
+  controller do
+    def permitted_params
+      params.require(:collection).permit!
+    end
+  end
+
   index do
     selectable_column
     column :name_zh
