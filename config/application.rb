@@ -8,7 +8,7 @@ require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
 
-Bundler.require(:default, Rails.env)
+Bundler.require(:default, Rails.env) if defined?(Bundler)
 
 module Huali
   class Application < Rails::Application
