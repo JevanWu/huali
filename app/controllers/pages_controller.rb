@@ -1,7 +1,5 @@
 class PagesController < ApplicationController
 
-  # caches_page :show, :home, :partner
-
   def show
     @page = Page.find_by_permalink!(params[:id])
 
