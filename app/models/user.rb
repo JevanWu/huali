@@ -35,9 +35,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:douban, :weibo, :qq_connect]
 
-  attr_accessible :email, :password, :password_confirmation, :remember_me,
-                  :anonymous_token, :phone, :name, :humanizer_answer, :humanizer_question_id
-
   has_many :addresses
   has_many :orders
   has_many :transactions, through: :orders

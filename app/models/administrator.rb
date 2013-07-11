@@ -29,8 +29,6 @@ class Administrator < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :rememberable, :trackable, :validatable
 
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :role
   validates :role, inclusion: {
     in: %w(super admin supplier),
     message: "%{value} is not a valid administrator role."
