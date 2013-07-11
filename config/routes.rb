@@ -42,7 +42,7 @@ Huali::Application.routes.draw do
   post 'shipments/notify/:identifier', to: 'shipments#notify', as: :notify_shipment
 
   # non-individual collections routes
-  match '/collections/:id', to: 'collections#show'
+  get '/collections/:id', to: 'collections#show'
 
   devise_for :administrators
 
