@@ -15,8 +15,8 @@
 class Province < ActiveRecord::Base
   # mainly read-only Model
   attr_accessible :available
-  scope :available, lambda { where available: true }
-  scope :unavailable, lambda { where available: false }
+  scope :available, -> { where available: true }
+  scope :unavailable, -> { where available: false }
 
   after_save :update_cities_availability
 

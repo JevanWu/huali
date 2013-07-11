@@ -77,7 +77,7 @@ class Product < ActiveRecord::Base
   validates_presence_of :name_en, :name_zh, :count_on_hand, :assets, :collections
 
   # scopes
-  default_scope lambda { order('priority DESC') }
+  default_scope -> { order('priority DESC') }
 
   extend FriendlyId
   friendly_id :name_en, use: :slugged

@@ -61,7 +61,7 @@ class Transaction < ActiveRecord::Base
     end
   end
 
-  scope :by_state, lambda { |state| where(state: state) }
+  scope :by_state, -> { |state| where(state: state) }
 
   def request_path
     "#{Billing::Base.new(:gateway, self)}"

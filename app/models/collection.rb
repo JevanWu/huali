@@ -36,10 +36,10 @@ class Collection < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name_en, use: :slugged
 
-  scope :available, lambda { where(available: true) }
-  scope :primary, lambda { where(primary_category: true) }
+  scope :available, -> { where(available: true) }
+  scope :primary, -> { where(primary_category: true) }
 
-  default_scope lambda { order('priority DESC') }
+  default_scope -> { order('priority DESC') }
 
   def show_name
     display_name || name
