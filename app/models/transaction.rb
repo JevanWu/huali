@@ -112,6 +112,6 @@ class Transaction < ActiveRecord::Base
   end
 
   def notify_order
-    self.order.pay
+    self.order.pay!
   end
 end

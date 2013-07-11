@@ -131,7 +131,7 @@ class Order < ActiveRecord::Base
   end
 
   # Skip date and region validation in statemachine
-  [:check, :make].each do |m|
+  [:pay, :check, :make].each do |m|
     define_method(m) do |*args|
       self.bypass_date_validation = true
       self.bypass_region_validation = true
