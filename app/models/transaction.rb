@@ -23,8 +23,6 @@
 #
 
 class Transaction < ActiveRecord::Base
-  attr_accessible :merchant_name, :paymethod, :amount, :subject, :body, :order_id, :state, :merchant_trade_no
-
   belongs_to :order
   has_one :user, through: :order
 
@@ -61,7 +59,7 @@ class Transaction < ActiveRecord::Base
     end
   end
 
-  scope :by_state, -> { |state| where(state: state) }
+  scope :by_state, lambda { |state| where(state: state) }
 
   def request_path
     "#{Billing::Base.new(:gateway, self)}"

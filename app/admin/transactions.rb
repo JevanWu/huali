@@ -4,6 +4,10 @@ ActiveAdmin.register Transaction do
 
   controller do
     helper :transactions
+
+    def permitted_params
+      params.require(:transaction).permit!
+    end
   end
 
   filter :identifier
