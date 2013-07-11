@@ -40,6 +40,12 @@ ActiveAdmin.register Page do
       @page.destroy
       redirect_to admin_pages_path
     end
+
+    private
+
+    def permitted_params
+      params.require(:page).permit!
+    end
   end
 
   form partial: "form"
