@@ -21,6 +21,10 @@ ActiveAdmin.register Product do
       Product.includes(:assets, :collections)
     end
 
+    def permitted_params
+      params.require(:product).permit!
+    end
+
     private
 
     def setup_rule_params

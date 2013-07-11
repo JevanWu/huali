@@ -34,22 +34,12 @@
 
 
 class Product < ActiveRecord::Base
-  attr_accessible :name_zh, :name_en, :description, :meta_title, :meta_description,
-    :meta_keywords, :count_on_hand, :original_price, :price, :height, :width, :depth,
-    :inspiration, :published, :priority
-
-  attr_accessible :tag_list, :recommendation_ids, :assets, :assets_attributes,
-    :local_date_rule_attributes, :local_region_rule_attributes, :default_region_rule_id,
-    :default_date_rule_id
-
   # collection
   has_and_belongs_to_many :collections
   accepts_nested_attributes_for :collections
-  attr_accessible :collection_ids
 
   # asset
   has_many :assets, as: :viewable, dependent: :destroy
-  attr_accessible :assets_attributes
   accepts_nested_attributes_for :assets, reject_if: lambda { |a| a[:image].blank? }, allow_destroy: true
 
   # lineItems
