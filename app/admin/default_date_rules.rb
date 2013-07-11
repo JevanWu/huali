@@ -18,7 +18,7 @@ ActiveAdmin.register DefaultDateRule do
   form partial: "form"
 
   controller do
-    before_filter :setup_rule_params, only: [:create, :update]
+    before_action :setup_rule_params, only: [:create, :update]
 
     private
 

@@ -15,7 +15,7 @@ ActiveAdmin.register Product do
 
   controller do
     helper :products
-    before_filter :setup_rule_params, only: [:create, :update]
+    before_action :setup_rule_params, only: [:create, :update]
 
     def scoped_collection
       Product.includes(:assets, :collections)
