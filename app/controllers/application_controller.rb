@@ -1,8 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :get_host
-  before_filter :dev_tools if Rails.env == 'development'
+  before_action :get_host
+  before_action :dev_tools if Rails.env == 'development'
 
   # enable squash
   include Squash::Ruby::ControllerMethods

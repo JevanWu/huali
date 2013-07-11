@@ -3,7 +3,7 @@ module Extension
     extend ActiveSupport::Concern
 
     included do
-      before_filter :set_locale
+      before_action :set_locale
     end
 
     private

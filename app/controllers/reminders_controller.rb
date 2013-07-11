@@ -1,7 +1,7 @@
 class RemindersController < ApplicationController
   layout 'horizontal'
-  before_filter :load_cart
-  before_filter :fetch_items, only: [:new, :create, :current]
+  before_action :load_cart
+  before_action :fetch_items, only: [:new, :create, :current]
 
   include ::Extension::Order
 

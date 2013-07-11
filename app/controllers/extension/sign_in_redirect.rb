@@ -3,7 +3,7 @@ module Extension
     extend ActiveSupport::Concern
 
     included do
-      after_filter :store_location
+      after_action :store_location
     end
 
     def store_location
