@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   include ::Extension::SignInRedirect
 
   def dev_tools
-    Rack::MiniProfiler.authorize_request
+    Rack::MiniProfiler.authorize_request if defined?(Rack::MiniProfiler)
   end
 
   def get_host
