@@ -1,15 +1,15 @@
 module OrdersHelper
   def count_total(item)
-    number_to_currency (item[:quantity] * item.price), unit: '&yen;'
+    number_to_currency (item.quantity * item.price), unit: '&yen;'
   end
 
   def count_cart(items)
-    item_total = items.inject(0.0) {|sum, item| sum + item[:quantity] * item.price}
+    item_total = items.inject(0.0) {|sum, item| sum + item.quantity * item.price}
     number_to_currency item_total, unit: '&yen;'
   end
 
   def link_to_add_row_partial(name, link, product, partial_name)
-    product[:quantity] ||= 1
+    product.quantity ||= 1
     # FIXME how to direct compile the erb
     row_html = render(partial: partial_name, collection: [product]).to_str
 
