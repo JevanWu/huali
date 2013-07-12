@@ -271,6 +271,6 @@ ActiveAdmin.register Order do
   end
 
   action_item only: :index do
-    link_to('Download', params.merge(action: :download_latest))
+    link_to('Download latest', params.merge(action: :download_latest))
   end
 end
