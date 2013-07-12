@@ -2,7 +2,7 @@ source "http://ruby.taobao.org"
 # source "http://bundler-api.herokuapp.com"
 # source 'http://rubygems.org'
 
-gem 'rails', '~> 4.0.0'
+gem 'rails', '4.0.0', github: 'rails/rails', branch: '4-0-stable'
 gem 'pg', '>= 0.14.1'
 gem 'devise', '3.0.0.rc'
 gem 'devise-i18n'
@@ -16,7 +16,7 @@ gem 'formtastic',          github: 'justinfrench/formtastic'
 gem 'paperclip', '~> 3.0'
 gem 'simple_form', github: 'plataformatec/simple_form'
 gem 'kramdown', '~> 0.13'
-gem 'friendly_id', '~> 4.0.1'
+gem 'friendly_id', github: 'FriendlyId/friendly_id', branch: 'rails4'
 # backup, whenever probably should be isolated in a server setup script
 gem 'backup', require: false
 gem 'whenever', require: false
@@ -53,7 +53,7 @@ gem 'sinatra', require: nil
 gem 'roadie'
 
 # rails-4 upgrade
-gem 'rails-observers'
+gem 'rails-observers', github: 'rails/rails-observers'
 gem 'sprockets-rails', github: 'rails/sprockets-rails', require: 'sprockets/railtie'
 
 gem 'sass-rails', github: 'rails/sass-rails'
