@@ -47,9 +47,11 @@ Huali::Application.routes.draw do
   devise_for :administrators
 
   # FIXME need to know exact behaviors of controllers params
-  devise_for :users, controllers: { omniauth_callbacks: 'oauth_services' } do
-    get '/users/bind_with_oauth' => 'oauth_registrations#new_from_oauth', as: :new_oauth_user_registration
-    post '/users/bind_with_oauth' => 'oauth_registrations#bind_with_oauth'
+  devise_for :users, controllers: { omniauth_callbacks: 'oauth_services' }
+ 
+  devise_scope :users do
+    get '/users/bind_with_oauth', to: 'oauth_registrations#new_from_oauth', as: :new_oauth_user_registration
+    post '/users/bind_with_oauth', to: 'oauth_registrations#bind_with_oauth'
   end
 
   get 'users/check_user_exist', to: 'users#check_user_exist'

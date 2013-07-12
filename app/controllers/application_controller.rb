@@ -3,7 +3,6 @@ class ApplicationController < ActionController::Base
 
   before_action :get_host
   before_action :dev_tools if Rails.env == 'development'
-  before_action :configure_permitted_parameters, if: :devise_controller?
 
   # enable squash
   include Squash::Ruby::ControllerMethods
@@ -25,19 +24,32 @@ class ApplicationController < ActionController::Base
     $host = request.host_with_port
   end
 
-  private
+  protected
 
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) do |user|
-      user
-        .permit(:email, :password, :password_confirmation, :remember_me)
-        .permit(:phone, :name, :humanizer_answer, :humanizer_question_id)
-        .permit(:role)
-        # FIXME only required by administrator
+  def devise_parameter_sanitizer
+    case resource_class
+    when User
+      User::ParameterSanitizer.new(User, :user, params)
+    else
+      super # Administrator will use the default one
     end
+  end
+end
 
-    devise_parameter_sanitizer.for(:sign_in) do |user|
-      user.permit(:email, :password, :remember_me)
-    end
+class User::ParameterSanitizer < Devise::ParameterSanitizer
+  def sign_up
+    default_params 
+      .permit(:email, :password, :password_confirmation)
+      .permit(:phone, :name, :humanizer_answer, :humanizer_question_id)
+  end
+
+  def sign_in
+    default_params.permit(:email, :password, :remember_me)
+  end
+
+  def account_update
+    default_params 
+      .permit(:email, :password, :password_confirmation, :current_password)
+      .permit(:phone, :name 
   end
 end
