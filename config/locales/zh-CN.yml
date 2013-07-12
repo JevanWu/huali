@@ -167,6 +167,7 @@ zh-CN:
         image: 图片
         name_zh: 中文名
         name_en: 英文名
+        tags: 标签
         tag_list: 标签
         collections: 品类
         published: 是否发布
