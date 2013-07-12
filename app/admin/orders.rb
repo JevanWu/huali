@@ -262,4 +262,19 @@ ActiveAdmin.register Order do
       end
     end
   end
+
+  collection_action :download_latest, method: :get do
+    orders = Order.within_this_week
+    columns = Order.column_names.map(&:titleize)
+    row_data = orders.map { |o| o.attributes.values }
+
+    xlsx = XlsxBuilder.new(columns, row_data).serialize
+    xlsx_filename = "latest-orders-since-#{7.days.ago.to_date}.xlsx"
+
+    send_data xlsx, :filename => "#{xlsx_filename}", :type => Mime::Type.lookup_by_extension(:xlsx)
+  end
+
+  action_item only: :index do
+    link_to('Download latest', params.merge(action: :download_latest))
+  end
 end

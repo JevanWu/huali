@@ -25,8 +25,8 @@
       <%= builder.association :province, collection: [], prompt: "请选择省份", required:true, hint: "如遇递送地址无法选择，请联系客服电话：400-001-6936." %>
       <%= builder.association :city, collection: [], prompt: "请选择城市", required:true %>
       <%= builder.association :area, collection: [] %>
-      <%= builder.input :post_code, placeholder: '邮编', required: true %>
       <%= builder.input :address, as: 'text', required:true, input_html: { rows: 3 }, placeholder: '详细地址' %>
+      <%= builder.input :post_code, placeholder: '邮编', required: true, hint: %(<a id='query-postcode' href="#" target='_blank'>查询邮编</a>) %>
     <% end %>
   </fieldset>
   <div class="form-actions">
