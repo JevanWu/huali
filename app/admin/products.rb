@@ -39,6 +39,16 @@ ActiveAdmin.register Product do
     end
   end
 
+  filter :name_zh
+  filter :name_en
+  filter :price
+  filter :original_price
+  filter :tags
+  filter :sold_total
+  filter :meta_keywords
+  filter :meta_title
+  filter :meta_description
+
   index do
     selectable_column
     column "ID" do |product|
