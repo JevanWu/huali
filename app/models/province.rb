@@ -18,7 +18,7 @@ class Province < ActiveRecord::Base
 
   after_save :update_cities_availability
 
-  has_many :cities, order: 'post_code ASC', foreign_key: 'parent_post_code', primary_key: 'post_code', dependent: :destroy
+  has_many :cities, -> { where order: 'post_code ASC' }, foreign_key: 'parent_post_code', primary_key: 'post_code', dependent: :destroy
 
   has_many :addresses
 
