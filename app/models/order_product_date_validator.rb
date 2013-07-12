@@ -9,7 +9,7 @@ class OrderProductDateValidator < ActiveModel::Validator
       date_valid = DateRuleRunner.new(rule_runner_options).apply_test(order.expected_date)
 
       unless date_valid
-        product.errors.add(:base, :product_in_unavailable_date)
+        product.errors.add(:base, :product_in_unavailable_date, product_name: product.name)
 
         order_valid && order_valid = false
       end

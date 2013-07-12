@@ -34,8 +34,8 @@ zh-CN:
         unavailable_location: 我们无法为您配送到这个地区
         expired_coupon: 对不起，该优惠券已经过期或者失效
         non_exist_coupon: 对不起，该优惠券不存在
-        product_in_unavailable_date: 递送日期有问题
-        product_in_unavailable_region: 递送区域有问题
+        product_in_unavailable_date: '%{product_name}无法在该递送日期配送'
+        product_in_unavailable_region: '%{product_name}无法配送到该区域'
 
     models:
       administrator: 管理用户
