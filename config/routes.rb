@@ -62,10 +62,6 @@ Huali::Application.routes.draw do
 
   ActiveAdmin.routes(self)
 
-  authenticated :administrators do
-    root to: "admin#index"
-  end
-
   get ':id', to: 'pages#show', as: :page
   get "errors/error_404"
   get "errors/error_500"
