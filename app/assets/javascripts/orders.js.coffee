@@ -174,14 +174,14 @@ $ ->
     area = $('select[id$=_area_id] option:selected').text()
     address = $('textarea[id$=_address]').val()
 
-    if province != "请选择" and city != "请选择"
+    if province != "请选择" and city != "请选择" and city != "请选择城市"
       region = "#{province} #{city}"
 
       if area.length > 0 and area != "请选择"
-        region = "#{region} #{area}"
+        region += " #{area}"
 
       if address.length > 0
-        region = "#{region} #{address}"
+        region += " #{address}"
 
       $(this).attr('href', href + region)
     else
