@@ -12,7 +12,7 @@ module Extension
       @products = []
       @cart.keys.each do |key|
         if product = Product.find_by_id(key)
-          product[:quantity] = @cart[key]
+          product.quantity = @cart[key]
           @products.push product
         end
       end

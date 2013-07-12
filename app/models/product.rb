@@ -34,6 +34,8 @@
 
 
 class Product < ActiveRecord::Base
+  attr_accessor :quantity
+  
   # collection
   has_and_belongs_to_many :collections
   accepts_nested_attributes_for :collections

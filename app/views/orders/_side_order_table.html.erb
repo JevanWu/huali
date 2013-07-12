@@ -11,7 +11,7 @@
         <td class="content">
           <p>
             <%= link_to item.name, product_path(item) %>
-            <span>x <%= item[:quantity] %> </span>
+            <span>x <%= item.quantity %> </span>
           </p>
         </td>
         <td class="total"> <%= count_total(item) %> </td>
