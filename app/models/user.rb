@@ -52,7 +52,6 @@ class User < ActiveRecord::Base
   scope :registered, -> { where("#{self.table_name}.email NOT LIKE ?", "%@guest.me") }
   scope :guests, -> { where("#{self.table_name}.email LIKE ?", "%@guest.me") }
   scope :non_guests, -> { where("#{self.table_name}.email NOT LIKE ?", "%@guest.me") }
-  scope :all, -> { reorder }
 
   validates :role, inclusion: {
     in: %w(customer),
