@@ -3,7 +3,7 @@
 #= require jquery.tagsinput
 #= require region_rule_edit
 #= require admin_prov_city_area_update
-#= require chosen.jquery.min
+#= require chosen.jquery
 
 $ ->
   $('form').on 'click', '.remove_fields', (event) ->
