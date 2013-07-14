@@ -10,11 +10,7 @@ class OrderProductValidator < ActiveModel::Validator
     order_valid = true
 
     order.line_items.each do |line_item|
-      product = Product.find(line_item.product_id)
-
-      unless product.published
-        product.errors.add(:base, :unavailable_product)
-
+      unless line_item.published
         line_item.errors.add(:product, :unavailable_product)
 
         order_valid && order_valid = false
@@ -27,8 +23,6 @@ class OrderProductValidator < ActiveModel::Validator
       end
     end
 
-    unless order_valid
-      order.errors.add(:base, :unavailable_products)
-    end
+    order.errors.add(:base, :unavailable_products) unless order_valid
   end
 end
