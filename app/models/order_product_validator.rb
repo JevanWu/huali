@@ -1,7 +1,5 @@
 class OrderProductValidator < ActiveModel::Validator
   def validate(order)
-
-
     if order.line_items.blank?
       order.errors.add(:base, :blank_products)
       return
