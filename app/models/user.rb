@@ -52,10 +52,9 @@ class User < ActiveRecord::Base
   attr_accessor :bypass_humanizer
   require_human_on :create, :unless => :bypass_humanizer
 
-  scope :registered, where("#{self.table_name}.email NOT LIKE ?", "%@guest.me")
-  scope :guests, where("#{self.table_name}.email LIKE ?", "%@guest.me")
-  scope :non_guests, where("#{self.table_name}.email NOT LIKE ?", "%@guest.me")
-  scope :all, -> { reorder }
+  scope :registered, -> { where("#{self.table_name}.email NOT LIKE ?", "%@guest.me") }
+  scope :guests, -> { where("#{self.table_name}.email LIKE ?", "%@guest.me") }
+  scope :non_guests, -> { where("#{self.table_name}.email NOT LIKE ?", "%@guest.me") }
 
   validates :role, inclusion: {
     in: %w(customer),

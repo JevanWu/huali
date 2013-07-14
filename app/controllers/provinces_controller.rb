@@ -1,10 +1,9 @@
 class ProvincesController < ApplicationController
+  respond_to :json
+
   def index
     provinces = Province.all
-
-    respond_to do |format|
-      format.json { render json: provinces }
-    end
+    respond_with(provinces)
   end
 
   def available_for_products
@@ -17,17 +16,11 @@ class ProvincesController < ApplicationController
     end.reduce(:&)
 
     provinces = Province.find_all_by_id(prov_ids)
-
-    respond_to do |format|
-      format.json { render json: provinces }
-    end
+    respond_with(provinces)
   end
 
   def show
     province = Province.available.find params[:prov_id]
-
-    respond_to do |format|
-      format.json { render json: province }
-    end
+    respond_with(province)
   end
 end

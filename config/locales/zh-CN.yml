@@ -38,6 +38,8 @@ zh-CN:
         unavailable_products: 产品不可用
         blank_products: 产品不能为空
         invalid_quantity: 数量不能小于等于0
+        product_in_unavailable_date: '%{product_name}无法在该递送日期配送'
+        product_in_unavailable_region: '%{product_name}无法配送到该区域'
 
     models:
       administrator: 管理用户
@@ -172,6 +174,7 @@ zh-CN:
         image: 图片
         name_zh: 中文名
         name_en: 英文名
+        tags: 标签
         tag_list: 标签
         collections: 品类
         published: 是否发布

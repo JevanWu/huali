@@ -74,10 +74,8 @@ class Order < ActiveRecord::Base
 
   validates_presence_of :identifier, :line_items, :expected_date, :state, :total, :item_total, :sender_email, :sender_phone, :sender_name
 
-  validates_with OrderProductRegionValidator,
-    if: lambda { |order| order.not_yet_shipped? && !order.bypass_region_validation }
-  validates_with OrderProductDateValidator,
-    if: lambda { |order| order.expected_date.present? && order.not_yet_shipped? && !order.bypass_date_validation }
+  validates_with OrderProductRegionValidator, if: :validate_product_delivery_region?
+  validates_with OrderProductDateValidator, if: :validate_product_delivery_date?
   validates_with OrderProductValidator, if: lambda { |order| !order.bypass_product_validation }
 
   # only validate once on Date.today, because in future Date.today will change
@@ -133,7 +131,7 @@ class Order < ActiveRecord::Base
   end
 
   # Skip date and region validation in statemachine
-  [:check, :make].each do |m|
+  [:pay, :check, :make].each do |m|
     define_method(m) do |*args|
       self.bypass_date_validation = true
       self.bypass_region_validation = true
@@ -142,7 +140,6 @@ class Order < ActiveRecord::Base
     end
   end
 
-  scope :all, -> { reorder }
   scope :yesterday, -> { where 'delivery_date = ?', Date.yesterday }
   scope :current, -> { where 'delivery_date = ?', Date.current }
   scope :tomorrow, -> { where 'delivery_date = ?', Date.tomorrow }
@@ -330,11 +327,11 @@ class Order < ActiveRecord::Base
   end
 
   def fetch_products
-    if self.persisted?
-      products
-    else
-      line_items.map { |l| Product.find(l.product_id) }
-    end
+    @fetched_products ||= if self.persisted?
+                            products
+                          else
+                            line_items.map { |l| Product.find(l.product_id) }
+                          end
   end
 
   private
@@ -375,5 +372,13 @@ class Order < ActiveRecord::Base
   def pay_order
     self.payment_total += self.transactions.by_state('completed').map(&:amount).inject(:+)
     save
+  end
+
+  def validate_product_delivery_region?
+    address_province_id && address_city_id && not_yet_shipped? && !bypass_region_validation
+  end
+
+  def validate_product_delivery_date?
+    expected_date.present? && not_yet_shipped? && !bypass_date_validation
   end
 end

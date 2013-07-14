@@ -23,10 +23,11 @@ module Billing
       end
 
       def verify_sign
-        @sign_type ||= params.delete("sign_type")
-        @sign ||= params.delete("sign")
+        # sign_type and sign are excluded in MD5 calculation
+        @sign_type ||= @params["sign_type"]
+        @sign ||= @params["sign"]
 
-        query = params.map do |key, value|
+        query = @params.except('sign_type', 'sign').map do |key, value|
           "#{key}=#{value}"
         end.sort * '&'
 

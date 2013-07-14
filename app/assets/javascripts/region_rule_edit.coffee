@@ -33,6 +33,18 @@ class RegionRule.Models.Province extends Backbone.RelationalModel
       city.get('areas').each (area) =>
         area.set(available: @get('available'))
 
+  indeterminate: ->
+    if (@get('cities').every (city) -> city.get('available')) || (@get('cities').every (city) -> !city.get('available'))
+      false
+    else
+      true
+
+  all_cities_available: ->
+    @get('cities').every (city) -> city.get('available')
+
+  all_cities_unavailable: ->
+    @get('cities').every (city) -> !city.get('available')
+
 class RegionRule.Models.City extends Backbone.RelationalModel
   defaults:
     available: false
@@ -53,6 +65,18 @@ class RegionRule.Models.City extends Backbone.RelationalModel
 
     @get('areas').each (area) =>
       area.set(available: @get('available'))
+
+  indeterminate: ->
+    if (@get('areas').every (area) -> area.get('available')) || (@get('areas').every (area) -> !area.get('available'))
+      false
+    else
+      true
+
+  all_areas_available: ->
+    @get('areas').every (area) -> area.get('available')
+
+  all_areas_unavailable: ->
+    @get('areas').every (area) -> !area.get('available')
 
 class RegionRule.Models.Area extends Backbone.RelationalModel
   defaults:
@@ -99,14 +123,48 @@ class RegionRule.Views.Region extends Backbone.View
     'click .toggle': 'toggleAvailable'
     'click .expand': 'expandChild'
 
+  initialize: ->
+    @listenTo(@model, 'setToggleState', this.setToggleState)
+
   render: ->
     @$el.html(@template(@model.toJSON()))
     @$(".expand").remove() if (@model instanceof RegionRule.Models.Area)
+    @setIndeterminate() unless (@model instanceof RegionRule.Models.Area)
     this
 
   # Toggle the `"completed"` state of the model.
   toggleAvailable: ->
-    this.model.toggle()
+    @model.toggle()
+    @toggleParent()
+
+  # Trigger events to check indeterminate of parent
+  toggleParent: ->
+    if @model instanceof RegionRule.Models.City
+      @model.get('province').trigger('setToggleState')
+    if @model instanceof RegionRule.Models.Area
+      @model.get('city').trigger('setToggleState')
+
+  setToggleState: ->
+    if @model instanceof RegionRule.Models.Province
+      if @model.all_cities_available()
+        @$('.toggle').prop('checked', true)
+        @model.set('available', true)
+      else if @model.all_cities_unavailable()
+        @$('.toggle').prop('checked', false)
+        @model.set('available', false)
+    else if @model instanceof RegionRule.Models.City
+      if @model.all_areas_available()
+        @$('.toggle').prop('checked', true)
+        @model.set('available', true)
+      else if @model.all_areas_unavailable()
+        @$('.toggle').prop('checked', false)
+        @model.set('available', false)
+      @toggleParent()
+
+    @setIndeterminate()
+
+  setIndeterminate: ->
+    @$('.toggle').prop('indeterminate', @model.indeterminate())
 
   expandChild: (event) ->
     if @model instanceof RegionRule.Models.Province

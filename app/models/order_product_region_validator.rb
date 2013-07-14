@@ -16,7 +16,7 @@ class OrderProductRegionValidator < ActiveModel::Validator
                                                    order.address_area_id)
 
       unless region_valid
-        product.errors[:base] = :product_in_unavailable_region
+        product.errors.add(:base, :product_in_unavailable_region, product_name: product.name)
 
         order_valid && order_valid = false
       end
