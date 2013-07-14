@@ -34,6 +34,10 @@ zh-CN:
         unavailable_location: 我们无法为您配送到这个地区
         expired_coupon: 对不起，该优惠券已经过期或者失效
         non_exist_coupon: 对不起，该优惠券不存在
+        unavailable_product: 不可用
+        unavailable_products: 产品不可用
+        blank_products: 产品不能为空
+        invalid_quantity: 数量不能小于等于0
         product_in_unavailable_date: '%{product_name}无法在该递送日期配送'
         product_in_unavailable_region: '%{product_name}无法配送到该区域'
 
@@ -110,6 +114,7 @@ zh-CN:
         type: 类型
         bypass_region_validation: 跳过递送区域验证
         bypass_date_validation: 跳过递送时间验证
+        bypass_product_validation: 跳过产品验证
 
 
       administrator:
@@ -368,6 +373,7 @@ zh-CN:
         confirm_order_ship: 你确定发送此订单?
         confirm_accept: 你确定完成此订单?
         confirm_cancel: 你确定取消此订单?
+        add_product: 添加产品
       transaction:
         transaction_state_changed: 交易状态变更为
         confirm_complete: 你确定完成此交易?

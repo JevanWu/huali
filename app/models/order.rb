@@ -37,11 +37,12 @@
 class Order < ActiveRecord::Base
   self.inheritance_column = 'sti_type'
 
-  attr_accessible :line_items, :special_instructions, :address_attributes,
+  attr_accessible :line_items, :special_instructions, :address_attributes, :line_items_attributes,
                   :gift_card_text, :delivery_date, :expected_date, :identifier, :state, :type,
                   :sender_name, :sender_phone, :sender_email, :source, :adjustment, :coupon_code,
-                  :ship_method_id, :bypass_region_validation, :bypass_date_validation
-  attr_accessor :bypass_region_validation, :bypass_date_validation
+                  :ship_method_id, :bypass_region_validation, :bypass_date_validation,
+                  :bypass_product_validation
+  attr_accessor :bypass_region_validation, :bypass_date_validation, :bypass_product_validation
 
   belongs_to :address
   belongs_to :user
@@ -62,7 +63,7 @@ class Order < ActiveRecord::Base
   delegate :paymethod, to: :transaction, allow_nil: true
   delegate :province_id, :city_id, :area_id, to: :address, prefix: 'address'
 
-  accepts_nested_attributes_for :line_items
+  accepts_nested_attributes_for :line_items, allow_destroy: true
   accepts_nested_attributes_for :address
 
   before_validation :generate_identifier, on: :create
@@ -75,6 +76,7 @@ class Order < ActiveRecord::Base
 
   validates_with OrderProductRegionValidator, if: :validate_product_delivery_region?
   validates_with OrderProductDateValidator, if: :validate_product_delivery_date?
+  validates_with OrderProductValidator, if: lambda { |order| !order.bypass_product_validation }
 
   # only validate once on Date.today, because in future Date.today will change
   validate :phone_validate, unless: lambda { |order| order.sender_phone.blank? }
@@ -178,12 +180,10 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def bypass_region_validation=(value)
-    @bypass_region_validation = ActiveRecord::ConnectionAdapters::Column.value_to_boolean(value)
-  end
-
-  def bypass_date_validation=(value)
-    @bypass_date_validation = ActiveRecord::ConnectionAdapters::Column.value_to_boolean(value)
+  [:bypass_region_validation, :bypass_date_validation, :bypass_product_validation].each do |m|
+    define_method(:"#{m}=") do |value|
+      instance_variable_set(:"@#{m}", ActiveRecord::ConnectionAdapters::Column.value_to_boolean(value))
+    end
   end
 
   def not_yet_shipped?

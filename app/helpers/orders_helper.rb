@@ -89,4 +89,12 @@ module OrdersHelper
     content_tag('div', buttons, id: 'process-buttons')
   end
 
+  def link_to_add_line_items(name, f, association)
+    new_line_item = LineItem.new
+    id = new_line_item.object_id
+    fields = f.fields_for(association, new_line_item, child_index: id) do |builder|
+      render('line_item_fields', f: builder)
+    end
+    link_to(name, '#', class: "add_fields", data: {id: id, fields: fields.gsub('\n', '')})
+  end
 end
