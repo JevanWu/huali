@@ -375,6 +375,7 @@ zh-CN:
         confirm_accept: 你确定完成此订单?
         confirm_cancel: 你确定取消此订单?
         add_product: 添加产品
+        cannot_edit: 订单已结束，不能编辑
       transaction:
         transaction_state_changed: 交易状态变更为
         confirm_complete: 你确定完成此交易?
