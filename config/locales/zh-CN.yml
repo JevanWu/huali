@@ -40,6 +40,7 @@ zh-CN:
         invalid_quantity: 数量不能小于等于0
         product_in_unavailable_date: '%{product_name}无法在该递送日期配送'
         product_in_unavailable_region: '%{product_name}无法配送到该区域'
+        must_be_less_than_expected_date: 必须小于到达日期
 
     models:
       administrator: 管理用户
