@@ -122,6 +122,13 @@ ActiveAdmin.register Order do
     end
   end
 
+  member_action :edit do
+    @order = Order.find_by_id(params[:id])
+    if @order.state.in? ["completed", "refunded", "void"]
+      redirect_to [:admin, @order], alert: t('views.admin.order.cannot_edit')
+    end
+  end
+
   index do
     selectable_column
     column :state, sortable: :state do |order|

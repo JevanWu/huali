@@ -83,6 +83,8 @@ class Order < ActiveRecord::Base
   # skip coupon code validation for empty coupon and already used coupon
   validate :coupon_code_validate, unless: lambda { |order| order.coupon_code.blank? || order.already_use_the_coupon? }
 
+  validate :delivery_date_must_be_less_than_expected_date
+
   after_validation :cal_item_total, :cal_total
   after_validation :adjust_total, if: :adjust_allowed?
   after_validation :use_coupon, unless: lambda { |order| order.coupon_code.blank? }
@@ -380,5 +382,11 @@ class Order < ActiveRecord::Base
 
   def validate_product_delivery_date?
     expected_date.present? && not_yet_shipped? && !bypass_date_validation
+  end
+
+  def delivery_date_must_be_less_than_expected_date
+    if delivery_date && !(delivery_date < expected_date)
+      errors.add(:delivery_date, :must_be_less_than_expected_date)
+    end
   end
 end
