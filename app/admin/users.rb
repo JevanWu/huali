@@ -10,8 +10,7 @@ ActiveAdmin.register User do
     def permitted_params
       params
         .require(:user)
-        .permit(:email, :password)
-        .permit(:humanizer_answer, :humanizer_question_id)
+        .permit(:email, :password, :humanizer_answer, :humanizer_question_id)
     end
   end
 
