@@ -295,7 +295,4 @@ ActiveAdmin.register Order do
 
     render_excel(orders, xlsx_filename)
   end
-
-  action_item only: :index do
-  end
 end
