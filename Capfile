@@ -64,14 +64,18 @@ task :staging do
   set :branch, 'staging'
   set :deploy_to, "/home/#{user}/repositories/#{application}-staging"
 end
-task :easymoo do
-  set :domain, "hua.li www.hua.li"
 
-  # emoo - 74.207.254.157, emoo - linode
-  server '74.207.254.157:1982', :web, :app, :db, primary: true
-  set :rails_env, "production"
+task :rails4 do
+  set :application, "huali_rails4"
+  set :domain, "rails4.hua.li"
+  set :unicorn_workers, 1
 
-  set :deploy_to, "/home/#{user}/repositories/#{application}"
+  # lua - 42.121.3.105, aliyun - steven
+  server '42.121.3.105', :web, :app, :db, primary: true
+  set :rails_env, "staging"
+
+  set :branch, 'upgrade_rails_4'
+  set :deploy_to, "/home/#{user}/repositories/#{application}-rails4"
 end
 
 namespace :deploy do
