@@ -15,7 +15,7 @@ gem 'inherited_resources', github: 'josevalim/inherited_resources'
 gem 'formtastic',          github: 'justinfrench/formtastic'
 gem 'activeadmin-axlsx'
 gem 'paperclip', '~> 3.0'
-gem 'simple_form', github: 'plataformatec/simple_form'
+gem 'simple_form', '3.0.0rc'
 gem 'kramdown', '~> 0.13'
 gem 'friendly_id', github: 'FriendlyId/friendly_id', branch: 'rails4'
 # backup, whenever probably should be isolated in a server setup script

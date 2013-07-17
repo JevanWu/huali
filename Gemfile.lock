@@ -76,14 +76,6 @@ GIT
       actionpack (>= 3.0)
 
 GIT
-  remote: git://github.com/plataformatec/simple_form.git
-  revision: 3ea3226e2f5eb83c6723639fc10480a721347f7e
-  specs:
-    simple_form (3.0.0.rc)
-      actionpack (>= 4.0.0, < 4.1)
-      activemodel (>= 4.0.0, < 4.1)
-
-GIT
   remote: git://github.com/rails/rails-observers.git
   revision: 25ad85c3029b8c78bb984b2c968e2b98bdcc2dff
   specs:
@@ -514,6 +506,9 @@ GEM
       redis-namespace
     sidekiq-failures (0.2.1)
       sidekiq (>= 2.2.1)
+    simple_form (3.0.0.rc)
+      actionpack (>= 4.0.0.rc1, < 4.1)
+      activemodel (>= 4.0.0.rc1, < 4.1)
     simplecov (0.7.1)
       multi_json (~> 1.0)
       simplecov-html (~> 0.7.1)
@@ -648,7 +643,7 @@ DEPENDENCIES
   shoulda-matchers
   sidekiq (~> 2.9)
   sidekiq-failures
-  simple_form!
+  simple_form (= 3.0.0rc)
   simplecov
   sinatra
   sitemap_generator
