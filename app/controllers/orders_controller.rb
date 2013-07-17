@@ -107,8 +107,7 @@ class OrdersController < ApplicationController
 
   def create
     @order = current_or_guest_user.orders.build(user_order_params)
-    binding.pry
-
+    
     # create line items
     @cart.keys.each do |key|
       @order.add_line_item(key, @cart[key])
