@@ -25,13 +25,17 @@ ActiveAdmin.register Product do
 
     def setup_rule_params
       # For date rule
-      params[:product][:local_date_rule_attributes][:included_dates] = params[:product][:local_date_rule_attributes][:included_dates].split(/[,，]/)
-      params[:product][:local_date_rule_attributes][:excluded_dates] = params[:product][:local_date_rule_attributes][:excluded_dates].split(/[,，]/)
+      if params[:product][:local_date_rule_attributes].present?
+        params[:product][:local_date_rule_attributes][:included_dates] = params[:product][:local_date_rule_attributes][:included_dates].split(/[,，]/)
+        params[:product][:local_date_rule_attributes][:excluded_dates] = params[:product][:local_date_rule_attributes][:excluded_dates].split(/[,，]/)
+      end
 
       # For region rule
-      params[:product][:local_region_rule_attributes][:province_ids] = params[:product][:local_region_rule_attributes][:province_ids].split(',')
-      params[:product][:local_region_rule_attributes][:city_ids] = params[:product][:local_region_rule_attributes][:city_ids].split(',')
-      params[:product][:local_region_rule_attributes][:area_ids] = params[:product][:local_region_rule_attributes][:area_ids].split(',')
+      if params[:product][:local_region_rule_attributes].present?
+        params[:product][:local_region_rule_attributes][:province_ids] = params[:product][:local_region_rule_attributes][:province_ids].split(',')
+        params[:product][:local_region_rule_attributes][:city_ids] = params[:product][:local_region_rule_attributes][:city_ids].split(',')
+        params[:product][:local_region_rule_attributes][:area_ids] = params[:product][:local_region_rule_attributes][:area_ids].split(',')
+      end
     end
   end
 

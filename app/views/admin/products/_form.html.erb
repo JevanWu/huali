@@ -51,58 +51,17 @@
     <%= f.input :default_date_rule, include_blank: false, required: true %>
   <% end %>
 
-  <% @product.build_local_date_rule unless @product.local_date_rule %>
-  <%= f.inputs "Local Date Rule", for: :local_date_rule, id: "date_rules", class: "inputs " + (@product.local_date_rule.new_record? ? "hide" : "") do |builder| %>
-    <%= builder.input :start_date, as: :string, input_html: { class: 'datepicker' } %>
-    <%= builder.input :period_length, as: :string, hint: 'support period format: +1Y, +1M, +1D' %>
-    <%= builder.input :included_dates, as: :string, hint: "Dates separated by comma", input_html: { value: @product.date_rule.included_dates.join(',') } %>
-    <%= builder.input :excluded_dates, as: :string, hint: "Dates separated by comma", input_html: { value: @product.date_rule.excluded_dates.join(',') } %>
-    <%= builder.input :excluded_weekdays, as: :check_boxes, collection: [ ["Monday", "1"], ["Tuesday", "2"], ["Wednesday", "3"], ["Thursday", "4"], ["Friday", "5"], ["Saturday", "6"], ["Sunday", "0"] ], default: @product.date_rule.excluded_weekdays %>
-
-    <%= builder.hidden_field :_destroy %>
-    <li class="file input">
-    <label class="label"><%= t('views.admin.product.remove_rule') %></label>
-    <%= link_to t('views.admin.product.remove_rule'), "#", class: "remove_fields" %>
-    </li>
-
-  <% end %>
-  <a href="#" class="add_date_rule <%= "hide" unless @product.local_date_rule.new_record? %>"><%= t('views.admin.product.add_rule') %></a>
+  <%= render 'local_date_rule', f: f unless @product.new_record? %>
 
   <%= f.inputs "Default Region Rule" do %>
     <%= f.input :default_region_rule, include_blank: false, required: true %>
   <% end %>
 
-  <% @product.build_local_region_rule_upon_default unless @product.local_region_rule %>
-  <%= f.inputs "Local region rule", for: :local_region_rule, id: 'region_rules', class: "inputs " + (@product.local_region_rule.new_record? ? "hide": "") do |builder| %>
-    <%= builder.hidden_field :province_ids, value: @product.region_rule.province_ids.join(','), id: "region_rule_province_ids" %>
-    <%= builder.hidden_field :city_ids, value: @product.region_rule.city_ids.join(','), id: "region_rule_city_ids" %> <%= builder.hidden_field :area_ids, value: @product.region_rule.area_ids.join(','), id: "region_rule_area_ids" %>
+  <%= render 'local_region_rule', f: f unless @product.new_record? %>
 
-    <div class="provinces">
-    <% Province.includes(cities: :areas).each do |province| %>
-      <div pid="<%= province.id %>" name="<%= province.name %>" available="<%= @product.region_rule.province_ids.include?(province.id.to_s) ? "1" : "0" %>">
-        <% province.cities.each do |city| %>
-          <div cid="<%= city.id %>" name="<%= city.name %>" available="<%= @product.region_rule.city_ids.include?(city.id.to_s) ? "1" : "0" %>">
-            <% city.areas.each do |area| %>
-              <div aid="<%= area.id %>" name="<%= area.name %>" available="<%= @product.region_rule.area_ids.include?(area.id.to_s) ? "1" : "0" %>"></div>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
-    </div>
-
-    <ul id="province_list">
-    </ul>
-
-    <button id="save_region_rule" class='hide'>Save</button>
-
-    <%= builder.hidden_field :_destroy, value: (@product.local_region_rule.new_record? ? true : false) %>
-    <li class="file input">
-    <label class="label"><%= t('views.admin.product.remove_rule') %></label>
-    <%= link_to t('views.admin.product.remove_rule'), "#", class: "remove_fields" %>
-    </li>
+  <% if @product.new_record? %>
+    <strong>本地规则请在产品编辑页面添加</strong>
   <% end %>
-  <a href="#" class="add_region_rule <%= "hide" unless @product.local_region_rule.new_record? %>"><%= t('views.admin.product.add_rule') %></a>
 
   <%= f.actions %>
 <% end %>

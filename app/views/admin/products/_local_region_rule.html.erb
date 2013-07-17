@@ -1,0 +1,31 @@
+<% @product.build_local_region_rule_upon_default unless @product.local_region_rule %>
+<%= f.inputs "Local region rule", for: :local_region_rule, id: 'region_rules', class: "inputs " + (@product.local_region_rule.new_record? ? "hide": "") do |builder| %>
+  <%= builder.hidden_field :province_ids, value: @product.region_rule.province_ids.join(','), id: "region_rule_province_ids" %>
+  <%= builder.hidden_field :city_ids, value: @product.region_rule.city_ids.join(','), id: "region_rule_city_ids" %> <%= builder.hidden_field :area_ids, value: @product.region_rule.area_ids.join(','), id: "region_rule_area_ids" %>
+
+  <div class="provinces">
+  <% Province.includes(cities: :areas).each do |province| %>
+    <div pid="<%= province.id %>" name="<%= province.name %>" available="<%= @product.region_rule.province_ids.include?(province.id.to_s) ? "1" : "0" %>">
+      <% province.cities.each do |city| %>
+        <div cid="<%= city.id %>" name="<%= city.name %>" available="<%= @product.region_rule.city_ids.include?(city.id.to_s) ? "1" : "0" %>">
+          <% city.areas.each do |area| %>
+            <div aid="<%= area.id %>" name="<%= area.name %>" available="<%= @product.region_rule.area_ids.include?(area.id.to_s) ? "1" : "0" %>"></div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+  </div>
+
+  <ul id="province_list">
+  </ul>
+
+  <button id="save_region_rule" class='hide'>Save</button>
+
+  <%= builder.hidden_field :_destroy, value: (@product.local_region_rule.new_record? ? true : false) %>
+  <li class="file input">
+  <label class="label"><%= t('views.admin.product.remove_rule') %></label>
+  <%= link_to t('views.admin.product.remove_rule'), "#", class: "remove_fields" %>
+  </li>
+<% end %>
+<a href="#" class="add_region_rule <%= "hide" unless @product.local_region_rule.new_record? %>"><%= t('views.admin.product.add_rule') %></a>
