@@ -23,17 +23,6 @@ class RegionRule < ActiveRecord::Base
   serialize :area_ids, Array
   serialize :city_ids, Array
   serialize :province_ids, Array
-
-  class << self
-    def arrayify_attrs(*attrs)
-      attrs.each do |attr|
-        define_method :"#{attr}=" do |args|                    # def area_ids=(args)
-          args = args.split(',') if String === args            #   args = args.split(',') if String === args
-          super(args)                                          #   super(args)
-        end                                                    # end
-      end
-    end
-  end
   arrayify_attrs :area_ids, :city_ids, :province_ids
 
   def available_area_ids_in_a_city(city_id)

@@ -25,17 +25,6 @@ class DateRule < ActiveRecord::Base
   serialize :included_dates, Array
   serialize :excluded_dates, Array
   serialize :excluded_weekdays, Array
-
-  class << self
-    def arrayify_attrs(*attrs)
-      attrs.each do |attr|
-        define_method :"#{attr}=" do |args|                    # def area_ids=(args)
-          args = args.split(',') if String === args            #   args = args.split(',') if String === args
-          super(args)                                          #   super(args)
-        end                                                    # end
-      end
-    end
-  end
   arrayify_attrs :excluded_dates, :included_dates
 
   def start_date
