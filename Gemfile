@@ -114,4 +114,5 @@ group :test do
   gem 'simplecov', require: false
   gem 'email_spec', '>= 1.2.1'
   gem 'database_cleaner', '>= 0.8.0'
+  gem 'rr', require: false
 end
