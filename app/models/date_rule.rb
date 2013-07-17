@@ -26,13 +26,17 @@ class DateRule < ActiveRecord::Base
   serialize :excluded_dates, Array
   serialize :excluded_weekdays, Array
 
-  def excluded_dates=(args)
-    super arrayify(args)
+  class << self
+    def arrayify_attrs(*attrs)
+      attrs.each do |attr|
+        define_method :"#{attr}=" do |args|                    # def area_ids=(args)
+          args = args.split(',') if String === args            #   args = args.split(',') if String === args
+          super(args)                                          #   super(args)
+        end                                                    # end
+      end
+    end
   end
-
-  def included_dates=(args)
-    super arrayify(args)
-  end
+  arrayify_attrs :excluded_dates, :included_dates
 
   def start_date
     super || (Time.current.hour >= 17 ?
@@ -68,11 +72,5 @@ class DateRule < ActiveRecord::Base
         excluded_dates: (self.excluded_dates | other.excluded_dates),
         excluded_weekdays: (self.excluded_weekdays | other.excluded_weekdays))
     end
-  end
-
-  private
-
-  def arrayify(args)
-    String === args ? args.split(',') : args
   end
 end
