@@ -87,9 +87,6 @@ GEM
       meta_search (>= 0.9.2)
       rails (>= 3.0.0)
       sass (>= 3.1.0)
-    activeadmin-axlsx (2.1.2)
-      activeadmin (~> 0.6.0)
-      axlsx
     activemodel (3.2.13)
       activesupport (= 3.2.13)
       builder (~> 3.0.0)
@@ -523,11 +520,11 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin
-  activeadmin-axlsx
   acts-as-taggable-on (~> 2.3.1)
   analytics-ruby
   annotate!
   awesome_print
+  axlsx
   backup
   better_errors
   binding_of_caller

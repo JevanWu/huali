@@ -385,7 +385,7 @@ class Order < ActiveRecord::Base
   end
 
   def delivery_date_must_be_less_than_expected_date
-    if delivery_date && !(delivery_date < expected_date)
+    if delivery_date && !(delivery_date <= expected_date)
       errors.add(:delivery_date, :must_be_less_than_expected_date)
     end
   end
