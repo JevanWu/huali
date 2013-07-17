@@ -57,9 +57,9 @@ class Order < ActiveRecord::Base
   extend Enumerize
   enumerize :type, in: [:normal, :marketing, :customer, :taobao], default: :normal
 
-  delegate :province_name, :city_name, to: :address
+  delegate :province_name, :city_name, to: :address, allow_nil: true
   delegate :paymethod, to: :transaction, allow_nil: true
-  delegate :province_id, :city_id, :area_id, to: :address, prefix: 'address'
+  delegate :province_id, :city_id, :area_id, to: :address, prefix: 'address', allow_nil: true
 
   before_validation :generate_identifier, on: :create
 

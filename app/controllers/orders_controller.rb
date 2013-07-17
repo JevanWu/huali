@@ -107,6 +107,7 @@ class OrdersController < ApplicationController
 
   def create
     @order = current_or_guest_user.orders.build(user_order_params)
+    binding.pry
 
     # create line items
     @cart.keys.each do |key|
@@ -194,27 +195,25 @@ class OrdersController < ApplicationController
 
   private
     def user_order_params
-      params
-        .require(:order)
-        .permit(:sender_name, :sender_email, :sender_phone)
-        .permit(:coupon_code, :gift_card_text, :special_instructions, :source, :expected_date)
-        .permit(address_attributes: [:fullname, :phone, :province_id, :city_id, :area_id, :post_code, :address])
+      params.require(:order)
+        .permit(:sender_name, :sender_email, :sender_phone,
+                :coupon_code, :gift_card_text, :special_instructions, 
+                :source, :expected_date,
+                address_attributes: [
+                   :fullname, :phone, :province_id, 
+                   :city_id, :area_id, :post_code, 
+                   :address]
+               )
     end
 
     def back_order_params
       user_order_params
-      params
-        .require(:order)
-        .permit(:type)
-        .permit(:ship_method_id)
-        .permit(:delivery_date)
+      params.require(:order).permit(:type, :ship_method_id, :delivery_date)
     end
 
     def taobao_order_params
       back_order_params
-      params
-        .require(:order)
-        .permit(:merchant_trade_no)
+      params.require(:order).permit(:merchant_trade_no)
     end
 
     def empty_cart
