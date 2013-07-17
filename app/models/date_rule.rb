@@ -26,6 +26,14 @@ class DateRule < ActiveRecord::Base
   serialize :excluded_dates, Array
   serialize :excluded_weekdays, Array
 
+  def excluded_dates=(args)
+    super arrayify(args)
+  end
+
+  def included_dates=(args)
+    super arrayify(args)
+  end
+
   def start_date
     super || (Time.current.hour >= 17 ?
               Date.current.next_day(3) : Date.current.next_day(2))
@@ -60,5 +68,11 @@ class DateRule < ActiveRecord::Base
         excluded_dates: (self.excluded_dates | other.excluded_dates),
         excluded_weekdays: (self.excluded_weekdays | other.excluded_weekdays))
     end
+  end
+
+  private
+
+  def arrayify(args)
+    String === args ? args.split(',') : args
   end
 end

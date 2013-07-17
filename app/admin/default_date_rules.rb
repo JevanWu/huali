@@ -16,15 +16,4 @@ ActiveAdmin.register DefaultDateRule do
   end
 
   form partial: "form"
-
-  controller do
-    before_filter :setup_rule_params, only: [:create, :update]
-
-    private
-
-    def setup_rule_params
-      params[:default_date_rule][:included_dates] = params[:default_date_rule][:included_dates].split(',')
-      params[:default_date_rule][:excluded_dates] = params[:default_date_rule][:excluded_dates].split(',')
-    end
-  end
 end
