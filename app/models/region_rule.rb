@@ -21,6 +21,7 @@ class RegionRule < ActiveRecord::Base
   serialize :area_ids, Array
   serialize :city_ids, Array
   serialize :province_ids, Array
+  arrayify_attrs :area_ids, :city_ids, :province_ids
 
   def available_area_ids_in_a_city(city_id)
     area_ids_of_one_city(city_id) & area_ids
@@ -48,4 +49,5 @@ class RegionRule < ActiveRecord::Base
   def city_ids_of_one_prov(prov_id)
     Province.find(prov_id).cities.map(&:id).map(&:to_s)
   end
+
 end

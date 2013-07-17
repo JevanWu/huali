@@ -2,7 +2,7 @@ source "http://ruby.taobao.org"
 # source "http://bundler-api.herokuapp.com"
 # source 'http://rubygems.org'
 
-gem 'rails', '4.0.0', github: 'rails/rails', branch: '4-0-stable'
+gem 'rails', '~> 4.0.0', github: 'rails/rails', branch: '4-0-stable'
 gem 'pg', '>= 0.14.1'
 gem 'devise', '3.0.0.rc'
 gem 'devise-i18n'
@@ -13,9 +13,9 @@ gem 'activeadmin',         github: 'gregbell/active_admin', branch: 'rails4'
 gem 'ransack',             github: 'ernie/ransack',         branch: 'rails-4'
 gem 'inherited_resources', github: 'josevalim/inherited_resources'
 gem 'formtastic',          github: 'justinfrench/formtastic'
-# gem 'activeadmin-axlsx'
+gem 'axlsx'
 gem 'paperclip', '~> 3.0'
-gem 'simple_form', '3.0.0rc'
+gem 'simple_form', github: 'plataformatec/simple_form', branch: 'master'
 gem 'kramdown', '~> 0.13'
 gem 'friendly_id', github: 'FriendlyId/friendly_id', branch: 'rails4'
 # backup, whenever probably should be isolated in a server setup script

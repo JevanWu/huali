@@ -2,6 +2,15 @@ module ActiveRecordExtension
   extend ActiveSupport::Concern
 
   module ClassMethods
+    def arrayify_attrs(*attrs)
+      attrs.each do |attr|
+        define_method :"#{attr}=" do |args|                    # def area_ids=(args)
+          args = args.split(',') if String === args            #   args = args.split(',') if String === args
+          super(args)                                          #   super(args)
+        end                                                    # end
+      end
+    end
+
     def translate(*args)
       args.each do |attr_name|
         define_method(attr_name) do |*args|

@@ -23,6 +23,7 @@ class DateRule < ActiveRecord::Base
   serialize :included_dates, Array
   serialize :excluded_dates, Array
   serialize :excluded_weekdays, Array
+  arrayify_attrs :excluded_dates, :included_dates
 
   def start_date
     super || (Time.current.hour >= 17 ?

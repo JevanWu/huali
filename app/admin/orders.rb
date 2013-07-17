@@ -26,13 +26,13 @@ ActiveAdmin.register Order do
       end
     end
 
-    private 
+    private
 
     def full_order_fields
-      [ 
+      [
         # delivery info
         :sender_name, :sender_email, :sender_phone,
-        :bypass_region_validation, 
+        :bypass_region_validation,
         :expected_date,
         :bypass_date_validation,
         # check info
@@ -42,13 +42,13 @@ ActiveAdmin.register Order do
         :adjustment,
         :coupon_code,
         # order info
-        :gift_card_text, 
-        :special_instructions, 
-        :source, 
+        :gift_card_text,
+        :special_instructions,
+        :source,
         :bypass_product_validation,
         :address_attributes => [
-          :fullname, :phone, :province_id, 
-          :city_id, :area_id, :post_code, 
+          :fullname, :phone, :province_id,
+          :city_id, :area_id, :post_code,
           :address],
         # line items
         :line_items_attributes => [
@@ -62,6 +62,15 @@ ActiveAdmin.register Order do
 
     def permitted_params
       params.permit order: full_order_fields
+    end
+
+    def render_excel(orders, filename)
+      columns = Order.column_names.map(&:titleize)
+      row_data = orders.map { |o| o.attributes.values }
+
+      xlsx = XlsxBuilder.new(columns, row_data).serialize
+
+      send_data xlsx, :filename => "#{filename}", :type => Mime::Type.lookup_by_extension(:xlsx)
     end
   end
 
@@ -168,6 +177,11 @@ ActiveAdmin.register Order do
   end
 
   index do
+    div do
+      link_to('Download latest', params.merge(action: :download_latest), class: 'table_tools_button') +
+      link_to('Download All', params.merge(action: :download_all), class: 'table_tools_button')
+    end
+
     selectable_column
     column :state, sortable: :state do |order|
       status_tag t('models.order.state.' + order.state), order_state(order)
@@ -306,16 +320,15 @@ ActiveAdmin.register Order do
 
   collection_action :download_latest, method: :get do
     orders = Order.within_this_week
-    columns = Order.column_names.map(&:titleize)
-    row_data = orders.map { |o| o.attributes.values }
-
-    xlsx = XlsxBuilder.new(columns, row_data).serialize
     xlsx_filename = "latest-orders-since-#{7.days.ago.to_date}.xlsx"
 
-    send_data xlsx, :filename => "#{xlsx_filename}", :type => Mime::Type.lookup_by_extension(:xlsx)
+    render_excel(orders, xlsx_filename)
   end
 
-  action_item only: :index do
-    link_to('Download latest', params.merge(action: :download_latest))
+  collection_action :download_all, method: :get do
+    orders = Order.all
+    xlsx_filename = "orders-#{Date.current}.xlsx"
+
+    render_excel(orders, xlsx_filename)
   end
 end

@@ -16,18 +16,10 @@ ActiveAdmin.register DefaultRegionRule do
   form partial: "form"
 
   controller do
-    before_action :setup_rule_params, only: [:create, :update]
-
     private
 
     def permitted_params
       params.permit(default_region_rule: [:name, area_ids: [], city_ids: [], province_ids: []])
-    end
-
-    def setup_rule_params
-      params[:default_region_rule][:province_ids] = params[:default_region_rule][:province_ids].split(',')
-      params[:default_region_rule][:city_ids] = params[:default_region_rule][:city_ids].split(',')
-      params[:default_region_rule][:area_ids] = params[:default_region_rule][:area_ids].split(',')
     end
   end
 end
