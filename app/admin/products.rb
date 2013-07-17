@@ -46,14 +46,13 @@ ActiveAdmin.register Product do
         :assets_attributes => [ :id, :image, :_destroy ],
         :collection_ids => [],
         :recommendation_ids => [],
+        :local_date_rule_attributes => [:start_date, :period_length, :included_dates, :excluded_dates, :excluded_weekdays],
+        :local_region_rule_attributes => [:province_ids, :city_ids, :area_ids]
       ]
     end
 
     def permitted_params
-      params.permit(product: full_product_fields).tap do |whitelisted|
-        whitelisted[:product][:local_date_rule_attributes] = params[:product][:local_date_rule_attributes]
-        whitelisted[:product][:local_region_rule_attributes] = params[:product][:local_region_rule_attributes]
-      end
+      params.permit(product: full_product_fields)
     end
 
     private
