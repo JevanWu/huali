@@ -5,14 +5,10 @@ ActiveAdmin.register Shipment do
   controller do
     helper :shipments
 
-    def new
-      binding.pry
-    end
-
     private
 
     def permitted_params
-      params.require(:shipment).permit!
+      params.permit shipment: [:order_id, :note, :ship_method_id, :tracking_num]
     end
   end
 

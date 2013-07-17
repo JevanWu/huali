@@ -17,8 +17,11 @@ ActiveAdmin.register Setting do
   form partial: 'form'
 
   controller do
+    
+    private
+
     def permitted_params
-      params.require(:setting).permit(:var, :value)
+      params setting: [:var, :value]
     end
   end
 end

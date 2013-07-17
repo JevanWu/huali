@@ -21,8 +21,39 @@ ActiveAdmin.register Product do
       Product.includes(:assets, :collections)
     end
 
+    private
+
+    def full_product_fields
+      [
+        :published,
+        :name_zh,
+        :name_en,
+        :priority,
+        :tag_list,
+        :inspiration,
+        :description,
+        :count_on_hand,
+        :price,
+        :original_price,
+        :width,
+        :depth,
+        :height,
+        :meta_title,
+        :meta_keywords,
+        :meta_description,
+        :default_date_rule_id,
+        :default_region_rule_id,
+        :assets_attributes => [ :id, :image, :_destroy ],
+        :collection_ids => [],
+        :recommendation_ids => [],
+      ]
+    end
+
     def permitted_params
-      params.require(:product).permit!
+      params.permit(product: full_product_fields).tap do |whitelisted|
+        whitelisted[:product][:local_date_rule_attributes] = params[:product][:local_date_rule_attributes]
+        whitelisted[:product][:local_region_rule_attributes] = params[:product][:local_region_rule_attributes]
+      end
     end
 
     private

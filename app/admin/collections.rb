@@ -7,8 +7,11 @@ ActiveAdmin.register Collection do
   filter :description
 
   controller do
+
+    private
+
     def permitted_params
-      params.require(:collection).permit!
+      params.permit collection: [:name_en, :name_zh, :display_name, :priority, :available, :primary_category, :meta_title, :meta_description, :meta_keywords]
     end
   end
 

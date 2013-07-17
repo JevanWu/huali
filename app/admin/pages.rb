@@ -44,7 +44,7 @@ ActiveAdmin.register Page do
     private
 
     def permitted_params
-      params.require(:page).permit!
+      params page: [:title_zh, :title_en, :permalink, :in_footer, :content_en, :content_zh, :meta_title, :meta_keywords, :meta_description]
     end
   end
 

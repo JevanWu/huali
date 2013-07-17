@@ -5,8 +5,10 @@ ActiveAdmin.register Coupon do
   batch_action :destroy, false
 
   controller do
+    private
+    
     def permitted_params
-      params.require(:coupon).permit!
+      params coupon: [:adjustment, :expires_at, :available_count, :note]
     end
   end
 

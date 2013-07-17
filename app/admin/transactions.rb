@@ -5,8 +5,10 @@ ActiveAdmin.register Transaction do
   controller do
     helper :transactions
 
+    private
+    
     def permitted_params
-      params.require(:transaction).permit!
+      params.permit transaction: [:amount, :body, :merchant_name, :merchant_trade_no, :order_id, :paymethod, :subject]
     end
   end
 

@@ -6,7 +6,7 @@ ActiveAdmin.register ShipMethod do
     private
 
     def permitted_params
-      params.require(:ship_method).permit!
+      params ship_method: [:name, :method, :service_phone, :website, :kuaidi_query_code]
     end
   end
 

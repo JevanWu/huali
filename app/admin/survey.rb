@@ -4,6 +4,14 @@ ActiveAdmin.register Survey do
 
   batch_action :destroy, false
 
+  controller do
+    private
+    
+    def permitted_params
+      params survey: [:user_id, :gender, :receiver_gender, :gift_purpose]
+    end
+  end
+
   index do
     selectable_column
     column :gender

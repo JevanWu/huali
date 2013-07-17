@@ -4,7 +4,7 @@ ActiveAdmin.register Asset do
 
   controller do
     def permitted_params
-      params.require(:asset).permit(:image, :viewable_type)
+      params.permit asset: [:image, :viewable_type]
     end
   end
 
