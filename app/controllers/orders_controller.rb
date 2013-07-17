@@ -195,25 +195,35 @@ class OrdersController < ApplicationController
 
   private
     def user_order_params
-      params.require(:order)
-        .permit(:sender_name, :sender_email, :sender_phone,
-                :coupon_code, :gift_card_text, :special_instructions, 
-                :source, :expected_date,
-                address_attributes: [
-                   :fullname, :phone, :province_id, 
-                   :city_id, :area_id, :post_code, 
-                   :address]
-               )
+      params.require(:order).permit(*normal_order_fields)
     end
 
     def back_order_params
-      user_order_params
-      params.require(:order).permit(:type, :ship_method_id, :delivery_date)
+      params.require(:order).permit(*back_order_fields)
     end
 
     def taobao_order_params
-      back_order_params
-      params.require(:order).permit(:merchant_trade_no)
+      params.require(:order).permit(*taobao_order_fields)
+    end
+
+    def taobao_order_fields
+      back_order_fields.concat [:merchant_trade_no]
+    end
+
+    def back_order_fields
+      normal_order_fields.concat [:type, :ship_method_id, :delivery_date ] 
+    end
+
+    def normal_order_fields
+      [ 
+        :sender_name, :sender_email, :sender_phone,
+        :coupon_code, :gift_card_text, :special_instructions, 
+        :source, :expected_date,
+        address_attributes: [
+           :fullname, :phone, :province_id, 
+           :city_id, :area_id, :post_code, 
+           :address]
+      ]
     end
 
     def empty_cart

@@ -5,6 +5,10 @@ ActiveAdmin.register Shipment do
   controller do
     helper :shipments
 
+    def new
+      binding.pry
+    end
+
     private
 
     def permitted_params
