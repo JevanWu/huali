@@ -3,6 +3,7 @@
 #= require jquery.tagsinput
 #= require region_rule_edit
 #= require admin_prov_city_area_update
+#= require chosen.jquery
 
 $ ->
   $('form').on 'click', '.remove_fields', (event) ->
@@ -39,3 +40,5 @@ $ ->
     $(this).prev().show()
     $(this).hide()
     event.preventDefault()
+
+  $('.chosen').chosen({width: "30%"})

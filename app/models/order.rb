@@ -37,7 +37,7 @@
 class Order < ActiveRecord::Base
   self.inheritance_column = 'sti_type'
 
-  attr_accessor :bypass_region_validation, :bypass_date_validation
+  attr_accessor :bypass_region_validation, :bypass_date_validation, :bypass_product_validation
 
   belongs_to :address
   belongs_to :user
@@ -69,15 +69,16 @@ class Order < ActiveRecord::Base
 
   validates_presence_of :identifier, :line_items, :expected_date, :state, :total, :item_total, :sender_email, :sender_phone, :sender_name
 
-  validates_with OrderProductRegionValidator,
-    if: lambda { |order| order.not_yet_shipped? && !order.bypass_region_validation }
-  validates_with OrderProductDateValidator,
-    if: lambda { |order| order.expected_date.present? && order.not_yet_shipped? && !order.bypass_date_validation }
+  validates_with OrderProductRegionValidator, if: :validate_product_delivery_region?
+  validates_with OrderProductDateValidator, if: :validate_product_delivery_date?
+  validates_with OrderProductValidator, if: lambda { |order| !order.bypass_product_validation }
 
   # only validate once on Date.today, because in future Date.today will change
   validate :phone_validate, unless: lambda { |order| order.sender_phone.blank? }
   # skip coupon code validation for empty coupon and already used coupon
   validate :coupon_code_validate, unless: lambda { |order| order.coupon_code.blank? || order.already_use_the_coupon? }
+
+  validate :delivery_date_must_be_less_than_expected_date
 
   after_validation :cal_item_total, :cal_total
   after_validation :adjust_total, if: :adjust_allowed?
@@ -176,12 +177,10 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def bypass_region_validation=(value)
-    @bypass_region_validation = ActiveRecord::ConnectionAdapters::Column.value_to_boolean(value)
-  end
-
-  def bypass_date_validation=(value)
-    @bypass_date_validation = ActiveRecord::ConnectionAdapters::Column.value_to_boolean(value)
+  [:bypass_region_validation, :bypass_date_validation, :bypass_product_validation].each do |m|
+    define_method(:"#{m}=") do |value|
+      instance_variable_set(:"@#{m}", ActiveRecord::ConnectionAdapters::Column.value_to_boolean(value))
+    end
   end
 
   def not_yet_shipped?
@@ -325,11 +324,11 @@ class Order < ActiveRecord::Base
   end
 
   def fetch_products
-    if self.persisted?
-      products
-    else
-      line_items.map { |l| Product.find(l.product_id) }
-    end
+    @fetched_products ||= if self.persisted?
+                            products
+                          else
+                            line_items.map { |l| Product.find(l.product_id) }
+                          end
   end
 
   private
@@ -370,5 +369,19 @@ class Order < ActiveRecord::Base
   def pay_order
     self.payment_total += self.transactions.by_state('completed').map(&:amount).inject(:+)
     save
+  end
+
+  def validate_product_delivery_region?
+    address_province_id && address_city_id && not_yet_shipped? && !bypass_region_validation
+  end
+
+  def validate_product_delivery_date?
+    expected_date.present? && not_yet_shipped? && !bypass_date_validation
+  end
+
+  def delivery_date_must_be_less_than_expected_date
+    if delivery_date && !(delivery_date < expected_date)
+      errors.add(:delivery_date, :must_be_less_than_expected_date)
+    end
   end
 end

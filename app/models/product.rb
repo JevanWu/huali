@@ -163,8 +163,12 @@ class Product < ActiveRecord::Base
   end
 
   def build_local_region_rule_upon_default
-    build_local_region_rule(province_ids: default_region_rule.province_ids,
-                            city_ids: default_region_rule.city_ids,
-                            area_ids: default_region_rule.area_ids)
+    if default_region_rule.present?
+      build_local_region_rule(province_ids: default_region_rule.province_ids,
+                              city_ids: default_region_rule.city_ids,
+                              area_ids: default_region_rule.area_ids)
+    else
+      build_local_region_rule
+    end
   end
 end
