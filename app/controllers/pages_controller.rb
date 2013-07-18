@@ -13,9 +13,4 @@ class PagesController < ApplicationController
 
   def partner
   end
-
-  def graduate
-    @products = Product.find(72, 62, 63, 40, 42).sort.reverse
-    render 'graduate', layout: 'horizontal'
-  end
 end

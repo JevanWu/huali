@@ -101,8 +101,5 @@ ActiveAdmin.register Transaction do
       row :subject
       row :body
     end
-
-    active_admin_comments
-
   end
 end
