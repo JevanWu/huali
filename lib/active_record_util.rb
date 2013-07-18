@@ -5,7 +5,7 @@ module ActiveRecordExtension
     def arrayify_attrs(*attrs)
       attrs.each do |attr|
         define_method :"#{attr}=" do |args|                    # def area_ids=(args)
-          args = args.split(',') if String === args            #   args = args.split(',') if String === args
+          args = args.split(/[,，]/) if String === args            #   args = args.split(',') if String === args
           super(args)                                          #   super(args)
         end                                                    # end
       end
