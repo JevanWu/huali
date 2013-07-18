@@ -1,0 +1,2 @@
+class ManualDiscount < Discount
+end

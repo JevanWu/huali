@@ -39,10 +39,10 @@ module Huali
 
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
-    config.autoload_paths += %W(#{config.root}/lib #{config.root}/app/workers)
+    config.autoload_paths += %W(#{config.root}/lib #{config.root}/app/workers #{config.root}/app/values #{config.root}/app/services)
 
     # FIXME manully eagerload autoload_paths for threadsafty, could be moved when threadsafe! = true
-    config.eager_load_paths += %W(#{config.root}/lib #{config.root}/app/workers)
+    config.eager_load_paths += %W(#{config.root}/lib #{config.root}/app/workers #{config.root}/app/values #{config.root}/app/services)
 
 
     # Only load the plugins named here, in the order given (default is alphabetical).
