@@ -14,16 +14,4 @@ ActiveAdmin.register DefaultRegionRule do
   end
 
   form partial: "form"
-
-  controller do
-    before_filter :setup_rule_params, only: [:create, :update]
-
-    private
-
-    def setup_rule_params
-      params[:default_region_rule][:province_ids] = params[:default_region_rule][:province_ids].split(',')
-      params[:default_region_rule][:city_ids] = params[:default_region_rule][:city_ids].split(',')
-      params[:default_region_rule][:area_ids] = params[:default_region_rule][:area_ids].split(',')
-    end
-  end
 end
