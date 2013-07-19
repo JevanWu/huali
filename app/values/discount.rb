@@ -2,23 +2,14 @@ class Discount
   attr_reader :operator, :number
 
   def initialize(adjustment)
-    adjust = adjustment.squeeze(' ').sub('x', '*').sub('%', '/')
-    @operator = adjust.first.to_sym
+    adjust = adjustment.to_s.squeeze(' ').sub('x', '*').sub('%', '/')
+
+    @operator = adjust.first.to_sym if adjust.first.present?
     @number = adjust[1..-1].to_f
   end
 
   def calculate(amount)
-    amount.send(operator, number)
-  end
-
-  def self.generate(adjustment, coupon)
-    if adjustment.present?
-      ManualDiscount.new(adjustment)
-    elsif coupon.present?
-      CouponDiscount.new(coupon)
-    else
-      NullDiscount.new
-    end
+    operator ? amount.send(operator, number) : amount
   end
 
   def ==(other)
