@@ -39,7 +39,7 @@ class Order < ActiveRecord::Base
 
   attr_accessible :line_items, :special_instructions, :address_attributes, :line_items_attributes,
                   :gift_card_text, :delivery_date, :expected_date, :identifier, :state, :type,
-                  :sender_name, :sender_phone, :sender_email, :source, :adjustment, :coupon_code,
+                  :sender_name, :sender_phone, :sender_email, :source, :adjustment, :coupon,
                   :ship_method_id, :bypass_region_validation, :bypass_date_validation,
                   :bypass_product_validation
   attr_accessor :bypass_region_validation, :bypass_date_validation, :bypass_product_validation
@@ -53,8 +53,7 @@ class Order < ActiveRecord::Base
   has_many :transactions, dependent: :destroy
   has_many :shipments, dependent: :destroy
   has_many :products, through: :line_items
-  has_one :order_coupon
-  has_one :coupon, through: :order_coupon
+  belongs_to :coupon
 
   extend Enumerize
   enumerize :type, in: [:normal, :marketing, :customer, :taobao], default: :normal
