@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130719073001) do
+ActiveRecord::Schema.define(:version => 20130719093411) do
 
   create_table "addresses", :force => true do |t|
     t.string   "fullname"
@@ -175,7 +175,6 @@ ActiveRecord::Schema.define(:version => 20130719073001) do
     t.date     "delivery_date"
     t.string   "source",                                             :default => "",       :null => false
     t.string   "adjustment"
-    t.string   "coupon_code"
     t.string   "ship_method_id"
     t.boolean  "printed",                                            :default => false
     t.string   "type",                                               :default => "normal", :null => false

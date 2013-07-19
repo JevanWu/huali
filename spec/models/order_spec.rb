@@ -5,7 +5,6 @@
 #  address_id           :integer
 #  adjustment           :string(255)
 #  completed_at         :datetime
-#  coupon_code          :string(255)
 #  coupon_id            :integer
 #  created_at           :datetime         not null
 #  delivery_date        :date
