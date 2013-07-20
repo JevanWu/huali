@@ -39,7 +39,7 @@ class Order < ActiveRecord::Base
 
   attr_accessible :line_items, :special_instructions, :address_attributes, :line_items_attributes,
                   :gift_card_text, :delivery_date, :expected_date, :identifier, :state, :type,
-                  :sender_name, :sender_phone, :sender_email, :source, :adjustment, :coupon, :coupon_code,
+                  :sender_name, :sender_phone, :sender_email, :source, :adjustment, :coupon, :coupon_id, :coupon_code,
                   :ship_method_id, :bypass_region_validation, :bypass_date_validation,
                   :bypass_product_validation
   attr_accessor :bypass_region_validation, :bypass_date_validation,
