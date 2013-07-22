@@ -71,7 +71,6 @@ module OrdersHelper
       link_to(t('models.order.state.cancel'), cancel_admin_order_path(order), data: { confirm: t('views.admin.order.confirm_cancel') })
     when "wait_ship"
       # for historic compatibility, when order(state = checked) doesn't have shipment generated.
-      link_to(t('models.order.state.print_card'), print_card_admin_order_path(order), { target: '_blank' }) + \
       link_to(t('models.order.state.ship'),
               if order.shipment.blank?
                 new_admin_shipment_path("shipment[order_id]" => order.id,
