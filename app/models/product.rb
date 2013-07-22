@@ -86,7 +86,7 @@ class Product < ActiveRecord::Base
     end
 
     def sort_by_collection
-      Product.published.joins(:collections).order('collections.id').uniq
+      Product.published.joins(:collections).order('collections.id')
     end
   end
 
