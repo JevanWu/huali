@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130717033707) do
+ActiveRecord::Schema.define(:version => 20130719093411) do
 
   create_table "addresses", :force => true do |t|
     t.string   "fullname"
@@ -155,14 +155,6 @@ ActiveRecord::Schema.define(:version => 20130717033707) do
 
   add_index "oauth_services", ["provider", "uid"], :name => "index_oauth_services_on_provider_and_uid"
 
-  create_table "order_coupons", :force => true do |t|
-    t.integer "order_id"
-    t.integer "coupon_id"
-  end
-
-  add_index "order_coupons", ["coupon_id"], :name => "index_order_coupons_on_coupon_id"
-  add_index "order_coupons", ["order_id"], :name => "index_order_coupons_on_order_id"
-
   create_table "orders", :force => true do |t|
     t.string   "identifier"
     t.decimal  "item_total",           :precision => 8, :scale => 2, :default => 0.0,      :null => false
@@ -183,10 +175,10 @@ ActiveRecord::Schema.define(:version => 20130717033707) do
     t.date     "delivery_date"
     t.string   "source",                                             :default => "",       :null => false
     t.string   "adjustment"
-    t.string   "coupon_code"
     t.string   "ship_method_id"
     t.boolean  "printed",                                            :default => false
     t.string   "type",                                               :default => "normal", :null => false
+    t.integer  "coupon_id"
   end
 
   add_index "orders", ["identifier"], :name => "index_orders_on_identifier", :unique => true
