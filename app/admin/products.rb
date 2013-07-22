@@ -45,8 +45,8 @@ ActiveAdmin.register Product do
         :assets_attributes => [ :id, :image, :_destroy ],
         :collection_ids => [],
         :recommendation_ids => [],
-        :local_date_rule_attributes => [:start_date, :period_length, :included_dates, :excluded_dates, :excluded_weekdays],
-        :local_region_rule_attributes => [:province_ids, :city_ids, :area_ids]
+        :local_date_rule_attributes => [:start_date, :period_length, :included_dates, :excluded_dates, :excluded_weekdays, :_destroy],
+        :local_region_rule_attributes => [:province_ids, :city_ids, :area_ids, :_destroy]
       ]
     end
 
