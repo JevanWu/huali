@@ -3,15 +3,17 @@ require 'spec_helper'
 describe 'DiscountManager' do
 
   describe "#apply_discount" do
-    let(:order) { Object.new }
-    let(:coupon) { Object.new }
+    let(:order) do
+      order = Object.new
 
-    before(:each) do
       stub(order).new_record? { false }
       stub(order).changes { {} }
       stub(order).item_total { 200 }
       stub(order).coupon { nil }
+      order
     end
+
+    let(:coupon) { Object.new }
 
     context "when order has adjustment" do
       it "changes total of order with manual adjustment" do
