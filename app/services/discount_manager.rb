@@ -11,13 +11,14 @@ class DiscountManager
                       (@coupon && @coupon.adjustment)
                     end
 
-    @discount = Discount.new(adjust_string)
+    @discount = Discount.new(adjust_string) if adjust_string.present?
   end
 
-  def apply_discount(other_discount = nil)
-    order.total = (other_discount || discount).calculate(order.item_total)
-
-    coupon.use! if use_coupon? && !other_discount
+  def apply_discount
+    if discount
+      order.total = discount.calculate(order.item_total)
+      coupon.use! if use_coupon?
+    end
   end
 
   private
@@ -31,6 +32,6 @@ class DiscountManager
   end
 
   def coupon_changed?
-    order.persisted? && order.changes['coupon_id']
+    !order.new_record? && order.changes['coupon_id']
   end
 end

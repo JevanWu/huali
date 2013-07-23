@@ -61,7 +61,7 @@ describe 'DiscountManager' do
     context "when order has no both adjustment and coupon" do
       it "do not change total of order" do
         stub(order).adjustment { nil }
-        mock(order).total = order.item_total
+        dont_allow(order).total = anything
 
         DiscountManager.new(order).apply_discount
       end
