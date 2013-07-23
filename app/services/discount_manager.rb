@@ -23,6 +23,14 @@ class DiscountManager
   private
 
   def use_coupon?
-    order.adjustment.blank? && (order.new_record? || order.changes['coupon_id'])
+    order.adjustment.blank? && (new_order_with_coupon? || coupon_changed?)
+  end
+
+  def new_order_with_coupon?
+    order.new_record? && order.coupon
+  end
+
+  def coupon_changed?
+    order.persisted? && order.changes['coupon_id']
   end
 end
