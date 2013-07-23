@@ -9,7 +9,7 @@ ActiveAdmin.register Page do
     end
 
     def create
-      @page = Page.new(params[:page])
+      @page = Page.new(permitted_params[:page])
       if @page.save
         redirect_to admin_pages_path
       else
@@ -24,7 +24,7 @@ ActiveAdmin.register Page do
     # FIXME cannot update permalink fields
     def update
       @page = Page.find_by_permalink!(params[:id])
-      if @page.update_attributes(params[:page])
+      if @page.update_attributes(permitted_params[:page])
         redirect_to admin_page_path
       else
         render "edit"

@@ -6,9 +6,9 @@ ActiveAdmin.register Coupon do
 
   controller do
     private
-    
+
     def permitted_params
-      params coupon: [:adjustment, :expires_at, :available_count, :note]
+      params.permit(coupon: [:adjustment, :expires_at, :available_count, :note])
     end
   end
 
