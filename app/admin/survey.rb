@@ -6,9 +6,9 @@ ActiveAdmin.register Survey do
 
   controller do
     private
-    
+
     def permitted_params
-      params survey: [:user_id, :gender, :receiver_gender, :gift_purpose]
+      params.permit survey: [:user_id, :gender, :receiver_gender, :gift_purpose]
     end
   end
 
