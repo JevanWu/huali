@@ -87,8 +87,9 @@ class Order < ActiveRecord::Base
   validate :delivery_date_must_be_less_than_expected_date
 
   after_validation :cal_item_total, :cal_total
+
   before_save do |order|
-    DiscountManager.new(order).apply_discount
+    OrderDiscountPolicy.new(order).apply
   end
 
   state_machine :state, initial: :generated do

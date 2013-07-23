@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe 'DiscountManager' do
+describe OrderDiscountPolicy do
 
-  describe "#apply_discount" do
+  describe "#apply" do
     let(:order) do
       order = Object.new
 
@@ -20,7 +20,7 @@ describe 'DiscountManager' do
         stub(order).adjustment { '*0.8' }
         mock(order).total = 160
 
-        DiscountManager.new(order).apply_discount
+        OrderDiscountPolicy.new(order).apply
       end
     end
 
@@ -34,7 +34,7 @@ describe 'DiscountManager' do
       end
 
       it "changes total of order with the coupon" do
-        DiscountManager.new(order).apply_discount
+        OrderDiscountPolicy.new(order).apply
       end
 
       context "and order is new record" do
@@ -43,7 +43,7 @@ describe 'DiscountManager' do
 
           mock(coupon).use!
 
-          DiscountManager.new(order).apply_discount
+          OrderDiscountPolicy.new(order).apply
         end
       end
 
@@ -53,7 +53,7 @@ describe 'DiscountManager' do
 
           mock(coupon).use!
 
-          DiscountManager.new(order).apply_discount
+          OrderDiscountPolicy.new(order).apply
         end
       end
     end
@@ -63,7 +63,7 @@ describe 'DiscountManager' do
         stub(order).adjustment { nil }
         dont_allow(order).total = anything
 
-        DiscountManager.new(order).apply_discount
+        OrderDiscountPolicy.new(order).apply
       end
     end
 

@@ -1,4 +1,4 @@
-class DiscountManager
+class OrderDiscountPolicy
   attr_reader :coupon, :order, :discount
 
   def initialize(order)
@@ -14,7 +14,7 @@ class DiscountManager
     @discount = Discount.new(adjust_string) if adjust_string.present?
   end
 
-  def apply_discount
+  def apply
     if discount
       order.total = discount.calculate(order.item_total)
       coupon.use! if use_coupon?
