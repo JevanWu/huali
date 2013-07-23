@@ -19,7 +19,7 @@ ActiveAdmin.register DefaultRegionRule do
     private
 
     def permitted_params
-      params.permit(default_region_rule: [:name, area_ids: [], city_ids: [], province_ids: []])
+      params.permit(default_region_rule: [:name, :area_ids, :city_ids, :province_ids])
     end
   end
 end

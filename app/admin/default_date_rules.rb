@@ -16,12 +16,12 @@ ActiveAdmin.register DefaultDateRule do
   end
 
   form partial: "form"
-  
+
   controller do
     private
 
     def permitted_params
-      params.permit(default_date_rule: [:name, :period_length, :start_date, excluded_dates: [], excluded_weekdays: [], included_dates: []])
+      params.permit(default_date_rule: [:name, :period_length, :start_date, :excluded_dates, { excluded_weekdays: [] }, :included_dates])
     end
   end
 end
