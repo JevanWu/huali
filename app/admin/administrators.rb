@@ -6,9 +6,7 @@ ActiveAdmin.register Administrator do
 
   controller do
     def permitted_params
-      params
-        .require(:administrator)
-        .permit(:email, :password, :role)
+      params.permit(administrator: [:email, :password, :role])
     end
   end
 

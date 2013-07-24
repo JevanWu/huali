@@ -40,6 +40,8 @@ ActiveAdmin.register Order do
         :ship_method_id,
         # payment info
         :adjustment,
+        :coupon,
+        :coupon_id,
         :coupon_code,
         # order info
         :gift_card_text,
