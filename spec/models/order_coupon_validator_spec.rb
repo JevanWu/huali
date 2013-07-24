@@ -2,62 +2,34 @@ require 'spec_helper'
 
 describe OrderCouponValidator do
   describe "#validate" do
+    let(:order_coupon_validator) { OrderCouponValidator.new({}) }
+    let(:errors) { Object.new }
     let(:order) do
-      order = Object.new
-
-      error_hash = {}
-      def error_hash.add(key, value)
-        self[key] ||= []
-        self[key] << value
-      end
-
-      stub(order).errors { error_hash }
-      order
-    end
-
-    context "with order that has a coupon_code" do
-      before(:each) do
-        stub(order).coupon_code { 'test_code' }
-      end
-
-      context "and the coupon code exists" do
-        it "add errors to order if the coupon code is not usable" do
-          stub(Coupon).find_by_code('test_code') { stub!.usable? { false }.subject }
-
-          OrderCouponValidator.new({}).validate(order)
-
-          order.errors[:coupon_code].should include(:expired_coupon)
-        end
-      end
-
-      context "but the coupon code does not exist" do
-        it "add errors to order, indicating non-exists coupon" do
-          stub(Coupon).find_by_code('test_code') { nil }
-
-          OrderCouponValidator.new({}).validate(order)
-
-          order.errors[:coupon_code].should include(:non_exist_coupon)
-        end
+      Object.new.tap do |order|
+        stub(order).errors { errors }
+        stub(order).coupon_code
       end
     end
 
-    context "with order has no coupon code but a persisted coupon" do
-      before(:each) do
-        stub(order).coupon_code { nil }
+    context "when coupon_fetcher returns coupon" do
+      it "add :expired_coupon to errors  if the coupon is not usable" do
+        stub(order_coupon_validator).coupon_fetcher { lambda { |_| stub!.usable? { false }.subject } }
+        mock(errors).add :coupon_code, :expired_coupon
+        order_coupon_validator.validate(order)
       end
 
-      context "which has changed" do
-        before(:each) do
-          stub(order).changes { { 'coupon_id' => [1, 2] } }
-        end
+      it "no errors are added when the coupon is usable" do
+        stub(order_coupon_validator).coupon_fetcher { lambda { |_| stub!.usable? { true }.subject } }
+        dont_allow(errors).add :coupon_code, :expired_coupon
+        order_coupon_validator.validate(order)
+      end
+    end
 
-        it "add errors to the order if the coupon is not usable" do
-          stub(order).coupon { stub!.usable? { false }.subject }
-
-          OrderCouponValidator.new({}).validate(order)
-
-          order.errors[:coupon].should include(:expired_coupon)
-        end
+    context "when coupon_fetcher Raise Error" do
+      it "add :non_exist_coupon to errors" do
+        stub(order_coupon_validator).coupon_fetcher { lambda { |_| raise ActiveRecord::RecordNotFound } }
+        mock(errors).add :coupon_code, :non_exist_coupon
+        order_coupon_validator.validate(order)
       end
     end
   end
