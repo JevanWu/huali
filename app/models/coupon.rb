@@ -31,27 +31,16 @@ class Coupon < ActiveRecord::Base
 
   has_many :orders
 
-  def use!
+  def apply_usage_for(order)
     return false unless usable?
 
-    self.available_count = self.available_count - 1
-    self.used_count = self.used_count + 1
+    use! and bind_to_order(order)
 
-    self.expired = self.available_count <= 0
-
-    if self.save
-      return self.adjustment
-    else
-      return false
-    end
+    true
   end
 
   def usable?
-    if expired || Time.current > expires_at || available_count == 0
-      return false
-    else
-      return true
-    end
+    ! (expired || Time.current > expires_at || available_count == 0)
   end
 
   def to_s
@@ -59,6 +48,18 @@ class Coupon < ActiveRecord::Base
   end
 
   private
+
+  def bind_to_order(order)
+    order.coupon_id = id
+  end
+
+  def use!
+    self.available_count = self.available_count - 1
+    self.used_count = self.used_count + 1
+    self.expired = self.available_count <= 0
+
+    save
+  end
 
   def generate_code
     loop do
