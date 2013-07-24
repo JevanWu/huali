@@ -51,14 +51,14 @@ describe Coupon do
     it { should_not be_usable }
   end
 
-  describe "#apply_usage_for" do
+  describe "#record_usage" do
     let(:order) { Object.new }
 
     context "when coupon is not usable" do
       it "returns false" do
         stub(coupon).usable? { false }
 
-        coupon.apply_usage_for(order).should be_false
+        coupon.record_usage(order).should be_false
       end
     end
 
@@ -70,13 +70,13 @@ describe Coupon do
 
       it "increase the used_count by 1" do
         lambda {
-          coupon.apply_usage_for(order)
+          coupon.record_usage(order)
         }.should change { coupon.used_count }.by(1)
       end
 
       it "decrease the available_count by 1" do
         lambda {
-          coupon.apply_usage_for(order)
+          coupon.record_usage(order)
         }.should change { coupon.available_count }.by(-1)
       end
 
@@ -84,7 +84,7 @@ describe Coupon do
         it "expires then" do
           coupon.available_count = 1
 
-          coupon.apply_usage_for(order)
+          coupon.record_usage(order)
 
           coupon.expired.should be_true
         end
@@ -93,7 +93,7 @@ describe Coupon do
       it "bind itself to order" do
         mock(order).coupon_id = coupon.id
 
-        coupon.apply_usage_for(order)
+        coupon.record_usage(order)
       end
     end
   end

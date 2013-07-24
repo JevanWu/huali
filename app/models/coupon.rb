@@ -31,10 +31,10 @@ class Coupon < ActiveRecord::Base
 
   has_many :orders
 
-  def apply_usage_for(order)
+  def record_usage(order)
     return false unless usable?
 
-    use! and bind_to_order(order)
+    use! and record_order(order)
 
     true
   end
@@ -49,7 +49,7 @@ class Coupon < ActiveRecord::Base
 
   private
 
-  def bind_to_order(order)
+  def record_order(order)
     order.coupon_id = id
   end
 
