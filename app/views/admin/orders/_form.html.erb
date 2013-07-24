@@ -30,7 +30,7 @@
     <%= f.input :adjustment,
       placeholder: '+20.0, -30.0, x1.1, *0.9 etc.',
       hint: 'support multiple calculation(+,-,*,x,%,/), validate format includes "-20.0", "x1.1", "%2" etc.' %>
-    <%= f.input :coupon, input_html: { class: 'chosen-allow-deselect' }, include_blank: true %>
+    <%= f.input :coupon_code, input_html: { value: @order.coupon_code || @order.coupon.try(:code) } %>
   <% end %>
 
   <%= f.inputs "Order Info" do %>
