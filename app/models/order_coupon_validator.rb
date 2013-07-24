@@ -1,11 +1,15 @@
 class OrderCouponValidator < ActiveModel::Validator
+  class CouponNotFound < StandardError
+  end
+
   def validate(order)
     begin
       coupon = fetch_coupon(order.coupon_code)
+
       if not coupon.usable?
-        order.errors.add :coupon_code, :expired_coupon 
+        order.errors.add :coupon_code, :expired_coupon
       end
-    rescue ActiveRecord::RecordNotFound
+    rescue CouponNotFound
       order.errors.add :coupon_code, :non_exist_coupon
     end
   end
@@ -13,10 +17,14 @@ class OrderCouponValidator < ActiveModel::Validator
   private
 
   def fetch_coupon(coupon_code)
-    coupon = coupon_fetcher.call(coupon_code)
+    coupon = coupon_fetcher.call(code: coupon_code).first
+
+    raise CouponNotFound if coupon.nil?
+
+    coupon
   end
 
   def coupon_fetcher
-    Coupon.public_method(:find_by_code!)
+    Coupon.public_method(:where)
   end
 end
