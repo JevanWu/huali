@@ -43,7 +43,8 @@ class Order < ActiveRecord::Base
                   :ship_method_id, :bypass_region_validation, :bypass_date_validation,
                   :bypass_product_validation
   attr_accessor :bypass_region_validation, :bypass_date_validation,
-    :bypass_product_validation, :coupon_code
+    :bypass_product_validation
+  attr_writer :coupon_code
 
   belongs_to :address
   belongs_to :user
@@ -188,6 +189,10 @@ class Order < ActiveRecord::Base
     define_method(:"#{m}=") do |value|
       instance_variable_set(:"@#{m}", ActiveRecord::ConnectionAdapters::Column.value_to_boolean(value))
     end
+  end
+
+  def coupon_code
+    @coupon_code || (coupon ? coupon.code : nil)
   end
 
   def not_yet_shipped?
