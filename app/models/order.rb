@@ -77,7 +77,7 @@ class Order < ActiveRecord::Base
   validates_with OrderProductRegionValidator, if: :validate_product_delivery_region?
   validates_with OrderProductDateValidator, if: :validate_product_delivery_date?
   validates_with OrderProductValidator, if: lambda { |order| !order.bypass_product_validation }
-  validates_with OrderCouponValidator
+  validates_with OrderCouponValidator, unless: lambda { |order| order.coupon_code.blank? }
 
   # only validate once on Date.today, because in future Date.today will change
   validate :phone_validate, unless: lambda { |order| order.sender_phone.blank? }
