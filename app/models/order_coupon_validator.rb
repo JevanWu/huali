@@ -6,7 +6,9 @@ class OrderCouponValidator < ActiveModel::Validator
     begin
       coupon = fetch_coupon(order.coupon_code)
 
-      if not coupon.usable?
+      return if coupon.used_by_order?(order)
+
+      unless coupon.usable?
         order.errors.add :coupon_code, :expired_coupon
       end
     rescue CouponNotFound
