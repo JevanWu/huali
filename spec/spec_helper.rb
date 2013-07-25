@@ -17,6 +17,7 @@ Spork.prefork do
   require 'rspec/rails'
   require 'rspec/autorun'
   require 'email_spec'
+  require 'rr'
 
   RSpec.configure do |config|
     config.treat_symbols_as_metadata_keys_with_true_values = true

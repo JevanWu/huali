@@ -29,30 +29,20 @@ class Coupon < ActiveRecord::Base
   # +/-/*/%1234.0
   validates_format_of :adjustment, with: %r{\A[+-x*%/][\s\d.]+\z}
 
-  has_many :order_coupons
-  has_many :orders, through: :order_coupons
+  has_many :orders
 
-  def use!
-    return false unless usable?
-
-    self.available_count = self.available_count - 1
-    self.used_count = self.used_count + 1
-
-    self.expired = self.available_count <= 0
-
-    if self.save
-      return self.adjustment
-    else
-      return false
+  def use_and_record_usage_if_applied(order)
+    if usable? && !used_by_order?(order)
+      use! and record_order(order)
     end
   end
 
+  def used_by_order?(order)
+    order.coupon && order.coupon == self
+  end
+
   def usable?
-    if expired || Time.current > expires_at || available_count == 0
-      return false
-    else
-      return true
-    end
+    ! (expired || Time.current > expires_at || available_count == 0)
   end
 
   def to_s
@@ -60,6 +50,18 @@ class Coupon < ActiveRecord::Base
   end
 
   private
+
+  def record_order(order)
+    order.coupon_id = id
+  end
+
+  def use!
+    self.available_count = self.available_count - 1
+    self.used_count = self.used_count + 1
+    self.expired = self.available_count <= 0
+
+    save
+  end
 
   def generate_code
     loop do

@@ -42,3 +42,4 @@ $ ->
     event.preventDefault()
 
   $('.chosen').chosen({width: "30%"})
+  $('.chosen-allow-deselect').chosen({width: "30%", allow_single_deselect: true})

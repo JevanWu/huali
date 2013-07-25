@@ -429,6 +429,7 @@ GEM
       css_parser
       nokogiri (>= 1.4.4)
       sprockets
+    rr (1.1.1)
     rspec (2.13.0)
       rspec-core (~> 2.13.0)
       rspec-expectations (~> 2.13.0)
@@ -584,6 +585,7 @@ DEPENDENCIES
   rb-fsevent
   redis-rails
   roadie
+  rr
   rspec-instafail
   rspec-rails (>= 2.11.0)
   ruby-graphviz

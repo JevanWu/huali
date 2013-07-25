@@ -6,7 +6,7 @@
 #  address_id           :integer
 #  adjustment           :string(255)
 #  completed_at         :datetime
-#  coupon_code          :string(255)
+#  coupon_id            :integer
 #  created_at           :datetime         not null
 #  delivery_date        :date
 #  expected_date        :date             not null
@@ -39,10 +39,12 @@ class Order < ActiveRecord::Base
 
   attr_accessible :line_items, :special_instructions, :address_attributes, :line_items_attributes,
                   :gift_card_text, :delivery_date, :expected_date, :identifier, :state, :type,
-                  :sender_name, :sender_phone, :sender_email, :source, :adjustment, :coupon_code,
+                  :sender_name, :sender_phone, :sender_email, :source, :adjustment, :coupon, :coupon_id, :coupon_code,
                   :ship_method_id, :bypass_region_validation, :bypass_date_validation,
                   :bypass_product_validation
-  attr_accessor :bypass_region_validation, :bypass_date_validation, :bypass_product_validation
+  attr_accessor :bypass_region_validation, :bypass_date_validation,
+    :bypass_product_validation
+  attr_writer :coupon_code
 
   belongs_to :address
   belongs_to :user
@@ -53,8 +55,7 @@ class Order < ActiveRecord::Base
   has_many :transactions, dependent: :destroy
   has_many :shipments, dependent: :destroy
   has_many :products, through: :line_items
-  has_one :order_coupon
-  has_one :coupon, through: :order_coupon
+  belongs_to :coupon
 
   extend Enumerize
   enumerize :type, in: [:normal, :marketing, :customer, :taobao], default: :normal
@@ -77,17 +78,19 @@ class Order < ActiveRecord::Base
   validates_with OrderProductRegionValidator, if: :validate_product_delivery_region?
   validates_with OrderProductDateValidator, if: :validate_product_delivery_date?
   validates_with OrderProductValidator, if: lambda { |order| !order.bypass_product_validation }
+  validates_with OrderCouponValidator, unless: lambda { |order| order.coupon_code.blank? }
 
   # only validate once on Date.today, because in future Date.today will change
   validate :phone_validate, unless: lambda { |order| order.sender_phone.blank? }
   # skip coupon code validation for empty coupon and already used coupon
-  validate :coupon_code_validate, unless: lambda { |order| order.coupon_code.blank? || order.already_use_the_coupon? }
 
   validate :delivery_date_must_be_less_than_expected_date
 
   after_validation :cal_item_total, :cal_total
-  after_validation :adjust_total, if: :adjust_allowed?
-  after_validation :use_coupon, unless: lambda { |order| order.coupon_code.blank? }
+
+  before_save do |order|
+    OrderDiscountPolicy.new(order).apply
+  end
 
   state_machine :state, initial: :generated do
     # TODO implement an auth_state dynamically for each state
@@ -188,6 +191,10 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def coupon_code
+    @coupon_code || (coupon ? coupon.code : nil)
+  end
+
   def not_yet_shipped?
     state.in?(['generated', 'wait_check', 'wait_make'])
   end
@@ -235,44 +242,8 @@ class Order < ActiveRecord::Base
     self.total = self.item_total
   end
 
-  def adjust_total(adjust_string = adjustment)
-    # convert symbol to valid arithmetic operator
-    adjust = adjust_string.squeeze(' ').sub('x', '*').sub('%', '/')
-    operator, number = [adjust.first.to_sym, adjust[1..-1].to_f]
-    self.total = self.item_total.send(operator, number)
-  end
-
-  def use_coupon
-    # respect the manual adjustment
-    return unless adjustment.blank?
-    # cannot use double discount
-    # return if item_discount?
-
-    # if the coupon is already used by this order
-    if already_use_the_coupon?
-      adjust_total(coupon.adjustment)
-    else
-      # bind the coupon
-      self.coupon = Coupon.find_by_code(self.coupon_code)
-
-      # adjust the total with exist coupon's adjustment
-      adjust_string = self.coupon && self.coupon.use!
-      if adjust_string
-        adjust_total(adjust_string)
-      end
-    end
-  end
-
-  def already_use_the_coupon?
-    coupon.try(:code) == coupon_code
-  end
-
   def completed?
     !! completed_at
-  end
-
-  def adjust_allowed?
-    state == 'generated' && !adjustment.blank?
   end
 
   def checkout_allowed?
@@ -342,15 +313,6 @@ class Order < ActiveRecord::Base
     n_digits = sender_phone.scan(/[0-9]/).size
     valid_chars = (sender_phone =~ /^[-+()\/\s\d]+$/)
     errors.add :sender_phone, :invalid unless (n_digits >= 8 && valid_chars)
-  end
-
-  def coupon_code_validate
-    co = Coupon.find_by_code(coupon_code)
-    if co
-      errors.add :coupon_code, :expired_coupon unless co.usable?
-    else
-      errors.add :coupon_code, :non_exist_coupon
-    end
   end
 
   def auth_refund
