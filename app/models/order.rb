@@ -38,7 +38,7 @@ class Order < ActiveRecord::Base
   self.inheritance_column = 'sti_type'
 
   attr_accessor :bypass_region_validation, :bypass_date_validation,
-    :bypass_product_validation, :coupon_code
+    :bypass_product_validation
 
   belongs_to :address
   belongs_to :user
@@ -72,18 +72,18 @@ class Order < ActiveRecord::Base
   validates_with OrderProductRegionValidator, if: :validate_product_delivery_region?
   validates_with OrderProductDateValidator, if: :validate_product_delivery_date?
   validates_with OrderProductValidator, if: lambda { |order| !order.bypass_product_validation }
+  validates_with OrderCouponValidator, unless: lambda { |order| order.coupon_code_blank? }
 
   # only validate once on Date.today, because in future Date.today will change
   validate :phone_validate, unless: lambda { |order| order.sender_phone.blank? }
   # skip coupon code validation for empty coupon and already used coupon
-  validate :coupon_code_validate,
-    unless: lambda { |order| order.coupon_code.blank? || (order.coupon && !order.changes['coupon_id']) }
 
   validate :delivery_date_must_be_less_than_expected_date
 
   after_validation :cal_item_total, :cal_total
+
   before_save do |order|
-    DiscountManager.new(order).apply_discount
+    OrderDiscountPolicy.new(order).apply
   end
 
   state_machine :state, initial: :generated do
@@ -185,9 +185,13 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def coupon_code=(coupon_code)
-    self.coupon = Coupon.find_by_code(coupon_code)
-    @coupon_code = coupon_code
+  attr_writer :coupon_code
+  def coupon_code
+    @coupon_code || (coupon ? coupon.code : nil)
+  end
+
+  def coupon_code_blank?
+    coupon_code.blank?
   end
 
   def not_yet_shipped?
@@ -308,14 +312,6 @@ class Order < ActiveRecord::Base
     n_digits = sender_phone.scan(/[0-9]/).size
     valid_chars = (sender_phone =~ /^[-+()\/\s\d]+$/)
     errors.add :sender_phone, :invalid unless (n_digits >= 8 && valid_chars)
-  end
-
-  def coupon_code_validate
-    if coupon
-      errors.add :coupon_code, :expired_coupon unless coupon.usable?
-    else
-      errors.add :coupon_code, :non_exist_coupon
-    end
   end
 
   def auth_refund

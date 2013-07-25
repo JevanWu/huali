@@ -2,14 +2,18 @@ class Discount
   attr_reader :operator, :number
 
   def initialize(adjustment)
+    unless adjustment =~ %r{\A[+-x*%/][\s\d.]+\z}
+      raise "Invalid adjustment string"
+    end
+
     adjust = adjustment.to_s.squeeze(' ').sub('x', '*').sub('%', '/')
 
-    @operator = adjust.first.to_sym if adjust.first.present?
+    @operator = adjust.first.to_sym
     @number = adjust[1..-1].to_f
   end
 
   def calculate(amount)
-    operator ? amount.send(operator, number) : amount
+    amount.send(operator, number)
   end
 
   def ==(other)
