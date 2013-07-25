@@ -4,66 +4,77 @@ describe OrderDiscountPolicy do
 
   describe "#apply" do
     let(:order) do
-      order = Object.new
-
-      stub(order).new_record? { false }
-      stub(order).changes { {} }
-      stub(order).item_total { 200 }
-      stub(order).coupon { nil }
-      order
+      Object.new.tap do |order|
+        stub(order).item_total { 200 }
+        stub(order).coupon_code { nil }
+        stub(order).adjustment { nil }
+      end
     end
-
     let(:coupon) { Object.new }
+
+    let(:order_discount_policy) do
+      OrderDiscountPolicy.new(order)
+    end
 
     context "when order has adjustment" do
       it "changes total of order with manual adjustment" do
         stub(order).adjustment { '*0.8' }
         mock(order).total = 160
 
-        OrderDiscountPolicy.new(order).apply
+        order_discount_policy.apply
       end
     end
 
-    context "when order has no adjustment but has a coupon" do
+    context "when order has no adjustment but has a coupon_code" do
       before(:each) do
         stub(order).adjustment { nil }
-        stub(coupon).adjustment { "*0.9" }
-        stub(order).coupon { coupon }
+        stub(order).coupon_code { 'code' }
+        stub(coupon).adjustment { '*0.9' }
 
-        mock(order).total = 180
+        stub(order).total = numeric
+        stub(coupon).used_by_order?(order) { true }
+        stub(Coupon).find_by_code(order.coupon_code) { coupon }
       end
 
       it "changes total of order with the coupon" do
-        OrderDiscountPolicy.new(order).apply
+        mock(order).total = 180
+
+        order_discount_policy.apply
       end
 
-      context "and order is new record" do
-        it "uses coupon" do
-          stub(order).new_record? { true }
+      context "which was used already" do
+        before(:each) do
+          stub(coupon).used_by_order?(order) { true }
+        end
 
-          mock(coupon).use!
+        it "do not record usage of the order" do
+          dont_allow(coupon).use_and_record_usage_if_applied(order)
 
-          OrderDiscountPolicy.new(order).apply
+          order_discount_policy.apply
         end
       end
 
-      context "and order's coupon is updated" do
-        it "uses the new coupon" do
-          stub(order).changes { { 'coupon_id' => [2,1] } }
+      context "which was not used" do
+        before(:each) do
+          stub(coupon).used_by_order?(order) { false }
+        end
 
-          mock(coupon).use!
+        it "record usage of the order" do
+          mock(coupon).use_and_record_usage_if_applied(order)
 
-          OrderDiscountPolicy.new(order).apply
+          order_discount_policy.apply
         end
       end
     end
 
-    context "when order has no both adjustment and coupon" do
+    context "when order has no both adjustment and coupon_code" do
       it "do not change total of order" do
         stub(order).adjustment { nil }
+        stub(order).coupon_code { nil }
+
         dont_allow(order).total = anything
 
-        OrderDiscountPolicy.new(order).apply
+        order_discount_policy.apply
       end
     end
 

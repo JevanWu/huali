@@ -1,37 +1,38 @@
 class OrderDiscountPolicy
-  attr_reader :coupon, :order, :discount
+  attr_reader :coupon, :order
 
   def initialize(order)
     @order = order
-    @coupon = order.coupon
-
-    adjust_string = if @order.adjustment.present?
-                      @order.adjustment
-                    else
-                      (@coupon && @coupon.adjustment)
-                    end
-
-    @discount = Discount.new(adjust_string) if adjust_string.present?
+    @coupon = fetch_coupon(order.coupon_code)
   end
 
   def apply
     if discount
       order.total = discount.calculate(order.item_total)
-      coupon.use! if use_coupon?
+
+      coupon.use_and_record_usage_if_applied(order) if use_coupon?
     end
   end
 
   private
 
+  def adjustment
+    @adjustment ||= if order.adjustment.present?
+                      order.adjustment
+                    else
+                      coupon && coupon.adjustment
+                    end
+  end
+
+  def discount
+    @discount ||= Discount.new(adjustment) if adjustment.present?
+  end
+
   def use_coupon?
-    order.adjustment.blank? && (new_order_with_coupon? || coupon_changed?)
+    order.adjustment.blank? && coupon && !coupon.used_by_order?(order)
   end
 
-  def new_order_with_coupon?
-    order.new_record? && order.coupon
-  end
-
-  def coupon_changed?
-    !order.new_record? && order.changes['coupon_id']
+  def fetch_coupon(coupon_code)
+    Coupon.find_by_code(coupon_code)
   end
 end
