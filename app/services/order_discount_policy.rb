@@ -31,7 +31,7 @@ class OrderDiscountPolicy
   end
 
   def use_coupon?
-    order.adjustment.blank? && coupon && !coupon.used_by_order?(order)
+    order.adjustment.blank? && coupon
   end
 
   def fetch_coupon(coupon_code)

@@ -26,6 +26,20 @@ describe OrderDiscountPolicy do
       end
     end
 
+    context "when order has no coupon_code" do
+      before(:each) do
+        stub(order).adjustment
+        stub(order).coupon_code { nil }
+      end
+
+      it "nullify the the old coupon" do
+        mock(order).coupon = nil
+
+        order_discount_policy.apply
+      end
+    end
+
+
     context "when order has no adjustment but has a coupon_code" do
       before(:each) do
         stub(order).adjustment { nil }
@@ -33,38 +47,21 @@ describe OrderDiscountPolicy do
         stub(coupon).adjustment { '*0.9' }
 
         stub(order).total = numeric
-        stub(coupon).used_by_order?(order) { true }
         stub(Coupon).find_by_code(order.coupon_code) { coupon }
       end
 
       it "changes total of order with the coupon" do
+        stub(coupon).use_and_record_usage_if_applied(order)
+
         mock(order).total = 180
 
         order_discount_policy.apply
       end
 
-      context "which was used already" do
-        before(:each) do
-          stub(coupon).used_by_order?(order) { true }
-        end
+      it "record usage of the order" do
+        mock(coupon).use_and_record_usage_if_applied(order)
 
-        it "do not record usage of the order" do
-          dont_allow(coupon).use_and_record_usage_if_applied(order)
-
-          order_discount_policy.apply
-        end
-      end
-
-      context "which was not used" do
-        before(:each) do
-          stub(coupon).used_by_order?(order) { false }
-        end
-
-        it "record usage of the order" do
-          mock(coupon).use_and_record_usage_if_applied(order)
-
-          order_discount_policy.apply
-        end
+        order_discount_policy.apply
       end
     end
 
@@ -76,12 +73,6 @@ describe OrderDiscountPolicy do
 
       it "do not change total of order" do
         dont_allow(order).total = anything
-
-        order_discount_policy.apply
-      end
-
-      it "nullify the the old coupon" do
-        mock(order).coupon = nil
 
         order_discount_policy.apply
       end
