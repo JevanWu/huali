@@ -6,7 +6,6 @@ class NullDiscount
 end
 
 class OrderDiscountPolicy
-  attr_reader :coupon
   attr_reader :order
   private :order
 
