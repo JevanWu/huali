@@ -1,37 +1,47 @@
+class NullDiscount
+  def initialize(*); end
+  def calculate(amount)
+    amount 
+  end
+end
+
 class OrderDiscountPolicy
-  attr_reader :coupon, :order
+  attr_reader :coupon
+  attr_reader :order
+  private :order
 
   def initialize(order)
     @order = order
+    @coupon_code = order.coupon_code
     @coupon = fetch_coupon(order.coupon_code)
   end
 
   def apply
-    if discount
-      order.total = discount.calculate(order.item_total)
-
-      coupon.use_and_record_usage_if_applied(order) if use_coupon?
-    end
-
-    order.coupon = nil if order.coupon_code.blank?
+    apply_adjustment
+    @coupon.use_and_record_usage_if_applied(order) if use_coupon?
+    clear_coupon(order) if @coupon_code.blank?
   end
 
   private
 
+  def apply_adjustment
+    order.total = discount.calculate(order.item_total)
+  end
+
+  def clear_coupon(order)
+    order.coupon = nil
+  end
+
   def adjustment
-    @adjustment ||= if order.adjustment.present?
-                      order.adjustment
-                    else
-                      coupon && coupon.adjustment
-                    end
+    order.adjustment.presence || (@coupon && @coupon.adjustment)
   end
 
   def discount
-    @discount ||= Discount.new(adjustment) if adjustment.present?
+    adjustment ? Discount.new(adjustment) : NullDiscount.new(adjustment)
   end
 
   def use_coupon?
-    order.adjustment.blank? && coupon
+    order.adjustment.blank? && @coupon
   end
 
   def fetch_coupon(coupon_code)

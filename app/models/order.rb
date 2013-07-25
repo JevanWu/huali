@@ -44,7 +44,6 @@ class Order < ActiveRecord::Base
                   :bypass_product_validation
   attr_accessor :bypass_region_validation, :bypass_date_validation,
     :bypass_product_validation
-  attr_writer :coupon_code
 
   belongs_to :address
   belongs_to :user
@@ -78,7 +77,7 @@ class Order < ActiveRecord::Base
   validates_with OrderProductRegionValidator, if: :validate_product_delivery_region?
   validates_with OrderProductDateValidator, if: :validate_product_delivery_date?
   validates_with OrderProductValidator, if: lambda { |order| !order.bypass_product_validation }
-  validates_with OrderCouponValidator, unless: lambda { |order| order.coupon_code.blank? }
+  validates_with OrderCouponValidator, unless: lambda { |order| order.coupon_code_blank? }
 
   # only validate once on Date.today, because in future Date.today will change
   validate :phone_validate, unless: lambda { |order| order.sender_phone.blank? }
@@ -191,8 +190,13 @@ class Order < ActiveRecord::Base
     end
   end
 
+  attr_writer :coupon_code
   def coupon_code
     @coupon_code || (coupon ? coupon.code : nil)
+  end
+
+  def coupon_code_blank?
+    coupon_code.blank?
   end
 
   def not_yet_shipped?
