@@ -31,12 +31,14 @@ class Coupon < ActiveRecord::Base
 
   has_many :orders
 
-  def record_usage(order)
-    return false unless usable?
+  def use_and_record_usage_if_applied(order)
+    if usable? && !used_by_order?(order)
+      use! and record_order(order)
+    end
+  end
 
-    use! and record_order(order)
-
-    true
+  def used_by_order?(order)
+    order.coupon && order.coupon == self
   end
 
   def usable?
