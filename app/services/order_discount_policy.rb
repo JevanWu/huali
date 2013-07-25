@@ -12,6 +12,8 @@ class OrderDiscountPolicy
 
       coupon.use_and_record_usage_if_applied(order) if use_coupon?
     end
+
+    order.coupon = nil if order.coupon_code.blank?
   end
 
   private

@@ -8,6 +8,7 @@ describe OrderDiscountPolicy do
         stub(order).item_total { 200 }
         stub(order).coupon_code { nil }
         stub(order).adjustment { nil }
+        stub(order).coupon = anything
       end
     end
     let(:coupon) { Object.new }
@@ -68,11 +69,19 @@ describe OrderDiscountPolicy do
     end
 
     context "when order has no both adjustment and coupon_code" do
-      it "do not change total of order" do
+      before(:each) do
         stub(order).adjustment { nil }
         stub(order).coupon_code { nil }
+      end
 
+      it "do not change total of order" do
         dont_allow(order).total = anything
+
+        order_discount_policy.apply
+      end
+
+      it "nullify the the old coupon" do
+        mock(order).coupon = nil
 
         order_discount_policy.apply
       end
