@@ -35,10 +35,8 @@
 #
 
 class Order < ActiveRecord::Base
-  self.inheritance_column = 'sti_type'
-
   attr_accessible :line_items, :special_instructions, :address_attributes, :line_items_attributes,
-                  :gift_card_text, :delivery_date, :expected_date, :identifier, :state, :type,
+                  :gift_card_text, :delivery_date, :expected_date, :identifier, :state, :kind,
                   :sender_name, :sender_phone, :sender_email, :source, :adjustment, :coupon, :coupon_id, :coupon_code,
                   :ship_method_id, :bypass_region_validation, :bypass_date_validation,
                   :bypass_product_validation
@@ -57,7 +55,7 @@ class Order < ActiveRecord::Base
   belongs_to :coupon
 
   extend Enumerize
-  enumerize :type, in: [:normal, :marketing, :customer, :taobao], default: :normal
+  enumerize :kind, in: [:normal, :marketing, :customer, :taobao], default: :normal
 
   delegate :province_name, :city_name, to: :address
   delegate :paymethod, to: :transaction, allow_nil: true
@@ -150,7 +148,7 @@ class Order < ActiveRecord::Base
   scope :next_two_day, -> { where 'delivery_date = ?', Date.current.next_day(2) }
   scope :within_this_week, -> { where('delivery_date >= ? AND delivery_date <= ? ', Date.current.beginning_of_week, Date.current.end_of_week) }
   scope :within_this_month, -> { where('delivery_date >= ? AND delivery_date <= ? ', Date.current.beginning_of_month, Date.current.end_of_month) }
-  scope :accountable, -> { where("type = 'normal'").where("state != 'void' and state != 'generated'") }
+  scope :accountable, -> { where("kind = 'normal'").where("state != 'void' and state != 'generated'") }
   scope :in_day, lambda { |date| where("DATE(created_at AT TIME ZONE 'utc') = DATE(?)", date) }
   scope :unpaid_today, lambda { |hours_ago| in_day(Date.current).where(state: 'generated').where("created_at <= ?", hours_ago.hours.ago) }
 
