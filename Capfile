@@ -65,19 +65,6 @@ task :staging do
   set :deploy_to, "/home/#{user}/repositories/#{application}-staging"
 end
 
-task :rails4 do
-  set :application, "huali_rails4"
-  set :domain, "rails4.hua.li"
-  set :unicorn_workers, 1
-
-  # lua - 42.121.3.105, aliyun - steven
-  server '42.121.3.105', :web, :app, :db, primary: true
-  set :rails_env, "staging"
-
-  set :branch, 'upgrade_rails_4'
-  set :deploy_to, "/home/#{user}/repositories/#{application}-rails4"
-end
-
 namespace :deploy do
   # start/stop/restart application
   task :start, roles: :app, except: { no_release: true } do
