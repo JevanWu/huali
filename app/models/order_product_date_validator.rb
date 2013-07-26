@@ -4,7 +4,7 @@ class OrderProductDateValidator < ActiveModel::Validator
 
     order.fetch_products.each do |product|
       unless validate_product(product, order.expected_date)
-        order_valid && order_valid = false
+        order_valid = false
       end
     end
 
