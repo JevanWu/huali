@@ -3,14 +3,7 @@ class OrderProductDateValidator < ActiveModel::Validator
     order_valid = true
 
     order.fetch_products.each do |product|
-      raise "No global date_rule settings found" if product.default_date_rule.blank?
-
-      rule_runner_options = build_rule_runner_options(product.merged_date_rule)
-      date_valid = DateRuleRunner.new(rule_runner_options).apply_test(order.expected_date)
-
-      unless date_valid
-        product.errors.add(:base, :product_in_unavailable_date, product_name: product.name)
-
+      unless validate_product(product, order.expected_date)
         order_valid && order_valid = false
       end
     end
@@ -19,6 +12,19 @@ class OrderProductDateValidator < ActiveModel::Validator
   end
 
   private
+
+  def validate_product(product, expected_date)
+    raise "No global date_rule settings found" if product.default_date_rule.blank?
+
+    rule_runner_options = build_rule_runner_options(product.merged_date_rule)
+
+    if DateRuleRunner.new(rule_runner_options).apply_test(expected_date)
+      true
+    else
+      product.errors.add(:base, :product_in_unavailable_date, product_name: product.name)
+      false
+    end
+  end
 
   def build_rule_runner_options(date_rule)
     {
