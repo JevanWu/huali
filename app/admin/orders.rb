@@ -226,7 +226,7 @@ ActiveAdmin.register Order do
         status_tag t('models.order.state.' + order.state), order_state(order)
       end
 
-      row :type
+      row :kind
 
       row :printed
 
