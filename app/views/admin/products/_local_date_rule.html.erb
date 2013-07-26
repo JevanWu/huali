@@ -2,9 +2,9 @@
 <%= f.inputs "Local Date Rule", for: :local_date_rule, id: "date_rules", class: "inputs " + (@product.local_date_rule.new_record? ? "hide" : "") do |builder| %>
   <%= builder.input :start_date, as: :string, input_html: { class: 'datepicker' } %>
   <%= builder.input :period_length, as: :string, hint: 'support period format: +1Y, +1M, +1D' %>
-  <%= builder.input :included_dates, as: :string, hint: "Dates separated by comma", input_html: { value: @product.date_rule.included_dates.join(',') } %>
-  <%= builder.input :excluded_dates, as: :string, hint: "Dates separated by comma", input_html: { value: @product.date_rule.excluded_dates.join(',') } %>
-  <%= builder.input :excluded_weekdays, as: :check_boxes, collection: [ ["Monday", "1"], ["Tuesday", "2"], ["Wednesday", "3"], ["Thursday", "4"], ["Friday", "5"], ["Saturday", "6"], ["Sunday", "0"] ], default: @product.date_rule.excluded_weekdays %>
+  <%= builder.input :included_dates, as: :string, hint: "Dates separated by comma", input_html: { value: @product.local_date_rule.included_dates.join(',') } %>
+  <%= builder.input :excluded_dates, as: :string, hint: "Dates separated by comma", input_html: { value: @product.local_date_rule.excluded_dates.join(',') } %>
+  <%= builder.input :excluded_weekdays, as: :check_boxes, collection: [ ["Monday", "1"], ["Tuesday", "2"], ["Wednesday", "3"], ["Thursday", "4"], ["Friday", "5"], ["Saturday", "6"], ["Sunday", "0"] ], default: @product.local_date_rule.excluded_weekdays %>
 
   <%= builder.hidden_field :_destroy %>
   <li class="file input">
