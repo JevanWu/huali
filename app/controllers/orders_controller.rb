@@ -54,7 +54,7 @@ class OrdersController < ApplicationController
     end
 
     # add type
-    @order.type = :taobao
+    @order.kind = :taobao
 
     # add source
     @order.source = '淘宝'
@@ -96,7 +96,7 @@ class OrdersController < ApplicationController
     # jump to wait_make states
     @order.state = 'wait_make'
 
-    if @order.type.in?('marketing', 'customer') && @order.save
+    if @order.kind.in?('marketing', 'customer') && @order.save
       empty_cart
       flash[:notice] = t('controllers.order.order_success')
       redirect_to root_path

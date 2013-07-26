@@ -112,7 +112,7 @@ zh-CN:
         created_at: 创建时间
         printed: 已打印
         tracking_num: 快递单号
-        type: 类型
+        kind: 类型
         bypass_region_validation: 跳过递送区域验证
         bypass_date_validation: 跳过递送时间验证
         bypass_product_validation: 跳过产品验证
@@ -327,7 +327,7 @@ zh-CN:
 
   enumerize:
     order:
-      type:
+      kind:
         marketing: 媒体订单
         customer: 顾客订单
         taobao: 淘宝订单
