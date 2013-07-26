@@ -66,9 +66,8 @@ class Order < ActiveRecord::Base
 
   before_validation :generate_identifier, on: :create
 
-  validates_format_of :adjustment,
-                      with: %r{\A[+-x*%/][\s\d.]+\z}, # +/-/*/%1234.0
-                      unless: lambda { |order| order.adjustment.blank? }
+  # +/-/*/%1234.0
+  validates_format_of :adjustment, with: %r{\A[+-x*%/][\s\d.]+\z}, allow_blank: true
 
   validates_presence_of :identifier, :line_items, :expected_date, :state, :total, :item_total, :sender_email, :sender_phone, :sender_name
 
