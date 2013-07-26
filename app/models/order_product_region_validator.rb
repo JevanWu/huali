@@ -3,22 +3,11 @@ class OrderProductRegionValidator < ActiveModel::Validator
     order_valid = true
 
     order.fetch_products.each do |product|
-      region_rule = product.region_rule
-
-      raise "No global region_rule settings found" if region_rule.blank?
-
-      region_rule_engine = RegionRuleRunner.new(region_rule.province_ids,
-                                                region_rule.city_ids,
-                                                region_rule.area_ids)
-
-      region_valid = region_rule_engine.apply_test(order.address_province_id,
-                                                   order.address_city_id,
-                                                   order.address_area_id)
-
-      unless region_valid
-        product.errors.add(:base, :product_in_unavailable_region, product_name: product.name)
-
-        order_valid && order_valid = false
+      unless validate_product(product,
+                              order.address_province_id,
+                              order.address_city_id,
+                              order.address_area_id)
+        order_valid = false
       end
     end
 
@@ -27,6 +16,23 @@ class OrderProductRegionValidator < ActiveModel::Validator
       order.address.errors.add(:city, :unavailable_location) if order.address.city
       order.address.errors.add(:area, :unavailable_location) if order.address.area
       order.errors.add(:base, :unavailable_location)
+    end
+  end
+
+  def validate_product(product, province_id, city_id, area_id)
+    region_rule = product.region_rule
+
+    raise "No global region_rule settings found" if region_rule.blank?
+
+    region_rule_runner = RegionRuleRunner.new(region_rule.province_ids,
+                                              region_rule.city_ids,
+                                              region_rule.area_ids)
+
+    if region_rule_runner.apply_test(province_id, city_id, area_id)
+      true
+    else
+      product.errors.add(:base, :product_in_unavailable_region, product_name: product.name)
+      false
     end
   end
 end
