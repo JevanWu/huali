@@ -47,6 +47,7 @@ ActiveAdmin.register Order do
         :gift_card_text,
         :special_instructions,
         :source,
+        :kind,
         :bypass_product_validation,
         :address_attributes => [
           :fullname, :phone, :province_id,
