@@ -2,20 +2,22 @@ source "http://ruby.taobao.org"
 # source "http://bundler-api.herokuapp.com"
 # source 'http://rubygems.org'
 
-gem 'rails', '3.2.13'
+gem 'rails', '~> 4.0.0', github: 'rails/rails', branch: '4-0-stable'
 gem 'pg', '>= 0.14.1'
-gem 'devise', '>= 2.1.2'
+gem 'devise', '3.0.0.rc'
 gem 'devise-i18n'
 gem 'cancan', '~> 1.0'
 gem 'rails-i18n'
-gem 'redis-rails'
-gem 'activeadmin'
+gem 'redis-rails', github: 'jodosha/redis-store'
+gem 'activeadmin',         github: 'gregbell/active_admin', branch: 'rails4'
+gem 'ransack',             github: 'ernie/ransack',         branch: 'rails-4'
+gem 'inherited_resources', github: 'josevalim/inherited_resources'
+gem 'formtastic',          github: 'justinfrench/formtastic'
 gem 'axlsx'
 gem 'paperclip', '~> 3.0'
-gem 'formtastic'
-gem 'simple_form'
+gem 'simple_form', github: 'plataformatec/simple_form', branch: 'master'
 gem 'kramdown', '~> 0.13'
-gem 'friendly_id', '~> 4.0.1'
+gem 'friendly_id', github: 'FriendlyId/friendly_id', branch: 'rails4'
 # backup, whenever probably should be isolated in a server setup script
 gem 'backup', require: false
 gem 'whenever', require: false
@@ -24,7 +26,7 @@ gem 'figaro'
 gem 'sitemap_generator'
 gem 'humanizer'
 gem 'faraday'
-gem 'acts-as-taggable-on', '~> 2.3.1'
+gem 'acts-as-taggable-on', '~> 2.4.1'
 gem 'gibbon'
 gem 'twilio-ruby'
 gem 'analytics-ruby'
@@ -36,14 +38,14 @@ gem 'omniauth-qq-connect'
 
 gem 'enumerize'
 
-gem "rails-settings-cached", "0.2.4"
+gem "rails-settings-cached", github: "huacnlee/rails-settings-cached"
 
 # squash
 gem 'squash_ruby', git: 'https://github.com/SquareSquash/ruby.git', require: 'squash/ruby'
 gem 'squash_rails', git: 'https://github.com/SquareSquash/rails.git', require: 'squash/rails'
 
 # background jobs
-gem 'sidekiq', git: 'https://github.com/mperham/sidekiq.git'
+gem 'sidekiq', '~> 2.9'
 gem 'sidekiq-failures'
 gem 'slim'
 gem 'sinatra', require: nil
@@ -51,15 +53,17 @@ gem 'sinatra', require: nil
 # used for email css styles sane
 gem 'roadie'
 
-group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-  gem 'jquery-rails'
-  gem 'jquery-ui-rails', git: 'https://github.com/yangchenyun/jquery-ui-rails.git'
-  gem 'uglifier', '>= 1.0.3'
-  gem 'bootstrap-sass', '~> 2.2.1.1'
-  # gem 'turbo-sprockets-rails3'
-end
+# rails-4 upgrade
+gem 'rails-observers', github: 'rails/rails-observers'
+gem 'sprockets-rails', github: 'rails/sprockets-rails', require: 'sprockets/railtie'
+
+gem 'sass-rails', github: 'rails/sass-rails'
+gem 'coffee-rails'
+gem 'jquery-rails'
+gem 'jquery-ui-rails', '>= 4.0.0'
+gem 'uglifier', '>= 1.0.3'
+gem 'bootstrap-sass', '~> 2.2.1.1'
+# gem 'turbo-sprockets-rails3'
 
 group :development, :test do
   gem 'rspec-rails', '>= 2.11.0'

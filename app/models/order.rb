@@ -35,11 +35,6 @@
 #
 
 class Order < ActiveRecord::Base
-  attr_accessible :line_items, :special_instructions, :address_attributes, :line_items_attributes,
-                  :gift_card_text, :delivery_date, :expected_date, :identifier, :state, :kind,
-                  :sender_name, :sender_phone, :sender_email, :source, :adjustment, :coupon, :coupon_id, :coupon_code,
-                  :ship_method_id, :bypass_region_validation, :bypass_date_validation,
-                  :bypass_product_validation
   attr_accessor :bypass_region_validation, :bypass_date_validation,
     :bypass_product_validation
 
@@ -54,15 +49,15 @@ class Order < ActiveRecord::Base
   has_many :products, through: :line_items
   belongs_to :coupon
 
+  accepts_nested_attributes_for :line_items, allow_destroy: true
+  accepts_nested_attributes_for :address
+
   extend Enumerize
   enumerize :kind, in: [:normal, :marketing, :customer, :taobao], default: :normal
 
-  delegate :province_name, :city_name, to: :address
+  delegate :province_name, :city_name, to: :address, allow_nil: true
   delegate :paymethod, to: :transaction, allow_nil: true
-  delegate :province_id, :city_id, :area_id, to: :address, prefix: 'address'
-
-  accepts_nested_attributes_for :line_items, allow_destroy: true
-  accepts_nested_attributes_for :address
+  delegate :province_id, :city_id, :area_id, to: :address, prefix: 'address', allow_nil: true
 
   before_validation :generate_identifier, on: :create
 

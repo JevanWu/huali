@@ -1,7 +1,7 @@
 class RemindersController < ApplicationController
   layout 'horizontal'
-  before_filter :load_cart
-  before_filter :fetch_items, only: [:new, :create, :current]
+  before_action :load_cart
+  before_action :fetch_items, only: [:new, :create, :current]
 
   include ::Extension::Order
 
@@ -17,8 +17,8 @@ class RemindersController < ApplicationController
   end
 
   def create
-    product_ids = params[:reminder].delete(:product_ids)
-    @reminder = Reminder.new(params[:reminder])
+    product_ids = reminder_params[:product_ids]
+    @reminder = Reminder.new(reminder_params.except(:product_ids))
 
 
     if @reminder.save
@@ -28,5 +28,11 @@ class RemindersController < ApplicationController
     else
       render 'new'
     end
+  end
+
+  private
+
+  def reminder_params
+    params.require(:reminder).permit(:email, :send_date, :note, :product_ids)
   end
 end

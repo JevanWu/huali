@@ -4,6 +4,12 @@ ActiveAdmin.register Shipment do
 
   controller do
     helper :shipments
+
+    private
+
+    def permitted_params
+      params.permit shipment: [:order_id, :note, :ship_method_id, :tracking_num]
+    end
   end
 
   batch_action :destroy, false
@@ -70,7 +76,7 @@ ActiveAdmin.register Shipment do
       else
         render 'admin/shipments/print', layout: 'plain_print'
       end
-    rescue NoMethodError => e
+    rescue NoMethodError
       redirect_to :back, alert: t('views.admin.shipment.cannot_print')
     end
   end

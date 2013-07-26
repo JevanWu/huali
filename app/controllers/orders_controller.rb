@@ -1,13 +1,13 @@
 # encoding: utf-8
 class OrdersController < ApplicationController
   layout 'horizontal'
-  before_filter :load_cart
-  before_filter :fetch_items, only: [:new, :back_order_new, :taobao_order_new, :create, :back_order_create, :taobao_order_create, :current]
-  before_filter :fetch_related_products, only: [:back_order_create, :taobao_order_create, :current]
-  before_filter :authenticate_user!, only: [:new, :index, :show, :create, :checkout, :cancel]
-  before_filter :authenticate_administrator!, only: [:back_order_new, :back_order_create, :taobao_order_new, :taobao_order_create]
-  before_filter :process_custom_data, only: [:return, :notify]
-  skip_before_filter :verify_authenticity_token, only: [:notify]
+  before_action :load_cart
+  before_action :fetch_items, only: [:new, :back_order_new, :taobao_order_new, :create, :back_order_create, :taobao_order_create, :current]
+  before_action :fetch_related_products, only: [:back_order_create, :taobao_order_create, :current]
+  before_action :authenticate_user!, only: [:new, :index, :show, :create, :checkout, :cancel]
+  before_action :authenticate_administrator!, only: [:back_order_new, :back_order_create, :taobao_order_new, :taobao_order_create]
+  before_action :process_custom_data, only: [:return, :notify]
+  skip_before_action :verify_authenticity_token, only: [:notify]
 
   include ::Extension::Order
 
@@ -44,9 +44,9 @@ class OrdersController < ApplicationController
   end
 
   def taobao_order_create
-    merchant_trade_no = params[:order].extract!(:merchant_trade_no)
+    merchant_trade_no = taobao_order_params[:merchant_trade_no]
 
-    @order = current_or_guest_user.orders.build(params[:order])
+    @order = current_or_guest_user.orders.build(taobao_order_params.except(:merchant_trade_no))
 
     # create line items
     @cart.keys.each do |key|
@@ -81,7 +81,7 @@ class OrdersController < ApplicationController
   end
 
   def back_order_create
-    @order = current_or_guest_user.orders.build(params[:order])
+    @order = current_or_guest_user.orders.build(back_order_params)
 
     # create line items
     @cart.keys.each do |key|
@@ -106,8 +106,8 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = current_or_guest_user.orders.build(params[:order])
-
+    @order = current_or_guest_user.orders.build(user_order_params)
+    
     # create line items
     @cart.keys.each do |key|
       @order.add_line_item(key, @cart[key])
@@ -193,6 +193,38 @@ class OrdersController < ApplicationController
   end
 
   private
+    def user_order_params
+      params.require(:order).permit(*normal_order_fields)
+    end
+
+    def back_order_params
+      params.require(:order).permit(*back_order_fields)
+    end
+
+    def taobao_order_params
+      params.require(:order).permit(*taobao_order_fields)
+    end
+
+    def taobao_order_fields
+      back_order_fields.concat [:merchant_trade_no]
+    end
+
+    def back_order_fields
+      normal_order_fields.concat [:kind, :ship_method_id, :delivery_date ] 
+    end
+
+    def normal_order_fields
+      [ 
+        :sender_name, :sender_email, :sender_phone,
+        :coupon_code, :gift_card_text, :special_instructions, 
+        :source, :expected_date,
+        address_attributes: [
+           :fullname, :phone, :province_id, 
+           :city_id, :area_id, :post_code, 
+           :address]
+      ]
+    end
+
     def empty_cart
       session[:order_id] = @order.id
       cookies.delete :cart

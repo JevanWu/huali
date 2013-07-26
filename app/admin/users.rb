@@ -6,6 +6,10 @@ ActiveAdmin.register User do
     def scoped_collection
       User.non_guests
     end
+
+    def permitted_params
+      params.permit(user: [:email, :password, :humanizer_answer, :humanizer_question_id])
+    end
   end
 
   filter :email

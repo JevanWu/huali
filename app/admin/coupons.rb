@@ -4,6 +4,14 @@ ActiveAdmin.register Coupon do
 
   batch_action :destroy, false
 
+  controller do
+    private
+
+    def permitted_params
+      params.permit(coupon: [:adjustment, :expires_at, :available_count, :note])
+    end
+  end
+
   filter :expires_at
   filter :adjustment
   filter :expired

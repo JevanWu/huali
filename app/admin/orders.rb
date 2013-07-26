@@ -28,6 +28,45 @@ ActiveAdmin.register Order do
 
     private
 
+    def full_order_fields
+      [
+        # delivery info
+        :sender_name, :sender_email, :sender_phone,
+        :bypass_region_validation,
+        :expected_date,
+        :bypass_date_validation,
+        # check info
+        :delivery_date,
+        :ship_method_id,
+        # payment info
+        :adjustment,
+        :coupon,
+        :coupon_id,
+        :coupon_code,
+        # order info
+        :gift_card_text,
+        :special_instructions,
+        :source,
+        :kind,
+        :bypass_product_validation,
+        :address_attributes => [
+          :fullname, :phone, :province_id,
+          :city_id, :area_id, :post_code,
+          :address],
+        # line items
+        :line_items_attributes => [
+          :product_id,
+          :quantity,
+          :id,
+          :_destroy
+        ]
+      ]
+    end
+
+    def permitted_params
+      params.permit order: full_order_fields
+    end
+
     def render_excel(orders, filename)
       columns = Order.column_names.map(&:titleize)
       row_data = orders.map { |o| o.attributes.values }
@@ -128,7 +167,7 @@ ActiveAdmin.register Order do
       else
         render 'admin/shipments/print', layout: 'plain_print'
       end
-    rescue NoMethodError => e
+    rescue NoMethodError
       redirect_to :back, alert: t('views.admin.shipment.cannot_print')
     end
   end

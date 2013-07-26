@@ -28,7 +28,7 @@ Huali::Application.routes.draw do
   get 'orders/current', as: :current_order
   get 'orders/checkout(/:id)', to: 'orders#checkout', as: :checkout_order
   post 'orders/gateway(/:id)', to: 'orders#gateway', as: :gateway_order
-  put 'orders/cancel/:id', to: 'orders#cancel', as: :cancel_order
+  patch 'orders/cancel/:id', to: 'orders#cancel', as: :cancel_order
   get 'orders/return', as: :return_order
   post 'orders/notify', as: :notify_order
   # back order urls
@@ -42,14 +42,16 @@ Huali::Application.routes.draw do
   post 'shipments/notify/:identifier', to: 'shipments#notify', as: :notify_shipment
 
   # non-individual collections routes
-  match '/collections/:id', to: 'collections#show'
+  get '/collections/:id', to: 'collections#show'
 
   devise_for :administrators
 
   # FIXME need to know exact behaviors of controllers params
-  devise_for :users, controllers: { omniauth_callbacks: 'oauth_services' } do
-    get '/users/bind_with_oauth' => 'oauth_registrations#new_from_oauth', as: :new_oauth_user_registration
-    post '/users/bind_with_oauth' => 'oauth_registrations#bind_with_oauth'
+  devise_for :users, controllers: { omniauth_callbacks: 'oauth_services' }
+ 
+  devise_scope :users do
+    get '/users/bind_with_oauth', to: 'oauth_registrations#new_from_oauth', as: :new_oauth_user_registration
+    post '/users/bind_with_oauth', to: 'oauth_registrations#bind_with_oauth'
   end
 
   get 'users/check_user_exist', to: 'users#check_user_exist'
@@ -58,10 +60,6 @@ Huali::Application.routes.draw do
   get 'partner', to: 'pages#partner', as: :partner
 
   ActiveAdmin.routes(self)
-
-  authenticated :administrators do
-    root to: "admin#index"
-  end
 
   get ':id', to: 'pages#show', as: :page
   get "errors/error_404"

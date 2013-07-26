@@ -23,9 +23,6 @@
 #
 
 class Collection < ActiveRecord::Base
-  attr_accessible :description, :name_en, :name_zh, :display_name,
-                  :available, :meta_description,:meta_title, :meta_keywords, :primary_category, :priority
-
   # FIXME disallow removal of collection when it has associated products
   has_and_belongs_to_many :products
 
@@ -36,10 +33,10 @@ class Collection < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name_en, use: :slugged
 
-  scope :available, lambda { where(available: true) }
-  scope :primary, lambda { where(primary_category: true) }
+  scope :available, -> { where(available: true) }
+  scope :primary, -> { where(primary_category: true) }
 
-  default_scope lambda { order('priority DESC') }
+  default_scope -> { order('priority DESC') }
 
   def show_name
     display_name || name

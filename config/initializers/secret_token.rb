@@ -5,3 +5,4 @@
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
 Huali::Application.config.secret_token = 'pAwAfmZFRj9b3JvYmyTBEPUkuceApbyyzayxVhftBgGcLqR'
+Huali::Application.config.secret_key_base = 'MQLVDvFQBzbkTTeZjiLZLQJWuzEXE8h3QABf'

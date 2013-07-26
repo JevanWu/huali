@@ -2,6 +2,12 @@
 ActiveAdmin.register Asset do
   menu parent: '产品', if: proc { authorized? :read, Asset }
 
+  controller do
+    def permitted_params
+      params.permit asset: [:image, :viewable_type]
+    end
+  end
+
   filter :viewable_type, as: :select, collection:  proc { Asset.pluck(:viewable_type).uniq }
   filter :image_file_name
   filter :image_updated_at

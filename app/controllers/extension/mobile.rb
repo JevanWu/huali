@@ -3,7 +3,7 @@ module Extension
     extend ActiveSupport::Concern
 
     included do
-      before_filter :check_for_mobile
+      before_action :check_for_mobile
       helper_method :mobile_device?
     end
 

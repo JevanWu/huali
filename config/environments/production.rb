@@ -4,6 +4,8 @@ Huali::Application.configure do
   # Code is not reloaded between requests
   config.cache_classes = true
 
+  config.eager_load = true
+
   # Full error reports are disabled and caching is turned on
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
@@ -48,6 +50,7 @@ Huali::Application.configure do
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile += %w( admin_shipment_print.css email.css mobile.css ie6.css ie7.css active_admin_print.css jquery.ui.datepicker.css home.js collections.js products.js pages.js ga.js html5shiv.js datepicker-settings.js)
   config.assets.precompile += %w( oauth.js segmentio.js admin_order_print.css admin_order_print.js bootstrap-slider.js bootstrap-slider.css prov_city_area_update.js)
+  config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false

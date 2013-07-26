@@ -34,22 +34,14 @@
 
 
 class Product < ActiveRecord::Base
-  attr_accessible :name_zh, :name_en, :description, :meta_title, :meta_description,
-    :meta_keywords, :count_on_hand, :original_price, :price, :height, :width, :depth,
-    :inspiration, :published, :priority
-
-  attr_accessible :tag_list, :recommendation_ids, :assets, :assets_attributes,
-    :local_date_rule_attributes, :local_region_rule_attributes, :default_region_rule_id,
-    :default_date_rule_id
-
+  attr_accessor :quantity
+  
   # collection
   has_and_belongs_to_many :collections
   accepts_nested_attributes_for :collections
-  attr_accessible :collection_ids
 
   # asset
   has_many :assets, as: :viewable, dependent: :destroy
-  attr_accessible :assets_attributes
   accepts_nested_attributes_for :assets, reject_if: lambda { |a| a[:image].blank? }, allow_destroy: true
 
   # lineItems
@@ -74,10 +66,10 @@ class Product < ActiveRecord::Base
   translate :name
 
   # validations
-  validates_presence_of :name_en, :name_zh, :count_on_hand, :assets, :collections
+  validates_presence_of :name_en, :name_zh, :count_on_hand, :assets, :collections, :price
 
   # scopes
-  default_scope lambda { order('priority DESC') }
+  default_scope -> { order('priority DESC') }
 
   extend FriendlyId
   friendly_id :name_en, use: :slugged
@@ -94,7 +86,7 @@ class Product < ActiveRecord::Base
     end
 
     def sort_by_collection
-      Product.published.joins(:collections).order(:collection_id).all.uniq
+      Product.published.joins(:collections).order('collections.id').all.uniq
     end
   end
 

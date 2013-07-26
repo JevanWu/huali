@@ -23,8 +23,6 @@
 #
 
 class Transaction < ActiveRecord::Base
-  attr_accessible :merchant_name, :paymethod, :amount, :subject, :body, :order_id, :state, :merchant_trade_no
-
   belongs_to :order
   has_one :user, through: :order
 

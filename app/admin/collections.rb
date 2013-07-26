@@ -6,6 +6,15 @@ ActiveAdmin.register Collection do
   filter :display_name
   filter :description
 
+  controller do
+
+    private
+
+    def permitted_params
+      params.permit collection: [:name_en, :name_zh, :display_name, :priority, :available, :primary_category, :meta_title, :meta_description, :meta_keywords]
+    end
+  end
+
   index do
     selectable_column
     column :name_zh

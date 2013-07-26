@@ -1,8 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :get_host
-  before_filter :dev_tools if Rails.env == 'development'
+  before_action :get_host
+  before_action :dev_tools if Rails.env == 'development'
 
   # enable squash
   include Squash::Ruby::ControllerMethods
@@ -17,11 +17,39 @@ class ApplicationController < ActionController::Base
   include ::Extension::SignInRedirect
 
   def dev_tools
-    Rack::MiniProfiler.authorize_request
+    Rack::MiniProfiler.authorize_request if defined?(Rack::MiniProfiler)
   end
 
   def get_host
     $host = request.host_with_port
   end
 
+  protected
+
+  def devise_parameter_sanitizer
+    case resource_class
+    when User
+      User::ParameterSanitizer.new(User, :user, params)
+    else
+      super # Administrator will use the default one
+    end
+  end
+end
+
+class User::ParameterSanitizer < Devise::ParameterSanitizer
+  def sign_up
+    default_params 
+      .permit(:email, :password, :password_confirmation)
+      .permit(:phone, :name, :humanizer_answer, :humanizer_question_id)
+  end
+
+  def sign_in
+    default_params.permit(:email, :password, :remember_me)
+  end
+
+  def account_update
+    default_params 
+      .permit(:email, :password, :password_confirmation, :current_password)
+      .permit(:phone, :name)
+  end
 end

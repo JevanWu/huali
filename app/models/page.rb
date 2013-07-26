@@ -59,8 +59,6 @@ class Page < ActiveRecord::Base
     'hosting'
   ]
 
-  attr_accessible :content_en, :content_zh, :title_en, :title_zh, :permalink,:meta_title, :meta_description, :meta_keywords, :in_footer
-
   validates :permalink, exclusion: { in: reserved_words, message: "%{value} is reserved" }
 
   validates_presence_of :permalink, :title_zh

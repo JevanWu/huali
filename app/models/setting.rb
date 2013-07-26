@@ -15,6 +15,4 @@
 #  index_settings_on_thing_type_and_thing_id_and_var  (thing_type,thing_id,var) UNIQUE
 #
 
-class Setting < RailsSettings::CachedSettings
-  attr_accessible :var, :value
-end
+class Setting < RailsSettings::CachedSettings; end

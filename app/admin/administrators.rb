@@ -4,6 +4,12 @@ ActiveAdmin.register Administrator do
   filter :role
   filter :email
 
+  controller do
+    def permitted_params
+      params.permit(administrator: [:email, :password, :role])
+    end
+  end
+
   index do
     selectable_column
     column :email

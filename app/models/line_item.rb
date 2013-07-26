@@ -16,9 +16,6 @@
 #
 
 class LineItem < ActiveRecord::Base
-  # :price, :order_id is only altered internally
-  attr_accessible :product_id, :quantity
-
   belongs_to :order
   belongs_to :product
 

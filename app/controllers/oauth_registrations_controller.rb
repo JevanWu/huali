@@ -1,5 +1,5 @@
 class OauthRegistrationsController < Devise::RegistrationsController
-  before_filter :verify_session
+  before_action :verify_session
 
   def new_from_oauth
     build_resource

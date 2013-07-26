@@ -15,4 +15,13 @@ ActiveAdmin.register Setting do
   end
 
   form partial: 'form'
+
+  controller do
+    
+    private
+
+    def permitted_params
+      params setting: [:var, :value]
+    end
+  end
 end

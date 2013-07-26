@@ -2,6 +2,14 @@
 ActiveAdmin.register ShipMethod do
   menu parent: '设置', if: proc { authorized? :read, ShipMethod }
 
+  controller do
+    private
+
+    def permitted_params
+      params.permit ship_method: [:name, :method, :service_phone, :website, :kuaidi_query_code]
+    end
+  end
+
   index do
     selectable_column
 

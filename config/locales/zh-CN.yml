@@ -287,6 +287,7 @@ zh-CN:
         completed: 已经完成
         refunded: 退款成功
         void: 取消
+        invalid_transition: 无法转换订单状态
 
         pay: 付款
         check: 审核
