@@ -19,11 +19,14 @@ describe OrderProductDateValidator do
   before(:each) do
     stub(product1).errors { p1_errors }
     stub(product2).errors { p2_errors }
+    stub(order).fetch_products { [product1, product2] }
   end
 
   describe "#validate" do
     before(:each) do
-      stub(order).fetch_products { [product1, product2] }
+      stub(order).expected_date { "2013-01-01".to_date }
+      stub(product1).default_date_rule { Object.new }
+      stub(product2).default_date_rule { Object.new }
     end
 
     context "when one of the products in order has no default date rule" do
@@ -37,10 +40,8 @@ describe OrderProductDateValidator do
       end
     end
 
-    context "order's expected date pass all of the product rules" do
+    context "order's expected date pass all of the product date rules" do
       it "do not add errors to order or product" do
-        stub(order).expected_date { "2013-01-01".to_date }
-
         valid_rule1 =  OpenStruct.new(
             start_date: "2013-01-01",
             end_date: "2013-12-01",
@@ -56,10 +57,7 @@ describe OrderProductDateValidator do
             excluded_weekdays: [])
 
         stub(product1).merged_date_rule { valid_rule1 }
-        stub(product1).default_date_rule { Object.new }
-
         stub(product2).merged_date_rule { valid_rule2 }
-        stub(product2).default_date_rule { Object.new }
 
         dont_allow(order_errors).add.with_any_args
         dont_allow(p1_errors).add.with_any_args
@@ -69,10 +67,8 @@ describe OrderProductDateValidator do
       end
     end
 
-    context "order's expected date can't pass one of the product rules" do
+    context "order's expected date can't pass one of the product date rules" do
       it "add errors to order and the product" do
-        stub(order).expected_date { "2013-01-01".to_date }
-
         valid_rule =  OpenStruct.new(
             start_date: "2013-01-01",
             end_date: "2013-12-01",
@@ -88,10 +84,7 @@ describe OrderProductDateValidator do
             excluded_weekdays: [])
 
         stub(product1).merged_date_rule { valid_rule }
-        stub(product1).default_date_rule { Object.new }
-
         stub(product2).merged_date_rule { invalid_rule }
-        stub(product2).default_date_rule { Object.new }
 
         mock(order_errors).add.with_any_args
         dont_allow(p1_errors).add.with_any_args
