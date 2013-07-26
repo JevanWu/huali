@@ -8,6 +8,7 @@ class OrderProductRegionValidator < ActiveModel::Validator
                               order.address_city_id,
                               order.address_area_id)
         order_valid = false
+        product.errors.add(:base, :product_in_unavailable_region, product_name: product.name)
       end
     end
 
@@ -24,15 +25,9 @@ class OrderProductRegionValidator < ActiveModel::Validator
 
     raise "No global region_rule settings found" if region_rule.blank?
 
-    region_rule_runner = RegionRuleRunner.new(region_rule.province_ids,
-                                              region_rule.city_ids,
-                                              region_rule.area_ids)
-
-    if region_rule_runner.apply_test(province_id, city_id, area_id)
-      true
-    else
-      product.errors.add(:base, :product_in_unavailable_region, product_name: product.name)
-      false
-    end
+    rule_runner = RegionRuleRunner.new(region_rule.province_ids,
+                                       region_rule.city_ids,
+                                       region_rule.area_ids)
+    rule_runner.apply_test(province_id, city_id, area_id)
   end
 end
