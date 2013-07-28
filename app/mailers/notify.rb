@@ -3,7 +3,7 @@
 class Notify < ActionMailer::Base
   add_template_helper ApplicationHelper
 
-  default from: 'support@hua.li', content_type: 'text/html', css: :email
+  default from: 'support@hua.li', content_type: 'text/html', css: 'email'
 
   # For User
   def new_order_user_email(order_id)
