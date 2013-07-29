@@ -44,7 +44,7 @@ class OrdersController < ApplicationController
   end
 
   def taobao_order_create
-    merchant_trade_no = taobao_order_params[:merchant_trade_no]
+    merchant_trade_no = taobao_order_params.extract!(:merchant_trade_no)
 
     @order = current_or_guest_user.orders.build(taobao_order_params.except(:merchant_trade_no))
 
@@ -107,7 +107,7 @@ class OrdersController < ApplicationController
 
   def create
     @order = current_or_guest_user.orders.build(user_order_params)
-    
+
     # create line items
     @cart.keys.each do |key|
       @order.add_line_item(key, @cart[key])
@@ -210,17 +210,17 @@ class OrdersController < ApplicationController
     end
 
     def back_order_fields
-      normal_order_fields.concat [:kind, :ship_method_id, :delivery_date ] 
+      normal_order_fields.concat [:kind, :ship_method_id, :delivery_date ]
     end
 
     def normal_order_fields
-      [ 
+      [
         :sender_name, :sender_email, :sender_phone,
-        :coupon_code, :gift_card_text, :special_instructions, 
+        :coupon_code, :gift_card_text, :special_instructions,
         :source, :expected_date,
         address_attributes: [
-           :fullname, :phone, :province_id, 
-           :city_id, :area_id, :post_code, 
+           :fullname, :phone, :province_id,
+           :city_id, :area_id, :post_code,
            :address]
       ]
     end
