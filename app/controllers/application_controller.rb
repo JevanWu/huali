@@ -27,8 +27,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def devise_parameter_sanitizer
-    case resource_class
-    when User
+    if resource_class == User
       User::ParameterSanitizer.new(User, :user, params)
     else
       super # Administrator will use the default one
@@ -38,9 +37,9 @@ end
 
 class User::ParameterSanitizer < Devise::ParameterSanitizer
   def sign_up
-    default_params 
-      .permit(:email, :password, :password_confirmation)
-      .permit(:phone, :name, :humanizer_answer, :humanizer_question_id)
+    default_params
+      .permit(:email, :password, :password_confirmation,
+              :phone, :name, :humanizer_answer, :humanizer_question_id)
   end
 
   def sign_in
@@ -48,7 +47,7 @@ class User::ParameterSanitizer < Devise::ParameterSanitizer
   end
 
   def account_update
-    default_params 
+    default_params
       .permit(:email, :password, :password_confirmation, :current_password)
       .permit(:phone, :name)
   end
