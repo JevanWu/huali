@@ -48,7 +48,7 @@ Huali::Application.routes.draw do
 
   # FIXME need to know exact behaviors of controllers params
   devise_for :users, controllers: { omniauth_callbacks: 'oauth_services' }
- 
+
   devise_scope :users do
     get '/users/bind_with_oauth', to: 'oauth_registrations#new_from_oauth', as: :new_oauth_user_registration
     post '/users/bind_with_oauth', to: 'oauth_registrations#bind_with_oauth'
@@ -58,6 +58,7 @@ Huali::Application.routes.draw do
 
   root to: "pages#show", id: 'home'
   get 'partner', to: 'pages#partner', as: :partner
+  get 'qixi', to: 'pages#qixi', as: :qixi
 
   ActiveAdmin.routes(self)
 
