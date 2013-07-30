@@ -26,6 +26,13 @@ ActiveAdmin.register Order do
       end
     end
 
+    def edit
+      @order = Order.find_by_id(params[:id])
+      if @order.state.in? ["completed", "refunded", "void"]
+        redirect_to [:admin, @order], alert: t('views.admin.order.cannot_edit')
+      end
+    end
+
     private
 
     def full_order_fields
@@ -169,13 +176,6 @@ ActiveAdmin.register Order do
       end
     rescue NoMethodError
       redirect_to :back, alert: t('views.admin.shipment.cannot_print')
-    end
-  end
-
-  member_action :edit do
-    @order = Order.find_by_id(params[:id])
-    if @order.state.in? ["completed", "refunded", "void"]
-      redirect_to [:admin, @order], alert: t('views.admin.order.cannot_edit')
     end
   end
 
