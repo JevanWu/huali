@@ -9,7 +9,7 @@
               <h3 class='h3'><%= @topic %>备货提醒</h3>
               <p>截至到<%= l Time.now, format: :short %>, <%= @topic %>的备货需要如下:</p>
               <p style="color:red;">时间按发货日期来计算(未审核订单, 已经发货订单不计入)</p>
-              <p style="color:red;">总数包含0507 - 0511共计5天<b>需要发货</b>的货源</p>
+              <p style="color:red;">总数包含<%= @start_date.strftime("%m%d") %> - <%= @end_date.strftime("%m%d") %>共计<%= @days %>天<b>需要发货</b>的货源</p>
             </div>
           </td>
         </tr>
