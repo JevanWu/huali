@@ -40,20 +40,20 @@
                   总数
                 </td>
                 <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
-                  <%= @total_count.inject(0) {|sum, count| sum + count['productscount'].to_i } %>
+                  <%= summary_products_with_count.inject(0) {|sum, count| sum + count['productscount'].to_i } %>
                   <span>上海: </span>
-                  <%= @total_shanghai_count.inject(0) {|sum, count| sum + count['productscount'].to_i } %>
+                  <%= @summary_products_in_shanghai_with_count.inject(0) {|sum, count| sum + count['productscount'].to_i } %>
                 </td>
               </tr>
-              <% @total_count.to_a.each do |product_count| %>
+              <% summary_products_with_count.to_a.each do |product_with_count| %>
               <tr>
                 <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
-                  <%= product_count['name_zh'] %>
+                  <%= product_with_count['name_zh'] %>
                 </td>
                 <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
-                  <%= product_count['productscount'] %>
+                  <%= product_with_count['productscount'] %>
                   <span>上海: </span>
-                  <%= @total_shanghai_count.select { |p| p['name_zh'] == product_count['name_zh'] }.first.try(:"[]", 'productscount') %>
+                  <%= @summary_products_in_shanghai_with_count.select { |p| p['name_zh'] == product_with_count['name_zh'] }.first.try(:"[]", 'productscount') %>
                 </td>
               </tr>
               <% end %>
@@ -61,8 +61,8 @@
           </td>
         </tr>
 
-        <% @watched_result.each do |result| %>
-          <% shanghai_result = @watched_shanghai_result.select { |p| p[:date] == result[:date] }.first[:result] %>
+        <% @daily_products_with_count.each do |result| %>
+          <% shanghai_result = @daily_products_in_shanghai_with_count.select { |p| p[:date] == result[:date] }.first[:result] %>
         <tr>
           <td valign="top" style="padding-top:0; padding-bottom:0;">
             <table border="0" cellpadding="10" cellspacing="0" width="100%" class="templateDataTable verticalDataTable">
@@ -84,15 +84,15 @@
                   数量
                 </th>
               </tr>
-              <% result[:result].each do |product_count| %>
+              <% result[:result].each do |product_with_count| %>
               <tr>
                 <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
-                  <%= product_count['name_zh'] %>
+                  <%= product_with_count['name_zh'] %>
                 </td>
                 <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
-                  <%= product_count['productscount'] %>
+                  <%= product_with_count['productscount'] %>
                   <span>上海: </span>
-                  <%= shanghai_result.select { |p| p['name_zh'] == product_count['name_zh'] }.first.try(:"[]", 'productscount') %>
+                  <%= shanghai_result.select { |p| p['name_zh'] == product_with_count['name_zh'] }.first.try(:"[]", 'productscount') %>
                 </td>
               </tr>
               <% end %>

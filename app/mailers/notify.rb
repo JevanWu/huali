@@ -63,11 +63,11 @@ class Notify < ActionMailer::Base
 
     query = OrderProductStatisticsQuery.new(start_date, end_date)
 
-    @total_count = query.products_on_date_span
-    @total_shanghai_count = query.products_shanghai_on_date_span
+    @summary_products_with_count = query.products_on_date_span
+    @summary_products_in_shanghai_with_count = query.products_shanghai_on_date_span
 
-    @watched_result = query.watched_products
-    @watched_shanghai_result = query.watched_products_shanghai
+    @daily_products_with_count = query.watched_products
+    @daily_products_in_shanghai_with_count = query.watched_products_shanghai
 
     mail(to: emails, subject: subject("##{@topic}备货提醒#{Time.now}"))
   end
