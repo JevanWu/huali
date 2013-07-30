@@ -70,7 +70,7 @@ class Notify < ActionMailer::Base
     @daily_products_with_count = OrderProductsOnDateQuery.daily_products(@start_date, @end_date)
     @daily_products_in_shanghai_with_count = OrderProductsOnDateQuery.daily_products_in_shanghai(@start_date, @end_date)
 
-    mail(to: emails, subject: subject("##{@topic}备货提醒#{Time.now}"))
+    mail(to: emails, subject: subject("##{@topic}#备货提醒#{Time.now}"))
   end
 
   private
