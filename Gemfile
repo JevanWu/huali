@@ -37,6 +37,7 @@ gem 'omniauth-weibo-oauth2'
 gem 'omniauth-qq-connect'
 
 gem 'enumerize'
+gem 'virtus'
 
 gem "rails-settings-cached", github: "huacnlee/rails-settings-cached"
 
