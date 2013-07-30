@@ -27,10 +27,10 @@ class OrdersController < ApplicationController
 
   def new
     validate_cart
-    @order = Order.new
-    @order.build_address
-    populate_sender_info unless current_or_guest_user.guest?
-    AnalyticWorker.delay.open_order(current_user.id, @products.map(&:name), Time.now)
+    @order_form = OrderForm.new
+    # FIXME, the populate doesn't work on form
+    @order_form.sender = SenderInfo.new(current_user.as_json) # nil.as_json => nil
+    # AnalyticWorker.delay.open_order(current_user.id, @products.map(&:name), Time.now)
   end
 
   # taobao order
@@ -106,14 +106,15 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = current_or_guest_user.orders.build(user_order_params)
+    @order_form = OrderForm.new(params[:order_form])
+    @order_form.user = current_or_guest_user
 
     # create line items
     @cart.keys.each do |key|
-      @order.add_line_item(key, @cart[key])
+      @order_form.add_line_item(key, @cart[key])
     end
 
-    if @order.save
+    if @order_form.save
       empty_cart
       update_guest if current_or_guest_user.guest?
 
@@ -230,12 +231,6 @@ class OrdersController < ApplicationController
     def empty_cart
       session[:order_id] = @order.id
       cookies.delete :cart
-    end
-
-    def populate_sender_info
-      @order.sender_email = current_user.try(:email)
-      @order.sender_name = current_user.try(:name)
-      @order.sender_phone = current_user.try(:phone)
     end
 
     def update_guest
