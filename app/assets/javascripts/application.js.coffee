@@ -14,10 +14,13 @@
 #= require jquery_ujs
 #= require jquery.ui.effect
 #= require jquery.hoverIntent.minified
+#= require scrollTo
 #= require underscore
 #= require_self
 
 $ ->
+  $("#trilogy a").scrollTo()
+
   $('#image-slides img')
     .hover($(this).toggleClass('hover'))
     .first().addClass('current')
