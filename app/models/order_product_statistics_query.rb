@@ -1,6 +1,4 @@
 class OrderProductStatisticsQuery
-  attr_reader :start_date, :end_date
-
   def initialize(start_date, end_date, relation = Order.unscoped)
     @relation = relation
     @start_date = start_date.to_date
@@ -8,16 +6,16 @@ class OrderProductStatisticsQuery
   end
 
   def products_on_date_span
-    products.where("orders.delivery_date > ? and orders.delivery_date <= ?", start_date, end_date)
+    products.where("orders.delivery_date > ? and orders.delivery_date <= ?", @start_date, @end_date)
   end
 
   def products_shanghai_on_date_span
-    products_shanghai.where("orders.delivery_date > ? and orders.delivery_date <= ?", start_date, end_date)
+    products_shanghai.where("orders.delivery_date > ? and orders.delivery_date <= ?", @start_date, @end_date)
   end
 
   def watched_products
     date_span.map do |date|
-      { date: date, result: products_on_day(date) }
+      { date: date, result: products_on_day(date) 
     end
   end
 
@@ -26,8 +24,6 @@ class OrderProductStatisticsQuery
       { date: date, result: products_shanghai_on_day(date) }
     end
   end
-
-  private :start_date, :end_date
 
   private
 
@@ -53,6 +49,6 @@ class OrderProductStatisticsQuery
   end
 
   def date_span
-    start_date..end_date
+    @start_date..@end_date
   end
 end
