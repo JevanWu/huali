@@ -61,13 +61,11 @@ class Notify < ActionMailer::Base
   def product_day_email(topic, start_date, end_date, *emails)
     @topic = topic
 
-    query = OrderProductStatisticsQuery.new(start_date, end_date)
+    @summary_products_with_count = OrderProductsOnDateQuery.summary_products(start_date, end_date)
+    @summary_products_in_shanghai_with_count = OrderProductsOnDateQuery.summary_products_in_shanghai(start_date, end_date)
 
-    @summary_products_with_count = query.products_on_date_span
-    @summary_products_in_shanghai_with_count = query.products_shanghai_on_date_span
-
-    @daily_products_with_count = query.watched_products
-    @daily_products_in_shanghai_with_count = query.watched_products_shanghai
+    @daily_products_with_count = OrderProductsOnDateQuery.daily_products(start_date, end_date)
+    @daily_products_in_shanghai_with_count = OrderProductsOnDateQuery.daily_products_in_shanghai(start_date, end_date)
 
     mail(to: emails, subject: subject("##{@topic}备货提醒#{Time.now}"))
   end
