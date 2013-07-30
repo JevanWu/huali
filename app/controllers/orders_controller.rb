@@ -210,7 +210,9 @@ class OrdersController < ApplicationController
     end
 
     def back_order_fields
-      normal_order_fields.concat [:kind, :ship_method_id, :delivery_date, :adjustment]
+      normal_order_fields.concat [:kind, :ship_method_id, :delivery_date,
+                                  :adjustment, :bypass_region_validation,
+                                  :bypass_date_validation]
     end
 
     def normal_order_fields
