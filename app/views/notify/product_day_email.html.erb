@@ -40,12 +40,12 @@
                   总数
                 </td>
                 <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
-                  <%= @summary_products_with_count.inject(0) {|sum, count| sum + count['product_count'].to_i } %>
+                  <%= products_with_count_sum(@summary_products_with_count) %>
                   <span>上海: </span>
-                  <%= @summary_products_in_shanghai_with_count.inject(0) {|sum, count| sum + count['product_count'].to_i } %>
+                  <%= products_with_count_sum(@summary_products_in_shanghai_with_count) %>
                 </td>
               </tr>
-              <% @summary_products_with_count.to_a.each do |product_with_count| %>
+              <% @summary_products_with_count.each do |product_with_count| %>
               <tr>
                 <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
                   <%= product_with_count['name_zh'] %>
@@ -101,9 +101,9 @@
                   合计
                 </td>
                 <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
-                  <%= result[:result].inject(0) {|sum, count| sum + count['product_count'].to_i }%>
+                  <%= products_with_count_sum(result[:result]) %>
                   <span>上海: </span>
-                  <%= shanghai_result.inject(0) {|sum, count| sum + count['product_count'].to_i } %>
+                  <%= products_with_count_sum(shanghai_result) %>
                 </td>
               </tr>
             </table>

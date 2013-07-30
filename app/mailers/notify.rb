@@ -73,6 +73,13 @@ class Notify < ActionMailer::Base
     mail(to: emails, subject: subject("##{@topic}#备货提醒#{Time.now}"))
   end
 
+  helper do
+    def products_with_count_sum(products_with_count)
+      products_with_count.
+        inject(0) { |sum, product| sum + product['product_count'].to_i }
+    end
+  end
+
   private
 
   # Examples
