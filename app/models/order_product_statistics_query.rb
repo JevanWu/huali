@@ -15,7 +15,7 @@ class OrderProductStatisticsQuery
 
   def watched_products
     date_span.map do |date|
-      { date: date, result: products_on_day(date) 
+      { date: date, result: products_on_day(date) }
     end
   end
 
@@ -37,11 +37,11 @@ class OrderProductStatisticsQuery
 
   def products
     @relation.
-      select("products.name_zh, sum(line_items.quantity) as productsCount").
+      select("products.name_zh, sum(line_items.quantity) as product_count").
       joins(line_items: :product).
       where("orders.state = 'wait_make' or orders.state = 'wait_ship'").
       group("products.name_zh").
-      order("productsCount desc")
+      order("product_count desc")
   end
 
   def products_shanghai
