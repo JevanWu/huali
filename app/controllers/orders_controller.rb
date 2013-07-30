@@ -210,7 +210,7 @@ class OrdersController < ApplicationController
     end
 
     def back_order_fields
-      normal_order_fields.concat [:kind, :ship_method_id, :delivery_date ]
+      normal_order_fields.concat [:kind, :ship_method_id, :delivery_date, :adjustment]
     end
 
     def normal_order_fields
