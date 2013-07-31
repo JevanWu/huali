@@ -29,7 +29,7 @@ class OrdersController < ApplicationController
     validate_cart
     @order_form = OrderForm.new
     # FIXME, the populate doesn't work on form
-    @order_form.sender = SenderInfo.new(current_user.as_json) # nil.as_json => nil
+    @order_form.sender = UserInfo.new(current_user.as_json) # nil.as_json => nil
     # AnalyticWorker.delay.open_order(current_user.id, @products.map(&:name), Time.now)
   end
 
