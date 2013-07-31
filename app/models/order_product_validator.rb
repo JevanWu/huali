@@ -1,13 +1,29 @@
+# class Order
+#   validates_with OrderProductValidator, address: address, items: items
+# end
+# Configuration options:
+# * <tt>:items</tt> - An list of items  (default reads from attributes: record.items)
+
 class OrderProductValidator < ActiveModel::Validator
+
+  attr_reader :items
+
+  def initialize(*)
+    super
+    @items = options[:items]
+  end
+
   def validate(order)
-    if order.line_items.blank?
+    @items ||= order.line_items
+
+    if items.blank?
       order.errors.add(:base, :blank_products)
       return
     end
 
     order_valid = true
 
-    order.line_items.each do |line_item|
+    items.each do |line_item|
       unless line_item.published
         line_item.errors.add(:product, :unavailable_product)
 
