@@ -1,3 +1,5 @@
+require 'region_rule_runner'
+
 class OrderProductRegionValidator < ActiveModel::Validator
   def validate(order)
     order_valid = true
