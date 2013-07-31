@@ -1,7 +1,15 @@
 class OrderProductRegionValidator < ActiveModel::Validator
   attr_reader :address
 
-  def validate(order, address = order.address)
+  def initialize(*)
+    super
+    @address = options[:address]
+  end
+
+  def validate(order)
+    # FIXME could remove when factored out the original usage
+    @address ||= order.address
+
     order_valid = true
 
     order.fetch_products.each do |product|
