@@ -68,7 +68,7 @@ class Order < ActiveRecord::Base
 
   validates_with OrderProductRegionValidator, if: :validate_product_delivery_region?
   validates_with OrderProductDateValidator, if: :validate_product_delivery_date?
-  validates_with OrderProductValidator, if: lambda { |order| !order.bypass_product_validation }
+  validates_with OrderProductValidator, unless: lambda { |order| order.bypass_product_validation }
   validates_with OrderCouponValidator, unless: lambda { |order| order.coupon_code_blank? }
 
   # only validate once on Date.today, because in future Date.today will change
@@ -335,11 +335,11 @@ class Order < ActiveRecord::Base
   end
 
   def validate_product_delivery_region?
-    address_province_id && address_city_id && not_yet_shipped? && !bypass_region_validation
+    not_yet_shipped? && !bypass_region_validation
   end
 
   def validate_product_delivery_date?
-    expected_date.present? && not_yet_shipped? && !bypass_date_validation
+    not_yet_shipped? && !bypass_date_validation
   end
 
   def delivery_date_must_be_less_than_expected_date
