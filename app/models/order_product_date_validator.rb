@@ -1,21 +1,8 @@
 require 'date_rule_runner'
 
-# class Order
-#   validates_with OrderProductDateValidator, address: address, items: items
-# end
-# Configuration options:
-# * <tt>:items</tt> - An list of items  (default reads from attributes: record.items)
-
 class OrderProductDateValidator < ActiveModel::Validator
-  attr_reader :items
-
-  def initialize(*)
-    super
-    @items = options[:items]
-  end
-
   def validate(order)
-    @items ||= order.fetch_products
+    items ||= order.fetch_products
 
     order_valid = true
 

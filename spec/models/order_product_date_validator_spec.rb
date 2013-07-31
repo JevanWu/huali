@@ -82,18 +82,5 @@ describe OrderProductDateValidator do
       let(:validator) { OrderProductDateValidator.new() }
     end
   end
-
-  describe "with order with explicit passed in items" do
-    it_behaves_like "order date validator" do
-      let(:order) do
-        Object.new.tap do |order|
-          stub(order).errors { order_errors }
-          stub(order).expected_date { "2013-01-01".to_date }
-        end
-      end
-
-      let(:validator) { OrderProductDateValidator.new( items: [product1, product2] ) }
-    end
-  end
 end
 
