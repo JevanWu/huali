@@ -33,9 +33,9 @@ shared_examples_for "order region validator" do
 
       stub(product2).region_rule { invalid_rule }
 
-      mock(address_errors).add(:province, :unavailable_location)
-      mock(address_errors).add(:city, :unavailable_location)
-      mock(address_errors).add(:area, :unavailable_location)
+      mock(address_errors).add(:province_id, :unavailable_location)
+      mock(address_errors).add(:city_id, :unavailable_location)
+      mock(address_errors).add(:area_id, :unavailable_location)
       mock(order_errors).add(:base, :unavailable_location)
 
       dont_allow(product1_errors).add.with_any_args

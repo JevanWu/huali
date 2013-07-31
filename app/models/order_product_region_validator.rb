@@ -18,9 +18,9 @@ class OrderProductRegionValidator < ActiveModel::Validator
     end
 
     unless order_valid
-      address.errors.add(:province, :unavailable_location) if address.province_id
-      address.errors.add(:city, :unavailable_location) if address.city_id
-      address.errors.add(:area, :unavailable_location) if address.area_id
+      address.errors.add(:province_id, :unavailable_location) if address.province_id
+      address.errors.add(:city_id, :unavailable_location) if address.city_id
+      address.errors.add(:area_id, :unavailable_location) if address.area_id
       order.errors.add(:base, :unavailable_location)
     end
   end
