@@ -26,26 +26,21 @@ describe OrderProductRegionValidator do
   end
 
   let(:order_errors) { Object.new }
-  let(:order_address_errors) { Object.new }
+  let(:address_errors) { Object.new }
 
-  let(:order_address) do
+  let(:address) do
     Object.new.tap do |addr|
-      stub(addr).province { Object.new }
-      stub(addr).city { Object.new }
-      stub(addr).area { Object.new }
-      stub(addr).errors { order_address_errors }
+      stub(addr).province_id { 1 }
+      stub(addr).city_id { 1 }
+      stub(addr).area_id { 1 }
+      stub(addr).errors { address_errors }
     end
   end
 
   let(:order) do
     Object.new.tap do |order|
       stub(order).errors { order_errors }
-      stub(order).address { order_address }
-
-      stub(order).address_province_id { 1 }
-      stub(order).address_city_id { 1 }
-      stub(order).address_area_id { 1 }
-
+      stub(order).address { address }
       stub(order).fetch_products { [product1, product2] }
     end
   end
@@ -64,7 +59,7 @@ describe OrderProductRegionValidator do
     context "when order's address pass all of the product region rules" do
       it "do not add errors to order, order address and the product" do
         dont_allow(order_errors).add.with_any_args
-        dont_allow(order_address_errors).add.with_any_args
+        dont_allow(address_errors).add.with_any_args
         dont_allow(product1_errors).add.with_any_args
         dont_allow(product2_errors).add.with_any_args
 
@@ -79,9 +74,9 @@ describe OrderProductRegionValidator do
 
         stub(product2).region_rule { invalid_rule }
 
-        mock(order_address_errors).add(:province, :unavailable_location)
-        mock(order_address_errors).add(:city, :unavailable_location)
-        mock(order_address_errors).add(:area, :unavailable_location)
+        mock(address_errors).add(:province, :unavailable_location)
+        mock(address_errors).add(:city, :unavailable_location)
+        mock(address_errors).add(:area, :unavailable_location)
         mock(order_errors).add(:base, :unavailable_location)
 
         dont_allow(product1_errors).add.with_any_args
