@@ -1,5 +1,12 @@
 require 'region_rule_runner'
 
+# class Order
+#   validates_with OrderProductRegionValidator, address: address, items: items
+# end
+# Configuration options:
+# * <tt>:address</tt> - A custom address (default reads from attributes: record.address)
+# * <tt>:items</tt> - An list of items  (default reads from attributes: record.items)
+
 class OrderProductRegionValidator < ActiveModel::Validator
   attr_reader :address, :items
 
@@ -9,13 +16,15 @@ class OrderProductRegionValidator < ActiveModel::Validator
     @items = options[:items]
   end
 
+
   def validate(order)
     # FIXME could remove when factored out the original usage
     @address ||= order.address
+    @items ||= order.fetch_products
 
     order_valid = true
 
-    order.fetch_products.each do |product|
+    items.each do |product|
       unless validate_product(product,
                               address.province_id,
                               address.city_id,

@@ -80,9 +80,9 @@ describe OrderProductRegionValidator do
     end
   end
 
-  describe "with order has address as attributes" do
+  describe "with AR order has address and items as attributes" do
     it_behaves_like "order region validator" do
-      let(:order) do 
+      let(:order) do
         Object.new.tap do |order|
           stub(order).errors { order_errors }
           stub(order).address { address }
@@ -96,7 +96,7 @@ describe OrderProductRegionValidator do
 
   describe "with explicit passed in address" do
     it_behaves_like "order region validator" do
-      let(:order) do 
+      let(:order) do
         Object.new.tap do |order|
           stub(order).errors { order_errors }
           stub(order).fetch_products { [product1, product2] }
@@ -104,6 +104,31 @@ describe OrderProductRegionValidator do
       end
 
       let(:validator) { OrderProductRegionValidator.new( address: address ) }
+    end
+  end
+
+  describe "with explicit passed in items" do
+    it_behaves_like "order region validator" do
+      let(:order) do
+        Object.new.tap do |order|
+          stub(order).errors { order_errors }
+          stub(order).address { address }
+        end
+      end
+
+      let(:validator) { OrderProductRegionValidator.new( items: [product1, product2] ) }
+    end
+  end
+
+  describe "with explicit passed in items and address" do
+    it_behaves_like "order region validator" do
+      let(:order) do
+        Object.new.tap do |order|
+          stub(order).errors { order_errors }
+        end
+      end
+
+      let(:validator) { OrderProductRegionValidator.new( address: address, items: [product1, product2] ) }
     end
   end
 end
