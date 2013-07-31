@@ -1,9 +1,12 @@
+require 'region_rule_runner'
+
 class OrderProductRegionValidator < ActiveModel::Validator
-  attr_reader :address
+  attr_reader :address, :items
 
   def initialize(*)
     super
     @address = options[:address]
+    @items = options[:items]
   end
 
   def validate(order)
