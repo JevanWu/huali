@@ -18,6 +18,9 @@ Spork.prefork do
   ENV["RAILS_ENV"] ||= 'test'
   require File.expand_path("../../config/environment", __FILE__)
 
+  # tweak Rails for faster tests
+  Rails.logger.level = 4
+
   require 'rspec/rails'
   require 'rspec/autorun'
   require 'capybara/rails'
@@ -27,6 +30,7 @@ Spork.prefork do
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
   require 'email_spec'
+
 
   RSpec.configure do |config|
     config.treat_symbols_as_metadata_keys_with_true_values = true
