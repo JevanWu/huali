@@ -6,10 +6,10 @@
         <tr>
           <td valign="top" class="bodyContent">
             <div mc:edit="std_content00">
-              <h3 class='h3'>母亲节备货提醒</h3>
-              <p>截至到<%= l Time.now, format: :short %>, 母亲节的备货需要如下:</p>
+              <h3 class='h3'><%= @topic %>备货提醒</h3>
+              <p>截至到<%= l Time.now, format: :short %>, <%= @topic %>的备货需要如下:</p>
               <p style="color:red;">时间按发货日期来计算(未审核订单, 已经发货订单不计入)</p>
-              <p style="color:red;">总数包含0507 - 0511共计5天<b>需要发货</b>的货源</p>
+              <p style="color:red;">总数包含<%= @start_date.strftime("%m%d") %> - <%= @end_date.strftime("%m%d") %>共计<%= @days %>天<b>需要发货</b>的货源</p>
             </div>
           </td>
         </tr>
@@ -40,20 +40,20 @@
                   总数
                 </td>
                 <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
-                  <%= @total_count.inject(0) {|sum, count| sum + count['productscount'].to_i } %>
+                  <%= find_product_count_from_collection(@summary_products_with_count) %>
                   <span>上海: </span>
-                  <%= @total_shanghai_count.inject(0) {|sum, count| sum + count['productscount'].to_i } %>
+                  <%= find_product_count_from_collection(@summary_products_in_shanghai_with_count) %>
                 </td>
               </tr>
-              <% @total_count.to_a.each do |product_count| %>
+              <% @summary_products_with_count.each do |product_with_count| %>
               <tr>
                 <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
-                  <%= product_count['name_zh'] %>
+                  <%= product_with_count['name_zh'] %>
                 </td>
                 <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
-                  <%= product_count['productscount'] %>
+                  <%= product_with_count['product_count'] %>
                   <span>上海: </span>
-                  <%= @total_shanghai_count.select { |p| p['name_zh'] == product_count['name_zh'] }.first.try(:"[]", 'productscount') %>
+                  <%= find_product_count_from_collection(@summary_products_in_shanghai_with_count, product_with_count['name_zh']) %>
                 </td>
               </tr>
               <% end %>
@@ -61,8 +61,7 @@
           </td>
         </tr>
 
-        <% @watched_result.each do |result| %>
-          <% shanghai_result = @watched_shanghai_result.select { |p| p[:date] == result[:date] }.first[:result] %>
+        <% @daily_products_with_count.each do |result| %>
         <tr>
           <td valign="top" style="padding-top:0; padding-bottom:0;">
             <table border="0" cellpadding="10" cellspacing="0" width="100%" class="templateDataTable verticalDataTable">
@@ -84,15 +83,15 @@
                   数量
                 </th>
               </tr>
-              <% result[:result].each do |product_count| %>
+              <% result[:result].each do |product_with_count| %>
               <tr>
                 <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
-                  <%= product_count['name_zh'] %>
+                  <%= product_with_count['name_zh'] %>
                 </td>
                 <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
-                  <%= product_count['productscount'] %>
+                  <%= product_with_count['product_count'] %>
                   <span>上海: </span>
-                  <%= shanghai_result.select { |p| p['name_zh'] == product_count['name_zh'] }.first.try(:"[]", 'productscount') %>
+                  <%= find_product_count_from_collection(@daily_products_in_shanghai_with_count, product_with_count['name_zh'], result[:date]) %>
                 </td>
               </tr>
               <% end %>
@@ -101,9 +100,9 @@
                   合计
                 </td>
                 <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
-                  <%= result[:result].inject(0) {|sum, count| sum + count['productscount'].to_i }%>
+                  <%= find_product_count_from_collection(result[:result]) %>
                   <span>上海: </span>
-                  <%= shanghai_result.inject(0) {|sum, count| sum + count['productscount'].to_i } %>
+                  <%= find_product_count_from_collection(@daily_products_in_shanghai_with_count, nil, result[:date]) %>
                 </td>
               </tr>
             </table>

@@ -58,74 +58,22 @@ class Notify < ActionMailer::Base
     mail(to: emails, subject: subject("#{@date}的订单小结"))
   end
 
-  def product_day_email(*emails)
-    watched_date = ['2013-05-07', '2013-05-08', '2013-05-09', '2013-05-10', '2013-05-11']
+  def product_day_email(topic, start_date, end_date, *emails)
+    @topic = topic
+    @start_date = start_date.to_date
+    @end_date = end_date.to_date
+    @days = (@start_date..@end_date).to_a.size
 
-    def product_on_day(date)
-      <<-SQL
-      select products.name_zh, sum(line_items.quantity) as productsCount
-      from orders, line_items, products
-      where orders.id = line_items.order_id
-      and line_items.product_id = products.id
-      and orders.delivery_date = '#{date}'
-      and ( orders.state = 'wait_make' or orders.state = 'wait_ship' )
-      group by products.name_zh
-      order by productsCount desc;
-      SQL
-    end
+    @summary_products_with_count = OrderProductsOnDateQuery.summary_products(@start_date, @end_date)
+    @summary_products_in_shanghai_with_count = OrderProductsOnDateQuery.summary_products_in_shanghai(@start_date, @end_date)
 
-    def product_shanghai_on_day(date)
-      <<-SQL
-      select products.name_zh, count(line_items.quantity) as productsCount
-      from orders, line_items, products, addresses, provinces
-      where orders.id = line_items.order_id
-      and orders.address_id = addresses.id and provinces.id = addresses.province_id and provinces.id = 9
-      and line_items.product_id = products.id
-      and orders.delivery_date = '#{date}'
-      and ( orders.state = 'wait_make' or orders.state = 'wait_ship' )
-      group by products.name_zh
-      order by productsCount desc
-      SQL
-    end
+    @daily_products_with_count = OrderProductsOnDateQuery.daily_products(@start_date, @end_date)
+    @daily_products_in_shanghai_with_count = OrderProductsOnDateQuery.daily_products_in_shanghai(@start_date, @end_date)
 
-    product_total_count_sql = <<-SQL
-select products.name_zh, sum(line_items.quantity) as productsCount
-from orders, line_items, products
-where orders.id = line_items.order_id
-and line_items.product_id = products.id
-and orders.delivery_date > '2013-05-07' and orders.delivery_date < '2013-05-12'
-and ( orders.state = 'wait_make' or orders.state = 'wait_ship' )
-group by products.name_zh
-order by productsCount desc ;
-SQL
-
-    product_shanghai_total_count_sql = <<-SQL
-select products.name_zh, count(line_items.quantity) as productsCount
-from orders, line_items, products, addresses, provinces
-where orders.id = line_items.order_id
-and orders.address_id = addresses.id and provinces.id = addresses.province_id and provinces.id = 9
-and line_items.product_id = products.id
-and orders.delivery_date > '2013-05-07' and orders.delivery_date < '2013-05-12'
-and ( orders.state = 'wait_make' or orders.state = 'wait_ship' )
-group by products.name_zh
-order by productsCount desc
-SQL
-
-    @total_count = ActiveRecord::Base.connection.execute product_total_count_sql
-    @total_shanghai_count = ActiveRecord::Base.connection.execute product_shanghai_total_count_sql
-
-    @watched_result = watched_date.map do |date|
-      result = ActiveRecord::Base.connection.execute product_on_day(date)
-      { date: date, result: result.to_a }
-    end
-
-    @watched_shanghai_result = watched_date.map do |date|
-      result = ActiveRecord::Base.connection.execute product_shanghai_on_day(date)
-      { date: date, result: result.to_a }
-    end
-
-    mail(to: emails, subject: subject("#母亲节备货提醒#{Time.now}"))
+    mail(to: emails, subject: subject("##{@topic}#备货提醒#{Time.now}"))
   end
+
+  helper MailerHelper
 
   private
 
