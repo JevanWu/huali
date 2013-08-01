@@ -30,8 +30,8 @@ feature "Signing in" do
   end
 
   given(:other_user) { User.new(email: 'user@example.com', password: 'rous') }
-  
-  scenario "Signing in with non exist user" do
+
+  scenario "Signing in with wrong credentials" do
     visit '/users/sign_in'
     within("#new_user") do
       fill_in 'user_email', with: other_user.email
