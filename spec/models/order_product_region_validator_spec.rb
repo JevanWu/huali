@@ -1,4 +1,8 @@
-require 'spec_helper'
+require 'spec_helper_lite'
+
+require 'ostruct'
+require 'active_model'
+require 'order_product_region_validator'
 
 describe OrderProductRegionValidator do
 
