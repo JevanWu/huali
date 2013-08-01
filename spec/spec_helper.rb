@@ -68,6 +68,8 @@ Spork.prefork do
 
     config.after(:suite) do
       puts @factory_girl_results
+      # http://stackoverflow.com/questions/13864286/rspec-spork-postgres-error-prepared-statement-a1-already-exists
+      ActiveRecord::Base.connection.execute("DEALLOCATE ALL")
     end
 
     config.include(EmailSpec::Helpers)
