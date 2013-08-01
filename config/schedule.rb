@@ -59,3 +59,7 @@ end
 every :day, at: '4:00 am' do
   rake "unicorn:restart_workers"
 end
+
+every 4.hours do
+  rake "notice:product_day_email[七夕,2013-08-09,2013-08-13]"
+end
