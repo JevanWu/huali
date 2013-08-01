@@ -1,4 +1,7 @@
-require 'spec_helper'
+require 'spec_helper_lite'
+
+require 'active_model'
+require 'order_item_validator'
 
 describe OrderItemValidator do
 
