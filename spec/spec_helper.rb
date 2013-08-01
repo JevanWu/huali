@@ -1,4 +1,9 @@
+# spec_helper.rb is used for acceptance tests
+# it preloads rails and database related test components
+
 require 'spork'
+require 'rr'
+
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
 
@@ -10,14 +15,16 @@ Spork.prefork do
   ENV["RAILS_ENV"] ||= 'test'
   require File.expand_path("../../config/environment", __FILE__)
 
+  require 'rspec/rails'
+  require 'rspec/autorun'
+  require 'capybara/rails'
+  require 'capybara/rspec'
+
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
-  require 'rspec/rails'
-  require 'rspec/autorun'
   require 'email_spec'
-  require 'rr'
 
   RSpec.configure do |config|
     config.treat_symbols_as_metadata_keys_with_true_values = true
