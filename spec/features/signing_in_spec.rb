@@ -1,7 +1,7 @@
 require_relative '../spec_helper'
 
 feature "Signing in" do
-  before(:each) do
+  background do
     FactoryGirl.create(:user, email: 'user@example.com', password: 'caplin')
     # FIXME root page should always be setup up front
     Page.create!(title_en: "Home", title_zh: '首页', permalink: 'home')
