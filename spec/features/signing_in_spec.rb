@@ -1,13 +1,13 @@
 require_relative '../spec_helper'
 
 feature "Signing in" do
-  background do
+  before(:each) do
     FactoryGirl.create(:user, email: 'user@example.com', password: 'caplin')
     # FIXME root page should always be setup up front
     Page.create!(title_en: "Home", title_zh: '首页', permalink: 'home')
   end
 
-  scenario "Signing in with correct credentials" do
+  scenario "Signing in with correct credentials", js: true do
     visit '/users/sign_in'
     within("#new_user") do
       fill_in 'user_email', with: 'user@example.com'
@@ -16,7 +16,6 @@ feature "Signing in" do
     end
     page.find('#flash_notice').should have_content '登录成功'
   end
-
 
   given(:non_exist_user) { User.new(email: 'non_exist_user@example.com', password: 'rous') }
 
