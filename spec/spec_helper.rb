@@ -93,7 +93,7 @@ Spork.prefork do
 
     # For resetting database to a pristine state
     config.before(:suite) do
-      DatabaseCleaner.strategy = :transaction
+      DatabaseCleaner.strategy = :truncation
       DatabaseCleaner.clean_with(:truncation)
     end
 
