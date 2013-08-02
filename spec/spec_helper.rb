@@ -4,12 +4,7 @@
 require 'spork'
 require 'rr'
 require 'capybara/rspec'
-require 'capybara/poltergeist'
-Capybara.javascript_driver = :poltergeist
-
-Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, { js_errors: false })
-end
+Capybara.javascript_driver = :webkit
 
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
