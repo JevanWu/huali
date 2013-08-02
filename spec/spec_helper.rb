@@ -48,6 +48,9 @@ Spork.prefork do
     # FactoryGirl Syntax Mixins
     config.include FactoryGirl::Syntax::Methods
 
+    # Warden helper for stubbed login and logout
+    config.include Warden::Test::Helpers, type: :feature
+
     # FactoryGirl Logging
     config.before(:suite) do
       @factory_girl_results = {}
@@ -101,6 +104,7 @@ Spork.prefork do
 
     config.after(:each) do
       DatabaseCleaner.clean
+      Warden.test_reset!
     end
   end
 end
