@@ -25,11 +25,7 @@ feature "Placing order" do
   end
 
   scenario "Placing order", js: true do
-    p product
-    p product.default_region_rule
-
     visit "/products/#{product.slug}"
-    page.save_screenshot("xx.png")
     click_link('放入购花篮')
 
     within(".order-actions") do
