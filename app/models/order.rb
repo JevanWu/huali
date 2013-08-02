@@ -330,7 +330,7 @@ class Order < ActiveRecord::Base
   end
 
   def pay_order
-    self.payment_total += self.transactions.by_state('completed').map(&:amount).inject(:+)
+    self.payment_total = self.transactions.by_state('completed').map(&:amount).inject(:+)
     save
   end
 
