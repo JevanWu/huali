@@ -4,7 +4,9 @@
 require 'spork'
 require 'rr'
 require 'capybara/rspec'
-Capybara.javascript_driver = :webkit
+Capybara.javascript_driver = :selenium
+#Capybara.javascript_driver = :webkit
+#Capybara.default_wait_time = 5
 
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
@@ -99,6 +101,7 @@ Spork.prefork do
 
     config.before(:each) do
       DatabaseCleaner.start
+      set_selenium_window_size(1250, 800) if Capybara.current_driver == :selenium
     end
 
     config.after(:each) do
@@ -106,6 +109,11 @@ Spork.prefork do
       Warden.test_reset!
     end
   end
+end
+
+def set_selenium_window_size(width, height)
+  window = Capybara.current_session.driver.browser.manage.window
+  window.resize_to(width, height)
 end
 
 Spork.each_run do

@@ -506,6 +506,11 @@ GEM
     ruby-graphviz (1.0.9)
     rubyzip (0.9.9)
     sass (3.2.9)
+    selenium-webdriver (2.33.0)
+      childprocess (>= 0.2.5)
+      multi_json (~> 1.0)
+      rubyzip
+      websocket (~> 1.0.4)
     shoulda-matchers (2.2.0)
       activesupport (>= 3.0.0)
     sidekiq (2.13.0)
@@ -564,6 +569,7 @@ GEM
       raindrops (~> 0.7)
     warden (1.2.3)
       rack (>= 1.0)
+    websocket (1.0.7)
     whenever (0.8.3)
       activesupport (>= 2.3.4)
       chronic (>= 0.6.3)
@@ -649,6 +655,7 @@ DEPENDENCIES
   rspec-rails (>= 2.11.0)
   ruby-graphviz
   sass-rails!
+  selenium-webdriver
   shoulda-matchers
   sidekiq (~> 2.9)
   sidekiq-failures
