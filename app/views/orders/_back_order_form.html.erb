@@ -1,6 +1,6 @@
 <%= simple_form_for @order, url: { action: 'back_order_create' }, html: { class: 'form-horizontal', id: 'new-order' } do |f| %>
   <div class="control-group error section-error">
-    <%= f.full_error :line_items %>
+    <%= error_messages_for_collection(@order.line_items) %>
   </div>
   <fieldset>
     <legend>订单信息</legend>
