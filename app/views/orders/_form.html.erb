@@ -1,6 +1,10 @@
 <%= simple_form_for @order, html: { class: 'form-horizontal', id: 'new-order'} do |f| %>
   <div class="control-group error section-error">
-    <%= f.full_error :line_items %>
+    <% @order.line_items.each do |item| %>
+      <% item.errors[:base].each do |err| %>
+        <span class='help-block'><%= "#{err}" %></span>
+      <% end %>
+    <% end %>
   </div>
   <fieldset>
     <legend>您的个人信息</legend>
