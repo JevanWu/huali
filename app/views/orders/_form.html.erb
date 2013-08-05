@@ -1,10 +1,6 @@
 <%= simple_form_for @order, html: { class: 'form-horizontal', id: 'new-order'} do |f| %>
   <div class="control-group error section-error">
-    <% @order.line_items.each do |item| %>
-      <% item.errors[:base].each do |err| %>
-        <span class='help-block'><%= "#{err}" %></span>
-      <% end %>
-    <% end %>
+    <%= error_messages_for_collection(@order.line_items) %>
   </div>
   <fieldset>
     <legend>您的个人信息</legend>
@@ -22,11 +18,7 @@
   <fieldset>
     <legend>递送信息</legend>
     <div class="control-group error section-error">
-      <% @order.fetch_products.each do |product| %>
-        <% product.errors[:base].each do |err| %>
-          <span class='help-block'><%= "#{err}" %></span>
-        <% end %>
-      <% end %>
+      <%= error_messages_for_collection(@order.fetch_products) %>
     </div>
     <%= f.input :expected_date, as: :string, required:true, input_html: { class: 'datepicker' }, placeholder: '寄给TA的时间', hint: Setting.expected_date_notice %>
 
