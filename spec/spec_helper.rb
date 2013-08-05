@@ -4,9 +4,16 @@
 require 'spork'
 require 'rr'
 require 'capybara/rspec'
-Capybara.javascript_driver = :selenium
+#Capybara.javascript_driver = :selenium
 #Capybara.javascript_driver = :webkit
-#Capybara.default_wait_time = 5
+#Capybara.javascript_driver = :webkit_debug
+
+# chrome driver
+Capybara.register_driver :chrome do |app|
+  proxy = { proxyType: 'pac', proxyAutoconfigUrl: 'http://127.0.0.1:8086/proxy.pac' }
+  Capybara::Selenium::Driver.new(app, browser: :chrome, proxy: proxy)
+end
+Capybara.javascript_driver = :chrome
 
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
