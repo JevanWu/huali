@@ -340,7 +340,7 @@ class Order < ActiveRecord::Base
   end
 
   def validate_product_delivery_date?
-    not_yet_shipped? && !bypass_date_validation
+    expected_date.present? && not_yet_shipped? && !bypass_date_validation
   end
 
   def delivery_date_must_be_less_than_expected_date
