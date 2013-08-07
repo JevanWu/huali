@@ -2,6 +2,8 @@ zh-CN:
   active_admin:
     ship_model: 货运订单
     check_model: 审核订单
+    access_denied:
+      message: 访问受限
 
     scopes:
       all: 全部
