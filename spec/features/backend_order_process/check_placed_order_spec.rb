@@ -1,6 +1,6 @@
-require_relative '../spec_helper'
+require 'spec_helper'
 
-feature "Checking placed order" do
+feature "Check placed order" do
   let(:admin) { create(:administrator, email: 'admin@example.com', password: 'adminx', password_confirmation: 'adminx') }
 
   scenario "Check sucessfully" do

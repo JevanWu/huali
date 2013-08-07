@@ -1,6 +1,6 @@
-require_relative '../spec_helper'
+require 'spec_helper'
 
-feature "Making order" do
+feature "Make order" do
   let(:admin) { create(:administrator, email: 'admin@example.com', password: 'adminx', password_confirmation: 'adminx') }
   let(:ship_method) { create(:ship_method, name: 'USPS') }
   given(:order) do
@@ -13,7 +13,7 @@ feature "Making order" do
     login_as(admin, scope: :administrator)
   end
 
-  scenario "Making successfully", js: true do
+  scenario "Make successfully", js: true do
     visit "/admin/orders/#{order.id}"
     click_link '制作'
     page.driver.browser.switch_to.alert.accept

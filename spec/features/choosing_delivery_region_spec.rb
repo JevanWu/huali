@@ -1,4 +1,4 @@
-require_relative '../spec_helper'
+require 'spec_helper'
 
 feature "Choosing delivery region" do
   let(:province) { create(:province, name: '上海市') }

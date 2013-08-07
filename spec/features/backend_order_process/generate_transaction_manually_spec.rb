@@ -1,6 +1,6 @@
-require_relative '../spec_helper'
+require 'spec_helper'
 
-feature "Manually transaction generating for order" do
+feature "Generate transaction manually for order" do
   let(:admin) { create(:administrator, email: 'admin@example.com', password: 'adminx', password_confirmation: 'adminx') }
   let(:ship_method) { create(:ship_method, name: 'USPS') }
   given(:order) { create(:order) }
