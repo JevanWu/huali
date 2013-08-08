@@ -18,12 +18,17 @@ class OrderItemValidator < ActiveModel::Validator
     item_valid = true
 
     unless line_item.published
-      line_item.errors.add(:product, :unavailable_product)
+      line_item.errors.add(:base, :product_unavailable, product_name: line_item.name)
       item_valid = false
     end
 
     unless line_item.quantity > 0
-      line_item.errors.add(:product, :invalid_quantity)
+      line_item.errors.add(:base, :product_of_invalid_quantity, product_name: line_item.name)
+      item_valid = false
+    end
+
+    unless line_item.sufficient_stock?
+      line_item.errors.add(:base, :product_out_of_stock, product_name: line_item.name)
       item_valid = false
     end
 

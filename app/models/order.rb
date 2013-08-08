@@ -127,10 +127,11 @@ class Order < ActiveRecord::Base
   end
 
   # Skip date and region validation in statemachine
-  [:pay, :check, :make].each do |m|
+  [:pay, :check, :make, :cancel].each do |m|
     define_method(m) do |*args|
       self.bypass_date_validation = true
       self.bypass_region_validation = true
+      self.bypass_product_validation = true
 
       super(*args)
     end
@@ -339,7 +340,7 @@ class Order < ActiveRecord::Base
   end
 
   def validate_product_delivery_date?
-    not_yet_shipped? && !bypass_date_validation
+    expected_date.present? && not_yet_shipped? && !bypass_date_validation
   end
 
   def delivery_date_must_be_less_than_expected_date
