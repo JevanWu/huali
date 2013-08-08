@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature "Delete category" do
+feature "Delete ship method" do
   given(:super_admin) { create(:administrator, role: 'super') }
 
   background do
