@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-feature "Delete category" do
-  given(:super_admin) { create(:administrator, email: 'admin@example.com', password: 'adminx', password_confirmation: 'adminx', role: 'super') }
+feature "Delete user" do
+  given(:super_admin) { create(:administrator, role: 'super') }
 
   background do
     login_as(super_admin, scope: :administrator)

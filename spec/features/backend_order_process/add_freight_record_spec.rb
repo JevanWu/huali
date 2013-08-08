@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 feature "Add freight record for order" do
-  let(:admin) { create(:administrator, email: 'admin@example.com', password: 'adminx', password_confirmation: 'adminx') }
+  let(:admin) { create(:administrator) }
   let(:ship_method) { create(:ship_method, name: 'USPS') }
   given(:order) do
     create(:order, :wait_check, ship_method: ship_method).tap do |o|

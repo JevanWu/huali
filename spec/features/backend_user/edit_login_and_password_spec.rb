@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 feature "Edit login and password for user" do
-  given(:admin) { create(:administrator, email: 'admin@example.com', password: 'admin123', password_confirmation: 'admin123') }
+  given(:admin) { create(:administrator) }
 
   background do
     login_as(admin, scope: :administrator)

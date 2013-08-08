@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 feature "List administrator" do
-  given(:admin) { create(:administrator, email: 'admin@example.com', password: 'admin123', password_confirmation: 'admin123') }
-  given(:super_admin) { create(:administrator, email: 'admin@example.com', password: 'adminx', password_confirmation: 'adminx', role: 'super') }
+  given(:admin) { create(:administrator, email: 'admin@example.com') }
+  given(:super_admin) { create(:administrator, role: 'super') }
 
   background do
     create(:administrator, email: 'admin1@example.com')

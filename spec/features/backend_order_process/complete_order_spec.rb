@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 feature "Complete order" do
-  let(:admin) { create(:administrator, email: 'admin@example.com', password: 'adminx', password_confirmation: 'adminx') }
+  let(:admin) { create(:administrator) }
 
   given(:order) do
     o = create(:order,

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 feature "Show administrator" do
-  given(:super_admin) { create(:administrator, email: 'admin@example.com', password: 'adminx', password_confirmation: 'adminx', role: 'super') }
+  given(:super_admin) { create(:administrator, role: 'super') }
 
   given(:admin) { create(:administrator, email: 'admin1@example.com') }
 

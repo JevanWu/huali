@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 feature "Cancel order" do
-  let(:admin) { create(:administrator, email: 'admin@example.com', password: 'adminx', password_confirmation: 'adminx') }
+  let(:admin) { create(:administrator) }
   let(:ship_method) { create(:ship_method, name: 'USPS') }
 
   background do

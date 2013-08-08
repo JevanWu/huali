@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 feature "Show user" do
-  let(:admin) { create(:administrator, email: 'admin@example.com', password: 'adminx', password_confirmation: 'adminx') }
+  let(:admin) { create(:administrator) }
 
   background do
     login_as(admin, scope: :administrator)
