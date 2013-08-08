@@ -11,7 +11,12 @@ namespace :notice do
 
   desc "Notify about heavy day preparation"
   task :product_day_email, [:topic, :start_date, :end_date]=> :environment do |t, args|
-    Notify.delay.product_day_email(args[:topic],
+    Notify.delay.product_day_email_wait_delivery(args[:topic],
+                                   args[:start_date],
+                                   args[:end_date],
+                                   'team@hua.li')
+
+    Notify.delay.product_day_email_delivered(args[:topic],
                                    args[:start_date],
                                    args[:end_date],
                                    'team@hua.li')
