@@ -9,16 +9,6 @@
           数量
         </th>
       </tr>
-      <tr>
-        <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
-          总数
-        </td>
-        <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
-          <%= find_product_count_from_collection(@summary_products_with_count) %>
-          <span>上海: </span>
-          <%= find_product_count_from_collection(@summary_products_in_shanghai_with_count) %>
-        </td>
-      </tr>
       <% @summary_products_with_count.each do |product_with_count| %>
       <tr>
         <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
@@ -31,6 +21,16 @@
         </td>
       </tr>
       <% end %>
+      <tr class="dataTableSummary">
+        <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
+          合计
+        </td>
+        <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
+          <%= find_product_count_from_collection(@summary_products_with_count) %>
+          <span>上海: </span>
+          <%= find_product_count_from_collection(@summary_products_in_shanghai_with_count) %>
+        </td>
+      </tr>
     </table>
   </td>
 </tr>
@@ -69,7 +69,7 @@
         </td>
       </tr>
       <% end %>
-      <tr>
+      <tr class="dataTableSummary">
         <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
           合计
         </td>

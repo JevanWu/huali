@@ -228,6 +228,10 @@ h4, .h4{
   text-align:left;
 }
 
+.dataTableSummary td{
+  @extend .dataTableHeading;
+}
+
 /**
  * @tab Body
  * @section data table heading link
