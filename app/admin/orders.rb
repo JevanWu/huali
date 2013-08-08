@@ -115,6 +115,7 @@ ActiveAdmin.register Order do
   filter :address_province_name, as: :string
   filter :address_city_name, as: :string
   filter :address_address, as: :string
+  filter :ship_method
 
   member_action :pay  do
     order = Order.find_by_id(params[:id])
