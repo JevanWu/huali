@@ -1,7 +1,7 @@
 namespace :notice do
   desc "Notify Danqing Today's Order"
   task today_order_sms: :environment do
-    Sms.delay.date_wait_make_order(Date.current, '13671898460', '15026667992', '15900646773')
+    Sms.delay.date_wait_make_order(Date.current, '13671898460', '15026667992', '15900646773', '18305662999')
   end
 
   desc "Notify about Today's Summary"
