@@ -276,6 +276,12 @@ zh-CN:
         excluded_dates: 排除日期
         excluded_weekdays: 排除星期
 
+      default_region_rule:
+        name: 规则名称
+
+      local_region_rule:
+        name: 规则名称
+
   models:
     order:
       state:

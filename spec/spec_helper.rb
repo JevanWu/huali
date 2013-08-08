@@ -59,6 +59,8 @@ Spork.prefork do
     # Warden helper for stubbed login and logout
     config.include Warden::Test::Helpers, type: :feature
 
+    config.include RegionRuleHelper, type: :feature
+
     # FactoryGirl Logging
     config.before(:suite) do
       @factory_girl_results = {}
