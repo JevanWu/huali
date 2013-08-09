@@ -9,11 +9,11 @@ class OrderProductsOnDateQuery < ActiveRecord::Base
       select("products.name_zh, sum(line_items.quantity) as product_count").
       joins(line_items: :product).
       group("products.name_zh").
-      order("product_count desc").
-      watchable
+      order("product_count desc")
   }
 
-  scope :watchable, -> { where("state = 'wait_make' or state = 'wait_ship'") }
+  scope :wait_delivery, -> { where("state = 'wait_make' or state = 'wait_ship'") }
+  scope :delivered, -> { where("state = 'wait_confirm' or state = 'completed'") }
   scope :in_shanghai, -> { joins(address: :province).where('provinces.id = 9') }
   scope :on_date, ->(date) { where(delivery_date: date) }
   scope :on_date_span, ->(start_date, end_date) { where("orders.delivery_date >= ? and orders.delivery_date <= ?", start_date, end_date) }

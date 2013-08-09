@@ -68,7 +68,7 @@ class Order < ActiveRecord::Base
 
   validates_with OrderProductRegionValidator, if: :validate_product_delivery_region?
   validates_with OrderProductDateValidator, if: :validate_product_delivery_date?
-  validates_with OrderItemValidator, unless: lambda { |order| order.bypass_product_validation }
+  validates_with OrderItemValidator, if: lambda { |order| order.not_yet_shipped? && !order.bypass_product_validation }
   validates_with OrderCouponValidator, unless: lambda { |order| order.coupon_code_blank? }
 
   # only validate once on Date.today, because in future Date.today will change
