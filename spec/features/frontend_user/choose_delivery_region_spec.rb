@@ -38,4 +38,29 @@ feature "Choose delivery region" do
       select('虹口区', from: '区域')
     end
   end
+
+  scenario 'Query postcode by address', js: true do
+    visit "/products/#{product.slug}"
+    click_link('放入购花篮')
+
+    within(".order-actions") do
+      click_link('确定')
+    end
+
+    within("#new-order") do
+      select('上海市', from: '省份')
+      page.should have_content('市辖区')
+
+      select('市辖区', from: '城市')
+      page.should have_content('虹口区')
+
+      select('虹口区', from: '区域')
+
+      click_link '查询邮编'
+
+      close_previous_window
+
+      page.should be_true
+    end
+  end
 end
