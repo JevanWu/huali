@@ -48,7 +48,7 @@ FactoryGirl.define do
 
     after(:build) do |order|
       [1, 2, 3].sample.times do
-        order.line_items << create(:line_item)
+        order.line_items << build(:line_item)
       end
     end
 
