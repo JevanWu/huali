@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature "Choosing delivery region" do
+feature "Choose delivery region" do
   let(:province) { create(:province, name: '上海市') }
   let(:city) { create(:city, name: '市辖区', province: province) }
   let(:area) { create(:area, name: '虹口区', city: city) }
