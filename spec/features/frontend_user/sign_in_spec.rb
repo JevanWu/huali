@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature "Signing in" do
+feature "Sign in" do
   background do
     FactoryGirl.create(:user, email: 'user@example.com', password: 'caplin')
     # FIXME root page should always be setup up front
