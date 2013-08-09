@@ -61,5 +61,5 @@ every :day, at: '4:00 am' do
 end
 
 every 4.hours do
-  rake "notice:product_day_email[七夕,2013-08-05,2013-08-13]"
+  rake "notice:busy_day_email[七夕,2013-08-05,2013-08-13]"
 end

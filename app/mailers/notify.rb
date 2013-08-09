@@ -58,19 +58,54 @@ class Notify < ActionMailer::Base
     mail(to: emails, subject: subject("#{@date}的订单小结"))
   end
 
-  def product_day_email(topic, start_date, end_date, *emails)
+  def product_day_email_wait_delivery(topic, start_date, end_date, *emails)
     @topic = topic
     @start_date = start_date.to_date
     @end_date = end_date.to_date
     @days = (@start_date..@end_date).to_a.size
 
-    @summary_products_with_count = OrderProductsOnDateQuery.summary_products(@start_date, @end_date)
-    @summary_products_in_shanghai_with_count = OrderProductsOnDateQuery.summary_products_in_shanghai(@start_date, @end_date)
+    @summary_products_with_count = OrderProductsOnDateQuery
+                                    .wait_delivery
+                                    .summary_products(@start_date, @end_date)
 
-    @daily_products_with_count = OrderProductsOnDateQuery.daily_products(@start_date, @end_date)
-    @daily_products_in_shanghai_with_count = OrderProductsOnDateQuery.daily_products_in_shanghai(@start_date, @end_date)
+    @summary_products_in_shanghai_with_count = OrderProductsOnDateQuery
+                                    .wait_delivery
+                                    .summary_products_in_shanghai(@start_date, @end_date)
+
+    @daily_products_with_count = OrderProductsOnDateQuery
+                                  .wait_delivery
+                                  .daily_products(@start_date, @end_date)
+
+    @daily_products_in_shanghai_with_count = OrderProductsOnDateQuery
+                                  .wait_delivery
+                                  .daily_products_in_shanghai(@start_date, @end_date)
 
     mail(to: emails, subject: subject("##{@topic}#备货提醒#{Time.now}"))
+  end
+
+  def product_day_email_delivered(topic, start_date, end_date, *emails)
+    @topic = topic
+    @start_date = start_date.to_date
+    @end_date = end_date.to_date
+    @days = (@start_date..@end_date).to_a.size
+
+    @summary_products_with_count = OrderProductsOnDateQuery
+                                    .delivered
+                                    .summary_products(@start_date, @end_date)
+
+    @summary_products_in_shanghai_with_count = OrderProductsOnDateQuery
+                                    .delivered
+                                    .summary_products_in_shanghai(@start_date, @end_date)
+
+    @daily_products_with_count = OrderProductsOnDateQuery
+                                  .delivered
+                                  .daily_products(@start_date, @end_date)
+
+    @daily_products_in_shanghai_with_count = OrderProductsOnDateQuery
+                                  .delivered
+                                  .daily_products_in_shanghai(@start_date, @end_date)
+
+    mail(to: emails, subject: subject("##{@topic}#已经发货备忘#{Time.now}"))
   end
 
   helper MailerHelper
