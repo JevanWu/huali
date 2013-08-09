@@ -60,6 +60,7 @@ Spork.prefork do
     config.include Warden::Test::Helpers, type: :feature
 
     config.include RegionRuleHelper, type: :feature
+    config.include CustomCapybaraHelper, type: :feature
 
     # FactoryGirl Logging
     config.before(:suite) do

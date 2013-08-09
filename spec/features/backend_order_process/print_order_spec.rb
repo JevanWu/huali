@@ -52,9 +52,7 @@ feature "Print shipment" do
     visit "/admin/orders/#{order.id}"
     click_link '打印快递'
 
-    within_window(page.driver.browser.window_handles.first) do
-      page.driver.browser.close
-    end
+    close_previous_window
 
     page.should have_content('货单未生成, 请先生成货单')
   end
@@ -65,9 +63,7 @@ feature "Print shipment" do
     visit "/admin/orders/#{order.id}"
     click_link '打印快递'
 
-    within_window(page.driver.browser.window_handles.first) do
-      page.driver.browser.close
-    end
+    close_previous_window
 
     page.should have_content(order.address.fullname)
     page.should have_content(order.address.phone)
