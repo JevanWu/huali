@@ -16,8 +16,8 @@
         </td>
         <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
           <%= product_with_count['product_count'] %>
-          <span>上海: </span>
-          <%= find_product_count_from_collection(@summary_products_in_shanghai_with_count, product_with_count['name_zh']) %>
+          <span>人工: </span>
+          <%= find_product_count_from_collection(@summary_products_manual_with_count, product_with_count['name_zh']) %>
         </td>
       </tr>
       <% end %>
@@ -27,8 +27,8 @@
         </td>
         <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
           <%= find_product_count_from_collection(@summary_products_with_count) %>
-          <span>上海: </span>
-          <%= find_product_count_from_collection(@summary_products_in_shanghai_with_count) %>
+          <span>人工: </span>
+          <%= find_product_count_from_collection(@summary_products_manual_with_count) %>
         </td>
       </tr>
     </table>
@@ -64,8 +64,8 @@
         </td>
         <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
           <%= product_with_count['product_count'] %>
-          <span>上海: </span>
-          <%= find_product_count_from_collection(@daily_products_in_shanghai_with_count, product_with_count['name_zh'], result[:date]) %>
+          <span>人工: </span>
+          <%= find_product_count_from_collection(@daily_products_manual_with_count, product_with_count['name_zh'], result[:date]) %>
         </td>
       </tr>
       <% end %>
@@ -75,8 +75,8 @@
         </td>
         <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
           <%= find_product_count_from_collection(result[:result]) %>
-          <span>上海: </span>
-          <%= find_product_count_from_collection(@daily_products_in_shanghai_with_count, nil, result[:date]) %>
+          <span>人工: </span>
+          <%= find_product_count_from_collection(@daily_products_manual_with_count, nil, result[:date]) %>
         </td>
       </tr>
     </table>
