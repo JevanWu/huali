@@ -11,7 +11,7 @@
   <div id="content">
     <p id="receiver"></p>
     <div id="body">
-      <div> 
+      <div>
         <p> <%= @order.gift_card_text %> </p>
       </div>
       <p></p>
@@ -48,10 +48,7 @@
       <div class="controls">
         <select name="font-family-input" id="font-family-input" class="span2">
           <% fonts = [
-            { text: '方正硬笔行书简体', name: 'FZYingBiXingShu-S16S' }, 
-            { text: '方正硬笔楷书简体', name: 'FZYingBiKaiShu-S15S' }, 
-            { text: '方正启体简体', name: 'FZQiTi-S14S' },
-            { text: '迷你简瘦金书', name: '迷你简瘦金书' }
+            { text: '方正硬笔楷书简体', name: 'FZYingBiKaiShu-S15S' }
           ] %>
         <% fonts.each do |font| %>
           <%# Chrome on win only recoginze the name %>
