@@ -1,19 +1,14 @@
-Necessary Before Release:
- ☐ Optimize Chinese Font
+Factor Out the Validators from Order to FormObjects:
+ ☐ Added specs for current behavior, get to know the responsibility of this objects
+ ☐ build the right association in persistency 
+ ☐ i18n tranlation migration for attributes 
+ ☐ i18n for error messages  
+ ☐ Make Taobao Order and Special Order Tick 
+ ☐ Make ActiveAdmin use the FormObject as well 
 
-Potential Features:
- ☐ Edit Robot.txt to enable Search Engine
-
-SEO:
- ☐ generate sitemap.xml with sitemap
- ☐ add meta data for each individual page
- ☐ Render Different Title in different controller
-
-Content Preparation:
-   Fill in static page:
-   Product Photos:
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ Render Different Title in different controller @done (13-08-12 20:59) @project(SEO)
  ✔ github two issues @yangchenyun @done (12-10-18 18:02)
  ✔ footnote add helpcenter page, remove sitemap @done (12-10-18 18:02)
  ✔ Add a phone banner on layout @yangchenyun -> @done (12-10-18 17:52)
