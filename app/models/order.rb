@@ -68,7 +68,7 @@ class Order < ActiveRecord::Base
 
   validates_with OrderProductRegionValidator, if: :validate_product_delivery_region?
   validates_with OrderProductDateValidator, if: :validate_product_delivery_date?
-  validates_with OrderProductValidator, unless: lambda { |order| order.bypass_product_validation }
+  validates_with OrderItemValidator, if: lambda { |order| order.not_yet_shipped? && !order.bypass_product_validation }
   validates_with OrderCouponValidator, unless: lambda { |order| order.coupon_code_blank? }
 
   # only validate once on Date.today, because in future Date.today will change
@@ -127,10 +127,11 @@ class Order < ActiveRecord::Base
   end
 
   # Skip date and region validation in statemachine
-  [:pay, :check, :make].each do |m|
+  [:pay, :check, :make, :cancel].each do |m|
     define_method(m) do |*args|
       self.bypass_date_validation = true
       self.bypass_region_validation = true
+      self.bypass_product_validation = true
 
       super(*args)
     end
@@ -330,7 +331,7 @@ class Order < ActiveRecord::Base
   end
 
   def pay_order
-    self.payment_total += self.transactions.by_state('completed').map(&:amount).inject(:+)
+    self.payment_total = self.transactions.by_state('completed').map(&:amount).inject(:+)
     save
   end
 
@@ -339,7 +340,7 @@ class Order < ActiveRecord::Base
   end
 
   def validate_product_delivery_date?
-    not_yet_shipped? && !bypass_date_validation
+    expected_date.present? && not_yet_shipped? && !bypass_date_validation
   end
 
   def delivery_date_must_be_less_than_expected_date

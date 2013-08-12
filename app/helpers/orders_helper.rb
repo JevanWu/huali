@@ -97,4 +97,12 @@ module OrdersHelper
     end
     link_to(name, '#', class: "add_fields", data: {id: id, fields: fields.gsub('\n', '')})
   end
+
+  def error_messages_for_collection(collection)
+    collection.map do |item|
+      item.errors[:base].map do |err|
+        content_tag('span', err, class: 'help-block')
+      end
+    end.flatten.join.html_safe
+  end
 end

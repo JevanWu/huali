@@ -1,4 +1,12 @@
+# spec_helper.rb is used for acceptance tests
+# it preloads rails and database related test components
+
 require 'spork'
+require 'rr'
+require 'capybara/rspec'
+require 'capybara/poltergeist'
+Capybara.javascript_driver = :poltergeist
+
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
 
@@ -10,14 +18,19 @@ Spork.prefork do
   ENV["RAILS_ENV"] ||= 'test'
   require File.expand_path("../../config/environment", __FILE__)
 
+  # tweak Rails for faster tests
+  Rails.logger.level = 4
+
+  require 'rspec/rails'
+  require 'rspec/autorun'
+  require 'capybara/rails'
+
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
-  require 'rspec/rails'
-  require 'rspec/autorun'
   require 'email_spec'
-  require 'rr'
+
 
   RSpec.configure do |config|
     config.treat_symbols_as_metadata_keys_with_true_values = true
@@ -55,6 +68,8 @@ Spork.prefork do
 
     config.after(:suite) do
       puts @factory_girl_results
+      # http://stackoverflow.com/questions/13864286/rspec-spork-postgres-error-prepared-statement-a1-already-exists
+      ActiveRecord::Base.connection.execute("DEALLOCATE ALL")
     end
 
     config.include(EmailSpec::Helpers)
