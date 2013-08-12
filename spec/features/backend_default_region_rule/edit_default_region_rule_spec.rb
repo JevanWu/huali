@@ -27,9 +27,7 @@ feature 'Edit default region rule' do
     check_and_open_child('广东省')
     check_and_open_child('广州市')
     uncheck '天河区'
-
-    all("button[title='close']")[1].click
-    find("button[title='close']").click
+    close_region_popups
 
     click_button '更新默认递送地域规则'
 

@@ -11,4 +11,9 @@ module RegionRuleHelper
     check region
     find('label', text: region).first(:xpath,".//..").find_button('+').click
   end
+
+  def close_region_popups
+    all("button[title='close']")[1].click
+    find("button[title='close']").click
+  end
 end
