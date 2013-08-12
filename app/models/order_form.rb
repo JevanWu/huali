@@ -131,9 +131,8 @@ class OrderForm
   end
 
   def valid?
-    sender.valid? 
-    address.valid?
-    super
+    # trigger valid? to populate errors
+    [sender.valid?, address.valid?, super].inject(:&)
   end
 
   private
