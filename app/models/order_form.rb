@@ -97,8 +97,12 @@ class OrderForm
 
   validates_with OrderProductRegionValidator, if: :validate_product_delivery_region?
   validates_with OrderProductDateValidator, if: :validate_product_delivery_date?
-  # validates_with OrderProductValidator, unless: lambda { |order| order.bypass_product_validation }
+  validates_with OrderItemValidator, if: :validate_item?
   validates_with OrderCouponValidator, unless: lambda { |order| order.coupon_code.blank? }
+
+  def validate_item?
+    not_yet_shipped? && !bypass_product_validation
+  end
 
   def validate_product_delivery_region?
     not_yet_shipped? && !bypass_region_validation
