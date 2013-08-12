@@ -1,7 +1,15 @@
+require 'virtus'
+require 'active_model'
+require 'order_product_region_validator'
+require 'order_product_date_validator'
+require 'order_coupon_validator'
+require 'order_product_validator'
+
 class ReceiverInfo
   include Virtus
   extend ActiveModel::Naming
   extend ActiveModel::Translation
+  include ActiveModel::Validations
 
   attr_reader :errors
 
@@ -12,6 +20,8 @@ class ReceiverInfo
   attribute :area_id, String
   attribute :address, String
   attribute :post_code, String
+
+  validates_presence_of :fullname, :address, :phone, :province_id, :city_id, :post_code
 
   def initialize(*)
     super
@@ -39,10 +49,18 @@ end
 
 class UserInfo
   include Virtus
+  include ActiveModel::Validations
+
+  def initialize(*)
+    super
+    @errors = ActiveModel::Errors.new(self)
+  end
 
   attribute :name, String
   attribute :email, String
   attribute :phone, String
+
+  validates_presence_of :email, :phone, :name
 end
 
 module OrderInfo
@@ -110,6 +128,12 @@ class OrderForm
   def add_line_item(id, quantity)
     # use << won't coerce the Item object
     self.line_items += [ {id: id, quantity: quantity} ]
+  end
+
+  def valid?
+    sender.valid? 
+    address.valid?
+    super
   end
 
   private
