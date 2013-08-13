@@ -11,7 +11,7 @@ class AreasController < ApplicationController
         .region_rule.available_area_ids_in_a_city(params[:city_id])
     end.reduce(:&)
 
-    areas = Area.find_all_by_id(area_ids)
+    areas = Area.where(id: area_ids)
     respond_with(areas)
   end
 

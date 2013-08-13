@@ -18,8 +18,8 @@ module TransactionsHelper
     when "generated"
       link_to(t('models.transaction.state.start'), start_admin_transaction_path(transaction))
     when "processing"
-      link_to(t('models.transaction.state.complete'), complete_admin_transaction_path(transaction), confirm: t('views.admin.transaction.confirm_complete')) + \
-      link_to(t('models.transaction.state.failure'), fail_admin_transaction_path(transaction), confirm: t('views.admin.transaction.confirm_fail'))
+      link_to(t('models.transaction.state.complete'), complete_admin_transaction_path(transaction), data: { confirm: t('views.admin.transaction.confirm_complete') }) + \
+      link_to(t('models.transaction.state.failure'), fail_admin_transaction_path(transaction), data: { confirm: t('views.admin.transaction.confirm_fail') })
     end
     content_tag('div', buttons, id: 'process-buttons')
   end
