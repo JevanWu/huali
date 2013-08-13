@@ -12,7 +12,7 @@ feature "Delete user" do
 
     visit "/admin/users"
     find("#user_#{user.id}").click_link("删除")
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm
 
     page.should_not have_content('user1@example.com')
   end

@@ -12,7 +12,7 @@ feature "Delete ship method" do
 
     visit "/admin/ship_methods"
     find("#ship_method_#{ship_method.id}").click_link("删除")
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm
 
     page.should_not have_content('UPS')
 

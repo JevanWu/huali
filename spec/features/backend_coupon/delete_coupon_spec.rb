@@ -12,7 +12,7 @@ feature "Delete coupon" do
 
     visit "/admin/coupons"
     find("#coupon_#{coupon.id}").click_link("删除")
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm
 
     page.should_not have_content('七夕促销')
   end

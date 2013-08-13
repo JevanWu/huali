@@ -86,7 +86,7 @@ feature "Edit product" do
 
     visit "/admin/products/#{product.slug}/edit"
     first(:link, 'Remove Above Image').click
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm
     click_button '更新产品'
 
     visit "/products/#{product.slug}"

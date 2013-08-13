@@ -12,7 +12,7 @@ feature "Delete product" do
 
     visit "/admin/products"
     find("#product_#{product.id}").click_link("删除")
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm
 
     page.should_not have_content('红宝石')
   end

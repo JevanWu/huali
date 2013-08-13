@@ -21,7 +21,7 @@ feature "Generate transaction manually for order" do
     page.should have_content('交易状态变更为处理中')
     page.should have_content(/订单.*?#{order.identifier}/)
     click_link '完成'
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm
 
     page.should have_content('交易状态变更为成功')
     page.should have_content(/订单.*?#{order.identifier}/)
@@ -43,7 +43,7 @@ feature "Generate transaction manually for order" do
     page.should have_content('交易状态变更为处理中')
     page.should have_content(/订单.*?#{order.identifier}/)
     click_link '失败'
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm
 
     page.should have_content('交易状态变更为失败')
     page.should have_content(/订单.*?#{order.identifier}/)

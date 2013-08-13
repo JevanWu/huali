@@ -16,7 +16,7 @@ feature "Make order" do
   scenario "Make successfully", js: true do
     visit "/admin/orders/#{order.id}"
     click_link '制作'
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm
 
     page.should have_content('订单状态变更为等待发货')
   end

@@ -20,7 +20,7 @@ feature "Ship order" do
     visit "/admin/orders/#{order.id}"
     click_link('发货')
     click_link('发货')
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm
 
     page.should have_content('递送状态变更为已发货')
   end
@@ -35,7 +35,7 @@ feature "Ship order" do
     click_button '创建货运记录'
 
     click_link('发货')
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm
 
     page.should have_content('递送状态变更为已发货')
   end

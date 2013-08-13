@@ -20,7 +20,7 @@ feature "Complete order" do
     visit "/admin/orders/#{order.id}"
 
     click_link('确认')
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm
 
     page.should have_content('递送状态变更为已经送达')
     find("#shipment_#{order.shipment.id}").should have_content('已经送达')

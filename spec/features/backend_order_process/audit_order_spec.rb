@@ -14,7 +14,7 @@ feature "Audit order" do
 
     visit "/admin/orders/#{o.id}"
     click_link '审核'
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm
 
     within("form.order") do
       fill_in '发货日期', with: "#{o.expected_date - 1}"
@@ -25,7 +25,7 @@ feature "Audit order" do
     end
 
     click_link '审核'
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm
 
     page.should have_content('订单状态变更为等待制作')
   end
@@ -35,7 +35,7 @@ feature "Audit order" do
 
     visit "/admin/orders/#{o.id}"
     click_link '审核'
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm
 
     page.should have_content('订单状态变更为等待制作')
   end

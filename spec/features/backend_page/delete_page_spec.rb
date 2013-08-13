@@ -12,7 +12,7 @@ feature "Delete page" do
 
     visit "/admin/pages"
     find("#page_#{single_page.id}").click_link("删除")
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm
 
     page.should_not have_content('关于我们')
   end

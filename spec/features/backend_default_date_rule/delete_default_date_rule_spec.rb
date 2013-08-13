@@ -12,7 +12,7 @@ feature "Delete default date rule" do
 
     visit "/admin/default_date_rules"
     find("#default_date_rule_#{default_date_rule.id}").click_link("删除")
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm
 
     page.should_not have_content('规则1')
   end

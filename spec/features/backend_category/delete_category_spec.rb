@@ -12,7 +12,7 @@ feature "Delete category" do
 
     visit "/admin/collections"
     find("#collection_#{category.id}").click_link("删除")
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm
 
     page.should_not have_content('婚礼')
     page.should_not have_content('wedding')

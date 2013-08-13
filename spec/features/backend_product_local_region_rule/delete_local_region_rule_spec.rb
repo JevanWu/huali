@@ -12,7 +12,7 @@ feature "Delete local region rule of product" do
   scenario "Delete successfully", js: true do
     visit "/admin/products/#{product.slug}/edit"
     find("#region_rules").find_link('移除规则').click
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm
     click_button '更新产品'
 
     visit "/admin/products/#{product.slug}/edit"

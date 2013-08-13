@@ -13,7 +13,7 @@ feature "Cancel order" do
     visit "/admin/orders/#{order.id}"
 
     click_link('取消')
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm
 
     page.should have_content('订单状态变更为取消')
     find("#order_#{order.id}").should have_content('取消')
@@ -24,7 +24,7 @@ feature "Cancel order" do
     visit "/admin/orders/#{order.id}"
 
     click_link('取消')
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm
 
     page.should have_content('订单状态变更为取消')
     find("#order_#{order.id}").should have_content('等待退款')
@@ -38,7 +38,7 @@ feature "Cancel order" do
     visit "/admin/orders/#{order.id}"
 
     click_link('取消')
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm
 
     page.should have_content('订单状态变更为取消')
     find("#order_#{order.id}").should have_content('等待退款')
@@ -53,7 +53,7 @@ feature "Cancel order" do
     visit "/admin/orders/#{order.id}"
 
     click_link('取消')
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm
 
     page.should have_content('订单状态变更为取消')
     find("#order_#{order.id}").should have_content('等待退款')
@@ -69,7 +69,7 @@ feature "Cancel order" do
     visit "/admin/orders/#{order.id}"
 
     click_link('取消')
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm
 
     page.should have_content('订单状态变更为取消')
     find("#order_#{order.id}").should have_content('等待退款')

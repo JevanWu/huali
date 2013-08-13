@@ -14,7 +14,7 @@ feature "Delete user account" do
     visit '/users/edit'
 
     click_on '取消我的帐户'
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm
 
     page.should have_content('再见！您的帐户已成功注销。我们希望很快可以再见到您')
 

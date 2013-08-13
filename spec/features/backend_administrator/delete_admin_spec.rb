@@ -12,7 +12,7 @@ feature "Delete administrator" do
 
     visit "/admin/administrators"
     find("#administrator_#{admin.id}").click_link("删除")
-    page.driver.browser.switch_to.alert.accept
+    accept_confirm
 
     page.should_not have_content('admin1@example.com')
   end
