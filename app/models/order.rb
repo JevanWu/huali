@@ -33,6 +33,8 @@
 #  index_orders_on_identifier  (identifier) UNIQUE
 #  index_orders_on_user_id     (user_id)
 #
+require 'enumerize'
+require 'state_machine'
 
 class Order < ActiveRecord::Base
   attr_accessor :bypass_region_validation, :bypass_date_validation,
