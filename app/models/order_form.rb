@@ -3,21 +3,23 @@ require 'active_model'
 require 'order_product_region_validator'
 require 'order_product_date_validator'
 require 'order_coupon_validator'
-require 'order_product_validator'
+require 'order_item_validator'
 
 class ReceiverInfo
   include Virtus
+  include Virtus::ValueObject
   extend ActiveModel::Naming
   extend ActiveModel::Translation
   include ActiveModel::Validations
+  include ActiveModel::Conversion
 
   attr_reader :errors
 
   attribute :fullname, String
   attribute :phone, String
-  attribute :province_id, String
-  attribute :city_id, String
-  attribute :area_id, String
+  attribute :province_id, Integer
+  attribute :city_id, Integer
+  attribute :area_id, Integer
   attribute :address, String
   attribute :post_code, String
 
@@ -32,22 +34,14 @@ end
 
 class ItemInfo
   include Virtus
-  extend ActiveModel::Naming
-  extend ActiveModel::Translation
+  include Virtus::ValueObject
 
-  attr_reader :errors
-
-  attribute :id, String
+  attribute :product_id, Integer
   attribute :quantity, Integer
-
-  def initialize(*)
-    super
-    @errors = ActiveModel::Errors.new(self)
-  end
-  alias :read_attribute_for_validation :send
 end
 
-class UserInfo
+class SenderInfo
+  include Virtus::ValueObject
   include Virtus
   include ActiveModel::Validations
 
@@ -91,7 +85,7 @@ class OrderForm
 
   attr_accessor :user
   include OrderInfo
-  attribute :sender, UserInfo
+  attribute :sender, SenderInfo
   attribute :address, ReceiverInfo
   attribute :line_items, Array[ItemInfo]
 
@@ -99,6 +93,35 @@ class OrderForm
   validates_with OrderProductDateValidator, if: :validate_product_delivery_date?
   validates_with OrderItemValidator, if: :validate_item?
   validates_with OrderCouponValidator, unless: lambda { |order| order.coupon_code.blank? }
+
+  def fetch_products
+    line_items.map { |l| Product.find(l.product_id) }
+  end
+
+  def save
+    if valid?
+      persist!
+      true
+    else
+      false
+    end
+  end
+
+  def add_line_item(product_id, quantity)
+    # use << won't coerce the Item object
+    self.line_items += [ {product_id: product_id, quantity: quantity} ]
+  end
+
+  def valid?
+    # trigger valid? to populate errors
+    [sender.valid?, address.valid?, super].inject(:&)
+  end
+
+  private
+
+  def persisted?
+    false
+  end
 
   def validate_item?
     not_yet_shipped? && !bypass_product_validation
@@ -111,35 +134,6 @@ class OrderForm
   def validate_product_delivery_date?
     not_yet_shipped? && !bypass_date_validation
   end
-
-  def fetch_products
-    line_items.map { |l| Product.find(l.id) }
-  end
-
-  def persisted?
-    false
-  end
-
-  def save
-    if valid?
-      persist!
-      true
-    else
-      false
-    end
-  end
-
-  def add_line_item(id, quantity)
-    # use << won't coerce the Item object
-    self.line_items += [ {id: id, quantity: quantity} ]
-  end
-
-  def valid?
-    # trigger valid? to populate errors
-    [sender.valid?, address.valid?, super].inject(:&)
-  end
-
-  private
 
   def not_yet_shipped?
     true
