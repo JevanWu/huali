@@ -117,11 +117,11 @@ class OrderForm
     [sender.valid?, address.valid?, super].inject(:&)
   end
 
-  private
-
   def persisted?
     false
   end
+  
+  private
 
   def validate_item?
     not_yet_shipped? && !bypass_product_validation
