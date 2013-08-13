@@ -7,11 +7,11 @@ class SurveysController < ApplicationController
     @survey = Survey.new(survey_params)
     @survey.user = current_user if current_user
 
-    @products = Product.published
-      .tagged_with(survey_params[:receiver_gender], any: true)
-      .tagged_with(survey_params[:gift_purpose], any: true)
-
     if @survey.save
+      @products = Product.published
+        .tagged_with(survey_params[:receiver_gender], any: true)
+        .tagged_with(survey_params[:gift_purpose], any: true)
+
       flash[:notice] = t('controllers.survey.survey_success')
     else
       render 'new'
