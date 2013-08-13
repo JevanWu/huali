@@ -81,6 +81,6 @@ feature 'Place order' do
       click_button '确定'
     end
 
-    page.should_not have_content('您已经成功创建订单和地址信息')
+    page.should have_content('您已经成功创建订单和地址信息')
   end
 end
