@@ -18,6 +18,7 @@ feature "Audit order" do
 
     within("form.order") do
       fill_in '发货日期', with: "#{o.expected_date - 1}"
+      find('#order_sender_name').click # for closing date-picker popup
       choose 'USPS'
       choose 'Facebook'
       click_button('更新订单', match: :first)
