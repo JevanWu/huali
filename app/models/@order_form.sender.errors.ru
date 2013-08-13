@@ -1,5 +1,0 @@
-@order_form.sender.errors
-#<ActiveModel::Errors:0x007fa1cc2445d0 @base=#<UserInfo:0x007fa1cc248900 @name="", @email="", @phone="", @errors=#<ActiveModel::Errors:0x007fa1cc2445d0 ...>, @validation_context=nil>, @messages={:email=>["不能为空字符"], :phone=>["不能为空字符"], :name=>["不能为空字符"]}>
-
-@order_form.address.errors
-#<ActiveModel::Errors:0x007fa1cc23e888 @base=#<ReceiverInfo:0x007fa1cc243720 @fullname="", @phone="", @province_id="", @city_id="", @area_id="", @address="", @post_code="", @errors=#<ActiveModel::Errors:0x007fa1cc23e888 ...>, @validation_context=nil>, @messages={:fullname=>["不能为空字符"], :address=>["不能为空字符"], :phone=>["不能为空字符"], :province_id=>["不能为空字符", "translation missing: zh-CN.activemodel.errors.models.receiver_info.attributes.province_id.unavailable_location"], :city_id=>["不能为空字符", "translation missing: zh-CN.activemodel.errors.models.receiver_info.attributes.city_id.unavailable_location"], :post_code=>["不能为空字符"], :area_id=>["translation missing: zh-CN.activemodel.errors.models.receiver_info.attributes.area_id.unavailable_location"]}>
