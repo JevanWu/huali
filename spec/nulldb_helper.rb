@@ -4,4 +4,4 @@ NullDB.configure do |ndb|
     File.expand_path('../../', __FILE__)
   end
 end
-include NullDB::RSpec::NullifiedDatabase
+ActiveRecord::Base.establish_connection(adapter: :nulldb)
