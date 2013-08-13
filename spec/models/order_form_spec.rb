@@ -2,10 +2,12 @@ require 'spec_helper_lite'
 require 'support/shared_examples/active_model'
 require 'order_form'
 require 'active_record'
+require 'nulldb_helper'
 require 'order'
 require 'address'
 require 'line_item'
 require 'coupon'
+
 
 describe ReceiverInfo do
   it_behaves_like "ActiveModel::Validations"
@@ -200,15 +202,15 @@ describe OrderForm do
 
 
     it 'populates the sender attribute' do
-      order_form.sender.should == SenderInfo.new(order_param.slice(:sender_email, 
+      subject.sender.should == SenderInfo.new(order_param.slice(:sender_email, 
                                                                    :sender_phone, 
                                                                    :sender_name)
                                                             .transform_keys{ |key| key.to_s.gsub(/sender_/, '').to_sym })
     end
 
-    it { address.should == ReceiverInfo.new(address_param) }
-    it { line_items[0].should == ItemInfo.new(line_item_param) }
-    it { coupon_code.should == coupon_param[:code] }
+    it { subject.address.should == ReceiverInfo.new(address_param) }
+    it { subject.line_items[0].should == ItemInfo.new(line_item_param) }
+    it { subject.coupon_code.should == coupon_param[:code] }
 
     [:gift_card_text, :special_instructions, :source].each do |attr|
       it "populates #{attr} as String" do
@@ -238,9 +240,14 @@ describe OrderForm do
   end
 
   describe "#valid?" do
-    it "should description" do
+    it "should trigger valid? in all nested attributes" do
       
     end
   end
 
+  describe "#save" do
+    it "should description" do
+      
+    end
+  end
 end
