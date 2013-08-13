@@ -228,8 +228,10 @@ describe OrderForm do
   end
 
   describe "#add_line_item" do
-    it "should description" do
-      
+    it "pushes ItemInfo to the line_items attribute" do
+      order_form = OrderForm.new
+      order_form.add_line_item(12, 2)
+      order_form.line_items[0].should == ItemInfo.new(product_id:12, quantity:2)
     end
   end
 
@@ -240,8 +242,17 @@ describe OrderForm do
   end
 
   describe "#valid?" do
+    let(:sender) { SenderInfo.new }
+    let(:address) { ReceiverInfo.new }
+
     it "should trigger valid? in all nested attributes" do
-      
+      mock(sender).valid?
+      mock(address).valid?
+
+      order_form = OrderForm.new
+      order_form.address = address
+      order_form.sender = sender
+      order_form.valid?
     end
   end
 
