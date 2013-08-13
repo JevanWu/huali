@@ -5,8 +5,14 @@ require 'spork'
 require 'rr'
 require 'capybara/rspec'
 #Capybara.javascript_driver = :selenium
-#Capybara.javascript_driver = :webkit
 #Capybara.javascript_driver = :webkit_debug
+
+# poltergeist
+#require 'capybara/poltergeist'
+#Capybara.register_driver :poltergeist do |app|
+  #Capybara::Poltergeist::Driver.new(app, js_errors: false, phantomjs_options: ["--proxy=127.0.0.1:8087"])
+#end
+#Capybara.javascript_driver = :poltergeist
 
 # chrome driver
 Capybara.register_driver :chrome do |app|
