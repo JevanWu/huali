@@ -63,74 +63,8 @@ end
 
 describe OrderForm do
   it_behaves_like "ActiveModel::Full"
-
-  describe "attributes" do
-    let(:valid_receiver) do
-      {
-        fullname: '张佳婵',
-        phone: '13912341234',
-        province_id: 1,
-        city_id: 12,
-        area_id: 13,
-        address: '藏龙岛科技园栗庙路6号 湖北美术学院藏龙岛校区 5栋202室',
-        post_code: '430200'
-      }
-    end
-
-    let(:valid_sender) do
-      {
-        name: '张佳婵',
-        phone: '13912341234',
-        email: 'somebody@example.com'
-      }
-    end
-
-    let(:valid_line_item) do
-      { product_id: 12, quantity: 2 }
-    end
-
-    let(:valid_order) do
-      {
-        # nested attributes
-        sender: valid_sender,
-        address: valid_receiver,
-        line_items: [valid_line_item],
-        # direct attributes
-        bypass_date_validation: true,
-        bypass_region_validation: false,
-        bypass_product_validation: true,
-        coupon_code: 'xs134fx',
-        gift_card_text: '空白卡片',
-        special_instructions: '现在的色调有些冷，请往“巴黎”的色调靠拢。把绣球的颜色调浅些或者加香槟玫瑰，送给女性朋友生日的礼物，尽量粉嫩甜蜜些',
-        source: '淘宝',
-        expected_date: '2013-08-01'
-      }
-    end
-
-    subject { OrderForm.new(valid_order) }
-
-    it "builds nested SenderInfo on sender" do
-      subject.sender.should == SenderInfo.new(valid_sender)
-    end
-
-    it "builds nested ReceiverInfo on address" do
-      subject.address.should == ReceiverInfo.new(valid_receiver)
-    end
-
-    it "builds nested line_items as Array" do
-      subject.line_items.should be_a(Array)
-      subject.line_items[0].should == ItemInfo.new(valid_line_item)
-    end
-
-    [:bypass_date_validation, :bypass_region_validation, :bypass_product_validation].each do |attr|
-      it "builds #{attr} default to false" do
-        order_form = OrderForm.new(valid_order.except(attr))
-        order_form.send(attr).should be_false
-      end
-    end
-  end
-
-  describe "#new_from_record" do
+  
+  describe "self.new_from_record" do
     let(:order_param) do
       {
 
@@ -227,6 +161,73 @@ describe OrderForm do
     end
   end
 
+  describe "attributes" do
+    let(:valid_receiver) do
+      {
+        fullname: '张佳婵',
+        phone: '13912341234',
+        province_id: 1,
+        city_id: 12,
+        area_id: 13,
+        address: '藏龙岛科技园栗庙路6号 湖北美术学院藏龙岛校区 5栋202室',
+        post_code: '430200'
+      }
+    end
+
+    let(:valid_sender) do
+      {
+        name: '张佳婵',
+        phone: '13912341234',
+        email: 'somebody@example.com'
+      }
+    end
+
+    let(:valid_line_item) do
+      { product_id: 12, quantity: 2 }
+    end
+
+    let(:valid_order) do
+      {
+        # nested attributes
+        sender: valid_sender,
+        address: valid_receiver,
+        line_items: [valid_line_item],
+        # direct attributes
+        bypass_date_validation: true,
+        bypass_region_validation: false,
+        bypass_product_validation: true,
+        coupon_code: 'xs134fx',
+        gift_card_text: '空白卡片',
+        special_instructions: '现在的色调有些冷，请往“巴黎”的色调靠拢。把绣球的颜色调浅些或者加香槟玫瑰，送给女性朋友生日的礼物，尽量粉嫩甜蜜些',
+        source: '淘宝',
+        expected_date: '2013-08-01'
+      }
+    end
+
+    subject { OrderForm.new(valid_order) }
+
+    it "builds nested SenderInfo on sender" do
+      subject.sender.should == SenderInfo.new(valid_sender)
+    end
+
+    it "builds nested ReceiverInfo on address" do
+      subject.address.should == ReceiverInfo.new(valid_receiver)
+    end
+
+    it "builds nested line_items as Array" do
+      subject.line_items.should be_a(Array)
+      subject.line_items[0].should == ItemInfo.new(valid_line_item)
+    end
+
+    [:bypass_date_validation, :bypass_region_validation, :bypass_product_validation].each do |attr|
+      it "builds #{attr} default to false" do
+        order_form = OrderForm.new(valid_order.except(attr))
+        order_form.send(attr).should be_false
+      end
+    end
+  end
+
+
   describe "#add_line_item" do
     it "pushes ItemInfo to the line_items attribute" do
       order_form = OrderForm.new
@@ -243,22 +244,54 @@ describe OrderForm do
 
   describe "#valid?" do
     let(:sender) { SenderInfo.new }
-    let(:address) { ReceiverInfo.new }
-
-    it "should trigger valid? in all nested attributes" do
-      mock(sender).valid?
-      mock(address).valid?
-
+    let(:receiver) { ReceiverInfo.new }
+    let(:order_form) do
       order_form = OrderForm.new
-      order_form.address = address
+      order_form.address = receiver
       order_form.sender = sender
+      order_form
+    end
+
+    xit 'triggers valid? calls on ancestors' do
       order_form.valid?
+    end
+
+    it "triggers valid? in all nested attributes" do
+      mock(sender).valid?
+      mock(receiver).valid?
+      order_form.valid?
+    end
+
+    it 'return false when any valids? return false' do
+      stub(sender).valid? { false }
+      order_form.should_not be_valid
+    end
+
+    it 'only return true when all valids? return true' do
+      stub(sender).valid? { true }
+      stub(receiver).valid? { true }
+      ActiveModel::Validations.redefine_method(:valid?) { true }
+      order_form.should be_valid
     end
   end
 
   describe "#save" do
-    it "should description" do
-      
+    it "returns true if the object is valid and persist doesn't raise error" do
+      stub(subject).valid? { true }
+      stub(subject).persist! {}
+      subject.save.should be_true
+    end
+
+    it "returns false if object is not valid" do
+      stub(subject).valid? { false }
+      stub(subject).persist! {}
+      subject.save.should be_false
+    end
+
+    it "returns false if persist! raise error" do
+      stub(subject).valid? { true }
+      stub(subject).persist! { raise StandardError }
+      subject.save.should be_false
     end
   end
 end
