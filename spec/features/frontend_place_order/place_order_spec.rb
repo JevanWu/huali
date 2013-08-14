@@ -83,4 +83,36 @@ feature 'Place order' do
 
     page.should have_content('您已经成功创建订单和地址信息')
   end
+
+  scenario "Out of stock after put into cart", js: true do
+    visit "/products/#{product.slug}"
+    click_link('放入购花篮')
+
+    product.update_attribute(:count_on_hand, 0)
+
+    within(".order-actions") do
+      click_link('确定')
+    end
+
+    within("#new-order") do
+      fill_in '您的姓名', with: '王二'
+      fill_in '您的邮箱', with: 'user@example.com'
+      fill_in '您的电话', with: '18011112222'
+      select '搜索引擎', from: '您是从哪里知道我们的'
+      fill_in '到达日期', with: Date.current
+      fill_in '收件人', with: '王二'
+      fill_in 'order_address_attributes_phone', with: '18011112222'
+
+      select('上海市', from: '省份')
+      select('市辖区', from: '城市')
+      select('虹口区', from: '区域')
+
+      fill_in '地址', with: 'xx路xx号'
+      fill_in '邮编', with: '201218'
+
+      click_button '确定'
+    end
+
+    page.should have_content('红宝石已经售完')
+  end
 end
