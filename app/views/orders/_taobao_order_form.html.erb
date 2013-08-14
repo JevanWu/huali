@@ -1,7 +1,4 @@
 <%= simple_form_for @order, url: { action: 'taobao_order_create' }, html: { class: 'form-horizontal', id: 'new-order' } do |f| %>
-  <div class="control-group error section-error">
-    <%= error_messages_for_collection(@order.line_items) %>
-  </div>
   <fieldset>
     <legend>顾客个人信息</legend>
     <%= f.input :sender_name, required: true, placeholder: '您的姓名' %>

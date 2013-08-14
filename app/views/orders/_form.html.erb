@@ -1,8 +1,4 @@
 <%= simple_form_for @order_form, url: '/orders', html: { class: 'form-horizontal', id: 'new-order'} do |f| %>
-  <div class="control-group error section-error">
-    <%= error_messages_for_collection(@order.line_items) %>
-  </div>
-
   <fieldset>
     <legend>您的个人信息</legend>
     <%= f.fields_for :sender, @order_form.sender do |builder|%>
@@ -22,10 +18,6 @@
 
   <fieldset>
     <legend>递送信息</legend>
-    <div class="control-group error section-error">
-      <%= error_messages_for_collection(@order.fetch_products) %>
-    </div>
-    
     <%= f.input :expected_date, as: :string, required:true, input_html: { class: 'datepicker' }, placeholder: '寄给TA的时间', hint: Setting.expected_date_notice %>
 
     <%= f.fields_for :address, @order_form.address do |builder|%>

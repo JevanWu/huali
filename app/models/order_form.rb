@@ -91,7 +91,7 @@ class OrderForm
 
   validates_with OrderProductRegionValidator, if: :validate_product_delivery_region?
   validates_with OrderProductDateValidator, if: :validate_product_delivery_date?
-  validates_with OrderItemValidator, if: :validate_item?
+  # validates_with OrderItemValidator, if: :validate_item?
   validates_with OrderCouponValidator, unless: lambda { |order| order.coupon_code.blank? }
 
   def fetch_products
