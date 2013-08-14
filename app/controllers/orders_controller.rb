@@ -38,8 +38,18 @@ class OrdersController < ApplicationController
   # - tracking is skipped
   def taobao_order_new
     validate_cart
-    @order = Order.new
-    @order.build_address
+    @order_form = OrderAdminForm.new
+    @order_form.source = '淘宝'
+    @order_form.kind = :taobao
+  end
+
+  # backorder
+  # - used for internal usage
+  # - no transaction is issued
+  # - tracking is skipped
+  def back_order_new
+    validate_cart
+    @order_form = OrderAdminForm.new
   end
 
   def taobao_order_create
@@ -52,12 +62,6 @@ class OrdersController < ApplicationController
       @order.add_line_item(key, @cart[key])
     end
 
-    # add type
-    @order.kind = :taobao
-
-    # add source
-    @order.source = '淘宝'
-
     opts = { paymethod: 'directPay', merchant_name: 'Alipay' }.merge(merchant_trade_no)
 
     if @order.save and @order.complete_transaction(opts)
@@ -67,16 +71,6 @@ class OrdersController < ApplicationController
     else
       render 'taobao_order_new'
     end
-  end
-
-  # backorder
-  # - used for internal usage
-  # - no transaction is issued
-  # - tracking is skipped
-  def back_order_new
-    validate_cart
-    @order = Order.new
-    @order.build_address
   end
 
   def back_order_create
@@ -95,7 +89,7 @@ class OrdersController < ApplicationController
     # jump to wait_make states
     @order.state = 'wait_make'
 
-    if @order.kind.in?('marketing', 'customer') && @order.save
+    if @order.save
       empty_cart
       flash[:notice] = t('controllers.order.order_success')
       redirect_to root_path

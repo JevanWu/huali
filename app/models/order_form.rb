@@ -60,9 +60,6 @@ end
 module OrderInfo
   include Virtus
 
-  attribute :bypass_date_validation, Virtus::Attribute::Boolean, default: false
-  attribute :bypass_region_validation, Virtus::Attribute::Boolean, default: false
-  attribute :bypass_product_validation, Virtus::Attribute::Boolean, default: false
   attribute :coupon_code, String
   attribute :gift_card_text, String
   attribute :special_instructions, String
@@ -75,6 +72,8 @@ end
 # - attributes naming and type restrictions (replace strong parameters)
 # - build related records
 # - Inherited Behavior for specialized builds
+
+
 
 class OrderForm
   include Virtus
