@@ -28,9 +28,8 @@ class OrdersController < ApplicationController
   def new
     validate_cart
     @order_form = OrderForm.new
-    # FIXME, the populate doesn't work on form
-    @order_form.sender = UserInfo.new(current_user.as_json) # nil.as_json => nil
-    # AnalyticWorker.delay.open_order(current_user.id, @products.map(&:name), Time.now)
+    @order_form.sender = SenderInfo.new(current_user.as_json) # nil.as_json => nil
+    AnalyticWorker.delay.open_order(current_user.id, @products.map(&:name), Time.now)
   end
 
   # taobao order
@@ -119,7 +118,7 @@ class OrdersController < ApplicationController
       update_guest if current_or_guest_user.guest?
 
       flash[:notice] = t('controllers.order.order_success')
-      redirect_to checkout_order_path(@order)
+      redirect_to checkout_order_path(@order_form.order_id)
     else
       render 'new'
     end
@@ -229,7 +228,7 @@ class OrdersController < ApplicationController
     end
 
     def empty_cart
-      session[:order_id] = @order.id
+      session[:order_id] = @order_form.order_id
       cookies.delete :cart
     end
 

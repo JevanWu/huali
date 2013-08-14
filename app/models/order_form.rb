@@ -83,6 +83,7 @@ class OrderForm
   include ActiveModel::Conversion
   include ActiveModel::Validations
 
+  attr_accessor :order_id
   attr_accessor :user
   include OrderInfo
   attribute :sender, SenderInfo
@@ -99,10 +100,11 @@ class OrderForm
   end
 
   def save
-    if valid?
+    return false unless valid?
+    begin
       persist!
       true
-    else
+    rescue ActiveRecord::ActiveRecordError
       false
     end
   end
@@ -120,7 +122,7 @@ class OrderForm
   def persisted?
     false
   end
-  
+
   private
 
   def validate_item?
@@ -140,9 +142,41 @@ class OrderForm
   end
 
   def persist!
-    # build user
+    order, address, line_items = dispatch_params
+
     # build address
+    address = Address.new(address)
+    address.user = user
+
     # build line_items
+    line_items.map! { |params| LineItem.new(params) }
+
     # build order
+    order = Order.new(order)
+    order.address = address
+    order.user = user
+    order.line_items = line_items
+    order.save!
+
+    # FIXME probably doesn't belong here
+    # store_order_id for session usage
+    @order_id = order.id
+  end
+
+  def dispatch_params
+    order = to_hash
+    order.except!(:bypass_date_validation,
+                  :bypass_region_validation,
+                  :bypass_product_validation)
+
+    sender = order.delete(:sender)
+    order.merge!({ sender_name: sender.name,
+                   sender_email: sender.email,
+                   sender_phone: sender.phone })
+
+    address = order.delete(:address).to_hash
+    line_items = order.delete(:line_items).map(&:to_hash)
+
+    return order, address, line_items
   end
 end
