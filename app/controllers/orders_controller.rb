@@ -38,9 +38,9 @@ class OrdersController < ApplicationController
   # - tracking is skipped
   def taobao_order_new
     validate_cart
-    @order_form = OrderAdminForm.new
-    @order_form.source = '淘宝'
-    @order_form.kind = :taobao
+    if @order.save and @order.complete_transaction(opts)
+      empty_cart
+      flash[:notice] = t('controllers.order.order_success')
   end
 
   # backorder
@@ -187,40 +187,6 @@ class OrdersController < ApplicationController
   end
 
   private
-    def user_order_params
-      params.require(:order).permit(*normal_order_fields)
-    end
-
-    def back_order_params
-      params.require(:order).permit(*back_order_fields)
-    end
-
-    def taobao_order_params
-      params.require(:order).permit(*taobao_order_fields)
-    end
-
-    def taobao_order_fields
-      back_order_fields.concat [:merchant_trade_no]
-    end
-
-    def back_order_fields
-      normal_order_fields.concat [:kind, :ship_method_id, :delivery_date,
-                                  :adjustment, :bypass_region_validation,
-                                  :bypass_date_validation]
-    end
-
-    def normal_order_fields
-      [
-        :sender_name, :sender_email, :sender_phone,
-        :coupon_code, :gift_card_text, :special_instructions,
-        :source, :expected_date,
-        address_attributes: [
-           :fullname, :phone, :province_id,
-           :city_id, :area_id, :post_code,
-           :address]
-      ]
-    end
-
     def empty_cart
       session[:order_id] = @order_form.order_id
       cookies.delete :cart
