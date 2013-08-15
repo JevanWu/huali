@@ -28,6 +28,8 @@ class Collection < ActiveRecord::Base
 
   validates_presence_of :display_name, :name_zh
 
+  acts_as_tree name_column: 'display_name', order: 'priority'
+
   translate :name
 
   extend FriendlyId
