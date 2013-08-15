@@ -44,6 +44,7 @@
       <%= builder.input :post_code, placeholder: '邮编', required: true %>
       <%= builder.input :address, as: 'text', required:true, input_html: { rows: 3 }, placeholder: '详细地址' %>
       <%= f.input :bypass_region_validation, as: :boolean %>
+      <%= f.input :bypass_product_validation, as: :boolean %>
     <% end %>
   </fieldset>
   <div class="form-actions">
