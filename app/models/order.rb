@@ -232,6 +232,7 @@ class Order < ActiveRecord::Base
   end
 
   def cal_item_total
+    return unless state == 'wait_check' or state == 'generated'
     self.item_total = line_items.map(&:total).inject(:+)
   end
 

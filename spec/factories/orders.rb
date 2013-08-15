@@ -36,7 +36,7 @@
 FactoryGirl.define do
   factory :order do
     address
-    expected_date { Date.current.next_week.next_week.beginning_of_week + 1 } # thuesday
+    expected_date { "2013-01-01".to_date } # Thuesday
     delivery_date { expected_date - 1 }
     gift_card_text { Forgery(:lorem_ipsum).paragraph }
     special_instructions { Forgery(:lorem_ipsum).paragraph }
@@ -48,7 +48,7 @@ FactoryGirl.define do
 
     after(:build) do |order|
       [1, 2, 3].sample.times do
-        order.line_items << create(:line_item)
+        order.line_items << build(:line_item)
       end
     end
 

@@ -18,4 +18,6 @@ class Survey < ActiveRecord::Base
   enumerize :gender, in: [:male, :female]
   enumerize :receiver_gender, in: [:male, :female]
   enumerize :gift_purpose, in: [:lover, :friend, :client, :older, :other]
+
+  validates_presence_of :gender, :receiver_gender, :gift_purpose
 end

@@ -15,7 +15,7 @@ class ProvincesController < ApplicationController
       Product.find(product_id).region_rule.available_prov_ids
     end.reduce(:&)
 
-    provinces = Province.find_all_by_id(prov_ids)
+    provinces = Province.where(id: prov_ids)
     respond_with(provinces)
   end
 
