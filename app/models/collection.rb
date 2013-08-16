@@ -47,4 +47,37 @@ class Collection < ActiveRecord::Base
   def to_s
     "#{self.id} #{self.name_zh}"
   end
+
+  class << self
+    def parents_options(id)
+      ret = []
+
+      parse_tree(hash_tree, id, ret)
+
+      ret
+    end
+
+    private
+
+    def parse_tree(tree, exclude, ret)
+      tree.each do |k, v|
+        next if k.id == exclude
+
+        ret << [generate_name(k.display_name, k.depth), k.id]
+
+        if v.present?
+          parse_tree(v, exclude, ret)
+        end
+      end
+    end
+
+    def generate_name(display_name, depth)
+      depth.times do
+        display_name = '&nbsp;' * 3 + display_name
+      end
+
+      display_name.html_safe
+    end
+  end
+
 end

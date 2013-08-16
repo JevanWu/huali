@@ -151,6 +151,14 @@ GIT
       sprockets (~> 2.8)
 
 GIT
+  remote: git://github.com/ryancheung/activeadmin-sortable-tree.git
+  revision: e0d0bf5649b34b3b55631f6babe5f4c589256628
+  specs:
+    activeadmin-sortable-tree (0.0.1)
+      activeadmin
+      rails (>= 3.2)
+
+GIT
   remote: https://github.com/SamSaffron/MiniProfiler.git
   revision: deef8654370a39b4039b5a0565cb64cd82c25403
   specs:
@@ -584,6 +592,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin!
+  activeadmin-sortable-tree!
   acts-as-taggable-on (~> 2.4.1)
   analytics-ruby
   annotate!
