@@ -30,7 +30,7 @@
   </fieldset>
   <fieldset>
     <legend>递送信息</legend>
-    <%= f.input :ship_method_id, as: :radio_buttons, required:true, collection: ShipMethod.all %>
+    <%= f.input :ship_method_id, as: :radio_buttons, required:true, collection: ShipMethod.all, hint: express_query_links %>
     <%= f.input :expected_date, as: :string, required:true, input_html: { class: 'datepicker-full' }, placeholder: '寄给TA的时间' %>
     <%= f.input :bypass_date_validation, as: :boolean %>
     <%= f.input :delivery_date, as: :string, required: true, input_html: { class: 'datepicker-full' }%>

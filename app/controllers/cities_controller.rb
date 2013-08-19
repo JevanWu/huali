@@ -11,7 +11,7 @@ class CitiesController < ApplicationController
         .region_rule.available_city_ids_in_a_prov(params[:prov_id])
     end.reduce(:&)
 
-    cities = City.find_all_by_id(city_ids)
+    cities = City.where(id: city_ids)
     respond_with(cities)
   end
 

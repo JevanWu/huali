@@ -119,7 +119,8 @@ end
 group :test do
   gem "shoulda-matchers"
   gem 'capybara', '>= 1.1.2'
-  gem 'poltergeist'
+  gem 'capybara-webkit'
+  gem 'selenium-webdriver'
   gem 'spork', '~> 1.0rc'
   gem 'simplecov', require: false
   gem 'email_spec', '>= 1.2.1'

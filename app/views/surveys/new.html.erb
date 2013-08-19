@@ -4,6 +4,7 @@
     <%= f.input :gender, required: true, placeholder: '您的性别', as: :radio_buttons %>
     <%= f.input :receiver_gender, required: true, placeholder: '你赠送对方的性别' , as: :radio_buttons %>
     <%= f.input :gift_purpose, required: true, placeholder: '购买礼物的目的', as: :radio_buttons  %>
+    <%= f.hidden_field(:to_s, value: 'A helper field to ensure survey param exits') %>
   </fieldset>
 
   <div class="form-actions">

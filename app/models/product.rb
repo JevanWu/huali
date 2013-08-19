@@ -35,7 +35,7 @@
 
 class Product < ActiveRecord::Base
   attr_accessor :quantity
-  
+
   # collection
   has_and_belongs_to_many :collections
   accepts_nested_attributes_for :collections
@@ -86,7 +86,7 @@ class Product < ActiveRecord::Base
     end
 
     def sort_by_collection
-      Product.published.joins(:collections).order('collections.id').all.uniq
+      Product.published.joins(:collections).order('collections.id').to_a.uniq
     end
   end
 
