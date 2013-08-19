@@ -20,6 +20,7 @@ Capybara.register_driver :chrome do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome, proxy: proxy)
 end
 Capybara.javascript_driver = :chrome
+#Capybara.default_driver = :chrome
 
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
@@ -122,7 +123,6 @@ Spork.prefork do
 
     config.after(:each) do
       DatabaseCleaner.clean
-      Warden.test_reset!
     end
   end
 end
