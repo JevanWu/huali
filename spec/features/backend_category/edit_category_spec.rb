@@ -92,5 +92,16 @@ feature "Edit category" do
     page.find("meta[name='keywords']", visible: false)["content"].should have_content("红色,婚礼")
     page.find("meta[name='description']", visible: false)["content"].should have_content("红色的婚礼")
   end
+
+  scenario "Set a parent" do
+    create(:collection, name_en: 'love', name_zh: '爱情', display_name: '爱情')
+
+    visit "/admin/collections/#{category.slug}/edit"
+
+    select '爱情', from: '父分类'
+    click_button "更新品类"
+
+    page.should have_content(/父分类.*爱情/)
+  end
 end
 
