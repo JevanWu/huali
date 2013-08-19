@@ -63,7 +63,7 @@ class Collection < ActiveRecord::Base
       tree.each do |k, v|
         next if k.id == exclude
 
-        ret << [generate_name(k.display_name, k.depth), k.id]
+        ret << [generate_name(k.show_name, k.depth), k.id]
 
         if v.present?
           parse_tree(v, exclude, ret)
@@ -71,13 +71,14 @@ class Collection < ActiveRecord::Base
       end
     end
 
-    def generate_name(display_name, depth)
+    def generate_name(name, depth)
+      new_name = name
+
       depth.times do
-        display_name = '&nbsp;' * 3 + display_name
+        new_name = '&nbsp;' * 3 + new_name
       end
 
-      display_name.html_safe
+      new_name.html_safe
     end
   end
-
 end
