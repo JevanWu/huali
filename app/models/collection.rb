@@ -50,28 +50,26 @@ class Collection < ActiveRecord::Base
 
   class << self
     def parents_options(id)
-      ret = []
-
-      parse_tree(hash_tree, id, ret)
-
-      ret
+      parse_tree(hash_tree, id)
     end
 
     private
 
-    def parse_tree(tree, exclude, ret)
-      tree.each do |k, v|
-        next if k.id == exclude
+    def parse_tree(tree, exclude)
+      tree.map do |k, v|
+        next [] if k.id == exclude
 
-        ret << [generate_name(k.show_name, k.depth), k.id]
+        parent = [[option_name(k.show_name, k.depth), k.id]]
 
         if v.present?
-          parse_tree(v, exclude, ret)
+          parent.concat parse_tree(v, exclude)
         end
-      end
+
+        parent
+      end.reduce(&:concat)
     end
 
-    def generate_name(name, depth)
+    def option_name(name, depth)
       new_name = name
 
       depth.times do
