@@ -13,4 +13,18 @@ end
 
 class OrderAdminForm < OrderForm
   include AdminOnlyInfo
+
+  private 
+
+  def validate_item?
+    super && !bypass_product_validation
+  end
+
+  def validate_product_delivery_region?
+    super && !bypass_region_validation
+  end
+
+  def validate_product_delivery_date?
+    super && !bypass_date_validation
+  end
 end
