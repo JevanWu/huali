@@ -4,20 +4,11 @@ module Admin
       checked_collections = product.collections.to_a
       tree = Collection.hash_tree
 
-      ret = <<-HTML
-      <li class="check_boxes input required" id="product_collections_input">
-        <fieldset class="choices">
-          <legend class="label">
-            <label>#{t 'activerecord.attributes.product.collections'}<abbr title="必填">*</abbr></label>
-          </legend>
-          <input id="product_collections_none" name="product[collection_ids][]" type="hidden" value="">
-          #{content_tag(:ol, class: 'choices-group collection-list') { parse_tree(tree, checked_collections) }}
-        </fieldset>
-        #{%(<p class="inline-errors">您需要填写此项</p>) if product.errors[:collections].present?}
-      </li>
-      HTML
+      collection_list = content_tag(:ol, class: 'choices-group collection-list') do
+        parse_tree(tree, checked_collections)
+      end
 
-      ret.html_safe
+      render 'collection_checkboxes', product: product, collection_list: collection_list
     end
 
     private
@@ -26,14 +17,13 @@ module Admin
       tree.map do |k, v|
         content_tag :li, class: 'choices', id: "collection-#{k.id}" do
           parent = content_tag :label, class: 'select_it' do
-            input = content_tag(:input,
-                                nil,
-                                type: :checkbox,
-                                name: 'product[collection_ids][]',
-                                id: "in-collection-#{k.id}",
-                                value: k.id,
-                                checked: checked_collections.include?(k))
-            (input + k.show_name).html_safe
+            content_tag(:input,
+                        k.show_name,
+                        type: :checkbox,
+                        name: 'product[collection_ids][]',
+                        id: "in-collection-#{k.id}",
+                        value: k.id,
+                        checked: checked_collections.include?(k))
           end
 
           if v.present?
