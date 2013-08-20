@@ -1,16 +1,11 @@
 require 'spec_helper_lite'
-require 'support/shared_examples/active_model'
+require 'support/shared_examples/active_model_spec'
+require 'support/shared_examples/order_form_shared_spec'
 require 'order_form'
-require 'active_record'
-require 'nulldb_helper'
-require 'order'
-require 'address'
-require 'line_item'
-require 'coupon'
-
 
 describe ReceiverInfo do
   it_behaves_like "ActiveModel::Validations"
+  
   describe "attributes" do
     let(:valid_receiver) do
       {
@@ -63,105 +58,8 @@ end
 
 describe OrderForm do
   it_behaves_like "ActiveModel::Full"
-  
-  describe "self.new_from_record" do
-    let(:order_param) do
-      {
-
-                      :id => 3,
-              :identifier => "OR1301200003",
-              :item_total => 299.0,
-                   :total => 299.0,
-           :payment_total => 239.0,
-                   :state => "wait_confirm",
-    :special_instructions => "请用雅致的手写体打印，如方正静蕾体。如你们实体店在上海，是否可以让我自己书写卡片？",
-            :completed_at => nil,
-          :gift_card_text => "31岁的天空，梦想才刚起航。谢谢你指引我，太阳的方向。Happy birthday, dear John!\r\n\r\nYours ever,\r\nKay",
-           :expected_date => 'Thu, 24 Jan 2013',
-            :sender_email => "kay.cjy@gmail.com",
-            :sender_phone => "18621563344",
-             :sender_name => "陈小姐",
-           :delivery_date => nil, # no delivery_date
-                  :source => "unknown",
-              :adjustment => nil, # no adjustment
-          :ship_method_id => 1,
-                 :printed => false,
-                    :kind => "normal"
-      }
-    end
-
-    let(:line_item_param) do
-      {
-            :id => 6,
-    :product_id => 29,
-      :quantity => 1
-      } 
-    end
-
-    let(:coupon_param) do
-      {
-                 :id => 73,
-               :code => "09fad8a2",
-         :adjustment => "*0.85",
-            :expired => false,
-         :expires_at => 'Tue, 31 Dec 2013',
-    :available_count => 1,
-         :used_count => 0,
-               :note => "顾客补偿"
-      }
-    end
-
-    let(:address_param) do
-      {
-             :id => 3,
-       :fullname => "俞钢",
-        :address => "北京西路1701号静安中华大厦1307室，思捷市场咨询有限公司",
-      :post_code => "100001",
-          :phone => "13472460673",
-    :province_id => 9,
-        :city_id => 75,
-        :area_id => 787
-      }
-    end
-
-    let(:order_record) do 
-      order = Order.new(order_param)
-      order.address = Address.new(address_param)
-      order.line_items << LineItem.new(line_item_param)
-      order.coupon = Coupon.new(coupon_param)
-      order
-    end
-
-    subject { OrderForm.new_from_record(order_record) }
-
-
-    it 'populates the sender attribute' do
-      subject.sender.should == SenderInfo.new(order_param.slice(:sender_email, 
-                                                                   :sender_phone, 
-                                                                   :sender_name)
-                                                            .transform_keys{ |key| key.to_s.gsub(/sender_/, '').to_sym })
-    end
-
-    it { subject.address.should == ReceiverInfo.new(address_param) }
-    it { subject.line_items[0].should == ItemInfo.new(line_item_param) }
-    it { subject.coupon_code.should == coupon_param[:code] }
-
-    [:gift_card_text, :special_instructions, :source].each do |attr|
-      it "populates #{attr} as String" do
-        subject.send(attr).should be_a(String)
-        subject.send(attr).should == order_param[attr]
-      end
-    end
-
-    [:expected_date, :delivery_date].each do |attr|
-      it "populates #{attr} as Date" do
-        subject.send(attr).should be_a(Date)
-        subject.send(attr).should == Date.parse(order_param[attr])
-      end
-    end
-  end
-
-  describe "attributes" do
+  it_behaves_like "OrderForm::Shared" do
+    
     let(:valid_receiver) do
       {
         fullname: '张佳婵',
@@ -193,9 +91,6 @@ describe OrderForm do
         address: valid_receiver,
         line_items: [valid_line_item],
         # direct attributes
-        bypass_date_validation: true,
-        bypass_region_validation: false,
-        bypass_product_validation: true,
         coupon_code: 'xs134fx',
         gift_card_text: '空白卡片',
         special_instructions: '现在的色调有些冷，请往“巴黎”的色调靠拢。把绣球的颜色调浅些或者加香槟玫瑰，送给女性朋友生日的礼物，尽量粉嫩甜蜜些',
@@ -205,93 +100,5 @@ describe OrderForm do
     end
 
     subject { OrderForm.new(valid_order) }
-
-    it "builds nested SenderInfo on sender" do
-      subject.sender.should == SenderInfo.new(valid_sender)
-    end
-
-    it "builds nested ReceiverInfo on address" do
-      subject.address.should == ReceiverInfo.new(valid_receiver)
-    end
-
-    it "builds nested line_items as Array" do
-      subject.line_items.should be_a(Array)
-      subject.line_items[0].should == ItemInfo.new(valid_line_item)
-    end
-
-    [:bypass_date_validation, :bypass_region_validation, :bypass_product_validation].each do |attr|
-      it "builds #{attr} default to false" do
-        order_form = OrderForm.new(valid_order.except(attr))
-        order_form.send(attr).should be_false
-      end
-    end
-  end
-
-
-  describe "#add_line_item" do
-    it "pushes ItemInfo to the line_items attribute" do
-      order_form = OrderForm.new
-      order_form.add_line_item(12, 2)
-      order_form.line_items[0].should == ItemInfo.new(product_id:12, quantity:2)
-    end
-  end
-
-  describe "#fetch_products" do
-    it "should description" do
-      
-    end
-  end
-
-  describe "#valid?" do
-    let(:sender) { SenderInfo.new }
-    let(:receiver) { ReceiverInfo.new }
-    let(:order_form) do
-      order_form = OrderForm.new
-      order_form.address = receiver
-      order_form.sender = sender
-      order_form
-    end
-
-    xit 'triggers valid? calls on ancestors' do
-      order_form.valid?
-    end
-
-    it "triggers valid? in all nested attributes" do
-      mock(sender).valid?
-      mock(receiver).valid?
-      order_form.valid?
-    end
-
-    it 'return false when any valids? return false' do
-      stub(sender).valid? { false }
-      order_form.should_not be_valid
-    end
-
-    it 'only return true when all valids? return true' do
-      stub(sender).valid? { true }
-      stub(receiver).valid? { true }
-      ActiveModel::Validations.redefine_method(:valid?) { true }
-      order_form.should be_valid
-    end
-  end
-
-  describe "#save" do
-    it "returns true if the object is valid and persist doesn't raise error" do
-      stub(subject).valid? { true }
-      stub(subject).persist! {}
-      subject.save.should be_true
-    end
-
-    it "returns false if object is not valid" do
-      stub(subject).valid? { false }
-      stub(subject).persist! {}
-      subject.save.should be_false
-    end
-
-    it "returns false if persist! raise error" do
-      stub(subject).valid? { true }
-      stub(subject).persist! { raise StandardError }
-      subject.save.should be_false
-    end
   end
 end
