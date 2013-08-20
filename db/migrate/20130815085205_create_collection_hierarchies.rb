@@ -12,5 +12,7 @@ class CreateCollectionHierarchies < ActiveRecord::Migration
 
     # For "all ancestors of…" selects,
     add_index :collection_hierarchies, [:descendant_id], :name => "collection_desc_idx"
+
+    Collection.rebuild! # Build hiearchies for old collections
   end
 end
