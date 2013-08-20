@@ -4,7 +4,6 @@
 #= require region_rule_edit
 #= require admin_prov_city_area_update
 #= require chosen.jquery
-#= require active_admin/sortable
 
 $ ->
   $('form').on 'click', '.remove_fields', (event) ->
