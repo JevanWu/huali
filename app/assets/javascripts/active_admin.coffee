@@ -43,3 +43,17 @@ $ ->
 
   $('.chosen').chosen({width: "30%"})
   $('.chosen-allow-deselect').chosen({width: "30%", allow_single_deselect: true})
+
+$ ->
+  done = '<div class="flashes"><div class="flash flash_notice">更新成功</div></div>'
+  fail = '<div class="flashes"><div class="flash flash_error">更新失败，请刷新后重试</div></div>'
+
+  ActiveAdminSortableEvent.add 'ajaxDone', ->
+    unless $('.flash_notice').length > 0
+      $('.flashes').remove()
+      $('#title_bar').after(done)
+
+  ActiveAdminSortableEvent.add 'ajaxFail', ->
+    unless $('.flash_error').length > 0
+      $('.flashes').remove()
+      $('#title_bar').after(fail)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130810101034) do
+ActiveRecord::Schema.define(version: 20130815085205) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,6 +81,15 @@ ActiveRecord::Schema.define(version: 20130810101034) do
 
   add_index "cities", ["post_code"], name: "index_cities_on_post_code", unique: true, using: :btree
 
+  create_table "collection_hierarchies", id: false, force: true do |t|
+    t.integer "ancestor_id",   null: false
+    t.integer "descendant_id", null: false
+    t.integer "generations",   null: false
+  end
+
+  add_index "collection_hierarchies", ["ancestor_id", "descendant_id", "generations"], name: "collection_anc_desc_udx", unique: true, using: :btree
+  add_index "collection_hierarchies", ["descendant_id"], name: "collection_desc_idx", using: :btree
+
   create_table "collections", force: true do |t|
     t.string   "name_zh",                          null: false
     t.string   "description"
@@ -95,6 +104,7 @@ ActiveRecord::Schema.define(version: 20130810101034) do
     t.boolean  "primary_category", default: false, null: false
     t.string   "meta_title"
     t.integer  "priority",         default: 5
+    t.integer  "parent_id"
   end
 
   add_index "collections", ["slug"], name: "index_collections_on_slug", unique: true, using: :btree
@@ -105,11 +115,6 @@ ActiveRecord::Schema.define(version: 20130810101034) do
   end
 
   add_index "collections_products", ["product_id", "collection_id"], name: "index_collections_products_on_product_id_and_collection_id", unique: true, using: :btree
-
-  create_table "collocation_relations", force: true do |t|
-    t.integer "product_a_id", null: false
-    t.integer "product_b_id", null: false
-  end
 
   create_table "coupons", force: true do |t|
     t.string   "code",                            null: false

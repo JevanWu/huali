@@ -8,7 +8,7 @@
 
     <%= f.input :tag_list, input_html: { class: 'tag-list' } %>
 
-    <%= f.input :collections, as: :check_boxes %>
+    <%= collection_checkboxes(@product) %>
 
     <%= f.input :recommendations, as: :check_boxes, :collection => Product.sort_by_collection %>
 
