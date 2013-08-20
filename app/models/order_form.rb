@@ -73,8 +73,6 @@ end
 # - build related records
 # - Inherited Behavior for specialized builds
 
-
-
 class OrderForm
   include Virtus
 
@@ -125,15 +123,15 @@ class OrderForm
   private
 
   def validate_item?
-    not_yet_shipped? && !bypass_product_validation
+    not_yet_shipped?
   end
 
   def validate_product_delivery_region?
-    not_yet_shipped? && !bypass_region_validation
+    not_yet_shipped?
   end
 
   def validate_product_delivery_date?
-    not_yet_shipped? && !bypass_date_validation
+    not_yet_shipped?
   end
 
   def not_yet_shipped?
