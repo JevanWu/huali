@@ -50,76 +50,51 @@ shared_examples_for "OrderForm::Shared" do
     before do
       subject.address = receiver
       subject.sender = sender
+      VALIDATORS.each do |v| 
+        any_instance_of v.constantize, validate: lambda { |order| }
+      end
     end
 
-    context 'for nested attributes' do
-      before(:each) do
-        VALIDATORS.each do |v| 
-          any_instance_of v.constantize, validate: lambda { |order| true }
-        end
-      end
+    it "triggers valid? in all nested attributes" do
+      mock(sender).valid?
+      mock(receiver).valid?
+      subject.valid?
+    end
 
-      it "triggers valid? in all nested attributes" do
-        mock(sender).valid?
-        mock(receiver).valid?
+    it 'return false when sender is invalid' do
+      stub(sender).valid? { false }
+      subject.should_not be_valid
+    end
+
+    it 'return false when receiver is invalid' do
+      stub(receiver).valid? { false }
+      subject.should_not be_valid
+    end
+
+    VALIDATORS.each do |validator|
+      it "calls validate on #{validator} with subject" do
+        any_instance_of(validator.constantize) do |v|
+          mock(v).validate(subject)
+        end
+
         subject.valid?
       end
 
-      it 'return false when sender is invalid' do
-        stub(sender).valid? { false }
-        subject.should_not be_valid
-      end
+      it "never calls validate on #{validator} unless not_yet_shipped" do
+        stub(subject).not_yet_shipped? { false }
 
-      it 'return false when receiver is invalid' do
-        stub(receiver).valid? { false }
-        subject.should_not be_valid
+        any_instance_of(validator.constantize) do |v|
+          mock(v).validate(subject).never
+        end
+
+        subject.valid?
       end
     end
 
-    context 'for validators' do
-      VALIDATORS.each do |validator|
-        it "calls validate on #{validator} with subject" do
-          # stub the rest validators
-          rest_validators = VALIDATORS.dup
-          rest_validators.delete(validator)
-          rest_validators.each do |v| 
-            any_instance_of v.constantize, validate: lambda { |o| true }
-          end
-
-          any_instance_of(validator.constantize) do |v|
-          # mock current validators in question
-            mock(v).validate(subject) { false }
-          end
-          subject.valid?
-        end
-
-        it "never calls validate on #{validator} unless not_yet_shipped" do
-          # stub the rest validators
-          rest_validators = VALIDATORS.dup
-          rest_validators.delete(validator)
-          rest_validators.each do |v| 
-            any_instance_of v.constantize, validate: lambda { |o| true }
-          end
-
-          any_instance_of(validator.constantize) do |v|
-          # mock current validators in question
-            mock(v).validate(subject).never
-          end
-
-          stub(subject).not_yet_shipped? { false }
-
-          subject.valid?
-        end
-      end
-
-      it 'is valid only when all validation return true' do
-        stub(sender).valid? { true }
-        stub(receiver).valid? { true }
-        VALIDATORS.each do |v| 
-          any_instance_of v.constantize, validate: lambda { |order| true }
-        end
-        subject.should be_valid
-      end
+    it 'is valid only when all validation return true' do
+      stub(sender).valid? { true }
+      stub(receiver).valid? { true }
+      subject.should be_valid
     end
   end
 

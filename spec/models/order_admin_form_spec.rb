@@ -58,34 +58,57 @@ describe OrderAdminForm do
 
     subject { OrderAdminForm.new(valid_order) }
 
-    [:bypass_date_validation, :bypass_region_validation, :bypass_product_validation].each do |attr|
-      it "builds #{attr} default to false" do
-        order_admin_form = OrderAdminForm.new(valid_order.except(attr))
-        order_admin_form.send(attr).should be_false
+    describe "attributes" do
+      [:bypass_date_validation, :bypass_region_validation, :bypass_product_validation].each do |attr|
+        it "builds #{attr} default to false" do
+          order_admin_form = OrderAdminForm.new(valid_order.except(attr))
+          order_admin_form.send(attr).should be_false
+        end
       end
     end
 
-    it 'bypass the DateValidator if bypass_date_validation is true' do
-      subject.bypass_date_validation = true
+    describe "valid?" do
+      VALIDATORS = [
+                    'OrderProductRegionValidator',
+                    'OrderProductDateValidator',
+                    # 'OrderItemValidator',
+                    'OrderCouponValidator'
+                   ]
 
-      any_instance_of(OrderProductDateValidator) do |v|
-        mock(v).validate(subject).never
+      before do
+        VALIDATORS.each do |v| 
+          any_instance_of v.constantize, validate: lambda { |order| }
+        end
       end
-    end
 
-    it 'bypass the RegionValidator if bypass_region_validation is true' do
-      subject.bypass_region_validation = true
+      it 'bypass the DateValidator if bypass_date_validation is true' do
+        subject.bypass_date_validation = true
 
-      any_instance_of(OrderProductRegionValidator) do |v|
-        mock(v).validate(subject).never
+        any_instance_of(OrderProductDateValidator) do |v|
+          mock(v).validate(subject).never
+        end
+
+        subject.valid?
       end
-    end
 
-    it 'bypass the ItemValidator if bypass_product_validation is true' do
-      subject.bypass_product_validation = true
+      it 'bypass the RegionValidator if bypass_region_validation is true' do
+        subject.bypass_region_validation = true
 
-      any_instance_of(OrderItemValidator) do |v|
-        mock(v).validate(subject).never
+        any_instance_of(OrderProductRegionValidator) do |v|
+          mock(v).validate(subject).never
+        end
+
+        subject.valid?
+      end
+
+      it 'bypass the ItemValidator if bypass_product_validation is true' do
+        subject.bypass_product_validation = true
+
+        any_instance_of(OrderItemValidator) do |v|
+          mock(v).validate(subject).never
+        end
+        
+        subject.valid?
       end
     end
   end
