@@ -52,6 +52,13 @@ class OrderAdminForm < OrderForm
 
   private 
 
+  def dispatch_params(order)
+    order.except!(:bypass_date_validation,
+                  :bypass_region_validation,
+                  :bypass_product_validation)
+    super(order)
+  end
+
   def validate_item?
     super && !bypass_product_validation
   end

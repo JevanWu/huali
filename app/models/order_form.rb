@@ -143,7 +143,7 @@ class OrderForm
   end
 
   def persist!
-    order, address, line_items = dispatch_params
+    order, address, line_items = dispatch_params(to_hash)
 
     # build address
     address = Address.new(address)
@@ -164,12 +164,7 @@ class OrderForm
     @order_id = order.id
   end
 
-  def dispatch_params
-    order = to_hash
-    order.except!(:bypass_date_validation,
-                  :bypass_region_validation,
-                  :bypass_product_validation)
-
+  def dispatch_params(order)
     sender = order.delete(:sender)
     order.merge!({ sender_name: sender.name,
                    sender_email: sender.email,
