@@ -14,6 +14,42 @@ end
 class OrderAdminForm < OrderForm
   include AdminOnlyInfo
 
+  class << self
+    def new_from_record(record)
+      order_admin_form = new(record.as_json)
+      order_admin_form.sender = extract_sender(record)
+      order_admin_form.address = extract_address(record)
+      order_admin_form.line_items = extract_line_items(record)
+      order_admin_form.coupon_code = extract_coupon_code(record)
+
+      return order_admin_form
+    end
+
+    private
+
+    def extract_sender(record)
+      SenderInfo.new({
+        email: record.sender_email,
+        phone: record.sender_phone,
+        name: record.sender_name
+      })
+    end
+
+    def extract_address(record)
+      ReceiverInfo.new(record.address.as_json)
+    end
+
+    def extract_line_items(record)
+      record.line_items.map do |item|
+        ItemInfo.new(item.as_json)
+      end
+    end
+
+    def extract_coupon_code(record)
+      record.coupon.code
+    end
+  end
+
   private 
 
   def validate_item?

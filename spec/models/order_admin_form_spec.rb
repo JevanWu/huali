@@ -68,13 +68,6 @@ describe OrderAdminForm do
     end
 
     describe "valid?" do
-      VALIDATORS = [
-                    'OrderProductRegionValidator',
-                    'OrderProductDateValidator',
-                    # 'OrderItemValidator',
-                    'OrderCouponValidator'
-                   ]
-
       before do
         VALIDATORS.each do |v| 
           any_instance_of v.constantize, validate: lambda { |order| }
@@ -130,9 +123,9 @@ describe OrderAdminForm do
             :sender_email => "kay.cjy@gmail.com",
             :sender_phone => "18621563344",
              :sender_name => "陈小姐",
-           :delivery_date => nil, # no delivery_date
+           :delivery_date => 'Thu, 22 Jan 2013',
                   :source => "unknown",
-              :adjustment => nil, # no adjustment
+              :adjustment => '+10',
           :ship_method_id => 1,
                  :printed => false,
                     :kind => "normal"
@@ -195,7 +188,7 @@ describe OrderAdminForm do
     it { subject.line_items[0].should == ItemInfo.new(line_item_param) }
     it { subject.coupon_code.should == coupon_param[:code] }
 
-    [:gift_card_text, :special_instructions, :source].each do |attr|
+    [:gift_card_text, :special_instructions, :source, :adjustment].each do |attr|
       it "populates #{attr} as String" do
         subject.send(attr).should be_a(String)
         subject.send(attr).should == order_param[attr]
