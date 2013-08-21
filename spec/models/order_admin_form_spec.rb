@@ -106,7 +106,7 @@ describe OrderAdminForm do
     end
   end
 
-  describe "self.new_from_record" do
+  describe "self.build_from_record" do
     let(:order_param) do
       {
 
@@ -174,7 +174,7 @@ describe OrderAdminForm do
       order
     end
 
-    subject { OrderAdminForm.new_from_record(order_record) }
+    subject { OrderAdminForm.build_from_record(order_record) }
 
 
     it 'populates the sender attribute' do
@@ -187,6 +187,7 @@ describe OrderAdminForm do
     it { subject.address.should == ReceiverInfo.new(address_param) }
     it { subject.line_items[0].should == ItemInfo.new(line_item_param) }
     it { subject.coupon_code.should == coupon_param[:code] }
+    it { subject.should be_new_from_record }
 
     [:gift_card_text, :special_instructions, :source, :adjustment].each do |attr|
       it "populates #{attr} as String" do

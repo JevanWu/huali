@@ -65,16 +65,20 @@ FactoryGirl.define do
       end
     end
 
-    after(:create) do |product|
-      product.local_date_rule = build(:local_date_rule, product: product)
-      product.local_region_rule = build(:local_region_rule, product: product)
+    trait :with_local_date_rule do
+      after(:create) do |product|
+        product.local_date_rule = create(:local_date_rule, product: product)
+      end
+    end
+
+    trait :with_local_region_rule do
+      after(:create) do |product|
+        product.local_region_rule = create(:local_region_rule, product: product)
+      end
     end
 
     trait :unpublished do
       published false
     end
-
-    # collection_id
-    # slug
   end
 end

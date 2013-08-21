@@ -36,13 +36,13 @@ group :backend do
     watch('config/environment.rb')
     watch(%r{^config/environments/.+\.rb})
     watch(%r{^config/initializers/.+\.rb})
-    watch('spec/spec_helper.rb')
+    watch('spec/spec_helper_full.rb')
     watch('config/routes.rb')
     watch(%r{^spec/support/.+\.rb})
   end
 
   guard :rspec, version: 2, cli: "--color --drb", bundler: false, all_after_pass: false, all_on_start: false, keep_failed: false do
-    watch('spec/spec_helper.rb')                                               { "spec" }
+    watch('spec/spec_helper_lite.rb')                                               { "spec" }
     watch('app/controllers/application_controller.rb')                         { "spec/controllers" }
     watch(%r{^spec/support/(requests|controllers|mailers|models)_helpers\.rb}) { |m| "spec/#{m[1]}" }
     watch(%r{^spec/.+_spec\.rb$})
