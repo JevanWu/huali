@@ -80,8 +80,11 @@ describe OrderForm do
       }
     end
 
-    let(:valid_line_item) do
-      { product_id: 12, quantity: 2 }
+    let(:valid_line_items) do
+      [
+        { product_id: 12, quantity: 2 },
+        { product_id: 13, quantity: 1 }
+      ]
     end
 
     let(:valid_order) do
@@ -89,7 +92,7 @@ describe OrderForm do
         # nested attributes
         sender: valid_sender,
         address: valid_receiver,
-        line_items: [valid_line_item],
+        line_items: valid_line_items,
         # direct attributes
         coupon_code: 'xs134fx',
         gift_card_text: '空白卡片',

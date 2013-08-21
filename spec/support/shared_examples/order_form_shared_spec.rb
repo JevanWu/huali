@@ -19,14 +19,15 @@ shared_examples_for "OrderForm::Shared" do
 
     it "builds nested line_items as Array" do
       subject.line_items.should be_a(Array)
-      subject.line_items[0].should == ItemInfo.new(valid_line_item)
+      subject.line_items[0].should == ItemInfo.new(valid_line_items[0])
+      subject.line_items[1].should == ItemInfo.new(valid_line_items[1])
     end
   end
 
   describe "#add_line_item" do
     it "pushes ItemInfo to the line_items attribute" do
       subject.add_line_item(12, 2)
-      subject.line_items[0].should == ItemInfo.new(valid_line_item)
+      subject.line_items[0].should == ItemInfo.new(valid_line_items[0])
     end
   end
 
