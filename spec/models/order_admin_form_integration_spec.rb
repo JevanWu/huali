@@ -9,6 +9,7 @@ describe OrderForm do
     @city = @province.cities.sample
     @area = @city.areas.sample
     @coupon = FactoryGirl.create(:coupon)
+    @ship_method = FactoryGirl.create(:ship_method)
   end
 
   let(:valid_receiver) do
@@ -48,21 +49,41 @@ describe OrderForm do
       gift_card_text: Forgery(:lorem_ipsum).paragraph,
       special_instructions: Forgery(:lorem_ipsum).paragraph,
       source: '淘宝',
-      expected_date: '2013-08-01'
+      expected_date: '2013-08-01',
+
+      # admin specific
+      bypass_date_validation: false,
+      bypass_region_validation: false,
+      bypass_product_validation: false,
+      adjustment: '*0.9',
+      kind: :taobao,
+      ship_method_id: @ship_method.id,
+      delivery_date: '2013-07-31'
     }
   end
 
   let(:form) do
-    OrderForm.new(valid_order)
+    OrderAdminForm.new(valid_order)
   end
 
-  it_behaves_like "OrderForm::Integration::Shared" 
+  it_behaves_like "OrderForm::Integration::Shared"
 
   describe "coupon_code persistance" do
-    context 'with passed in coupon_code' do
-      it 'saves coupon_code if passed in' do
-        OrderForm.new(valid_order.merge({coupon_code: @coupon.code})).save
+    context 'with adjustment passed in' do
+      it 'shouldn\'t save the coupon on order' do
+        OrderAdminForm.new(valid_order.merge({coupon_code: @coupon.code})).save
         order = Order.first
+
+        order.coupon_code.should be_nil
+        order.coupon.should be_nil
+      end
+    end
+
+    context 'without adjustment and with coupon_code' do
+      it 'saves coupon_code if passed in' do
+        OrderAdminForm.new(valid_order.merge({adjustment: nil, coupon_code: @coupon.code})).save
+        order = Order.first
+
         order.coupon_code.should == @coupon.code
         order.coupon == @coupon
       end
