@@ -36,7 +36,7 @@ class Coupon < ActiveRecord::Base
   end
 
   def used_by_order?(order)
-    order.coupon && order.coupon == self
+    order.persisted? && order.coupon && order.coupon == self
   end
 
   def usable?
