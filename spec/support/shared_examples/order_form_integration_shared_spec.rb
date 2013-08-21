@@ -3,7 +3,7 @@ shared_examples_for "OrderForm::Integration::Shared" do
     before(:all) do
       form.save
     end
-    
+
     let(:order) { Order.first }
 
     context 'sender information' do
@@ -54,6 +54,16 @@ shared_examples_for "OrderForm::Integration::Shared" do
       it 'saves post_code' do
         subject.post_code.should == valid_receiver[:post_code]
       end
+
+      it 'saves user on address' do
+        subject.user.should == @user
+      end
+    end
+
+    context 'users information' do
+      subject { order.user }
+      it { should_not be_nil }
+      it { should == @user }
     end
 
     context 'line_items information' do

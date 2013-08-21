@@ -6,6 +6,7 @@ describe OrderForm do
     @product1 = FactoryGirl.create(:product)
     @product2 = FactoryGirl.create(:product)
     @province = FactoryGirl.create(:province)
+    @user = FactoryGirl.create(:user)
     @city = @province.cities.sample
     @area = @city.areas.sample
     @coupon = FactoryGirl.create(:coupon)
@@ -45,6 +46,7 @@ describe OrderForm do
       sender: valid_sender,
       address: valid_receiver,
       line_items: valid_line_items,
+      user: @user,
       # direct attributes
       gift_card_text: Forgery(:lorem_ipsum).paragraph,
       special_instructions: Forgery(:lorem_ipsum).paragraph,
@@ -68,25 +70,31 @@ describe OrderForm do
 
   it_behaves_like "OrderForm::Integration::Shared"
 
-  describe "coupon_code persistance" do
-    context 'with adjustment passed in' do
-      it 'shouldn\'t save the coupon on order' do
-        OrderAdminForm.new(valid_order.merge({coupon_code: @coupon.code})).save
-        order = Order.first
+  describe '#save' do
+    describe "coupon_code persistance" do
+      context 'with adjustment passed in' do
+        it 'shouldn\'t save the coupon on order' do
+          OrderAdminForm.new(valid_order.merge({coupon_code: @coupon.code})).save
+          order = Order.first
 
-        order.coupon_code.should be_nil
-        order.coupon.should be_nil
+          order.coupon_code.should be_nil
+          order.coupon.should be_nil
+        end
+      end
+
+      context 'without adjustment and with coupon_code' do
+        it 'saves coupon_code if passed in' do
+          OrderAdminForm.new(valid_order.merge({adjustment: nil, coupon_code: @coupon.code})).save
+          order = Order.first
+
+          order.coupon_code.should == @coupon.code
+          order.coupon == @coupon
+        end
       end
     end
+  end
 
-    context 'without adjustment and with coupon_code' do
-      it 'saves coupon_code if passed in' do
-        OrderAdminForm.new(valid_order.merge({adjustment: nil, coupon_code: @coupon.code})).save
-        order = Order.first
+  describe '#update' do
 
-        order.coupon_code.should == @coupon.code
-        order.coupon == @coupon
-      end
-    end
   end
 end

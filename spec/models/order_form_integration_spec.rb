@@ -6,6 +6,7 @@ describe OrderForm do
     @product1 = FactoryGirl.create(:product)
     @product2 = FactoryGirl.create(:product)
     @province = FactoryGirl.create(:province)
+    @user = FactoryGirl.create(:user)
     @city = @province.cities.sample
     @area = @city.areas.sample
     @coupon = FactoryGirl.create(:coupon)
@@ -44,6 +45,7 @@ describe OrderForm do
       sender: valid_sender,
       address: valid_receiver,
       line_items: valid_line_items,
+      user: @user,
       # direct attributes
       gift_card_text: Forgery(:lorem_ipsum).paragraph,
       special_instructions: Forgery(:lorem_ipsum).paragraph,
