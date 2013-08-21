@@ -15,12 +15,13 @@ class OrderAdminForm < OrderForm
   include AdminOnlyInfo
 
   class << self
-    def new_from_record(record)
+    def build_from_record(record)
       order_admin_form = new(record.as_json)
       order_admin_form.sender = extract_sender(record)
       order_admin_form.address = extract_address(record)
       order_admin_form.line_items = extract_line_items(record)
       order_admin_form.coupon_code = extract_coupon_code(record)
+      order_admin_form.instance_eval { @persisted = true }
 
       return order_admin_form
     end
@@ -50,7 +51,25 @@ class OrderAdminForm < OrderForm
     end
   end
 
+  def persisted?
+    @persisted
+  end
+
   private 
+
+  def persist!
+    if persisted?
+      update!
+    else
+      super
+    end
+  end
+
+  def update!
+    # update orders
+    # update line_items, maybe builds one
+    # update addresses
+  end
 
   def dispatch_params(order)
     order.except!(:bypass_date_validation,
