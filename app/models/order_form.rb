@@ -21,7 +21,7 @@ class ReceiverInfo
   attribute :city_id, Integer
   attribute :area_id, Integer
   attribute :address, String
-  attribute :post_code, String
+  attribute :post_code, Integer
 
   validates_presence_of :fullname, :address, :phone, :province_id, :city_id, :post_code
 
