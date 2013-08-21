@@ -58,6 +58,8 @@ class User < ActiveRecord::Base
     message: "%{value} is not a valid user role."
   }
 
+  validates :phone, phone: { allow_blank: true }
+
   class << self
     def build_guest
       u = User.create(email: "guest_#{Time.now.to_i}#{rand(99)}@guest.me")

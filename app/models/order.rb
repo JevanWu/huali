@@ -71,9 +71,7 @@ class Order < ActiveRecord::Base
   validates_with OrderItemValidator, if: lambda { |order| order.not_yet_shipped? && !order.bypass_product_validation }
   validates_with OrderCouponValidator, unless: lambda { |order| order.coupon_code_blank? }
 
-  # only validate once on Date.today, because in future Date.today will change
-  validate :phone_validate, unless: lambda { |order| order.sender_phone.blank? }
-  # skip coupon code validation for empty coupon and already used coupon
+  validates :sender_phone, phone: { allow_blank: true }
 
   validate :delivery_date_must_be_less_than_expected_date
 
@@ -306,12 +304,6 @@ class Order < ActiveRecord::Base
   end
 
   private
-
-  def phone_validate
-    n_digits = sender_phone.scan(/[0-9]/).size
-    valid_chars = (sender_phone =~ /^[-+()\/\s\d]+$/)
-    errors.add :sender_phone, :invalid unless (n_digits >= 8 && valid_chars)
-  end
 
   def auth_refund
     # TODO auth the admin for the refund actions
