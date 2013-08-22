@@ -66,10 +66,15 @@ class OrderAdminForm < OrderForm
   end
 
   def update!
-    @record
-    # update orders
-    # update line_items, maybe builds one
-    # update addresses
+    order, address, line_items = dispatch_params(to_hash)
+
+    @record.update_attributes(order)
+    @record.address.update_attributes(address)
+
+    # rebuild line_items
+    @record.line_items.destroy_all
+    @record.line_items = line_items.map { |params| LineItem.new(params) }
+    @record.save!
   end
 
   def dispatch_params(order)

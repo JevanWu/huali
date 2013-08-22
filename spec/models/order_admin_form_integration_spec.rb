@@ -182,12 +182,12 @@ describe OrderForm do
         new_address = Forgery(:address).street_address
         new_post_code = @new_area.post_code
 
-        new_address = ReceiverInfo.new(form.address.to_hash
+        new_receiver = ReceiverInfo.new(form.address.to_hash
                                        .merge({ fullname: new_name,
                                                 phone: new_phone,
                                                 address: new_address,
                                                 post_code: new_post_code }))
-        form.address = new_address
+        form.address = new_receiver
         form.save
 
         subject.fullname.should == new_name
@@ -273,6 +273,7 @@ describe OrderForm do
         form.coupon_code = nil
         form.save
 
+        order.reload
         order.coupon_code.should be_nil
         order.coupon.should be_nil
       end
