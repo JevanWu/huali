@@ -52,7 +52,7 @@ class OrderAdminForm < OrderForm
   end
 
   def persisted?
-    @persisted
+    !!@persisted
   end
 
   private 
