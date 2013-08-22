@@ -35,6 +35,9 @@ class Address < ActiveRecord::Base
   validates_presence_of :fullname, :address, :phone, :province, :city, :post_code
   validates :phone, phone: { allow_blank: true }
 
+  after_validation do
+    set_phonelib_normalized_numbers(:phone)
+  end
   # after_validation :fill_in_post_code
 
   def check_postcode

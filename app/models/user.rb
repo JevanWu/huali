@@ -60,6 +60,10 @@ class User < ActiveRecord::Base
 
   validates :phone, phone: { allow_blank: true }
 
+  after_validation do
+    set_phonelib_normalized_numbers(:phone)
+  end
+
   class << self
     def build_guest
       u = User.create(email: "guest_#{Time.now.to_i}#{rand(99)}@guest.me")

@@ -77,6 +77,10 @@ class Order < ActiveRecord::Base
 
   after_validation :cal_item_total, :cal_total
 
+  after_validation do
+    set_phonelib_normalized_numbers(:sender_phone)
+  end
+
   before_save do |order|
     OrderDiscountPolicy.new(order).apply
   end
