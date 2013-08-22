@@ -24,5 +24,16 @@ module Extension
 
       @related_products = (recommendations + suggestions).take(7)
     end
+
+    def process_phone_params
+      [:sender_phone, :phone].each do |field|
+        calling_code_field = :"#{field}_calling_code"
+        unless params[:order][field].blank? || params[:order][calling_code_field] == CountryCode.default.calling_code
+          params[:order][field] = params[:order][calling_code_field] + params[:order][field]
+        end
+
+        params[:order].delete(calling_code_field)
+      end
+    end
   end
 end
