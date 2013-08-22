@@ -221,7 +221,7 @@ describe OrderAdminForm do
     it { should be_persisted }
 
     it 'stores reference to the record' do
-      subject.instance_variable_get(:@order).should == order_record
+      subject.instance_variable_get(:@record).should == order_record
     end
 
     [:gift_card_text, :special_instructions, :source, :adjustment].each do |attr|

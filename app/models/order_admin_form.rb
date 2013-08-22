@@ -21,7 +21,7 @@ class OrderAdminForm < OrderForm
       order_admin_form.address = extract_address(record)
       order_admin_form.line_items = extract_line_items(record)
       order_admin_form.coupon_code = extract_coupon_code(record)
-      order_admin_form.instance_eval { @order = record }
+      order_admin_form.instance_eval { @record = record }
 
       return order_admin_form
     end
@@ -52,7 +52,7 @@ class OrderAdminForm < OrderForm
   end
 
   def persisted?
-    !!@order
+    !!@record
   end
 
   private 
@@ -66,6 +66,7 @@ class OrderAdminForm < OrderForm
   end
 
   def update!
+    @record
     # update orders
     # update line_items, maybe builds one
     # update addresses
