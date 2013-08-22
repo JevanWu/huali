@@ -95,7 +95,9 @@ class Sms
 [花里花店] hua.li
 STR
 
-      new(phone_number: phonenums.join(','), body: content).deliver
+      phonenums.each do |phone|
+        new(phone_number: phone, body: content).deliver
+      end
     end
 
     def pay_order_user_sms(order_id)
