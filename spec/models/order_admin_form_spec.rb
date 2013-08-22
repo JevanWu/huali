@@ -11,101 +11,123 @@ require 'line_item'
 require 'coupon'
 
 describe OrderAdminForm do
+  let(:valid_receiver) do
+    {
+      fullname: '张佳婵',
+      phone: '13912341234',
+      province_id: 1,
+      city_id: 12,
+      area_id: 13,
+      address: '藏龙岛科技园栗庙路6号 湖北美术学院藏龙岛校区 5栋202室',
+      post_code: '430200'
+    }
+  end
+
+  let(:valid_sender) do
+    {
+      name: '张佳婵',
+      phone: '13912341234',
+      email: 'somebody@example.com'
+    }
+  end
+
+  let(:valid_line_items) do
+    [
+      { product_id: 12, quantity: 2 },
+      { product_id: 13, quantity: 1 }
+    ]
+  end
+
+  let(:valid_order) do
+    {
+      # nested attributes
+      sender: valid_sender,
+      address: valid_receiver,
+      line_items: valid_line_items,
+      # direct attributes
+      bypass_date_validation: false,
+      bypass_region_validation: false,
+      bypass_product_validation: false,
+      coupon_code: 'xs134fx',
+      gift_card_text: '空白卡片',
+      special_instructions: '现在的色调有些冷，请往“巴黎”的色调靠拢。把绣球的颜色调浅些或者加香槟玫瑰，送给女性朋友生日的礼物，尽量粉嫩甜蜜些',
+      source: '淘宝',
+      expected_date: '2013-08-01'
+    }
+  end
+
+  subject { OrderAdminForm.new(valid_order) }
+
   it_behaves_like "ActiveModel::Full"
-  it_behaves_like "OrderForm::Shared" do
+  it_behaves_like "OrderForm::Shared"
     
-    let(:valid_receiver) do
-      {
-        fullname: '张佳婵',
-        phone: '13912341234',
-        province_id: 1,
-        city_id: 12,
-        area_id: 13,
-        address: '藏龙岛科技园栗庙路6号 湖北美术学院藏龙岛校区 5栋202室',
-        post_code: '430200'
-      }
+  describe "attributes" do
+    [:bypass_date_validation, :bypass_region_validation, :bypass_product_validation].each do |attr|
+      it "builds #{attr} default to false" do
+        order_admin_form = OrderAdminForm.new(valid_order.except(attr))
+        order_admin_form.send(attr).should be_false
+      end
     end
+  end
 
-    let(:valid_sender) do
-      {
-        name: '张佳婵',
-        phone: '13912341234',
-        email: 'somebody@example.com'
-      }
-    end
-
-    let(:valid_line_items) do
-      [
-        { product_id: 12, quantity: 2 },
-        { product_id: 13, quantity: 1 }
-      ]
-    end
-
-    let(:valid_order) do
-      {
-        # nested attributes
-        sender: valid_sender,
-        address: valid_receiver,
-        line_items: valid_line_items,
-        # direct attributes
-        bypass_date_validation: false,
-        bypass_region_validation: false,
-        bypass_product_validation: false,
-        coupon_code: 'xs134fx',
-        gift_card_text: '空白卡片',
-        special_instructions: '现在的色调有些冷，请往“巴黎”的色调靠拢。把绣球的颜色调浅些或者加香槟玫瑰，送给女性朋友生日的礼物，尽量粉嫩甜蜜些',
-        source: '淘宝',
-        expected_date: '2013-08-01'
-      }
-    end
-
-    subject { OrderAdminForm.new(valid_order) }
-
-    describe "attributes" do
-      [:bypass_date_validation, :bypass_region_validation, :bypass_product_validation].each do |attr|
-        it "builds #{attr} default to false" do
-          order_admin_form = OrderAdminForm.new(valid_order.except(attr))
-          order_admin_form.send(attr).should be_false
-        end
+  describe "valid?" do
+    before do
+      VALIDATORS.each do |v| 
+        any_instance_of v.constantize, validate: lambda { |order| }
       end
     end
 
-    describe "valid?" do
-      before do
-        VALIDATORS.each do |v| 
-          any_instance_of v.constantize, validate: lambda { |order| }
-        end
+    it 'bypass the DateValidator if bypass_date_validation is true' do
+      subject.bypass_date_validation = true
+
+      any_instance_of(OrderProductDateValidator) do |v|
+        mock(v).validate(subject).never
       end
 
-      it 'bypass the DateValidator if bypass_date_validation is true' do
-        subject.bypass_date_validation = true
+      subject.valid?
+    end
 
-        any_instance_of(OrderProductDateValidator) do |v|
-          mock(v).validate(subject).never
-        end
+    it 'bypass the RegionValidator if bypass_region_validation is true' do
+      subject.bypass_region_validation = true
 
-        subject.valid?
+      any_instance_of(OrderProductRegionValidator) do |v|
+        mock(v).validate(subject).never
       end
 
-      it 'bypass the RegionValidator if bypass_region_validation is true' do
-        subject.bypass_region_validation = true
+      subject.valid?
+    end
 
-        any_instance_of(OrderProductRegionValidator) do |v|
-          mock(v).validate(subject).never
-        end
+    it 'bypass the ItemValidator if bypass_product_validation is true' do
+      subject.bypass_product_validation = true
 
-        subject.valid?
+      any_instance_of(OrderItemValidator) do |v|
+        mock(v).validate(subject).never
       end
+      
+      subject.valid?
+    end
+  end
 
-      it 'bypass the ItemValidator if bypass_product_validation is true' do
-        subject.bypass_product_validation = true
+  describe "#save" do
+    before do
+      stub(subject).valid? { true }
+    end
 
-        any_instance_of(OrderItemValidator) do |v|
-          mock(v).validate(subject).never
-        end
-        
-        subject.valid?
-      end
+    it 'calls ancestors\'s #persisted! if builds from params' do
+      any_instance_of(OrderForm) { |form| mock(form).persist!.once }
+      subject.save
+    end
+
+    it "doesn\'t call #update! if builds from params" do
+      any_instance_of(OrderForm, persist!: true)
+      mock(subject).update!.never
+      subject.save
+    end
+
+    it "call #update! if builds from persited record" do
+      stub(subject).persisted? { true }
+      mock(subject).update!.once
+      subject.save
     end
   end
 
@@ -190,7 +212,7 @@ describe OrderAdminForm do
     it { subject.address.should == ReceiverInfo.new(address_param) }
     it { subject.line_items[0].should == ItemInfo.new(line_item_param) }
     it { subject.coupon_code.should == coupon_param[:code] }
-    it { subject.should be_new_from_record }
+    it { should be_persisted }
 
     [:gift_card_text, :special_instructions, :source, :adjustment].each do |attr|
       it "populates #{attr} as String" do
