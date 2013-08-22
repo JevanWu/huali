@@ -608,8 +608,8 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin!
-  activerecord-nulldb-adapter!
   activeadmin-sortable-tree!
+  activerecord-nulldb-adapter!
   acts-as-taggable-on (~> 2.4.1)
   analytics-ruby
   annotate!
