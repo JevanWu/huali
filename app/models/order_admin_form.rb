@@ -22,6 +22,7 @@ class OrderAdminForm < OrderForm
       order_admin_form.line_items = extract_line_items(record)
       order_admin_form.coupon_code = extract_coupon_code(record)
       order_admin_form.instance_eval { @persisted = true }
+      order_admin_form.instance_eval { @order = record }
 
       return order_admin_form
     end

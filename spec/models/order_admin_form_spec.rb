@@ -217,8 +217,12 @@ describe OrderAdminForm do
       order_record.coupon = nil
       subject.coupon_code.should be_nil
     end
-    
+
     it { should be_persisted }
+
+    it 'stores reference to the record' do
+      subject.instance_variable_get(:@order).should == order_record
+    end
 
     [:gift_card_text, :special_instructions, :source, :adjustment].each do |attr|
       it "populates #{attr} as String" do
