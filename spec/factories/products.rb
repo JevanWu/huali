@@ -67,8 +67,8 @@ FactoryGirl.define do
 
     trait :with_local_rules do
       after(:create) do |product|
-        product.local_date_rule = build(:local_date_rule, product: product)
-        product.local_region_rule = build(:local_region_rule, product: product)
+        product.local_date_rule = create(:local_date_rule, product: product)
+        product.local_region_rule = create(:local_region_rule, product: product)
       end
     end
 
