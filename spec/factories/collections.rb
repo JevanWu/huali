@@ -36,5 +36,11 @@ FactoryGirl.define do
         create_list(:product, Forgery(:basic).number, :with_collection, collection: collection )
       end
     end
+
+    trait :with_parent do
+      after(:build) do |collection|
+        collection.parent = create(:collection)
+      end
+    end
   end
 end

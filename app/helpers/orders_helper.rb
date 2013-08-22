@@ -105,4 +105,11 @@ module OrdersHelper
       end
     end.flatten.join.html_safe
   end
+
+  def express_query_links
+    <<-STR
+      <a href="http://cndxp.apac.fedex.com/app/transittime?method=init&language=zh&region=CN" target="_blank">联邦查询</a>
+      <a href="http://www.sf-express.com/cn/sc/delivery_step/enquiry/serviceTime.html" target="_blank">顺丰查询</a>
+    STR
+  end
 end

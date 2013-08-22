@@ -28,6 +28,8 @@ class Collection < ActiveRecord::Base
 
   validates_presence_of :display_name, :name_zh
 
+  acts_as_tree name_column: 'display_name', order: 'priority'
+
   translate :name
 
   extend FriendlyId
@@ -44,5 +46,37 @@ class Collection < ActiveRecord::Base
 
   def to_s
     "#{self.id} #{self.name_zh}"
+  end
+
+  class << self
+    def parents_options(id)
+      parse_tree(hash_tree, id)
+    end
+
+    private
+
+    def parse_tree(tree, exclude)
+      tree.map do |k, v|
+        next [] if k.id == exclude
+
+        parent = [[option_name(k.show_name, k.depth), k.id]]
+
+        if v.present?
+          parent.concat parse_tree(v, exclude)
+        end
+
+        parent
+      end.reduce(&:concat)
+    end
+
+    def option_name(name, depth)
+      new_name = name
+
+      depth.times do
+        new_name = '&nbsp;' * 3 + new_name
+      end
+
+      new_name.html_safe
+    end
   end
 end

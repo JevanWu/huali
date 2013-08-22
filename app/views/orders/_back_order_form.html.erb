@@ -11,7 +11,7 @@
   </fieldset>
   <fieldset>
     <legend>递送信息</legend>
-    <%= f.input :ship_method_id, as: :radio_buttons, required: true, collection: ShipMethod.all %>
+    <%= f.input :ship_method_id, as: :radio_buttons, required: true, collection: ShipMethod.all, hint: express_query_links %>
     <%= f.input :expected_date, as: :string, required: true, input_html: { class: 'datepicker' }, placeholder: '寄给TA的时间' %>
     <%= f.input :bypass_date_validation, as: :boolean %>
     <%= f.input :delivery_date, as: :string, required: true, input_html: { class: 'datepicker-full' }%>
@@ -25,6 +25,7 @@
       <%= builder.input :address, as: 'text', required:true, input_html: { rows: 3 }, placeholder: '详细地址' %>
       <%= builder.input :post_code, placeholder: '邮编', required: true, hint: %(<a id='query-postcode' href="#" target='_blank'>查询邮编</a>) %>
       <%= f.input :bypass_region_validation, as: :boolean %>
+      <%= f.input :bypass_product_validation, as: :boolean %>
     <% end %>
   </fieldset>
   <div class="form-actions">

@@ -40,7 +40,7 @@ FactoryGirl.define do
     inspiration { Forgery(:lorem_ipsum).sentence }
 
     priority { Forgery(:basic).number }
-    count_on_hand { Forgery(:basic).number }
+    count_on_hand { Forgery(:basic).number + 100 }
     sold_total { Forgery(:basic).number({at_least: 1, at_most: 1000}) }
 
     price { Forgery(:monetary).money }
@@ -65,15 +65,10 @@ FactoryGirl.define do
       end
     end
 
-    trait :with_local_date_rule do
+    trait :with_local_rules do
       after(:create) do |product|
-        product.local_date_rule = create(:local_date_rule, product: product)
-      end
-    end
-
-    trait :with_local_region_rule do
-      after(:create) do |product|
-        product.local_region_rule = create(:local_region_rule, product: product)
+        product.local_date_rule = build(:local_date_rule, product: product)
+        product.local_region_rule = build(:local_region_rule, product: product)
       end
     end
 

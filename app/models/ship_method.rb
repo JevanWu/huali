@@ -18,7 +18,7 @@ class ShipMethod < ActiveRecord::Base
   validates :method, inclusion: {
     in: %w(express manual),
     message: "%{value} is not a valid shipment_method."
-  }
+  }, allow_blank: true
 
   def to_s
     name

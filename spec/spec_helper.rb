@@ -4,8 +4,23 @@
 require 'spork'
 require 'rr'
 require 'capybara/rspec'
-require 'capybara/poltergeist'
-Capybara.javascript_driver = :poltergeist
+#Capybara.javascript_driver = :selenium
+#Capybara.javascript_driver = :webkit_debug
+
+# poltergeist
+#require 'capybara/poltergeist'
+#Capybara.register_driver :poltergeist do |app|
+  #Capybara::Poltergeist::Driver.new(app, js_errors: false, phantomjs_options: ["--proxy=127.0.0.1:8087"])
+#end
+#Capybara.javascript_driver = :poltergeist
+
+# chrome driver
+Capybara.register_driver :chrome do |app|
+  proxy = { proxyType: 'pac', proxyAutoconfigUrl: 'http://127.0.0.1:8086/proxy.pac' }
+  Capybara::Selenium::Driver.new(app, browser: :chrome, proxy: proxy)
+end
+Capybara.javascript_driver = :chrome
+#Capybara.default_driver = :chrome
 
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
@@ -47,6 +62,12 @@ Spork.prefork do
 
     # FactoryGirl Syntax Mixins
     config.include FactoryGirl::Syntax::Methods
+
+    # Warden helper for stubbed login and logout
+    config.include Warden::Test::Helpers, type: :feature
+
+    config.include RegionRuleHelper, type: :feature
+    config.include CustomCapybaraHelper, type: :feature
 
     # FactoryGirl Logging
     config.before(:suite) do
@@ -91,18 +112,24 @@ Spork.prefork do
 
     # For resetting database to a pristine state
     config.before(:suite) do
-      DatabaseCleaner.strategy = :transaction
+      DatabaseCleaner.strategy = :truncation
       DatabaseCleaner.clean_with(:truncation)
     end
 
     config.before(:each) do
       DatabaseCleaner.start
+      set_selenium_window_size(1250, 800) if Capybara.current_driver == :selenium
     end
 
     config.after(:each) do
       DatabaseCleaner.clean
     end
   end
+end
+
+def set_selenium_window_size(width, height)
+  window = Capybara.current_session.driver.browser.manage.window
+  window.resize_to(width, height)
 end
 
 Spork.each_run do

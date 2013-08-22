@@ -106,7 +106,7 @@ class User < ActiveRecord::Base
     def self.generate_token(column)
       loop do
         token = random_token
-        break token unless find(:first, conditions: { column => token })
+        break token unless where(column => token).exists?
       end
     end
 end

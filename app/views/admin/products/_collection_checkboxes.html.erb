@@ -1,0 +1,12 @@
+<li class="check_boxes input required" id="product_collections_input">
+  <fieldset class="choices">
+    <legend class="label">
+      <label><%= t 'activerecord.attributes.product.collections' %><abbr title="<%= t 'formtastic.required' %>">*</abbr></label>
+    </legend>
+    <input id="product_collections_none" name="product[collection_ids][]" type="hidden" value="">
+    <%= collection_list %>
+  </fieldset>
+  <% if product.errors[:collections].present? %>
+    <p class="inline-errors"><%= t 'activerecord.errors.messages.blank' %></p>
+  <% end %>
+</li>

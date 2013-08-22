@@ -66,6 +66,11 @@ gem 'uglifier', '>= 1.0.3'
 gem 'bootstrap-sass', '~> 2.2.1.1'
 # gem 'turbo-sprockets-rails3'
 
+gem 'closure_tree'
+
+gem "activeadmin-sortable-tree",
+  github: "ryancheung/activeadmin-sortable-tree"
+
 group :development, :test do
   gem 'rspec-rails', '>= 2.11.0'
   gem 'rspec-instafail'
@@ -116,7 +121,8 @@ group :test do
   gem 'shoulda-matchers'
   gem 'activerecord-nulldb-adapter', github: 'blaet/nulldb', branch: 'support_enable_extension'
   gem 'capybara', '>= 1.1.2'
-  gem 'poltergeist'
+  gem 'capybara-webkit'
+  gem 'selenium-webdriver'
   gem 'spork', '~> 1.0rc'
   gem 'simplecov', require: false
   gem 'email_spec', '>= 1.2.1'

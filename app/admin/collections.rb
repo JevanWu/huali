@@ -2,6 +2,14 @@
 ActiveAdmin.register Collection do
   menu parent: '产品', if: proc { authorized? :read, Collection }
 
+  sortable tree: true,
+           max_levels: 0, # infinite indent levels
+           protect_root: false, # allow root items to be dragged
+           sorting_attribute: :priority,
+           parent_method: :parent,
+           children_method: :children,
+           roots_method: :roots
+
   filter :name_zh
   filter :display_name
   filter :description
@@ -11,24 +19,12 @@ ActiveAdmin.register Collection do
     private
 
     def permitted_params
-      params.permit collection: [:name_en, :name_zh, :display_name, :priority, :available, :primary_category, :meta_title, :meta_description, :meta_keywords]
+      params.permit collection: [:name_en, :name_zh, :display_name, :priority, :available, :primary_category, :meta_title, :meta_description, :meta_keywords, :parent_id]
     end
   end
 
-  index do
-    selectable_column
-    column :name_zh
-    column :display_name
-    column :name_en
-    column :available
-    column :primary_category
-    column :description
-    column :products_count do |collection|
-      div class: 'count' do
-        collection.products.size
-      end
-    end
-    column :priority
+  index as: :sortable do
+    label :display_name
     default_actions
   end
 
@@ -38,6 +34,7 @@ ActiveAdmin.register Collection do
     attributes_table do
       row :name_zh
       row :display_name
+      row :parent
       row :name_en
       row :available
       row :primary_category
