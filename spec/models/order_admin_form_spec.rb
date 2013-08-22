@@ -212,6 +212,12 @@ describe OrderAdminForm do
     it { subject.address.should == ReceiverInfo.new(address_param) }
     it { subject.line_items[0].should == ItemInfo.new(line_item_param) }
     it { subject.coupon_code.should == coupon_param[:code] }
+
+    it 'preserves nil of coupon' do
+      order_record.coupon = nil
+      subject.coupon_code.should be_nil
+    end
+    
     it { should be_persisted }
 
     [:gift_card_text, :special_instructions, :source, :adjustment].each do |attr|

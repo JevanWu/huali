@@ -47,7 +47,7 @@ class OrderAdminForm < OrderForm
     end
 
     def extract_coupon_code(record)
-      record.coupon.code
+      record.coupon.try(:code)
     end
   end
 
