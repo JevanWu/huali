@@ -1,6 +1,6 @@
 class PhoneInput < SimpleForm::Inputs::Base
   def input
-    "<div>#{country_code_select}#{text_field}</div>".html_safe
+    "#{country_code_select}#{text_field}".html_safe
   end
 
   private
@@ -36,18 +36,12 @@ class PhoneInput < SimpleForm::Inputs::Base
   end
 
   def local_phone?
-    phone.start_with?(CountryCode.default.calling_code)
+    !phone.start_with?('+')
   end
 
   def text_field_value
     return if phone.blank?
-
-    unless phone_valid?
-      value = phone.sub(phone_calling_code, '').sub(/^\s?/, '')
-      value = "0#{value}" if local_phone?
-
-      return value
-    end
+    return phone.sub(phone_calling_code, '').sub(/^\s?/, '') unless phone_valid?
 
     if local_phone?
       parsed_phone.national
