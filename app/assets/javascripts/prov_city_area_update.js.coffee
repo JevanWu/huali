@@ -1,6 +1,6 @@
 $ ->
   [proSelector, citySelector, areaSelector] = $('select').filter (index) ->
-    $(@).attr('id').match /address_attributes/
+    $(@).attr('id').match /address_attributes_(province|city|area)/
 
   updateProvinceSelector = ->
     $.ajax
