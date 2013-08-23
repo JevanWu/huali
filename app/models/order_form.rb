@@ -35,6 +35,7 @@ end
 class ItemInfo
   include Virtus
   include Virtus::ValueObject
+  extend ActiveModel::Naming
 
   attribute :product_id, Integer
   attribute :quantity, Integer

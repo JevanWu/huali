@@ -27,10 +27,19 @@ ActiveAdmin.register Order do
     end
 
     def edit
-      @order = Order.find_by_id(params[:id])
-      if @order.state.in? ["completed", "refunded", "void"]
-        redirect_to [:admin, @order], alert: t('views.admin.order.cannot_edit')
+      order = Order.find_by_id(params[:id])
+      if order.state.in? ["completed", "refunded", "void"]
+        redirect_to [:admin, order], alert: t('views.admin.order.cannot_edit')
       end
+      @order_admin_form = OrderAdminForm.build_from_record(order)
+      @collection_data = {
+        provinces: Province.all.map { |prov| [prov.name, prov.id] },
+        cities: Province.find(@order_admin_form.address.province_id)
+                .cities.map { |city| [city.name, city.id] },
+        areas: City.find(@order_admin_form.address.city_id)
+                .areas.map { |city| [city.name, city.id] },
+        line_items: LineItem.includes(:product).all.map { |item| [item.name, item.id] }
+      }
     end
 
     private
