@@ -38,7 +38,7 @@ ActiveAdmin.register Order do
                 .cities.map { |city| [city.name, city.id] },
         areas: City.find(@order_admin_form.address.city_id)
                 .areas.map { |city| [city.name, city.id] },
-        line_items: LineItem.includes(:product).all.map { |item| [item.name, item.id] }
+        line_items: Product.all.map { |item| [item.name, item.id] }
       }
     end
 
