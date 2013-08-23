@@ -160,7 +160,7 @@ GIT
 
 GIT
   remote: git://github.com/ryancheung/phonelib.git
-  revision: 0b1ee485f4a59a55cf5d0698265e08ec3396f51e
+  revision: 2e73b073132940cc885703079713a2a4e5d02e96
   specs:
     phonelib (0.1.3)
 
