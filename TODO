@@ -7,8 +7,9 @@ Factor Out the Validators from Order to FormObjects:
  ✔ Make Taobao Order and Special Order inherited from this objects @done (13-08-14 18:55)
  ✔ write the update! method to update existed record @done (13-08-23 12:47)
  ✔ Make ActiveAdmin form to use the FormObject as well @done (13-08-23 16:06)
- ☐ Needs to correct line item rendering and 
- ☐ correct line items removal (remove the fields when click remove)
+ ✔ Needs to correct line item rendering and @done (13-08-23 16:42)
+ ✔ correct line items removal (remove the fields when click remove) @done (13-08-23 16:52)
+ ☐ Update the orders from Admin Order
   # how to handle the PUT request for updates? 
   # How to distinguish it from a POST?
   # How to update the right order (through order_id probably?)

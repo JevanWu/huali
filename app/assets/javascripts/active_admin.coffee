@@ -14,6 +14,21 @@ $ ->
     $(this).closest('fieldset').hide()
     event.preventDefault()
 
+  $('form').on 'click', '.remove_form_object_attr', (event) ->
+    if (!confirm('Are you sure?'))
+      return false
+
+    quantityField = $(this).parent().prev()
+    productField = $(this).parent().prev().prev()
+    blankSpace = $(this).parent().next()
+
+    $(this).parent().remove()
+    quantityField.remove()
+    productField.remove()
+    blankSpace.remove()
+
+    event.preventDefault()
+
   $('form').on 'click', '.add_fields', (event) ->
     time = new Date().getTime()
     regexp = new RegExp $(this).data('id'), 'g'
