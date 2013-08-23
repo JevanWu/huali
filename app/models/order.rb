@@ -71,15 +71,12 @@ class Order < ActiveRecord::Base
   validates_with OrderItemValidator, if: lambda { |order| order.not_yet_shipped? && !order.bypass_product_validation }
   validates_with OrderCouponValidator, unless: lambda { |order| order.coupon_code_blank? }
 
+  phoneize :sender_phone
   validates :sender_phone, phone: { allow_blank: true }
 
   validate :delivery_date_must_be_less_than_expected_date
 
   after_validation :cal_item_total, :cal_total
-
-  after_validation do
-    set_phonelib_normalized_numbers(:sender_phone)
-  end
 
   before_save do |order|
     OrderDiscountPolicy.new(order).apply

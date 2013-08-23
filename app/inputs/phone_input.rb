@@ -6,27 +6,48 @@ class PhoneInput < SimpleForm::Inputs::Base
   private
 
   def selected_code
-    if phone.blank?
-      CountryCode.find_by_code(Phonelib.default_country).calling_code
-    else
+    return CountryCode.default.calling_code if phone.blank?
+
+    if phone_valid?
       parsed_phone.international.split.first
+    else
+      phone_calling_code
     end
   end
 
+  def phone_calling_code
+    object.send(calling_code_attribute_name)
+  end
+
+  def calling_code_attribute_name
+    :"#{attribute_name}_calling_code"
+  end
+
   def phone
-    phone = object.send(attribute_name)
+    object.send(attribute_name)
   end
 
   def parsed_phone
     Phonelib.parse(phone)
   end
 
+  def phone_valid?
+    parsed_phone.valid?
+  end
+
   def local_phone?
-    parsed_phone.country == Phonelib.default_country
+    phone.start_with?(CountryCode.default.calling_code)
   end
 
   def text_field_value
-    return phone if phone.blank?
+    return if phone.blank?
+
+    unless phone_valid?
+      value = phone.sub(phone_calling_code, '').sub(/^\s?/, '')
+      value = "0#{value}" if local_phone?
+
+      return value
+    end
 
     if local_phone?
       parsed_phone.national
@@ -41,11 +62,9 @@ class PhoneInput < SimpleForm::Inputs::Base
   end
 
   def country_code_select
-    select_options = template.options_from_collection_for_select(CountryCode.all, :calling_code, :name, selected_code)
-
-    select_name = "#{object_name}[#{attribute_name}_calling_code]"
-    country_code_select = template.select_tag(select_name,
-                                              select_options,
-                                              class: 'input-small chosen-small')
+    @builder.select(calling_code_attribute_name,
+                    template.options_from_collection_for_select(CountryCode.all, :calling_code, :name, selected_code),
+                    { prompt: false },
+                    { class: 'input-small chosen-small' })
   end
 end

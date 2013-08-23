@@ -2,17 +2,17 @@ module Phonelib
   module Extension
     extend ActiveSupport::Concern
 
-    included do
-      private
-
-      # This methods sets the attribute to the normalized version.
-      def set_phonelib_normalized_numbers(*attributes)
+    module ClassMethods
+      def phoneize(*attributes)
         attributes.each do |attribute|
-          phone = Phonelib.parse(self.send(attribute))
-          normalized = (phone.country == Phonelib.default_country) ?
-            phone.national : phone.international
+          attr_accessor :"#{attribute}_calling_code"
 
-          self.send("#{attribute}=", normalized)
+          before_validation do
+            phone = self.send(attribute).sub(/^0*/, '')
+            phone_calling_code = self.send(:"#{attribute}_calling_code")
+
+            self.send("#{attribute}=", "#{phone_calling_code} #{phone}")
+          end
         end
       end
     end

@@ -7,7 +7,6 @@ class OrdersController < ApplicationController
   before_action :authenticate_user!, only: [:new, :index, :show, :create, :checkout, :cancel]
   before_action :authenticate_administrator!, only: [:back_order_new, :back_order_create, :taobao_order_new, :taobao_order_create]
   before_action :process_custom_data, only: [:return, :notify]
-  before_action :process_phone_params, only: [:back_order_create, :taobao_order_create, :create]
   skip_before_action :verify_authenticity_token, only: [:notify]
 
   include ::Extension::Order
@@ -222,7 +221,7 @@ class OrdersController < ApplicationController
         :coupon_code, :gift_card_text, :special_instructions,
         :source, :expected_date,
         address_attributes: [
-           :fullname, :phone, :province_id,
+           :fullname, :phone, :phone_calling_code, :province_id,
            :city_id, :area_id, :post_code,
            :address]
       ]

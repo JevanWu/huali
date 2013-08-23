@@ -58,11 +58,8 @@ class User < ActiveRecord::Base
     message: "%{value} is not a valid user role."
   }
 
+  phoneize :phone
   validates :phone, phone: { allow_blank: true }
-
-  after_validation do
-    set_phonelib_normalized_numbers(:phone)
-  end
 
   class << self
     def build_guest
