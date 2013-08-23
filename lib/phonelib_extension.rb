@@ -8,10 +8,14 @@ module Phonelib
           attr_accessor :"#{attribute}_calling_code"
 
           before_validation do
-            phone = self.send(attribute).sub(/^0*/, '')
-            phone_calling_code = self.send(:"#{attribute}_calling_code")
+            original_phone = self.send(attribute)
 
-            self.send("#{attribute}=", "#{phone_calling_code} #{phone}")
+            if original_phone.present?
+              phone = original_phone.sub(/^0*/, '')
+              phone_calling_code = self.send(:"#{attribute}_calling_code")
+
+              self.send("#{attribute}=", "#{phone_calling_code} #{phone}")
+            end
           end
         end
       end

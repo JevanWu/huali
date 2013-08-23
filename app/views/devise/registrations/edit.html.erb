@@ -18,7 +18,7 @@
       <fieldset>
         <legend>个人信息</legend>
         <%= f.input :name, placeholder: '您的称呼, 以便我们和您联系' %>
-        <%= f.input :phone, placeholder: '以便我们和您核对信息'  %>
+        <%= f.input :phone, as: :phone, placeholder: '以便我们和您核对信息'  %>
         <%= f.input :email, required: true %>
         <%= f.input :password, required: true%>
         <%= f.input :password_confirmation, required: true %>
