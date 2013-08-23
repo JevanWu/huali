@@ -20,6 +20,8 @@ $ ->
     $(this).parent().before($(this).data('fields').replace(regexp, time))
     event.preventDefault()
 
+    $('.chosen').chosen({width: "30%"})
+
   $('.barcode35').barcode(code: 'code39')
 
   $('.print').click -> window.print()

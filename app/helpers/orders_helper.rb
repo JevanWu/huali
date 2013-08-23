@@ -89,13 +89,16 @@ module OrdersHelper
     content_tag('div', buttons, id: 'process-buttons')
   end
 
-  def link_to_add_line_items(name, f, association)
-    new_line_item = LineItem.new
+  def link_to_add_line_items(name, f, all_line_items)
+    new_line_item = ItemInfo.new
     id = new_line_item.object_id
-    fields = f.fields_for(association, new_line_item, child_index: id) do |builder|
-      render('line_item_fields', f: builder)
-    end
-    link_to(name, '#', class: "add_fields", data: {id: id, fields: fields.gsub('\n', '')})
+    fields_html = render({ partial: 'line_item_fields',
+                           locals: { 
+                              f: f,
+                              line_item_fields: new_line_item,
+                              all_line_items: all_line_items }})
+
+    link_to(name, '#', class: "add_fields", data: {id: id, fields: fields_html.gsub('\n', '')})
   end
 
   def error_messages_for_collection(collection)
