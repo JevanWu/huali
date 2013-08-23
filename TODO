@@ -2,16 +2,26 @@ Factor Out the Validators from Order to FormObjects:
  ✔ Added specs for current behavior, get to know the responsibility of this objects @done (13-08-13 20:16)
  ✔ build the right association in persistency @done (13-08-14 18:55)
  ✔ specs for AdminOrderForm @done (13-08-20 16:10)
- ☐ integration specs for OrderForm #save methods
- ☐ i18n tranlation migration for attributes 
- ☐ i18n for error messages  
+ ✔ Setup integration tests @done (13-08-21 16:25)
+ ✔ integration specs for OrderForm #save methods @done (13-08-21 16:25)
  ✔ Make Taobao Order and Special Order inherited from this objects @done (13-08-14 18:55)
+ ✔ write the update! method to update existed record @done (13-08-23 12:47)
  ☐ Make ActiveAdmin use the FormObject as well 
- ☐ Factor the fetch_products methods on Order
+  # how to handle the PUT request for updates? 
+  # How to distinguish it from a POST?
+  # How to update the right order (through order_id probably?)
+
+ ☐ i18n tranlation migration for attributes 
+ ☐ i18n for error messages
+
+ ☐ Push the fetch_products methods on Order into Validators
  ☐ Add back line-items errors on order/_form
    <div class="control-group error section-error">
      <%= error_messages_for_collection(@order_form.products) %>
    </div>
+ ☐ Adjustment validation on AdminForm
+ ☐ Factor the Coupon#used_by_order? methods ot handle mainly OrderForm instead of order
+ ☐ Expected Date Validation on AdminForm
  ☐ enable the ItemValidator
  ☐ factor about the usage of session[:order_id]
  ☐ Cleaning up Order Models
