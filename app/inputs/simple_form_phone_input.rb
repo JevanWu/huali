@@ -1,4 +1,4 @@
-class SfPhoneInput < SimpleForm::Inputs::Base
+class SimpleFormPhoneInput < SimpleForm::Inputs::Base
   def input
     "#{country_code_select}#{text_field}".html_safe
   end
