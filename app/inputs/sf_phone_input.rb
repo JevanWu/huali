@@ -18,7 +18,7 @@ class SfPhoneInput < SimpleForm::Inputs::Base
   end
 
   def phone_input_helper
-    PhoneInputHelper.new(phone, phone_calling_code, CountryCode.default.calling_code)
+    PhoneInputBuilder.new(phone, phone_calling_code, CountryCode.default.calling_code)
   end
 
   delegate :selected_code, :text_field_value, to: :phone_input_helper
