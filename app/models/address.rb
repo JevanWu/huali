@@ -39,10 +39,6 @@ class Address < ActiveRecord::Base
 
   # after_validation :fill_in_post_code
 
-  before_save do
-    phonelib_normalize(:phone)
-  end
-
   def check_postcode
     # TODO check the postcode against the prov, city, area postcode
     true
