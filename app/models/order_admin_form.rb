@@ -59,6 +59,10 @@ class OrderAdminForm < OrderForm
     !!@record
   end
 
+  def to_key
+    [object_id]
+  end
+
   private 
 
   def persist!
