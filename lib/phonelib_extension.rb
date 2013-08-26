@@ -8,7 +8,9 @@ module Phonelib
       # This methods sets the attribute to the normalized version.
       def phonelib_normalize(*attributes)
         attributes.each do |attribute|
-          phone = Phonelib.parse(self.send(attribute))
+          attr_value = self.send(attribute) or next
+
+          phone = Phonelib.parse(attr_value)
           normalized = (phone.country == Phonelib.default_country) ?
             phone.national : phone.international
 
