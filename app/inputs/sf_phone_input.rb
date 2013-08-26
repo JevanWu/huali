@@ -5,16 +5,6 @@ class SfPhoneInput < SimpleForm::Inputs::Base
 
   private
 
-  def selected_code
-    return CountryCode.default.calling_code if phone.blank?
-
-    if phone_valid?
-      parsed_phone.international.split.first
-    else
-      phone_calling_code
-    end
-  end
-
   def phone_calling_code
     object.send(calling_code_attribute_name)
   end
@@ -27,28 +17,11 @@ class SfPhoneInput < SimpleForm::Inputs::Base
     object.send(attribute_name)
   end
 
-  def parsed_phone
-    Phonelib.parse(phone)
+  def phone_input_helper
+    PhoneInputHelper.new(phone, phone_calling_code, CountryCode.default.calling_code)
   end
 
-  def phone_valid?
-    parsed_phone.valid?
-  end
-
-  def local_phone?
-    !phone.start_with?('+')
-  end
-
-  def text_field_value
-    return if phone.blank?
-    return phone.sub(phone_calling_code, '').sub(/^\s?/, '') unless phone_valid?
-
-    if local_phone?
-      parsed_phone.national
-    else
-      parsed_phone.international.sub(selected_code, '').sub(/^\s?/, '')
-    end
-  end
+  delegate :selected_code, :text_field_value, to: :phone_input_helper
 
   def text_field
     @builder.text_field(attribute_name,
