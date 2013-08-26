@@ -34,14 +34,14 @@ ActiveAdmin.register Order do
         redirect_to [:admin, order], alert: t('views.admin.order.cannot_edit')
       end
       @order = OrderAdminForm.build_from_record(record)
-      @collection_data = collection_data(@order)
+      populate_collection_data
     end
 
     def update
       record = Order.find(params[:id])
       @order = OrderAdminForm.new(params[:order_admin_form])
       @order.bind_record(record)
-      @collection_data = collection_data(@order)
+      populate_collection_data
       super
     end
 
@@ -51,12 +51,12 @@ ActiveAdmin.register Order do
       object.save
     end
 
-    def collection_data(order)
-      {
+    def populate_collection_data
+      @collection_data = {
         provinces: Province.all.map { |prov| [prov.name, prov.id] },
-        cities: Province.find(order.address.province_id)
+        cities: Province.find(@order.address.province_id)
                 .cities.map { |city| [city.name, city.id] },
-        areas: City.find(order.address.city_id)
+        areas: City.find(@order.address.city_id)
                 .areas.map { |city| [city.name, city.id] },
         line_items: Product.all.map { |item| [item.name, item.id] }
       }
@@ -119,10 +119,16 @@ ActiveAdmin.register Order do
   end
 
   member_action :check do
-    @order = Order.find_by_id(params[:id])
-    if @order.check
+    order = Order.find_by_id(params[:id])
+    if order.check
       redirect_to admin_orders_path, alert: t('views.admin.order.order_state_changed') + t('models.order.state.wait_make')
     else
+      @order = OrderAdminForm.build_from_record(order)
+      @order.valid?
+      # FIXME A quick fix to display order errors
+      @order.errors.messages.update(order.errors.messages)
+
+      populate_collection_data
       render active_admin_template('edit'), layout: false
     end
   end

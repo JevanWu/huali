@@ -27,6 +27,7 @@ Factor Out the Validators from Order to FormObjects:
  ☐ Expected Date Validation on AdminForm
  ☐ enable the ItemValidator
  ☐ factor about the usage of session[:order_id]
+ ☐ How to handle state-related validators (use Decorator pattern?)
  ☐ Cleaning up Order Models
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
