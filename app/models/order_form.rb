@@ -38,7 +38,7 @@ class ItemInfo
   extend ActiveModel::Naming
 
   attribute :product_id, Integer
-  attribute :quantity, Integer
+  attribute :quantity, Integer, default: 0
 end
 
 class SenderInfo
