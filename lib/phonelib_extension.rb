@@ -5,16 +5,14 @@ module Phonelib
     included do
       private
 
-      # This methods sets the attribute to the normalized version.
-      def phonelib_normalize(*attributes)
-        attributes.each do |attribute|
-          attr_value = self.send(attribute) or next
+      def sanitized(original_phone, phone_calling_code)
+        sanitized_phone = Phonelib.parse(phone).sanitized
 
-          phone = Phonelib.parse(attr_value)
-          normalized = (phone.country == Phonelib.default_country) ?
-            phone.national : phone.international
-
-          self.send("#{attribute}=", normalized)
+        if phone_calling_code != "+86"
+          phone_to_parse =  "#{phone_calling_code} #{original_phone}"
+          "+#{Phonelib.parse(phone_to_parse).sanitized}"
+        else
+          Phonelib.parse(original_phone).sanitized.sub(/^#{phone_calling_code.sub('+', '')}/, '')
         end
       end
     end
@@ -24,18 +22,19 @@ module Phonelib
         attributes.each do |attribute|
           attr_accessor :"#{attribute}_calling_code"
 
-          before_validation do
-            original_phone = self.send(attribute)
-            phone_calling_code = self.send(:"#{attribute}_calling_code")
-
-            if original_phone.present? && !(phone_calling_code == CountryCode.default.calling_code)
-              self.send("#{attribute}=", "#{phone_calling_code} #{original_phone}")
+          define_method(:"#{attribute}=") do |phone_with_calling_code|
+            if phone_with_calling_code.is_a?(String)
+              super(phone_with_calling_code) and return
             end
-          end
-        end
 
-        before_save do
-          phonelib_normalize(*attributes)
+            phone_calling_code, original_phone = phone_with_calling_code
+            send(:"#{attribute}_calling_code=", phone_calling_code)
+
+            return unless original_phone
+
+            sanitized_phone = sanitized(original_phone, phone_calling_code)
+            super(sanitized_phone)
+          end
         end
       end
     end

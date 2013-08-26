@@ -1,53 +1,65 @@
-require 'spec_helper'
+require 'active_support/concern'
+require 'active_record'
+require 'phonelib'
+require 'phonelib_extension'
+require 'spec_helper_lite'
 
-ActiveRecord::Schema.define do
-  begin
-    create_table :active_record_models do |table|
-      table.column :phone, :string
-      table.column :sender_phone, :string
-    end
-  rescue
+module Methods
+  def phone
+    @phone
+  end
+
+  def phone=(phone)
+    @phone = phone
   end
 end
 
-class ActiveRecordModel < ActiveRecord::Base
+class ActiveRecordModel
+  include Methods
+  include Phonelib::Extension
+
+  attr_reader :sender_phone
+
+  def initialize(attributes)
+    self.phone = attributes[:phone]
+  end
+
   phoneize :phone, :sender_phone
 end
 
 describe "using model#phoneize" do
-  let(:model) { ActiveRecordModel.new(phone: "446681800", phone_calling_code: "+41") }
+  let(:model) { ActiveRecordModel.new(phone: ["+41", "446681800"]) }
 
-  before do
-    Phonelib.default_country = "CN"
+  before(:all) do
+    stub(Phonelib).default_country { "CN" }
   end
 
   it "create virtual attributes which suffix with '_calling_code'" do
-    ActiveRecordModel.new.should respond_to(:phone_calling_code)
-    ActiveRecordModel.new.should respond_to(:sender_phone_calling_code)
+    model.should respond_to(:phone_calling_code)
+    model.should respond_to(:sender_phone_calling_code)
+  end
+
+  it "sets the value for the virtual attribute" do
+    model.phone_calling_code = "+41"
+  end
+
+  it "santinizes the phone" do
+    model = ActiveRecordModel.new(phone: ["+41", "446681800aaaa"])
+
+    model.phone.should == "+41446681800"
   end
 
   context "calling code differs from the default country" do
-    it "prefixs the attribute with the calling code before validation" do
-      model.valid?.should be_true
-      model.phone.should == "+41 446681800"
-    end
-
-    it "sets the phone attribute with international format after model saved" do
-      model.save
-      model.phone.should == "+41 44 668 18 00"
+    it "prefixs the attribute with the calling code" do
+      model.phone.should == "+41446681800"
     end
   end
 
   context "calling code is the same as the default country" do
-    let(:model) { ActiveRecordModel.new(phone: "18621374266", phone_calling_code: "+86") }
+    let(:model) { ActiveRecordModel.new(phone: ["+86", "18621374266"]) }
 
     it "does not change the phone attribute before validation" do
       model.phone.should == '18621374266'
-    end
-
-    it "set the phone attribute with national format after model saved" do
-      model.save
-      model.phone.should == "186 2137 4266"
     end
   end
 end
