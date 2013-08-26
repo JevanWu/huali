@@ -96,7 +96,6 @@ module OrdersHelper
                            locals: { 
                               f: f,
                               line_item_fields: new_line_item,
-                              line_item_fields_counter: -1, # new items always come at last
                               all_line_items: all_line_items }})
 
     link_to(name, '#', class: "add_fields", data: {id: id, fields: fields_html.gsub('\n', '')})

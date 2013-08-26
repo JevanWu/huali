@@ -1,4 +1,4 @@
-<%= f.fields_for :line_items, line_item_fields, index: line_item_fields_counter do |builder| %>
+<%= f.fields_for :line_items, line_item_fields, index: '' do |builder| %>
   <%= builder.input :product_id, include_blank: true, collection: all_line_items, input_html: { class: 'chosen' } %>
   <%= builder.input :quantity, as: :number %>
   <li class="input">
