@@ -21,7 +21,7 @@ class OrderAdminForm < OrderForm
       order_admin_form.address = extract_address(record)
       order_admin_form.line_items = extract_line_items(record)
       order_admin_form.coupon_code = extract_coupon_code(record)
-      order_admin_form.instance_eval { @record = record }
+      order_admin_form.bind_record(record)
 
       return order_admin_form
     end
@@ -49,6 +49,10 @@ class OrderAdminForm < OrderForm
     def extract_coupon_code(record)
       record.coupon.try(:code)
     end
+  end
+
+  def bind_record(record)
+    @record = record
   end
 
   def persisted?
