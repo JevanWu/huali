@@ -60,7 +60,7 @@ class OrderAdminForm < OrderForm
   end
 
   def to_key
-    [object_id]
+    [@record.id]
   end
 
   private 
