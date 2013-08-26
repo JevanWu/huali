@@ -6,7 +6,7 @@ module Phonelib
       private
 
       def sanitized(original_phone, phone_calling_code)
-        sanitized_phone = Phonelib.parse(phone).sanitized
+        sanitized_phone = Phonelib.parse(original_phone).sanitized
 
         if phone_calling_code != "+86"
           phone_to_parse =  "#{phone_calling_code} #{original_phone}"
