@@ -1,6 +1,6 @@
 <%= f.fields_for :line_items, line_item_fields, index: line_item_fields_counter do |builder| %>
   <%= builder.input :product_id, include_blank: true, collection: all_line_items, input_html: { class: 'chosen' } %>
-  <%= builder.input :quantity %>
+  <%= builder.input :quantity, as: :number %>
   <li class="input">
     <label class="label">&nbsp;</label>
     <%= link_to "Remove Product", "#", class: "remove_form_object_attr" %>
