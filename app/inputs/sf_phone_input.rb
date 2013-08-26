@@ -24,14 +24,14 @@ class SfPhoneInput < SimpleForm::Inputs::Base
   delegate :selected_code, :text_field_value, to: :phone_input_helper
 
   def text_field
-    @builder.text_field(attribute_name,
-                        input_html_options.merge(value: text_field_value))
+    html_options = { value: text_field_value, name: "#{object_name}[#{attribute_name}][]" }
+    @builder.text_field(attribute_name, input_html_options.merge(html_options))
   end
 
   def country_code_select
     @builder.select(calling_code_attribute_name,
                     template.options_from_collection_for_select(CountryCode.all, :calling_code, :name, selected_code),
                     { prompt: false },
-                    { class: 'input-small chosen-small' })
+                    { class: 'input-small chosen-small', name: "#{object_name}[#{attribute_name}][]" })
   end
 end

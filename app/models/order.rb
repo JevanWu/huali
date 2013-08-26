@@ -80,6 +80,7 @@ class Order < ActiveRecord::Base
 
   before_save do |order|
     OrderDiscountPolicy.new(order).apply
+    phonelib_normalize(:sender_phone)
   end
 
   state_machine :state, initial: :generated do

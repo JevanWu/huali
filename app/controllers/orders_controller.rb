@@ -217,11 +217,11 @@ class OrdersController < ApplicationController
 
     def normal_order_fields
       [
-        :sender_name, :sender_email, :sender_phone, :sender_phone_calling_code,
+        :sender_name, :sender_email, { sender_phone: [] },
         :coupon_code, :gift_card_text, :special_instructions,
         :source, :expected_date,
         address_attributes: [
-           :fullname, :phone, :phone_calling_code, :province_id,
+           :fullname, { phone: [] }, :province_id,
            :city_id, :area_id, :post_code,
            :address]
       ]
