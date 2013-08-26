@@ -26,61 +26,40 @@ ActiveAdmin.register Order do
       end
     end
 
+    # inherited resource fetch resource through the @order ivar
+
     def edit
-      order = Order.find_by_id(params[:id])
-      if order.state.in? ["completed", "refunded", "void"]
+      record = Order.find_by_id(params[:id])
+      if record.state.in? ["completed", "refunded", "void"]
         redirect_to [:admin, order], alert: t('views.admin.order.cannot_edit')
       end
-      @order_admin_form = OrderAdminForm.build_from_record(order)
-      @collection_data = {
-        provinces: Province.all.map { |prov| [prov.name, prov.id] },
-        cities: Province.find(@order_admin_form.address.province_id)
-                .cities.map { |city| [city.name, city.id] },
-        areas: City.find(@order_admin_form.address.city_id)
-                .areas.map { |city| [city.name, city.id] },
-        line_items: Product.all.map { |item| [item.name, item.id] }
-      }
+      @order = OrderAdminForm.build_from_record(record)
+      @collection_data = collection_data(@order)
+    end
+
+    def update
+      record = Order.find(params[:id])
+      @order = OrderAdminForm.new(params[:order_admin_form])
+      @order.bind_record(record)
+      @collection_data = collection_data(@order)
+      super
     end
 
     private
 
-    def full_order_fields
-      [
-        # delivery info
-        :sender_name, :sender_email, :sender_phone,
-        :bypass_region_validation,
-        :expected_date,
-        :bypass_date_validation,
-        # check info
-        :delivery_date,
-        :ship_method_id,
-        # payment info
-        :adjustment,
-        :coupon,
-        :coupon_id,
-        :coupon_code,
-        # order info
-        :gift_card_text,
-        :special_instructions,
-        :source,
-        :kind,
-        :bypass_product_validation,
-        :address_attributes => [
-          :fullname, :phone, :province_id,
-          :city_id, :area_id, :post_code,
-          :address],
-        # line items
-        :line_items_attributes => [
-          :product_id,
-          :quantity,
-          :id,
-          :_destroy
-        ]
-      ]
+    def update_resource(object, resource_params)
+      object.save
     end
 
-    def permitted_params
-      params.permit order: full_order_fields
+    def collection_data(order)
+      {
+        provinces: Province.all.map { |prov| [prov.name, prov.id] },
+        cities: Province.find(order.address.province_id)
+                .cities.map { |city| [city.name, city.id] },
+        areas: City.find(order.address.city_id)
+                .areas.map { |city| [city.name, city.id] },
+        line_items: Product.all.map { |item| [item.name, item.id] }
+      }
     end
 
     def render_excel(orders, filename)

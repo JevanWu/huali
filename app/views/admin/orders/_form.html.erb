@@ -1,8 +1,8 @@
-<%= semantic_form_for [:admin, @order_admin_form], url: { action: 'update' } do |f| %>
+<%= semantic_form_for [:admin, @order], url: { action: 'update' } do |f| %>
   <%= f.semantic_errors %>
 
   <%= f.inputs "Sender Info" do %>
-    <%= f.fields_for :sender, @order_admin_form.sender do |builder|%>
+    <%= f.fields_for :sender, @order.sender do |builder|%>
       <%= builder.input :name, required:true, placeholder: '您的姓名' %>
       <%= builder.input :email, required:true, placeholder: '以便及时收到订单更新'  %>
       <%= builder.input :phone, required:true, placeholder: '以便我们和您核对信息'  %>
@@ -11,7 +11,7 @@
 
   <!-- FIXME use helper methods to prepare the collection hash -->
   <%= f.inputs "Delivery Info" do %>
-    <%= f.fields_for :address, @order_admin_form.address do |builder| %>
+    <%= f.fields_for :address, @order.address do |builder| %>
       <%= builder.input :province_id, prompt: "请选择", collection: @collection_data[:provinces] %>
       <%= builder.input :city_id, prompt: "请选择", collection: @collection_data[:cities] %>
       <%= builder.input :area_id, prompt: "请选择", collection: @collection_data[:areas] %>
@@ -46,7 +46,7 @@
 
   <%= f.inputs "Line Items" do %>
     <%= render partial: 'line_item_fields',
-               collection: @order_admin_form.line_items,
+               collection: @order.line_items,
                locals: {
                   f: f,
                   all_line_items: @collection_data[:line_items]
