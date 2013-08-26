@@ -6,7 +6,7 @@ module AdminOnlyInfo
   attribute :bypass_region_validation, Virtus::Attribute::Boolean, default: false
   attribute :bypass_product_validation, Virtus::Attribute::Boolean, default: false
   attribute :adjustment, String
-  attribute :kind, Symbol
+  attribute :kind, Symbol, default: :normal
   attribute :ship_method_id, Integer
   attribute :delivery_date, Date
 end
