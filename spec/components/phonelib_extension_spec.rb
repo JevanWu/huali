@@ -1,8 +1,8 @@
+require 'spec_helper_lite'
 require 'active_support/concern'
 require 'active_record'
 require 'phonelib'
 require 'phonelib_extension'
-require 'spec_helper_lite'
 
 module Methods
   def phone
