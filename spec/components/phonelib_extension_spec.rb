@@ -31,7 +31,7 @@ describe "using model#phoneize" do
   let(:model) { ActiveRecordModel.new(phone: ["+41", "446681800"]) }
 
   before(:all) do
-    stub(Phonelib).default_country { "CN" }
+    Phonelib.default_country = "CN"
   end
 
   it "create virtual attributes which suffix with '_calling_code'" do
@@ -43,10 +43,20 @@ describe "using model#phoneize" do
     model.phone_calling_code = "+41"
   end
 
-  it "santinizes the phone" do
-    model = ActiveRecordModel.new(phone: ["+41", "446681800aaaa"])
+  describe "santinize phone" do
+    subject { model.phone }
+    context "when the phone is a chinese fixed-line number" do
+      let(:model) { ActiveRecordModel.new(phone: ["+86", "0701356633333aaa"]) }
 
-    model.phone.should == "+41446681800"
+      it { should == "0701356633333" }
+    end
+
+
+    context "when the phone is a international phone" do
+      let(:model) { ActiveRecordModel.new(phone: ["+41", "446681800aaaa"]) }
+
+      it { should == "+41446681800" }
+    end
   end
 
   context "calling code differs from the default country" do

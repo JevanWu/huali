@@ -6,13 +6,17 @@ module Phonelib
       private
 
       def sanitized(original_phone, phone_calling_code)
-        sanitized_phone = Phonelib.parse(original_phone).sanitized
+        if phone_calling_code == "+86"
+          sanitized = Phonelib.parse(original_phone).sanitized.sub(/^86/, '')
 
-        if phone_calling_code != "+86"
+          if !sanitized.start_with?('1') # Fixed line need to be prefixed with '0'
+            sanitized = "0#{sanitized}"
+          else
+            sanitized
+          end
+        else
           phone_to_parse =  "#{phone_calling_code} #{original_phone}"
           "+#{Phonelib.parse(phone_to_parse).sanitized}"
-        else
-          Phonelib.parse(original_phone).sanitized.sub(/^#{phone_calling_code.sub('+', '')}/, '')
         end
       end
     end
