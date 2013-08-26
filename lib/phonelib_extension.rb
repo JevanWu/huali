@@ -34,7 +34,7 @@ module Phonelib
             phone_calling_code, original_phone = phone_with_calling_code
             send(:"#{attribute}_calling_code=", phone_calling_code)
 
-            return unless original_phone
+            return unless original_phone.present?
 
             sanitized_phone = sanitized(original_phone, phone_calling_code)
             super(sanitized_phone)
