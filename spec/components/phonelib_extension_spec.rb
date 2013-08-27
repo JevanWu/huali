@@ -9,6 +9,10 @@ module Methods
     @phone
   end
 
+  def phone_before_type_cast
+    @phone
+  end
+
   def phone=(phone)
     @phone = phone
   end
@@ -44,7 +48,7 @@ describe "using model#phoneize" do
       model.phone_calling_code = "+41"
     end
 
-    subject { model.phone }
+    subject { model.phone_before_type_cast }
 
     describe "santinize phone" do
       context "when the input is a String" do
@@ -93,6 +97,36 @@ describe "using model#phoneize" do
 
       it "does not change the phone attribute before validation" do
         subject.should == '18621374266'
+      end
+    end
+  end
+
+  describe "rewrite the reader of the phoneized attribute" do
+    subject { model.phone }
+
+    context "when original phone is valid" do
+      context "and it prefixed with '+'" do
+        let(:model) { ActiveRecordModel.new(phone: ["+41", "446681800"]) }
+
+        it "returns the international form of the phone" do
+          subject.should == "+41 44 668 18 00"
+        end
+      end
+
+      context "and it's a local phone" do
+        let(:model) { ActiveRecordModel.new(phone: ["+86", "18621374266"]) }
+
+        it "returns the national form of the phone" do
+          subject.should == "186 2137 4266"
+        end
+      end
+    end
+
+    context "when original phone is not valid" do
+      let(:model) { ActiveRecordModel.new(phone: ["+41", "4466818000"]) }
+
+      it "returns the original value" do
+        subject.should == "+414466818000"
       end
     end
   end

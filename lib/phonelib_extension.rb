@@ -58,6 +58,19 @@ module Phonelib
               super(sanitized_phone)
             end
           end
+
+          define_method(attribute) do
+            original_phone = super()
+            parsed_phone = Phonelib.parse(String(original_phone))
+
+            return original_phone unless parsed_phone.valid?
+
+            if original_phone.start_with?('+')
+              parsed_phone.international
+            else
+              parsed_phone.national
+            end
+          end
         end
       end
     end
