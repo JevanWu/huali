@@ -5,7 +5,7 @@ require 'phone_input_builder'
 
 describe PhoneInputBuilder do
 
-  let(:phone) { "18621374266" }
+  let(:phone) { "186 2137 4266" }
   let(:phone_calling_code) { nil }
   let(:default_calling_code) { "+86" }
 
@@ -54,32 +54,12 @@ describe PhoneInputBuilder do
       it { should be_blank }
     end
 
-    context "when the phone is not valid" do
-      let(:phone) { "16621374266" }
-      let(:phone_calling_code) { "+86" }
+    context "when the phone is not blank" do
+      let(:phone) { "+41 44 668 18 00" }
+      let(:phone_calling_code) { "" }
 
-      it "returns with the phone passed" do
-        subject.should == '16621374266'
-      end
-    end
-
-    context "when the phone is valid" do
-      context "and it's not started with a '+'" do
-        let(:phone) { "18621374266" }
-        let(:phone_calling_code) { "+86" }
-
-        it "returns the national format of the phone" do
-          subject.should == "186 2137 4266"
-        end
-      end
-
-      context "and it's started with a '+'" do
-        let(:phone) { "+41 446681800" }
-        let(:phone_calling_code) { "+41" }
-
-        it "returns the international format of the phone with the calling code removed" do
-          subject.should == "44 668 18 00"
-        end
+      it "returns the phone with removing its calling code" do
+        subject.should == "44 668 18 00"
       end
     end
   end

@@ -19,23 +19,14 @@ class PhoneInputBuilder
 
   def text_field_value
     return if phone.blank?
-    return phone.sub(phone_calling_code, '').sub(/^\s?/, '') unless phone_valid?
 
-    if local_phone?
-      parsed_phone.national
-    else
-      parsed_phone.international.sub(selected_code, '').sub(/^\s?/, '')
-    end
+    phone.sub(selected_code, '').sub(/^\s?/, '')
   end
 
   private
 
   def parsed_phone
     Phonelib.parse(phone)
-  end
-
-  def local_phone?
-    !phone.start_with?('+')
   end
 
   def phone_valid?
