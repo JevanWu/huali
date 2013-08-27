@@ -39,7 +39,7 @@ class User::ParameterSanitizer < Devise::ParameterSanitizer
   def sign_up
     default_params
       .permit(:email, :password, :password_confirmation,
-              :phone, :phone_calling_code, :name,
+              { phone: [] }, :name,
               :humanizer_answer, :humanizer_question_id)
   end
 
@@ -50,6 +50,6 @@ class User::ParameterSanitizer < Devise::ParameterSanitizer
   def account_update
     default_params
       .permit(:email, :password, :password_confirmation,
-              :current_password, :phone, :phone_calling_code, :name)
+              :current_password, { phone: [] }, :name)
   end
 end
