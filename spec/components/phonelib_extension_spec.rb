@@ -48,6 +48,11 @@ describe "using model#phoneize" do
 
     describe "santinize phone" do
       context "when the input is a String" do
+        context "when the phone is a 400 phone" do
+          let(:model) { ActiveRecordModel.new(phone: "400-001-6936") }
+
+          it { should == "4000016936" }
+        end
 
         context "and it's a local phone" do
           let(:model) { ActiveRecordModel.new(phone: "0701356633333aaa") }

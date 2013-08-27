@@ -30,7 +30,11 @@ module Phonelib
 
       def phonelib_fixed_line(phone)
         # Chinese fixed-line number needs to be prefixed with '0'
-        !phone.start_with?('1') ? "0#{phone}" : phone
+        if phone.start_with?('400') || (phone.start_with?('1') && !phone.start_with?('10'))
+          phone
+        else
+          "0#{phone}"
+        end
       end
     end
 
