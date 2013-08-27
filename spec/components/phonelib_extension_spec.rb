@@ -39,37 +39,56 @@ describe "using model#phoneize" do
     model.should respond_to(:sender_phone_calling_code)
   end
 
-  it "sets the value for the virtual attribute" do
-    model.phone_calling_code = "+41"
-  end
+  describe "rewrite the writer of the phoneized attribute" do
+    it "sets the value for the virtual attribute" do
+      model.phone_calling_code = "+41"
+    end
 
-  describe "santinize phone" do
     subject { model.phone }
-    context "when the phone is a chinese fixed-line number" do
-      let(:model) { ActiveRecordModel.new(phone: ["+86", "0701356633333aaa"]) }
 
-      it { should == "0701356633333" }
+    describe "santinize phone" do
+      context "when the input is a String" do
+
+        context "and it's a local phone" do
+          let(:model) { ActiveRecordModel.new(phone: "0701356633333aaa") }
+
+          it { should == "0701356633333" }
+        end
+
+        context "and it's a international phone" do
+          let(:model) { ActiveRecordModel.new(phone: "+41446681800aaa") }
+
+          it { should == "+41446681800" }
+        end
+      end
+
+      context "when the input is a Array which contains phone an calling code" do
+        context "when the phone is a chinese fixed-line number" do
+          let(:model) { ActiveRecordModel.new(phone: ["+86", "0701356633333aaa"]) }
+
+          it { should == "0701356633333" }
+        end
+
+        context "when the phone is a international phone" do
+          let(:model) { ActiveRecordModel.new(phone: ["+41", "446681800aaaa"]) }
+
+          it { should == "+41446681800" }
+        end
+      end
     end
 
-
-    context "when the phone is a international phone" do
-      let(:model) { ActiveRecordModel.new(phone: ["+41", "446681800aaaa"]) }
-
-      it { should == "+41446681800" }
+    context "when calling code differs from the default country" do
+      it "prefixs the attribute with the calling code" do
+        subject.should == "+41446681800"
+      end
     end
-  end
 
-  context "calling code differs from the default country" do
-    it "prefixs the attribute with the calling code" do
-      model.phone.should == "+41446681800"
-    end
-  end
+    context "when calling code is the same as the default country" do
+      let(:model) { ActiveRecordModel.new(phone: ["+86", "18621374266"]) }
 
-  context "calling code is the same as the default country" do
-    let(:model) { ActiveRecordModel.new(phone: ["+86", "18621374266"]) }
-
-    it "does not change the phone attribute before validation" do
-      model.phone.should == '18621374266'
+      it "does not change the phone attribute before validation" do
+        subject.should == '18621374266'
+      end
     end
   end
 end
