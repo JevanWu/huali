@@ -3,6 +3,7 @@ zh-CN:
    submit:
      order_form:
        create: 确定
+
   simple_form:
     labels:
       order_form: &order_form
@@ -110,10 +111,10 @@ zh-CN:
       one: 厘米
       other: 厘米
 
-  activerecord:
+  activemodel:
     format: ! '%{attribute} %{message}'
     errors:
-      messages:
+      messages: &default_error_message
         blank: 您需要填写此项
         unavailable_date: 快递无法为您在这个日期进行递送
         unavailable_location: 我们无法为您配送到这个地区
@@ -127,6 +128,12 @@ zh-CN:
         product_in_unavailable_date: '%{product_name}无法在该递送日期配送'
         product_in_unavailable_region: '%{product_name}无法配送到该区域'
         must_be_less_than_expected_date: 必须小于到达日期
+
+  activerecord:
+    format: ! '%{attribute} %{message}'
+    errors:
+      messages:
+        <<: *default_error_message
 
     models:
       administrator: 管理用户
