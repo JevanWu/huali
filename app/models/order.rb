@@ -37,9 +37,6 @@ require 'enumerize'
 require 'state_machine'
 
 class Order < ActiveRecord::Base
-  attr_accessor :bypass_region_validation, :bypass_date_validation,
-    :bypass_product_validation
-
   belongs_to :address
   belongs_to :user
   # just for convenient meta-methods
@@ -50,9 +47,6 @@ class Order < ActiveRecord::Base
   has_many :shipments, dependent: :destroy
   has_many :products, through: :line_items
   belongs_to :coupon
-
-  accepts_nested_attributes_for :line_items, allow_destroy: true
-  accepts_nested_attributes_for :address
 
   extend Enumerize
   enumerize :kind, in: [:normal, :marketing, :customer, :taobao], default: :normal
@@ -67,11 +61,6 @@ class Order < ActiveRecord::Base
   validates_format_of :adjustment, with: %r{\A[+-x*%/][\s\d.]+\z}, allow_blank: true
 
   validates_presence_of :identifier, :line_items, :expected_date, :state, :total, :item_total, :sender_email, :sender_phone, :sender_name
-
-  validates_with OrderProductRegionValidator, if: :validate_product_delivery_region?
-  validates_with OrderProductDateValidator, if: :validate_product_delivery_date?
-  # validates_with OrderItemValidator, if: lambda { |order| order.not_yet_shipped? && !order.bypass_product_validation }
-  validates_with OrderCouponValidator, unless: lambda { |order| order.coupon_code_blank? }
 
   # only validate once on Date.today, because in future Date.today will change
   validate :phone_validate, unless: lambda { |order| order.sender_phone.blank? }
@@ -153,7 +142,6 @@ class Order < ActiveRecord::Base
 
   # Queries
   class << self
-
     def by_number(number)
       where(number: number)
     end
@@ -176,12 +164,6 @@ class Order < ActiveRecord::Base
 
     def full_info(key)
       includes(:user, :address, :transactions, :shipments).find_by_id(key)
-    end
-  end
-
-  [:bypass_region_validation, :bypass_date_validation, :bypass_product_validation].each do |m|
-    define_method(:"#{m}=") do |value|
-      instance_variable_set(:"@#{m}", ActiveRecord::ConnectionAdapters::Column.value_to_boolean(value))
     end
   end
 
@@ -227,10 +209,6 @@ class Order < ActiveRecord::Base
   # }
   def generate_shipment
     self.shipments.create
-  end
-
-  def add_line_item(product_id, quantity)
-    self.line_items.build(product_id: product_id, quantity: quantity)
   end
 
   def cal_item_total
@@ -299,25 +277,12 @@ class Order < ActiveRecord::Base
     save
   end
 
-  def fetch_products
-    @fetched_products ||= if self.persisted?
-                            products
-                          else
-                            line_items.map { |l| Product.find(l.product_id) }
-                          end
-  end
-
   private
 
   def phone_validate
     n_digits = sender_phone.scan(/[0-9]/).size
     valid_chars = (sender_phone =~ /^[-+()\/\s\d]+$/)
     errors.add :sender_phone, :invalid unless (n_digits >= 8 && valid_chars)
-  end
-
-  def auth_refund
-    # TODO auth the admin for the refund actions
-    true
   end
 
   def complete_order
