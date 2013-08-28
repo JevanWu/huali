@@ -64,7 +64,7 @@ module OrderInfo
   attribute :coupon_code, String
   attribute :gift_card_text, String
   attribute :special_instructions, String
-  attribute :source, String
+  attribute :source, String, default: ''
   attribute :expected_date, Date
 end
 
