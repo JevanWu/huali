@@ -16,19 +16,20 @@ Factor Out the Validators from Order to FormObjects:
 
  ☐ i18n tranlation migration for attributes 
  ☐ i18n for error messages
-
  ☐ Push the fetch_products methods on Order into Validators
+ ☐ enable the ItemValidator
  ☐ Add back line-items errors on order/_form
    <div class="control-group error section-error">
      <%= error_messages_for_collection(@order_form.products) %>
    </div>
  ☐ Turn Adjustment into Validator on AdminForm
- ☐ Factor the Coupon#used_by_order? methods ot handle mainly OrderForm instead of order
  ☐ Expected Date Validation on AdminForm
- ☐ enable the ItemValidator
- ☐ factor about the usage of session[:order_id]
+
+
+ ☐ Factor the Coupon#used_by_order? methods ot handle mainly OrderForm instead of order
+ ✔ factor about the usage of session[:order_id] @done (13-08-28 18:13)
  ☐ How to handle state-related validators (use Decorator pattern?)
- ☐ Cleaning up Order Models
+ ✔ Cleaning up Order Models @done (13-08-28 18:15)
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:

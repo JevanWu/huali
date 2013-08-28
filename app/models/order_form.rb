@@ -100,6 +100,7 @@ class OrderForm
     return false unless valid?
     begin
       record = persist!
+      yield(record) and record.save! if block_given?
       bind_record(record)
       true
     rescue ActiveRecord::ActiveRecordError
@@ -171,7 +172,8 @@ class OrderForm
     order.address = address
     order.user = user
     order.line_items = line_items
-    order.save! and order
+    order.save!
+    return order
   end
 
   def dispatch_params(order)
