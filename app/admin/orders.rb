@@ -41,15 +41,17 @@ ActiveAdmin.register Order do
       record = Order.find(params[:id])
       @order = OrderAdminForm.new(params[:order_admin_form])
       @order.bind_record(record)
-      populate_collection_data
-      super
+
+      if @order.save
+        options[:location] ||= smart_resource_url
+        respond_with_dual_blocks(object, options, &block)
+      else
+        populate_collection_data
+        render active_admin_template('edit')
+      end
     end
 
     private
-
-    def update_resource(object, resource_params)
-      object.save
-    end
 
     def populate_collection_data
       @collection_data = {
