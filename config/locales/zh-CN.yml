@@ -3,10 +3,9 @@ zh-CN:
    submit:
      order_form:
        create: 确定
-
   simple_form:
     labels:
-      order_form:
+      order_form: &order_form
         identifier: 订单编号
         transaction_identifier: 交易编号
         expected_date: 到达日期
@@ -63,6 +62,28 @@ zh-CN:
         bypass_date_validation: 跳过递送时间验证
         bypass_product_validation: 跳过产品验证
 
+  formtastic:
+    actions:
+      order_admin_form:
+        update: 更新订单
+    labels:
+      order_admin_form:
+        <<: *order_form
+        sender_info:
+          name: 寄件人姓名
+          email: 寄件人邮箱
+          phone: 寄件人电话
+          info: 寄件人信息
+        receiver_info:
+          fullname: 收件人姓名
+          phone: 收件人电话
+          province_name: 收件人省份
+          city_name: 收件人城市
+          address: 收件人地址
+          province_id: 省份
+          city_id: 城市
+          area_id: 地区
+          post_code: 邮编
 
   edit: 编辑
   view: 查看
