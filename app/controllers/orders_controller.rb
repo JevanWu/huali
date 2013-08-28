@@ -66,32 +66,6 @@ class OrdersController < ApplicationController
     end
   end
 
-  def process_admin_order(template)
-    @order_admin_form = OrderAdminForm.new(params[:order_admin_form])
-    @order_admin_form.sender ||= SenderInfo.new({
-                                                name: 'Huali',
-                                                email: 'support@hua.li',
-                                                phone: '400-001-6936'
-                                              })
-    @order_admin_form.user = current_or_guest_user
-
-    # create line items
-    @cart.keys.each do |key|
-      @order_admin_form.add_line_item(key, @cart[key])
-    end
-
-    success = @order_admin_form.save do |record|
-      yield(record)
-    end
-
-    if success
-      empty_cart
-      flash[:notice] = t('controllers.order.order_success')
-      redirect_to root_path
-    else
-      render template
-    end
-  end
 
   def create
     @order_form = OrderForm.new(params[:order_form])
@@ -104,6 +78,8 @@ class OrdersController < ApplicationController
 
     if @order_form.save
       empty_cart
+      store_order_id(@order_form.record)
+
       update_guest if current_or_guest_user.guest?
 
       flash[:notice] = t('controllers.order.order_success')
@@ -182,8 +158,41 @@ class OrdersController < ApplicationController
   end
 
   private
+
+    def process_admin_order(template)
+      @order_admin_form = OrderAdminForm.new(params[:order_admin_form])
+      @order_admin_form.sender ||= SenderInfo.new({
+                                                  name: 'Huali',
+                                                  email: 'support@hua.li',
+                                                  phone: '400-001-6936'
+                                                })
+      @order_admin_form.user = current_or_guest_user
+
+      # create line items
+      @cart.keys.each do |key|
+        @order_admin_form.add_line_item(key, @cart[key])
+      end
+
+      success = @order_admin_form.save do |record|
+        yield(record) if block_given?
+      end
+
+      if success
+        empty_cart
+        store_order_id(@order_admin_form.record)
+
+        flash[:notice] = t('controllers.order.order_success')
+        redirect_to root_path
+      else
+        render template
+      end
+    end
+
+    def store_order_id(record)
+      session[:order_id] = record.id
+    end
+
     def empty_cart
-      session[:order_id] = @order_form.record.id
       cookies.delete :cart
     end
 
