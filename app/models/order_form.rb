@@ -171,7 +171,7 @@ class OrderForm
     order.address = address
     order.user = user
     order.line_items = line_items
-    order.save!
+    order.save! and order
   end
 
   def dispatch_params(order)

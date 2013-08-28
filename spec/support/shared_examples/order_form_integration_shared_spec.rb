@@ -85,5 +85,9 @@ shared_examples_for "OrderForm::Integration::Shared" do
       it { subject.gift_card_text.should == valid_order[:gift_card_text] }
       it { subject.special_instructions.should == valid_order[:special_instructions] }
     end
+
+    it 'binds the saved record to @record ivar' do
+      form.record.should == order
+    end
   end
 end
