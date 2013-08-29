@@ -1,4 +1,6 @@
 class OrderItemValidator < ActiveModel::Validator
+  include OrderProductValidationHelper
+
   def validate(order)
     if order.line_items.blank?
       order.errors.add(:base, :blank_products)
@@ -16,19 +18,15 @@ class OrderItemValidator < ActiveModel::Validator
 
   def validate_line_item(line_item)
     item_valid = true
+    product = fetch_product(line_item)
 
-    unless line_item.published
-      line_item.errors.add(:base, :product_unavailable, product_name: line_item.name)
+    unless product.published
+      line_item.errors.add(:base, :product_unavailable, product_name: product.name)
       item_valid = false
     end
 
-    unless line_item.quantity > 0
-      line_item.errors.add(:base, :product_of_invalid_quantity, product_name: line_item.name)
-      item_valid = false
-    end
-
-    unless line_item.sufficient_stock?
-      line_item.errors.add(:base, :product_out_of_stock, product_name: line_item.name)
+    unless sufficient_stock?(line_item)
+      line_item.errors.add(:base, :product_out_of_stock, product_name: product.name)
       item_valid = false
     end
 

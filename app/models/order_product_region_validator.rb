@@ -1,19 +1,21 @@
 require 'region_rule_runner'
 
 class OrderProductRegionValidator < ActiveModel::Validator
+  include OrderProductValidationHelper
+
   def validate(order)
     address = order.address
-    items = order.fetch_products
 
     order_valid = true
 
-    items.each do |product|
+    order.line_items.each do |line_item|
+      product = fetch_product(line_item)
       unless validate_product(product,
                               address.province_id,
                               address.city_id,
                               address.area_id)
         order_valid = false
-        product.errors.add(:base, :product_in_unavailable_region, product_name: product.name)
+        line_item.errors.add(:base, :product_in_unavailable_region, product_name: product.name)
       end
     end
 
