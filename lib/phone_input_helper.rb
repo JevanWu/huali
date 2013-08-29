@@ -1,4 +1,4 @@
-class PhoneInputBuilder
+class PhoneInputHelper
   attr_reader :phone, :phone_calling_code, :default_calling_code
 
   def initialize(phone, phone_calling_code, default_calling_code = "+86")

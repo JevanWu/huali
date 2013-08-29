@@ -18,7 +18,7 @@ class SimpleFormPhoneInput < SimpleForm::Inputs::Base
   end
 
   def phone_input_helper
-    PhoneInputBuilder.new(phone, phone_calling_code)
+    PhoneInputHelper.new(phone, phone_calling_code)
   end
 
   delegate :selected_code, :text_field_value, to: :phone_input_helper

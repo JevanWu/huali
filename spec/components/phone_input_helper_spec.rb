@@ -1,16 +1,16 @@
 require 'spec_helper_lite'
 require 'active_support/core_ext'
 require 'phonelib'
-require 'phone_input_builder'
+require 'phone_input_helper'
 
-describe PhoneInputBuilder do
+describe PhoneInputHelper do
 
   let(:phone) { "186 2137 4266" }
   let(:phone_calling_code) { nil }
   let(:default_calling_code) { "+86" }
 
   let(:phone_input_helper) do
-    PhoneInputBuilder.new(phone, phone_calling_code, default_calling_code)
+    described_class.new(phone, phone_calling_code, default_calling_code)
   end
 
   before(:all) do
