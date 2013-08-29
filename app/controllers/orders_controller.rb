@@ -38,9 +38,7 @@ class OrdersController < ApplicationController
   # - tracking is skipped
   def taobao_order_new
     validate_cart
-    if @order.save and @order.complete_transaction(opts)
-      empty_cart
-      flash[:notice] = t('controllers.order.order_success')
+    @order_admin_form = OrderAdminForm.new({source: '淘宝', kind: 'taobao'})
   end
 
   # backorder
@@ -49,54 +47,25 @@ class OrdersController < ApplicationController
   # - tracking is skipped
   def back_order_new
     validate_cart
-    @order_form = OrderAdminForm.new
+    @order_admin_form = OrderAdminForm.new
   end
 
   def taobao_order_create
-    merchant_trade_no = taobao_order_params.extract!(:merchant_trade_no)
-
-    @order = current_or_guest_user.orders.build(taobao_order_params.except(:merchant_trade_no))
-
-    # create line items
-    @cart.keys.each do |key|
-      @order.add_line_item(key, @cart[key])
-    end
-
-    opts = { paymethod: 'directPay', merchant_name: 'Alipay' }.merge(merchant_trade_no)
-
-    if @order.save and @order.complete_transaction(opts)
-      empty_cart
-      flash[:notice] = t('controllers.order.order_success')
-      redirect_to root_path
-    else
-      render 'taobao_order_new'
+    process_admin_order('taobao_order_new') do |record|
+      record.state = 'wait_make'
     end
   end
 
   def back_order_create
-    @order = current_or_guest_user.orders.build(back_order_params)
+    opts = { paymethod: 'directPay', 
+             merchant_name: 'Alipay',
+             merchant_trade_no: params[:merchant_trade_no]}
 
-    # create line items
-    @cart.keys.each do |key|
-      @order.add_line_item(key, @cart[key])
-    end
-
-    # default sender_info
-    @order.sender_name = 'Huali'
-    @order.sender_email = 'support@hua.li'
-    @order.sender_phone = '400-001-6936'
-
-    # jump to wait_make states
-    @order.state = 'wait_make'
-
-    if @order.save
-      empty_cart
-      flash[:notice] = t('controllers.order.order_success')
-      redirect_to root_path
-    else
-      render 'back_order_new'
+    process_admin_order('back_order_new') do |record|
+      record.complete_transaction(opts)
     end
   end
+
 
   def create
     @order_form = OrderForm.new(params[:order_form])
@@ -109,10 +78,12 @@ class OrdersController < ApplicationController
 
     if @order_form.save
       empty_cart
+      store_order_id(@order_form.record)
+
       update_guest if current_or_guest_user.guest?
 
       flash[:notice] = t('controllers.order.order_success')
-      redirect_to checkout_order_path(@order_form.order_id)
+      redirect_to checkout_order_path(@order_form.record)
     else
       render 'new'
     end
@@ -187,8 +158,41 @@ class OrdersController < ApplicationController
   end
 
   private
+
+    def process_admin_order(template)
+      @order_admin_form = OrderAdminForm.new(params[:order_admin_form])
+      @order_admin_form.sender ||= SenderInfo.new({
+                                                  name: 'Huali',
+                                                  email: 'support@hua.li',
+                                                  phone: '400-001-6936'
+                                                })
+      @order_admin_form.user = current_or_guest_user
+
+      # create line items
+      @cart.keys.each do |key|
+        @order_admin_form.add_line_item(key, @cart[key])
+      end
+
+      success = @order_admin_form.save do |record|
+        yield(record) if block_given?
+      end
+
+      if success
+        empty_cart
+        store_order_id(@order_admin_form.record)
+
+        flash[:notice] = t('controllers.order.order_success')
+        redirect_to root_path
+      else
+        render template
+      end
+    end
+
+    def store_order_id(record)
+      session[:order_id] = record.id
+    end
+
     def empty_cart
-      session[:order_id] = @order_form.order_id
       cookies.delete :cart
     end
 

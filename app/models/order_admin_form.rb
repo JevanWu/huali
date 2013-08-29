@@ -51,18 +51,6 @@ class OrderAdminForm < OrderForm
     end
   end
 
-  def bind_record(record)
-    @record = record
-  end
-
-  def persisted?
-    !!@record
-  end
-
-  def to_key
-    [@record.id]
-  end
-
   private 
 
   def persist!

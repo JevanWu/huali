@@ -64,7 +64,7 @@ module OrderInfo
   attribute :coupon_code, String
   attribute :gift_card_text, String
   attribute :special_instructions, String
-  attribute :source, String
+  attribute :source, String, default: ''
   attribute :expected_date, Date
 end
 
@@ -81,7 +81,6 @@ class OrderForm
   include ActiveModel::Conversion
   include ActiveModel::Validations
 
-  attr_accessor :order_id
   attr_accessor :user
   include OrderInfo
   attribute :sender, SenderInfo
@@ -100,7 +99,9 @@ class OrderForm
   def save
     return false unless valid?
     begin
-      persist!
+      record = persist!
+      yield(record) and record.save! if block_given?
+      bind_record(record)
       true
     rescue ActiveRecord::ActiveRecordError
       false
@@ -119,6 +120,19 @@ class OrderForm
 
   def persisted?
     false
+  end
+
+  attr_reader :record
+  def bind_record(record)
+    @record = record
+  end
+
+  def persisted?
+    !!@record
+  end
+
+  def to_key
+    @record && [@record.id]
   end
 
   private
@@ -159,10 +173,7 @@ class OrderForm
     order.user = user
     order.line_items = line_items
     order.save!
-
-    # FIXME probably doesn't belong here
-    # store_order_id for session usage
-    @order_id = order.id
+    return order
   end
 
   def dispatch_params(order)

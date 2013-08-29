@@ -1,4 +1,5 @@
 require 'active_support/inflector/methods'
+require 'ostruct'
 
 # mock the errors
 module ActiveRecord
@@ -96,6 +97,42 @@ shared_examples_for "OrderForm::Shared" do
       stub(sender).valid? { true }
       stub(receiver).valid? { true }
       subject.should be_valid
+    end
+  end
+
+  describe '@record ivar behavior' do
+    before(:each) do
+      @record = Object.new
+      subject.bind_record(@record)
+    end
+
+    it "bind_record accepts an object and stores in @record ivar" do
+      subject.instance_variable_get(:@record).should == @record
+    end
+
+    it 'could read the ivar from record accessor' do
+      subject.record.should == @record
+    end
+
+    it 'is persisted if @record is set' do
+      subject.should be_persisted
+    end
+
+    it 'isn\'t persist unless @record is set' do
+      subject.instance_variable_set(:@record, nil)
+      subject.should_not be_persisted
+    end
+  end
+
+  describe "#to_key" do
+    it 'returns nil if @record is not set' do
+      subject.to_key.should be_nil
+    end
+
+    it "returns an Array of @record.id" do
+      record =  OpenStruct.new(id: 2)
+      subject.bind_record(record)
+      subject.to_key.should == [2]
     end
   end
 
