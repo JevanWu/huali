@@ -7,14 +7,27 @@ describe PhoneInputHelper do
 
   let(:phone) { "186 2137 4266" }
   let(:phone_calling_code) { nil }
-  let(:default_calling_code) { "+86" }
+  let(:object) do
+    Object.new.tap do |o|
+      stub(o).sender_phone { phone }
+      stub(o).sender_phone_calling_code { phone_calling_code }
+    end
+  end
+  let(:attribute_name) { :sender_phone }
+  let(:default_calling_code) { "+41" }
 
   let(:phone_input_helper) do
-    described_class.new(phone, phone_calling_code, default_calling_code)
+    described_class.new(object, attribute_name, default_calling_code)
   end
 
   before(:all) do
     Phonelib.default_country = "CN"
+  end
+
+  describe "#calling_code_attribute_name" do
+    subject { phone_input_helper.calling_code_attribute_name }
+
+    it { should == :sender_phone_calling_code }
   end
 
   describe "#selected_code" do

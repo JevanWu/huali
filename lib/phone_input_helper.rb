@@ -1,9 +1,9 @@
 class PhoneInputHelper
-  attr_reader :phone, :phone_calling_code, :default_calling_code
+  attr_reader :object, :attribute_name, :default_calling_code
 
-  def initialize(phone, phone_calling_code, default_calling_code = "+86")
-    @phone = phone
-    @phone_calling_code = phone_calling_code
+  def initialize(object, attribute_name, default_calling_code = "+86")
+    @object = object
+    @attribute_name = attribute_name
     @default_calling_code = default_calling_code
   end
 
@@ -23,7 +23,19 @@ class PhoneInputHelper
     phone.sub(selected_code, '').sub(/^\s?/, '')
   end
 
+  def calling_code_attribute_name
+    :"#{attribute_name}_calling_code"
+  end
+
   private
+
+  def phone_calling_code
+    object.send(calling_code_attribute_name)
+  end
+
+  def phone
+    object.send(attribute_name)
+  end
 
   def parsed_phone
     Phonelib.parse(phone)
