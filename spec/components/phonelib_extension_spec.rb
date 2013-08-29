@@ -4,22 +4,15 @@ require 'active_record'
 require 'phonelib'
 require 'phonelib_extension'
 
-module Methods
-  def phone
-    @phone
-  end
+class SuperPhoneModel
+  attr_accessor :phone
 
   def phone_before_type_cast
     @phone
   end
-
-  def phone=(phone)
-    @phone = phone
-  end
 end
 
-class ActiveRecordModel
-  include Methods
+class FakePhoneModel < SuperPhoneModel
   include Phonelib::Extension
 
   attr_reader :sender_phone
@@ -32,7 +25,7 @@ class ActiveRecordModel
 end
 
 describe "using model#phoneize" do
-  let(:model) { ActiveRecordModel.new(phone: ["+41", "446681800"]) }
+  let(:model) { FakePhoneModel.new(phone: ["+41", "446681800"]) }
 
   before(:all) do
     Phonelib.default_country = "CN"
@@ -53,19 +46,19 @@ describe "using model#phoneize" do
     describe "santinize phone" do
       context "when the input is a String" do
         context "when the phone is a 400 phone" do
-          let(:model) { ActiveRecordModel.new(phone: "400-001-6936") }
+          let(:model) { FakePhoneModel.new(phone: "400-001-6936") }
 
           it { should == "4000016936" }
         end
 
         context "and it's a local phone" do
-          let(:model) { ActiveRecordModel.new(phone: "0701356633333aaa") }
+          let(:model) { FakePhoneModel.new(phone: "0701356633333aaa") }
 
           it { should == "0701356633333" }
         end
 
         context "and it's a international phone" do
-          let(:model) { ActiveRecordModel.new(phone: "+41446681800aaa") }
+          let(:model) { FakePhoneModel.new(phone: "+41446681800aaa") }
 
           it { should == "+41446681800" }
         end
@@ -73,13 +66,13 @@ describe "using model#phoneize" do
 
       context "when the input is a Array which contains phone an calling code" do
         context "when the phone is a chinese fixed-line number" do
-          let(:model) { ActiveRecordModel.new(phone: ["+86", "0701356633333aaa"]) }
+          let(:model) { FakePhoneModel.new(phone: ["+86", "0701356633333aaa"]) }
 
           it { should == "0701356633333" }
         end
 
         context "when the phone is a international phone" do
-          let(:model) { ActiveRecordModel.new(phone: ["+41", "446681800aaaa"]) }
+          let(:model) { FakePhoneModel.new(phone: ["+41", "446681800aaaa"]) }
 
           it { should == "+41446681800" }
         end
@@ -93,7 +86,7 @@ describe "using model#phoneize" do
     end
 
     context "when calling code is the same as the default country" do
-      let(:model) { ActiveRecordModel.new(phone: ["+86", "18621374266"]) }
+      let(:model) { FakePhoneModel.new(phone: ["+86", "18621374266"]) }
 
       it "does not change the phone attribute before validation" do
         subject.should == '18621374266'
@@ -106,7 +99,7 @@ describe "using model#phoneize" do
 
     context "when original phone is valid" do
       context "and it prefixed with '+'" do
-        let(:model) { ActiveRecordModel.new(phone: ["+41", "446681800"]) }
+        let(:model) { FakePhoneModel.new(phone: ["+41", "446681800"]) }
 
         it "returns the international form of the phone" do
           subject.should == "+41 44 668 18 00"
@@ -114,7 +107,7 @@ describe "using model#phoneize" do
       end
 
       context "and it's a local phone" do
-        let(:model) { ActiveRecordModel.new(phone: ["+86", "18621374266"]) }
+        let(:model) { FakePhoneModel.new(phone: ["+86", "18621374266"]) }
 
         it "returns the national form of the phone" do
           subject.should == "186 2137 4266"
@@ -123,7 +116,7 @@ describe "using model#phoneize" do
     end
 
     context "when original phone is not valid" do
-      let(:model) { ActiveRecordModel.new(phone: ["+41", "4466818000"]) }
+      let(:model) { FakePhoneModel.new(phone: ["+41", "4466818000"]) }
 
       it "returns the original value" do
         subject.should == "+414466818000"
