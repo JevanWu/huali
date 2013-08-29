@@ -95,14 +95,12 @@ describe "using model#phoneize" do
   end
 
   describe "rewrite the reader of the phoneized attribute" do
-    subject { model.phone }
-
     context "when original phone is valid" do
       context "and it prefixed with '+'" do
         let(:model) { FakePhoneModel.new(phone: ["+41", "446681800"]) }
 
         it "returns the international form of the phone" do
-          subject.should == "+41 44 668 18 00"
+          model.phone.should == "+41 44 668 18 00"
         end
       end
 
@@ -110,7 +108,7 @@ describe "using model#phoneize" do
         let(:model) { FakePhoneModel.new(phone: ["+86", "18621374266"]) }
 
         it "returns the national form of the phone" do
-          subject.should == "186 2137 4266"
+          model.phone.should == "186 2137 4266"
         end
       end
     end
@@ -119,7 +117,7 @@ describe "using model#phoneize" do
       let(:model) { FakePhoneModel.new(phone: ["+41", "4466818000"]) }
 
       it "returns the original value" do
-        subject.should == "+414466818000"
+        model.phone.should == "+414466818000"
       end
     end
   end

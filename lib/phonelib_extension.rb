@@ -5,32 +5,35 @@ module Phonelib
     included do
       private
 
-      def phonelib_sanitize_with_calling_code(original_phone, phone_calling_code)
+      def sanitize_with_calling_code(original_phone, phone_calling_code)
         if phone_calling_code == "+86"
-          sanitized = Phonelib.parse(original_phone).sanitized.sub(/^86/, '')
+          sanitized = Phonelib.parse(original_phone).sanitized
 
-          prefix_local_fixed_number(sanitized)
+          prepare_local_fixed_number(sanitized)
         else
-          phone_to_parse = "#{phone_calling_code} #{original_phone}"
-          prefix(:+, Phonelib.parse(phone_to_parse).sanitized)
+          phone_to_parse = phone_calling_code + original_phone
+          sanitized = Phonelib.parse(phone_to_parse).sanitized
+
+          prefix('+', sanitized)
         end
       end
 
-      def phonelib_sanitize(original_phone)
+      def sanitize_without_calling_code(original_phone)
         sanitized = Phonelib.parse(original_phone).sanitized
 
-        if sanitized.start_with?('86')
-          sanitized.sub!(/^86/, '')
-
-          prefix_local_fixed_number(sanitized)
-        else
+        if original_phone.match(/^\+/)
+          # international phone
           prefix(:+, sanitized)
+        else
+          # domestic phone
+          prepare_local_fixed_number(sanitized)
         end
       end
 
-      def prefix_local_fixed_number(phone)
+      def prepare_local_fixed_number(phone)
         # Chinese fixed-line number needs to be prefixed with '0'
         # 400-* and cellphone numbers will be escaped
+        phone.sub!(/^86/, '')
         phone.match(/^(400|1[^0])/) ? phone : prefix('0', phone)
       end
 
@@ -44,18 +47,18 @@ module Phonelib
         attributes.each do |attribute|
           attr_accessor :"#{attribute}_calling_code"
 
-          define_method(:"#{attribute}=") do |phone_with_calling_code|
-            case phone_with_calling_code
+          define_method(:"#{attribute}=") do |number|
+            case number
             when String
-              super phonelib_sanitize(phone_with_calling_code)
+              super sanitize_without_calling_code(number)
             when Array
-              phone_calling_code, original_phone = phone_with_calling_code
+              phone_calling_code, original_phone = number
               send(:"#{attribute}_calling_code=", phone_calling_code)
 
               return unless original_phone.present?
 
-              sanitized_phone = phonelib_sanitize_with_calling_code(original_phone,
-                                                                    phone_calling_code)
+              sanitized_phone = sanitize_with_calling_code(original_phone,
+                                                           phone_calling_code)
               super(sanitized_phone)
             end
           end
