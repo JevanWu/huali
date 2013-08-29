@@ -1,4 +1,8 @@
 zh-CN:
+  helpers:
+   submit:
+     order_form:
+       create: 确定
 
   edit: 编辑
   view: 查看
@@ -25,10 +29,10 @@ zh-CN:
       one: 厘米
       other: 厘米
 
-  activerecord:
+  activemodel:
     format: ! '%{attribute} %{message}'
     errors:
-      messages:
+      messages: &default_error_message
         blank: 您需要填写此项
         unavailable_date: 快递无法为您在这个日期进行递送
         unavailable_location: 我们无法为您配送到这个地区
@@ -42,6 +46,68 @@ zh-CN:
         product_in_unavailable_date: '%{product_name}无法在该递送日期配送'
         product_in_unavailable_region: '%{product_name}无法配送到该区域'
         must_be_less_than_expected_date: 必须小于到达日期
+
+    models:
+      order_form: 订单
+
+    attributes:
+      order_form:
+        identifier: 订单编号
+        transaction_identifier: 交易编号
+        expected_date: 到达日期
+        delivery_date: 发货日期
+        ship_method: 递送方式
+        ship_method_id: 递送方式
+        special_instructions: 特殊要求
+        gift_card_text: 卡片信息
+        additional_info: 附加信息
+        item_total: 物品总价
+        total: 订单总价
+        state: 订单状态
+        source: 来源
+        order_content: 订单内容
+        transaction_identifier: 交易编号
+        transaction_info: 交易信息
+        shipment_info: 递送信息
+        fullname: 收货人姓名
+        process_order: 处理订单
+        modify_order_state: 修改订单状态
+        print_order: 打印订单
+        images: 产品图
+        coupon_code: 优惠码
+        coupon: 优惠券
+        adjustment: 价格调整
+        subject_text: 货品内容
+        created_at: 创建时间
+        printed: 已打印
+        tracking_num: 快递单号
+        kind: 类型
+        bypass_region_validation: 跳过递送区域验证
+        bypass_date_validation: 跳过递送时间验证
+        bypass_product_validation: 跳过产品验证
+
+      sender_info:
+        name: 寄件人姓名
+        email: 寄件人邮箱
+        phone: 寄件人电话
+        info: 寄件人信息
+
+      receiver_info:
+        fullname: 收件人姓名
+        phone: 收件人电话
+        province_name: 收件人省份
+        city_name: 收件人城市
+        address: 收件人地址
+        province_id: 省份
+        city_id: 城市
+        area_id: 地区
+        post_code: 邮编
+
+  activerecord:
+    format: ! '%{attribute} %{message}'
+    errors:
+      messages:
+        <<: *default_error_message
 
     models:
       administrator: 管理用户
