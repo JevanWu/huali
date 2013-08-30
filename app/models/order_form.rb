@@ -35,7 +35,13 @@ end
 class ItemInfo
   include Virtus
   include Virtus::ValueObject
+  include ActiveModel::Validations
   extend ActiveModel::Naming
+
+  def initialize(*)
+    super
+    @errors = ActiveModel::Errors.new(self)
+  end
 
   attribute :product_id, Integer
   attribute :quantity, Integer, default: 0
@@ -89,8 +95,11 @@ class OrderForm
 
   validates_with OrderProductRegionValidator, if: :validate_product_delivery_region?
   validates_with OrderProductDateValidator, if: :validate_product_delivery_date?
-  # validates_with OrderItemValidator, if: :validate_item?
+  validates_with OrderItemValidator, if: :validate_item?
+  validates_with OrderProductAvailabilityValidator, if: :validate_item?
   validates_with OrderCouponValidator, if: :validate_coupon?
+
+  validates :expected_date, presence: true
 
   def fetch_products
     line_items.map { |l| Product.find(l.product_id) }
@@ -150,7 +159,7 @@ class OrderForm
   end
 
   def validate_product_delivery_date?
-    not_yet_shipped?
+    expected_date.present? && not_yet_shipped?
   end
 
   def not_yet_shipped?
