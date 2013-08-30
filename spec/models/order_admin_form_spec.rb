@@ -71,9 +71,25 @@ describe OrderAdminForm do
   end
 
   describe "valid?" do
+    ADMIN_VALIDATORS = ['OrderDeliveryDateValidator']
+
     before do
       VALIDATORS.each do |v| 
         any_instance_of v.constantize, validate: lambda { |order| }
+      end
+
+      ADMIN_VALIDATORS.each do |v|
+        any_instance_of v.constantize, validate: lambda { |order| }
+      end
+    end
+
+    ADMIN_VALIDATORS.each do |validator|
+      it "calls validate on #{validator} with subject" do
+        any_instance_of(validator.constantize) do |v|
+          mock(v).validate(subject)
+        end
+
+        subject.valid?
       end
     end
 
