@@ -1,14 +1,10 @@
 require 'date_rule_runner'
 
-class OrderProductDateValidator < ActiveModel::Validator
-  include OrderProductValidationHelper
-
+class OrderProductDateValidator < OrderProductValidatorBase
   def validate(order)
     order_valid = true
 
-    order.line_items.each do |line_item|
-      product = fetch_product(line_item)
-
+    super do |line_item, product|
       unless validate_product(product, order.expected_date)
         order_valid = false
         line_item.errors.add(:base, :product_in_unavailable_date, product_name: product.name)

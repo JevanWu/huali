@@ -1,31 +1,34 @@
-class OrderProductAvailabilityValidator < ActiveModel::Validator
-  include OrderProductValidationHelper
-
+class OrderProductAvailabilityValidator < OrderProductValidatorBase
   def validate(order)
     order_valid = true
 
-    order.line_items.each do |line_item|
-      order_valid = false unless validate_line_item(line_item)
+    super do |line_item, product|
+      order_valid = false unless validate_line_item(line_item, product)
     end
 
     order.errors.add(:base, :unavailable_products) unless order_valid
   end
 
-  def validate_line_item(line_item)
+  private
+
+  def validate_line_item(line_item, product)
     item_valid = true
-    product = fetch_product(line_item)
 
     unless product.published
       line_item.errors.add(:base, :product_unavailable, product_name: product.name)
       item_valid = false
     end
 
-    unless sufficient_stock?(line_item)
+    unless sufficient_stock?(line_item, product)
       line_item.errors.add(:base, :product_out_of_stock, product_name: product.name)
       item_valid = false
     end
 
     item_valid
+  end
+
+  def sufficient_stock?(line_item, product)
+    product.count_on_hand >= line_item.quantity
   end
 end
 

@@ -3,7 +3,7 @@ require 'spec_helper_lite'
 require 'active_support/core_ext/string/conversions.rb'
 require 'ostruct'
 require 'active_model'
-require 'order_product_validation_helper'
+require 'order_product_validator_base'
 require 'order_product_date_validator'
 
 shared_examples_for "order date validator" do
