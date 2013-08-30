@@ -1,9 +1,6 @@
 require 'virtus'
 require 'active_model'
-require 'order_product_region_validator'
-require 'order_product_date_validator'
-require 'order_coupon_validator'
-require 'order_item_validator'
+require 'validators/all'
 
 class ReceiverInfo
   include Virtus

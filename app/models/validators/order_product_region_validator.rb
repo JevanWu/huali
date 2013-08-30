@@ -1,5 +1,5 @@
 require 'region_rule_runner'
-require 'order_product_base_validator'
+require_relative 'order_product_base_validator'
 
 class OrderProductRegionValidator < OrderProductBaseValidator
   def validate(order)
