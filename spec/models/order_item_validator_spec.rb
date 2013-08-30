@@ -1,7 +1,7 @@
 require 'spec_helper_lite'
 
 require 'active_model'
-require 'order_product_validator_base'
+require 'order_product_base_validator'
 require 'order_item_validator'
 
 describe OrderItemValidator do

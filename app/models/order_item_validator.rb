@@ -1,4 +1,4 @@
-class OrderItemValidator < OrderProductValidatorBase
+class OrderItemValidator < OrderProductBaseValidator
   def validate(order)
     if order.line_items.blank?
       order.errors.add(:base, :blank_products)

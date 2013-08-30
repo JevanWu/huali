@@ -1,6 +1,6 @@
 require 'date_rule_runner'
 
-class OrderProductDateValidator < OrderProductValidatorBase
+class OrderProductDateValidator < OrderProductBaseValidator
   def validate(order)
     order_valid = true
 

@@ -1,6 +1,6 @@
 require 'region_rule_runner'
 
-class OrderProductRegionValidator < OrderProductValidatorBase
+class OrderProductRegionValidator < OrderProductBaseValidator
   def validate(order)
     address = order.address
 

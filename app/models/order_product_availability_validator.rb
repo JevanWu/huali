@@ -1,4 +1,4 @@
-class OrderProductAvailabilityValidator < OrderProductValidatorBase
+class OrderProductAvailabilityValidator < OrderProductBaseValidator
   def validate(order)
     order_valid = true
 
