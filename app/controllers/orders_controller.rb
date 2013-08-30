@@ -28,6 +28,7 @@ class OrdersController < ApplicationController
   def new
     validate_cart
     @order_form = OrderForm.new
+    @order_form.address = ReceiverInfo.new
     @order_form.sender = SenderInfo.new(current_user.as_json) # nil.as_json => nil
     AnalyticWorker.delay.open_order(current_user.id, @products.map(&:name), Time.now)
   end
@@ -39,6 +40,8 @@ class OrdersController < ApplicationController
   def taobao_order_new
     validate_cart
     @order_admin_form = OrderAdminForm.new({source: '淘宝', kind: 'taobao'})
+    @order_admin_form.sender = SenderInfo.new
+    @order_admin_form.address = ReceiverInfo.new
   end
 
   # backorder
@@ -48,6 +51,7 @@ class OrdersController < ApplicationController
   def back_order_new
     validate_cart
     @order_admin_form = OrderAdminForm.new
+    @order_admin_form.address = ReceiverInfo.new
   end
 
   def taobao_order_create
@@ -57,7 +61,7 @@ class OrdersController < ApplicationController
   end
 
   def back_order_create
-    opts = { paymethod: 'directPay', 
+    opts = { paymethod: 'directPay',
              merchant_name: 'Alipay',
              merchant_trade_no: params[:merchant_trade_no]}
 
