@@ -18,7 +18,7 @@ Factor Out the Validators from Order to FormObjects:
  ✔ i18n for error messages
  ✔ Push the fetch_products methods on Order into Validators
  ✔ enable the ItemValidator
- ☐ Add back line-items errors on order/_form
+ ✔ Add back line-items errors on order/_form
    <div class="control-group error section-error">
      <%= error_messages_for_collection(@order_form.products) %>
    </div>
