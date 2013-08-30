@@ -20,7 +20,7 @@ class OrderProductAvailabilityValidator < OrderProductValidatorBase
     end
 
     unless sufficient_stock?(line_item, product)
-      line_item.errors.add(:base, :product_out_of_stock, product_name: product.name)
+      line_item.errors.add(:base, :product_out_of_stock, product_name: product.name, count_on_hand: product.count_on_hand)
       item_valid = false
     end
 
