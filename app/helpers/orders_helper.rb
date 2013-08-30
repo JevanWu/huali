@@ -93,7 +93,7 @@ module OrdersHelper
     new_line_item = ItemInfo.new
     id = new_line_item.object_id
     fields_html = render({ partial: 'line_item_fields',
-                           locals: { 
+                           locals: {
                               f: f,
                               line_item_fields: new_line_item,
                               all_line_items: all_line_items }})
@@ -104,7 +104,7 @@ module OrdersHelper
   def error_messages_for_collection(collection)
     collection.map do |item|
       item.errors[:base].map do |err|
-        content_tag('span', err, class: 'help-block')
+        content_tag('li', err, class: 'help-block')
       end
     end.flatten.join.html_safe
   end

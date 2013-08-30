@@ -10,20 +10,20 @@ Factor Out the Validators from Order to FormObjects:
  ✔ Needs to correct line item rendering and @done (13-08-23 16:42)
  ✔ correct line items removal (remove the fields when click remove) @done (13-08-23 16:52)
  ✔ Update the orders from Admin Order @done (13-08-26 17:39)
-  # how to handle the PUT request for updates? 
+  # how to handle the PUT request for updates?
   # How to distinguish it from a POST?
   # How to update the right order (through order_id probably?)
 
- ☐ i18n tranlation migration for attributes 
- ☐ i18n for error messages
- ☐ Push the fetch_products methods on Order into Validators
- ☐ enable the ItemValidator
- ☐ Add back line-items errors on order/_form
+ ✔ i18n tranlation migration for attributes
+ ✔ i18n for error messages
+ ✔ Push the fetch_products methods on Order into Validators
+ ✔ enable the ItemValidator
+ ✔ Add back line-items errors on order/_form
    <div class="control-group error section-error">
      <%= error_messages_for_collection(@order_form.products) %>
    </div>
- ☐ Turn Adjustment into Validator on AdminForm
- ☐ Expected Date Validation on AdminForm
+ ✔ Move Adjustment into AdminForm
+ ✔ Turn Expected Date Validation to a Validator on AdminForm
 
 
  ☐ Factor the Coupon#used_by_order? methods ot handle mainly OrderForm instead of order

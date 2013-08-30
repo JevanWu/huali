@@ -33,17 +33,17 @@ feature 'Place order' do
     end
 
     within("#new-order") do
-      fill_in '您的姓名', with: '王二'
-      fill_in '您的邮箱', with: 'user@example.com'
-      fill_in '您的电话', with: '18011112222'
-      select '搜索引擎', from: '您是从哪里知道我们的'
-      fill_in '到达日期', with: 100.days.since.to_date
-      fill_in '收件人', with: '王二'
-      fill_in 'order_address_attributes_phone', with: '18011112222'
+      fill_in '寄件人姓名', with: '王二'
+      fill_in '寄件人邮箱', with: 'user@example.com'
+      fill_in '寄件人电话', with: '18011112222'
+      select '搜索引擎', from: '来源'
+      fill_in '到达日期', with: "2012-12-12"
+      fill_in '收件人姓名', with: '王二'
+      fill_in '收件人电话', with: '18011112222'
 
       select('上海市', from: '省份')
       select('市辖区', from: '城市')
-      select('虹口区', from: '区域')
+      select('虹口区', from: '地区')
 
       fill_in '地址', with: 'xx路xx号'
       fill_in '邮编', with: '201218'
@@ -63,17 +63,17 @@ feature 'Place order' do
     end
 
     within("#new-order") do
-      fill_in '您的姓名', with: '王二'
-      fill_in '您的邮箱', with: 'user@example.com'
-      fill_in '您的电话', with: '18011112222'
-      select '搜索引擎', from: '您是从哪里知道我们的'
+      fill_in '寄件人姓名', with: '王二'
+      fill_in '寄件人邮箱', with: 'user@example.com'
+      fill_in '寄件人电话', with: '18011112222'
+      select '搜索引擎', from: '来源'
       fill_in '到达日期', with: Date.current
-      fill_in '收件人', with: '王二'
-      fill_in 'order_address_attributes_phone', with: '18011112222'
+      fill_in '收件人姓名', with: '王二'
+      fill_in '收件人电话', with: '18011112222'
 
       select('上海市', from: '省份')
       select('市辖区', from: '城市')
-      select('虹口区', from: '区域')
+      select('虹口区', from: '地区')
 
       fill_in '地址', with: 'xx路xx号'
       fill_in '邮编', with: '201218'
@@ -95,17 +95,17 @@ feature 'Place order' do
     end
 
     within("#new-order") do
-      fill_in '您的姓名', with: '王二'
-      fill_in '您的邮箱', with: 'user@example.com'
-      fill_in '您的电话', with: '18011112222'
-      select '搜索引擎', from: '您是从哪里知道我们的'
+      fill_in '寄件人姓名', with: '王二'
+      fill_in '寄件人邮箱', with: 'user@example.com'
+      fill_in '寄件人电话', with: '18011112222'
+      select '搜索引擎', from: '来源'
       fill_in '到达日期', with: Date.current
-      fill_in '收件人', with: '王二'
-      fill_in 'order_address_attributes_phone', with: '18011112222'
+      fill_in '收件人姓名', with: '王二'
+      fill_in '收件人电话', with: '18011112222'
 
       select('上海市', from: '省份')
       select('市辖区', from: '城市')
-      select('虹口区', from: '区域')
+      select('虹口区', from: '地区')
 
       fill_in '地址', with: 'xx路xx号'
       fill_in '邮编', with: '201218'
@@ -113,6 +113,6 @@ feature 'Place order' do
       click_button '确定'
     end
 
-    page.should have_content('红宝石已经售完')
+    page.should have_content('红宝石库存不足')
   end
 end

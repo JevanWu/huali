@@ -32,18 +32,13 @@ shared_examples_for "OrderForm::Shared" do
     end
   end
 
-  describe "#fetch_products" do
-    xit "" do
-      
-    end
-  end
-
   describe "#valid?" do
     VALIDATORS = [
                   'OrderProductRegionValidator',
                   'OrderProductDateValidator',
-                  # 'OrderItemValidator',
-                  'OrderCouponValidator'
+                  'OrderItemValidator',
+                  'OrderCouponValidator',
+                  'OrderProductAvailabilityValidator'
                  ]
 
     let(:sender) { SenderInfo.new }
