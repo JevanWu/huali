@@ -1,7 +1,6 @@
 require 'spec_helper_lite'
 require 'ostruct'
 require 'active_model'
-require 'order_product_base_validator'
 require 'order_product_region_validator'
 
 shared_examples_for "order region validator" do

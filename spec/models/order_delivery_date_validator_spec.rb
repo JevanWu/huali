@@ -1,5 +1,4 @@
 require 'spec_helper_lite'
-
 require 'active_model'
 require 'active_support/core_ext'
 require 'order_delivery_date_validator'

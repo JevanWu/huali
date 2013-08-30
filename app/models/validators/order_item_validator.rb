@@ -1,3 +1,5 @@
+require 'order_product_base_validator'
+
 class OrderItemValidator < OrderProductBaseValidator
   def validate(order)
     if order.line_items.blank?

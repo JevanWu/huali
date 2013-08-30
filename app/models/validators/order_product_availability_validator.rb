@@ -1,3 +1,5 @@
+require 'order_product_base_validator'
+
 class OrderProductAvailabilityValidator < OrderProductBaseValidator
   def validate(order)
     order_valid = true

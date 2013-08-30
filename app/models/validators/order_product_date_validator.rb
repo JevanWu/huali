@@ -1,4 +1,5 @@
 require 'date_rule_runner'
+require 'order_product_base_validator'
 
 class OrderProductDateValidator < OrderProductBaseValidator
   def validate(order)
