@@ -263,6 +263,11 @@ class Order < ActiveRecord::Base
 
   private
 
+  def auth_refund
+    # TODO auth the admin for the refund actions
+    true
+  end
+
   def phone_validate
     n_digits = sender_phone.scan(/[0-9]/).size
     valid_chars = (sender_phone =~ /^[-+()\/\s\d]+$/)
