@@ -43,6 +43,7 @@ $ ->
 
   $('.chosen').chosen({width: "30%"})
   $('.chosen-allow-deselect').chosen({width: "30%", allow_single_deselect: true})
+  $('.chosen-small').chosen({width: "100px"})
 
 $ ->
   done = '<div class="flashes"><div class="flash flash_notice">更新成功</div></div>'
