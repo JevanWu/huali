@@ -45,6 +45,9 @@
   <% end %>
 
   <%= f.inputs "Line Items" do %>
+    <ul class="errors">
+      <%= error_messages_for_collection(@order.line_items) %>
+    </ul>
     <%= render partial: 'line_item_fields',
                collection: @order.line_items,
                locals: {

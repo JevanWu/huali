@@ -57,16 +57,11 @@ class Order < ActiveRecord::Base
 
   before_validation :generate_identifier, on: :create
 
-  # +/-/*/%1234.0
-  validates_format_of :adjustment, with: %r{\A[+-x*%/][\s\d.]+\z}, allow_blank: true
-
-  validates_presence_of :identifier, :line_items, :expected_date, :state, :total, :item_total, :sender_email, :sender_phone, :sender_name
+  validates_presence_of :identifier, :line_items, :state, :total, :item_total
 
   # only validate once on Date.today, because in future Date.today will change
   validate :phone_validate, unless: lambda { |order| order.sender_phone.blank? }
   # skip coupon code validation for empty coupon and already used coupon
-
-  validate :delivery_date_must_be_less_than_expected_date
 
   after_validation :cal_item_total, :cal_total
 
@@ -114,17 +109,6 @@ class Order < ActiveRecord::Base
 
     state :wait_refund do
       transition to: :refunded, on: :refund
-    end
-  end
-
-  # Skip date and region validation in statemachine
-  [:pay, :check, :make, :cancel].each do |m|
-    define_method(m) do |*args|
-      self.bypass_date_validation = true
-      self.bypass_region_validation = true
-      self.bypass_product_validation = true
-
-      super(*args)
     end
   end
 
@@ -279,6 +263,11 @@ class Order < ActiveRecord::Base
 
   private
 
+  def auth_refund
+    # TODO auth the admin for the refund actions
+    true
+  end
+
   def phone_validate
     n_digits = sender_phone.scan(/[0-9]/).size
     valid_chars = (sender_phone =~ /^[-+()\/\s\d]+$/)
@@ -301,19 +290,5 @@ class Order < ActiveRecord::Base
   def pay_order
     self.payment_total = self.transactions.by_state('completed').map(&:amount).inject(:+)
     save
-  end
-
-  def validate_product_delivery_region?
-    not_yet_shipped? && !bypass_region_validation
-  end
-
-  def validate_product_delivery_date?
-    expected_date.present? && not_yet_shipped? && !bypass_date_validation
-  end
-
-  def delivery_date_must_be_less_than_expected_date
-    if delivery_date && !(delivery_date <= expected_date)
-      errors.add(:delivery_date, :must_be_less_than_expected_date)
-    end
   end
 end

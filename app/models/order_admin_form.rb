@@ -14,6 +14,10 @@ end
 class OrderAdminForm < OrderForm
   include AdminOnlyInfo
 
+  # +/-/*/%1234.0
+  validates_format_of :adjustment, with: %r{\A[+-x*%/][\s\d.]+\z}, allow_blank: true
+  validates_with OrderDeliveryDateValidator
+
   class << self
     def build_from_record(record)
       order_admin_form = new(record.as_json)
@@ -51,7 +55,7 @@ class OrderAdminForm < OrderForm
     end
   end
 
-  private 
+  private
 
   def persist!
     if persisted?
