@@ -48,13 +48,13 @@ describe "using model#phoneize" do
         context "when the phone is a 400 phone" do
           let(:model) { FakePhoneModel.new(phone: "400-001-6936") }
 
-          it { should == "4000016936" }
+          it { should == "+864000016936" }
         end
 
         context "and it's a local phone" do
           let(:model) { FakePhoneModel.new(phone: "0701356633333aaa") }
 
-          it { should == "0701356633333" }
+          it { should == "+86701356633333" }
         end
 
         context "and it's a international phone" do
@@ -68,7 +68,7 @@ describe "using model#phoneize" do
         context "when the phone is a chinese fixed-line number" do
           let(:model) { FakePhoneModel.new(phone: ["+86", "0701356633333aaa"]) }
 
-          it { should == "0701356633333" }
+          it { should == "+86701356633333" }
         end
 
         context "when the phone is a international phone" do
@@ -88,8 +88,8 @@ describe "using model#phoneize" do
     context "when calling code is the same as the default country" do
       let(:model) { FakePhoneModel.new(phone: ["+86", "18621374266"]) }
 
-      it "does not change the phone attribute before validation" do
-        subject.should == '18621374266'
+      it "prefixs the attribute with the calling code of the default country" do
+        subject.should == '+8618621374266'
       end
     end
   end
