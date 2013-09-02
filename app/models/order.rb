@@ -71,7 +71,6 @@ class Order < ActiveRecord::Base
 
   state_machine :state, initial: :generated do
     # TODO implement an auth_state dynamically for each state
-    before_transition to: :wait_refund, do: :auth_refund
     before_transition to: :completed, do: :complete_order
     after_transition to: :completed, do: :update_sold_total
     before_transition to: :wait_check, do: :pay_order
@@ -262,11 +261,6 @@ class Order < ActiveRecord::Base
   end
 
   private
-
-  def auth_refund
-    # TODO auth the admin for the refund actions
-    true
-  end
 
   def phone_validate
     n_digits = sender_phone.scan(/[0-9]/).size
