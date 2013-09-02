@@ -31,7 +31,7 @@ ActiveAdmin.register Order do
     def full_order_fields
       [
         # delivery info
-        :sender_name, :sender_email, :sender_phone,
+        :sender_name, :sender_email, { sender_phone: [] },
         :bypass_region_validation,
         :expected_date,
         :bypass_date_validation,
@@ -50,7 +50,7 @@ ActiveAdmin.register Order do
         :kind,
         :bypass_product_validation,
         :address_attributes => [
-          :fullname, :phone, :province_id,
+          :fullname, { phone: [] }, :province_id,
           :city_id, :area_id, :post_code,
           :address],
         # line items
