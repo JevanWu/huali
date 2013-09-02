@@ -9,14 +9,11 @@ module Phonelib
         sign.to_s + number.to_s
       end
 
-      def sanitize_with_explicit_calling_code(original_phone, phone_calling_code)
+      def sanitize_phone(original_phone, phone_calling_code)
         original_phone.sub!(/^0*/, '') if phone_calling_code == '+86'
 
-        sanitize_phone("#{phone_calling_code}#{original_phone}")
-      end
-
-      def sanitize_phone(original_phone)
-        prefix('+', Phonelib.parse(original_phone).sanitized)
+        sanitized = Phonelib.parse("#{phone_calling_code}#{original_phone}").sanitized
+        prefix('+', sanitized)
       end
     end
 
@@ -26,19 +23,12 @@ module Phonelib
           attr_accessor :"#{attribute}_calling_code"
 
           define_method(:"#{attribute}=") do |number|
-            case number
-            when String
-              super sanitize_phone(number)
-            when Array
-              phone_calling_code, original_phone = number
-              send(:"#{attribute}_calling_code=", phone_calling_code)
+            phone_calling_code, original_phone = number
+            send(:"#{attribute}_calling_code=", phone_calling_code)
 
-              return unless original_phone.present?
+            return unless original_phone.present?
 
-              sanitized_phone = sanitize_with_explicit_calling_code(original_phone,
-                                                                    phone_calling_code)
-              super(sanitized_phone)
-            end
+            super sanitize_phone(original_phone, phone_calling_code)
           end
 
           define_method(attribute) do

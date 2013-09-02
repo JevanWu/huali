@@ -44,38 +44,16 @@ describe "using model#phoneize" do
     subject { model.phone_before_type_cast }
 
     describe "santinize phone" do
-      context "when the input is a String" do
-        context "when the phone is a 400 phone" do
-          let(:model) { FakePhoneModel.new(phone: "400-001-6936") }
+      context "when the phone is a chinese fixed-line number" do
+        let(:model) { FakePhoneModel.new(phone: ["+86", "0701356633333aaa"]) }
 
-          it { should == "+864000016936" }
-        end
-
-        context "and it's a local phone" do
-          let(:model) { FakePhoneModel.new(phone: "0701356633333aaa") }
-
-          it { should == "+86701356633333" }
-        end
-
-        context "and it's a international phone" do
-          let(:model) { FakePhoneModel.new(phone: "+41446681800aaa") }
-
-          it { should == "+41446681800" }
-        end
+        it { should == "+86701356633333" }
       end
 
-      context "when the input is a Array which contains phone an calling code" do
-        context "when the phone is a chinese fixed-line number" do
-          let(:model) { FakePhoneModel.new(phone: ["+86", "0701356633333aaa"]) }
+      context "when the phone is a international phone" do
+        let(:model) { FakePhoneModel.new(phone: ["+41", "446681800aaaa"]) }
 
-          it { should == "+86701356633333" }
-        end
-
-        context "when the phone is a international phone" do
-          let(:model) { FakePhoneModel.new(phone: ["+41", "446681800aaaa"]) }
-
-          it { should == "+41446681800" }
-        end
+        it { should == "+41446681800" }
       end
     end
 
