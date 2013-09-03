@@ -70,6 +70,14 @@ describe "using model#phoneize" do
         subject.should == '+8618621374266'
       end
     end
+
+    context "when the input is a valid String phone with international format" do
+      let(:model) { FakePhoneModel.new(phone: "+41 44 668 18 00") }
+
+      it "was saved successfully as the Array phone input" do
+        subject.should == "+41446681800"
+      end
+    end
   end
 
   describe "rewrite the reader of the phoneized attribute" do
