@@ -75,6 +75,7 @@ class OrderAdminForm < OrderForm
     @record.line_items.destroy_all
     @record.line_items = line_items.map { |params| LineItem.new(params) }
     @record.save!
+    @record
   end
 
   def dispatch_params(order)
