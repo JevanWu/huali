@@ -2,13 +2,13 @@ require_relative 'order_product_base_validator'
 
 class OrderProductAvailabilityValidator < OrderProductBaseValidator
   def validate(order)
-    order_valid = true
 
     super do |line_item, product|
-      order_valid = false unless validate_line_item(line_item, product)
+      unless validate_line_item(line_item, product)
+        @order_error ||= :unavailable_products 
+      end
+      [:base, @order_error]
     end
-
-    order.errors.add(:base, :unavailable_products) unless order_valid
   end
 
   private

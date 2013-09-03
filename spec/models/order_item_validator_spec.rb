@@ -67,6 +67,7 @@ describe OrderItemValidator do
     context "when one of the line items's quantity is less than 1" do
       it "adds errors to order and the line item" do
         stub(line_item2).quantity { 0 }
+        mock(order_errors).add(:base, :product_of_invalid_quantity)
         mock(line_item2_errors).add(:base,
                                     :product_of_invalid_quantity,
                                     product_name: product2.name)
@@ -75,5 +76,4 @@ describe OrderItemValidator do
       end
     end
   end
-
 end

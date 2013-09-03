@@ -5,20 +5,18 @@ class OrderProductRegionValidator < OrderProductBaseValidator
   def validate(order)
     address = order.address
 
-    order_valid = true
-
     super do |line_item, product|
       unless validate_product(product, address.province_id, address.city_id, address.area_id)
-        order_valid = false
         line_item.errors.add(:base, :product_in_unavailable_region, product_name: product.name)
+        @order_error ||= :unavailable_location
       end
+      [:base, @order_error]
     end
 
-    unless order_valid
+    if !!@order_error
       address.errors.add(:province_id, :unavailable_location) if address.province_id
       address.errors.add(:city_id, :unavailable_location) if address.city_id
       address.errors.add(:area_id, :unavailable_location) if address.area_id
-      order.errors.add(:base, :unavailable_location)
     end
   end
 

@@ -32,13 +32,16 @@ end
 class ItemInfo
   include Virtus
   include Virtus::ValueObject
-  include ActiveModel::Validations
+  extend ActiveModel::Translation
   extend ActiveModel::Naming
+
+  attr_reader :errors
 
   def initialize(*)
     super
     @errors = ActiveModel::Errors.new(self)
   end
+  alias :read_attribute_for_validation :send
 
   attribute :product_id, Integer
   attribute :quantity, Integer, default: 0
