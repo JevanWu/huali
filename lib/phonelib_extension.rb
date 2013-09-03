@@ -23,10 +23,6 @@ module Phonelib
           attr_accessor :"#{attribute}_calling_code"
 
           define_method(:"#{attribute}=") do |number|
-            unless number.is_a?(Array) && number[0].match(/\+\d+/)
-              raise ArgumentError
-            end
-
             phone_calling_code, original_phone = number
             send(:"#{attribute}_calling_code=", phone_calling_code)
 
