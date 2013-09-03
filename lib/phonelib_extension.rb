@@ -23,7 +23,15 @@ module Phonelib
           attr_accessor :"#{attribute}_calling_code"
 
           define_method(:"#{attribute}=") do |number|
-            phone_calling_code, original_phone = number
+            case number
+            when String
+              phone_calling_code, original_phone = number.slice!(/^\+\d+/), number
+            when Array
+              phone_calling_code, original_phone = number
+            else
+              raise ArgumentError
+            end
+
             send(:"#{attribute}_calling_code=", phone_calling_code)
 
             return unless original_phone.present?
@@ -37,11 +45,7 @@ module Phonelib
 
             return original_phone unless parsed_phone.valid?
 
-            if original_phone.start_with?('+86')
-              parsed_phone.national
-            else
-              parsed_phone.international
-            end
+            parsed_phone.international
           end
         end
       end
