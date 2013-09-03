@@ -41,11 +41,7 @@ module Phonelib
 
             return original_phone unless parsed_phone.valid?
 
-            if original_phone.start_with?('+86')
-              parsed_phone.national
-            else
-              parsed_phone.international
-            end
+            parsed_phone.international
           end
         end
       end
