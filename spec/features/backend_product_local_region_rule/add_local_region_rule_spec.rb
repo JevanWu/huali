@@ -37,7 +37,7 @@ feature "Add local region rule to product" do
       select('广州市', from: '城市')
       page.should have_content('越秀区')
       page.should_not have_content('天河区')
-      select('越秀区', from: '区域')
+      select('越秀区', from: '地区')
 
       click_button '确定'
     end
