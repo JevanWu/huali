@@ -22,6 +22,9 @@ class ReceiverInfo
 
   validates_presence_of :fullname, :address, :phone, :province_id, :city_id, :post_code
 
+  phoneize :phone
+  validates :phone, phone: { allow_blank: true }
+
   def initialize(*)
     super
     @errors = ActiveModel::Errors.new(self)
@@ -60,6 +63,9 @@ class SenderInfo
   attribute :name, String
   attribute :email, String
   attribute :phone, String
+
+  phoneize :phone
+  validates :phone, phone: { allow_blank: true }
 
   validates_presence_of :email, :phone, :name
 end

@@ -22,7 +22,7 @@ class Sms
   #   :sms
   #     send real sms
   def initialize(options)
-    @phone_number = PhoneNumber.new(options[:phone_number])
+    @phone_number = options[:phone_number]
     @body = options[:body]
     @delivery_method = options[:delivery_method] ||
       Rails.configuration.sms_delivery_method
@@ -40,7 +40,11 @@ class Sms
   private
 
   def send_sms
-    phone_number.international? ? twilio : smsbao
+    national? ? smsbao : twilio
+  end
+
+  def national?
+    Phonelib.parse(phone_number).country == Phonelib.default_country
   end
 
   def smsbao
@@ -91,7 +95,9 @@ class Sms
 [花里花店] hua.li
 STR
 
-      new(phone_number: phonenums.join(','), body: content).deliver
+      phonenums.each do |phone|
+        new(phone_number: phone, body: content).deliver
+      end
     end
 
     def pay_order_user_sms(order_id)

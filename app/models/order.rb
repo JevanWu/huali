@@ -59,10 +59,6 @@ class Order < ActiveRecord::Base
 
   validates_presence_of :identifier, :line_items, :state, :total, :item_total
 
-  # only validate once on Date.today, because in future Date.today will change
-  validate :phone_validate, unless: lambda { |order| order.sender_phone.blank? }
-  # skip coupon code validation for empty coupon and already used coupon
-
   after_validation :cal_item_total, :cal_total
 
   before_save do |order|
@@ -261,12 +257,6 @@ class Order < ActiveRecord::Base
   end
 
   private
-
-  def phone_validate
-    n_digits = sender_phone.scan(/[0-9]/).size
-    valid_chars = (sender_phone =~ /^[-+()\/\s\d]+$/)
-    errors.add :sender_phone, :invalid unless (n_digits >= 8 && valid_chars)
-  end
 
   def complete_order
     self.completed_at = Time.now
