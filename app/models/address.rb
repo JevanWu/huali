@@ -33,9 +33,6 @@ class Address < ActiveRecord::Base
 
   validates_presence_of :fullname, :address, :phone, :province, :city, :post_code
 
-  phoneize :phone
-  validates :phone, phone: { allow_blank: true }
-
   # after_validation :fill_in_post_code
 
   def to_s
