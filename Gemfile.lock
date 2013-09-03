@@ -159,6 +159,12 @@ GIT
       rails (>= 3.2)
 
 GIT
+  remote: git://github.com/ryancheung/phonelib.git
+  revision: 2e73b073132940cc885703079713a2a4e5d02e96
+  specs:
+    phonelib (0.1.3)
+
+GIT
   remote: https://github.com/SamSaffron/MiniProfiler.git
   revision: deef8654370a39b4039b5a0565cb64cd82c25403
   specs:
@@ -646,6 +652,7 @@ DEPENDENCIES
   omniauth-weibo-oauth2
   paperclip (~> 3.0)
   pg (>= 0.14.1)
+  phonelib!
   pry
   pry-debugger
   pry-doc

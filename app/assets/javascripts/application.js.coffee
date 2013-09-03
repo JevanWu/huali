@@ -17,6 +17,11 @@
 #= require scrollTo
 #= require underscore
 #= require_self
+#= require chosen.jquery
+
+$ ->
+  $('.chosen').chosen()
+  $('.chosen-small').chosen({width: "100px"})
 
 $ ->
   $("#trilogy a").scrollTo()

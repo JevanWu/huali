@@ -33,7 +33,9 @@ class Address < ActiveRecord::Base
 
   before_validation :check_postcode
   validates_presence_of :fullname, :address, :phone, :province, :city, :post_code
-  validate :phone_validate
+
+  phoneize :phone
+  validates :phone, phone: { allow_blank: true }
 
   # after_validation :fill_in_post_code
 
@@ -89,12 +91,5 @@ class Address < ActiveRecord::Base
 
   def fill_in_post_code
     self.post_code = location_code if self.post_code.blank?
-  end
-
-  def phone_validate
-    return if phone.blank?
-    n_digits = phone.scan(/[0-9]/).size
-    valid_chars = (phone =~ /^[-+()\/\s\d]+$/)
-    errors.add :phone, :invalid unless (n_digits >= 8 && valid_chars)
   end
 end
