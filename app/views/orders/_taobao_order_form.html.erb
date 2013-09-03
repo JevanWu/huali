@@ -1,7 +1,5 @@
 <%= simple_form_for @order_admin_form, url: { action: 'taobao_order_create' }, html: { class: 'form-horizontal', id: 'new-order' } do |f| %>
-  <div class="control-group error section-error">
-    <%= error_messages_for_collection(@order_admin_form.line_items) %>
-  </div>
+  <%= simple_form_error_messages_for(@order_admin_form.line_items) %>
   <fieldset>
     <legend>您的个人信息</legend>
     <%= f.fields_for :sender, @order_admin_form.sender do |builder|%>

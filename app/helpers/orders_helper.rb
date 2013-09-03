@@ -101,12 +101,28 @@ module OrdersHelper
     link_to(name, '#', class: "add_fields", data: {id: id, fields: fields_html.gsub('\n', '')})
   end
 
-  def error_messages_for_collection(collection)
-    collection.map do |item|
+  def simple_form_error_messages_for(collection)
+    item_errors = collection.map do |item|
       item.errors[:base].map do |err|
-        content_tag('li', err, class: 'help-block')
+        content_tag('span', err, class: 'help-block')
       end
     end.flatten.join.html_safe
+
+    if item_errors.present?
+      content_tag('div', item_errors, class: "control-group error section-error")
+    end
+  end
+
+  def formtastic_error_messages_for(collection)
+    item_errors = collection.map do |item|
+      item.errors[:base].map do |err|
+        content_tag('li', err)
+      end
+    end.flatten.join.html_safe
+
+    if item_errors.present?
+      content_tag('ul', item_errors, class: "errors")
+    end
   end
 
   def express_query_links
