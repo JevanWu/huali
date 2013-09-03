@@ -43,7 +43,7 @@ ActiveAdmin.register Order do
       @order.bind_record(record)
 
       if @order.save
-        options[:location] ||= smart_resource_url
+        options[:location] ||= resource_url
         respond_with_dual_blocks(@order, options)
       else
         populate_collection_data
