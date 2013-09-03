@@ -9,7 +9,7 @@ class OrderItemValidator < OrderProductBaseValidator
     super do |line_item, product|
       unless validate_line_item(line_item, product)
         line_item.errors.add(:base, :product_of_invalid_quantity, product_name: product.name)
-        @order_error ||= :product_of_invalid_quantity
+        @order_error ||= :unavailable_products
       end
       [:base, @order_error]
     end
