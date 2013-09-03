@@ -70,6 +70,8 @@ gem 'closure_tree'
 gem "activeadmin-sortable-tree",
   github: "ryancheung/activeadmin-sortable-tree"
 
+gem 'phonelib', github: 'ryancheung/phonelib'
+
 group :development, :test do
   gem 'rspec-rails', '>= 2.11.0'
   gem 'rspec-instafail'
