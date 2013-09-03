@@ -37,10 +37,10 @@ class Coupon < ActiveRecord::Base
 
   def used_by_order?(order)
     case order
-    when Order
-      order.coupon && order.coupon == self
     when OrderForm
       order.persisted? && order.coupon_code == code
+    else
+      order.coupon && order.coupon == self
     end
   end
 
