@@ -13,14 +13,18 @@ class PhoneInputHelper
     if phone_valid?
       parsed_phone.international.split.first
     else
-      phone_calling_code
+      phone_calling_code || default_calling_code
     end
   end
 
   def text_field_value
     return if phone.blank?
 
-    phone.sub(selected_code, '').sub(/^\s?/, '')
+    if phone_valid? && local_phone?
+      parsed_phone.national
+    else
+      phone.sub(selected_code, '').sub(/^\s?/, '')
+    end
   end
 
   def calling_code_attribute_name
@@ -28,6 +32,10 @@ class PhoneInputHelper
   end
 
   private
+
+  def local_phone?
+    selected_code == "+86"
+  end
 
   def phone_calling_code
     object.send(calling_code_attribute_name)
