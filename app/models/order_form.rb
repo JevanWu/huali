@@ -9,6 +9,7 @@ class ReceiverInfo
   extend ActiveModel::Translation
   include ActiveModel::Validations
   include ActiveModel::Conversion
+  include Phonelib::Extension
 
   attr_reader :errors
 
@@ -54,6 +55,7 @@ class SenderInfo
   include Virtus::ValueObject
   include Virtus
   include ActiveModel::Validations
+  include Phonelib::Extension
 
   def initialize(*)
     super

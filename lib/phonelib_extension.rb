@@ -52,5 +52,3 @@ module Phonelib
     end
   end
 end
-
-ActiveRecord::Base.send :include, Phonelib::Extension
