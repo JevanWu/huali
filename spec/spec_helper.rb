@@ -134,4 +134,5 @@ end
 
 Spork.each_run do
   FactoryGirl.reload
+  Dir["app/inputs/*_input.rb"].each { |f| require File.basename(f) }
 end
