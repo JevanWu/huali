@@ -60,7 +60,7 @@ describe OrderProductAvailabilityValidator do
       it "add errors to order and the line item" do
         stub(product1).published { false }
 
-        mock(order_errors).add(:base, :unavailable_products).twice
+        mock(order_errors).add(:base, :unavailable_products).once
         mock(line_item1_errors).add(:base, :product_unavailable, product_name: product1.name)
 
         validator.validate(order)

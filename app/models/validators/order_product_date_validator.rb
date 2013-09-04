@@ -6,9 +6,9 @@ class OrderProductDateValidator < OrderProductBaseValidator
     super do |line_item, product|
       unless validate_product(product, order.expected_date)
         line_item.errors.add(:base, :product_in_unavailable_date, product_name: product.name)
-        @order_error ||= :unavailable_date
+        order_error ||= :unavailable_date
       end
-      [:expected_date, @order_error]
+      [:expected_date, order_error]
     end
   end
 

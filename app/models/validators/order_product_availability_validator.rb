@@ -5,9 +5,9 @@ class OrderProductAvailabilityValidator < OrderProductBaseValidator
 
     super do |line_item, product|
       unless validate_line_item(line_item, product)
-        @order_error ||= :unavailable_products 
+        order_error ||= :unavailable_products
       end
-      [:base, @order_error]
+      [:base, order_error]
     end
   end
 

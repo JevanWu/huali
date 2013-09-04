@@ -1,6 +1,4 @@
 class OrderProductBaseValidator < ActiveModel::Validator
-  attr_accessor :order_error
-
   def validate(order)
     order.line_items.each do |line_item|
       error_attr, error_name = yield line_item, fetch_product(line_item)
