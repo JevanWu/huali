@@ -1,4 +1,6 @@
-require 'spec_helper'
+require 'spec_helper_lite'
+require 'active_model'
+require 'order_coupon_validator'
 
 describe OrderCouponValidator do
   describe "#validate" do

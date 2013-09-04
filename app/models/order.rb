@@ -33,11 +33,10 @@
 #  index_orders_on_identifier  (identifier) UNIQUE
 #  index_orders_on_user_id     (user_id)
 #
+require 'enumerize'
+require 'state_machine'
 
 class Order < ActiveRecord::Base
-  attr_accessor :bypass_region_validation, :bypass_date_validation,
-    :bypass_product_validation
-
   belongs_to :address
   belongs_to :user
   # just for convenient meta-methods
@@ -49,9 +48,6 @@ class Order < ActiveRecord::Base
   has_many :products, through: :line_items
   belongs_to :coupon
 
-  accepts_nested_attributes_for :line_items, allow_destroy: true
-  accepts_nested_attributes_for :address
-
   extend Enumerize
   enumerize :kind, in: [:normal, :marketing, :customer, :taobao], default: :normal
 
@@ -61,20 +57,7 @@ class Order < ActiveRecord::Base
 
   before_validation :generate_identifier, on: :create
 
-  # +/-/*/%1234.0
-  validates_format_of :adjustment, with: %r{\A[+-x*%/][\s\d.]+\z}, allow_blank: true
-
-  validates_presence_of :identifier, :line_items, :expected_date, :state, :total, :item_total, :sender_email, :sender_phone, :sender_name
-
-  validates_with OrderProductRegionValidator, if: :validate_product_delivery_region?
-  validates_with OrderProductDateValidator, if: :validate_product_delivery_date?
-  validates_with OrderItemValidator, if: lambda { |order| order.not_yet_shipped? && !order.bypass_product_validation }
-  validates_with OrderCouponValidator, unless: lambda { |order| order.coupon_code_blank? }
-
-  phoneize :sender_phone
-  validates :sender_phone, phone: { allow_blank: true }
-
-  validate :delivery_date_must_be_less_than_expected_date
+  validates_presence_of :identifier, :line_items, :state, :total, :item_total
 
   after_validation :cal_item_total, :cal_total
 
@@ -84,7 +67,6 @@ class Order < ActiveRecord::Base
 
   state_machine :state, initial: :generated do
     # TODO implement an auth_state dynamically for each state
-    before_transition to: :wait_refund, do: :auth_refund
     before_transition to: :completed, do: :complete_order
     after_transition to: :completed, do: :update_sold_total
     before_transition to: :wait_check, do: :pay_order
@@ -125,17 +107,6 @@ class Order < ActiveRecord::Base
     end
   end
 
-  # Skip date and region validation in statemachine
-  [:pay, :check, :make, :cancel].each do |m|
-    define_method(m) do |*args|
-      self.bypass_date_validation = true
-      self.bypass_region_validation = true
-      self.bypass_product_validation = true
-
-      super(*args)
-    end
-  end
-
   scope :yesterday, -> { where 'delivery_date = ?', Date.yesterday }
   scope :current, -> { where 'delivery_date = ?', Date.current }
   scope :tomorrow, -> { where 'delivery_date = ?', Date.tomorrow }
@@ -150,7 +121,6 @@ class Order < ActiveRecord::Base
 
   # Queries
   class << self
-
     def by_number(number)
       where(number: number)
     end
@@ -173,12 +143,6 @@ class Order < ActiveRecord::Base
 
     def full_info(key)
       includes(:user, :address, :transactions, :shipments).find_by_id(key)
-    end
-  end
-
-  [:bypass_region_validation, :bypass_date_validation, :bypass_product_validation].each do |m|
-    define_method(:"#{m}=") do |value|
-      instance_variable_set(:"@#{m}", ActiveRecord::ConnectionAdapters::Column.value_to_boolean(value))
     end
   end
 
@@ -224,10 +188,6 @@ class Order < ActiveRecord::Base
   # }
   def generate_shipment
     self.shipments.create
-  end
-
-  def add_line_item(product_id, quantity)
-    self.line_items.build(product_id: product_id, quantity: quantity)
   end
 
   def cal_item_total
@@ -296,20 +256,7 @@ class Order < ActiveRecord::Base
     save
   end
 
-  def fetch_products
-    @fetched_products ||= if self.persisted?
-                            products
-                          else
-                            line_items.map { |l| Product.find(l.product_id) }
-                          end
-  end
-
   private
-
-  def auth_refund
-    # TODO auth the admin for the refund actions
-    true
-  end
 
   def complete_order
     self.completed_at = Time.now
@@ -327,19 +274,5 @@ class Order < ActiveRecord::Base
   def pay_order
     self.payment_total = self.transactions.by_state('completed').map(&:amount).inject(:+)
     save
-  end
-
-  def validate_product_delivery_region?
-    not_yet_shipped? && !bypass_region_validation
-  end
-
-  def validate_product_delivery_date?
-    expected_date.present? && not_yet_shipped? && !bypass_date_validation
-  end
-
-  def delivery_date_must_be_less_than_expected_date
-    if delivery_date && !(delivery_date <= expected_date)
-      errors.add(:delivery_date, :must_be_less_than_expected_date)
-    end
   end
 end

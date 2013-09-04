@@ -48,7 +48,7 @@ feature 'Edit default region rule' do
       select('广州市', from: '城市')
       page.should_not have_content('天河区')
 
-      select('越秀区', from: '区域')
+      select('越秀区', from: '地区')
     end
 
     click_button '确定'

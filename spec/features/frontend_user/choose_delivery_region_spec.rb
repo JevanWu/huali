@@ -35,7 +35,7 @@ feature "Choose delivery region" do
       select('市辖区', from: '城市')
       page.should have_content('虹口区')
 
-      select('虹口区', from: '区域')
+      select('虹口区', from: '地区')
     end
   end
 
@@ -54,7 +54,7 @@ feature "Choose delivery region" do
       select('市辖区', from: '城市')
       page.should have_content('虹口区')
 
-      select('虹口区', from: '区域')
+      select('虹口区', from: '地区')
 
       click_link '查询邮编'
 

@@ -38,5 +38,6 @@ FactoryGirl.define do
     excluded_dates []
     excluded_weekdays []
     sequence(:name) { |n| "name#{n}" }
+    period_length '+10Y' # make the default daterule always passing
   end
 end

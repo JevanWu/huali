@@ -1,24 +1,38 @@
-Feature specs:
- ☐ Back Order/Taobao Order
- ☐ Payment
- ☐ Shipment Kuaidi 100
+Factor Out the Validators from Order to FormObjects:
+ ✔ Added specs for current behavior, get to know the responsibility of this objects @done (13-08-13 20:16)
+ ✔ build the right association in persistency @done (13-08-14 18:55)
+ ✔ specs for AdminOrderForm @done (13-08-20 16:10)
+ ✔ Setup integration tests @done (13-08-21 16:25)
+ ✔ integration specs for OrderForm #save methods @done (13-08-21 16:25)
+ ✔ Make Taobao Order and Special Order inherited from this objects @done (13-08-14 18:55)
+ ✔ write the update! method to update existed record @done (13-08-23 12:47)
+ ✔ Make ActiveAdmin form to use the FormObject as well @done (13-08-23 16:06)
+ ✔ Needs to correct line item rendering and @done (13-08-23 16:42)
+ ✔ correct line items removal (remove the fields when click remove) @done (13-08-23 16:52)
+ ✔ Update the orders from Admin Order @done (13-08-26 17:39)
+  # how to handle the PUT request for updates?
+  # How to distinguish it from a POST?
+  # How to update the right order (through order_id probably?)
 
-Necessary Before Release:
- ☐ Optimize Chinese Font
+ ✔ i18n tranlation migration for attributes
+ ✔ i18n for error messages
+ ✔ Push the fetch_products methods on Order into Validators
+ ✔ enable the ItemValidator
+ ✔ Add back line-items errors on order/_form
+   <div class="control-group error section-error">
+     <%= error_messages_for_collection(@order_form.products) %>
+   </div>
+ ✔ Move Adjustment into AdminForm
+ ✔ Turn Expected Date Validation to a Validator on AdminForm
 
-Potential Features:
- ☐ Edit Robot.txt to enable Search Engine
+ ☐ Factor the Coupon#used_by_order? methods ot handle mainly OrderForm instead of order
+ ✔ factor about the usage of session[:order_id] @done (13-08-28 18:13)
+ ☐ How to handle state-related validators (use Decorator pattern?)
+ ✔ Cleaning up Order Models @done (13-08-28 18:15)
 
-SEO:
- ☐ generate sitemap.xml with sitemap
- ☐ add meta data for each individual page
- ☐ Render Different Title in different controller
-
-Content Preparation:
-   Fill in static page:
-   Product Photos:
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ Render Different Title in different controller @done (13-08-12 20:59) @project(SEO)
  ✔ github two issues @yangchenyun @done (12-10-18 18:02)
  ✔ footnote add helpcenter page, remove sitemap @done (12-10-18 18:02)
  ✔ Add a phone banner on layout @yangchenyun -> @done (12-10-18 17:52)

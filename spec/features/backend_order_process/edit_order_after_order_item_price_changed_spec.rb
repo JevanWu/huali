@@ -20,7 +20,7 @@ feature "Edit order after order item price changed" do
 
     visit "/admin/orders/#{order.id}/edit"
 
-    within("form.order") do
+    within("form.order_admin_form") do
       fill_in '收件人地址', with: '新地址'
       click_button('更新订单', match: :first)
     end
@@ -38,7 +38,7 @@ feature "Edit order after order item price changed" do
 
     visit "/admin/orders/#{order.id}/edit"
 
-    within("form.order") do
+    within("form.order_admin_form") do
       fill_in '收件人地址', with: '新地址'
       click_button('更新订单', match: :first)
     end

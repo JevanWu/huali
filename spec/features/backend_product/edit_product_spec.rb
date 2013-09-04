@@ -85,7 +85,7 @@ feature "Edit product" do
     product.assets << create(:asset, image: Rails.root.join('spec/fixtures/sample2.jpg').open)
 
     visit "/admin/products/#{product.slug}/edit"
-    first(:link, 'Remove Above Image').click
+    all(:link, 'Remove Above Image')[-1].click
     accept_confirm
     click_button '更新产品'
 

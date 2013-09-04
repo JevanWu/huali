@@ -37,6 +37,7 @@ gem 'omniauth-weibo-oauth2'
 gem 'omniauth-qq-connect'
 
 gem 'enumerize'
+gem 'virtus'
 
 gem "rails-settings-cached", github: "huacnlee/rails-settings-cached"
 
@@ -119,7 +120,8 @@ group :development do
 end
 
 group :test do
-  gem "shoulda-matchers"
+  gem 'shoulda-matchers'
+  gem 'activerecord-nulldb-adapter', github: 'blaet/nulldb', branch: 'support_enable_extension'
   gem 'capybara', '>= 1.1.2'
   gem 'capybara-webkit'
   gem 'selenium-webdriver'

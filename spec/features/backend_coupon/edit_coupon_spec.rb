@@ -57,7 +57,7 @@ feature "Edit coupon" do
     fill_in '优惠码', with: coupon.code
     click_button '确定'
 
-    page.find("#order_coupon_code ~ span").should have_content('对不起，该优惠券已经过期或者失效')
+    page.should have_content('对不起，该优惠券已经过期或者失效')
   end
 
   scenario "Set available_count to 0", js: true do
@@ -78,6 +78,6 @@ feature "Edit coupon" do
     fill_in '优惠码', with: coupon.code
     click_button '确定'
 
-    page.find("#order_coupon_code ~ span").should have_content('对不起，该优惠券已经过期或者失效')
+    page.should have_content('对不起，该优惠券已经过期或者失效')
   end
 end

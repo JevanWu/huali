@@ -31,18 +31,9 @@ class Address < ActiveRecord::Base
   delegate :name, to: :province, prefix: true
   delegate :name, to: :city, prefix: true
 
-  before_validation :check_postcode
   validates_presence_of :fullname, :address, :phone, :province, :city, :post_code
 
-  phoneize :phone
-  validates :phone, phone: { allow_blank: true }
-
   # after_validation :fill_in_post_code
-
-  def check_postcode
-    # TODO check the postcode against the prov, city, area postcode
-    true
-  end
 
   def to_s
     "#{fullname}: #{address}"

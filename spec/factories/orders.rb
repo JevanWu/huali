@@ -44,7 +44,7 @@ FactoryGirl.define do
     source { Forgery(:lorem_ipsum).word }
     sender_name { Forgery(:name).full_name }
     sender_email { Forgery(:internet).email_address }
-    sender_phone { Forgery(:address).phone }
+    sender_phone { "+41 44 668 18 00" }
 
     after(:build) do |order|
       [1, 2, 3].sample.times do

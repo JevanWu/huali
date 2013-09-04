@@ -11,7 +11,9 @@ class OrderDiscountPolicy
 
   def initialize(order)
     @order = order
-    @coupon_code = order.coupon_code
+    # FIXME a troublesome design
+    # Order#coupon_code will read order.coupon as well
+    @coupon_code = order.instance_variable_get(:@coupon_code)
     @coupon = fetch_coupon(order.coupon_code)
   end
 

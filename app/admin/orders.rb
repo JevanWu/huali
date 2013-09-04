@@ -26,45 +26,42 @@ ActiveAdmin.register Order do
       end
     end
 
-    private
+    # inherited resource fetch resource through the @order ivar
 
-    def full_order_fields
-      [
-        # delivery info
-        :sender_name, :sender_email, { sender_phone: [] },
-        :bypass_region_validation,
-        :expected_date,
-        :bypass_date_validation,
-        # check info
-        :delivery_date,
-        :ship_method_id,
-        # payment info
-        :adjustment,
-        :coupon,
-        :coupon_id,
-        :coupon_code,
-        # order info
-        :gift_card_text,
-        :special_instructions,
-        :source,
-        :kind,
-        :bypass_product_validation,
-        :address_attributes => [
-          :fullname, { phone: [] }, :province_id,
-          :city_id, :area_id, :post_code,
-          :address],
-        # line items
-        :line_items_attributes => [
-          :product_id,
-          :quantity,
-          :id,
-          :_destroy
-        ]
-      ]
+    def edit
+      record = Order.find_by_id(params[:id])
+      if record.state.in? ["completed", "refunded", "void"]
+        redirect_to [:admin, order], alert: t('views.admin.order.cannot_edit')
+      end
+      @order = OrderAdminForm.build_from_record(record)
+      populate_collection_data
     end
 
-    def permitted_params
-      params.permit order: full_order_fields
+    def update(options = {})
+      record = Order.find(params[:id])
+      @order = OrderAdminForm.new(params[:order_admin_form])
+      @order.bind_record(record)
+
+      if @order.save
+        options[:location] ||= resource_url
+        respond_with_dual_blocks(@order, options)
+      else
+        populate_collection_data
+        render active_admin_template('edit')
+      end
+    end
+
+    private
+
+    def populate_collection_data
+      @collection_data = {
+        provinces: Province.all.map { |prov| [prov.name, prov.id] },
+        cities: Province.find(@order.address.province_id)
+                .cities.map { |city| [city.name, city.id] },
+        areas: City.find(@order.address.city_id)
+                .areas.map { |city| [city.name, city.id] },
+        line_items: Product.all.map { |item| [item.name, item.id] }
+      }
     end
 
     def render_excel(orders, filename)
@@ -124,10 +121,16 @@ ActiveAdmin.register Order do
   end
 
   member_action :check do
-    @order = Order.find_by_id(params[:id])
-    if @order.check
+    order = Order.find_by_id(params[:id])
+    if order.check
       redirect_to admin_orders_path, alert: t('views.admin.order.order_state_changed') + t('models.order.state.wait_make')
     else
+      @order = OrderAdminForm.build_from_record(order)
+      @order.valid?
+      # FIXME A quick fix to display order errors
+      @order.errors.messages.update(order.errors.messages)
+
+      populate_collection_data
       render active_admin_template('edit'), layout: false
     end
   end
@@ -170,13 +173,6 @@ ActiveAdmin.register Order do
       end
     rescue NoMethodError
       redirect_to :back, alert: t('views.admin.shipment.cannot_print')
-    end
-  end
-
-  member_action :edit do
-    @order = Order.find_by_id(params[:id])
-    if @order.state.in? ["completed", "refunded", "void"]
-      redirect_to [:admin, @order], alert: t('views.admin.order.cannot_edit')
     end
   end
 

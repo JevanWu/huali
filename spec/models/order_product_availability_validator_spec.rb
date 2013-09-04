@@ -1,11 +1,11 @@
 require 'spec_helper_lite'
 require 'active_model'
-require 'order_item_validator'
+require 'order_product_availability_validator'
 
-describe OrderItemValidator do
+describe OrderProductAvailabilityValidator do
 
   let(:validator) do
-    OrderItemValidator.new({}).tap do |validator|
+    described_class.new({}).tap do |validator|
       stub(validator).fetch_product(line_item1) { product1 }
       stub(validator).fetch_product(line_item2) { product2 }
     end
@@ -44,36 +44,40 @@ describe OrderItemValidator do
   end
 
   describe "#validate" do
-    context "when there's no line item in the order" do
-      it "add blank_products error to order" do
-        stub(order).line_items { [] }
-
-        mock(order_errors).add(:base, :blank_products)
-
-        validator.validate(order)
-      end
-    end
-
     context "when all of the line items are valid" do
       it "do not add errors to order or the line items" do
-        dont_allow(order_errors).add(:base, :blank_products)
-        dont_allow(line_item1_errors).add(:base, :product_of_invalid_quantity)
-        dont_allow(line_item2_errors).add(:product, :product_of_invalid_quantity)
+        dont_allow(order_errors).add(:base, :unavailable_products)
+        dont_allow(line_item1_errors).add(:base, :product_unavailable)
+        dont_allow(line_item1_errors).add(:base, :product_out_of_stock)
+        dont_allow(line_item2_errors).add(:product, :product_unavailable)
+        dont_allow(line_item2_errors).add(:product, :product_out_of_stock)
 
         validator.validate(order)
       end
     end
 
-    context "when one of the line items's quantity is less than 1" do
-      it "adds errors to order and the line item" do
-        stub(line_item2).quantity { 0 }
+    context "when one of the line items is not published" do
+      it "add errors to order and the line item" do
+        stub(product1).published { false }
+
+        mock(order_errors).add(:base, :unavailable_products).once
+        mock(line_item1_errors).add(:base, :product_unavailable, product_name: product1.name)
+
+        validator.validate(order)
+      end
+    end
+
+    context "when one of the line items is out of stock" do
+      it "add errors to order and the line item" do
+        stub(product2).count_on_hand { 0 }
+
         mock(order_errors).add(:base, :unavailable_products)
-        mock(line_item2_errors).add(:base,
-                                    :product_of_invalid_quantity,
-                                    product_name: product2.name)
+        mock(line_item2_errors).add(:base, :product_out_of_stock, product_name: product2.name)
 
         validator.validate(order)
       end
     end
   end
+
 end
+
