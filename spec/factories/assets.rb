@@ -19,6 +19,19 @@
 
 FactoryGirl.define do
   factory :asset do
-    image Rails.root.join('spec/fixtures/sample.jpg').open
+    image_file_name { 'sample.jpg' }
+    image_content_type 'image/jpeg'
+    image_file_size 256
+
+    after(:create) do |asset|
+      image_file = Rails.root.join("spec/fixtures/#{asset.image_file_name}")
+
+      # cp test image to direcotries
+      [:original, :medium, :thumb].each do |size|
+        dest_path = asset.image.path(size)
+        `mkdir -p #{File.dirname(dest_path)}`
+        `cp #{image_file} #{dest_path}`
+      end
+    end
   end
 end
