@@ -7,7 +7,7 @@ class ChangeAddrPostCodeToInt < ActiveRecord::Migration
         ALTER TABLE addresses 
         ALTER COLUMN post_code 
         TYPE integer 
-        USING (trim(post_code)::integer)
+        USING CAST(CASE WHEN post_code ~ E'^\\d+$' THEN post_code ELSE NULL END AS INTEGER)
         SQL
       end
 
