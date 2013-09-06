@@ -1,0 +1,13 @@
+.a-product.span3
+  = image_tag product.img(:medium), alt: "#{product.name} medium images"
+  .share
+    span share this look
+    ul.share-to
+      li: a.weibo
+      li: a.msg
+      li.last: a.facebook
+  .information
+    strong
+      em = link_to product.name, product_path(product), title: product.name
+      span = product.name_en
+    p ￥#{product.original_price}
