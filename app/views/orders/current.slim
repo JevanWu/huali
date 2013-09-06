@@ -1,0 +1,60 @@
+.cart
+  .cart-inner
+  - if @products.blank?
+    .empty
+      i
+      p.tips
+        | 您的购花篮还是空的，赶快行动吧！您可以
+      p
+        | 马上去看看
+        a
+          | 本机新款
+      p
+        | 看看
+        a
+          | 本月推荐
+  - else
+    .not-empty.row
+      .cart-list.span9
+        .cart-title
+          i
+          | 购花篮
+        .cart-captain
+          .col-1
+            | 购花篮商品-现在购买
+          .col-2
+            | 名称
+          .col-3
+            | 单价
+          .col-4
+            | 数量
+        = render partial: 'product_in_cart', collection: @products
+      .cart-checkout.span3
+        .discount
+          p
+            | 使用优惠码
+          p
+            | PROMO CODE
+          .input-wrap
+            input[type="text"]
+            button.btn-discount
+              | 确定
+            p.error
+              | 无效优惠码！请确认信息后输入
+        .checkout
+          p
+            | 您的订单享受免费配送
+          p
+            | 请在订单信息页面完善地址信息
+          p
+            | 小计（<span class="total-num">4</span>件商品）：
+            strong.total-price
+              = count_cart(@products)
+          p
+            em
+              del
+                | 原价：
+                span
+                  | ￥1599
+          = link_to t('views.order.checkout'), new_order_path, class: 'btn-checkout'
+    == render 'guess_you_like'

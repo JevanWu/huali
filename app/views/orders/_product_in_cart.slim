@@ -1,0 +1,20 @@
+.cart-product-item
+  = image_tag product_in_cart.img(:medium), width: '150'
+  .product-info-main
+    h3.product-name
+      = link_to product_in_cart.name, product_path(product_in_cart)
+    h4.product-name-en
+      = product_in_cart.name_en
+    p
+      | 现在有货
+    p
+      | 免费配送
+    p
+      | 加入分享
+  .price
+    = number_to_currency product_in_cart.price, unit: '&yen;'
+  .op
+    = link_to icon('minus'), current_order_path, data: { product: product_in_cart.id }, class: 'reduce_quantity trigger minus'
+    = link_to icon('plus'), current_order_path, data: { product: product_in_cart.id }, class: 'add_quantity trigger plus'
+    input type='text' value="#{product_in_cart.quantity}"
+    = link_to icon('trash'), current_order_path, data: { product: product_in_cart.id }, class: 'empty_quantity trigger drop'
