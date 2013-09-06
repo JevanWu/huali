@@ -1,0 +1,148 @@
+.cart
+  position: relative
+  .cart-inner
+    width: $global-width
+    margin: 0 auto
+    .empty
+      position: relative
+      padding-left: 235px
+      padding-top: 75px
+      padding-bottom: 115px
+      i
+        position: absolute
+        width: 51px
+        height: 44px
+        left: 170px
+        top: 55px
+        background: image-url("bg/cart.png") no-repeat
+      .tips
+        font-size: $title-font
+      a
+        color: $link-blue-color
+    .not-empty
+      +clearfix
+      margin-left: 0
+      .cart-list
+        margin-left: 0
+        float: left
+        width: 705px
+        .cart-title
+          position: relative
+          height: 30px
+          padding-left: 40px
+          padding-top: 25px
+          color: $strong-color
+          font-size: $title-font-large
+          font-weight: bold
+          i
+            position: absolute
+            width: 30px
+            height: 24px
+            left: 0
+            top: 25px
+            background: image-url("bg/gouhualan.png") no-repeat
+        .cart-captain
+          +clearfix
+          border-bottom: 1px solid #1a1a1a
+          & > div
+            float: left
+            font-size: $content-font
+          .col-1
+            width: 160px
+            color: $content-normal-color
+          .col-2
+            width: 380px
+          .col-3
+            width: 80px
+          .col-4
+            width: 80px
+        .cart-product-item
+          +clearfix
+          margin-top: 10px
+          height: 133px
+          border: 1px solid #eeeeee
+          padding: 15px
+          img
+            float: left
+            margin-right: 40px
+          .product-info-main
+            float: left
+            width: 340px
+            strong,span
+              display: block
+            span
+              margin-bottom: 25px
+            p
+              color: $content-normal-color
+          .price
+            float: left
+            width: 80px
+            line-height: 103px
+          .op
+            +clearfix
+            float: left
+            width: 70px
+            padding-top: 40px
+            a,input
+              float: left
+            .minus,.plus
+              width: 8px
+              height: 8px
+              margin-top: 6px
+              text-align: center
+              line-height: 8px
+              color: $link-lighter-color
+              border: 1px solid $border-lighter-color
+            input
+              width: 21px
+              height: 21px
+              margin: 0 2px
+              text-align: center
+              border: 1px solid $border-lighter-color
+              color: $link-lighter-color
+              padding: 0
+              margin-bottom: 0
+            .drop
+              width: 14px
+              height: 16px
+              margin-left: 9px
+              margin-top: 3px
+              background: image-url("bg/dustbin.png") no-repeat
+      .cart-checkout
+        float: right
+        width: 230px
+        margin-left: 0
+        padding-top: 85px
+        .discount
+          height: 98px
+          padding-top: 35px
+          padding-left: 9px
+          border: 1px solid #eeeeee
+          .input-wrap
+            input
+              width: 124px
+              height: 23px
+              border: 1px solid $border-lighter-color
+              +border-radius(3px)
+              margin-bottom: 0
+              padding: 0
+            button
+              +button(60px)
+            .error
+              +error(170px)
+              margin-top: 6px
+              padding: 0 10px
+        .checkout
+          margin-top: 10px
+          height: 228px
+          padding-top: 50px
+          border: 1px solid #eeeeee
+          text-align: center
+          font-size: $content-font
+          em
+            font-style: italic
+          strong
+            font-size: $price-font
+            color: #cc6633
+          button
+            margin-top: 50px

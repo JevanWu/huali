@@ -1,0 +1,58 @@
+.buy
+  position: relative
+  .buy-inner
+    width: $global-width
+    margin: 0 auto
+    .step-main
+      +clearfix
+      margin-bottom: 110px
+      .step-main-gouhualan
+        width: 320px
+        float: left
+        padding-right: 20px
+        margin-right: -30px
+        .recipient-info-summary
+          margin-bottom: 15px
+          .recipient-info-summary-title
+            position: relative
+            color: $strong-color
+            font-size: $title-font-large
+            height: 31px
+            line-height: 31px
+            padding-left: 35px
+            padding-bottom: 10px
+            i
+              position: absolute
+              background: image-url("/images/bg/recipient.png") no-repeat
+              left: 0
+              top: 0
+              width: 26px
+              height: 31px
+          .recipient-info-summary-main
+            border: 1px solid #eeeeee
+            padding: 10px
+            font-size: $content-font
+      .summary
+        .summary-item
+          +clearfix
+          line-height: 25px
+          span
+            float: left
+            width: 130px
+          em
+            float: left
+            width: 160px
+            &.special
+              color: #cc6633
+              font-size: $price-font
+              text-align: right
+      .step-main-detail
+        width: 529px
+        padding-left: 70px
+        float: left
+        border-left: 1px solid #eeeeee
+        padding-bottom: 110px
+        .next-step
+          padding-top: 5px
+          padding-right: 80px
+          text-align: right

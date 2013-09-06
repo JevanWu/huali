@@ -1,0 +1,134 @@
+=rhombus_1
+  i,b
+    position: absolute
+    top: 8px
+    width: 10px
+    height: 10px
+    background-image: image-url("/images/bg/rhombus_darken.png")
+  i
+    left: 0
+  b
+    left: 0
+
+=rhombus_2
+  a
+    display: block
+    width: 10px
+    height: 10px
+    background-image: image-url("/images/bg/rhombus_normal.png")
+    &.cur
+      background-image: image-url("/images/bg/rhombus_light.png")
+
+=rhombus_3
+  position: absolute
+  width: 10px
+  height: 10px
+  background-image: image-url("/images/bg/rhombus_darken.png")
+
+=button($buttonWidth, $buttonHeight: 30px, $buttonFontSize: 12px)
+  width: $buttonWidth
+  height: $buttonHeight
+  border: none
+  color: $masthead-color
+  background-color: $buttonBgColor
+  +border-radius(3px)
+  font-size: $buttonFontSize
+
+=error($errorWidth,$errorHeight: 30px)
+  width: $errorWidth
+  height: $errorHeight
+  text-align: center
+  line-height: $errorHeight
+  color: $errorColor
+  background-color: $errorBgColor
+  +border-radius(3px)
+
+h3.product-name
+  display: inline-block
+  font-weight: normal
+
+h4.product-name-en
+  font-weight: normal
+
+
+/*button*/
+/*pc*/
+.btn-next
+  +button(80px)
+
+.btn-passport
+  @extend .btn-next
+
+.btn-post
+  +button(48px,24px)
+
+.btn-logistics
+  @extend .btn-next
+  background-color: $bg-light-color
+  font-color: $normal-text-color
+
+.btn-invoice
+  @extend .btn-logistics
+
+.btn-completePay
+  @extend .btn-logistics
+  background-color: $buttonBgColor
+
+.btn-discount
+  +button(60px)
+
+.btn-checkout
+  @extend .btn-next
+
+/*这个PC和MOBILE相同*/
+.btn-addToCart
+  width: 100%
+  border: none
+  background-color: #1a1a1a
+  height: 35px
+  line-height: 35px
+  color: $masthead-color
+  font-size: $title-font
+
+/*moble*/
+.btn-m-passport
+  +button(140px)
+
+.btn-m-confirm
+  +button(100%)
+
+.btn-m-confirmPay
+  @extend .btn-m-confirm
+
+.btn-m-completePay
+  @extend .btn-m-confirm
+
+.btn-m-help
+  @extend .btn-m-completePay
+
+.btn-m-pay
+  +button(140px,30px,14px)
+  background-color: $buttonBgColor
+  color: $masthead-color
+
+.btn-m-cancel
+  +button(140px,30px,14px)
+  background-color: $bg-light-color
+
+.btn-m-logistics
+  @extend .btn-m-cancel
+
+.btn-m-invoice
+  @extend .btn-m-cancel
+
+.btn-m-discount
+  +button(139px,30px,14px)
+
+.btn-m-confirmBuy
+  @extend .btn-m-confirm
+
+.btn-m-detailPay
+  +button(100%,30px,14px)
+
+.btn-m-cancelPay
+  @extend .btn-m-detailPay

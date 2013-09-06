@@ -1,0 +1,192 @@
+#l-show
+  .title
+    position: relative
+    height: 60px
+    line-height: 60px
+    padding-left: 15px
+    i
+      left: 0
+      top: 26px
+      +rhombus_3
+    span
+      margin: 0 3px
+      &.cur
+        color: $content-normal-color
+  .main
+    +clearfix
+    .thumb
+      float: left
+      width: 140px
+      margin-right: 10px
+      li
+        margin-bottom: 10px
+    .detail
+      float: left
+      width: 539px
+      margin-right: 20px
+      margin-left: 0
+      .big-img-wrap
+        position: relative
+        width: 639px
+        height: 515px
+        overflow: hidden
+        margin-bottom: 10px
+      .big-img-container
+        position: absolute
+        top: 0
+        left: 0
+        width: 539px
+        height: auto
+        
+    .add-to-cart
+      float: left
+      width: 220px
+      padding-top: 50px
+      border-top: 6px solid #1a1a1a
+      margin-left: 0
+      .product-title
+        strong
+          display: block
+          font-size: $price-font
+        span
+          font-size: $title-font
+        p
+          color: $content-normal-color
+          &.price
+            font-size: $price-font-large
+            color: $strong-color
+            font-weight: bold
+      .share
+        margin-top: 15px
+        padding: 10px 10px 1px 10px
+        border-color: $global-border-color
+        border-style: solid
+        border-width: 1px 0 1px 0
+        .share-to
+          +clearfix
+          margin-left: 15px
+        ul
+          float: right
+          li
+            margin-right: 7px
+
+#slide
+  position: relative
+  width: 100%
+  overflow: hidden
+  height: 500px
+  .btn-left,.btn-right
+    position: absolute
+    top: 242px
+    width: 59px
+    height: 76px
+    background-color: #f8f8f8
+    background-position: center center
+  .btn-left
+    left: 0
+    background-image: image-url("bg/slide_btn_l.png")
+  .btn-right
+    right: 0
+    background-image: image-url("bg/slide_btn_r.png")
+  ul.container
+    width: 100%
+  li
+    float: left
+  .slide-dot
+    +clearfix
+    position: absolute
+    width: 64px
+    bottom: 36px
+    left: 50%
+    margin-left: -31px
+    li
+      float: left
+      margin-right: 8px
+      &.last
+        margin-right: 0
+      +rhombus_2
+
+.cate-list
+  width: $global-width
+  margin: 0 auto
+  .cate-list-title
+    position: relative
+    height: 59px
+    padding: 20px 0 14px 23px
+    border-bottom: 6px solid $global-border-color
+    strong
+      position: relative
+      padding: 0 20px
+      font-weight: bold
+      font-size: $title-font-large
+      +rhombus_1
+      i,b
+        top: 4px
+      b
+        left: 105px
+    p
+      width: 360px
+      padding-left: 20px
+      color: $content-normal-color
+    .tabs
+      position: absolute
+      right: 15px
+      bottom: 5px
+      a
+        display: inline-block
+        vertical-align: middle
+        width: 15px
+        height: 15px
+        &.row-view
+          background-image: image-url("bg/icon3.png")
+        &.square-view
+          background-image: image-url("bg/icon4.png")
+  .main
+    .best-products
+      +clearfix
+      padding-top: 20px
+      padding-bottom: 0
+    .row-item > li
+      +clearfix
+      margin-top: 9px
+      margin-left: 0
+      padding: 7px 60px 6px 10px
+      height: 120px
+      border: 1px solid #dededf
+      +box-shadow($global-shadow)
+      .img-wrap
+        float: left
+        margin-right: 17px
+        margin-left: 0
+        width: 120px
+      .des
+        float: right
+        width: 400px
+        & > div
+          +clearfix
+        .name
+          float: left
+          strong
+            font-size: $price-font
+            font-weight: bold
+          p
+            font-size: $title-font
+            color: $global-text-color
+        .price
+          float: right
+          span
+            font-size: $price-font-large
+            color: $global-text-color
+        .share
+          +clearfix
+          margin-top: 23px
+          padding: 10px 10px 1px 10px
+          border-color: $global-border-color
+          border-style: solid
+          border-width: 1px 0 1px 0
+          .share-to
+            +clearfix
+            float: right
+            margin-left: 15px
+          li
+            margin-right: 7px

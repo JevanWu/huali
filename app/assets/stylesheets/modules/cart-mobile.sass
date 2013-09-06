@@ -1,0 +1,106 @@
+.cart-mobile
+  padding: 10px
+  .empty
+    .tips
+      height: 60px
+      padding-top: 220px
+      background: image-url("bg/empty_cart.png") no-repeat center center
+      text-align: center
+      font-size: $price-font
+    .new-arrival,.recommand
+      display: block
+      height: 30px
+      width: 100%
+      line-height: 30px
+      text-align: center
+      color: $masthead-color
+      font-size: $content-font
+      background-color: $buttonBgColor
+      +border-radius(3px)
+      margin-bottom: 10px
+  .not-empty
+    .cart-product-list
+      margin-top: 35px
+      li
+        +clearfix
+        padding: 10px
+        border-style: solid
+        border-width: 1px 0 0 0
+        border-color: #f2f2f2
+        &.last
+          border-width: 1px 0 1px 0
+        img
+          float: left
+          margin-right: 20px
+        .cart-product-item
+          .cart-product-info
+            +clearfix
+            height: 80px
+            .cart-product-info-name
+              float: left
+              strong
+                display: block
+                font-size: $content-font
+            .cart-product-info-price
+              color: $strong-color
+              float: right
+              font-size: $title-font-large
+              color: $price-color
+              span
+                color: $content-normal-color
+          .op
+            +clearfix
+            .op-num
+              float: left
+              font-size: $content-font
+              a
+                display: inline-block
+                width: 19px
+                height: 19px
+                line-height: 19px
+                text-align: center
+                +border-radius(10px)
+                background-color: $bg-light-color
+                color: $masthead-color
+              input
+                width: 43px
+                text-align: center
+                height: 19px
+                border: 1px solid $border-light-color
+                vertical-align: middle
+            .op-drop
+              float: right
+              a
+                display: block
+                width: 16px
+                height: 16px
+                background: image-url("bg/dustbin.png") no-repeat
+    .discount-code
+      padding: 20px 0
+      input
+        width: 300px
+        height: 29px
+        border: 1px solid $border-lighter-color
+        margin-right: 20px
+        
+      .error
+        +error(160px,20px)
+        margin-top: 6px
+        padding: 0 10px
+    .summary
+      .summary-item
+        +clearfix
+        border-bottom: 1px solid #f2f2f2
+        &.last
+          border-bottom: none
+        line-height: 25px
+        .summary-item-name
+          float: left
+        .summary-item-value
+          text-align: right
+      .note
+        font-size: $content-font
+        color: $content-normal-color
+      .btn-m-confirmBuy
+        margin: 20px 0
+        letter-spacing: 5px

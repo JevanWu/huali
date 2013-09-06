@@ -1,0 +1,21 @@
+.share
+  +clearfix
+  span 
+    float: left
+  .share-to
+    +clearfix
+    float:right
+  li
+    float: left
+    a
+      display: inline-block
+      width: 20px
+      height: 20px
+      &.weibo
+        background-image: image-url("/images/bg/share_weibo.png")
+      &.msg
+        background-image: image-url("/images/bg/share_msg.png")
+      &.facebook
+        background-image: image-url("/images/bg/share_facebook.png")
+    &.last
+      margin-right: 0
