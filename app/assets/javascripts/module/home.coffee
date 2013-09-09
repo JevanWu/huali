@@ -1,6 +1,6 @@
 ﻿$ ->
 
-  $("#slide .img-wrap").width($(window).width()*$("#slide img").length)
+  $("#slide .container").width($(window).width()*$("#slide img").length)
   $("#slide").find("img").each (i,el) ->
     $(el).width($(window).width())
     return

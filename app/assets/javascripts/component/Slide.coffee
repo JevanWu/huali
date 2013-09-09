@@ -1,7 +1,7 @@
 ﻿css = 
   btnL: ".btn-left"
   btnR: ".btn-right"
-  imgs: ".img-wrap"
+  imgs: ".container"
   dots: ".slide-dot"
   cur: ".cur"
 
