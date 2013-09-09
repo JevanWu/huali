@@ -50,23 +50,4 @@
     .best-products.row.is-hidden
       = render partial: 'product', collection: @products
     .pager
-      ul
-        li.previous
-          a
-        li.cur
-          a
-            | 1
-        li.num
-          a
-            | 2
-        li.more
-          a
-            | ···
-        li.num
-          a
-            | 6
-        li.num
-          a
-            | 7
-        li.next
-              a
+      == paginate @products
