@@ -1,0 +1,21 @@
+.gouhualan
+  p.gouhualan-title
+    i
+    | 购花篮
+  == render partial: 'side_item_row', :collection => items
+  .summary
+    .summary-item
+      span
+        = t('views.order.in_total')
+      em
+        = count_cart(items)
+    .summary-item
+      span
+        | 折扣
+      em
+        | 0.8
+    .summary-item
+      span
+        | 折后总计
+      em.special
+        | ￥559

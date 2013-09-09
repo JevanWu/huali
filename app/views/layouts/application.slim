@@ -13,6 +13,8 @@ html
     /[if IE 8]
       = stylesheet_link_tag 'ie8'
 
+    = yield(:css)
+
   body
     == render 'layouts/header'
     == render 'layouts/nav'
@@ -22,3 +24,4 @@ html
   = javascript_include_tag 'vendor/jquery-1.10.2.js'
   = javascript_include_tag 'vendor/lodash.compat.js'
   = javascript_include_tag 'application'
+  = yield(:js)

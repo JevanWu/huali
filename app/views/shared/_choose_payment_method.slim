@@ -1,0 +1,27 @@
+= form_tag(gateway_order_path(order), method: "post") do
+  .pay-options-title
+    i
+    |  请选择支付方式
+  .alipay
+    label
+      = radio_button_tag(:pay_info, "directPay", checked: "checked")
+      = image_tag('pay/alipay.jpg')
+
+  .web-bank
+    .web-bank-title
+      | 网上银行
+    - banks.each do |bank|
+      .web-bank-item
+        label
+          = radio_button_tag(:pay_info, bank)
+          = image_tag("pay/#{bank}.jpg")
+  .credit-card
+    .credit-card-title
+      | 信用卡
+    .paypal
+      label
+        = radio_button_tag(:pay_info, "paypal")
+        = image_tag("pay/credit.jpg")
+
+  .next-step
+    = submit_tag "确认支付", class: 'btn-next'

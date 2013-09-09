@@ -1,0 +1,13 @@
+.step-product-item
+  = image_tag side_item_row.img(:thumb)
+  .product-info
+    h3.product-name
+      = link_to side_item_row.name, product_path(side_item_row)
+    h4.product-name-en
+      = side_item_row.name_en
+    em
+      = "x#{side_item_row.quantity}"
+    p.logistics
+      | 免费配送
+    p
+      /= count_total(side_item_row)
