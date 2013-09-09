@@ -5,6 +5,7 @@
 #= require 'module/cate'
 #= require 'module/cart'
 #= require 'module/my-order'
+#= require 'orders'
 
 $ ->
   console.log('hello world!')
