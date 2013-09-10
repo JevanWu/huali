@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  layout :application_layout
+  layout :layout_by_resource
 
   protect_from_forgery
 
@@ -30,8 +30,12 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def application_layout
-    is_mobile_request? ? 'mobile' : 'application'
+  def layout_by_resource
+    if devise_controller?
+      is_mobile_request? ? 'devise_mobile' : 'devise'
+    else
+      is_mobile_request? ? 'mobile' : 'application'
+    end
   end
 
   def devise_parameter_sanitizer

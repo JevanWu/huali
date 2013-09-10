@@ -22,7 +22,7 @@ module Huali
 
     config.to_prepare do
       #Devise::SessionsController.layout 'application_simple'
-      Devise::RegistrationsController.layout 'application'
+      #Devise::RegistrationsController.layout 'application'
       #Devise::ConfirmationsController.layout "application_simple"
       #Devise::UnlocksController.layout "application_simple"
       #Devise::PasswordsController.layout "application_simple"
