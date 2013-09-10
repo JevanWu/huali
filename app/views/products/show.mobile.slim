@@ -1,0 +1,50 @@
+- content_for :title do
+  = @product.meta_title.blank? ? @product.name : @product.meta_title
+
+- content_for :keywords do
+  = @product.meta_keywords
+
+- content_for :description do
+  = @product.meta_description
+
+#l-show-m
+  .container
+    .img-wrap
+      ul.slide-dot
+        li
+          a.cur
+        li
+          a
+        li
+          a
+        li.last
+          a
+      ul.main
+        - @asset_urls.take(3).each_with_index do |asset_url, index|
+          - if index == 1
+            li
+              = image_tag asset_url[:thumb], alt: "#{@product.name} thumbnail images", width: 460, height: 440
+          - else
+            li.is-hidden
+              = image_tag asset_url[:thumb], alt: "#{@product.name} thumbnail images", width: 460, height: 440
+    .add-to-cart
+      .product-title
+        h3.product-name
+          = @product.name
+        h4.product-name-en
+          = @product.name_en
+        p.price ￥#{@product.original_price}
+      button.add-btn data-product="#{@product.id}"
+        | 加入购物车
+      .share
+        span
+          | share this look
+        ul.share-to
+          li
+            a.weibo
+          li
+            a.msg
+          li.last
+            a.facebook
+    .detail
+      == render 'product_intro'

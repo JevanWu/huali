@@ -1,0 +1,60 @@
+- content_for :title do
+  = @collection.meta_title.blank? ? @collection.name : @collection.meta_title
+
+- content_for :keywords do
+  = @collection.meta_keywords
+
+- content_for :description do
+  = @collection.meta_description
+
+.cate-list-style1.is-hidden
+  dl
+    dt.cate-list-title
+      strong
+        i
+        = @collection.display_name
+        b
+      p
+        = @collection.description
+      .tabs
+        a.row-view
+        a.square-view
+  dd
+    .best-products.row.is-hidden
+      = render partial: 'product', collection: @products
+.cate-list-style2
+  dt.cate-list-title
+    strong
+      i
+      | 花里>
+    span
+      = @collection.display_name
+    .tabs
+      a.row-view
+      a.square-view
+  dd
+    ul.row
+      - @products.each do |product|
+        li
+          a
+            = image_tag(product.img(:thumb))
+          .des
+            .info
+              .name
+                h3.product-name
+                  /= link_to product.name, product_path(product), title: product.name
+                  = product.name
+                h4.product-name-en
+                  = product.name_en
+              .price
+                span ￥#{product.original_price}
+            .share
+              span
+                | share this look
+              ul.share-to
+                li
+                  a.weibo
+                li
+                  a.msg
+                li.last
+                  a.facebook
