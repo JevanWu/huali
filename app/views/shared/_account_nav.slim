@@ -1,19 +1,19 @@
 .breadcrumb-wrap
   .breadcrumb
-    - if current_if_controller('users', 'registrations').present?
-        a
+    - if controller_and_action?('users', 'registrations')
+        a.cur
           | 我的账户
     - else
-      = link_to "我的账户", edit_user_registration_path, class: current_if_controller('users', 'registrations')
-      | >
-      - if current_if_controller('orders').present?
-          a
+      = link_to "我的账户", edit_user_registration_path
+      | >&nbsp;
+      - if controller_and_action?('orders', 'index')
+          a.cur
             | 我的订单
       - else
-          = link_to "我的订单", orders_path, class: current_if_controller('orders')
-          - if current_if_action('show').present?
-            | >
-            a class="#{current_if_action('show')}"
+          = link_to "我的订单", orders_path
+          - if controller_and_action?('orders', 'show')
+            | >&nbsp;
+            a.cur
               | 订单详情
   .service-num
     |  有疑问请咨询：400-001-6936

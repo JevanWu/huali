@@ -18,4 +18,8 @@ module ApplicationHelper
   def current_if_controller(*controllers)
     controllers.include?(controller_name) ? 'cur' : ''
   end
+
+  def controller_and_action?(the_controller, the_action)
+    controller_name == the_controller && the_action == action_name
+  end
 end
