@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  layout :application_layout
+
   protect_from_forgery
 
   before_action :get_host
@@ -8,13 +10,15 @@ class ApplicationController < ActionController::Base
   include Squash::Ruby::ControllerMethods
   enable_squash_client
 
-  include ::Extension::Mobile
   include ::Extension::GuestUser
   include ::Extension::Locale
   include ::Extension::Cancan
   include ::Extension::Exception
   include ::Extension::RecordCookie
   include ::Extension::SignInRedirect
+
+  # mobile request detection
+  include Mobylette::RespondToMobileRequests
 
   def dev_tools
     Rack::MiniProfiler.authorize_request if defined?(Rack::MiniProfiler)
@@ -25,6 +29,10 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+  def application_layout
+    is_mobile_request? ? 'mobile' : 'application'
+  end
 
   def devise_parameter_sanitizer
     if resource_class == User

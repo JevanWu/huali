@@ -73,6 +73,8 @@ gem "activeadmin-sortable-tree",
 
 gem 'phonelib', github: 'ryancheung/phonelib'
 
+gem 'mobylette'
+
 group :development, :test do
   gem 'rspec-rails', '>= 2.11.0'
   gem 'rspec-instafail'
