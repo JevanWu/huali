@@ -1,6 +1,5 @@
 # encoding: utf-8
 class OrdersController < ApplicationController
-  layout 'application'
   before_action :load_cart
   before_action :fetch_items, only: [:new, :back_order_new, :taobao_order_new, :create, :back_order_create, :taobao_order_create, :current]
   before_action :fetch_related_products, only: [:back_order_create, :taobao_order_create, :current]

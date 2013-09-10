@@ -4,6 +4,7 @@
 #= require 'common/common-mobile'
 #= require 'module/home-mobile'
 #= require 'module/cart-mobile'
+#= require 'orders'
 
 $ ->
   console.log('hello mobile world!')

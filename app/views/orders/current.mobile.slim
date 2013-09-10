@@ -1,0 +1,62 @@
+.cart-mobile
+  - if @products.blank?
+    .empty
+      .tips
+        |  您的购花篮还是空的，赶紧行动吧！
+      a.new-arrival
+        | 本季新款
+      a.recommand
+        | 本月推荐
+  - else
+    .not-empty
+      ul.cart-product-list
+        - @products.each_with_index do |product_in_cart, index|
+          li class="#{index + 1 == 3 ? 'last' : ''}"
+            = image_tag product_in_cart.img(:medium)
+            .cart-product-item
+              .cart-product-info
+                .cart-product-info-name
+                  h3.product-name
+                    = link_to product_in_cart.name, product_path(product_in_cart)
+                  h4.product-name-en
+                    = product_in_cart.name_en
+                .cart-product-info-price
+                  strong.price
+                    = number_to_currency product_in_cart.price, unit: '&yen;'
+                  span ×
+                  em #{product_in_cart.quantity}
+              .op
+                .op-num
+                  |  数量：
+                  = link_to '-', current_order_path, data: { product: product_in_cart.id }, class: 'minus'
+                  input[type="text" value="#{product_in_cart.quantity}"]
+                  = link_to '+', current_order_path, data: { product: product_in_cart.id }, class: 'plus'
+                .op-drop
+                  = link_to '', current_order_path, data: { product: product_in_cart.id }, class: 'drop'
+      .discount-code
+        input[type="text" placeholder="使用优惠码Add coupon code"]
+        button.btn-m-discount
+          | 确定
+        p.error
+          | 无效优惠码!请确认信息后输入
+      .summary
+        .summary-item
+          .summary-item-name
+            | 商品小计：
+          .summary-item-value
+            | ￥ 2079
+        .summary-item
+          .summary-item-name
+            | 促销优惠：
+          .summary-item-value
+            | -￥ 415
+        .summary-item.last
+          .summary-item-name
+            | 本次发货总额：
+          .summary-item-value
+            span.total-price #{count_cart(@products)}
+        p.note
+          | 您的订单享受免费配送
+
+        = link_to t('views.order.checkout'), new_order_path, class: 'btn-m-confirmBuy'
+  == render 'guess_you_like'
