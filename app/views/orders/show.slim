@@ -1,0 +1,92 @@
+.order-detail
+  .order-detail-inner
+    = render 'shared/account_nav'
+    .order-table
+      .order-state
+        strong
+          | 已发货，日期：20130704
+        span
+          = "订单编号：#{@order.identifier}"
+      .logistics
+        .items.captain
+          span.date
+            | 日期
+          span.time
+            | 时间
+          span.address
+            | 地点
+          span.contact
+            | 联系方式
+          span.log
+            | 配送记录
+        .items
+          span.date
+            | 2013年7月4日
+          span.time
+            | 06:00:00 PM
+          span.address
+            | 上海
+          span.contact
+            | 联邦 4001000001
+          span.log.success
+            | 配送成功
+        .items
+          span.date
+            | 2013年7月4日
+          span.time
+            | 08:18:47 AM
+          span.address
+            | 上海
+          span.contact
+            | 联邦 4001000001
+          span.log
+            | 商品已抵达配送站，即将为您配送
+        .items
+          span.date
+            | 2013年7月4日
+          span.time
+            | 09:49:20 PM
+          span.address
+            | 苏州
+          span.contact
+            | ---
+          span.log
+            | 运输在途
+      .product-detail
+        .products
+          .products-captain
+            | 订购产品：
+          ul.product-list
+            = render partial: 'product_detail', collection: @order.line_items
+          .summary
+            span
+              = "商品小计：￥ #{@order.total}"
+            span
+              | 本次发货总额： -￥ 5.00
+            span
+              | 促销优惠： ￥ 164.70
+        .attach
+          = @order.gift_card_text
+        .info
+          strong
+            | 预计送达日期：20130704
+          span
+            | 一件包裹，承运人为上海联邦快递
+          br
+          br
+          - if @order.ship_method
+            p
+              = "送货方式：#{@order.ship_method.name}"
+          p
+            = "期望送达时间：#{l @order.expected_date, format: :long}"
+          br
+          p
+            = "收件人：#{@order.address.fullname}"
+          p
+            = "地址：#{@order.address.full_addr}"
+          p
+            = "电话：#{@order.address.phone}"
+          p
+            = "邮编：#{@order.address.post_code}"
+          p
+            |
