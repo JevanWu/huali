@@ -4,7 +4,10 @@
     .order-table
       .order-state
         strong
-          | 已发货，日期：20130704
+          - if @order.state == 'wait_confirm'
+            = t('models.order.state.' + @order.state) + "发货日期：#{l @order.delivery_date}"
+          - else
+            = t('models.order.state.' + @order.state)
         span
           = "订单编号：#{@order.identifier}"
       .logistics
