@@ -1,0 +1,37 @@
+.buy-mobile
+  .product-info
+    =image_tag('product_medium.jpg')
+    .product-info-main
+      h3.product-name
+        | 普罗旺斯的一年
+      h4.product-name-en
+        | Store Locator
+      p.total-num
+        | 共计两件商品
+      p.discount
+        | 促销优惠：-￥405
+      p.total-price
+        | 总计：
+        span
+          | ￥1599
+  .receive-address
+    span
+      | 收件地址：
+    .receive-address-main
+      p
+        = @order.address.full_addr
+
+  = form_tag(gateway_order_path(@order), method: "post") do
+    select.pay-ways name="pay_info"
+      option[value="" disabled="true"]
+        | 请选择支付方式
+      option[value="directPay" checked="checked"]
+        | 支付宝
+      - @banks.each do |bank|
+        option[value="#{bank}"]
+          = bank
+
+      option[value="paypal"]
+        | Paypal
+
+    = submit_tag "确认支付", class: '.btn-m-confirmPay'
