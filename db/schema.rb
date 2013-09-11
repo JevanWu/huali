@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130821070519) do
+ActiveRecord::Schema.define(version: 20130911092550) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -214,27 +214,31 @@ ActiveRecord::Schema.define(version: 20130821070519) do
   add_index "pages", ["permalink"], name: "index_pages_on_permalink", using: :btree
 
   create_table "products", force: true do |t|
-    t.string   "name_zh",                                        default: "",    null: false
-    t.string   "name_en",                                        default: "",    null: false
+    t.string   "name_zh",                                              default: "",    null: false
+    t.string   "name_en",                                              default: "",    null: false
     t.text     "description"
     t.string   "meta_description"
     t.string   "meta_keywords"
-    t.integer  "count_on_hand",                                  default: 0,     null: false
-    t.decimal  "price",                  precision: 8, scale: 2
-    t.decimal  "height",                 precision: 8, scale: 2
-    t.decimal  "width",                  precision: 8, scale: 2
-    t.decimal  "depth",                  precision: 8, scale: 2
-    t.datetime "created_at",                                                     null: false
-    t.datetime "updated_at",                                                     null: false
+    t.integer  "count_on_hand",                                        default: 0,     null: false
+    t.decimal  "price",                        precision: 8, scale: 2
+    t.decimal  "height",                       precision: 8, scale: 2
+    t.decimal  "width",                        precision: 8, scale: 2
+    t.decimal  "depth",                        precision: 8, scale: 2
+    t.datetime "created_at",                                                           null: false
+    t.datetime "updated_at",                                                           null: false
     t.decimal  "original_price"
     t.text     "inspiration"
     t.string   "slug"
-    t.boolean  "published",                                      default: false
-    t.integer  "priority",                                       default: 5
+    t.boolean  "published",                                            default: false
+    t.integer  "priority",                                             default: 5
     t.string   "meta_title"
-    t.integer  "sold_total",                                     default: 0
+    t.integer  "sold_total",                                           default: 0
     t.integer  "default_region_rule_id"
     t.integer  "default_date_rule_id"
+    t.string   "rectangle_image_file_name"
+    t.string   "rectangle_image_content_type"
+    t.integer  "rectangle_image_file_size"
+    t.datetime "rectangle_image_updated_at"
   end
 
   add_index "products", ["default_date_rule_id"], name: "index_products_on_default_date_rule_id", using: :btree

@@ -240,6 +240,7 @@ zh-CN:
       product:
         thumbnail: 缩略图
         image: 图片
+        rectangle_image: 矩形图片
         name_zh: 中文名
         name_en: 英文名
         tags: 标签
