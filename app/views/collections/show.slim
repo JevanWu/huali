@@ -48,6 +48,19 @@
               span
                 | share this look
     .best-products.row.is-hidden
-      = render partial: 'product', collection: @products
+      - @products.each_with_index do |product, index|
+        .a-product.span3 class="#{'first' if index == 0}"
+          = image_tag product.img(:medium), alt: "#{product.name} medium images"
+          .share
+            span share this look
+            ul.share-to
+              li: a.weibo
+              li: a.msg
+              li.last: a.facebook
+          .information
+            strong
+              em = link_to product.name, product_path(product), title: product.name
+              span = product.name_en
+            p ￥#{product.original_price}
     .pager
       == paginate @products
