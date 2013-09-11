@@ -11,9 +11,7 @@
             = "订单编号：#{@order.identifier}"
           p
             | 您可以
-            a
-              = link_to "查看订单", order_path(@order)
+            = link_to "查看订单", order_path(@order)
           p
             | 或者
-            a
-              = link_to '回到首页', root_path
+            = link_to '回到首页', root_path
