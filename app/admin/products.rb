@@ -42,6 +42,7 @@ ActiveAdmin.register Product do
         :meta_description,
         :default_date_rule_id,
         :default_region_rule_id,
+        :rectangle_image,
         :assets_attributes => [ :id, :image, :_destroy ],
         :collection_ids => [],
         :recommendation_ids => [],
