@@ -1,0 +1,40 @@
+.nav-callout-container
+  .nav-callout.is-mouseleave
+    - Collection.roots.each do |root|
+      - children = root.children
+      - children_count = children.size
+      - case children_count
+      - when 0
+        - next
+      - when 1,2
+        .nav-callout-item class="nav-callout-#{children_count == 1 ? '4' : '1' }"
+          .nav-callout-item-col1
+            p
+              = root.description
+            dl
+              - children.each do |child|
+                dt
+                  = link_to "#{child.name}>", collection_path(child)
+                - child.products.each do |product|
+                  dd
+                    = link_to product.name, product_path(product)
+      - when 3,4
+        .nav-callout-item.nav-callout-1
+          .nav-callout-item-col1
+            p
+              = root.description
+            dl
+              - children.take(2).each do |child|
+                dt
+                  = link_to "#{child.name}>", collection_path(child)
+                - child.products.each do |product|
+                  dd
+                    = link_to product.name, product_path(product)
+          .nav-callout-item-col1
+            dl
+              - children[2..-1].each do |child|
+                dt
+                  = link_to "#{child.name}>", collection_path(child)
+                - child.products.each do |product|
+                  dd
+                    = link_to product.name, product_path(product)
