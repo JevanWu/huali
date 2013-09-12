@@ -26,8 +26,10 @@
   background-image: image-url("bg/rhombus_darken.png")
 
 =button($buttonWidth, $buttonHeight: 30px, $buttonFontSize: 12px)
-  width: $buttonWidth
+  width: $buttonWidth !important
   height: $buttonHeight
+  line-height: $buttonHeight
+  text-align: center
   border: none
   color: $masthead-color
   background-color: $buttonBgColor

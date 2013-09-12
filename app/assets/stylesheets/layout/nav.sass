@@ -10,6 +10,59 @@
     +clearfix
     width: $global-width
     margin: 0 auto
+    .cart-preview-container
+      display: none
+      position: absolute
+      width: 195px
+      left: -50px
+      .cart-preview
+        padding: 10px
+        background-color: $cart-bg-color
+        border-width: 0 1px 1px 1px
+        border-style: solid
+        border-color: $border-lighter-color
+        h3
+          line-height: 25px
+          a
+            padding-left: 0
+            color: $link-blue-color
+        .cart-preview-item
+          +clearfix
+          padding: 5px 0
+          border-top: 1px solid $border-light-color
+          &.last
+            border-bottom: 1px solid $border-light-color
+          img
+            float: left
+            margin-right: 6px
+          .cart-preview-item-main
+            float: left
+            width: 130px
+            h4
+              line-height: 1.2
+            .cart-preview-item-info
+              +clearfix
+              line-height: 2.0
+              .num
+                float: left
+              .price
+                float: right
+        .summary
+          +clearfix
+          line-height: 1.8
+          span
+            float: left
+          strong
+            float: right
+        .go-checkout
+          +clearfix
+        .checkout
+          float: right
+          +button(80px)
+          padding-left: 0
+          text-align: center
+          line-height: 30px
+          margin-top: 10px
     .nav-item
       float: left
       +clearfix
@@ -34,20 +87,46 @@
           margin-right: 0
     .operate
       float: right
-      padding-top: 4px
-      li
-        float: left
-        margin-right: 40px
-        padding-top: 5px
-        &.last
+      line-height: 35px
+      .profile
+        display: none
+        position: absolute
+        width: 60px
+        left: -15px
+        padding: 10px
+        background-color: $profile-bg-color
+        border-width: 0 1px 1px 1px
+        border-style: solid
+        border-color: $border-lighter-color
+        li
+          float: none
           margin-right: 0
+        a
+          padding-left: 0
+          line-height: 1.8
+          color: $strong-color
+      li
+        position: relative
+        float: left
+        margin-right: 25px
+        &.last
+          margin-right: 20px
         a
           display: block
           padding-left: 20px
-          height: 20px
+          color: $masthead-color
+          i
+            display: none
+            position: absolute
+            left: 50%
+            top: 28px
+            margin-left: -10px
+            width: 20px
+            height: 7px
+            background-image: url("/images/bg/arrow.png")
           &.cart
-            line-height: 24px
             background-image: image-url("bg/op_cart.png")
+            background-position: 0 center
           &.forward
             background-image: image-url("bg/op_forward.png")
           &.mail
@@ -58,9 +137,15 @@
         &.not-login
           padding-top: 6px
           color: $masthead-color
+          span
+            padding: 0 3px
           a
             display: inline
             padding-left: 0
+        &.personal-account
+          a
+            padding-left: 0
+
   .nav-callout-container
     position: absolute
     visibility: hidden
