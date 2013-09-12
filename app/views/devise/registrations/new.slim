@@ -17,8 +17,8 @@
       = f.input :humanizer_answer, label: resource.humanizer_question, required: true
       = f.hidden_field :humanizer_question_id
 
-      .signup-btn-wrap
-        = f.button :submit, t('.sign_up'), class: 'btn-passport'
+      .form-actions
+        = f.button :submit, t('.sign_up'), class: 'btn-passport button'
         strong
           | 已有帐号请
           = link_to t(".sign_in"), new_session_path(resource_name)
