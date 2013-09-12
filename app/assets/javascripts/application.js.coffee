@@ -1,3 +1,4 @@
+#= require jquery_ujs
 #= require 'Huali'
 #= require_tree './component'
 #= require 'common/common'
