@@ -1,0 +1,10 @@
+.nav-callout-item-col1
+  p
+    = root.description
+  dl
+    == render partial: 'layouts/child_collection', collection: column_1_children
+
+- if column_2_children.present?
+  .nav-callout-item-col2
+    dl
+      == render partial: 'layouts/child_collection', collection: column_2_children

@@ -1,0 +1,5 @@
+dt
+  = link_to "#{child_collection.display_name}>", collection_path(child_collection)
+- child_collection.products.each do |product|
+  dd
+    = link_to product.name, product_path(product)

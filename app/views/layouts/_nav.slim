@@ -1,9 +1,10 @@
+- collection_roots = Collection.roots.available
 #l-nav
   .nav-inner
     ul.nav-item.is-mouseleave.row
-      - Collection.roots.each do |root|
+      - collection_roots.each do |root|
         li: a href=""
-          = root.name
+          = root.display_name
           i.l-stack
 
     ul.operate
@@ -19,4 +20,20 @@
             span "|"
             = link_to '注册', new_user_registration_path
 
-  == render 'layouts/collections'
+  .nav-callout-container
+    .nav-callout.is-mouseleave
+      - collection_roots.each_with_index do |root, index|
+        - children = root.children.available
+        - children_count = children.size
+        - next if children_count.zero?
+        .nav-callout-item class="nav-callout-#{index + 1}"
+          - case children_count
+          - when 1,2
+            == render 'layouts/callout_items', root: root,
+              column_1_children: children, column_2_children: nil
+          - when 3,4
+            == render 'layouts/callout_items', root: root,
+              column_1_children: children.take(2), column_2_children: children[2..-1]
+          - else
+            == render 'layouts/callout_items', root: root,
+              column_1_children: children.take(3), column_2_children: children[3..-1]
