@@ -1,5 +1,7 @@
 dt
   = link_to "#{child_collection.display_name}>", collection_path(child_collection)
-- child_collection.products.each do |product|
+- child_collection.products.take(5).each do |product|
   dd
     = link_to product.name, product_path(product)
+dd
+  = link_to "More>>", collection_path(child_collection)
