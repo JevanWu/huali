@@ -57,4 +57,4 @@
                   span
                     | ￥1599
             = link_to t('views.order.checkout'), new_order_path, class: 'btn-checkout'
-      == render 'guess_you_like'
+      == render 'shared/guess_you_like', related_products: @related_products.take(5)
