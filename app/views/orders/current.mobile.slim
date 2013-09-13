@@ -59,4 +59,4 @@
           | 您的订单享受免费配送
 
         = link_to t('views.order.checkout'), new_order_path, class: 'btn-m-confirmBuy'
-  == render 'guess_you_like'
+  == render 'shared/guess_you_like', related_products: @related_products.take(5)
