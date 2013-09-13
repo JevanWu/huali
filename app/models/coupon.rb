@@ -45,7 +45,7 @@ class Coupon < ActiveRecord::Base
   end
 
   def usable?(order = nil)
-    (order ? price_condition > order.total : true) &&  # keeps the API call without order
+    (order && price_condition ? price_condition > order.total : true) &&  # keeps the API call without order
     !expired &&
     expires_at > Time.current && 
     available_count > 0

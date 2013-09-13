@@ -61,6 +61,15 @@ describe Coupon do
     it { should_not be_usable(order) }
   end
 
+  context "the price_condition is not set" do
+    before(:each) do
+      stub(coupon).price_condition { nil }
+      stub(order).total { 301 }
+    end
+
+    it { should be_usable(order) }
+  end
+
   describe "#used_by_order?" do
     context "when the order has no coupon" do
       before(:each) do
