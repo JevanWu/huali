@@ -3,7 +3,6 @@ class FormtasticPhoneInput
 
   def initialize(*)
     super
-    #require 'pry'; binding.remote_pry;
     @phone_input_helper = PhoneInputHelper.new(object, method)
   end
 
