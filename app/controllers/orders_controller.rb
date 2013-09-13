@@ -209,7 +209,7 @@ class OrdersController < ApplicationController
     def validate_cart
       # - no line items present
       # - zero quantity
-      if @cart.blank? || @cart.all? { |k, v| v.to_i <= 0 }
+      if @cart.blank? || @cart.items.any? { |item| item.quantity.to_i <= 0 }
         flash[:alert] = t('controllers.order.no_items')
         redirect_to :root
       end

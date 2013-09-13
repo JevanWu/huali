@@ -10,6 +10,6 @@
     == render 'checkout_nav'
     .step-main.row
       .step-main-gouhualan.span4
-        == render 'side_item_table', items: @products, title: t(:basket)
+        == render 'side_item_table', cart: @cart, title: t(:basket)
       .step-main-detail.span8
         = render 'form'

@@ -2,20 +2,22 @@
   p.gouhualan-title
     i
     | 购花篮
-  == render partial: 'side_item_row', :collection => items
+  == render partial: 'side_item_row', :collection => cart.items
   .summary
     .summary-item
       span
         = t('views.order.in_total')
       em
-        = count_cart(items)
-    .summary-item
-      span
-        | 折扣
-      em
-        | 0.8
+        = number_to_currency @cart.original_total, unit: '&yen;'
+    - if @cart.discounted?
+      .summary-item
+        span
+          | 折扣
+        em
+          | -&nbsp;
+          = number_to_currency @cart.discount_money, unit: '&yen;'
     .summary-item
       span
         | 折后总计
       em.special
-        | ￥559
+        = number_to_currency @cart.total, unit: '&yen;'
