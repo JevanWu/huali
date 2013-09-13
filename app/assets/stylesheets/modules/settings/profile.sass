@@ -1,0 +1,36 @@
+.profile
+  width: $global-width
+  margin: 0 auto
+  padding-top: 60px
+.profile-list
+  width: 285px
+  padding-top: 35px
+  font-size: $content-font
+  ul
+    line-height: 2
+  .delete-account
+    a
+      color: $link-blue-color
+.profile-edit
+  width: 568px
+  h2
+    border-bottom: 4px solid $border-light-color
+  .control-label
+    width: 72px
+    margin-right: 8px
+  .controls
+    margin-left: 0
+    +clearfix
+  input[type="text"]
+    width: 214px
+    float: left
+  form
+    margin-top: 40px
+  span
+    +error(175px)
+  .save
+    text-align: center
+    input
+      +button(80px)
+  em
+    color: $em-color
