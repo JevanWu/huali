@@ -8,7 +8,7 @@ ActiveAdmin.register Coupon do
     private
 
     def permitted_params
-      params.permit(coupon: [:adjustment, :expires_at, :available_count, :note])
+      params.permit(coupon: [:adjustment, :expires_at, :available_count, :note, :price_condition])
     end
   end
 
@@ -17,6 +17,7 @@ ActiveAdmin.register Coupon do
   filter :expired
   filter :available_count
   filter :used_count
+  filter :price_condition
 
   index do
     selectable_column
@@ -27,6 +28,7 @@ ActiveAdmin.register Coupon do
     column :used_count
     column :note
     column :expires_at
+    column :price_condition
 
     default_actions
   end
@@ -39,6 +41,7 @@ ActiveAdmin.register Coupon do
       row :adjustment
       row :available_count
       row :used_count
+      row :price_condition
       row :orders do
         coupon.orders.map do |order|
           link_to(order.identifier, admin_order_path(order))

@@ -302,6 +302,7 @@ zh-CN:
         expired: 是否失效
         adjustment: 优惠调整
         note: 说明
+        price_condition: 价格使用条件
         available_count: 剩余有效次数
         used_count: 使用次数
         expires_at: 过期时间
