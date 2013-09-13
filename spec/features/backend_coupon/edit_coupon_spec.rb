@@ -31,6 +31,7 @@ feature "Edit coupon" do
     default_date_rule = create(:default_date_rule, start_date: nil)
     default_region_rule = create(:default_region_rule, province_ids: [province.id.to_s], city_ids: [city.id.to_s], area_ids: [area.id.to_s])
     create(:product,
+           price: 299,
            name_en: 'ruby',
            name_zh: '红宝石',
            default_date_rule: default_date_rule,
@@ -57,7 +58,7 @@ feature "Edit coupon" do
     fill_in '优惠码', with: coupon.code
     click_button '确定'
 
-    page.should have_content('对不起，该优惠券已经过期或者失效')
+    page.should have_content('对不起，该优惠券已经过期或者无法使用')
   end
 
   scenario "Set available_count to 0", js: true do
@@ -78,6 +79,27 @@ feature "Edit coupon" do
     fill_in '优惠码', with: coupon.code
     click_button '确定'
 
-    page.should have_content('对不起，该优惠券已经过期或者失效')
+    page.should have_content('对不起，该优惠券已经过期或者无法使用')
+  end
+
+  scenario "Set as price condition", js: true do
+    conditioned_coupon = create(:coupon, price_condition: 300)
+
+    visit "/admin/coupons/#{coupon.id}/edit"
+
+    click_button '更新优惠码'
+
+    login_as(user, scope: :user)
+
+    visit "/products/#{product.slug}"
+    click_link '放入购花篮'
+    within(".order-actions") do
+      click_link '确定'
+    end
+
+    fill_in '优惠码', with: conditioned_coupon.code
+    click_button '确定'
+
+    page.should have_content('对不起，该优惠券已经过期或者无法使用')
   end
 end
