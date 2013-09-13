@@ -121,6 +121,13 @@ class OrderForm
     end
   end
 
+  # FIXME, add the price info into cookie and remove this query
+  def total
+    line_items.map do |item|
+      Product.find(item.product_id).price
+    end.inject(:+)
+  end
+
   def add_line_item(product_id, quantity)
     # use << won't coerce the Item object
     self.line_items += [ {product_id: product_id, quantity: quantity} ]
