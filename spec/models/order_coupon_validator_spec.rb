@@ -42,8 +42,8 @@ describe OrderCouponValidator do
               coupon_fetcher { lambda { |_| [coupon] } }
           end
 
-          it "add :expired_coupon to errors" do
-            mock(errors).add :coupon_code, :expired_coupon
+          it "add :invalid_coupon to errors" do
+            mock(errors).add :coupon_code, :invalid_coupon
 
             order_coupon_validator.validate(order)
           end
@@ -57,7 +57,7 @@ describe OrderCouponValidator do
           end
 
           it "no errors are added" do
-            dont_allow(errors).add :coupon_code, :expired_coupon
+            dont_allow(errors).add :coupon_code, :invalid_coupon
 
             order_coupon_validator.validate(order)
           end
