@@ -75,6 +75,8 @@ gem 'phonelib', github: 'ryancheung/phonelib'
 
 gem 'mobylette'
 
+gem 'draper', '~> 1.0'
+
 group :development, :test do
   gem 'rspec-rails', '>= 2.11.0'
   gem 'rspec-instafail'
