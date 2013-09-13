@@ -109,10 +109,6 @@ class OrderForm
 
   validates :expected_date, presence: true
 
-  def fetch_products
-    line_items.map { |l| Product.find(l.product_id) }
-  end
-
   def save
     return false unless valid?
     begin
