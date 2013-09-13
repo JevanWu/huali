@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   layout :layout_by_resource
+  before_action :set_devise_layout
 
   protect_from_forgery
 
@@ -32,6 +33,18 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+  def set_devise_layout
+    if devise_controller?
+      if Devise::RegistrationsController === self && action_name == "edit"
+        if is_mobile_request?
+          Devise::RegistrationsController.layout 'mobile'
+        else
+          Devise::RegistrationsController.layout 'application'
+        end
+      end
+    end
+  end
 
   def layout_by_resource
     if devise_controller?
