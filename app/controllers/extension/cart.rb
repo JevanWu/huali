@@ -13,11 +13,25 @@ module Extension
       end
     end
 
+    def update_coupon_code(coupon_code)
+      @cart.coupon_code = coupon_code
+      if @cart.valid_coupon?
+        cookies[:coupon_code] = coupon_code
+      else
+        cookies.delete :coupon_code
+      end
+    end
+
+    def empty_cart
+      cookies.delete :cart
+    end
+
     def load_cart_cookie
       begin
         cart_cookie_hash = JSON.parse(cookies['cart'])
         line_item_hash = cart_cookie_hash.select {|k, v| k =~ /^\d+$/}
-        coupon_code = cart_cookie_hash[:coupon_code]
+
+        coupon_code = cookies[:coupon_code]
 
         [line_item_hash, coupon_code]
       rescue

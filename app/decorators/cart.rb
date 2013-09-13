@@ -1,5 +1,5 @@
 class Cart
-  attr_reader :items, :coupon_code
+  attr_accessor :items, :coupon_code
 
   def initialize(items, coupon_code)
     @items = items
@@ -15,7 +15,7 @@ class Cart
   end
 
   def valid_coupon?
-    coupon && coupon.usable?
+    !! coupon && coupon.usable?
   end
 
   def total

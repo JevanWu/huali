@@ -35,12 +35,14 @@
               | 使用优惠码
             p
               | PROMO CODE
-            .input-wrap
-              input[type="text"]
-              button.btn-discount
-                | 确定
-              p.error
-                | 无效优惠码！请确认信息后输入
+            = form_tag orders_apply_coupon_path, method: :post do
+              .input-wrap
+                input type="text" name="coupon_code"
+                button.btn-discount type="submit"
+                  | 确定
+                - if @cart.coupon_code && !@cart.valid_coupon?
+                  p.error
+                    | 无效优惠码！请确认信息后输入
           .checkout
             p
               | 您的订单享受免费配送

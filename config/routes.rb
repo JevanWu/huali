@@ -26,6 +26,7 @@ Huali::Application.routes.draw do
 
   # FIXME refactor this routes to be more elegant
   get 'orders/current', as: :current_order
+  post 'orders/apply_coupon'
   get 'orders/checkout(/:id)', to: 'orders#checkout', as: :checkout_order
   post 'orders/gateway(/:id)', to: 'orders#gateway', as: :gateway_order
   patch 'orders/cancel/:id', to: 'orders#cancel', as: :cancel_order

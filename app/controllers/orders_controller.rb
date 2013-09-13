@@ -1,6 +1,6 @@
 # encoding: utf-8
 class OrdersController < ApplicationController
-  before_action :fetch_related_products, only: [:back_order_create, :taobao_order_create, :current]
+  before_action :fetch_related_products, only: [:back_order_create, :taobao_order_create, :current, :apply_coupon]
   before_action :authenticate_user!, only: [:new, :index, :show, :create, :checkout, :cancel]
   before_action :authenticate_administrator!, only: [:back_order_new, :back_order_create, :taobao_order_new, :taobao_order_create]
   before_action :process_custom_data, only: [:return, :notify]
@@ -70,9 +70,11 @@ class OrdersController < ApplicationController
     @order_form = OrderForm.new(params[:order_form])
     @order_form.user = current_or_guest_user
 
+    update_coupon_code(@order_form.coupon_code)
+
     # create line items
-    @cart.keys.each do |key|
-      @order_form.add_line_item(key, @cart[key])
+    @cart.items.each do |item|
+      @order_form.add_line_item(item.product_id, item.quantity)
     end
 
     if @order_form.save
@@ -146,6 +148,14 @@ class OrdersController < ApplicationController
 
   def current ; end
 
+  def apply_coupon
+    coupon = Coupon.find_by_code(params[:coupon_code])
+
+    update_coupon_code(params[:coupon_code]) if @cart
+
+    render :current
+  end
+
   def cancel
     @order = current_or_guest_user.orders.find_by_id(params[:id])
     if @order.cancel
@@ -191,10 +201,6 @@ class OrdersController < ApplicationController
       session[:order_id] = record.id
     end
 
-    def empty_cart
-      cookies.delete :cart
-    end
-
     def update_guest
       # need an object to hold the user instance
       guest = guest_user
@@ -229,4 +235,5 @@ class OrdersController < ApplicationController
         { paymethod: 'bankPay', merchant_name: pay_info }
       end
     end
+
 end
