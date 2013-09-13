@@ -43,5 +43,9 @@
               a.msg
             li.last
               a.facebook
-        button.add-btn data-product="#{@product.id}"
-          | 加入购物车
+        - if @product.count_on_hand > 0
+          = link_to t('views.product.flower_basket'), current_order_path, class: 'add-btn button', data: { product: @product.id }
+        - else
+          p
+            =t 'views.product.soldout'
+
