@@ -52,6 +52,15 @@ describe Coupon do
     it { should_not be_usable }
   end
 
+  context "when order's total price is less than coupon's price condition" do
+    before(:each) do
+      stub(coupon).price_condition { 300 }
+      stub(order).total { 301 }
+    end
+
+    it { should_not be_usable(order) }
+  end
+
   describe "#used_by_order?" do
     context "when the order has no coupon" do
       before(:each) do

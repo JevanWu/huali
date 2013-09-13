@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130911092550) do
+ActiveRecord::Schema.define(version: 20130913073003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,6 +116,11 @@ ActiveRecord::Schema.define(version: 20130911092550) do
 
   add_index "collections_products", ["product_id", "collection_id"], name: "index_collections_products_on_product_id_and_collection_id", unique: true, using: :btree
 
+  create_table "collocation_relations", force: true do |t|
+    t.integer "product_a_id", null: false
+    t.integer "product_b_id", null: false
+  end
+
   create_table "coupons", force: true do |t|
     t.string   "code",                            null: false
     t.string   "adjustment",                      null: false
@@ -126,6 +131,7 @@ ActiveRecord::Schema.define(version: 20130911092550) do
     t.integer  "available_count", default: 1,     null: false
     t.integer  "used_count",      default: 0
     t.string   "note"
+    t.integer  "price_condition"
   end
 
   add_index "coupons", ["code"], name: "coupons_on_code", unique: true, using: :btree
