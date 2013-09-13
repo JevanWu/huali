@@ -9,39 +9,34 @@
 
     ul.operate
       li.cart-li-preview
-        a.cart[href=""]
-          | (0)
+        a.cart
+          = "(#{@cart ? @cart.item_count : 0})"
           i
         .cart-preview-container
           .cart-preview
-            h3
-              a[href=""]
-                | 我的购物车
-            .cart-preview-item
-              =image_tag('product_thumb.jpg',width: 35,height: 35)
-              .cart-preview-item-main
-                h4 普罗旺斯的一年
-                .cart-preview-item-info
-                  .num
-                    | 数量：1
-                  .price
-                    | ￥1599
-            .cart-preview-item.last
-              =image_tag('product_thumb.jpg',width: 35,height: 35)
-              .cart-preview-item-main
-                h4 普罗旺斯的一年
-                .cart-preview-item-info
-                  .num
-                    | 数量：1
-                  .price
-                    | ￥1599
-            .summary
-              span
-                | 合计：
-              strong
-                | ￥2198
-            .go-checkout
-              = link_to '结算', current_order_path, class: 'checkout'
+            - if @cart.nil?
+              p 您的购花篮还是空的
+            - else
+              h3
+                a
+                  | 我的购物车
+              - @cart.items.each_with_index do |item, index|
+                .cart-preview-item class="#{".last" if index + 1 == @cart.items.size}"
+                  = image_tag(item.img(:thumb), width: 35, height: 35)
+                  .cart-preview-item-main
+                    h4 #{item.name}
+                    .cart-preview-item-info
+                      .num
+                        = "数量：#{item.quantity}"
+                      .price
+                        = number_to_currency item.price, unit: '&yen;'
+              .summary
+                span
+                  | 合计：
+                strong
+                  = number_to_currency @cart.total, unit: '&yen;'
+              .go-checkout
+                = link_to '结算', current_order_path, class: 'checkout'
 
       - if user_signed_in?
         li.personal-account.last
