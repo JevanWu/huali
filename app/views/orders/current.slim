@@ -1,6 +1,6 @@
 .cart
   .cart-inner
-    - if @products.blank?
+    - if @cart.blank?
       .empty
         i
         p.tips
@@ -28,7 +28,7 @@
               | 单价
             .col-4
               | 数量
-          = render partial: 'product_in_cart', collection: @products
+          = render partial: 'product_in_cart', collection: @cart.items
         .cart-checkout.span3
           .discount
             p
@@ -47,14 +47,17 @@
             p
               | 请在订单信息页面完善地址信息
             p
-              | 小计（<span class="total-num">4</span>件商品）：
+              | 小计
+              span.total-num #{@cart.item_count}
+              |件商品）：
               strong.total-price
-                = count_cart(@products)
-            p
-              em
-                del
-                  | 原价：
-                  span
-                    | ￥1599
+                = number_to_currency @cart.total, unit: '&yen;'
+            - if @cart.discounted?
+              p
+                em
+                  del
+                    | 原价：
+                    span
+                      = number_to_currency @cart.original_total, unit: '&yen;'
             = link_to t('views.order.checkout'), new_order_path, class: 'btn-checkout'
       == render 'shared/guess_you_like', related_products: @related_products.take(5)
