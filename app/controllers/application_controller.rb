@@ -16,6 +16,9 @@ class ApplicationController < ActionController::Base
   include ::Extension::Exception
   include ::Extension::RecordCookie
   include ::Extension::SignInRedirect
+  include ::Extension::Cart
+
+  before_action :load_cart
 
   # mobile request detection
   include Mobylette::RespondToMobileRequests
