@@ -1,11 +1,4 @@
 GIT
-  remote: git://github.com/FriendlyId/friendly_id.git
-  revision: c49ce30ff2b370669ccf1708e99fb08ab51435d9
-  ref: c49ce30ff2b3
-  specs:
-    friendly_id (4.1.0.beta.2)
-
-GIT
   remote: git://github.com/blaet/nulldb.git
   revision: 1556bdfa38fbb466f40712db6c307b59621df5bd
   branch: support_enable_extension
@@ -171,6 +164,12 @@ GIT
   revision: 2e73b073132940cc885703079713a2a4e5d02e96
   specs:
     phonelib (0.1.3)
+
+GIT
+  remote: git://github.com/zenhacks/friendly_id.git
+  revision: c49ce30ff2b370669ccf1708e99fb08ab51435d9
+  specs:
+    friendly_id (4.1.0.beta.2)
 
 GIT
   remote: https://github.com/SamSaffron/MiniProfiler.git

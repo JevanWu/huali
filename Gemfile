@@ -17,7 +17,7 @@ gem 'axlsx'
 gem 'paperclip', '~> 3.0'
 gem 'simple_form', github: 'plataformatec/simple_form', branch: 'master'
 gem 'kramdown', '~> 0.13'
-gem 'friendly_id', github: 'FriendlyId/friendly_id', ref: 'c49ce30ff2b3'
+gem 'friendly_id', github: 'zenhacks/friendly_id'
 # backup, whenever probably should be isolated in a server setup script
 gem 'backup', require: false
 gem 'whenever', require: false
