@@ -30,7 +30,7 @@ class Coupon < ActiveRecord::Base
   has_many :orders
 
   def use_and_record_usage_if_applied(order)
-    if usable? && !used_by_order?(order)
+    if usable?(order) && !used_by_order?(order)
       use! and record_order(order)
     end
   end
@@ -44,8 +44,11 @@ class Coupon < ActiveRecord::Base
     end
   end
 
-  def usable?
-    ! (expired || Time.current > expires_at || available_count == 0)
+  def usable?(order = nil)
+    (order && price_condition ? order.total > price_condition : true) &&  # keeps the API call without order or order_form
+    !expired &&
+    expires_at > Time.current && 
+    available_count > 0
   end
 
   def to_s

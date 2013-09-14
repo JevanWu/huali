@@ -9,7 +9,7 @@ gem 'devise-i18n'
 gem 'cancan', '~> 1.0'
 gem 'rails-i18n'
 gem 'redis-rails', github: 'jodosha/redis-store'
-gem 'activeadmin',         github: 'gregbell/active_admin', branch: 'rails4'
+gem 'activeadmin',         github: 'ryancheung/active_admin', ref: '54fb71c5415f7b1a7aa0cdde680ee882fa3b2d6f'
 gem 'ransack',             github: 'ernie/ransack',         branch: 'rails-4'
 gem 'inherited_resources', github: 'josevalim/inherited_resources'
 gem 'formtastic',          github: 'justinfrench/formtastic'
@@ -17,7 +17,7 @@ gem 'axlsx'
 gem 'paperclip', '~> 3.0'
 gem 'simple_form', github: 'plataformatec/simple_form', branch: 'master'
 gem 'kramdown', '~> 0.13'
-gem 'friendly_id', github: 'FriendlyId/friendly_id', branch: 'rails4'
+gem 'friendly_id', github: 'zenhacks/friendly_id'
 # backup, whenever probably should be isolated in a server setup script
 gem 'backup', require: false
 gem 'whenever', require: false

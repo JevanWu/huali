@@ -109,10 +109,6 @@ class OrderForm
 
   validates :expected_date, presence: true
 
-  def fetch_products
-    line_items.map { |l| Product.find(l.product_id) }
-  end
-
   def save
     return false unless valid?
     begin
@@ -123,6 +119,13 @@ class OrderForm
     rescue ActiveRecord::ActiveRecordError
       false
     end
+  end
+
+  # FIXME, add the price info into cookie and remove this query
+  def total
+    line_items.map do |item|
+      Product.find(item.product_id).price
+    end.inject(:+)
   end
 
   def add_line_item(product_id, quantity)

@@ -44,4 +44,28 @@ namespace :migrate do
     Setting.expected_date_notice = "端午节周末接受订单。订单除周日，周一外均可送达."
     Setting.head_service_notice = "For English Service: 400-001-6936"
   end
+
+  desc "Fix mistyped phones"
+  task fix_mistyped_phones: :environment do
+    Order.unscoped.each do |o|
+      phone = o.sender_phone_before_type_cast
+      parsed = Phonelib.parse(phone)
+
+      if parsed.valid?# && o.state != 'void' && o.state != 'completed'
+        if phone =~ /^01\-/ || phone =~ /^1\-/
+          puts "Old: #{phone}"
+          if phone =~ /^01\-/
+            phone = phone.sub(/^0(1\-)/, '+\1')
+          elsif phone =~ /^1\-/
+            phone = phone.sub(/^(1\-)/, '+\1')
+          end
+
+          o.sender_phone = phone
+          o.save(validate: false)
+          puts "Updated: #{phone}"
+        end
+      end
+    end;
+    puts "done";
+  end
 end

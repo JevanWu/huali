@@ -36,7 +36,7 @@ zh-CN:
         blank: 您需要填写此项
         unavailable_date: 快递无法为您在这个日期进行递送
         unavailable_location: 我们无法为您配送到这个地区
-        expired_coupon: 对不起，该优惠券已经过期或者失效
+        invalid_coupon: 对不起，该优惠券已经过期或者无法使用
         non_exist_coupon: 对不起，该优惠券不存在
         unavailable_products: 产品不可用
         blank_products: 产品不能为空
@@ -240,6 +240,7 @@ zh-CN:
       product:
         thumbnail: 缩略图
         image: 图片
+        rectangle_image: 矩形图片
         name_zh: 中文名
         name_en: 英文名
         tags: 标签
@@ -301,6 +302,7 @@ zh-CN:
         expired: 是否失效
         adjustment: 优惠调整
         note: 说明
+        price_condition: 价格使用条件
         available_count: 剩余有效次数
         used_count: 使用次数
         expires_at: 过期时间

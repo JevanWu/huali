@@ -46,6 +46,8 @@ class Product < ActiveRecord::Base
   has_many :assets, as: :viewable, dependent: :destroy
   accepts_nested_attributes_for :assets, reject_if: lambda { |a| a[:image].blank? }, allow_destroy: true
 
+  has_attached_file :rectangle_image, styles: { medium: "220x328>" }
+
   # lineItems
   has_many :line_items
 
