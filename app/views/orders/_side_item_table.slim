@@ -8,16 +8,16 @@
       span
         = t('views.order.in_total')
       em
-        = number_to_currency @cart.original_total, unit: '&yen;'
-    - if @cart.discounted?
+        = number_to_currency cart.original_total, unit: '&yen;'
+    - if cart.discounted?
       .summary-item
         span
           | 折扣
         em
           | -&nbsp;
-          = number_to_currency @cart.discount_money, unit: '&yen;'
+          = number_to_currency cart.discount_money, unit: '&yen;'
     .summary-item
       span
         | 折后总计
       em.special
-        = number_to_currency @cart.total, unit: '&yen;'
+        = number_to_currency cart.total, unit: '&yen;'
