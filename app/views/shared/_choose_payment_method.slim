@@ -10,11 +10,13 @@
   .web-bank
     .web-bank-title
       | 网上银行
-    - banks.each do |bank|
-      .web-bank-item
-        label
-          = radio_button_tag(:pay_info, bank)
-          = image_tag("pay/#{bank}.jpg")
+    - while (bank_row = banks.shift(2)).present?
+      .web-bank-row
+        - bank_row.each do |bank|
+            .web-bank-item
+              label
+                = radio_button_tag(:pay_info, bank)
+                = image_tag("pay/#{bank}.jpg")
   .credit-card
     .credit-card-title
       | 信用卡
