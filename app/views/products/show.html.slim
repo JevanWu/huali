@@ -49,5 +49,5 @@
         - if @product.count_on_hand > 0
           = link_to t('views.product.flower_basket'), current_order_path, class: 'add-btn button', data: { product: @product.id }
         - else
-          p
+          p.cant-add
             =t 'views.product.soldout'

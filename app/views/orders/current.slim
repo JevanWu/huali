@@ -48,10 +48,10 @@
               | 您的订单享受免费配送
             p
               | 请在订单信息页面完善地址信息
-            p
+            p.subtotal
               | 小计
-              span.total-num #{@cart.item_count}
-              |件商品）：
+              span.total-num
+              |（<i>#{@cart.item_count}</i>件商品）：
               strong.total-price
                 = number_to_currency @cart.total, unit: '&yen;'
             - if @cart.discounted?

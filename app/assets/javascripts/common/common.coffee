@@ -23,4 +23,10 @@
     $(this).find(".profile").hide()
     return
 
+  #banner
+  $("#banner .close").click (e)->
+    e.preventDefault()
+    $("#banner").parent().remove()
+    return
+
   return
