@@ -22,9 +22,12 @@ $passportWidth: 552px
   h2
     position: relative
     padding: 0 15px
+    margin-bottom: 10px
     = rhombus_1
     b
       left: 100px
+  abbr
+    color: #c80000
   .input-wrap
     +clearfix
     margin-left: 0
@@ -34,8 +37,6 @@ $passportWidth: 552px
       line-height: 25px
       text-align: right
       margin-left: 0
-      em
-        color: #c80000
     .email-wrap
       float: left
       margin-left: 20px
@@ -54,6 +55,7 @@ $passportWidth: 552px
   h2
     position: relative
     padding: 0 15px
+    margin-bottom: 50px
     +rhombus_1
     b
       left: 60px
@@ -62,8 +64,16 @@ $passportWidth: 552px
     font-size: $content-font
     color: $strong-color
     font-weight: normal
-    left: 120px
+    right: 37px
     top: 3px
+  .auto-login
+    margin-top: 9px
+  .form-actions
+    a
+      float: right
+      margin: 7px 15px 0 0
+  abbr
+    color: #c80000
   .input-wrap
     padding-top: 45px
     .input-item
@@ -76,8 +86,6 @@ $passportWidth: 552px
         line-height: 25px
         text-align: right
         margin-left: 0
-        em
-          color: #c80000
       .email-wrap,.password-wrap
         float: left
         margin-left: 20px
@@ -108,6 +116,18 @@ $passportWidth: 552px
     +rhombus_1
     b
       left: 100px
+  #user_phone
+    margin-top: 10px
+  .user_email
+    margin-top: 10px
+  strong
+    float: right
+    font-size: 14px
+    margin-top: 10px
+    a
+      color: $link-blue-color
+  abbr
+    color: #c80000
   .input-wrap
     padding-top: 45px
     .input-item
@@ -121,8 +141,6 @@ $passportWidth: 552px
         text-align: right
         line-height: 25px
         margin-left: 0
-        em
-          color: #c80000
       .input-item-wrap
         float: left
         margin-left: 20px
@@ -157,3 +175,12 @@ $passportWidth: 552px
   ul
     padding-left: 2px
     color: red
+
+/*passport common style*/
+.meta
+  font-size: 14px
+  font-weight: normal
+  line-height: 35px
+.login-use-oauth
+  a
+    margin-right: 10px
