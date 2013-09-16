@@ -72,6 +72,8 @@
               display: block
             span
               margin-bottom: 25px
+            h4
+              margin-bottom: 55px
             p
               color: $content-normal-color
           .price
@@ -85,7 +87,7 @@
             padding-top: 40px
             a,input
               float: left
-            .minus,.plus
+            .add_quantity,.reduce_quantity
               width: 8px
               height: 8px
               margin-top: 6px
@@ -102,7 +104,7 @@
               color: $link-lighter-color
               padding: 0
               margin-bottom: 0
-            .drop
+            .empty_quantity
               width: 14px
               height: 16px
               margin-left: 9px
@@ -113,15 +115,18 @@
         width: 230px
         margin-left: 0
         padding-top: 85px
+        .subtotal 
+          i
+            font-style: normal
         .discount
-          height: 98px
-          padding-top: 35px
+          height: 123px
+          padding-top: 40px
           padding-left: 9px
           border: 1px solid #eeeeee
           .input-wrap
             input
               width: 124px
-              height: 23px
+              height: 28px
               border: 1px solid $border-lighter-color
               +border-radius(3px)
               margin-bottom: 0

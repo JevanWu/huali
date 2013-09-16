@@ -1,4 +1,4 @@
-.cart-product-item
+.cart-product-item.item-table data-total = "#{product_in_cart.total}"
   = image_tag product_in_cart.img(:medium), width: '140', height: '134'
   .product-info-main
     h3.product-name
@@ -14,10 +14,10 @@
       | 免费配送
     p
       | 加入分享
-  .price
+  .price data-price = "#{product_in_cart.price}"
     = number_to_currency product_in_cart.price, unit: '&yen;'
-  .op
-    = link_to '-', current_order_path, data: { product: product_in_cart.product_id }, class: 'minus'
+  .op.quantity
+    = link_to '-', current_order_path, data: { product: product_in_cart.product_id }, class: 'reduce_quantity'
     input type='text' value="#{product_in_cart.quantity}"
-    = link_to '+', current_order_path, data: { product: product_in_cart.product_id }, class: 'plus'
-    = link_to '', current_order_path, data: { product: product_in_cart.product_id }, class: 'drop'
+    = link_to '+', current_order_path, data: { product: product_in_cart.product_id }, class: 'add_quantity'
+    = link_to '', current_order_path, data: { product: product_in_cart.product_id }, class: 'empty_quantity'

@@ -26,6 +26,7 @@
   background-image: image-url("bg/rhombus_darken.png")
 
 =button($buttonWidth, $buttonHeight: 30px, $buttonFontSize: 12px)
+  display: inline-block
   width: $buttonWidth !important
   height: $buttonHeight
   line-height: $buttonHeight
@@ -49,6 +50,8 @@
 h3.product-name
   display: inline-block
   font-weight: normal
+  a
+    color: $normal-text-color
 
 h4.product-name-en
   font-weight: normal
@@ -80,9 +83,11 @@ h4.product-name-en
 
 .btn-discount
   +button(60px)
+  margin-left: 5px
 
 .btn-checkout
   @extend .btn-next
+  margin-top: 50px
 
 /*这个PC和MOBILE相同*/
 .btn-addToCart
