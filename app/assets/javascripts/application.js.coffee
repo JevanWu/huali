@@ -1,4 +1,5 @@
 #= require jquery_ujs
+#= require chosen.jquery
 #= require 'Huali'
 #= require_tree './component'
 #= require 'common/common'
@@ -7,6 +8,7 @@
 #= require 'module/cate'
 #= require 'module/cart'
 #= require 'module/my-order'
+#= require 'module/chosen-select'
 #= require 'orders'
 
 $ ->
