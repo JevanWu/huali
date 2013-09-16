@@ -2,7 +2,7 @@
   = image_tag product_in_cart.img(:medium), width: '140', height: '134'
   .product-info-main
     h3.product-name
-      = link_to product_in_cart.name, product_path(product_in_cart.product_id)
+      = link_to product_in_cart.name, product_path(product_in_cart.product)
     h4.product-name-en
       = product_in_cart.name_en
     p
