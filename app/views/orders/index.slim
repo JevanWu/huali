@@ -3,7 +3,7 @@
     == render 'shared/account_nav'
 
     - if @orders.blank?
-      .row
+      .order-empty
         p: 您还没有任何订单, 请去 #{link_to '花市', root_path} 开始采购.
     - else
       ul.my-product-list

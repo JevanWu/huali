@@ -16,13 +16,14 @@ li.row
       p
         = order.address.full_addr
   .col2.span3
-    span.post-date
-      - if order.delivery_date.present?
-        = "发送日期：#{l order.delivery_date, format: :long}"
-      - else
-        = "发送日期：未发货"
-    strong.state
-      = t('models.order.state.' + order.state)
+    .order-table-state
+      span.post-date
+        - if order.delivery_date.present?
+          = "发送日期：#{l order.delivery_date, format: :long}"
+        - else
+          = "发送日期：未发货"
+      strong.state
+        = t('models.order.state.' + order.state)
 
     .product-info
       - product = order.products.first
@@ -38,10 +39,10 @@ li.row
           | 免费配送
         p
           | 加入分享
-  .col3
-    - if order.state == 'generated'
-      = link_to t('models.order.state.pay'), checkout_order_path(order), class: 'btn-completePay'
-    button.btn-logistics
-      | 跟踪包裹
-    button.btn-invoice
-      | 补开发票
+      .op-area
+        - if order.state == 'generated'
+          = link_to t('models.order.state.pay'), checkout_order_path(order), class: 'btn-completePay'
+        button.btn-logistics
+          | 跟踪包裹
+        button.btn-invoice
+          | 补开发票
