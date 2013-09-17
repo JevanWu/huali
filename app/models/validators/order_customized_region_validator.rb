@@ -4,7 +4,7 @@ class OrderCustomizedRegionValidator < ActiveModel::Validator
   def validate(order)
     address = order.address
 
-    Array.new(fetch_rules(order.expected_date)).each do |region_rule|
+    fetch_rules(order.expected_date).each do |region_rule|
       rule_runner = RegionRuleRunner.new(region_rule.province_ids,
                                          region_rule.city_ids,
                                          region_rule.area_ids)
@@ -22,6 +22,6 @@ class OrderCustomizedRegionValidator < ActiveModel::Validator
   private 
 
   def fetch_rules(date)
-
+    PeriodRegionPolicy.available_rules_at_date(date)
   end
 end
