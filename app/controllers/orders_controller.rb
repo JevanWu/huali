@@ -50,7 +50,7 @@ class OrdersController < ApplicationController
   # - tracking is skipped
   def back_order_new
     validate_cart
-    @order_admin_form = OrderAdminForm.new
+    @order_admin_form = OrderAdminForm.new({kind: 'marketing'})
     @order_admin_form.address = ReceiverInfo.new
   end
 
