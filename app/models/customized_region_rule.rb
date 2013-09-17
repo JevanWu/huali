@@ -1,0 +1,2 @@
+class CustomizedRegionRule < RegionRule 
+end

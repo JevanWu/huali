@@ -27,6 +27,12 @@ FactoryGirl.define do
     product
   end
 
+  factory :customized_region_rule do
+    province_ids []
+    city_ids []
+    area_ids []
+  end
+
   factory :default_region_rule do
     sequence(:name) { |n| "Default#{n}" }
     province_ids []
