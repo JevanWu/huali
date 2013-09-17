@@ -93,7 +93,6 @@ ActiveAdmin.register Product do
   form partial: "form"
 
   show do
-
     attributes_table do
       row :name_zh
       row :name_en
