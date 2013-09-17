@@ -32,9 +32,12 @@
         .product-title
           h3.product-name = @product.name
           h4.product-name-en = @product.name_en
-          del
-            i ￥1599
-          p.price ￥#{@product.original_price}
+          - unless @product.original_price.nil?
+            del
+              i
+                = number_to_currency @product.original_price, unit: '&yen;'
+          p.price
+            = number_to_currency @product.price, unit: '&yen;'
           p 免运费
         .share
           - share_title = "我在 @花里花店 发现的好东西:  #{@product.name}"
