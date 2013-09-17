@@ -24,13 +24,6 @@ FactoryGirl.define do
     province_ids []
     city_ids []
     area_ids []
-    product
-  end
-
-  factory :customized_region_rule do
-    province_ids []
-    city_ids []
-    area_ids []
   end
 
   factory :default_region_rule do
