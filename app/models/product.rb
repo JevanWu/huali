@@ -55,7 +55,7 @@ class Product < ActiveRecord::Base
 
   # Area and Date rules
   belongs_to :default_region_rule
-  has_one :local_region_rule, dependent: :destroy
+  has_one :local_region_rule, as: :region_rulable, dependent: :destroy
   accepts_nested_attributes_for :local_region_rule, allow_destroy: true, update_only: true,
     reject_if: :all_blank
 

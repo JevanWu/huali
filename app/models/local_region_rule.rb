@@ -18,5 +18,5 @@
 #
 
 class LocalRegionRule < RegionRule
-  belongs_to :product
+  belongs_to :region_rulable, polymorphic: true
 end

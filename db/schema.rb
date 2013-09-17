@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130917040200) do
+ActiveRecord::Schema.define(version: 20130917083253) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,15 @@ ActiveRecord::Schema.define(version: 20130917040200) do
   add_index "assets", ["viewable_id"], name: "index_assets_on_viewable_id", using: :btree
   add_index "assets", ["viewable_type"], name: "index_assets_on_viewable_type", using: :btree
 
+  create_table "banners", force: true do |t|
+    t.string   "name"
+    t.string   "content"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "cities", force: true do |t|
     t.string  "name"
     t.integer "post_code"
@@ -115,11 +124,6 @@ ActiveRecord::Schema.define(version: 20130917040200) do
   end
 
   add_index "collections_products", ["product_id", "collection_id"], name: "index_collections_products_on_product_id_and_collection_id", unique: true, using: :btree
-
-  create_table "collocation_relations", force: true do |t|
-    t.integer "product_a_id", null: false
-    t.integer "product_b_id", null: false
-  end
 
   create_table "coupons", force: true do |t|
     t.string   "code",                            null: false
@@ -222,7 +226,6 @@ ActiveRecord::Schema.define(version: 20130917040200) do
   create_table "period_region_policies", force: true do |t|
     t.date     "start_date"
     t.date     "end_date"
-    t.integer  "customized_region_rule_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -278,17 +281,18 @@ ActiveRecord::Schema.define(version: 20130917040200) do
   add_index "recommendation_relations", ["recommendation_id"], name: "index_recommendation_relations_on_recommendation_id", using: :btree
 
   create_table "region_rules", force: true do |t|
-    t.integer  "product_id"
+    t.integer  "region_rulable_id"
     t.text     "province_ids"
     t.text     "city_ids"
     t.text     "area_ids"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.string   "name"
     t.string   "type"
+    t.string   "region_rulable_type"
   end
 
-  add_index "region_rules", ["product_id"], name: "index_region_rules_on_product_id", using: :btree
+  add_index "region_rules", ["region_rulable_id"], name: "index_region_rules_on_region_rulable_id", using: :btree
 
   create_table "reminders", force: true do |t|
     t.string   "email",      null: false
