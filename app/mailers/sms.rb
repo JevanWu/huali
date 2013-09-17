@@ -22,7 +22,7 @@ class Sms
   #   :sms
   #     send real sms
   def initialize(options)
-    @phone_number = options[:phone_number]
+    @phone_number = Phonelib.parse(options[:phone_number])
     @body = options[:body]
     @delivery_method = options[:delivery_method] ||
       Rails.configuration.sms_delivery_method
@@ -44,7 +44,11 @@ class Sms
   end
 
   def national?
-    Phonelib.parse(phone_number).country == Phonelib.default_country
+    phone_number.country == Phonelib.default_country
+  end
+
+  def sanitized_national_phone
+    phone_number.national.delete(' ')
   end
 
   def smsbao
@@ -56,11 +60,11 @@ class Sms
     response = conn.get '/sms',
       u: ENV['SMS_USERNAME'],
       p: Digest::MD5.hexdigest(ENV['SMS_PASSWORD']),
-      m: phone_number.to_s,
+      m: sanitized_national_phone,
       c: body
 
     unless response.body == '0'
-      raise StandardError, SMSBAO_ERROR_CODE[response.body] + ". " + "phone number is #{phone_number}. " + "content is #{body}."
+      raise StandardError, SMSBAO_ERROR_CODE[response.body] + ". " + "phone number is #{sanitized_national_phone}. " + "content is #{body}."
     end
   end
 
@@ -72,13 +76,13 @@ class Sms
       # :body => 'Hey there!'
     # }
     client.account.sms.messages.create(from: '+15713832992',
-                                       to: phone_number.to_s,
+                                       to: phone_number.international,
                                        body: body)
   end
 
   def log_to_file
     log_file = File.join(Rails.root, 'log/sms.log')
-    content = "Send at: #{Time.now} To: #{phone_number.to_s} Content: #{body}"
+    content = "Send at: #{Time.now} To: #{phone_number.international} Content: #{body}"
 
     a_logger = Logger.new(log_file)
     a_logger.info(content)
