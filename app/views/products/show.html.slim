@@ -31,7 +31,9 @@
       .add-to-cart.span3
         .product-title
           h3.product-name = @product.name
-          h3.product-name = @product.name_en
+          h4.product-name-en = @product.name_en
+          del
+            i ￥1599
           p.price ￥#{@product.original_price}
           p 免运费
         .share
