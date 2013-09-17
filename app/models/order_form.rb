@@ -1,4 +1,5 @@
 require 'virtus'
+require 'phonelib_extension'
 require 'active_model'
 require 'validators/all'
 
@@ -103,6 +104,7 @@ class OrderForm
 
   validates_with OrderProductRegionValidator, if: :validate_product_delivery_region?
   validates_with OrderProductDateValidator, if: :validate_product_delivery_date?
+  validates_with OrderCustomizedRegionValidator, if: :validate_product_delivery_date?
   validates_with OrderItemValidator, if: :validate_item?
   validates_with OrderProductAvailabilityValidator, if: :validate_item?
   validates_with OrderCouponValidator, if: :validate_coupon?
