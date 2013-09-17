@@ -1,6 +1,6 @@
 require 'virtus'
-require 'phonelib_extension'
 require 'active_model'
+require 'phonelib_extension'
 require 'validators/all'
 
 class ReceiverInfo

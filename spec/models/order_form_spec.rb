@@ -10,13 +10,17 @@ describe ReceiverInfo do
     let(:valid_receiver) do
       {
         fullname: '张佳婵',
-        phone: '13912341234',
+        phone: '+8613912341234',
         province_id: 1,
         city_id: 12,
         area_id: 13,
         address: '藏龙岛科技园栗庙路6号 湖北美术学院藏龙岛校区 5栋202室',
         post_code: '430200'
       }
+    end
+
+    it 'should accept valid receiver' do
+      ReceiverInfo.new(valid_receiver).should be_valid
     end
 
     [:fullname, :address, :phone, :province_id, :city_id, :post_code].each do |attr|
