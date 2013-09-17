@@ -19,10 +19,10 @@
       .tabs
         span
           | 显示：
-        a.row-view
-        a.square-view
+        a.row-view[href="javascript:;"]
+        a.square-view[href="javascript:;"]
   dd.main
-    ul.row-item
+    ul.row-item.is-hidden
       - @products.each do |product|
         li.row
           - product.assets.take(3).each do |asset|
@@ -35,8 +35,8 @@
                   = link_to product.name, product_path(product), title: product.name
                 h4.product-name-en
                   = product.name_en
-              .price
-                span ￥#{product.original_price}
+                .price
+                  span ￥#{product.original_price}
             .share
               ul.share-to
                 li
@@ -47,7 +47,7 @@
                   a.facebook
               span
                 | share this look
-    .best-products.row.is-hidden
+    .best-products.row
       - @products.each_with_index do |product, index|
         .a-product.span3 class="#{'first' if index == 0}"
           = image_tag product.img(:medium), alt: "#{product.name} medium images"

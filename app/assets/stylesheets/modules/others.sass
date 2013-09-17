@@ -91,7 +91,7 @@
     top: 242px
     width: 59px
     height: 76px
-    background-color: #f8f8f8
+    background-color: transparentize(#f8f8f8, 0.4)
     background-position: center center
   .btn-left
     left: 0
@@ -151,6 +151,7 @@
         &.row-view
           background-image: image-url("bg/icon3.png")
         &.square-view
+          margin-left: 5px
           background-image: image-url("bg/icon4.png")
   .main
     .best-products
@@ -184,17 +185,17 @@
             font-size: $title-font
             color: $global-text-color
         .price
-          float: right
+          margin-top: 10px
           span
-            font-size: $price-font-large
+            font-size: $content-font
             color: $global-text-color
         .share
           +clearfix
-          margin-top: 23px
+          margin-top: 13px
           padding: 10px 10px 1px 10px
           border-color: $global-border-color
           border-style: solid
-          border-width: 1px 0 1px 0
+          border-width: 1px 0 0 0
           .share-to
             +clearfix
             float: right

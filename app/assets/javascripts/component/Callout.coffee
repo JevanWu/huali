@@ -29,8 +29,18 @@ class Callout
 
   horizontalMove: ($tar,which,$trigger,change) ->
     @end = false
-    if change is "yes"
+    if change is "width"
       $tar.stop(false,true).animate({left: @getPos(which,$trigger),width: @calloutItemSizeCollection[which].width},200, ->
+        @begin = true
+        return
+        )
+    else if change is "both"
+       $tar.stop(false,true).animate({left: @getPos(which,$trigger),width: @calloutItemSizeCollection[which].width,height:@calloutItemSizeCollection[which].height},200, ->
+        @begin = true
+        return
+        )
+    else if change is "height"
+       $tar.stop(false,true).animate({left: @getPos(which,$trigger),height: @calloutItemSizeCollection[which].height},200, ->
         @begin = true
         return
         )
@@ -53,7 +63,11 @@ class Callout
       $(css.calloutItem).eq(which).removeClass("is-hidden")
       #do width change
       if @calloutItemSizeCollection[which].width isnt $(css.calloutContainer).width()
-        change = "yes"
+        change = "width"
+        if @calloutItemSizeCollection[which].height isnt $(css.calloutContainer).height()
+          change = "both"
+      else if @calloutItemSizeCollection[which].height isnt $(css.calloutContainer).height()
+        change = "height"
       else
         change = "no"
       #do horizontal animate
