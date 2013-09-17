@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130913073003) do
+ActiveRecord::Schema.define(version: 20130917070950) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,15 @@ ActiveRecord::Schema.define(version: 20130913073003) do
   add_index "assets", ["viewable_id"], name: "index_assets_on_viewable_id", using: :btree
   add_index "assets", ["viewable_type"], name: "index_assets_on_viewable_type", using: :btree
 
+  create_table "banners", force: true do |t|
+    t.string   "name"
+    t.string   "content"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "cities", force: true do |t|
     t.string  "name"
     t.integer "post_code"
@@ -115,11 +124,6 @@ ActiveRecord::Schema.define(version: 20130913073003) do
   end
 
   add_index "collections_products", ["product_id", "collection_id"], name: "index_collections_products_on_product_id_and_collection_id", unique: true, using: :btree
-
-  create_table "collocation_relations", force: true do |t|
-    t.integer "product_a_id", null: false
-    t.integer "product_b_id", null: false
-  end
 
   create_table "coupons", force: true do |t|
     t.string   "code",                            null: false
@@ -218,6 +222,14 @@ ActiveRecord::Schema.define(version: 20130913073003) do
   end
 
   add_index "pages", ["permalink"], name: "index_pages_on_permalink", using: :btree
+
+  create_table "period_region_policies", force: true do |t|
+    t.date     "start_date"
+    t.date     "end_date"
+    t.integer  "customized_region_rule_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "products", force: true do |t|
     t.string   "name_zh",                                              default: "",    null: false
