@@ -1,23 +1,19 @@
 =rhombus_1
   i,b
-    position: absolute
-    top: 8px
+    display: inline-block
     width: 10px
     height: 10px
+    vertical-align: middle
     background-image: image-url("bg/rhombus_darken.png")
-  i
-    left: 0
-  b
-    left: 0
 
 =rhombus_2
   a
     display: block
     width: 10px
     height: 10px
-    background-image: image-url("bg/rhombus_normal.png")
+    background-image: image-url("bg/rhombus_light.png")
     &.cur
-      background-image: image-url("bg/rhombus_light.png")
+      background-image: image-url("bg/rhombus_normal.png")
 
 =rhombus_3
   position: absolute
@@ -50,10 +46,12 @@
 h3.product-name
   display: inline-block
   font-weight: normal
+  font-size: 16px
   a
     color: $normal-text-color
 
 h4.product-name-en
+  font-size: 14px
   font-weight: normal
 
 
@@ -79,6 +77,7 @@ h4.product-name-en
 
 .btn-completePay
   @extend .btn-logistics
+  margin-bottom: 10px
   background-color: $buttonBgColor
 
 .btn-discount

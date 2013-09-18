@@ -1,7 +1,12 @@
 ﻿$ ->
+  #fixed布局处理 设计要求好不合理 只能用JS来解决
+  if $(".error-tips").length isnt 0
+    $(".error-tips,#l-fixed-area-container,#l-nav").wrapAll("<div id='l-fixed-area-item3'></div>")
+  else
+    $("#l-fixed-area-container,#l-nav").wrapAll("<div id='l-fixed-area-item2'></div>")
   #提示信息关闭
   $(".error-tips b").click ->
-  	$(".error-tips").hide()
+  	$(".error-tips").parent().attr("id","l-fixed-area-item2").end().remove()
   	return
   #导航栏下拉购物车
   $(".cart-li-preview").hover ->

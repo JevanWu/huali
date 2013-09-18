@@ -5,8 +5,9 @@
         p HUALINEWS
         .placeholder
           label for="customer-email" 输入您的电子邮件
-          input type="text"
-        button.btn-post 发送
+          = form_tag users_subscribe_email_path, method: :post do
+            input type="text" name="email"
+            = submit_tag "发送", class: 'btn-post'
       .contact-social
         p 关注我们
         ul

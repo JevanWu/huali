@@ -3,18 +3,29 @@
   .my-order-inner
     width: $global-width
     margin: 0 auto 35px
+    .order-empty 
+      padding-left: 30px
     .my-product-list
       li
         +clearfix
         margin-left: 0
-        padding: 30px 80px 25px 25px
         margin-bottom: 7px
-        height: 180px
+        padding: 10px
+        height: 215px
         border: 1px solid #eee
+        background-color: #fff
+        box-shadow: 2px 0 5px rgba(214, 214, 215, 0.9), -2px 0 5px rgba(214, 214, 215, 0.9)
+        & > div
+          padding-top: 20px
+          padding-bottom: 25px
+          height: 172px
         .col1
           margin-left: 0
           float: left
-          width: 235px
+          width: 209px
+          padding-left: 15px
+          padding-right: 25px
+          border-right: 1px solid #eeeeee
           a,span
             display: block
           a
@@ -36,7 +47,6 @@
             width: 125px
             padding: 5px 10px
             border: 1px solid $border-light-color
-            margin-left: 50px
             +border-radius(3px)
             h4
               font-weight: normal
@@ -46,7 +56,11 @@
         .col2
           float: left
           margin-left: 0
-          width: 515px
+          width: 668px
+          .order-table-state
+            padding-left: 25px
+            padding-bottom: 10px
+            border-bottom: 1px solid #eeeeee
           .post-date
             display: block
             color: $content-normal-color
@@ -57,6 +71,8 @@
           .product-info
             +clearfix
             padding-top: 35px
+            padding-left: 25px
+            padding-right: 25px
             img
               float: left
               margin-right: 35px
@@ -69,9 +85,11 @@
                 margin-bottom: 35px
               p
                 color: $content-normal-color
-        .col3
+        .op-area
           float: left
           width: 80px
+          padding-left: 30px
+          padding-right: 80px
           button
             margin-bottom: 10px
             &.btn-completePay

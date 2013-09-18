@@ -19,15 +19,15 @@
       .tabs
         span
           | 显示：
-        a.row-view
-        a.square-view
+        a.row-view[href="javascript:;"]
+        a.square-view[href="javascript:;"]
   dd.main
-    ul.row-item
+    ul.row-item.is-hidden
       - @products.each do |product|
         li.row
           - product.assets.take(3).each do |asset|
-            a.img-wrap.span2
-              = image_tag asset.image.url(:thumb), alt: "#{product.name} thumbnail images"
+            a.img-wrap.span2 href="#{product_path(product)}"
+              = image_tag asset.image.url(:small), alt: "#{product.name} thumbnail images", width: '140'
           .des.span5
             div
               .name
@@ -35,32 +35,24 @@
                   = link_to product.name, product_path(product), title: product.name
                 h4.product-name-en
                   = product.name_en
-              .price
-                span ￥#{product.original_price}
+                .price
+                  span ￥#{product.price}
             .share
-              ul.share-to
-                li
-                  a.weibo
-                li
-                  a.msg
-                li.last
-                  a.facebook
+              = render 'shared/product_share_links', product: product
               span
                 | share this look
-    .best-products.row.is-hidden
+    .best-products.row
       - @products.each_with_index do |product, index|
         .a-product.span3 class="#{'first' if index == 0}"
-          = image_tag product.img(:medium), alt: "#{product.name} medium images"
+          a href="#{product_path(product)}"
+            = image_tag product.rectangle_image(:medium), alt: "#{product.name} medium images"
           .share
             span share this look
-            ul.share-to
-              li: a.weibo
-              li: a.msg
-              li.last: a.facebook
+            = render 'shared/product_share_links', product: product
           .information
             strong
               em = link_to product.name, product_path(product), title: product.name
               span = product.name_en
-            p ￥#{product.original_price}
+            p ￥#{product.price}
     .pager
       == paginate @products

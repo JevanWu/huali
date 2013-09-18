@@ -1,5 +1,5 @@
 module Extension
-  module Cart
+  module CookieCart
     def load_cart
       line_item_hash, coupon_code = load_cart_cookie
 

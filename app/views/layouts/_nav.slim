@@ -15,7 +15,7 @@
         .cart-preview-container
           .cart-preview
             - if @cart.nil?
-              p 您的购花篮还是空的
+              p.cart-preview-empty 您的购花篮还是空的
             - else
               h3
                 a
@@ -51,12 +51,6 @@
               = link_to '我的订单', orders_path, class: 'personal'
             li
               = link_to '账户信息', edit_user_registration_path
-            li
-              a
-               | 邮件提醒
-            li
-              a
-               | 邀请好友
             li
               = link_to '退出', destroy_user_session_path, method: :delete, class: 'personal'
       - else

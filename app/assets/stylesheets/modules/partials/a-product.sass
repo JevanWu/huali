@@ -19,11 +19,21 @@
       margin-right: 7px
   .information
     +clearfix
+    position: relative
     height: 30px
     padding: 10px
+    em
+      display: block
+    a
+      color: $normal-text-color
+      font-size: 16px
+    span
+      font-size: 14px
     .name
       float: left
     p
-      float: right
+      position: absolute
+      right: 10px
+      top: 15px
       color: $global-text-color
       font-size: $price-font

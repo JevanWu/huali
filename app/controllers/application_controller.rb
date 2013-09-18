@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   include ::Extension::Exception
   include ::Extension::RecordCookie
   include ::Extension::SignInRedirect
-  include ::Extension::Cart
+  include ::Extension::CookieCart
 
   before_action :load_cart
 
