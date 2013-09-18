@@ -26,7 +26,7 @@
       - @products.each do |product|
         li.row
           - product.assets.take(3).each do |asset|
-            a.img-wrap.span2
+            a.img-wrap.span2 href="#{product_path(product)}"
               = image_tag asset.image.url(:small), alt: "#{product.name} thumbnail images", width: '140'
           .des.span5
             div
@@ -50,7 +50,8 @@
     .best-products.row
       - @products.each_with_index do |product, index|
         .a-product.span3 class="#{'first' if index == 0}"
-          = image_tag product.rectangle_image(:medium), alt: "#{product.name} medium images"
+          a href="#{product_path(product)}"
+            = image_tag product.rectangle_image(:medium), alt: "#{product.name} medium images"
           .share
             span share this look
             ul.share-to
