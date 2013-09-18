@@ -37,17 +37,8 @@
             = number_to_currency @product.price, unit: '&yen;'
           p 免运费
         .share
-          - share_title = "我在 @花里花店 发现的好东西:  #{@product.name}"
-          - share_summary = "#{@product.inspiration.try(:gsub, "\r\n", " ")}"
-          - share_pic = "http://hua.li/#{@asset_urls.first[:medium]}"
           span share this look
-          ul.share-to
-            li
-              a.weibo href="http://www.jiathis.com/send/?webid=tsina&url=#{product_url(@product)}&title=#{share_title}&summary=#{share_summary}&pic=#{share_pic}&appkey=214509410&ralateuid=花里花店&data_track_clickback=true&hideMore=true" target="_blank"
-            li
-              a.weixin href="http://www.jiathis.com/send/?webid=weixin&url=#{product_url(@product)}&title=#{share_title}&summary=#{share_summary}&pic=#{share_pic}&data_track_clickback=true&hideMore=true" target="_blank"
-            li.last
-              a.douban href="http://www.jiathis.com/send/?webid=douban&url=#{product_url(@product)}&title=#{share_title}&summary=#{share_summary}&pic=#{share_pic}&data_track_clickback=true&hideMore=true" target="_blank"
+          = render 'shared/product_share_links', product: @product
         - if @product.count_on_hand > 0
           = link_to t('views.product.flower_basket'), current_order_path, class: 'add-btn button', data: { product: @product.id }
         - else
