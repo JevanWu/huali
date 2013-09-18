@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: period_region_policies
+#
+#  created_at :datetime
+#  end_date   :date
+#  id         :integer          not null, primary key
+#  start_date :date
+#  updated_at :datetime
+#
+
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do

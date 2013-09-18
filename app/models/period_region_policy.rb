@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: period_region_policies
+#
+#  created_at :datetime
+#  end_date   :date
+#  id         :integer          not null, primary key
+#  start_date :date
+#  updated_at :datetime
+#
+
 class PeriodRegionPolicy < ActiveRecord::Base
   has_one :local_region_rule, as: :region_rulable, dependent: :destroy
   accepts_nested_attributes_for :local_region_rule, allow_destroy: true, update_only: true,

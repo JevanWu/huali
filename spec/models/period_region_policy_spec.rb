@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: period_region_policies
+#
+#  created_at :datetime
+#  end_date   :date
+#  id         :integer          not null, primary key
+#  start_date :date
+#  updated_at :datetime
+#
+
 require 'spec_helper'
 
 describe PeriodRegionPolicy do

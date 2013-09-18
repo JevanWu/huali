@@ -12,6 +12,7 @@
 #  meta_title       :string(255)
 #  name_en          :string(255)      not null
 #  name_zh          :string(255)      not null
+#  parent_id        :integer
 #  primary_category :boolean          default(FALSE), not null
 #  priority         :integer          default(5)
 #  slug             :string(255)
