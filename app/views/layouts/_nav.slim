@@ -52,12 +52,6 @@
             li
               = link_to '账户信息', edit_user_registration_path
             li
-              a
-               | 邮件提醒
-            li
-              a
-               | 邀请好友
-            li
               = link_to '退出', destroy_user_session_path, method: :delete, class: 'personal'
       - else
         li.not-login.last
