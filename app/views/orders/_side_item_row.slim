@@ -1,5 +1,5 @@
 .step-product-item
-  = image_tag side_item_row.img(:thumb)
+  = image_tag side_item_row.img(:small), width: '140'
   .product-info
     h3.product-name
       = link_to side_item_row.name, product_path(side_item_row.product)
