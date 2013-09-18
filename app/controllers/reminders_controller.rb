@@ -1,10 +1,4 @@
 class RemindersController < ApplicationController
-  layout 'horizontal'
-  before_action :load_cart
-  before_action :fetch_items, only: [:new, :create, :current]
-
-  include ::Extension::Order
-
   def new
     @reminder = Reminder.new
     @reminder.email = current_user.try(:email)
