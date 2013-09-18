@@ -18,7 +18,7 @@ class PeriodRegionPolicy < ActiveRecord::Base
 
   class << self
     def available_rules_at_date(current_date)
-      where('start_date <= ? AND end_date >= ? ',current_date, current_date).map(&:local_region_rule)
+      where('start_date <= ? AND end_date >= ? ',current_date, current_date)
     end
   end
 end

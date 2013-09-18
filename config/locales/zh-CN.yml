@@ -41,6 +41,7 @@ zh-CN:
         non_exist_coupon: 对不起，该优惠券不存在
         unavailable_products: 产品不可用
         blank_products: 产品不能为空
+        service_not_available: 非常抱歉，在本日花店无法进行配送
         product_unavailable: '%{product_name}不可用'
         product_of_invalid_quantity: '%{product_name}数量不能小于等于0'
         product_out_of_stock: '%{product_name}库存不足，可用库存%{count_on_hand}'

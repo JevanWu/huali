@@ -11,11 +11,23 @@ describe OrderCustomizedRegionValidator do
       area_ids: ['1','2','3','4'])
   end
 
-  let(:in_valid_rule) do
+  let(:invalid_rule) do
     OpenStruct.new(
       province_ids: ['2','3'],
       city_ids: ['2'],
       area_ids: ['2','3','4'])
+  end
+
+  let(:valid_policy) do
+    OpenStruct.new(local_region_rule: valid_rule)
+  end
+
+  let(:invalid_policy) do
+    OpenStruct.new(local_region_rule: invalid_rule)
+  end
+
+  let(:not_open_policy) do
+    OpenStruct.new(not_open: true, local_region_rule: valid_rule)
   end
 
   let(:order_errors) { Object.new }
@@ -41,19 +53,25 @@ describe OrderCustomizedRegionValidator do
   let(:validator) {OrderCustomizedRegionValidator.new }
 
   it "passed the validation when no region rules are fetched" do
-    stub(validator).fetch_rules { [] }
+    stub(validator).fetch_policy { [] }
     dont_allow(order_errors).add.with_any_args
     validator.validate(order)
   end
 
   it "passed the validation when all region rules are passed" do
-    stub(validator).fetch_rules { [valid_rule, valid_rule] }
+    stub(validator).fetch_policy { [valid_policy, valid_policy] }
     dont_allow(order_errors).add.with_any_args
     validator.validate(order)
   end
 
+  it "add errors to order when any of the policies is not open" do
+    stub(validator).fetch_policy { [valid_policy, not_open_policy] }
+    mock(order_errors).add(:base, :service_not_available)
+    validator.validate(order)
+  end
+
   it "add errors to order when any of the rules failed against the order address" do
-    stub(validator).fetch_rules { [valid_rule, in_valid_rule] }
+    stub(validator).fetch_policy { [valid_policy, invalid_policy] }
     mock(order_errors).add(:base, :unavailable_location_at_date, date: date)
     validator.validate(order)
   end
