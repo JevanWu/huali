@@ -11,7 +11,7 @@
         span
           = "订单编号：#{@order.identifier}"
       - if @order.shipment && @order.shipment.kuaidi100_result
-        = render 'tracking', result: @order.shipment.kuaidi100_result
+        = render 'tracking', result: JSON.parse(@order.shipment.kuaidi100_result)
       .product-detail
         .products
           .products-captain

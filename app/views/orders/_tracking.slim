@@ -4,21 +4,13 @@
       | 日期
     span.time
       | 时间
-    span.address
-      | 地点
-    span.contact
-      | 联系方式
     span.log
       | 配送记录
-  - 3.each do
+  - result.each do |item|
     .items
       span.date
-        | 2013年7月4日
+        = l item["time"].to_date
       span.time
-        | 06:00:00 PM
-      span.address
-        | 上海
-      span.contact
-        | 联邦 4001000001
+        = Time.parse(item["time"]).strftime("%I:%M %p")
       span.log.success
-        | 配送成功
+        = item["context"]
