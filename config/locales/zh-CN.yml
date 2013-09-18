@@ -187,7 +187,8 @@ zh-CN:
       period_region_policy: 
         start_date: 起始日期
         end_date: 失效日期
-        customized_region_rule: 定制规则
+        local_region_rule: 定制规则
+        not_open: 是否不营业
 
       administrator:
         email: 邮箱

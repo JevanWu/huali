@@ -1,8 +1,12 @@
 <%= simple_form_for @order_form, url: '/orders', html: { class: 'form-horizontal', id: 'new-order'} do |f| %>
   <%= simple_form_error_messages_for(@order_form.line_items) %>
+  <% if @order_form.errors.present? %>
   <div class='control-group error section-error'>
-    <span class='help-block'><%= @order_form.errors[:base] %></span>
+    <% @order_form.errors[:base].each do |err| %>
+      <span class='help-block'><%= err %></span>
+    <% end %>
   </div>
+  <% end %>
 
   <fieldset>
     <legend>您的个人信息</legend>

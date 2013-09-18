@@ -6,6 +6,7 @@ ActiveAdmin.register PeriodRegionPolicy do
       [
         :start_date,
         :end_date,
+        :not_open,
         :local_region_rule_attributes => [:province_ids, :city_ids, :area_ids, :_destroy]
       ]
     end
@@ -17,11 +18,14 @@ ActiveAdmin.register PeriodRegionPolicy do
 
   filter :start_date
   filter :end_date
+  filter :not_open
+
 
   index do
     selectable_column
     column :start_date
     column :end_date
+    column :not_open
 
     default_actions
   end
@@ -32,6 +36,7 @@ ActiveAdmin.register PeriodRegionPolicy do
     attributes_table do
       row :start_date
       row :end_date
+      row :not_open
       row :local_region_rule
     end
   end

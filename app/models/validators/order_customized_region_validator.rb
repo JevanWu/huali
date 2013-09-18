@@ -7,30 +7,27 @@ class OrderCustomizedRegionValidator < ActiveModel::Validator
     fetch_policy(order.expected_date).each do |policy|
       if policy.not_open
         order.errors.add :base, :service_not_available
-        break
+        return
       end
-    end
 
-    fetch_rules(order.expected_date).each do |region_rule|
-      rule_runner = RegionRuleRunner.new(region_rule.province_ids,
-                                         region_rule.city_ids,
-                                         region_rule.area_ids)
+      region_rule = policy.local_region_rule
 
+      if region_rule
+        rule_runner = RegionRuleRunner.new(region_rule.province_ids,
+                                           region_rule.city_ids,
+                                           region_rule.area_ids)
 
-      if !rule_runner.apply_test(address.province_id, address.city_id, address.area_id)
-        order.errors.add :base, 
-                         :unavailable_location_at_date, 
-                         date: order.expected_date
-        break
+        if !rule_runner.apply_test(address.province_id, address.city_id, address.area_id)
+          order.errors.add :base, 
+                           :unavailable_location_at_date, 
+                           date: order.expected_date
+          return
+        end
       end
     end
   end
 
   private 
-
-  def fetch_rules(date)
-    fetch_policy.map(&:local_region_rule)
-  end
 
   def fetch_policy(date)
     PeriodRegionPolicy.available_rules_at_date(date)
