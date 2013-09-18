@@ -5,7 +5,7 @@ FactoryGirl.define do
     start_date "2013-09-01"
     end_date "2013-09-02"
 
-    after(:create) do |policy|
+    after(:build) do |policy|
       policy.create_local_region_rule
     end
   end

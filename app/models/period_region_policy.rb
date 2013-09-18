@@ -3,6 +3,8 @@ class PeriodRegionPolicy < ActiveRecord::Base
   accepts_nested_attributes_for :local_region_rule, allow_destroy: true, update_only: true,
     reject_if: :all_blank
 
+  validates_presence_of :start_date, :end_date, :local_region_rule
+
   class << self
     def available_rules_at_date(current_date)
       where('start_date <= ? AND end_date >= ? ',current_date, current_date).map(&:local_region_rule)
