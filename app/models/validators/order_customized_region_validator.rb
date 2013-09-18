@@ -6,7 +6,7 @@ class OrderCustomizedRegionValidator < ActiveModel::Validator
 
     fetch_policy(order.expected_date).each do |policy|
       if policy.not_open
-        order.errors.add :base, :service_not_available
+        order.errors.add :expected_date, :service_not_available
         return
       end
 
@@ -18,9 +18,10 @@ class OrderCustomizedRegionValidator < ActiveModel::Validator
                                            region_rule.area_ids)
 
         if !rule_runner.apply_test(address.province_id, address.city_id, address.area_id)
-          order.errors.add :base, 
-                           :unavailable_location_at_date, 
-                           date: order.expected_date
+          order.errors.add :expected_date
+          address.errors.add :province_id, :unavailable_location_at_date, date: order.expected_date
+          address.errors.add :city_id
+          address.errors.add :area_id
           return
         end
       end

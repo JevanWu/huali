@@ -32,11 +32,14 @@ describe OrderCustomizedRegionValidator do
 
   let(:order_errors) { Object.new }
 
+  let(:address_errors) { Object.new }
+
   let(:address) do
     Object.new.tap do |addr|
       stub(addr).province_id { 1 }
       stub(addr).city_id { 1 }
       stub(addr).area_id { 1 }
+      stub(addr).errors { address_errors }
     end
   end
 
@@ -66,13 +69,16 @@ describe OrderCustomizedRegionValidator do
 
   it "add errors to order when any of the policies is not open" do
     stub(validator).fetch_policy { [valid_policy, not_open_policy] }
-    mock(order_errors).add(:base, :service_not_available)
+    mock(order_errors).add(:expected_date, :service_not_available)
     validator.validate(order)
   end
 
   it "add errors to order when any of the rules failed against the order address" do
     stub(validator).fetch_policy { [valid_policy, invalid_policy] }
-    mock(order_errors).add(:base, :unavailable_location_at_date, date: date)
+    mock(order_errors).add(:expected_date)
+    mock(address_errors).add(:province_id, :unavailable_location_at_date, date: date)
+    mock(address_errors).add(:city_id)
+    mock(address_errors).add(:area_id)
     validator.validate(order)
   end
 end
