@@ -11,11 +11,8 @@
   .container
     .title
       i
-      span: a href='/' 花里
-      | >
-      span = link_to @product.collection.show_name, collection_path(@product.collection)
-      | >
       span.cur = @product.name
+      b
     .main.row
       ul.thumb.span1
         - @asset_urls.each_with_index do |asset_url, index|
