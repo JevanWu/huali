@@ -4,15 +4,7 @@
       .empty
         i
         p.tips
-          | 您的购花篮还是空的，赶快行动吧！您可以
-        p
-          | 马上去看看
-          a
-            | 本机新款
-        p
-          | 看看
-          a
-            | 本月推荐
+          == "您的购花篮还是空的，赶快去 #{link_to '花市', root_path} 开始采购吧!"
     - else
       .not-empty.row
         .cart-list.span9
