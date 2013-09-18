@@ -1,0 +1,15 @@
+<div class="provinces">
+<% Province.includes(cities: :areas).each do |province| %>
+  <div pid="<%= province.id %>" name="<%= province.name %>" available="<%= region_rule.province_ids.include?(province.id.to_s) ? "1" : "0" %>">
+    <% province.cities.each do |city| %>
+      <div cid="<%= city.id %>" name="<%= city.name %>" available="<%= region_rule.city_ids.include?(city.id.to_s) ? "1" : "0" %>">
+        <% city.areas.each do |area| %>
+          <div aid="<%= area.id %>" name="<%= area.name %>" available="<%= region_rule.area_ids.include?(area.id.to_s) ? "1" : "0" %>"></div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+</div>
+
+

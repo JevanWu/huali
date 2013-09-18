@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130913073003) do
+ActiveRecord::Schema.define(version: 20130918083310) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,11 +116,6 @@ ActiveRecord::Schema.define(version: 20130913073003) do
 
   add_index "collections_products", ["product_id", "collection_id"], name: "index_collections_products_on_product_id_and_collection_id", unique: true, using: :btree
 
-  create_table "collocation_relations", force: true do |t|
-    t.integer "product_a_id", null: false
-    t.integer "product_b_id", null: false
-  end
-
   create_table "coupons", force: true do |t|
     t.string   "code",                            null: false
     t.string   "adjustment",                      null: false
@@ -219,6 +214,14 @@ ActiveRecord::Schema.define(version: 20130913073003) do
 
   add_index "pages", ["permalink"], name: "index_pages_on_permalink", using: :btree
 
+  create_table "period_region_policies", force: true do |t|
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "not_open"
+  end
+
   create_table "products", force: true do |t|
     t.string   "name_zh",                                              default: "",    null: false
     t.string   "name_en",                                              default: "",    null: false
@@ -270,17 +273,18 @@ ActiveRecord::Schema.define(version: 20130913073003) do
   add_index "recommendation_relations", ["recommendation_id"], name: "index_recommendation_relations_on_recommendation_id", using: :btree
 
   create_table "region_rules", force: true do |t|
-    t.integer  "product_id"
+    t.integer  "region_rulable_id"
     t.text     "province_ids"
     t.text     "city_ids"
     t.text     "area_ids"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.string   "name"
     t.string   "type"
+    t.string   "region_rulable_type"
   end
 
-  add_index "region_rules", ["product_id"], name: "index_region_rules_on_product_id", using: :btree
+  add_index "region_rules", ["region_rulable_id"], name: "index_region_rules_on_region_rulable_id", using: :btree
 
   create_table "reminders", force: true do |t|
     t.string   "email",      null: false

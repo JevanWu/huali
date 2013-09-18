@@ -1,3 +1,6 @@
+require 'phonelib'
+require 'active_support/concern'
+
 module Phonelib
   module Extension
     extend ActiveSupport::Concern

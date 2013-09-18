@@ -38,7 +38,8 @@ shared_examples_for "OrderForm::Shared" do
                   'OrderProductDateValidator',
                   'OrderItemValidator',
                   'OrderCouponValidator',
-                  'OrderProductAvailabilityValidator'
+                  'OrderProductAvailabilityValidator',
+                  'OrderCustomizedRegionValidator'
                  ]
 
     let(:sender) { SenderInfo.new }
