@@ -17,7 +17,7 @@
       ul.thumb.span1
         - @asset_urls.each_with_index do |asset_url, index|
           li: a
-            = image_tag asset_url[:small], alt: "#{@product.name} thumbnail images", width: '140'
+            = image_tag asset_url[:medium], alt: "#{@product.name} thumbnail images", width: '140'
       .detail.span8
         .big-img-wrap
           .big-img-container
