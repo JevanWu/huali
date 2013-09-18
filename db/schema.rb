@@ -72,15 +72,6 @@ ActiveRecord::Schema.define(version: 20130917083253) do
   add_index "assets", ["viewable_id"], name: "index_assets_on_viewable_id", using: :btree
   add_index "assets", ["viewable_type"], name: "index_assets_on_viewable_type", using: :btree
 
-  create_table "banners", force: true do |t|
-    t.string   "name"
-    t.string   "content"
-    t.date     "start_date"
-    t.date     "end_date"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "cities", force: true do |t|
     t.string  "name"
     t.integer "post_code"
