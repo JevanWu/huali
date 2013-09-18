@@ -1,5 +1,9 @@
 <%= simple_form_for @order_form, url: '/orders', html: { class: 'form-horizontal', id: 'new-order'} do |f| %>
   <%= simple_form_error_messages_for(@order_form.line_items) %>
+  <div class='control-group error section-error'>
+    <span class='help-block'><%= @order_form.errors[:base] %></span>
+  </div>
+
   <fieldset>
     <legend>您的个人信息</legend>
     <%= f.fields_for :sender, @order_form.sender do |builder|%>
