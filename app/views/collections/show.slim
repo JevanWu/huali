@@ -22,6 +22,19 @@
         a.row-view[href="javascript:;"]
         a.square-view[href="javascript:;"]
   dd.main
+    .best-products.row
+      - @products.each_with_index do |product, index|
+        .a-product.span3 class="#{'first' if index == 0}"
+          a href="#{product_path(product)}"
+            = image_tag product.rectangle_image(:medium), alt: "#{product.name} medium images"
+          .share
+            span share this look
+            = render 'shared/product_share_links', product: product
+          .information
+            strong
+              em = link_to product.name, product_path(product), title: product.name
+              span = product.name_en
+            p ￥#{product.price}
     ul.row-item.is-hidden
       - @products.each do |product|
         li.row
@@ -41,18 +54,5 @@
               = render 'shared/product_share_links', product: product
               span
                 | share this look
-    .best-products.row
-      - @products.each_with_index do |product, index|
-        .a-product.span3 class="#{'first' if index == 0}"
-          a href="#{product_path(product)}"
-            = image_tag product.rectangle_image(:medium), alt: "#{product.name} medium images"
-          .share
-            span share this look
-            = render 'shared/product_share_links', product: product
-          .information
-            strong
-              em = link_to product.name, product_path(product), title: product.name
-              span = product.name_en
-            p ￥#{product.price}
     .pager
       == paginate @products
