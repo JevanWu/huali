@@ -62,6 +62,8 @@ Huali::Application.routes.draw do
   get 'partner', to: 'pages#partner', as: :partner
   get 'qixi', to: 'pages#qixi', as: :qixi
 
+  get 'banners/:date', to: 'banners#index', as: :banners
+
   ActiveAdmin.routes(self)
 
   get ':id', to: 'pages#show', as: :page
