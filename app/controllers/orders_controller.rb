@@ -178,8 +178,8 @@ class OrdersController < ApplicationController
       @order_admin_form.user = current_or_guest_user
 
       # create line items
-      @cart.keys.each do |key|
-        @order_admin_form.add_line_item(key, @cart[key])
+      @cart.items.each do |item|
+        @order_admin_form.add_line_item(item.product_id, item.quantity)
       end
 
       success = @order_admin_form.save do |record|
