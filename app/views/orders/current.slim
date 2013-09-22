@@ -54,4 +54,8 @@
                     span
                       = number_to_currency @cart.original_total, unit: '&yen;'
             = link_to t('views.order.checkout'), new_order_path, class: 'btn-checkout'
+            - if current_administrator
+              .row
+                = link_to t('views.order.back_checkout'), new_back_order_path, class: 'btn-checkout'
+                = link_to t('views.order.taobao_checkout'), new_taobao_order_path, class: 'btn-checkout'
       == render 'shared/guess_you_like', related_products: @related_products.take(5)
