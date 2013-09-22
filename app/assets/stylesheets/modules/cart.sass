@@ -62,11 +62,13 @@
           height: 133px
           border: 1px solid #eeeeee
           background-color: #fff
-          box-shadow: 2px 0 5px rgba(214, 214, 215, 0.9), -2px 0 5px rgba(214, 214, 215, 0.9)
+          +global-box-shadow
           padding: 15px
           img
             float: left
             margin-right: 40px
+            width: 140px !important
+            height: 134px !important
           .product-info-main
             float: left
             width: 340px
@@ -75,7 +77,7 @@
             span
               margin-bottom: 25px
             h4
-              margin-bottom: 55px
+              margin-bottom: 45px
             p
               color: $content-normal-color
           .price
@@ -125,6 +127,7 @@
           padding-top: 40px
           padding-left: 9px
           border: 1px solid #eeeeee
+          +global-box-shadow
           .input-wrap
             input
               width: 124px
@@ -146,6 +149,7 @@
           border: 1px solid #eeeeee
           text-align: center
           font-size: $content-font
+          +global-box-shadow
           em
             font-style: italic
           strong
