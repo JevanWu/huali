@@ -6,7 +6,7 @@
       - related_products.each_with_index do |product, index|
         - if index + 1 == related_products.size
           li.span2.last
-            = link_to image_tag(product.img(:small), width: '160'), product_path(product), title: product.name, :target => "_blank"
+            = link_to image_tag(product.img(:medium), width: '160'), product_path(product), title: product.name, :target => "_blank"
         - else
           li.span2
-            = link_to image_tag(product.img(:small), width: '160'), product_path(product), title: product.name, :target => "_blank"
+            = link_to image_tag(product.img(:medium), width: '160'), product_path(product), title: product.name, :target => "_blank"

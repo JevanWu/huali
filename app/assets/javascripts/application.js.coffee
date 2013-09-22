@@ -1,4 +1,6 @@
+#= require jquery
 #= require jquery_ujs
+#= require vendor/lodash.compat
 #= require chosen.jquery
 #= require 'Huali'
 #= require_tree './component'
