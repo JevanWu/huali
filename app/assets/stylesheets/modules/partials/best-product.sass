@@ -4,3 +4,64 @@
   margin: 0 auto
   padding-bottom: 30px
   padding-top: 30px
+  .square
+    float: left
+    width: 460px
+    height: 440px
+    margin-right: 20px
+    margin-bottom: 20px
+  .kinds
+    float: left
+    margin-top: -20px
+    margin-bottom: 20px
+    .kind
+      width: 220px
+      height: 210px
+      margin-top: 20px
+      /*follow for fake*/
+      background-color: #b2b2b2
+      text-align: center
+      line-height: 210px
+      color: #fff
+      font-size: 28px
+.huali-glimlse
+  float: left
+  width: 690px
+  height: 440px
+  margin-left: 30px
+  margin-bottom: 20px
+  ul
+    margin-top: -18px
+  li
+    margin-top: 18px
+    height: 133px
+    border: 1px solid $border-lighter-color
+    &.img-left
+      img
+        float: left
+    &.img-right
+      img
+        float: right
+    .item
+      +clearfix
+      a
+        color: $content-normal-color
+      img
+        height: 133px
+      .introduce
+        position: relative
+        float: left
+        width: 218px
+        padding: 25px 100px 25px 25px
+        h3
+          font-size: 18px
+        p
+          padding-top: 10px
+        .go-btn
+          position: absolute
+          right: 20px
+          top: 50%
+          margin-top: -17px
+          width: 18px
+          height: 34px
+          background-image: image-url("bg/slide_btn_r.png")
