@@ -29,7 +29,7 @@ feature 'View product detail' do
     visit "/products/ruby"
 
     page.should have_content('红宝石')
-    [:name, :original_price, :price, :height, :width, :depth, :description].each do |attr|
+    [:name, :original_price, :price, :description].each do |attr|
       page.should have_content(product.send(attr))
     end
     page.should have_content('放入购花篮')

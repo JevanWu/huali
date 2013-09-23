@@ -22,13 +22,13 @@ feature "View orders" do
   scenario "View order detail" do
     visit '/orders'
 
-    click_link @order1.identifier
+    click_link('查看订单详情', match: :first)
 
-    page.should have_content(@order1.identifier)
-    page.should have_content(@order1.address.fullname)
-    page.should have_content(@order1.address.print_addr)
-    page.should have_content(@order1.address.phone)
-    page.should have_content(@order1.total)
+    page.should have_content(@order2.identifier)
+    page.should have_content(@order2.address.fullname)
+    page.should have_content(@order2.address.print_addr)
+    page.should have_content(@order2.address.phone)
+    page.should have_content(@order2.total)
   end
 end
 

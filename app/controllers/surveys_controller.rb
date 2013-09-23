@@ -8,6 +8,7 @@ class SurveysController < ApplicationController
     @survey.user = current_user if current_user
 
     if @survey.save
+      #require 'pry'; require 'pry-remote'; binding.remote_pry;
       @products = Product.published
         .tagged_with(survey_params[:receiver_gender], any: true)
         .tagged_with(survey_params[:gift_purpose], any: true)
