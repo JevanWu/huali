@@ -28,7 +28,8 @@ module Phonelib
           define_method(:"#{attribute}=") do |number|
             case number
             when String
-              phone_calling_code, original_phone = number.slice!(/^\+\d+/), number
+              phone_calling_code = number.slice(/^\+\d+/)
+              original_phone = number.sub(/^\+\d+/, '').strip
             when Array
               phone_calling_code, original_phone = number
             else
