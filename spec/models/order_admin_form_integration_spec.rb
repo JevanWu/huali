@@ -149,7 +149,7 @@ describe OrderForm do
     context 'address=' do
       subject { order.address }
 
-      before(:all) do
+      before do
         @new_province = FactoryGirl.create(:province)
         @new_city = @new_province.cities.sample
         @new_area = @new_city.areas.sample
@@ -228,7 +228,7 @@ describe OrderForm do
     context 'line_items=' do
       subject { order.line_items }
 
-      before(:all) do
+      before do
         @old_item1, @old_item2 = subject
         @new_product = FactoryGirl.create(:product)
       end
@@ -257,7 +257,7 @@ describe OrderForm do
     context 'coupon information' do
       subject { order }
 
-      before(:all) do
+      before do
         @new_coupon = FactoryGirl.create(:coupon)
       end
 
