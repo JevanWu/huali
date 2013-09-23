@@ -16,7 +16,7 @@ describe OrderForm do
   let(:valid_receiver) do
     {
       fullname: '张佳婵',
-      phone: '13912341234',
+      phone: '+86 139 1234 1234',
       province_id: @province.id,
       city_id: @city.id,
       area_id: @area.id,
@@ -28,7 +28,7 @@ describe OrderForm do
   let(:valid_sender) do
     {
       name: '张佳婵',
-      phone: '13912341234',
+      phone: '+86 139 1234 1234',
       email: 'somebody@example.com'
     }
   end
@@ -95,7 +95,7 @@ describe OrderForm do
   end
 
   describe 'Update Behavior when #build_from_record:' do
-    before(:all) do
+    before do
       OrderAdminForm.new(valid_order.merge({adjustment:nil, coupon_code: @coupon.code})).save
     end
 
@@ -135,7 +135,7 @@ describe OrderForm do
       it 'updates with sender_* attributes through SenderInfo' do
         new_email = Forgery(:internet).email_address
         new_name = Forgery(:name).full_name
-        new_phone = Forgery(:address).phone
+        new_phone = "+86 10 5908 1615"
 
         form.sender = SenderInfo.new(email: new_email, name: new_name, phone: new_phone)
         form.save
@@ -178,7 +178,7 @@ describe OrderForm do
 
       it 'updates other static attributes' do
         new_name = Forgery(:name).full_name
-        new_phone = Forgery(:address).phone
+        new_phone = "+86 10 5908 1615"
         new_address = Forgery(:address).street_address
         new_post_code = @new_area.post_code
 

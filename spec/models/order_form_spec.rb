@@ -1,16 +1,21 @@
 require 'spec_helper_lite'
 require 'support/shared_examples/active_model_spec'
 require 'support/shared_examples/order_form_shared_spec'
+require 'active_support/concern'
+require 'active_model'
+require 'phonelib'
+require 'phonelib_extension'
+require 'validators/phone_validator'
 require 'order_form'
 
 describe ReceiverInfo do
   it_behaves_like "ActiveModel::Validations"
-  
+
   describe "attributes" do
     let(:valid_receiver) do
       {
         fullname: '张佳婵',
-        phone: '+8613912341234',
+        phone: '+86 13912341234',
         province_id: 1,
         city_id: 12,
         area_id: 13,
@@ -45,7 +50,7 @@ describe SenderInfo do
     let(:valid_sender) do
       {
         name: '张佳婵',
-        phone: '13912341234',
+        phone: '+86 13912341234',
         email: 'somebody@example.com'
       }
     end
@@ -63,11 +68,11 @@ end
 describe OrderForm do
   it_behaves_like "ActiveModel::Full"
   it_behaves_like "OrderForm::Shared" do
-    
+
     let(:valid_receiver) do
       {
         fullname: '张佳婵',
-        phone: '13912341234',
+        phone: '+86 13912341234',
         province_id: 1,
         city_id: 12,
         area_id: 13,
@@ -79,7 +84,7 @@ describe OrderForm do
     let(:valid_sender) do
       {
         name: '张佳婵',
-        phone: '13912341234',
+        phone: '+86 13912341234',
         email: 'somebody@example.com'
       }
     end
