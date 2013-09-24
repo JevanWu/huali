@@ -6,9 +6,6 @@ $ ->
   # turn on JSON parsing in $.cookie
   $.cookie.json = true
 
-  #够花篮的总商品数量
-  $('.cart:first').text Cart.quantityAll()
-
   #查看某种花时加入购物车的操作
   $('.add-btn').click (e) ->
     link = $(@)
@@ -66,6 +63,9 @@ $ ->
   #增加减少删除
   $('.item-table').on 'click', '.add_quantity, .reduce_quantity, .empty_quantity', freshCart
 
+  updateCartQuantityText = (quantity) ->
+    $('.cart:first').text "(#{quantity})"
+
   updateItemRow = (row) ->
     price = $('.price', row).data('price')
     quantity = parseInt $('.quantity > input', row).val()
@@ -86,17 +86,14 @@ $ ->
     ,0)
     $(".total-price").html toCurrency(total)
     $(".checkout .subtotal i").text(Cart.quantityAll())
-    
-    updateCartAmount()
+
+    updateCartQuantityText(Cart.quantityAll())
 
   appendToTable = (tablename, content) ->
     $("#{tablename} tbody").append(content)
 
   toCurrency = (x, unit = '¥') ->
     " #{unit} #{x} "
-
-  updateCartAmount = ->
-    $('.cart:first').text Cart.quantityAll()
 
   $('.suggestion-cell').hover(
     ->
@@ -116,6 +113,11 @@ $ ->
       updateTable(table)
 
     return false
+
+  #购花篮的总商品数量
+
+  updateCartQuantityText(Cart.quantityAll())
+
 
 # product = { id: String, quantity: Integer }
 # cart
