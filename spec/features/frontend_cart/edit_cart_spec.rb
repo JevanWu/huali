@@ -10,6 +10,7 @@ feature 'Edit cart' do
 
   scenario 'Change product quantity', js: true do
     visit "/products/#{product.slug}"
+    page.execute_script("$.removeCookie('cart');") # Ensure cart is empty before run spec
 
     click_link '放入购花篮'
 
