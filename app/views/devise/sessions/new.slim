@@ -5,6 +5,10 @@
     b
     span.allow-ways
       | 您可以使用下列账号登录
+    div
+      = link_to image_tag('oauth/douban_oauth.png'), user_omniauth_authorize_path(:douban), class: 'douban-oauth'
+      = link_to image_tag('oauth/weibo_oauth.png'), user_omniauth_authorize_path(:weibo), class: 'weibo-oauth'
+      = link_to image_tag('oauth/qq_oauth.png'), user_omniauth_authorize_path(:qq_connect), class: 'qq-oauth'
   = simple_form_for resource,
     as: resource_name,
     url: session_path(resource_name),
@@ -26,4 +30,3 @@
       .control-group
         .controls
           = link_to t(".forgot_your_password"), new_password_path(resource_name), class:'forget-psw'
-  = render 'devise/shared/login_use_oauth'
