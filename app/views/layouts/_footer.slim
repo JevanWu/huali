@@ -15,13 +15,14 @@
           li: a.facebook href="https://www.facebook.com/HualiStore" target="_blank"
           li: a.weibo href="http://e.weibo.com/hualishop?ref=http%3A%2F%2Fhua.li%2F" target="_blank"
           li.last: a.weixin
-    .masthead
-      .masthead-main
-        p All Rights Reserved. 2012 - 2013 © 花里 hua.li
-        ul
+.masthead
+  .masthead-inner
+    .masthead-main
+      p All Rights Reserved. 2012 - 2013 © 花里 hua.li
+      ul
+        li
+          == link_to '媒体与合作伙伴', partner_path
+        - Page.in_footer.each do |page|
           li
-            == link_to '媒体与合作伙伴', partner_path
-          - Page.in_footer.each do |page|
-            li
-              == link_to page.title, page_path(page), title: page.title
-      p.icp 沪ICP备12040819号-1
+            == link_to page.title, page_path(page), title: page.title
+    p.icp 沪ICP备12040819号-1
