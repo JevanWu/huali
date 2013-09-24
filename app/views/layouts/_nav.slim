@@ -9,7 +9,7 @@
 
     ul.operate
       li.cart-li-preview
-        a.cart
+        a.cart href="#{current_order_path}"
           = "(#{@cart ? @cart.item_count : 0})"
           i
         .cart-preview-container
