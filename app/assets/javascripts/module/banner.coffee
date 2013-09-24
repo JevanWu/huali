@@ -1,33 +1,33 @@
 $ ->
-  banner_template = """
+  bannerTemplate = """
   <div id="banner">
     <p><%- content %></p>
     <a class="close" href="#" data-banner="<%- id %>"></a>
   </div>
   """
 
-  fetch_new_banner = (banners) ->
+  fetchNewBanner = (banners) ->
     _.find banners, (banner) ->
-      ! _.contains(banners_readed(), banner.id)
+      ! _.contains(bannersReaded(), banner.id)
 
-  banners_readed = ->
-    $.cookie('banners_readed') || []
+  bannersReaded = ->
+    $.cookie('bannersReaded') || []
 
-  update_banners_readed = (banner_just_readed) ->
-    $.cookie('banners_readed', banners_readed().concat(banner_just_readed),
+  updateBannersReaded = (bannerJustReaded) ->
+    $.cookie('bannersReaded', bannersReaded().concat(bannerJustReaded),
       expires: 365, path: '/')
 
-  render_banner = (banner) ->
-    banner_html = _.template(banner_template, banner)
-    $(".notification-banner").append(banner_html)
+  renderBanner = (banner) ->
+    bannerHtml = _.template(bannerTemplate, banner)
+    $(".notification-banner").append(bannerHtml)
 
   $.ajax
     url: "/banners/#{moment().format('YYYY-MM-DD')}"
     dataType: 'json'
     success: (banners) ->
-      if new_banner = fetch_new_banner(banners)
-        render_banner(new_banner)
+      if newBanner = fetchNewBanner(banners)
+        renderBanner(newBanner)
   $(document).on "click", "#banner .close", (event) ->
-    update_banners_readed($(this).data('banner'))
+    updateBannersReaded($(this).data('banner'))
     $('#banner').remove()
     event.preventDefault()
