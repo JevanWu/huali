@@ -1,5 +1,6 @@
 #= require jquery
 #= require jquery_ujs
+#= require json3
 #= require vendor/lodash.compat
 #= require chosen.jquery
 #= require moment.min
