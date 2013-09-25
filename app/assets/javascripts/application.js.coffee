@@ -1,7 +1,8 @@
 #= require jquery
 #= require jquery_ujs
+#= require underscore
 #= require json3
-#= require vendor/lodash.compat
+#= require lodash.compat
 #= require chosen.jquery
 #= require moment.min
 #= require 'Huali'

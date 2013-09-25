@@ -1,5 +1,4 @@
 #= require jquery.cookie
-#= require underscore
 #= require_self
 
 $ ->
