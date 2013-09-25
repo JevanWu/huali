@@ -11,12 +11,17 @@
   .delete-account
     a
       color: $link-blue-color
+  .delete-info
+    padding-top: 390px
 .profile-edit
   width: 568px
+  margin-left: 0
+  padding-left: 30px
+  border-left: 1px solid #eeeeee
   h2
     border-bottom: 4px solid $border-light-color
   .control-label
-    width: 72px
+    width: 85px
     margin-right: 8px
   .controls
     margin-left: 0
@@ -24,9 +29,14 @@
   input[type="text"]
     width: 214px
     float: left
+  .refresh
+    margin-left: 50px
+  .chzn-search
+    input[type="text"]
+      width: 100%
   form
-    margin-top: 40px
-  span
+    margin-top: 5px
+  span.help-inline
     +error(175px)
   .save
     text-align: center
@@ -36,3 +46,5 @@
     color: $em-color
   .refresh
     width: 80px
+  legend
+    width: 315px

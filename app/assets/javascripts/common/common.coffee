@@ -38,6 +38,10 @@
   $(".placeholder input[type='text']").focus ->
     $(".placeholder label").hide()
     return
+  $(".placeholder label").click ->
+    $(".placeholder label").hide()
+    $(".placeholder input[type='text']").onfocus
+    return
   $(".placeholder input[type='text']").blur ->
     if $(this).val() is ""
       $(".placeholder label").show()
