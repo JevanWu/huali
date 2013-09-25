@@ -2,28 +2,32 @@
 #
 # Table name: products
 #
-#  count_on_hand          :integer          default(0), not null
-#  created_at             :datetime         not null
-#  default_date_rule_id   :integer
-#  default_region_rule_id :integer
-#  depth                  :decimal(8, 2)
-#  description            :text
-#  height                 :decimal(8, 2)
-#  id                     :integer          not null, primary key
-#  inspiration            :text
-#  meta_description       :string(255)
-#  meta_keywords          :string(255)
-#  meta_title             :string(255)
-#  name_en                :string(255)      default(""), not null
-#  name_zh                :string(255)      default(""), not null
-#  original_price         :decimal(, )
-#  price                  :decimal(8, 2)
-#  priority               :integer          default(5)
-#  published              :boolean          default(FALSE)
-#  slug                   :string(255)
-#  sold_total             :integer          default(0)
-#  updated_at             :datetime         not null
-#  width                  :decimal(8, 2)
+#  count_on_hand                :integer          default(0), not null
+#  created_at                   :datetime         not null
+#  default_date_rule_id         :integer
+#  default_region_rule_id       :integer
+#  depth                        :decimal(8, 2)
+#  description                  :text
+#  height                       :decimal(8, 2)
+#  id                           :integer          not null, primary key
+#  inspiration                  :text
+#  meta_description             :string(255)
+#  meta_keywords                :string(255)
+#  meta_title                   :string(255)
+#  name_en                      :string(255)      default(""), not null
+#  name_zh                      :string(255)      default(""), not null
+#  original_price               :decimal(, )
+#  price                        :decimal(8, 2)
+#  priority                     :integer          default(5)
+#  published                    :boolean          default(FALSE)
+#  rectangle_image_content_type :string(255)
+#  rectangle_image_file_name    :string(255)
+#  rectangle_image_file_size    :integer
+#  rectangle_image_updated_at   :datetime
+#  slug                         :string(255)
+#  sold_total                   :integer          default(0)
+#  updated_at                   :datetime         not null
+#  width                        :decimal(8, 2)
 #
 # Indexes
 #
@@ -57,7 +61,7 @@ class Product < ActiveRecord::Base
 
   # Area and Date rules
   belongs_to :default_region_rule
-  has_one :local_region_rule, dependent: :destroy
+  has_one :local_region_rule, as: :region_rulable, dependent: :destroy
   accepts_nested_attributes_for :local_region_rule, allow_destroy: true, update_only: true,
     reject_if: :all_blank
 

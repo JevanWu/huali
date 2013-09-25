@@ -15,7 +15,7 @@ describe OrderForm do
   let(:valid_receiver) do
     {
       fullname: '张佳婵',
-      phone: '13912341234',
+      phone: '+86 139 1234 1234',
       province_id: @province.id,
       city_id: @city.id,
       area_id: @area.id,
@@ -27,7 +27,7 @@ describe OrderForm do
   let(:valid_sender) do
     {
       name: '张佳婵',
-      phone: '13912341234',
+      phone: '+86 139 1234 1234',
       email: 'somebody@example.com'
     }
   end
@@ -58,7 +58,7 @@ describe OrderForm do
     OrderForm.new(valid_order)
   end
 
-  it_behaves_like "OrderForm::Integration::Shared" 
+  it_behaves_like "OrderForm::Integration::Shared"
 
   describe "coupon_code persistance" do
     context 'with passed in coupon_code' do

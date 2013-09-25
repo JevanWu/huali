@@ -38,7 +38,8 @@ shared_examples_for "OrderForm::Shared" do
                   'OrderProductDateValidator',
                   'OrderItemValidator',
                   'OrderCouponValidator',
-                  'OrderProductAvailabilityValidator'
+                  'OrderProductAvailabilityValidator',
+                  'OrderCustomizedRegionValidator'
                  ]
 
     let(:sender) { SenderInfo.new }
@@ -47,7 +48,7 @@ shared_examples_for "OrderForm::Shared" do
     before do
       subject.address = receiver
       subject.sender = sender
-      VALIDATORS.each do |v| 
+      VALIDATORS.each do |v|
         any_instance_of v.constantize, validate: lambda { |order| }
       end
     end
