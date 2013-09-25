@@ -79,6 +79,7 @@ zh-CN:
         coupon_code: 优惠码
         coupon: 优惠券
         adjustment: 价格调整
+        merchant_trade_no: 支付宝交易号
         subject_text: 货品内容
         created_at: 创建时间
         printed: 已打印
