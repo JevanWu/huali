@@ -20,14 +20,6 @@ module Huali
 
     end
 
-    config.to_prepare do
-      #Devise::SessionsController.layout 'application_simple'
-      #Devise::RegistrationsController.layout 'application'
-      #Devise::ConfirmationsController.layout "application_simple"
-      #Devise::UnlocksController.layout "application_simple"
-      #Devise::PasswordsController.layout "application_simple"
-    end
-
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
