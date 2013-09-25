@@ -55,21 +55,20 @@ class OrdersController < ApplicationController
   end
 
   def channel_order_create
-    process_admin_order('channel_order_new') do |record|
-      record.state = 'wait_make'
-    end
-  end
-
-  def back_order_create
     opts = { paymethod: 'directPay',
              merchant_name: 'Alipay',
-             merchant_trade_no: params[:merchant_trade_no]}
+             merchant_trade_no: params[:order_admin_form][:merchant_trade_no]}
 
-    process_admin_order('back_order_new') do |record|
+    process_admin_order('channel_order_new') do |record|
       record.complete_transaction(opts)
     end
   end
 
+  def back_order_create
+    process_admin_order('back_order_new') do |record|
+      record.state = 'wait_make'
+    end
+  end
 
   def create
     @order_form = OrderForm.new(params[:order_form])
