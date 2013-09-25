@@ -10,10 +10,6 @@
   </fieldset>
 
   <fieldset>
-    <%= f.input :merchant_trade_no %>
-  </fieldset>
-
-  <fieldset>
     <legend>订单信息</legend>
     <%= f.input :adjustment,
       placeholder: '价格调整 +20.0, -30.0, x1.1, *0.9 etc.',
@@ -28,6 +24,16 @@
         '京东' => :jd
         } %>
     <%= f.hidden_field :source %>
+  </fieldset>
+
+  <fieldset>
+    <div class="control-group string optional">
+      <label class="string optional control-label" for="merchant_trade_no">支付宝交易号</label>
+      
+      <div class="controls">
+        <input class="string optional" id="merchant_trade_no" name="merchant_trade_no" type="text">
+      </div>
+    </div>
   </fieldset>
 
   <fieldset>

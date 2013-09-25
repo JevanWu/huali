@@ -39,7 +39,7 @@ class OrdersController < ApplicationController
   # - tracking is skipped
   def channel_order_new
     validate_cart
-    @order_admin_form = OrderAdminForm.new({source: '淘宝', kind: 'channel'})
+    @order_admin_form = OrderAdminForm.new({source: '淘宝', kind: 'taobao'})
     @order_admin_form.sender = SenderInfo.new
     @order_admin_form.address = ReceiverInfo.new
   end
@@ -57,7 +57,7 @@ class OrdersController < ApplicationController
   def channel_order_create
     opts = { paymethod: 'directPay',
              merchant_name: 'Alipay',
-             merchant_trade_no: params[:order_admin_form][:merchant_trade_no]}
+             merchant_trade_no: params[:merchant_trade_no]}
 
     process_admin_order('channel_order_new') do |record|
       record.complete_transaction(opts)
@@ -171,6 +171,11 @@ class OrdersController < ApplicationController
                                                 })
       @order_admin_form.user = current_or_guest_user
 
+      if @order_admin_form.kind == :taobao && !validate_merchant_trade_no(params[:merchant_trade_no])
+        @order_admin_form.errors.add(:kind, '无效的淘宝交易号码')
+        render template and return
+      end
+
       # create line items
       @cart.keys.each do |key|
         @order_admin_form.add_line_item(key, @cart[key])
@@ -189,6 +194,10 @@ class OrdersController < ApplicationController
       else
         render template
       end
+    end
+
+    def validate_merchant_trade_no(merchant_trade_no)
+      merchant_trade_no && merchant_trade_no =~ /^\d{28}$/
     end
 
     def store_order_id(record)

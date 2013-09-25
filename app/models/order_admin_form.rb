@@ -6,7 +6,6 @@ module AdminOnlyInfo
   attribute :bypass_region_validation, Virtus::Attribute::Boolean, default: false
   attribute :bypass_product_validation, Virtus::Attribute::Boolean, default: false
   attribute :adjustment, String
-  attribute :merchant_trade_no, String
   attribute :kind, Symbol, default: :normal
   attribute :ship_method_id, Integer
   attribute :delivery_date, Date
@@ -18,12 +17,6 @@ class OrderAdminForm < OrderForm
   # +/-/*/%1234.0
   validates_format_of :adjustment, with: %r{\A[+-x*%/][\s\d.]+\z}, allow_blank: true
   validates_with OrderDeliveryDateValidator
-
-  validate do |order|
-    if order.kind == :taobao && order.merchant_trade_no && !order.validate_merchant_trade_no
-      errors.add(:merchant_trade_no, '无效的淘宝交易号码')
-    end
-  end
 
   class << self
     def build_from_record(record)
@@ -60,10 +53,6 @@ class OrderAdminForm < OrderForm
     def extract_coupon_code(record)
       record.coupon.try(:code)
     end
-  end
-
-  def validate_merchant_trade_no
-    merchant_trade_no && merchant_trade_no =~ /^\d{28}$/
   end
 
   private
