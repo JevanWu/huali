@@ -20,18 +20,14 @@
       html: { class: 'span8 form-horizontal', method: :put } do |f|
       = devise_error_messages!
 
-      fieldset
-        legend
-          个人信息
-        = f.input :name, placeholder: '您的称呼, 以便我们和您联系'
-        = f.input :phone, as: :simple_form_phone, placeholder: '以便我们和您核对信息'
-        = f.input :email, required: true
-        = f.input :password, required: true
-        = f.input :password_confirmation, required: true
+      h2 个人信息
+      = f.input :name, placeholder: '您的称呼, 以便我们和您联系'
+      = f.input :phone, as: :simple_form_phone, placeholder: '以便我们和您核对信息'
+      = f.input :email, required: true
+      = f.input :password, required: true
+      = f.input :password_confirmation, required: true
 
-      fieldset
-        legend
-          提交修改
-        = f.input :current_password, required: true
-        .form-actions
-          = f.button :submit, t(".update"), class: 'button refresh'
+      h2 提交修改
+      = f.input :current_password, required: true
+      .form-actions
+        = f.button :submit, t(".update"), class: 'button refresh'
