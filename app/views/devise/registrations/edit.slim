@@ -4,14 +4,11 @@
       li
         a
           | 更改用户信息>
-    .delete-account
+
+    .delete-info
       p
         = t(".unhappy")
       = link_to t(".cancel_my_account"), registration_path(resource_name), data: { confirm: t(".are_you_sure") }, method: :delete
-
-    .delete-info
-      a[href=""]
-        | 删除用户信息>
 
   .profile-edit.span8
     = simple_form_for resource,
