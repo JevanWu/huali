@@ -15,6 +15,3 @@
 #= require 'module/chosen-select'
 #= require 'module/banner'
 #= require 'orders'
-
-$ ->
-  console.log('hello world!')
