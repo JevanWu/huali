@@ -199,6 +199,7 @@ class OrderForm
   end
 
   def dispatch_params(order)
+    order.delete(:merchant_trade_no)
     sender = order.delete(:sender)
     order.merge!({ sender_name: sender.name,
                    sender_email: sender.email,
