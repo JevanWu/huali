@@ -410,7 +410,10 @@ zh-CN:
   enumerize:
     order:
       kind:
-        marketing: 媒体订单
+        marketing: 市场订单
+        xigua: 喜瓜网
+        tencent: 腾讯
+        jd: 京东
         customer: 顾客订单
         taobao: 淘宝订单
         normal: 普通订单
