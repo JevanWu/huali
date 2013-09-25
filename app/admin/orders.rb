@@ -94,6 +94,7 @@ ActiveAdmin.register Order do
   filter :printed, as: :select, collection: { 是: true, 否: false }
   filter :expected_date
   filter :delivery_date
+  filter :kind
   filter :state, as: :select, collection:
   {
     等待付款: 'generated',
