@@ -20,7 +20,7 @@ class OrderAdminForm < OrderForm
   validates_with OrderDeliveryDateValidator
 
   validate do |order|
-    if order.kind == :taobao && !order.validate_merchant_trade_no
+    if order.kind == :taobao && order.merchant_trade_no && !order.validate_merchant_trade_no
       errors.add(:merchant_trade_no, '无效的淘宝交易号码')
     end
   end
