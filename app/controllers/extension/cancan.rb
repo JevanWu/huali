@@ -5,7 +5,7 @@ module Extension
     included do
       # rescue cancan authorization failure
       rescue_from CanCan::AccessDenied do |exception|
-        redirect_to :back, alert: exception.message
+        redirect_to root_path, alert: exception.message
       end
 
       helper_method :current_ability, :current_admin_ability
