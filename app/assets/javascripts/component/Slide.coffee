@@ -40,7 +40,7 @@ class Slide
     return
   move: (change) ->
     endPos = parseInt(@imgs.css("margin-left")) + change*@itemWidth + "px"
-    @imgs.animate({"margin-left":endPos},"fast")
+    @imgs.stop(false,true).animate({"margin-left":endPos},"fast")
     @currentPage -= change
     @dots.find("a").removeClass("cur").eq(@currentPage-1).addClass("cur")
     return

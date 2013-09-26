@@ -181,7 +181,7 @@
       margin-left: 0
       padding: 7px 30px 6px 10px
       border: 1px solid #dededf
-      +box-shadow($global-shadow)
+      +global-box-shadow
       .img-wrap
         float: left
         margin-right: 13px
@@ -213,7 +213,7 @@
         .share
           +clearfix
           margin-top: 13px
-          padding: 10px 10px 1px 10px
+          padding: 10px 0 1px 0
           border-color: $global-border-color
           border-style: solid
           border-width: 1px 0 0 0
@@ -223,3 +223,5 @@
             margin-left: 15px
           li
             margin-right: 7px
+            &.last
+              margin-right: 0
