@@ -19,14 +19,17 @@ class AdminAbility
       cannot :update_seo, [Product, Collection]
     when "product_manager"
       can :manage, [Product, Collection, Asset]
+      can :read, Order
       cannot :destroy, :all
       cannot :update_seo, [Product, Collection]
     when "web_operation_manager"
       can :manage, [Page, Product, Collection, Coupon, Asset, Setting]
+      can :read, Order
       cannot :destroy, :all
       can :update_seo, [Product, Collection]
     when "marketing_manager"
       can :manage, [Coupon]
+      can :read, Order
       can :record_back_order
       cannot :destroy, :all
     end
