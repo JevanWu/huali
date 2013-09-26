@@ -12,7 +12,7 @@
         =t 'views.product.soldout'
     p
       | 免费配送
-    p
+    p.add-to-share
       | 加入分享
   .price data-price = "#{product_in_cart.price}"
     = number_to_currency product_in_cart.price, unit: '&yen;'

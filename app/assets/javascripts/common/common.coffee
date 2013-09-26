@@ -1,12 +1,14 @@
 ﻿$ ->
   #fixed布局处理 设计要求好不合理 只能用JS来解决
-  if $(".error-tips").length isnt 0
+  #又要从fixed布局改回去了，所以下面这段没用了
+  ###if $(".error-tips").length isnt 0
     $(".error-tips,#l-fixed-area-container,#l-nav").wrapAll("<div id='l-fixed-area-item3'></div>")
   else
-    $("#l-fixed-area-container,#l-nav").wrapAll("<div id='l-fixed-area-item2'></div>")
+    $("#l-fixed-area-container,#l-nav").wrapAll("<div id='l-fixed-area-item2'></div>")###
   #提示信息关闭
   $(".error-tips b").click ->
-  	$(".error-tips").parent().attr("id","l-fixed-area-item2").end().remove()
+  	#$(".error-tips").parent().attr("id","l-fixed-area-item2").end().remove()
+    $(".error-tips").remove()
   	return
   #导航栏下拉购物车
   $(".cart-li-preview").hover ->
@@ -39,12 +41,39 @@
     $(".placeholder label").hide()
     return
   $(".placeholder label").click ->
-    $(".placeholder label").hide()
-    $(".placeholder input[type='text']").onfocus
+    $(".placeholder input[type='text']").focus()
     return
   $(".placeholder input[type='text']").blur ->
     if $(this).val() is ""
       $(".placeholder label").show()
+    return
+
+  #share
+  $("*[data-action='follow-weixin']").click (e) ->
+    e.preventDefault()
+    $(".QR").show()
+    $(".display-share").hide()
+    $("#pop-up").css("top",$(window).scrollTop() + $(window).height()/2 - $("#pop-up").outerHeight() + "px").show()
+    return
+  #close
+  $("#pop-up b").click (e) ->
+    $("#pop-up").hide()
+    return
+  #add-to-cart
+  $(".add-to-share").click (e) ->
+    $(".QR").hide()
+    $(".display-share").show()
+    $("#pop-up").css("top",$(window).scrollTop() + $(window).height()/2 - $("#pop-up").outerHeight() + "px").show()
+    return
+
+  #导航栏fixed
+  $(window).scroll ->
+    if $(window).scrollTop() >= 134
+      if $("#l-nav").hasClass("nav-fixed") then return
+      $("#l-nav").addClass("nav-fixed")
+    else
+      if not $("#l-nav").hasClass("nav-fixed") then return
+      $("#l-nav").removeClass("nav-fixed")
     return
 
   return
