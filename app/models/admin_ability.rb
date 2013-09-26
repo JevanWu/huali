@@ -4,8 +4,6 @@ class AdminAbility
   def initialize(user)
     user ||= Administrator.new
 
-    alias_action :update_product_seo, :update_collection_seo, :to => :update_seo
-
     case user.role
     when "super"
       can :manage, :all
@@ -16,19 +14,22 @@ class AdminAbility
       cannot :destroy, :all
     when "operation_manager"
       can :manage, [Product, Collection, Order, Transaction, Shipment, Coupon, DefaultRegionRule, DefaultDateRule]
-      cannot :bulk_export_data
+      cannot :bulk_export_data, [Product, Order, Transaction, Shipment]
       cannot :destroy, :all
-      cannot :update_seo
+      cannot :update_seo, [Product, Collection]
     when "product_manager"
       can :manage, [Product, Collection, Asset]
+      can :read, Order
       cannot :destroy, :all
-      cannot :update_seo
+      cannot :update_seo, [Product, Collection]
     when "web_operation_manager"
       can :manage, [Page, Product, Collection, Coupon, Asset, Setting]
+      can :read, Order
       cannot :destroy, :all
-      can :update_seo
+      can :update_seo, [Product, Collection]
     when "marketing_manager"
       can :manage, [Coupon]
+      can :read, Order
       can :record_back_order
       cannot :destroy, :all
     end
