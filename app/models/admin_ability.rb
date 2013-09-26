@@ -4,12 +4,6 @@ class AdminAbility
   def initialize(user)
     user ||= Administrator.new(role: '')
 
-    if user.persisted?
-      can :read, ActiveAdmin::Page, :name => "Dashboard"
-      can :read, Order
-      cannot :destroy, :all unless user.role == "super"
-    end
-
     case user.role
     when "super"
       can :manage, :all
@@ -19,7 +13,6 @@ class AdminAbility
       cannot :manage, Sidekiq
     when "operation_manager"
       can :manage, [Product, Collection, Order, Transaction, Shipment, Coupon, DefaultRegionRule, DefaultDateRule]
-      cannot :bulk_export_data, [Product, Order, Transaction, Shipment]
       cannot :update_seo, [Product, Collection]
       can :record_back_order, Order
     when "product_manager"
@@ -31,6 +24,16 @@ class AdminAbility
     when "marketing_manager"
       can :manage, [Coupon]
       can :record_back_order, Order
+    end
+
+    if user.persisted?
+      can :read, ActiveAdmin::Page, :name => "Dashboard"
+      can :read, Order
+      cannot :destroy, :all unless user.role == "super"
+
+      unless user.role == 'super' || user.role == 'admin'
+        cannot :bulk_export_data, :all
+      end
     end
   end
 end
