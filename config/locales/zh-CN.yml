@@ -1,4 +1,7 @@
 zh-CN:
+  unauthorized:
+    default: 你没有访问该页面的权限
+
   helpers:
    submit:
      order_form:
