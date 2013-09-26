@@ -39,12 +39,29 @@
     $(".placeholder label").hide()
     return
   $(".placeholder label").click ->
-    $(".placeholder label").hide()
-    $(".placeholder input[type='text']").onfocus
+    $(".placeholder input[type='text']").focus()
     return
   $(".placeholder input[type='text']").blur ->
     if $(this).val() is ""
       $(".placeholder label").show()
+    return
+
+  #share
+  $("*[data-action='follow-weixin']").click (e) ->
+    e.preventDefault()
+    $(".QR").show()
+    $(".display-share").hide()
+    $("#pop-up").css("top",$(window).scrollTop() + $(window).height()/2 - $("#pop-up").outerHeight() + "px").show()
+    return
+  #close
+  $("#pop-up b").click (e) ->
+    $("#pop-up").hide()
+    return
+  #add-to-cart
+  $(".add-to-share").click (e) ->
+    $(".QR").hide()
+    $(".display-share").show()
+    $("#pop-up").css("top",$(window).scrollTop() + $(window).height()/2 - $("#pop-up").outerHeight() + "px").show()
     return
 
   return
