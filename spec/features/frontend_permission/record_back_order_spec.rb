@@ -1,0 +1,68 @@
+require 'spec_helper'
+
+feature 'Permission to record back order' do
+  let(:product) { create(:product, name_en: 'ruby', name_zh: '红宝石') }
+
+  given(:operation_manager) { create(:administrator, role: 'operation_manager') }
+  given(:product_manager) { create(:administrator, role: 'product_manager') }
+  given(:marketing_manager) { create(:administrator, role: 'marketing_manager') }
+
+  background do
+    # FIXME root page should always be setup up front
+    Page.create!(title_en: "Home", title_zh: '首页', permalink: 'home')
+  end
+
+  scenario 'Login as operation manager', js: true do
+    login_as(operation_manager, scope: :administrator)
+
+    visit "/products/#{product.slug}"
+
+    click_link '放入购花篮'
+
+    page.should have_link('特殊订单')
+    page.should have_link('淘宝订单')
+
+    visit "/orders/backorder"
+    current_path.should == "/orders/backorder"
+
+    visit "/orders/taobaoorder"
+    current_path.should == "/orders/taobaoorder"
+  end
+
+  scenario 'Login as product manager', js: true do
+    login_as(product_manager, scope: :administrator)
+
+    visit "/products/#{product.slug}"
+
+    click_link '放入购花篮'
+
+    page.should_not have_link('特殊订单')
+    page.should_not have_link('淘宝订单')
+
+    visit "/orders/backorder"
+    current_path.should_not == "/orders/backorder"
+    page.should have_content("你没有访问该页面的权限")
+
+    visit "/orders/taobaoorder"
+    current_path.should_not == "/orders/taobaoorder"
+    page.should have_content("你没有访问该页面的权限")
+  end
+
+  scenario 'Login as marketing manager', js: true do
+    login_as(marketing_manager, scope: :administrator)
+
+    visit "/products/#{product.slug}"
+
+    click_link '放入购花篮'
+
+    page.should have_link('特殊订单')
+    page.should have_link('淘宝订单')
+
+    visit "/orders/backorder"
+    current_path.should == "/orders/backorder"
+
+    visit "/orders/taobaoorder"
+    current_path.should == "/orders/taobaoorder"
+  end
+end
+

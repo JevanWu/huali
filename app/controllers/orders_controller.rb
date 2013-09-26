@@ -5,7 +5,7 @@ class OrdersController < ApplicationController
   before_action :authenticate_administrator!, only: [:back_order_new, :back_order_create, :taobao_order_new, :taobao_order_create]
   before_action :process_custom_data, only: [:return, :notify]
   skip_before_action :verify_authenticity_token, only: [:notify]
-  before_action :check_back_order_permission, only: [:back_order_new, :taobao_order_new, :back_order_create, :taobao_order_create]
+  before_action :authorize_to_record_back_order, only: [:back_order_new, :taobao_order_new, :back_order_create, :taobao_order_create]
 
   def index
     @orders = current_or_guest_user.orders
@@ -169,7 +169,7 @@ class OrdersController < ApplicationController
 
   private
 
-    def check_back_order_permission
+    def authorize_to_record_back_order
       current_admin_ability.authorize! :record_back_order, Order
     end
 
