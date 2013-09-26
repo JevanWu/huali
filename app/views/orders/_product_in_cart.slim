@@ -13,7 +13,7 @@
     p
       | 免费配送
     p.add-to-share
-      | 加入分享
+      a href="#" data-product="#{product_in_cart.product_id}" 加入分享
   .price data-price = "#{product_in_cart.price}"
     = number_to_currency product_in_cart.price, unit: '&yen;'
   .op.quantity
@@ -21,3 +21,5 @@
     input type='text' value="#{product_in_cart.quantity}"
     = link_to '+', current_order_path, data: { product: product_in_cart.product_id }, class: 'add_quantity'
     = link_to '', current_order_path, data: { product: product_in_cart.product_id }, class: 'empty_quantity'
+
+= render 'shared/product_share_popup', product: product_in_cart.product

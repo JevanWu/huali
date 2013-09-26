@@ -14,7 +14,7 @@
           li: a.douban href="http://site.douban.com/193650" target="_blank"
           li: a.facebook href="https://www.facebook.com/HualiStore" target="_blank"
           li: a.weibo href="http://e.weibo.com/hualishop?ref=http%3A%2F%2Fhua.li%2F" target="_blank"
-          li.last: a.weixin[data-action='follow-weixin']
+          li.last: a.weixin data-action='follow-weixin' href='#'
 .masthead
   .masthead-inner
     .masthead-main
@@ -27,7 +27,7 @@
             == link_to page.title, page_path(page), title: page.title
     p.icp 沪ICP备12040819号-1
 
-#pop-up
+#follow-pop-up
   b
     | x
   .pop-up-content
@@ -37,13 +37,3 @@
         =image_tag("QRcode.jpg")
       p
         | 打开微信，点击底部的“发现”，使用 “扫一扫” 即可关注我们。
-    .display-share.share
-      ul.share-to
-        li.share-text
-          | 分享到：
-        li
-          a.weibo href="" target="_blank"
-        li
-          a.weixin href="" target="_blank"
-        li.last
-          a.douban href="" target="_blank"

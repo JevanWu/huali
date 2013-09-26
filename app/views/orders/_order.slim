@@ -34,7 +34,9 @@ li.row
         p
           | 免费配送
         p
-          | 加入分享
+          a href="#" data-product="#{product.id}" 加入分享
       .op-area
         - if order.state == 'generated'
           = link_to t('models.order.state.pay'), checkout_order_path(order), class: 'btn-completePay'
+
+= render 'shared/product_share_popup', product: product
