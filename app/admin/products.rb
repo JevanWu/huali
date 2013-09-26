@@ -15,12 +15,23 @@ ActiveAdmin.register Product do
 
   controller do
     helper :products
+    before_action :authorize_seo_permission, only: [:create, :update]
 
     def scoped_collection
       Product.includes(:assets, :collections)
     end
 
     private
+
+    def authorize_seo_permission
+      current_admin_ability.authorize! :update_seo, Product if edit_seo?
+    end
+
+    def edit_seo?
+      !!params[:product][:meta_title] ||
+        !!params[:product][:meta_keywords] ||
+        !!params[:product][:meta_description]
+    end
 
     def full_product_fields
       [

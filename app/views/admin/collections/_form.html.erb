@@ -10,10 +10,12 @@
     <%= f.input :primary_category, as: :boolean, hint: '主要分类会显示在导航条目里' %>
   <% end %>
 
-  <%= f.inputs "SEO" do %>
-    <%= f.input :meta_title %>
-    <%= f.input :meta_keywords %>
-    <%= f.input :meta_description %>
+  <% unless current_admin_ability.cannot? :update_seo, @collection %>
+    <%= f.inputs "SEO" do %>
+      <%= f.input :meta_title %>
+      <%= f.input :meta_keywords %>
+      <%= f.input :meta_description %>
+    <% end %>
   <% end %>
   <%= f.actions %>
 <% end %>
