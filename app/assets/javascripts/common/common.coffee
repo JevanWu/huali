@@ -7,7 +7,8 @@
     $("#l-fixed-area-container,#l-nav").wrapAll("<div id='l-fixed-area-item2'></div>")###
   #提示信息关闭
   $(".error-tips b").click ->
-  	$(".error-tips").parent().attr("id","l-fixed-area-item2").end().remove()
+  	#$(".error-tips").parent().attr("id","l-fixed-area-item2").end().remove()
+    $(".error-tips").remove()
   	return
   #导航栏下拉购物车
   $(".cart-li-preview").hover ->
