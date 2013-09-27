@@ -26,7 +26,7 @@ class OrdersController < ApplicationController
     @order_form = OrderForm.new
     @order_form.address = ReceiverInfo.new
     @order_form.sender = SenderInfo.new(current_user.as_json) # nil.as_json => nil
-    AnalyticWorker.delay.open_order(current_user.id, @products.map(&:name), Time.now)
+    AnalyticWorker.delay.open_order(current_user.id, @products_in_cart.map(&:name), Time.now)
   end
 
   # channel order
