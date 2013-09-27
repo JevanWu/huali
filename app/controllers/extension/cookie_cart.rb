@@ -11,7 +11,7 @@ module Extension
 
       if line_items.present?
         @cart = ::Cart.new(line_items, coupon_code)
-        @products = line_items.map(&:product)
+        @products_in_cart = line_items.map(&:product)
       end
     end
 
@@ -42,10 +42,10 @@ module Extension
     end
 
     def fetch_related_products
-      @products ||= []
+      @products_in_cart ||= []
 
-      recommendations = @products.inject([]) { |s, p| s + p.recommendations }
-      suggestions = @products.inject([]) { |s, p| s + p.suggestions }
+      recommendations = @products_in_cart.inject([]) { |s, p| s + p.recommendations }
+      suggestions = @products_in_cart.inject([]) { |s, p| s + p.suggestions }
 
       @related_products = (recommendations + suggestions).take(7)
     end
