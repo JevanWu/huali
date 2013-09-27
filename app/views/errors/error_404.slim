@@ -1,6 +1,3 @@
----
-layout: layout_simple.slim
----
 #error-page
   .error-logo
     =image_tag('logo.png')
@@ -17,6 +14,11 @@ layout: layout_simple.slim
         | 5秒后自动返回首页
       p
         | or手动跳转
-        a[href="/"]
+        a[href="#{root_path}"]
           | 回首页
         | ！
+
+javascript:
+  setTimeout(function() {
+    window.location = "#{root_path}"
+  }, 5000);
