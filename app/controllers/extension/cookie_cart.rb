@@ -1,6 +1,8 @@
 module Extension
   module CookieCart
     def load_cart
+      return if controller_path.split('/').first == "admin" # Skip load cart in admin pages
+
       line_item_hash, coupon_code = load_cart_cookie
 
       line_items = line_item_hash.map do |k, v|
