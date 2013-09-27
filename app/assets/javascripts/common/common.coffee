@@ -48,22 +48,28 @@
       $(".placeholder label").show()
     return
 
-  #share
+  # follow weixin popup
   $("*[data-action='follow-weixin']").click (e) ->
     e.preventDefault()
-    $(".QR").show()
-    $(".display-share").hide()
-    $("#pop-up").css("top",$(window).scrollTop() + $(window).height()/2 - $("#pop-up").outerHeight() + "px").show()
+    $("#follow-pop-up .pop-up-content").show()
+    $("#follow-pop-up").css("top",$(window).scrollTop() + $(window).height()/2 - $("#follow-pop-up").outerHeight() + "px").show()
     return
-  #close
-  $("#pop-up b").click (e) ->
-    $("#pop-up").hide()
+  # close weixin popup
+  $("#follow-pop-up b").click (e) ->
+    $("#follow-pop-up").hide()
     return
-  #add-to-cart
-  $(".add-to-share").click (e) ->
-    $(".QR").hide()
-    $(".display-share").show()
-    $("#pop-up").css("top",$(window).scrollTop() + $(window).height()/2 - $("#pop-up").outerHeight() + "px").show()
+  # share product popup
+  $("*[data-action='share-product']").click (e) ->
+    e.preventDefault()
+    product = $(this).data("product")
+    $popup = $("#share-pop-up[data-product='#{product}']:first")
+
+    $popup.find(".pop-up-content").show()
+    $popup.css("top",$(window).scrollTop() + $(window).height()/4 - $popup.outerHeight() + "px").show()
+    return
+  # close share product popup
+  $("#share-pop-up b").click (e) ->
+    $(this).parent().hide()
     return
 
   #导航栏fixed

@@ -1,4 +1,4 @@
-li.row
+li.row.order
   .col1.span3
     span
       = l order.created_at.to_date, format: :long
@@ -33,8 +33,8 @@ li.row
           = product.name_en
         p
           | 免费配送
-        p
-          a href="#" data-product="#{product.id}" 加入分享
+        p.add-to-share
+          a href="#" data-action='share-product' data-product="#{product.id}" 加入分享
       .op-area
         - if order.state == 'generated'
           = link_to t('models.order.state.pay'), checkout_order_path(order), class: 'btn-completePay'
