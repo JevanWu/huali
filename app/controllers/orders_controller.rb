@@ -1,11 +1,11 @@
 # encoding: utf-8
 class OrdersController < ApplicationController
-  before_action :fetch_related_products, only: [:back_order_create, :taobao_order_create, :current, :apply_coupon]
+  before_action :fetch_related_products, only: [:back_order_create, :channel_order_create, :current, :apply_coupon]
   before_action :authenticate_user!, only: [:new, :index, :show, :create, :checkout, :cancel]
-  before_action :authenticate_administrator!, only: [:back_order_new, :back_order_create, :taobao_order_new, :taobao_order_create]
+  before_action :authenticate_administrator!, only: [:back_order_new, :back_order_create, :channel_order_new, :channel_order_create]
   before_action :process_custom_data, only: [:return, :notify]
   skip_before_action :verify_authenticity_token, only: [:notify]
-  before_action :authorize_to_record_back_order, only: [:back_order_new, :taobao_order_new, :back_order_create, :taobao_order_create]
+  before_action :authorize_to_record_back_order, only: [:back_order_new, :channel_order_new, :back_order_create, :channel_order_create]
 
   def index
     @orders = current_or_guest_user.orders
@@ -29,11 +29,11 @@ class OrdersController < ApplicationController
     AnalyticWorker.delay.open_order(current_user.id, @products.map(&:name), Time.now)
   end
 
-  # taobao order
-  # - used for taobao order input
+  # channel order
+  # - used for channel order input
   # - transaction is completed beforehand
   # - tracking is skipped
-  def taobao_order_new
+  def channel_order_new
     validate_cart
     @order_admin_form = OrderAdminForm.new({source: '淘宝', kind: 'taobao'})
     @order_admin_form.sender = SenderInfo.new
@@ -50,22 +50,21 @@ class OrdersController < ApplicationController
     @order_admin_form.address = ReceiverInfo.new
   end
 
-  def taobao_order_create
-    process_admin_order('taobao_order_new') do |record|
-      record.state = 'wait_make'
-    end
-  end
-
-  def back_order_create
+  def channel_order_create
     opts = { paymethod: 'directPay',
              merchant_name: 'Alipay',
              merchant_trade_no: params[:merchant_trade_no]}
 
-    process_admin_order('back_order_new') do |record|
+    process_admin_order('channel_order_new') do |record|
       record.complete_transaction(opts)
     end
   end
 
+  def back_order_create
+    process_admin_order('back_order_new') do |record|
+      record.state = 'wait_make'
+    end
+  end
 
   def create
     @order_form = OrderForm.new(params[:order_form])
@@ -182,6 +181,11 @@ class OrdersController < ApplicationController
                                                 })
       @order_admin_form.user = current_or_guest_user
 
+      if @order_admin_form.kind == :taobao && !validate_merchant_trade_no(params[:merchant_trade_no])
+        @order_admin_form.errors.add(:kind, '无效的淘宝交易号码')
+        render template and return
+      end
+
       # create line items
       @cart.items.each do |item|
         @order_admin_form.add_line_item(item.product_id, item.quantity)
@@ -200,6 +204,10 @@ class OrdersController < ApplicationController
       else
         render template
       end
+    end
+
+    def validate_merchant_trade_no(merchant_trade_no)
+      merchant_trade_no && merchant_trade_no =~ /^\d{28}$/
     end
 
     def store_order_id(record)

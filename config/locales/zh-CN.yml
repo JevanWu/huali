@@ -82,6 +82,7 @@ zh-CN:
         coupon_code: 优惠码
         coupon: 优惠券
         adjustment: 价格调整
+        merchant_trade_no: 支付宝交易号
         subject_text: 货品内容
         created_at: 创建时间
         printed: 已打印
@@ -421,7 +422,10 @@ zh-CN:
   enumerize:
     order:
       kind:
-        marketing: 媒体订单
+        marketing: 市场订单
+        xigua: 喜瓜网
+        tencent: 腾讯
+        jd: 京东
         customer: 顾客订单
         taobao: 淘宝订单
         normal: 普通订单
@@ -496,7 +500,7 @@ zh-CN:
       ta_address: TA的地址是
       checkout: 确定
       back_checkout: 特殊订单
-      taobao_checkout: 淘宝订单
+      channel_checkout: 渠道订单
       basket: 购花篮
       order_list: 订单中心
       in_total: 总计

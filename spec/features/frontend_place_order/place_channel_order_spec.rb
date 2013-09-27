@@ -30,14 +30,14 @@ feature 'Place order' do
     click_link('放入购花篮')
 
     within(".cart-checkout .checkout") do
-      click_link('淘宝订单')
+      click_link('渠道订单')
     end
 
     within("#new-order") do
       fill_in '寄件人姓名', with: '王二'
       fill_in '寄件人邮箱', with: 'user@example.com'
       fill_in '寄件人电话', with: '18011112222'
-      fill_in '支付宝交易号', with: '38375784-34-08-543578394'
+      choose "腾讯"
       choose "人工递送"
       fill_in '到达日期', with: "2012-12-12"
       fill_in '发货日期', with: "2012-12-11"
@@ -57,19 +57,38 @@ feature 'Place order' do
     page.should have_content('红宝石无法在该递送日期配送')
   end
 
+  scenario "Validating taobao transaction number", js: true do
+    visit "/products/#{product.slug}"
+    click_link('放入购花篮')
+
+    within(".cart-checkout .checkout") do
+      click_link('渠道订单')
+    end
+
+    within("#new-order") do
+      choose "淘宝"
+      fill_in '支付宝交易号', with: '38375784-34-08-543578394'
+
+      click_button '新增订单'
+    end
+
+    page.should have_content('无效的淘宝交易号码')
+  end
+
   scenario "Placed successfully", js: true do
     visit "/products/#{product.slug}"
     click_link('放入购花篮')
 
     within(".cart-checkout .checkout") do
-      click_link('淘宝订单')
+      click_link('渠道订单')
     end
 
     within("#new-order") do
       fill_in '寄件人姓名', with: '王二'
       fill_in '寄件人邮箱', with: 'user@example.com'
       fill_in '寄件人电话', with: '18011112222'
-      fill_in '支付宝交易号', with: '38375784-34-08-543578394'
+      choose "淘宝"
+      fill_in '支付宝交易号', with: '2013092600001000160047724202'
       choose "人工递送"
       fill_in '到达日期', with: Date.current
       fill_in '发货日期', with: Date.current.yesterday

@@ -34,9 +34,10 @@ feature 'Place order' do
     end
 
     within("#new-order") do
-      choose "媒体订单"
+      choose "市场订单"
       choose "人工递送"
       fill_in '到达日期', with: "2012-12-12"
+      fill_in '发货日期', with: "2012-12-11"
       fill_in '收件人姓名', with: '王二'
       fill_in '收件人电话', with: '18011112222'
 
@@ -62,9 +63,10 @@ feature 'Place order' do
     end
 
     within("#new-order") do
-      choose "媒体订单"
+      choose "市场订单"
       choose "人工递送"
       fill_in '到达日期', with: Date.current
+      fill_in '发货日期', with: Date.current.yesterday
       fill_in '收件人姓名', with: '王二'
       fill_in '收件人电话', with: '18011112222'
 
@@ -90,10 +92,11 @@ feature 'Place order' do
     end
 
     within("#new-order") do
-      choose "媒体订单"
+      choose "市场订单"
       choose "人工递送"
-      fill_in '到达日期', with: "2012-12-12"
       check "跳过递送时间验证"
+      fill_in '到达日期', with: "2012-12-12"
+      fill_in '发货日期', with: "2012-12-11"
       fill_in '收件人姓名', with: '王二'
       fill_in '收件人电话', with: '18011112222'
 

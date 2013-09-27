@@ -1,4 +1,4 @@
-<%= simple_form_for @order_admin_form, url: { action: 'taobao_order_create' }, html: { class: 'form-horizontal', id: 'new-order' } do |f| %>
+<%= simple_form_for @order_admin_form, url: { action: 'channel_order_create' }, html: { class: 'form-horizontal', id: 'new-order' } do |f| %>
   <%= simple_form_error_messages_for(@order_admin_form.line_items) %>
   <fieldset>
     <legend>您的个人信息</legend>
@@ -10,17 +10,6 @@
   </fieldset>
 
   <fieldset>
-    <%# FIXME a hack get order[:merchant_trade_no] from form %>
-    <legend>支付信息</legend>
-    <div class="control-group">
-      <label class="required control-label"><abbr title="required">*</abbr> 支付宝交易号</label>
-      <div class="controls">
-        <input class="string required" type="text" name="merchant_trade_no" placeholder="支付宝交易号" size="50">
-      </div>
-    </div>
-  </fieldset>
-
-  <fieldset>
     <legend>订单信息</legend>
     <%= f.input :adjustment,
       placeholder: '价格调整 +20.0, -30.0, x1.1, *0.9 etc.',
@@ -28,8 +17,23 @@
     <%= f.input :coupon_code, placeholder: '如果您有优惠券，请在这里填写' %>
     <%= f.input :gift_card_text, input_html: { rows: 3 }, placeholder: '我们可以代您书写给TA的话，请注明落款哦！' %>
     <%= f.input :special_instructions, input_html: { rows: 3 }, placeholder: '您可将一些特殊要求罗列与此，我们将尽力满足您的要求。' %>
+    <%= f.input :kind, as: :radio_buttons, required: true, collection: {
+        '淘宝' => :taobao,
+        '喜瓜网' => :xigua,
+        '腾讯' => :tencent,
+        '京东' => :jd
+        } %>
     <%= f.hidden_field :source %>
-    <%= f.hidden_field :kind %>
+  </fieldset>
+
+  <fieldset>
+    <div class="control-group string optional">
+      <label class="string optional control-label" for="merchant_trade_no">支付宝交易号</label>
+      
+      <div class="controls">
+        <input class="string optional" id="merchant_trade_no" name="merchant_trade_no" type="text">
+      </div>
+    </div>
   </fieldset>
 
   <fieldset>
