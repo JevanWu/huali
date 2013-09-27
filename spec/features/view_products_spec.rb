@@ -11,7 +11,7 @@ feature "View products" do
   end
 
   scenario "by collection" do
-    visit "/collections/#{collection.slug}"
+    visit "/collections/#{collection.id}"
 
     page.should have_link('红宝石')
   end

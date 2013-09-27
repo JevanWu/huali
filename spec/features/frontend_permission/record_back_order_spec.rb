@@ -20,13 +20,13 @@ feature 'Permission to record back order' do
     click_link '放入购花篮'
 
     page.should have_link('特殊订单')
-    page.should have_link('淘宝订单')
+    page.should have_link('渠道订单')
 
     visit "/orders/backorder"
     current_path.should == "/orders/backorder"
 
-    visit "/orders/taobaoorder"
-    current_path.should == "/orders/taobaoorder"
+    visit "/orders/channelorder"
+    current_path.should == "/orders/channelorder"
   end
 
   scenario 'Login as product manager', js: true do
@@ -37,14 +37,14 @@ feature 'Permission to record back order' do
     click_link '放入购花篮'
 
     page.should_not have_link('特殊订单')
-    page.should_not have_link('淘宝订单')
+    page.should_not have_link('渠道订单')
 
     visit "/orders/backorder"
     current_path.should_not == "/orders/backorder"
     page.should have_content("你没有访问该页面的权限")
 
-    visit "/orders/taobaoorder"
-    current_path.should_not == "/orders/taobaoorder"
+    visit "/orders/channelorder"
+    current_path.should_not == "/orders/channelorder"
     page.should have_content("你没有访问该页面的权限")
   end
 
@@ -56,13 +56,13 @@ feature 'Permission to record back order' do
     click_link '放入购花篮'
 
     page.should have_link('特殊订单')
-    page.should have_link('淘宝订单')
+    page.should have_link('渠道订单')
 
     visit "/orders/backorder"
     current_path.should == "/orders/backorder"
 
-    visit "/orders/taobaoorder"
-    current_path.should == "/orders/taobaoorder"
+    visit "/orders/channelorder"
+    current_path.should == "/orders/channelorder"
   end
 end
 
