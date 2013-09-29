@@ -55,6 +55,7 @@ zh-CN:
     attributes:
       order_form:
         identifier: 订单编号
+        merchant_order_no: 合作方订单编号
         transaction_identifier: 交易编号
         expected_date: 到达日期
         delivery_date: 发货日期
@@ -249,6 +250,7 @@ zh-CN:
         rectangle_image: 矩形图片
         name_zh: 中文名
         name_en: 英文名
+        sku_id: SKU编号
         tags: 标签
         tag_list: 标签
         collections: 品类

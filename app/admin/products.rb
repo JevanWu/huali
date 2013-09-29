@@ -58,6 +58,7 @@ ActiveAdmin.register Product do
 
   filter :name_zh
   filter :name_en
+  filter :sku_id
   filter :price
   filter :original_price
   filter :tags
@@ -69,7 +70,7 @@ ActiveAdmin.register Product do
   index do
     selectable_column
     column "ID" do |product|
-      link_to product.id, product_path(product)
+      link_to product.sku_id || product.id, product_path(product)
     end
 
     column :name_zh
@@ -96,6 +97,7 @@ ActiveAdmin.register Product do
     attributes_table do
       row :name_zh
       row :name_en
+      row :sku_id
       row :published
       row :priority
 

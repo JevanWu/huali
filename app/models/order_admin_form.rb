@@ -5,6 +5,7 @@ module AdminOnlyInfo
   attribute :bypass_date_validation, Virtus::Attribute::Boolean, default: false
   attribute :bypass_region_validation, Virtus::Attribute::Boolean, default: false
   attribute :bypass_product_validation, Virtus::Attribute::Boolean, default: false
+  attribute :merchant_order_no, String
   attribute :adjustment, String
   attribute :kind, Symbol, default: :normal
   attribute :ship_method_id, Integer

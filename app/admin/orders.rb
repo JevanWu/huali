@@ -95,6 +95,7 @@ ActiveAdmin.register Order do
   filter :expected_date
   filter :delivery_date
   filter :kind
+  filter :merchant_order_no
   filter :state, as: :select, collection:
   {
     等待付款: 'generated',
@@ -241,6 +242,8 @@ ActiveAdmin.register Order do
         content_tag('span', order.identifier) + \
         content_tag('span', order.identifier, class: 'barcode35')
       end
+
+      row :merchant_order_no
 
       row :order_content do
         order.subject_text
