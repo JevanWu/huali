@@ -99,6 +99,10 @@ class User < ActiveRecord::Base
     self.save!
   end
 
+  def after_database_authentication
+    GaTrackWorker.delay.user_sign_in_track(id)
+  end
+
   private
 
     # Generate a friendly string randomically to be used as token.
