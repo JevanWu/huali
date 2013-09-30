@@ -35,37 +35,26 @@ feature "Edit category" do
     page.should have_content('更新于')
   end
 
-  scenario "Set as available and primary" do
+  scenario "Set as available and top category" do
     visit "/admin/collections/#{category.slug}/edit"
 
     check '是否有效'
-    check '主要分类'
+    select '', from: "父分类"
     click_button "更新品类"
 
     visit "/"
-    find("#product-nav").should have_content("婚礼")
+    page.should have_link("婚礼")
   end
 
   scenario "Set as not available" do
     visit "/admin/collections/#{category.slug}/edit"
 
     uncheck '是否有效'
-    check '主要分类'
+    select '', from: "父分类"
     click_button "更新品类"
 
     visit "/"
-    find("#product-nav").should_not have_content("婚礼")
-  end
-
-  scenario "Set as not primary" do
-    visit "/admin/collections/#{category.slug}/edit"
-
-    check '是否有效'
-    uncheck '主要分类'
-    click_button "更新品类"
-
-    visit "/"
-    find("#product-nav").should_not have_content("婚礼")
+    page.should_not have_link("婚礼")
   end
 
   scenario "Display name changed" do
@@ -75,7 +64,7 @@ feature "Edit category" do
     click_button "更新品类"
 
     visit "/"
-    find("#product-nav").should have_content("红色婚礼")
+    page.should have_link("红色婚礼")
   end
 
   scenario "SEO changed", js: true do
@@ -89,8 +78,8 @@ feature "Edit category" do
 
     visit "/collections/#{category.slug}"
     page.should have_title("红色婚礼SEO")
-    page.find("meta[name='keywords']", visible: false)["content"].should have_content("红色,婚礼")
-    page.find("meta[name='description']", visible: false)["content"].should have_content("红色的婚礼")
+    page.find("meta[name='Keywords']", visible: false)["content"].should have_content("红色,婚礼")
+    page.find("meta[name='Description']", visible: false)["content"].should have_content("红色的婚礼")
   end
 
   scenario "Set a parent" do
