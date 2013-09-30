@@ -146,6 +146,10 @@ ActiveAdmin.register Product do
         end.join(' ').html_safe
       end
 
+      row :rectangle_image do
+        image_tag product.rectangle_image.url(:medium)
+      end
+
       row :count_on_hand
 
       row :original_price do
