@@ -24,7 +24,7 @@ feature "Edit page" do
 
     page.should have_title('关于我们')
     page.should have_content('花里，源于一个简单而纯粹的愿望——从鲜花中得到美好。')
-    page.find("footer").should_not have_link('关于我们')
+    page.should_not have_link('关于我们')
   end
 
   scenario "Set as displaying on page footer" do
@@ -35,7 +35,7 @@ feature "Edit page" do
 
     visit "/#{single_page.permalink}"
 
-    page.find("footer").should_not have_link('关于我们')
+    page.should_not have_link('关于我们')
   end
 
   scenario "Edit with markdown" do
