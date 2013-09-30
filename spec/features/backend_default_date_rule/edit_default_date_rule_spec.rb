@@ -40,7 +40,7 @@ feature 'Edit default date rule' do
 
     click_link('放入购花篮')
 
-    within(".order-actions") do
+    within(".cart-checkout .checkout") do
       click_link('确定')
     end
 
