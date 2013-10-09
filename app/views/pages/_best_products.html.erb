@@ -1,0 +1,18 @@
+<div class="best-products row">
+  <!-- Square and product list-->
+  <div class="square">
+    <a href="/collections/colorful-life">
+        <img alt="色彩系列" src="http://hua.li/system/assets/images/000/000/656/original/%E6%8C%87%E7%94%B2%E6%B2%B9.jpg?1381307650"  width="460" height="440">
+    </a>
+  </div>
+
+  <%# 深海之谜, 弗拉明戈 %>
+  <% Product.find(110, 109).each_with_index do |product, index| %>
+    <%= render 'collections/product', product: product, index: index %>
+  <% end %>
+
+  <%# 自然香气, 轻奢世界, 浓情城市, 欧洲花园 %>
+  <% Product.find(111, 112, 108, 107).each_with_index do |product, index| %>
+    <%= render 'collections/product', product: product, index: index %>
+  <% end %>
+</div>
