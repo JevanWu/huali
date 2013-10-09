@@ -1,13 +1,11 @@
-.a-product.span3
-  = image_tag product.img(:medium), alt: "#{product.name} medium images"
+.a-product.span3 class="#{'first' if index == 0}"
+  a href="#{product_path(product)}"
+    = image_tag product.rectangle_image(:medium), alt: "#{product.name} medium images"
   .share
     span share this look
-    ul.share-to
-      li: a.weibo
-      li: a.msg
-      li.last: a.facebook
+    = render 'shared/product_share_links', product: product
   .information
     strong
       em = link_to product.name, product_path(product), title: product.name
       span = product.name_en
-    p ￥#{product.original_price}
+    p ￥#{product.price}
