@@ -3,7 +3,7 @@
   .nav-inner
     ul.nav-item.is-mouseleave.row
       - collection_roots.each do |root|
-        li: a href=""
+        li: a href="#{collection_path(root)}"
           = root.display_name
           i.l-stack
 
