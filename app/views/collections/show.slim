@@ -28,7 +28,7 @@
           a href="#{product_path(product)}"
             = image_tag product.rectangle_image(:medium), alt: "#{product.name} medium images"
           .share
-            span share this look
+            span = t(:sharing)
             = render 'shared/product_share_links', product: product
           .information
             strong
@@ -51,8 +51,7 @@
                 .price
                   span ￥#{product.price}
             .share
+              span = t(:sharing)
               = render 'shared/product_share_links', product: product
-              span
-                | share this look
     .pager
       == paginate @products

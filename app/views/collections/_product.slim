@@ -1,7 +1,7 @@
 .a-product.span3
   = image_tag product.img(:medium), alt: "#{product.name} medium images"
   .share
-    span share this look
+    span =t(:sharing)
     ul.share-to
       li: a.weibo
       li: a.msg
