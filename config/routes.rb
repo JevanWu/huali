@@ -58,7 +58,8 @@ Huali::Application.routes.draw do
   get 'users/check_user_exist', to: 'users#check_user_exist'
   post 'users/subscribe_email', to: 'users#subscribe_email'
 
-  root to: "pages#show", id: 'home'
+  root to: "pages#home"
+  get 'home', to: 'pages#home', as: :home
   get 'partner', to: 'pages#partner', as: :partner
   get 'qixi', to: 'pages#qixi', as: :qixi
 

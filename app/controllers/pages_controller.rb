@@ -15,4 +15,7 @@ class PagesController < ApplicationController
   def qixi
     render 'qixi', layout: 'horizontal'
   end
+
+  def home
+  end
 end
