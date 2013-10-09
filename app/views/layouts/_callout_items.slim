@@ -2,7 +2,10 @@
   p
     = root.description
   dl
-    == render partial: 'layouts/child_collection', collection: column_1_children
+    - if column_1_children.present?
+      == render partial: 'layouts/child_collection', collection: column_1_children
+    - else
+      == render 'layouts/child_products', collection: root
 
 - if column_2_children.present?
   .nav-callout-item-col2

@@ -62,8 +62,7 @@
   .nav-callout-container
     .nav-callout.is-mouseleave
       - collection_roots.each_with_index do |root, index|
-        - children = root.children.available
-        - next if children.size.zero?
+        - children = root.children.available.to_a
         - children_1, children_2 = Utils.split_collection_array(children)
         .nav-callout-item class="nav-callout-#{index + 1}"
           == render 'layouts/callout_items', root: root, column_1_children: children_1, column_2_children: children_2
