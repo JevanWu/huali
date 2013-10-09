@@ -32,6 +32,8 @@ zh-CN:
       one: 厘米
       other: 厘米
 
+  sharing: 分享到
+
   activemodel:
     format: ! '%{attribute} %{message}'
     errors:

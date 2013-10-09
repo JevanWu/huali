@@ -41,8 +41,7 @@
                 .price
                   span ￥#{product.price}
             .share
+              span = t(:sharing)
               = render 'shared/product_share_links', product: product
-              span
-                | share this look
     .pager
       == paginate @products
