@@ -30,7 +30,7 @@
         li.row
           - product.assets.take(3).each do |asset|
             a.img-wrap.span2 href="#{product_path(product)}"
-              = image_tag asset.image.url(:small), alt: "#{product.name} thumbnail images", width: '140'
+              = image_tag asset.image.url(:medium), alt: "#{product.name} thumbnail images", width: '140'
           .des.span5
             div
               .name
