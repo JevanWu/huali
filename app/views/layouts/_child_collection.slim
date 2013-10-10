@@ -1,7 +1,8 @@
 dt
   = link_to "#{child_collection.display_name}>", collection_path(child_collection)
-- child_collection.products.published.take(5).each do |product|
-  dd
-    = link_to product.name, product_path(product)
-dd
-  = link_to "More>>", collection_path(child_collection)
+/ Cancel showing products in navigator temporarily
+/- child_collection.products.published.take(5).each do |product|
+  /dd
+    /= link_to product.name, product_path(product)
+/dd
+  /= link_to "More>>", collection_path(child_collection)

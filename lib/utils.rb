@@ -10,6 +10,20 @@ module Utils
     end
   end
 
+  class << self
+    alias_method :old_split_collection_array, :split_collection_array
+  end
+
+  def self.split_collection_array(collections)
+    array_size = collections.size
+
+    if array_size <= 12
+      [collections, []]
+    else
+      [collections.take(12), collections[12..-1]]
+    end
+  end
+
   def self.subscribe_to_mailchimp(email, name = nil)
     gb = Gibbon.new ENV['MAILCHIMP_API_KEY'], timeout: 60
     gb.list_subscribe(
