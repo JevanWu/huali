@@ -16,6 +16,6 @@ feature 'Add product to cart' do
     page.should have_link('红宝石')
     page.should have_content(/¥\s*#{product.price}/)
     page.should have_content('1')
-    find('#cart-content').find('tfoot').should have_content(/总计.*?#{product.price}/)
+    find('.cart-checkout').should have_content(/小计.*?#{product.price}/)
   end
 end

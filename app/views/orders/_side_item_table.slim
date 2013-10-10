@@ -1,0 +1,23 @@
+p.gouhualan-title
+  i
+  | 购花篮
+.gouhualan
+  == render partial: 'side_item_row', :collection => cart.items
+  .summary
+    .summary-item
+      span
+        = t('views.order.in_total')
+      em
+        = number_to_currency cart.original_total, unit: '&yen;'
+    - if cart.discounted?
+      .summary-item
+        span
+          | 折扣
+        em
+          | -&nbsp;
+          = number_to_currency cart.discount_money, unit: '&yen;'
+    .summary-item
+      span
+        | 折后总计
+      em.special
+        = number_to_currency cart.total, unit: '&yen;'

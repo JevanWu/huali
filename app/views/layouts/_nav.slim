@@ -1,0 +1,66 @@
+- collection_roots = Collection.roots.available
+#l-nav
+  .nav-inner
+    ul.nav-item.is-mouseleave.row
+      - collection_roots.each do |root|
+        li: a href="#{collection_path(root)}"
+          = root.display_name
+          i.l-stack
+
+    ul.operate
+      li.cart-li-preview
+        a.cart href="#{current_order_path}"
+          = "(#{@cart ? @cart.item_count : 0})"
+          i
+        .cart-preview-container
+          .cart-preview
+            - if @cart.nil?
+              p.cart-preview-empty 您的购花篮还是空的
+            - else
+              h3
+                span 我的购物车
+              - @cart.items.each_with_index do |item, index|
+                .cart-preview-item class="#{".last" if index + 1 == @cart.items.size}"
+                  = image_tag(item.img(:thumb), width: 35, height: 35)
+                  .cart-preview-item-main
+                    h4 #{item.name}
+                    .cart-preview-item-info
+                      .num
+                        = "数量：#{item.quantity}"
+                      .price
+                        = number_to_currency item.price, unit: '&yen;'
+              .summary
+                span
+                  | 合计：
+                strong
+                  = number_to_currency @cart.total, unit: '&yen;'
+              .go-checkout
+                = link_to '结算', current_order_path, class: 'checkout'
+
+      - if user_signed_in?
+        li.personal-account.last
+          a href="#"
+            | 我的账户
+            i
+          ul.profile
+            li
+              span 欢迎，#{current_user.username}
+            li
+              = link_to '我的订单', orders_path, class: 'personal'
+            li
+              = link_to '账户信息', edit_user_registration_path
+            li
+              = link_to '登出', destroy_user_session_path, class: 'personal'
+      - else
+        li.not-login.last
+          = link_to '登入', new_user_session_path
+          span
+            | /
+          = link_to '注册', new_user_registration_path
+  .nav-callout-container
+    .nav-callout.is-mouseleave
+      - collection_roots.each_with_index do |root, index|
+        - children = root.children.available.to_a
+        - children_1, children_2 = Utils.split_collection_array(children)
+        .nav-callout-item class="nav-callout-#{index + 1}"
+          == render 'layouts/callout_items', root: root, column_1_children: children_1, column_2_children: children_2

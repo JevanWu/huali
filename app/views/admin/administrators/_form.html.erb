@@ -2,7 +2,7 @@
   <%= f.inputs do %>
     <%= f.input :email %>
     <%= f.input :password %>
-    <%= f.input :role, collection: %w(super admin supplier) %>
+    <%= f.input :role, collection: %w(super admin operation_manager product_manager web_operation_manager marketing_manager) %>
   <% end %>
   <%= f.actions %>
 <% end %>

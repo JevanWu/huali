@@ -51,8 +51,9 @@ feature "Edit coupon" do
 
     visit "/products/#{product.slug}"
     click_link '放入购花篮'
-    within(".order-actions") do
-      click_link '确定'
+
+    within(".cart-checkout .checkout") do
+      click_link('确定')
     end
 
     fill_in '优惠码', with: coupon.code
@@ -72,8 +73,9 @@ feature "Edit coupon" do
 
     visit "/products/#{product.slug}"
     click_link '放入购花篮'
-    within(".order-actions") do
-      click_link '确定'
+
+    within(".cart-checkout .checkout") do
+      click_link('确定')
     end
 
     fill_in '优惠码', with: coupon.code
@@ -93,8 +95,9 @@ feature "Edit coupon" do
 
     visit "/products/#{product.slug}"
     click_link '放入购花篮'
-    within(".order-actions") do
-      click_link '确定'
+
+    within(".cart-checkout .checkout") do
+      click_link('确定')
     end
 
     fill_in '优惠码', with: conditioned_coupon.code

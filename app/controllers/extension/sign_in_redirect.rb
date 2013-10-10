@@ -9,7 +9,9 @@ module Extension
     def store_location
       # store last url as long as it isn't a /users path or /administrator path
       # avoid redirect loop
-      session[:previous_url] = request.fullpath unless request.fullpath =~ /\/users|\/administrators/
+      if !(request.fullpath =~ /\/users|\/administrators/) && !request.xhr?
+        session[:previous_url] = request.fullpath
+      end
     end
 
     def after_sign_in_path_for(resource)

@@ -53,6 +53,12 @@ ActiveAdmin.register Order do
 
     private
 
+    before_action :authorize_to_download_orders, only: [:download_latest, :download_all]
+
+    def authorize_to_download_orders
+      current_admin_ability.authorize! :bulk_export_data, Order
+    end
+
     def populate_collection_data
       @collection_data = {
         provinces: Province.all.map { |prov| [prov.name, prov.id] },
@@ -179,9 +185,11 @@ ActiveAdmin.register Order do
   end
 
   index do
-    div do
-      link_to('Download latest', params.merge(action: :download_latest), class: 'table_tools_button') +
-      link_to('Download All', params.merge(action: :download_all), class: 'table_tools_button')
+    unless current_admin_ability.cannot? :bulk_export_data, Order
+      div do
+        link_to('Download latest', params.merge(action: :download_latest), class: 'table_tools_button') +
+        link_to('Download All', params.merge(action: :download_all), class: 'table_tools_button')
+      end
     end
 
     selectable_column

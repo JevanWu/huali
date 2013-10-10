@@ -1,0 +1,149 @@
+=rhombus_1
+  i,b
+    display: inline-block
+    width: 10px
+    height: 10px
+    vertical-align: middle
+    background-image: image-url("bg/rhombus_darken.png")
+
+=rhombus_2
+  a
+    display: block
+    width: 10px
+    height: 10px
+    background-image: image-url("bg/rhombus_light.png")
+    &.cur
+      background-image: image-url("bg/rhombus_normal.png")
+
+=rhombus_3
+  position: absolute
+  width: 10px
+  height: 10px
+  background-image: image-url("bg/rhombus_darken.png")
+
+=button($buttonWidth, $buttonHeight: 30px, $buttonFontSize: 12px)
+  display: inline-block
+  width: $buttonWidth !important
+  height: $buttonHeight
+  line-height: $buttonHeight
+  text-align: center
+  border: none
+  color: $masthead-color
+  background-color: $buttonBgColor
+  +border-radius(3px)
+  font-size: $buttonFontSize
+
+=error($errorWidth,$errorHeight: 30px)
+  width: $errorWidth
+  height: $errorHeight
+  text-align: center
+  line-height: $errorHeight
+  padding-left: 0
+  color: $errorColor
+  background-color: $errorBgColor
+  +border-radius(3px)
+
+/*button*/
+/*pc*/
+.btn-next
+  +button(80px)
+
+.btn-passport
+  @extend .btn-next
+
+.btn-post
+  +button(48px,24px)
+  margin-top: -10px
+  margin-left: 5px
+
+.btn-logistics
+  @extend .btn-next
+  background-color: $bg-light-color
+  font-color: $normal-text-color
+
+.btn-invoice
+  @extend .btn-logistics
+
+.btn-completePay
+  @extend .btn-logistics
+  margin-bottom: 10px
+  background-color: $buttonBgColor
+
+.btn-discount
+  +button(60px)
+  margin-left: 5px
+
+.btn-checkout
+  @extend .btn-next
+  margin-top: 50px
+
+/*这个PC和MOBILE相同*/
+.btn-addToCart
+  width: 100%
+  border: none
+  background-color: #1a1a1a
+  height: 35px
+  line-height: 35px
+  color: $masthead-color
+  font-size: $title-font
+
+/*moble*/
+.btn-m-passport
+  +button(140px)
+
+.btn-m-confirm
+  +button(100%)
+
+.btn-m-confirmPay
+  @extend .btn-m-confirm
+
+.btn-m-completePay
+  @extend .btn-m-confirm
+
+.btn-m-help
+  @extend .btn-m-completePay
+
+.btn-m-pay
+  +button(140px,30px,14px)
+  background-color: $buttonBgColor
+  color: $masthead-color
+
+.btn-m-cancel
+  +button(140px,30px,14px)
+  background-color: $bg-light-color
+
+.btn-m-logistics
+  @extend .btn-m-cancel
+
+.btn-m-invoice
+  @extend .btn-m-cancel
+
+.btn-m-discount
+  +button(139px,30px,14px)
+
+.btn-m-confirmBuy
+  @extend .btn-m-confirm
+
+.btn-m-detailPay
+  +button(100%,30px,14px)
+
+.btn-m-cancelPay
+  @extend .btn-m-detailPay
+
+.button
+  height: 30px
+  line-height: 30px
+  text-align: center
+  border: none
+  color: $masthead-color
+  background-color: $buttonBgColor
+  +border-radius(3px)
+  font-size: 12px
+
+.form-actions
+  background-color: transparent
+  border: none
+  padding: 0 20px 0
+
+=global-box-shadow
+  +box-shadow(-1px 1px 5px rgba(214, 214, 215, 0.9))

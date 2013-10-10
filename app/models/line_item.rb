@@ -24,7 +24,7 @@ class LineItem < ActiveRecord::Base
   validates :product, presence: true
   validates :quantity, numericality: { only_integer: true, message: ('quantity must be numbers.'), greater_than: -1 }
 
-  delegate :discount?, :sold_total, :img, :price, :name, :height, :width,
+  delegate :discount?, :sold_total, :img, :price, :name, :name_en, :height, :width,
     :depth, :category_name, :published, to: :product
 
   # after_save :update_order
@@ -52,6 +52,10 @@ class LineItem < ActiveRecord::Base
     else
       product.count_on_hand >= (quantity - self.changed_attributes['quantity'].to_i)
     end
+  end
+
+  def on_stock?
+    product.count_on_hand > 0
   end
 
   def insufficient_stock?

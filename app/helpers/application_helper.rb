@@ -12,10 +12,14 @@ module ApplicationHelper
   end
 
   def current_if_action(*actions)
-    actions.include?(action_name) ? 'current' : ''
+    actions.include?(action_name) ? 'cur' : ''
   end
 
   def current_if_controller(*controllers)
-    controllers.include?(controller_name) ? 'current' : ''
+    controllers.include?(controller_name) ? 'cur' : ''
+  end
+
+  def controller_and_action?(the_controller, the_action)
+    controller_name == the_controller && the_action == action_name
   end
 end

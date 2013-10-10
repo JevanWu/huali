@@ -5,7 +5,6 @@ require 'spork'
 require 'rr'
 require 'capybara/rspec'
 #Capybara.javascript_driver = :selenium
-#Capybara.javascript_driver = :webkit_debug
 
 # poltergeist
 #require 'capybara/poltergeist'

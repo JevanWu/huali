@@ -62,6 +62,21 @@ FactoryGirl.define do
     default_region_rule
     default_date_rule
 
+    rectangle_image_file_name { 'rectangle_image.jpg' }
+    rectangle_image_content_type 'image/jpeg'
+    rectangle_image_file_size 256
+
+    after(:create) do |product|
+      image_file = Rails.root.join("spec/fixtures/#{product.rectangle_image_file_name}")
+
+      # cp test image to direcotries
+      [:original, :medium].each do |size|
+        dest_path = product.rectangle_image.path(size)
+        `mkdir -p #{File.dirname(dest_path)}`
+        `cp #{image_file} #{dest_path}`
+      end
+    end
+
     after(:build) do |product|
       [1, 2, 3, 4].sample.times do
         product.assets << create(:asset)

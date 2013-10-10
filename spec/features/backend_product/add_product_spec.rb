@@ -35,6 +35,7 @@ feature "Add product" do
 
     click_link '新增图片'
     attach_file('Upload Image', File.join(Rails.root, 'spec', 'fixtures', 'sample.jpg'))
+    attach_file('矩形图片', File.join(Rails.root, 'spec', 'fixtures', 'rectangle_image.jpg'))
     fill_in '库存', with: 10
     fill_in '现价', with: 299
 

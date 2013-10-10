@@ -68,19 +68,6 @@ class User < ActiveRecord::Base
       u.save(validate: false)
       u
     end
-
-    def subscribe_to_mailchimp(user_id)
-      user = find(user_id)
-      gb = Gibbon.new ENV['MAILCHIMP_API_KEY'], timeout: 60
-      gb.list_subscribe(
-        id: ENV['MAILCHIMP_LIST_ID'],
-        email_address: user.email,
-        merge_vars: { FNAME: user.name },
-        double_optin: false,
-        update_existing: true,
-        replace_interests: true
-      )
-    end
   end
 
   def guest?

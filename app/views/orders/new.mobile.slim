@@ -1,0 +1,26 @@
+- content_for(:css) do
+  = stylesheet_link_tag "jquery.ui.datepicker"
+
+- content_for(:js) do
+  = javascript_include_tag "datepicker-settings"
+  = javascript_include_tag "prov_city_area_update"
+
+.buy-mobile
+  .product-info
+    - product = @products.first
+    = image_tag product.img(:thumb)
+    .product-info-main
+      h3.product-name
+        = link_to product.name, product_path(product)
+      h4.product-name-en
+        = product.name_en
+      p.total-num
+        | 共计两件商品
+      p.discount
+        | 促销优惠：-￥405
+      p.total-price
+        | 总计：
+        span
+          | ￥1599
+
+  = render 'form'

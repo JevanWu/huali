@@ -1,14 +1,12 @@
 #= require jquery.cookie
-#= require underscore
 #= require_self
 
 $ ->
   # turn on JSON parsing in $.cookie
   $.cookie.json = true
 
-  $('#cart_amount span').text Cart.quantityAll()
-
-  $('.purchase').click (e) ->
+  #查看某种花时加入购物车的操作
+  $('.add-btn').click (e) ->
     link = $(@)
     pro = Cart.get link.data('product')
     Cart.update(id: pro.id, quantity: pro.quantity + 1)
@@ -35,7 +33,8 @@ $ ->
       followLink = -> window.location.href = link.attr('href')
       setTimeout(followLink, 300)
 
-  freshCart = ->
+  freshCart = (e) ->
+    e.preventDefault()
     id = $(@).data('product')
     originQuantity = parseInt Cart.get(id)['quantity']
     action = $(@).attr('class').match(/(\w+)_quantity/)[1]
@@ -52,41 +51,48 @@ $ ->
       location.reload()
       return false
     if (changeTo == 0)
-      $(@).parents('tr').remove()
+      $(@).parents('.item-table').remove()
       updateTable('.item-table')
       return false
 
     $(@).siblings('input').val(changeTo)
-    updateItemRow($(@).parents('tr'))
+    updateItemRow($(@).parents('.item-table'))
     return false
 
+  #增加减少删除
   $('.item-table').on 'click', '.add_quantity, .reduce_quantity, .empty_quantity', freshCart
+
+  updateCartQuantityText = (quantity) ->
+    $('.cart:first').text "(#{quantity})"
 
   updateItemRow = (row) ->
     price = $('.price', row).data('price')
     quantity = parseInt $('.quantity > input', row).val()
     total = price * quantity
-    $('.total', row).data('total', total).html toCurrency(total.toFixed(2))
+    row.data('total', total)
     updateTable('.item-table')
+    return
 
   updateTable = (tablename) ->
-    total = _.reduce($("#{tablename} tbody tr"),
+    ###total = _.reduce($("#{tablename} tbody tr"),
       ((sum, row) ->
         rowTotal = parseInt $('.total', row).data('total')
         sum + rowTotal)
-      , 0)
+      , 0)###
+    total = _.reduce($("#{tablename}"),(sum,row) ->
+      rowTotal = parseInt $(row).data('total')
+      sum + rowTotal
+    ,0)
+    $(".total-price").html toCurrency(total)
+    $(".checkout .subtotal i").text(Cart.quantityAll())
 
-    $("#{tablename} tfoot tr td:last").html toCurrency(total)
-    updateCartAmount()
+    updateCartQuantityText(Cart.quantityAll())
 
   appendToTable = (tablename, content) ->
     $("#{tablename} tbody").append(content)
 
   toCurrency = (x, unit = '¥') ->
     " #{unit} #{x} "
-
-  updateCartAmount = ->
-    $('#basket #cart_amount span').html Cart.quantityAll()
 
   $('.suggestion-cell').hover(
     ->
@@ -106,6 +112,11 @@ $ ->
       updateTable(table)
 
     return false
+
+  #购花篮的总商品数量
+
+  updateCartQuantityText(Cart.quantityAll())
+
 
 # product = { id: String, quantity: Integer }
 # cart
@@ -164,7 +175,7 @@ window.isMeta = (e) ->
     return true
 
   return false
-
+#查询邮编
 $ ->
   $('#query-postcode').click (event) ->
     href = "http://opendata.baidu.com/post/s?ie=UTF-8&wd="

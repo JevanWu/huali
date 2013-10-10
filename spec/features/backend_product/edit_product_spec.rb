@@ -81,12 +81,22 @@ feature "Edit product" do
     page.html.should match(/<img[^<>]*sample2\.jpg/)
   end
 
+  scenario "Add rectangle image", js: true do
+    visit "/admin/products/#{product.slug}/edit"
+    attach_file('矩形图片', File.join(Rails.root, 'spec', 'fixtures', 'rectangle_image.jpg'))
+    click_button '更新产品'
+
+    page.html.should match(/<img[^<>]*rectangle_image\.jpg/)
+  end
+
   scenario "Remove image", js: true do
     product.assets << create(:asset, image: Rails.root.join('spec/fixtures/sample2.jpg').open)
 
     visit "/admin/products/#{product.slug}/edit"
-    all(:link, 'Remove Above Image')[-1].click
+
+    find("img[alt~='Sample2'] ~ a").click
     accept_confirm
+
     click_button '更新产品'
 
     visit "/products/#{product.slug}"

@@ -1,15 +1,11 @@
 # encoding: utf-8
 class OrdersController < ApplicationController
-  layout 'horizontal'
-  before_action :load_cart
-  before_action :fetch_items, only: [:new, :back_order_new, :channel_order_new, :create, :back_order_create, :channel_order_create, :current]
-  before_action :fetch_related_products, only: [:back_order_create, :channel_order_create, :current]
+  before_action :fetch_related_products, only: [:back_order_create, :channel_order_create, :current, :apply_coupon]
   before_action :authenticate_user!, only: [:new, :index, :show, :create, :checkout, :cancel]
   before_action :authenticate_administrator!, only: [:back_order_new, :back_order_create, :channel_order_new, :channel_order_create]
   before_action :process_custom_data, only: [:return, :notify]
   skip_before_action :verify_authenticity_token, only: [:notify]
-
-  include ::Extension::Order
+  before_action :authorize_to_record_back_order, only: [:back_order_new, :channel_order_new, :back_order_create, :channel_order_create]
 
   def index
     @orders = current_or_guest_user.orders
@@ -30,7 +26,7 @@ class OrdersController < ApplicationController
     @order_form = OrderForm.new
     @order_form.address = ReceiverInfo.new
     @order_form.sender = SenderInfo.new(current_user.as_json) # nil.as_json => nil
-    AnalyticWorker.delay.open_order(current_user.id, @products.map(&:name), Time.now)
+    AnalyticWorker.delay.open_order(current_user.id, @products_in_cart.map(&:name), Time.now)
   end
 
   # channel order
@@ -74,9 +70,11 @@ class OrdersController < ApplicationController
     @order_form = OrderForm.new(params[:order_form])
     @order_form.user = current_or_guest_user
 
+    update_coupon_code(@order_form.coupon_code)
+
     # create line items
-    @cart.keys.each do |key|
-      @order_form.add_line_item(key, @cart[key])
+    @cart.items.each do |item|
+      @order_form.add_line_item(item.product_id, item.quantity)
     end
 
     if @order_form.save
@@ -150,6 +148,14 @@ class OrdersController < ApplicationController
 
   def current ; end
 
+  def apply_coupon
+    coupon = Coupon.find_by_code(params[:coupon_code])
+
+    update_coupon_code(params[:coupon_code]) if @cart
+
+    render :current
+  end
+
   def cancel
     @order = current_or_guest_user.orders.find_by_id(params[:id])
     if @order.cancel
@@ -161,6 +167,10 @@ class OrdersController < ApplicationController
   end
 
   private
+
+    def authorize_to_record_back_order
+      current_admin_ability.authorize! :record_back_order, Order
+    end
 
     def process_admin_order(template)
       @order_admin_form = OrderAdminForm.new(params[:order_admin_form])
@@ -177,8 +187,8 @@ class OrdersController < ApplicationController
       end
 
       # create line items
-      @cart.keys.each do |key|
-        @order_admin_form.add_line_item(key, @cart[key])
+      @cart.items.each do |item|
+        @order_admin_form.add_line_item(item.product_id, item.quantity)
       end
 
       success = @order_admin_form.save do |record|
@@ -204,10 +214,6 @@ class OrdersController < ApplicationController
       session[:order_id] = record.id
     end
 
-    def empty_cart
-      cookies.delete :cart
-    end
-
     def update_guest
       # need an object to hold the user instance
       guest = guest_user
@@ -222,7 +228,7 @@ class OrdersController < ApplicationController
     def validate_cart
       # - no line items present
       # - zero quantity
-      if @cart.blank? || @cart.all? { |k, v| v.to_i <= 0 }
+      if @cart.blank? || @cart.items.any? { |item| item.quantity.to_i <= 0 }
         flash[:alert] = t('controllers.order.no_items')
         redirect_to :root
       end
@@ -242,4 +248,5 @@ class OrdersController < ApplicationController
         { paymethod: 'bankPay', merchant_name: pay_info }
       end
     end
+
 end
