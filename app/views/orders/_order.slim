@@ -25,7 +25,7 @@ li.row.order
 
     .product-info
       - product = order.products.first
-      = image_tag(product.img(:small), width: '140')
+      = image_tag(product.img(:medium), width: '140')
       .product-info-main
         h3.product-name
           = link_to product.name, product_path(product)
