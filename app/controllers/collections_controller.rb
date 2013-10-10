@@ -4,7 +4,7 @@ class CollectionsController < ApplicationController
 
     @products = Product.published.joins(:collections).
       where("collections_products.collection_id in (?)",
-            @collection.self_and_descendants.map(&:id)).page(params[:page])
+            @collection.self_and_descendants.map(&:id)).uniq.page(params[:page])
 
     respond_to do |format|
       format.html { render 'show'}
