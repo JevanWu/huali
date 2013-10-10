@@ -38,7 +38,7 @@
 
 
 class Product < ActiveRecord::Base
-  paginates_per 4
+  paginates_per 12
 
   attr_accessor :quantity
 
