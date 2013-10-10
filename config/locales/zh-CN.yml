@@ -534,3 +534,6 @@ zh-CN:
 
     reminder:
       selected_product: 选择的产品
+
+    pagination:
+      truncate: "..."
