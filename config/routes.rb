@@ -61,7 +61,6 @@ Huali::Application.routes.draw do
   root to: "pages#home"
   get 'home', to: 'pages#home', as: :home
   get 'partner', to: 'pages#partner', as: :partner
-  get 'qixi', to: 'pages#qixi', as: :qixi
 
   get 'banners/:date', to: 'banners#index', as: :banners
 
