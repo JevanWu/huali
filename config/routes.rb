@@ -67,6 +67,4 @@ Huali::Application.routes.draw do
   ActiveAdmin.routes(self)
 
   get ':id', to: 'pages#show', as: :page
-  get "errors/error_404"
-  get "errors/error_500"
 end
