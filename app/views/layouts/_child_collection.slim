@@ -1,0 +1,9 @@
+dt
+  = link_to "#{child_collection.display_name}>", collection_path(child_collection)
+
+- unless child_collection_counter > 2
+  - child_collection.products.published.take(3).each do |product|
+    dd
+      = link_to product.name, product_path(product)
+  dd
+    = link_to "More>>", collection_path(child_collection)

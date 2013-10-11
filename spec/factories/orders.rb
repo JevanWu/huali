@@ -13,17 +13,17 @@
 #  id                   :integer          not null, primary key
 #  identifier           :string(255)
 #  item_total           :decimal(8, 2)    default(0.0), not null
+#  kind                 :string(255)      default("normal"), not null
 #  payment_total        :decimal(8, 2)    default(0.0)
 #  printed              :boolean          default(FALSE)
 #  sender_email         :string(255)
 #  sender_name          :string(255)
 #  sender_phone         :string(255)
-#  ship_method_id       :string(255)
+#  ship_method_id       :integer
 #  source               :string(255)      default(""), not null
 #  special_instructions :text
 #  state                :string(255)      default("ready")
 #  total                :decimal(8, 2)    default(0.0), not null
-#  type                 :string(255)      default("normal"), not null
 #  updated_at           :datetime         not null
 #  user_id              :integer
 #

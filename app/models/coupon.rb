@@ -10,6 +10,7 @@
 #  expires_at      :date             not null
 #  id              :integer          not null, primary key
 #  note            :string(255)
+#  price_condition :integer
 #  updated_at      :datetime         not null
 #  used_count      :integer          default(0)
 #

@@ -2,28 +2,32 @@
 #
 # Table name: products
 #
-#  count_on_hand          :integer          default(0), not null
-#  created_at             :datetime         not null
-#  default_date_rule_id   :integer
-#  default_region_rule_id :integer
-#  depth                  :decimal(8, 2)
-#  description            :text
-#  height                 :decimal(8, 2)
-#  id                     :integer          not null, primary key
-#  inspiration            :text
-#  meta_description       :string(255)
-#  meta_keywords          :string(255)
-#  meta_title             :string(255)
-#  name_en                :string(255)      default(""), not null
-#  name_zh                :string(255)      default(""), not null
-#  original_price         :decimal(, )
-#  price                  :decimal(8, 2)
-#  priority               :integer          default(5)
-#  published              :boolean          default(FALSE)
-#  slug                   :string(255)
-#  sold_total             :integer          default(0)
-#  updated_at             :datetime         not null
-#  width                  :decimal(8, 2)
+#  count_on_hand                :integer          default(0), not null
+#  created_at                   :datetime         not null
+#  default_date_rule_id         :integer
+#  default_region_rule_id       :integer
+#  depth                        :decimal(8, 2)
+#  description                  :text
+#  height                       :decimal(8, 2)
+#  id                           :integer          not null, primary key
+#  inspiration                  :text
+#  meta_description             :string(255)
+#  meta_keywords                :string(255)
+#  meta_title                   :string(255)
+#  name_en                      :string(255)      default(""), not null
+#  name_zh                      :string(255)      default(""), not null
+#  original_price               :decimal(, )
+#  price                        :decimal(8, 2)
+#  priority                     :integer          default(5)
+#  published                    :boolean          default(FALSE)
+#  rectangle_image_content_type :string(255)
+#  rectangle_image_file_name    :string(255)
+#  rectangle_image_file_size    :integer
+#  rectangle_image_updated_at   :datetime
+#  slug                         :string(255)
+#  sold_total                   :integer          default(0)
+#  updated_at                   :datetime         not null
+#  width                        :decimal(8, 2)
 #
 # Indexes
 #
@@ -58,6 +62,21 @@ FactoryGirl.define do
     default_region_rule
     default_date_rule
 
+    rectangle_image_file_name { 'rectangle_image.jpg' }
+    rectangle_image_content_type 'image/jpeg'
+    rectangle_image_file_size 256
+
+    after(:create) do |product|
+      image_file = Rails.root.join("spec/fixtures/#{product.rectangle_image_file_name}")
+
+      # cp test image to direcotries
+      [:original, :medium].each do |size|
+        dest_path = product.rectangle_image.path(size)
+        `mkdir -p #{File.dirname(dest_path)}`
+        `cp #{image_file} #{dest_path}`
+      end
+    end
+
     after(:build) do |product|
       [1, 2, 3, 4].sample.times do
         product.assets << create(:asset)
@@ -68,7 +87,7 @@ FactoryGirl.define do
     trait :with_local_rules do
       after(:create) do |product|
         product.local_date_rule = create(:local_date_rule, product: product)
-        product.local_region_rule = create(:local_region_rule, product: product)
+        product.create_local_region_rule
       end
     end
 

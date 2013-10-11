@@ -12,7 +12,6 @@ class PagesController < ApplicationController
   def partner
   end
 
-  def qixi
-    render 'qixi', layout: 'horizontal'
+  def home
   end
 end

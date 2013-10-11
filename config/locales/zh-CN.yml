@@ -1,4 +1,7 @@
 zh-CN:
+  unauthorized:
+    default: 你没有访问该页面的权限
+
   helpers:
    submit:
      order_form:
@@ -29,6 +32,8 @@ zh-CN:
       one: 厘米
       other: 厘米
 
+  sharing: 分享到
+
   activemodel:
     format: ! '%{attribute} %{message}'
     errors:
@@ -36,10 +41,12 @@ zh-CN:
         blank: 您需要填写此项
         unavailable_date: 快递无法为您在这个日期进行递送
         unavailable_location: 我们无法为您配送到这个地区
+        unavailable_location_at_date: 我们无法在%{date}为您配送到这个地区
         invalid_coupon: 对不起，该优惠券已经过期或者无法使用
         non_exist_coupon: 对不起，该优惠券不存在
         unavailable_products: 产品不可用
         blank_products: 产品不能为空
+        service_not_available: 非常抱歉，在本日花店无法进行配送
         product_unavailable: '%{product_name}不可用'
         product_of_invalid_quantity: '%{product_name}数量不能小于等于0'
         product_out_of_stock: '%{product_name}库存不足，可用库存%{count_on_hand}'
@@ -53,6 +60,7 @@ zh-CN:
     attributes:
       order_form:
         identifier: 订单编号
+        merchant_order_no: 合作方订单编号
         transaction_identifier: 交易编号
         expected_date: 到达日期
         delivery_date: 发货日期
@@ -77,6 +85,7 @@ zh-CN:
         coupon_code: 优惠码
         coupon: 优惠券
         adjustment: 价格调整
+        merchant_trade_no: 支付宝交易号
         subject_text: 货品内容
         created_at: 创建时间
         printed: 已打印
@@ -131,6 +140,8 @@ zh-CN:
       default_region_rule: 默认递送地域规则
       default_date_rule: 默认递送时间规则
       setting: 全局设置
+      banner: 通知横幅
+      period_region_policy: 短期地域规则
 
     attributes:
       order: &order
@@ -180,10 +191,12 @@ zh-CN:
         printed: 已打印
         tracking_num: 快递单号
         kind: 类型
-        bypass_region_validation: 跳过递送区域验证
-        bypass_date_validation: 跳过递送时间验证
-        bypass_product_validation: 跳过产品验证
 
+      period_region_policy:
+        start_date: 起始日期
+        end_date: 失效日期
+        local_region_rule: 定制规则
+        not_open: 是否不营业
 
       administrator:
         email: 邮箱
@@ -243,6 +256,7 @@ zh-CN:
         rectangle_image: 矩形图片
         name_zh: 中文名
         name_en: 英文名
+        sku_id: SKU编号
         tags: 标签
         tag_list: 标签
         collections: 品类
@@ -312,6 +326,7 @@ zh-CN:
         email: 邮箱
         created_at: 注册时间
         password: 密码
+        password_confirmation: 密码
         last_sign_in_at: 上次登录时间
         sign_in_count: 登录次数
         humanizer_answer: 验证问题
@@ -350,6 +365,12 @@ zh-CN:
 
       local_region_rule:
         name: 规则名称
+
+      banner:
+        name: 名称
+        content: 横幅内容
+        start_date: 开始时间
+        end_date: 结束时间
 
   models:
     order:
@@ -405,7 +426,10 @@ zh-CN:
   enumerize:
     order:
       kind:
-        marketing: 媒体订单
+        marketing: 市场订单
+        xigua: 喜瓜网
+        tencent: 腾讯
+        jd: 京东
         customer: 顾客订单
         taobao: 淘宝订单
         normal: 普通订单
@@ -480,7 +504,7 @@ zh-CN:
       ta_address: TA的地址是
       checkout: 确定
       back_checkout: 特殊订单
-      taobao_checkout: 淘宝订单
+      channel_checkout: 渠道订单
       basket: 购花篮
       order_list: 订单中心
       in_total: 总计
@@ -512,3 +536,6 @@ zh-CN:
 
     reminder:
       selected_product: 选择的产品
+
+    pagination:
+      truncate: "..."

@@ -1,0 +1,15 @@
+nav
+  = link_to '首页', root_path
+  a
+    | 分类名称
+  a
+    | 分类名称
+  a
+    | 分类名称
+  a
+    | 分类名称
+  - unless user_signed_in?
+    .not-login
+      = link_to '登录', new_user_session_path
+      | /
+      = link_to '注册', new_user_registration_path

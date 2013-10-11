@@ -1,0 +1,37 @@
+.a-product
+  float: left
+  width: 220px
+  height: 440px
+  margin-left: 20px
+  margin-bottom: 20px
+  box-shadow: 2px 0 5px rgba(214, 214, 215, 0.9), -2px 0 5px rgba(214, 214, 215, 0.9)
+  &.first
+    margin-left: 0
+  .share
+    margin-top: 0px
+    padding: 10px 10px 1px 10px
+    border-bottom: 1px solid $global-border-color
+    .share-to
+      float: right
+    li
+      margin-right: 7px
+  .information
+    +clearfix
+    position: relative
+    height: 30px
+    padding: 10px
+    em
+      display: block
+    a
+      color: $normal-text-color
+      font-size: 16px
+    span
+      font-size: 14px
+    .name
+      float: left
+    p
+      position: absolute
+      right: 10px
+      top: 15px
+      color: $global-text-color
+      font-size: $price-font

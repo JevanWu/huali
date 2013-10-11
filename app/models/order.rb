@@ -1,4 +1,3 @@
-# encoding: utf-8
 # == Schema Information
 #
 # Table name: orders
@@ -49,7 +48,7 @@ class Order < ActiveRecord::Base
   belongs_to :coupon
 
   extend Enumerize
-  enumerize :kind, in: [:normal, :marketing, :customer, :taobao], default: :normal
+  enumerize :kind, in: [:normal, :jd, :tencent, :xigua, :marketing, :customer, :taobao], default: :normal
 
   delegate :province_name, :city_name, to: :address, allow_nil: true
   delegate :paymethod, to: :transaction, allow_nil: true

@@ -134,6 +134,20 @@ class GaTrackWorker < Gooa::Client
         add_item_track(ga_client_id, order.identifier, item.name, item.price, item.quantity, item.product_id, item.category_name)
       end
     end
+
+    def user_sign_in_track(user_id)
+      user = User.find(user_id)
+      ga_client_id = user.ga_client_id
+
+      event_track(ga_client_id, 'User Account', 'Sign In')
+    end
+
+    def user_sign_up_track(user_id)
+      user = User.find(user_id)
+      ga_client_id = user.ga_client_id
+
+      event_track(ga_client_id, 'User Account', 'Sign Up')
+    end
   end
 end
 

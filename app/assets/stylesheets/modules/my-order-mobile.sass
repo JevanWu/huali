@@ -1,0 +1,34 @@
+.my-order
+  padding: 10px
+  .my-orderlist
+    margin: 5px 0
+    li
+      +clearfix
+      margin-bottom: 8px
+      border: 1px solid #efefef
+      padding: 15px
+      img
+        float: left
+        margin-right: 41px
+      .my-order-item
+        float: left
+        position: relative
+        strong,.summary,.order-state
+          font-size: $content-font
+        .summary,.order-number
+          color: $content-normal-color
+          span
+            color: $normal-text-color
+        .order-state
+          line-height: 25px
+          &.wait-pay
+            color: #ff9933
+        .op
+          +clearfix
+        .arrow
+          position: absolute
+          width: 15px
+          height: 15px
+          right: 0
+          top: 32px
+          background: image-url("bg/arrow_right.png") no-repeat

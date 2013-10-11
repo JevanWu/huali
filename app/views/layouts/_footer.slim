@@ -1,0 +1,38 @@
+#l-footer
+  .footer-inner
+    .contact
+      .contact-feed
+        p HUALINEWS
+        .placeholder
+          label for="customer-email" 输入您的电子邮件
+          = form_tag users_subscribe_email_path, method: :post do
+            input type="text" name="email"
+            = submit_tag "发送", class: 'btn-post'
+      .contact-social
+        p 关注我们
+        ul
+          li: a.douban href="http://site.douban.com/193650" target="_blank"
+          li: a.facebook href="https://www.facebook.com/HualiStore" target="_blank"
+          li: a.weibo href="http://e.weibo.com/hualishop?ref=http%3A%2F%2Fhua.li%2F" target="_blank"
+          li.last: a.weixin data-action='follow-weixin' href='#'
+.masthead
+  .masthead-inner
+    .masthead-main
+      p All Rights Reserved. 2012 - 2013 © 花里 hua.li
+      ul
+        li
+          == link_to '媒体与合作伙伴', partner_path
+        - Page.in_footer.each do |page|
+          li
+            == link_to page.title, page_path(page), title: page.title
+    p.icp 沪ICP备12040819号-1
+
+#follow-pop-up
+  b
+    | x
+  .pop-up-content
+    h3 在微信上关注我们
+    .main
+      =image_tag("QRcode.jpg")
+    p
+      | 打开微信，点击底部的“发现”，使用 “扫一扫” 即可关注我们。

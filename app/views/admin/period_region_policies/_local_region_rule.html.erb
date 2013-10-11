@@ -1,0 +1,15 @@
+<% @period_region_policy.build_local_region_rule unless @period_region_policy.local_region_rule %>
+<%= f.inputs "Local Region Rule", for: :local_region_rule, id: 'region_rules' do |builder| %>
+  <%= builder.hidden_field :province_ids, value: @period_region_policy.local_region_rule.province_ids.join(','), id: "region_rule_province_ids" %>
+
+  <%= builder.hidden_field :city_ids, value: @period_region_policy.local_region_rule.city_ids.join(','), id: "region_rule_city_ids" %>
+
+  <%= builder.hidden_field :area_ids, value: @period_region_policy.local_region_rule.area_ids.join(','), id: "region_rule_area_ids" %>
+
+  <%= render 'admin/shared/regions', region_rule: @period_region_policy.local_region_rule %>
+
+  <ul id="province_list">
+  </ul>
+
+  <button id="save_region_rule" class='hide'>Save</button>
+<% end %>

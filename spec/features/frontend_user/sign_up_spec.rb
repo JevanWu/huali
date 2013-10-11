@@ -40,7 +40,7 @@ feature "Sign up" do
     end
 
     page.should have_content('邮箱 已经被使用')
-    page.should have_content('Password confirmation 与确认值不匹配')
+    page.should have_content('密码 与确认值不匹配')
     page.should have_content('你要确定你是可以欣赏花的人类唷')
   end
 end

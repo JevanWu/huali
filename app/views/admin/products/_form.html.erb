@@ -39,6 +39,7 @@
   <% end %>
 
   <%= f.inputs "SKU Info" do %>
+    <%= f.input :sku_id %>
     <%= f.input :count_on_hand, required: true %>
     <%= f.input :price %>
     <%= f.input :original_price %>
@@ -47,10 +48,12 @@
     <%= f.input :height %>
   <% end %>
 
-  <%= f.inputs "SEO" do %>
-    <%= f.input :meta_title %>
-    <%= f.input :meta_keywords %>
-    <%= f.input :meta_description %>
+  <% unless current_admin_ability.cannot? :update_seo, @product %>
+    <%= f.inputs "SEO" do %>
+      <%= f.input :meta_title %>
+      <%= f.input :meta_keywords %>
+      <%= f.input :meta_description %>
+    <% end %>
   <% end %>
 
   <%= f.inputs "Default Date Rule" do %>

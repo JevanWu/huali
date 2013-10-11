@@ -1,0 +1,24 @@
+doctype html
+html
+  head
+    title = content_for?(:title) ? yield(:title) + ' ' : 'Huali-Store'
+    meta charset="utf-8"
+    meta name="Keywords" content="#{yield :keywords}"
+    meta name="Description" content="#{yield :description}"
+    meta name="viewport" content="initial-scale=0.66,maximum-scale=0.66,user-scalable=no"
+    meta content="on" http-equiv="cleartype"
+    = stylesheet_link_tag 'mobile'
+    = yield(:css)
+
+  body
+    == render 'layouts/header_mobile'
+    == render 'layouts/nav_mobile'
+    == render 'layouts/banner'
+    == yield
+    == render 'layouts/footer_mobile'
+
+  = javascript_include_tag 'vendor/jquery-1.10.2.js'
+  = javascript_include_tag 'vendor/lodash.compat.js'
+  = javascript_include_tag 'vendor/jquery.hammer.js'
+  = javascript_include_tag 'application-mobile'
+  = yield(:js)

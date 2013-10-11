@@ -31,7 +31,7 @@ ActiveAdmin.register Order do
     def edit
       record = Order.find_by_id(params[:id])
       if record.state.in? ["completed", "refunded", "void"]
-        redirect_to [:admin, order], alert: t('views.admin.order.cannot_edit')
+        redirect_to [:admin, record], alert: t('views.admin.order.cannot_edit')
       end
       @order = OrderAdminForm.build_from_record(record)
       populate_collection_data
@@ -52,6 +52,12 @@ ActiveAdmin.register Order do
     end
 
     private
+
+    before_action :authorize_to_download_orders, only: [:download_latest, :download_all]
+
+    def authorize_to_download_orders
+      current_admin_ability.authorize! :bulk_export_data, Order
+    end
 
     def populate_collection_data
       @collection_data = {
@@ -94,6 +100,8 @@ ActiveAdmin.register Order do
   filter :printed, as: :select, collection: { 是: true, 否: false }
   filter :expected_date
   filter :delivery_date
+  filter :kind
+  filter :merchant_order_no
   filter :state, as: :select, collection:
   {
     等待付款: 'generated',
@@ -177,9 +185,11 @@ ActiveAdmin.register Order do
   end
 
   index do
-    div do
-      link_to('Download latest', params.merge(action: :download_latest), class: 'table_tools_button') +
-      link_to('Download All', params.merge(action: :download_all), class: 'table_tools_button')
+    unless current_admin_ability.cannot? :bulk_export_data, Order
+      div do
+        link_to('Download latest', params.merge(action: :download_latest), class: 'table_tools_button') +
+        link_to('Download All', params.merge(action: :download_all), class: 'table_tools_button')
+      end
     end
 
     selectable_column
@@ -240,6 +250,8 @@ ActiveAdmin.register Order do
         content_tag('span', order.identifier) + \
         content_tag('span', order.identifier, class: 'barcode35')
       end
+
+      row :merchant_order_no
 
       row :order_content do
         order.subject_text

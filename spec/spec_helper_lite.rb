@@ -2,6 +2,7 @@ require 'rspec'
 require 'rr'
 $:.unshift File.expand_path '.', __FILE__
 $:.unshift File.expand_path '../../app/models', __FILE__
+$:.unshift File.expand_path '../../app/decorators', __FILE__
 $:.unshift File.expand_path '../../app/models/validators', __FILE__
 $:.unshift File.expand_path '../../lib', __FILE__
 

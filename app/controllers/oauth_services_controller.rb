@@ -1,6 +1,6 @@
 class OauthServicesController < Devise::OmniauthCallbacksController
   def passthru(*args)
-    render 'errors/error_404', status: 404, layout: 'error'
+    render_error 404
   end
 
   def douban

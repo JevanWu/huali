@@ -73,6 +73,10 @@ gem "activeadmin-sortable-tree",
 
 gem 'phonelib', github: 'ryancheung/phonelib'
 
+gem 'mobylette'
+
+gem 'draper', '~> 1.0'
+
 group :development, :test do
   gem 'rspec-rails', '>= 2.11.0'
   gem 'rspec-instafail'
@@ -123,7 +127,6 @@ group :test do
   gem 'shoulda-matchers'
   gem 'activerecord-nulldb-adapter', github: 'blaet/nulldb', branch: 'support_enable_extension'
   gem 'capybara', '>= 1.1.2'
-  gem 'capybara-webkit'
   gem 'selenium-webdriver'
   gem 'spork', '~> 1.0rc'
   gem 'simplecov', require: false

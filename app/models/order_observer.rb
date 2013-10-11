@@ -11,8 +11,8 @@ class OrderObserver < ActiveRecord::Observer
     Sms.delay.pay_order_user_sms(order.id)
     Notify.delay.pay_order_user_email(order.id)
 
-    # doesn't track taobao orders in GA
-    return if order.kind == 'taobao'
+    # doesn't track non normal orders in GA
+    return if order.kind != 'normal'
     Notify.delay.pay_order_admin_email(order.id)
     AnalyticWorker.delay.complete_order(order.id)
     GaTrackWorker.delay.order_track(order.id)

@@ -14,7 +14,7 @@ describe OrderAdminForm do
   let(:valid_receiver) do
     {
       fullname: '张佳婵',
-      phone: '13912341234',
+      phone: '+86 13912341234',
       province_id: 1,
       city_id: 12,
       area_id: 13,
@@ -26,7 +26,7 @@ describe OrderAdminForm do
   let(:valid_sender) do
     {
       name: '张佳婵',
-      phone: '13912341234',
+      phone: '+86 13912341234',
       email: 'somebody@example.com'
     }
   end
@@ -60,7 +60,7 @@ describe OrderAdminForm do
 
   it_behaves_like "ActiveModel::Full"
   it_behaves_like "OrderForm::Shared"
-    
+
   describe "attributes" do
     [:bypass_date_validation, :bypass_region_validation, :bypass_product_validation].each do |attr|
       it "builds #{attr} default to false" do
@@ -74,7 +74,7 @@ describe OrderAdminForm do
     ADMIN_VALIDATORS = ['OrderDeliveryDateValidator']
 
     before do
-      VALIDATORS.each do |v| 
+      VALIDATORS.each do |v|
         any_instance_of v.constantize, validate: lambda { |order| }
       end
 
@@ -119,7 +119,7 @@ describe OrderAdminForm do
       any_instance_of(OrderItemValidator) do |v|
         mock(v).validate(subject).never
       end
-      
+
       subject.valid?
     end
   end
@@ -178,7 +178,7 @@ describe OrderAdminForm do
             :id => 6,
     :product_id => 29,
       :quantity => 1
-      } 
+      }
     end
 
     let(:coupon_param) do
@@ -207,7 +207,7 @@ describe OrderAdminForm do
       }
     end
 
-    let(:order_record) do 
+    let(:order_record) do
       order = Order.new(order_param)
       order.address = Address.new(address_param)
       order.line_items << LineItem.new(line_item_param)
@@ -219,8 +219,8 @@ describe OrderAdminForm do
 
 
     it 'populates the sender attribute' do
-      subject.sender.should == SenderInfo.new(order_param.slice(:sender_email, 
-                                                                :sender_phone, 
+      subject.sender.should == SenderInfo.new(order_param.slice(:sender_email,
+                                                                :sender_phone,
                                                                 :sender_name)
                                                             .transform_keys{ |key| key.to_s.gsub(/sender_/, '').to_sym })
     end

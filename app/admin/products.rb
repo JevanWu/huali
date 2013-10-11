@@ -15,12 +15,23 @@ ActiveAdmin.register Product do
 
   controller do
     helper :products
+    before_action :authorize_seo_permission, only: [:create, :update]
 
     def scoped_collection
       Product.includes(:assets, :collections)
     end
 
     private
+
+    def authorize_seo_permission
+      current_admin_ability.authorize! :update_seo, Product if edit_seo?
+    end
+
+    def edit_seo?
+      !!params[:product][:meta_title] ||
+        !!params[:product][:meta_keywords] ||
+        !!params[:product][:meta_description]
+    end
 
     def full_product_fields
       [
@@ -58,6 +69,7 @@ ActiveAdmin.register Product do
 
   filter :name_zh
   filter :name_en
+  filter :sku_id
   filter :price
   filter :original_price
   filter :tags
@@ -69,7 +81,7 @@ ActiveAdmin.register Product do
   index do
     selectable_column
     column "ID" do |product|
-      link_to product.id, product_path(product)
+      link_to product.sku_id || product.id, product_path(product)
     end
 
     column :name_zh
@@ -93,10 +105,10 @@ ActiveAdmin.register Product do
   form partial: "form"
 
   show do
-
     attributes_table do
       row :name_zh
       row :name_en
+      row :sku_id
       row :published
       row :priority
 
@@ -134,6 +146,10 @@ ActiveAdmin.register Product do
         product.assets.map do |asset|
           image_tag asset.image.url(:thumb)
         end.join(' ').html_safe
+      end
+
+      row :rectangle_image do
+        image_tag product.rectangle_image.url(:medium)
       end
 
       row :count_on_hand

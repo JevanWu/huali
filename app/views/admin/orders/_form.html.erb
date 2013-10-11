@@ -41,6 +41,15 @@
 
   <%= f.inputs "Order Info" do %>
     <%= f.input :source, as: :radio, collection: ["微博", "人人", "豆瓣", "Facebook", "微信", "杂志等平面媒体", "搜索引擎", "朋友推荐", "网络广告", "视频网站", "淘宝", "电视", "其他"] %>
+    <%= f.input :kind, as: :radio, collection: {
+        '市场订单' => :marketing,
+        '顾客订单' => :customer,
+        '淘宝' => :taobao,
+        '喜瓜网' => :xigua,
+        '腾讯' => :tencent,
+        '京东' => :jd
+        } %>
+    <%= f.input :merchant_order_no %>
     <%= f.input :special_instructions, as: :text %>
     <%= f.input :gift_card_text, as: :text %>
   <% end %>

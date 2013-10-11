@@ -1,0 +1,55 @@
+.profile
+  width: $global-width
+  margin: 0 auto
+  padding-top: 60px
+.profile-list
+  width: 285px
+  font-size: $content-font
+  ul
+    line-height: 2
+  .delete-account
+    a
+      color: $link-blue-color
+  .delete-info
+    padding-top: 390px
+.profile-edit
+  width: 568px
+  margin-left: 0
+  padding-left: 30px
+  border-left: 1px solid #eeeeee
+  h2
+    border-bottom: 1px solid $border-light-color
+    width: 430px
+    margin-bottom: 15px
+  .control-label
+    width: 85px
+    margin-right: 8px
+  .controls
+    margin-left: 0
+    +clearfix
+  input[type="text"]
+    width: 214px
+    float: left
+  .refresh
+    margin-left: 50px
+  .chzn-search
+    input[type="text"]
+      width: 100%
+      float: none
+  form
+    margin-top: 5px
+  span.help-inline
+    +error(175px)
+  .save
+    text-align: center
+    input
+      +button(80px)
+  em
+    color: $em-color
+  .refresh
+    width: 80px
+  legend
+    width: 315px
+  input#user_phone
+    float: none
+    margin-left: 5px

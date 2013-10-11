@@ -2,10 +2,6 @@
   <%= javascript_include_tag "oauth" %>
 <% end %>
 
-<% content_for(:title_img) do %>
-  <%= image_tag('title-reg.png') %>
-<% end %>
-
 <div class='authentication'>
   <div class='row'>
     <p class='span4 meta'> <%= t('.youre_sign_in_with_provider', provider: t("devise.oauth_services.providers.#{session[:oauth].provider}")) %> >> </p>
@@ -22,7 +18,7 @@
           <%= f.label session[:oauth].info.name %>
         </div>
       </div>
-      
+
       <%= f.input :email, required: true %>
       <%= image_tag 'loading.gif', class: 'loading-gif' %>
       <%= f.input :password, required: true%>
