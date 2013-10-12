@@ -8,8 +8,7 @@
     <%= simple_form_for resource,
       as: resource_name,
       url: new_oauth_user_registration_path,
-      html: { class: 'span8 form-horizontal sign-up-oauth' },
-      class: 'user-not-exist' do |f| %>
+      html: { class: 'span8 form-horizontal sign-up-oauth' } do |f| %>
       <%= devise_error_messages! %>
 
       <div class='control-group name-via-oauth'>
@@ -19,18 +18,20 @@
         </div>
       </div>
 
-      <%= f.input :email, required: true %>
-      <%= image_tag 'loading.gif', class: 'loading-gif' %>
-      <%= f.input :password, required: true%>
+      <%= f.input :email, required: true do %>
+        <%= f.text_field :email, autocomplete: 'off', class: 'email required' %>
+        <%= image_tag 'loading.gif', class: 'loading' %>
+      <% end %>
+      <%= f.input :password, required: true %>
 
-      <div class='show-when-user-exist hide-when-user-not-exist'>
+      <div id="user-exist" style="display: none">
         <div class="form-actions">
           <%= f.hint t('.email_already_signed_up'), class: 'hint-user-exist' %>
           <%= f.button :submit, t('.sign_in_and_bind'), class: 'sign-in button' %>
         </div>
       </div>
 
-      <div class='show-when-user-not-exist hide-when-user-exist'>
+      <div id="user-not-exist">
         <%= f.input :password_confirmation, required: true %>
         <%= f.input :name, placeholder: '您的称呼, 以便我们和您联系' %>
         <%= f.input :phone, placeholder: '以便我们和您核对信息'  %>

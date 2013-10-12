@@ -211,6 +211,7 @@ Devise.setup do |config|
     config.omniauth :douban, ENV['DOUBAN_OAUTH_KEY'], ENV['DOUBAN_OAUTH_SECRET']
     config.omniauth :qq_connect, ENV['QQ_CONNECT_OAUTH_KEY'], ENV['QQ_CONNECT_OAUTH_SECRET']
   else
+    OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE if Rails.env.development?
     config.omniauth :weibo, ENV['WEIBO_DEV_OAUTH_KEY'], ENV['WEIBO_DEV_OAUTH_SECRET']
     config.omniauth :douban, ENV['DOUBAN_DEV_OAUTH_KEY'], ENV['DOUBAN_DEV_OAUTH_SECRET']
     config.omniauth :qq_connect, ENV['QQ_CONNECT_DEV_OAUTH_KEY'], ENV['QQ_CONNECT_DEV_OAUTH_SECRET']

@@ -1,5 +1,5 @@
 <p class='span4 meta'> <%= t('devise.oauth_services.views.sign_in_use_oauth') %>>> </p>
-<div class='span7 login-use-oauth'>
+<div class='span2 login-use-oauth'>
   <%= link_to image_tag('oauth/douban_oauth.png'), user_omniauth_authorize_path(:douban), class: 'douban-oauth'%>
   <%= link_to image_tag('oauth/weibo_oauth.png'), user_omniauth_authorize_path(:weibo), class: 'weibo-oauth' %>
   <%= link_to image_tag('oauth/qq_oauth.png'), user_omniauth_authorize_path(:qq_connect), class: 'qq-oauth' %>
