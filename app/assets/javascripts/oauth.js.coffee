@@ -5,7 +5,7 @@ $ ->
   hideLoading = ->
     $('.loading').fadeTo(200, 0)
 
-  toggle_form_input = (userExist) ->
+  toggleFormInputs = (userExist) ->
     if userExist
       $('#user-exist').show()
       $('#user-not-exist').hide()
@@ -34,7 +34,7 @@ $ ->
         showLoading()
       success: (result) ->
         hideLoading()
-        toggle_form_input(result.found)
+        toggleFormInputs(result.found)
 
   $('form.sign-up-oauth input#user_email').on('keypress paste textInput input', ->
     checkEmailExistence $(@).val()
