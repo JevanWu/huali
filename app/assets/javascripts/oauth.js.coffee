@@ -1,40 +1,47 @@
 $ ->
-  showLoadingGif = ->
-    $('.loading-gif').fadeTo(200,1)
+  showLoading = ->
+    $('.loading').fadeTo(200, 1)
 
-  hideLoadingGif = ->
-    $('.loading-gif').fadeTo(200,0)
+  hideLoading = ->
+    $('.loading').fadeTo(200, 0)
+
+  toggle_form_input = (userExist) ->
+    if userExist
+      $('#user-exist').show()
+      $('#user-not-exist').hide()
+    else
+      $('#user-exist').hide()
+      $('#user-not-exist').show()
 
   ajaxPool = []
   ajaxPool.abortAll = ->
-    $(@).each( (idx, jqXHR) ->
-      jqXHR.abort())
+    $(@).each (idx, jqXHR) ->
+      jqXHR.abort()
+
     ajaxPool.length = 0
 
-  chkUserExist = (email) ->
-    showLoadingGif()
+  checkEmailExistence = (email) ->
+    return unless !! email
+
     $.ajax
       url: "/users/check_user_exist"
       cache: false
       dataType: 'json'
-      data: ({ user_email: email })
+      data: { user_email: email }
       beforeSend: (jqXHR) ->
         ajaxPool.abortAll()
         ajaxPool.push jqXHR
-      success: (result) -> 
-        if result.found is true
-          $('input#user_email').val(result.email)
-          $('form.sign-up-oauth').removeClass('user-not-exist').addClass('user-exist')
-          hideLoadingGif()
-        else
-          $('form.sign-up-oauth').removeClass('user-exist').addClass('user-not-exist')
+        showLoading()
+      success: (result) ->
+        hideLoading()
+        toggle_form_input(result.found)
 
   $('form.sign-up-oauth input#user_email').on('keypress paste textInput input', ->
-    chkUserExist $(@).val()
+    checkEmailExistence $(@).val()
   ).on('blur', ->
-    hideLoadingGif()
+    hideLoading()
   ).each( ->
-    chkUserExist $(@).val()
+    checkEmailExistence $(@).val()
   )
 
-  chkUserExist( $('form.sign-up-oauth input#user_email').val() )
+  checkEmailExistence $('form.sign-up-oauth input#user_email').val()
