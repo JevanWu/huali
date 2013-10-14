@@ -7,14 +7,10 @@
   </div>
 
   <%# 深海之谜, 弗拉明戈 %>
-  <% Product.find(110, 109).each_with_index do |product, index| %>
-    <%= render 'collections/product', product: product, index: index %>
-  <% end %>
+  <%= render partial: 'collections/product', collection: Product.find(110, 109) %>
 
   <%# 自然香气, 轻奢世界, 浓情城市, 欧洲花园 %>
-  <% Product.find(111, 112, 108, 107).each_with_index do |product, index| %>
-    <%= render 'collections/product', product: product, index: index %>
-  <% end %>
+  <%= render partial: 'collections/product', collection: Product.find(111, 112, 108, 107) %>
 
   <%# 永生花 %>
   <div class="square">
@@ -24,12 +20,8 @@
   </div>
 
   <%# 紫舞, 雨叮咚 %>
-  <% Product.find(84, 106).each_with_index do |product, index| %>
-    <%= render 'collections/product', product: product, index: index %>
-  <% end %>
+  <%= render partial: 'collections/product', collection: Product.find(84, 106) %>
 
   <%# 淡奶之吻, 星空下的问候, 蓝宝石, 红宝石 %>
-  <% Product.find(105, 93, 98, 83).each_with_index do |product, index| %>
-    <%= render 'collections/product', product: product, index: index %>
-  <% end %>
+  <%= render partial: 'collections/product', collection: Product.find(105, 93, 98, 83) %>
 </div>
