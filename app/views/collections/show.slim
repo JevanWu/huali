@@ -23,8 +23,7 @@
         a.square-view[href="javascript:;"]
   dd.main
     .best-products.row
-      - @products.each_with_index do |product, index|
-        == render 'product', product: product, index: index
+      = render partial: 'product', collection: @products
     ul.row-item.is-hidden
       - @products.each do |product|
         li.row
