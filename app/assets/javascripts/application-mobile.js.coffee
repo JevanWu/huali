@@ -1,3 +1,9 @@
+#= require jquery
+#= require jquery_ujs
+#= require underscore
+#= require json3
+#= require lodash.compat
+#= require jquery.hammer
 #= require 'Huali'
 #= require 'component/Swipe'
 #= require 'component/GoodsEditMobile'
