@@ -36,6 +36,7 @@
           p.price
             = number_to_currency @product.price, unit: '&yen;'
           p 免运费
+          p.size 花盒尺寸：40*40cm
         .share
           span = t(:sharing)
           = render 'shared/product_share_links', product: @product
