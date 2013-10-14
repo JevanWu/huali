@@ -13,7 +13,7 @@ class OauthRegistrationsController < Devise::RegistrationsController
           raise ActiveRecord::RecordInvalid.new(u), 'invalid password'
         end
       else
-        u = build_resource params[:user]
+        u = build_resource permitted_params
       end
 
       u.bypass_humanizer = true
@@ -22,13 +22,21 @@ class OauthRegistrationsController < Devise::RegistrationsController
 
       flash[:notice] = I18n.t 'devise.sessions.signed_in'
       sign_in_and_redirect u, :event => :authentication
-    rescue
+    rescue ActiveRecord::RecordInvalid
       flash[:alert] = I18n.t 'devise.failure.invalid'
       render 'devise/registrations/new_from_oauth'
     end
   end
 
   private
+
+  def permitted_params
+    params.require(:user).permit(:email,
+                                 :password,
+                                 :password_confirmation,
+                                 { phone: [] },
+                                 :name)
+  end
 
   def verify_session
     if session[:oauth].nil?
