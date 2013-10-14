@@ -6,9 +6,6 @@ class ApplicationController < ActionController::Base
   before_action :get_host
   before_action :dev_tools if Rails.env == 'development'
 
-  # Temporarily turn off mobile format
-  before_action :ignore_mobile_format
-
   # enable squash
   include Squash::Ruby::ControllerMethods
   enable_squash_client
@@ -37,10 +34,6 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def ignore_mobile_format
-    session[:mobylette_override] = :ignore_mobile
-  end
-
   def devise_layout
     if Devise::RegistrationsController === self && action_name == "edit"
       is_mobile_request? ? 'mobile' : 'application'
@@ -53,8 +46,7 @@ class ApplicationController < ActionController::Base
     if devise_controller?
       devise_layout
     else
-      #is_mobile_request? ? 'mobile' : 'application'
-      'application'
+      is_mobile_request? ? 'mobile' : 'application'
     end
   end
 
