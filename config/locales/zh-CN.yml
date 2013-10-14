@@ -327,6 +327,7 @@ zh-CN:
         created_at: 注册时间
         password: 密码
         password_confirmation: 密码
+        current_password: 当前密码
         last_sign_in_at: 上次登录时间
         sign_in_count: 登录次数
         humanizer_answer: 验证问题
