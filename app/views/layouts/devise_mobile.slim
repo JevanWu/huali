@@ -14,13 +14,14 @@ html
     == render 'layouts/messages'
     #passport-mobile
       .passport-nav
-        a
+        a href="#{root_path}"
           |  
         | 注册
       .passport-mobile-logo
-        =image_tag('logo.png')
+        a href="#{root_path}"
+          =image_tag('logo.png')
       .passport-mobile-main
-              == yield
+        == yield
 
   = javascript_include_tag 'vendor/jquery-1.10.2.js'
   = javascript_include_tag 'vendor/lodash.compat.js'
