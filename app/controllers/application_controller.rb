@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def devise_layout
-    if Devise::RegistrationsController === self && action_name == "edit"
+    if Devise::RegistrationsController === self && action_name.in?("edit", "update")
       is_mobile_request? ? 'mobile' : 'application'
     else
       is_mobile_request? ? 'devise_mobile' : 'devise'
