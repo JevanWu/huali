@@ -1,13 +1,7 @@
 nav
   = link_to '首页', root_path
-  a
-    | 分类名称
-  a
-    | 分类名称
-  a
-    | 分类名称
-  a
-    | 分类名称
+  - Collection.roots.available.each do |root|
+    = link_to root.display_name, collection_path(root)
   - unless user_signed_in?
     .not-login
       = link_to '登录', new_user_session_path
