@@ -6,5 +6,22 @@
     </a>
   </div>
 
-  
+  <%# 深海之谜, 弗拉明戈 %>
+  <%= render partial: 'collections/product', collection: Product.find(110, 109) %>
+
+  <%# 自然香气, 轻奢世界, 浓情城市, 欧洲花园 %>
+  <%= render partial: 'collections/product', collection: Product.find(111, 112, 108, 107) %>
+
+  <%# 永生花 %>
+  <div class="square">
+    <a href="/collections/preserved-flower">
+        <img alt="永生花" src="http://hua.li/system/assets/images/000/000/660/original/%E6%B0%B8%E7%94%9F%E8%8A%B1.jpg?1381560355"  width="460" height="440">
+    </a>
+  </div>
+
+  <%# 紫舞, 雨叮咚 %>
+  <%= render partial: 'collections/product', collection: Product.find(84, 106) %>
+
+  <%# 淡奶之吻, 星空下的问候, 蓝宝石, 红宝石 %>
+  <%= render partial: 'collections/product', collection: Product.find(105, 93, 98, 83) %>
 </div>
