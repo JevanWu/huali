@@ -91,6 +91,7 @@ zh-CN:
         printed: 已打印
         tracking_num: 快递单号
         kind: 类型
+        kind_text: 类型
         bypass_region_validation: 跳过递送区域验证
         bypass_date_validation: 跳过递送时间验证
         bypass_product_validation: 跳过产品验证
@@ -147,6 +148,7 @@ zh-CN:
       order: &order
         identifier: 订单编号
         transaction_identifier: 交易编号
+        merchant_order_no: 合作方订单编号
         expected_date: 到达日期
         delivery_date: 发货日期
         ship_method: 递送方式
@@ -191,6 +193,7 @@ zh-CN:
         printed: 已打印
         tracking_num: 快递单号
         kind: 类型
+        kind_text: 类型
 
       period_region_policy:
         start_date: 起始日期
@@ -434,6 +437,7 @@ zh-CN:
         customer: 顾客订单
         taobao: 淘宝订单
         normal: 普通订单
+        b2b: B2B订单
 
     survey:
       gender:

@@ -100,7 +100,7 @@ ActiveAdmin.register Order do
   filter :printed, as: :select, collection: { 是: true, 否: false }
   filter :expected_date
   filter :delivery_date
-  filter :kind
+  filter :kind, as: :select, collection: Order.kind.options
   filter :merchant_order_no
   filter :state, as: :select, collection:
   {
@@ -234,7 +234,7 @@ ActiveAdmin.register Order do
         status_tag t('models.order.state.' + order.state), order_state(order)
       end
 
-      row :kind
+      row :kind_text
 
       row :printed
 
