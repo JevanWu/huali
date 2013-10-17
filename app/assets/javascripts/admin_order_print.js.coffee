@@ -46,7 +46,7 @@ $ ->
 
   $('#content-align').on 'change', ->
     align = $(@).val()
-    $("#gift-card-text").css('text-align', "#{align}")
+    $("#gift-card-text p").css('text-align', "#{align}")
 
 preserveText = (text) ->
   reducer = (start, line) ->
