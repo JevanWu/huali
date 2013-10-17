@@ -26,6 +26,7 @@ module Extension
 
     def empty_cart
       cookies.delete :cart
+      cookies.delete :coupon_code
     end
 
     def load_cart_cookie

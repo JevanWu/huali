@@ -6,6 +6,7 @@ class OrdersController < ApplicationController
   before_action :process_custom_data, only: [:return, :notify]
   skip_before_action :verify_authenticity_token, only: [:notify]
   before_action :authorize_to_record_back_order, only: [:back_order_new, :channel_order_new, :back_order_create, :channel_order_create]
+  before_action :validate_cart, only: [:new, :channel_order_new, :back_order_new, :create, :back_order_create, :channel_order_create]
 
   def index
     @orders = current_or_guest_user.orders
@@ -22,8 +23,7 @@ class OrdersController < ApplicationController
   end
 
   def new
-    validate_cart
-    @order_form = OrderForm.new
+    @order_form = OrderForm.new(coupon_code: cookies[:coupon_code])
     @order_form.address = ReceiverInfo.new
     @order_form.sender = SenderInfo.new(current_user.as_json) # nil.as_json => nil
     AnalyticWorker.delay.open_order(current_user.id, @products_in_cart.map(&:name), Time.now)
@@ -34,8 +34,9 @@ class OrdersController < ApplicationController
   # - transaction is completed beforehand
   # - tracking is skipped
   def channel_order_new
-    validate_cart
-    @order_admin_form = OrderAdminForm.new({source: '淘宝', kind: 'taobao'})
+    @order_admin_form = OrderAdminForm.new(source: '淘宝',
+                                           kind: 'taobao',
+                                           coupon_code: cookies[:coupon_code])
     @order_admin_form.sender = SenderInfo.new
     @order_admin_form.address = ReceiverInfo.new
   end
@@ -45,8 +46,8 @@ class OrdersController < ApplicationController
   # - no transaction is issued
   # - tracking is skipped
   def back_order_new
-    validate_cart
-    @order_admin_form = OrderAdminForm.new({kind: 'marketing'})
+    @order_admin_form = OrderAdminForm.new(kind: 'marketing',
+                                           coupon_code: cookies[:coupon_code])
     @order_admin_form.address = ReceiverInfo.new
   end
 
@@ -174,6 +175,9 @@ class OrdersController < ApplicationController
 
     def process_admin_order(template)
       @order_admin_form = OrderAdminForm.new(params[:order_admin_form])
+
+      update_coupon_code(@order_admin_form.coupon_code)
+
       @order_admin_form.sender ||= SenderInfo.new({
                                                   name: 'Huali',
                                                   email: 'support@hua.li',

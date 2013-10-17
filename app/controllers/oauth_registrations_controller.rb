@@ -23,6 +23,8 @@ class OauthRegistrationsController < Devise::RegistrationsController
       flash[:notice] = I18n.t 'devise.sessions.signed_in'
       sign_in_and_redirect u, :event => :authentication
     rescue ActiveRecord::RecordInvalid
+      build_resource permitted_params
+
       flash[:alert] = I18n.t 'devise.failure.invalid'
       render 'devise/registrations/new_from_oauth'
     end

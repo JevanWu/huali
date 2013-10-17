@@ -12,7 +12,7 @@
 
   <fieldset>
     <legend>订单信息</legend>
-    <%= f.input :coupon_code, input_html: { value: @order_form.coupon_code || cookies[:coupon_code] }, placeholder: '如果您有优惠券，请在这里填写' %>
+    <%= f.input :coupon_code, placeholder: '如果您有优惠券，请在这里填写' %>
     <%= f.input :gift_card_text, as: :text, input_html: { rows: 3, maxlength: 50 }, placeholder: '我们可以代您书写给TA的话，请注明落款哦！', hint: '50字以内哦' %>
     <%= f.input :special_instructions, as: :text, input_html: { rows: 3 }, placeholder: '您可将一些特殊要求罗列与此，我们将尽力满足您的要求。' %>
     <%= f.input :source, required:true, as: :select, collection: lambda { ["微博", "人人", "豆瓣", "Facebook", "微信", "杂志等平面媒体", "搜索引擎", "朋友推荐", "网络广告", "视频网站", "淘宝", "电视", "其他"].shuffle } %>
