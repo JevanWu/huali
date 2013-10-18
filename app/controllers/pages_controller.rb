@@ -14,4 +14,7 @@ class PagesController < ApplicationController
 
   def home
   end
+
+  def brands
+  end
 end
