@@ -48,6 +48,15 @@
 
 #slide
   position: relative
+  height: 176px
+  margin-top: 20px
+  overflow: hidden
+  text-align: center
+  & > .container 
+    position: absolute
+    +clearfix
+    li
+      float: left
   .slide
     position: relative
     width: 480px
@@ -56,12 +65,14 @@
     overflow: hidden
   .btn-left,.btn-right
     position: absolute
-    top: 117px
+    top: 50%
+    margin-top: -17px
     width: 26px
     height: 35px
     background-color: #f8f8f8
     background-repeat: no-repeat
     background-position: center center
+    z-index: 1
   .btn-left
     left: 0
     background-image: image-url("mobile/swipe_btn_l.png")
@@ -77,8 +88,8 @@
   .slide-dot
     +clearfix
     position: absolute
-    width: 64px
-    bottom: 36px
+    display: inline-block
+    bottom: 12%
     left: 50%
     margin-left: -31px
     li

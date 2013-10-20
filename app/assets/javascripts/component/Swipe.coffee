@@ -1,7 +1,7 @@
 ﻿css = 
   btnL: ".btn-left"
   btnR: ".btn-right"
-  imgs: ".img-wrap"
+  imgs: ".container"
   dots: ".slide-dot"
   cur: ".cur"
 
@@ -45,7 +45,7 @@ class Swipe
     return
   move: (change) ->
     endPos = parseInt(@imgs.css("margin-left")) + change*@itemWidth + "px"
-    @imgs.animate({"margin-left":endPos},"slow")
+    @imgs.animate({"margin-left":endPos},"fast")
     @currentPage -= change
     @dots.find("a").removeClass("cur").eq(@currentPage-1).addClass("cur")
     return
