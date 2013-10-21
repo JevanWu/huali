@@ -44,6 +44,10 @@ $ ->
     fontSize = $(@).val()
     $('p', $content).css('font-size', "#{fontSize}pt")
 
+  $('#content-align').on 'change', ->
+    align = $(@).val()
+    $("#gift-card-text p").css('text-align', "#{align}")
+
 preserveText = (text) ->
   reducer = (start, line) ->
     line = line.replace(/\s/ig, '&nbsp;') # preserve spaces
