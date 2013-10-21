@@ -27,25 +27,25 @@ describe Utils do
     context "when collection array has 3 element" do
       let(:collections) { [1, 2, 3] }
 
-      it { should == [[1, 2], [3]] }
+      it { should == [[1, 3], [2]] }
     end
 
     context "when collection array has 4 element" do
       let(:collections) { [1, 2, 3, 4] }
 
-      it { should == [[1, 2], [3, 4]] }
+      it { should == [[1, 3], [2, 4]] }
     end
 
     context "when collection array has 5 element" do
       let(:collections) { [1, 2, 3, 4, 5] }
 
-      it { should == [[1, 2, 3], [4, 5]] }
+      it { should == [[1, 3, 5], [2, 4]] }
     end
 
     context "when collection array has 6 element" do
       let(:collections) { [1, 2, 3, 4, 5, 6] }
 
-      it { should == [[1, 2, 3], [4, 5, 6]] }
+      it { should == [[1, 3, 5], [2, 4, 6]] }
     end
   end
 end
