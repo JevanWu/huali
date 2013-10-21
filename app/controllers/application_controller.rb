@@ -21,6 +21,7 @@ class ApplicationController < ActionController::Base
   include ::Extension::SignInRedirect
   include ::Extension::CookieCart
   include ::Extension::BulkExportAuthorization
+  include ::Extension::MenuNavigator
 
   before_action :load_cart
 
