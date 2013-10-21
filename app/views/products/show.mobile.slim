@@ -34,7 +34,7 @@
         h4.product-name-en
           = @product.name_en
         p.price ￥#{@product.price}
-      button.add-btn data-product="#{@product.id}" href="/orders/current"
+      button.add-btn data-product="#{@product.id}" href="#{current_order_path}"
         | 加入购物车
       .share
         span =t(:sharing)
