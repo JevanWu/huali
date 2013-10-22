@@ -21,6 +21,7 @@ class ApplicationController < ActionController::Base
   include ::Extension::SignInRedirect
   include ::Extension::CookieCart
   include ::Extension::BulkExportAuthorization
+  include ::Extension::MenuNavigator
 
   before_action :load_cart
 
@@ -42,7 +43,7 @@ class ApplicationController < ActionController::Base
   end
 
   def devise_layout
-    if Devise::RegistrationsController === self && action_name.in?("edit", "update")
+    if Devise::RegistrationsController === self && ["edit", "update"].include?(action_name)
       is_mobile_request? ? 'mobile' : 'application'
     else
       is_mobile_request? ? 'devise_mobile' : 'devise'

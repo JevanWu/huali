@@ -1,13 +1,17 @@
-.nav-callout-item-col1
-  p
-    = root.description
-  dl
-    - if column_1_children.present?
-      == render partial: 'layouts/child_collection', collection: column_1_children
-    - else
-      == render 'layouts/child_products', collection: root
-
-- if column_2_children.present?
+- if root.has_two_column_child_menus?
+  - column_1_children, column_2_children = root.splitted_children
+  .nav-callout-item-col1
+    p
+      = root.description
+    dl
+      == render partial: 'layouts/child_menu', collection: column_1_children
   .nav-callout-item-col2
     dl
-      == render partial: 'layouts/child_collection', collection: column_2_children
+      == render partial: 'layouts/child_menu', collection: column_2_children
+
+- else
+  .nav-callout-item-col1
+    p
+      = root.description
+    dl
+      == render partial: 'layouts/child_menu', collection: root.children

@@ -160,12 +160,6 @@ GIT
       rails (>= 3.2)
 
 GIT
-  remote: git://github.com/ryancheung/phonelib.git
-  revision: 0c64ad518df06e2c8a34bb80acdfd65c17c7f149
-  specs:
-    phonelib (0.1.3)
-
-GIT
   remote: git://github.com/zenhacks/friendly_id.git
   revision: c49ce30ff2b370669ccf1708e99fb08ab51435d9
   specs:
@@ -454,6 +448,7 @@ GEM
       cocaine (~> 0.5.0)
       mime-types
     pg (0.15.1)
+    phonelib (0.2.4)
     polyamorous (0.6.3)
       activerecord (>= 3.0)
     polyglot (0.3.3)
@@ -670,7 +665,7 @@ DEPENDENCIES
   omniauth-weibo-oauth2
   paperclip (~> 3.0)
   pg (>= 0.14.1)
-  phonelib!
+  phonelib (~> 0.2.4)
   pry
   pry-debugger
   pry-doc

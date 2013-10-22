@@ -5,8 +5,9 @@ module Utils
     if array_size == 2
       [collections, []]
     else
-      half = array_size % 2 + array_size / 2
-      [collections.take(half), collections[half..-1]]
+      left = collections.values_at(* collections.each_index.select {|i| i.even?})
+      right = collections.values_at(* collections.each_index.select {|i| i.odd?})
+      [left, right]
     end
   end
 
