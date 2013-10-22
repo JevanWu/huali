@@ -14,4 +14,10 @@ class PagesController < ApplicationController
 
   def home
   end
+
+  def brands
+  end
+
+  def celebrities
+  end
 end
