@@ -64,6 +64,7 @@ Huali::Application.routes.draw do
   get 'brands', to: 'pages#brands', as: :brands
   get 'celebrities', to: 'pages#celebrities', as: :celebrities
   get 'medias', to: 'pages#medias', as: :medias
+  get 'weibo_stories', to: 'pages#weibo_stories', as: :weibo_stories
 
   get 'banners/:date', to: 'banners#index', as: :banners
   get 'stories', to: 'stories#index'
