@@ -66,6 +66,7 @@ Huali::Application.routes.draw do
   get 'medias', to: 'pages#medias', as: :medias
 
   get 'banners/:date', to: 'banners#index', as: :banners
+  get 'stories', to: 'stories#index'
 
   ActiveAdmin.routes(self)
 
