@@ -1,0 +1,29 @@
+.weibo-stories
+  position: relative
+
+// Grid container
+#tiles
+  list-style-type: none
+  // Needed to ensure items are laid out relative to this container
+  position: relative
+
+// Grid items
+#tiles li
+  width: 200px
+  background-color: #ffffff
+  padding: 10px 10px 20px 10px
+  +global-box-shadow
+
+#tiles li.inactive
+  visibility: hidden
+  opacity: 0
+
+#tiles li img
+  display: block
+
+// Grid item text
+#tiles li div
+  padding: 20px 0 20px 0
+
+#loader
+  text-align: center

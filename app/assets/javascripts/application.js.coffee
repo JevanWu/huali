@@ -5,6 +5,8 @@
 #= require lodash.compat
 #= require chosen.jquery
 #= require moment.min
+#= require jquery.imagesloaded
+#= require jquery.wookmark
 #= require 'Huali'
 #= require_tree './component'
 #= require 'common/common'
@@ -16,3 +18,4 @@
 #= require 'module/chosen-select'
 #= require 'module/banner'
 #= require 'orders'
+#= require 'module/weibo-stories'
