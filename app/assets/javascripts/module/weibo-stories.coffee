@@ -19,6 +19,7 @@ applyLayout = ->
 loadData = ->
   isLoading = true
   $("#loaderCircle").show()
+  setTimeout(100)
   $.ajax
     url: apiURL
     dataType: "jsonp"
