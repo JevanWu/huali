@@ -4,7 +4,7 @@ onScroll = (event) ->
   # Only check when we're not still waiting for data.
   unless isLoading
     # Check if we're within 100 pixels of the bottom edge of the broser window.
-    closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 2)
+    closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 100)
     loadData()  if closeToBottom
 
 # Refreshes the layout.
