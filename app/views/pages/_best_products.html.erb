@@ -2,7 +2,7 @@
   <%# 色彩系列 %>
   <div class="square">
     <a href="/collections/colorful-life">
-        <img alt="色彩系列" src="http://hua.li/system/assets/images/000/000/656/original/%E6%8C%87%E7%94%B2%E6%B2%B9.jpg?1381307650"  width="460" height="440">
+      <%= image_tag "best-products/flower-with-enamel.jpg", width: 460, height: 440 %>
     </a>
   </div>
 
@@ -15,7 +15,7 @@
   <%# 永生花 %>
   <div class="square">
     <a href="/collections/preserved-flower">
-        <img alt="永生花" src="http://hua.li/system/assets/images/000/000/660/original/%E6%B0%B8%E7%94%9F%E8%8A%B1.jpg?1381560355"  width="460" height="440">
+      <%= image_tag "best-products/preserved-flower.jpg", width: 460, height: 440 %>
     </a>
   </div>
 
@@ -24,4 +24,17 @@
 
   <%# 淡奶之吻, 星空下的问候, 蓝宝石, 红宝石 %>
   <%= render partial: 'collections/product', collection: Product.find(105, 93, 98, 83) %>
+
+  <%# 相框花 %>
+  <div class="square">
+    <a href="/collections/impression-collection-flower-in-photo-frame">
+      <%= image_tag "best-products/flower-in-photo-flame.jpg", width: 460, height: 440 %>
+    </a>
+  </div>
+
+  <%# 花年轮-暗红（小）, 双生 %>
+  <%= render partial: 'collections/product', collection: Product.find(113, 114) %>
+
+  <%# 花年轮-粉（大）, 花年轮-红（大）, 缎与花 %>
+  <%= render partial: 'collections/product', collection: Product.find(115, 116, 117) %>
 </div>

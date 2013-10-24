@@ -28,7 +28,7 @@
     node: $(".nav-item")
     calloutItemSizeCollection: calloutItemSizeCollection
     edge: edge
-  
+
   $(window).resize ->
     calloutMenu = null
     edge = {}
