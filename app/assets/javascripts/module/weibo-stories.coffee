@@ -32,13 +32,14 @@ onLoadData = (data) ->
   isLoading = false
   $("#loaderCircle").hide()
 
+  length = data.length
   # Increment page index for future calls.
-  page++
+  page++ if length > 0
 
   # Create HTML for the images.
   html = ""
+
   i = 0
-  length = data.length
   image = undefined
   while i < length
     image = data[i]
