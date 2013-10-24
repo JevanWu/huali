@@ -53,8 +53,12 @@ onLoadData = (data) ->
 
 templateString = """
 <li>
-  <img src="<%= src %>" width="<%= width %>" height="<%= height %>" />
-  <div><%= description %></div>
+  <img src="<%= picture_url %>" width="<%= width %>" height="<%= height %>" />
+  <hr />
+  <div>
+    <img src="<%= author_avatar_url %>" width="40" height="40" />
+    <%= description %>
+  </div>
 </li>
 """
 
