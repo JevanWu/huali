@@ -355,6 +355,10 @@ ActiveRecord::Schema.define(version: 20131023094454) do
     t.string   "picture_content_type"
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
+    t.string   "author_avatar_file_name"
+    t.string   "author_avatar_content_type"
+    t.integer  "author_avatar_file_size"
+    t.datetime "author_avatar_updated_at"
   end
 
   create_table "surveys", force: true do |t|

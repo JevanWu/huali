@@ -6,7 +6,7 @@ ActiveAdmin.register Story do
     private
 
     def permitted_params
-      params.permit story: [:name, :description, :picture, :available]
+      params.permit story: [:name, :description, :picture, :author_avatar, :available]
     end
   end
 
@@ -28,6 +28,10 @@ ActiveAdmin.register Story do
       row :available
       row :picture do
         image_tag story.picture.url(:medium)
+      end
+
+      row :author_avatar do
+        image_tag story.author_avatar.url(:small)
       end
     end
   end
