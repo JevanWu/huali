@@ -4,8 +4,6 @@
   $("#slide").find("img").each (i,el) ->
     $(el).width($(window).width())
     return
-  slideHeight = $(window).height() - ($("#l-fixed-area-container").height() + $("#l-nav").height() + 20)
-  $("#slide").height(slideHeight)
 
   new Huali.component.Slide
     node: $("#slide")
