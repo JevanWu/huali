@@ -12,6 +12,10 @@ ActiveAdmin.register Story do
 
   form partial: "form"
 
+  filter :name
+  filter :description
+  filter :available
+
   index do
     selectable_column
     column :name
