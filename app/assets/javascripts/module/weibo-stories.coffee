@@ -4,13 +4,14 @@ onScroll = (event) ->
   # Only check when we're not still waiting for data.
   unless isLoading
     # Check if we're within 100 pixels of the bottom edge of the broser window.
-    closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 100)
+    closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 2)
     loadData()  if closeToBottom
 
 # Refreshes the layout.
 applyLayout = ->
   options.container.imagesLoaded ->
     # Create a new layout handler when images have loaded.
+    $("#loaderCircle").hide()
     handler = $("#tiles li")
     handler.wookmark options
 
@@ -30,7 +31,6 @@ loadData = ->
 # Receives data from the API, creates HTML for images and updates the layout
 onLoadData = (data) ->
   isLoading = false
-  $("#loaderCircle").hide()
 
   length = data.length
   # Increment page index for future calls.
