@@ -37,9 +37,14 @@
       margin-top: 15px
       padding: 10px 10px 1px 0
       .share-to
+        float: right
         margin-left: 15px
       li
         margin-right: 7px
+    .add-btn
+      display: block
+      margin-top: 10px
+      width: 100%
   .detail
     width: 100%
     margin-right: 20px
@@ -181,7 +186,8 @@
     padding: 10px
     & > li
       +clearfix
-      height: 88px
+      height: 90px
+      margin-bottom: 10px
       border: 1px solid #d0d0d1
       img
         width: 229px
@@ -194,7 +200,7 @@
           color: $global-text-color
       .des
         float: right
-        width: 200px
+        width: 220px
         margin-right: 6px
         & > div
           +clearfix
@@ -203,6 +209,9 @@
           height: 48px
           .name
             float: left
+            width: 120px
+            height: 41px
+            overflow: hidden
             strong
               font-size: $content-font
               font-weight: bold
@@ -216,6 +225,6 @@
           .share-to
             margin-left: 15px
           ul
-            padding: 5px 13px 0 0
+            padding: 5px 0 0 0
             li
               margin-right: 7px
