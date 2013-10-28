@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130929061507) do
+ActiveRecord::Schema.define(version: 20131028112108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,20 +125,27 @@ ActiveRecord::Schema.define(version: 20130929061507) do
 
   add_index "collections_products", ["product_id", "collection_id"], name: "index_collections_products_on_product_id_and_collection_id", unique: true, using: :btree
 
+  create_table "coupon_codes", force: true do |t|
+    t.string   "code",                        null: false
+    t.integer  "available_count", default: 1
+    t.integer  "used_count",      default: 0
+    t.integer  "coupon_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "coupon_codes", ["code"], name: "index_coupon_codes_on_code", unique: true, using: :btree
+  add_index "coupon_codes", ["coupon_id"], name: "index_coupon_codes_on_coupon_id", using: :btree
+
   create_table "coupons", force: true do |t|
-    t.string   "code",                            null: false
     t.string   "adjustment",                      null: false
     t.boolean  "expired",         default: false, null: false
     t.date     "expires_at",                      null: false
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
-    t.integer  "available_count", default: 1,     null: false
-    t.integer  "used_count",      default: 0
     t.string   "note"
     t.integer  "price_condition"
   end
-
-  add_index "coupons", ["code"], name: "coupons_on_code", unique: true, using: :btree
 
   create_table "date_rules", force: true do |t|
     t.integer  "product_id"
@@ -344,6 +351,22 @@ ActiveRecord::Schema.define(version: 20130929061507) do
   add_index "shipments", ["order_id"], name: "index_shipments_on_order_id", using: :btree
   add_index "shipments", ["ship_method_id"], name: "index_shipments_on_ship_method_id", using: :btree
   add_index "shipments", ["tracking_num"], name: "index_shipments_on_tracking_num", using: :btree
+
+  create_table "stories", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.boolean  "available"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "picture_file_name"
+    t.string   "picture_content_type"
+    t.integer  "picture_file_size"
+    t.datetime "picture_updated_at"
+    t.string   "author_avatar_file_name"
+    t.string   "author_avatar_content_type"
+    t.integer  "author_avatar_file_size"
+    t.datetime "author_avatar_updated_at"
+  end
 
   create_table "surveys", force: true do |t|
     t.integer  "user_id"
