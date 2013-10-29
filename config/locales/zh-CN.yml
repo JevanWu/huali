@@ -126,7 +126,7 @@ zh-CN:
       shipment: 货运记录
       order: 订单
       asset: 图片
-      coupon: 优惠码
+      coupon: 优惠券
       page: 单独页面
       collection: 品类
       line_item: 条目
@@ -320,7 +320,7 @@ zh-CN:
         price_condition: 价格使用条件
         expires_at: 过期时间
         orders: 订单
-        code_count: 优惠码数量
+        code_count: 优惠券数量
 
       user:
         email: 邮箱
