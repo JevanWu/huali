@@ -302,7 +302,11 @@ ActiveAdmin.register Order do
       row :gift_card_text
       row :special_instructions
 
-      row :coupon
+      row :coupon_code do
+        if order.coupon_code
+          link_to(order.coupon_code, admin_coupon_path(order.coupon_code.coupon))
+        end
+      end
 
       row :item_total do
         number_to_currency order.item_total, unit: '&yen;'
