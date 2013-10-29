@@ -45,6 +45,8 @@ ActiveAdmin.register Order do
       @order.bind_record(record)
 
       if @order.save
+        OrderDiscountPolicy.new(@order.record).apply
+
         options[:location] ||= resource_url
         respond_with_dual_blocks(@order, options)
       else
