@@ -3,8 +3,6 @@
 # Table name: coupons
 #
 #  adjustment      :string(255)      not null
-#  available_count :integer          default(1), not null
-#  code            :string(255)      not null
 #  created_at      :datetime         not null
 #  expired         :boolean          default(FALSE), not null
 #  expires_at      :date             not null
@@ -12,11 +10,6 @@
 #  note            :string(255)
 #  price_condition :integer
 #  updated_at      :datetime         not null
-#  used_count      :integer          default(0)
-#
-# Indexes
-#
-#  coupons_on_code  (code) UNIQUE
 #
 
 require 'securerandom'
@@ -29,6 +22,7 @@ class Coupon < ActiveRecord::Base
   validates_format_of :adjustment, with: %r{\A[+-x*%/][\s\d.]+\z}
 
   has_many :orders
+  has_many :coupon_codes
 
   def use_and_record_usage_if_applied(order)
     if usable?(order) && !used_by_order?(order)
