@@ -47,7 +47,7 @@ class Order < ActiveRecord::Base
   has_many :transactions, dependent: :destroy
   has_many :shipments, dependent: :destroy
   has_many :products, through: :line_items
-  belongs_to :coupon_code
+  belongs_to :coupon_code_record, foreign_key: :coupon_code_id, class_name: 'CouponCode'
 
   extend Enumerize
   enumerize :kind, in: [:normal, :jd, :tencent, :xigua, :marketing, :customer, :taobao, :b2b], default: :normal
@@ -61,10 +61,6 @@ class Order < ActiveRecord::Base
   validates_presence_of :identifier, :line_items, :state, :total, :item_total
 
   after_validation :cal_item_total, :cal_total
-
-  before_save do |order|
-    OrderDiscountPolicy.new(order).apply
-  end
 
   state_machine :state, initial: :generated do
     # TODO implement an auth_state dynamically for each state
