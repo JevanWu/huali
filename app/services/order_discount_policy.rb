@@ -24,6 +24,7 @@ class OrderDiscountPolicy
       end
 
       @coupon_code_record.use!
+      @order.coupon_code_record = @coupon_code_record
     end
 
     apply_adjustment

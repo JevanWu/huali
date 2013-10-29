@@ -54,6 +54,7 @@ describe OrderDiscountPolicy do
         # needs to stub fetch_coupon before policy object is initialized
         mock(coupon_code_record).use!
         mock(order).total = 180
+        mock(order).coupon_code_record = coupon_code_record
 
         order_discount_policy.apply
       end
