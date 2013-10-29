@@ -76,7 +76,7 @@ end
 module OrderInfo
   include Virtus
 
-  attribute :coupon_code_string, String
+  attribute :coupon_code, String
   attribute :gift_card_text, String
   attribute :special_instructions, String
   attribute :source, String, default: ''
@@ -156,7 +156,7 @@ class OrderForm
   private
 
   def validate_coupon?
-    not_yet_shipped? && !coupon_code_string.blank?
+    not_yet_shipped? && !coupon_code.blank?
   end
 
   def validate_item?

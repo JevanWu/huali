@@ -9,21 +9,21 @@ describe OrderCouponValidator do
     let(:order) do
       Object.new.tap do |order|
         stub(order).errors { errors }
-        stub(order).coupon_code_string
+        stub(order).coupon_code
       end
     end
-    let(:coupon_code) { Object.new }
+    let(:coupon_code_record) { Object.new }
 
     before(:each) do
       stub(order_coupon_validator).
-        coupon_fetcher { lambda { |_| [coupon_code] } }
+        coupon_fetcher { lambda { |_| [coupon_code_record] } }
     end
 
     context "when coupon code is not usable" do
       it "add :invalid_coupon to errors" do
-        stub(coupon_code).usable? { false }
+        stub(coupon_code_record).usable? { false }
 
-        mock(errors).add :coupon_code_string, :invalid_coupon
+        mock(errors).add :coupon_code, :invalid_coupon
 
         order_coupon_validator.validate(order)
       end
@@ -31,9 +31,9 @@ describe OrderCouponValidator do
 
     context "when coupon code is usable" do
       it "no errors are added" do
-        stub(coupon_code).usable? { true }
+        stub(coupon_code_record).usable? { true }
 
-        dont_allow(errors).add :coupon_code_string, :invalid_coupon
+        dont_allow(errors).add :coupon_code, :invalid_coupon
 
         order_coupon_validator.validate(order)
       end
@@ -43,7 +43,7 @@ describe OrderCouponValidator do
       it "add :non_exist_coupon to errors" do
         stub(order_coupon_validator).fetch_coupon { raise OrderCouponValidator::CouponNotFound }
 
-        mock(errors).add :coupon_code_string, :non_exist_coupon
+        mock(errors).add :coupon_code, :non_exist_coupon
 
         order_coupon_validator.validate(order)
       end

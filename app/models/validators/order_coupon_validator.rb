@@ -4,24 +4,24 @@ class OrderCouponValidator < ActiveModel::Validator
 
   def validate(order)
     begin
-      coupon = fetch_coupon(order.coupon_code_string)
+      coupon = fetch_coupon(order.coupon_code)
 
       unless coupon.usable?(order)
-        order.errors.add :coupon_code_string, :invalid_coupon
+        order.errors.add :coupon_code, :invalid_coupon
       end
     rescue CouponNotFound
-      order.errors.add :coupon_code_string, :non_exist_coupon
+      order.errors.add :coupon_code, :non_exist_coupon
     end
   end
 
   private
 
-  def fetch_coupon(coupon_code_string)
-    coupon_code = coupon_fetcher.call(code: coupon_code_string).first
+  def fetch_coupon(coupon_code)
+    coupon_code_record = coupon_fetcher.call(code: coupon_code).first
 
-    raise CouponNotFound if coupon_code.nil?
+    raise CouponNotFound if coupon_code_record.nil?
 
-    coupon_code
+    coupon_code_record
   end
 
   def coupon_fetcher
