@@ -18,7 +18,7 @@ feature "Edit user info" do
     fill_in '当前密码', with: ''
     click_button '更新'
 
-    page.should have_content('Current password 您需要填写此项')
+    page.should have_content('当前密码 您需要填写此项')
   end
 
   scenario "Update successfully" do
