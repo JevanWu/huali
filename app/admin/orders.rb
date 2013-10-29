@@ -306,9 +306,9 @@ ActiveAdmin.register Order do
       row :gift_card_text
       row :special_instructions
 
-      row :coupon_code do
-        if order.coupon_code
-          link_to(order.coupon_code, admin_coupon_path(order.coupon_code.coupon))
+      row :coupon_code_record do
+        if order.coupon_code_record
+          link_to(order.coupon_code_record, admin_coupon_path(order.coupon_code_record.coupon))
         end
       end
 

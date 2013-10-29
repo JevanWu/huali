@@ -83,7 +83,6 @@ zh-CN:
         print_order: 打印订单
         images: 产品图
         coupon_code: 优惠券
-        coupon_code_string: 优惠券
         adjustment: 价格调整
         merchant_trade_no: 支付宝交易号
         subject_text: 货品内容
@@ -186,7 +185,7 @@ zh-CN:
         address_address: 收件人地址
         images: 产品图
         coupon_code: 优惠券
-        coupon_code_string: 优惠券
+        coupon_code_record: 优惠券
         adjustment: 价格调整
         subject_text: 货品内容
         created_at: 创建时间
