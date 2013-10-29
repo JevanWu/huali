@@ -143,6 +143,8 @@ class Order < ActiveRecord::Base
     end
   end
 
+  attr_accessor :coupon_code
+
   def finished?
     ["completed", "refunded", "void"].include?(state)
   end
