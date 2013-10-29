@@ -41,7 +41,7 @@ class Cart
   private
 
   def coupon
-    Coupon.find_by_code(coupon_code)
+    CouponCode.find_by_code(coupon_code)
   end
 
   delegate :adjustment, to: :coupon, allow_nil: true
