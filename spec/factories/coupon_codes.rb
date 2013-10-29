@@ -20,9 +20,9 @@
 
 FactoryGirl.define do
   factory :coupon_code do
-    code "MyString"
+    code { 8.times.map { rand 9 }.join }
     available_count 1
-    used_count 1
-    coupon nil
+    used_count 0
+    coupon
   end
 end
