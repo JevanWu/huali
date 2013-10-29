@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131028112108) do
+ActiveRecord::Schema.define(version: 20131029014153) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -208,7 +208,7 @@ ActiveRecord::Schema.define(version: 20131028112108) do
     t.integer  "ship_method_id"
     t.boolean  "printed",                                      default: false
     t.string   "kind",                                         default: "normal", null: false
-    t.integer  "coupon_id"
+    t.integer  "coupon_code_id"
     t.string   "merchant_order_no"
   end
 
