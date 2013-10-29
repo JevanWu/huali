@@ -30,9 +30,11 @@ ActiveAdmin.register Order do
 
     def edit
       record = Order.find_by_id(params[:id])
-      if record.state.in? ["completed", "refunded", "void"]
+
+      if record.finished?
         redirect_to [:admin, record], alert: t('views.admin.order.cannot_edit')
       end
+
       @order = OrderAdminForm.build_from_record(record)
       populate_collection_data
     end

@@ -147,6 +147,10 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def finished?
+    ["completed", "refunded", "void"].include?(state)
+  end
+
   def not_yet_shipped?
     state.in?(['generated', 'wait_check', 'wait_make'])
   end
