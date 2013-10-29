@@ -19,7 +19,7 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :coupon_code do
+  factory :coupon_code, aliases: [:coupon_code_record] do
     code { 8.times.map { rand 9 }.join }
     available_count 1
     used_count 0

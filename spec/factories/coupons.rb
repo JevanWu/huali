@@ -22,7 +22,7 @@ FactoryGirl.define do
     code_count { 1 }
 
     after(:build) do |coupon|
-      create_list(:coupon_code, 5, coupon: coupon)
+      create_list(:coupon_code_record, 5, coupon: coupon)
     end
   end
 end
