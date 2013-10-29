@@ -6,8 +6,7 @@ feature 'Use coupon' do
   given(:user) { create(:user) }
 
   background do
-    # FIXME root page should always be setup up front
-    Page.create!(title_en: "Home", title_zh: '首页', permalink: 'home')
+    prepare_home_page
     login_as(user, scope: :user)
   end
 

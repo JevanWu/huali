@@ -30,8 +30,7 @@ feature "Update password with reset password token" do
   given(:user) { create(:user, email: 'user@hua.li') }
 
   background do
-    # FIXME root page should always be setup up front
-    Page.create!(title_en: "Home", title_zh: '首页', permalink: 'home')
+    prepare_home_page
     user
 
     visit '/users/password/new'

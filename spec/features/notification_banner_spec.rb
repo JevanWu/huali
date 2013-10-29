@@ -3,8 +3,7 @@ require 'spec_helper'
 feature "Notification banner" do
 
   background do
-    # FIXME root page should always be setup up front
-    Page.create!(title_en: "Home", title_zh: '首页', permalink: 'home')
+    prepare_home_page
     create(:banner, content: 'Test Notification', start_date: Date.current, end_date: 7.days.since.to_date)
   end
 

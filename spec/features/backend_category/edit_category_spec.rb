@@ -5,8 +5,7 @@ feature "Edit category" do
 
   background do
     login_as(admin, scope: :administrator)
-    # FIXME root page should always be setup up front
-    Page.create!(title_en: "Home", title_zh: '首页', permalink: 'home')
+    prepare_home_page
   end
 
   given(:category) { create(:collection, name_en: 'wedding', name_zh: '婚礼', display_name: '婚礼') }
