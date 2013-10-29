@@ -10,7 +10,7 @@ describe OrderDiscountPolicy do
         stub(order).item_total { 200 }
         stub(order).total { 200 }
         stub(order).coupon_code { 'code' }
-        stub(order).save!
+        stub(order).update_attribute
       end
     end
 
@@ -29,7 +29,7 @@ describe OrderDiscountPolicy do
     context "when order has adjustment" do
       it "changes total of order with manual adjustment" do
         stub(order).adjustment { '*0.8' }
-        mock(order).total = 160
+        mock(order).update_attribute(:total, 160)
 
         order_discount_policy.apply
       end
@@ -53,7 +53,7 @@ describe OrderDiscountPolicy do
       it "changes total of order with the coupon's adjustment and record the usage of the coupon" do
         # needs to stub fetch_coupon before policy object is initialized
         mock(coupon_code_record).use!
-        mock(order).total = 180
+        mock(order).update_attribute(:total, 180)
         mock(order).coupon_code_record = coupon_code_record
 
         order_discount_policy.apply
