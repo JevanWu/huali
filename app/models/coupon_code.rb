@@ -18,6 +18,8 @@
 
 class CouponCode < ActiveRecord::Base
   belongs_to :coupon
+  has_many :orders
+
   before_validation :generate_code, on: :create
 
   validates_presence_of :code, :available_count
