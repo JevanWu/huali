@@ -8,24 +8,19 @@ ActiveAdmin.register Coupon do
     private
 
     def permitted_params
-      params.permit(coupon: [:adjustment, :expires_at, :available_count, :note, :price_condition])
+      params.permit(coupon: [:adjustment, :expires_at, :available_count, :note, :price_condition, :code_count])
     end
   end
 
   filter :expires_at
   filter :adjustment
   filter :expired
-  filter :available_count
-  filter :used_count
   filter :price_condition
 
   index do
     selectable_column
-    column :code
     column :adjustment
     column :expired
-    column :available_count
-    column :used_count
     column :note
     column :expires_at
     column :price_condition
@@ -37,10 +32,7 @@ ActiveAdmin.register Coupon do
 
   show do
     attributes_table do
-      row :code
       row :adjustment
-      row :available_count
-      row :used_count
       row :price_condition
       row :orders do
         coupon.orders.map do |order|
@@ -50,6 +42,19 @@ ActiveAdmin.register Coupon do
       row :note
       row :expired
       row :expires_at
+
+      row :code_count do
+        coupon.coupon_codes.count
+      end
+
+      row "优惠码" do
+        code_string = "| 优惠码 | 使用次数 | 剩余次数 |<br />"
+        code_string <<
+          (coupon.coupon_codes.map do |coupon_code|
+            "| #{coupon_code} | #{coupon_code.used_count} | #{coupon_code.available_count} |"
+          end.join("<br />"))
+        code_string.html_safe
+      end
     end
   end
 end
