@@ -19,7 +19,7 @@ class Cart
   end
 
   def total
-    if adjustment.present?
+    if adjustment.present? && valid_coupon?
       Discount.new(adjustment).calculate(original_total)
     else
       original_total
