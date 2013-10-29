@@ -24,6 +24,7 @@
 #  rectangle_image_file_name    :string(255)
 #  rectangle_image_file_size    :integer
 #  rectangle_image_updated_at   :datetime
+#  sku_id                       :string(255)
 #  slug                         :string(255)
 #  sold_total                   :integer          default(0)
 #  updated_at                   :datetime         not null
