@@ -156,7 +156,7 @@ class OrderForm
   private
 
   def validate_coupon?
-    not_yet_shipped? && !coupon_code.blank?
+    not_yet_shipped?
   end
 
   def validate_item?

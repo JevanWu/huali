@@ -4,6 +4,8 @@ class OrderCouponValidator < ActiveModel::Validator
 
   def validate(order)
     begin
+      return if order.coupon_code.blank?
+
       coupon = fetch_coupon(order.coupon_code)
 
       unless coupon.usable?(order)

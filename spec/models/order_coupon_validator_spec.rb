@@ -9,7 +9,7 @@ describe OrderCouponValidator do
     let(:order) do
       Object.new.tap do |order|
         stub(order).errors { errors }
-        stub(order).coupon_code
+        stub(order).coupon_code { 'code' }
       end
     end
     let(:coupon_code_record) { Object.new }
@@ -17,6 +17,15 @@ describe OrderCouponValidator do
     before(:each) do
       stub(order_coupon_validator).
         coupon_fetcher { lambda { |_| [coupon_code_record] } }
+    end
+
+    context "when conpon code is blank" do
+      it "adds no error" do
+        stub(order).coupon_code { '' }
+        dont_allow(errors).add :coupon_code, :invalid_coupon
+
+        order_coupon_validator.validate(order)
+      end
     end
 
     context "when coupon code is not usable" do
