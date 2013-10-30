@@ -140,10 +140,6 @@ class OrderForm
     [sender.valid?, address.valid?, super].inject(:&)
   end
 
-  def persisted?
-    false
-  end
-
   attr_reader :record
   def bind_record(record)
     @record = record
@@ -160,7 +156,7 @@ class OrderForm
   private
 
   def validate_coupon?
-    not_yet_shipped? && !coupon_code.blank?
+    not_yet_shipped?
   end
 
   def validate_item?

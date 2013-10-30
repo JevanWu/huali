@@ -5,8 +5,7 @@ feature "Edit category" do
 
   background do
     login_as(admin, scope: :administrator)
-    # FIXME root page should always be setup up front
-    Page.create!(title_en: "Home", title_zh: '首页', permalink: 'home')
+    prepare_home_page
   end
 
   given(:category) { create(:collection, name_en: 'wedding', name_zh: '婚礼', display_name: '婚礼') }
@@ -70,16 +69,16 @@ feature "Edit category" do
   scenario "SEO changed", js: true do
     visit "/admin/collections/#{category.slug}/edit"
 
-    fill_in "标题（SEO）", with: '红色婚礼SEO'
-    fill_in "关键词", with: '红色,婚礼'
-    fill_in "关键描述", with: '红色的婚礼'
+    fill_in "标题（SEO）", with: "SEO Title"
+    fill_in "关键词", with: "SEO keywords"
+    fill_in "关键描述", with: "SEO description"
 
     click_button "更新品类"
 
     visit "/collections/#{category.slug}"
-    page.should have_title("红色婚礼SEO")
-    page.find("meta[name='Keywords']", visible: false)["content"].should have_content("红色,婚礼")
-    page.find("meta[name='Description']", visible: false)["content"].should have_content("红色的婚礼")
+    page.should have_title("SEO Title")
+    page.find("meta[name='Keywords']", visible: false)["content"].should have_content("SEO keywords")
+    page.find("meta[name='Description']", visible: false)["content"].should have_content("SEO description")
   end
 
   scenario "Set a parent" do

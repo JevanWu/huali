@@ -5,7 +5,7 @@
 #  address_id           :integer
 #  adjustment           :string(255)
 #  completed_at         :datetime
-#  coupon_id            :integer
+#  coupon_code_id       :integer
 #  created_at           :datetime         not null
 #  delivery_date        :date
 #  expected_date        :date             not null
@@ -13,17 +13,18 @@
 #  id                   :integer          not null, primary key
 #  identifier           :string(255)
 #  item_total           :decimal(8, 2)    default(0.0), not null
+#  kind                 :string(255)      default("normal"), not null
+#  merchant_order_no    :string(255)
 #  payment_total        :decimal(8, 2)    default(0.0)
 #  printed              :boolean          default(FALSE)
 #  sender_email         :string(255)
 #  sender_name          :string(255)
 #  sender_phone         :string(255)
-#  ship_method_id       :string(255)
+#  ship_method_id       :integer
 #  source               :string(255)      default(""), not null
 #  special_instructions :text
 #  state                :string(255)      default("ready")
 #  total                :decimal(8, 2)    default(0.0), not null
-#  type                 :string(255)      default("normal"), not null
 #  updated_at           :datetime         not null
 #  user_id              :integer
 #
@@ -32,6 +33,7 @@
 #  index_orders_on_identifier  (identifier) UNIQUE
 #  index_orders_on_user_id     (user_id)
 #
+
 require 'enumerize'
 require 'state_machine'
 
@@ -45,7 +47,7 @@ class Order < ActiveRecord::Base
   has_many :transactions, dependent: :destroy
   has_many :shipments, dependent: :destroy
   has_many :products, through: :line_items
-  belongs_to :coupon
+  belongs_to :coupon_code_record, foreign_key: :coupon_code_id, class_name: 'CouponCode'
 
   extend Enumerize
   enumerize :kind, in: [:normal, :jd, :tencent, :xigua, :marketing, :customer, :taobao, :b2b], default: :normal
@@ -59,10 +61,6 @@ class Order < ActiveRecord::Base
   validates_presence_of :identifier, :line_items, :state, :total, :item_total
 
   after_validation :cal_item_total, :cal_total
-
-  before_save do |order|
-    OrderDiscountPolicy.new(order).apply
-  end
 
   state_machine :state, initial: :generated do
     # TODO implement an auth_state dynamically for each state
@@ -145,13 +143,10 @@ class Order < ActiveRecord::Base
     end
   end
 
-  attr_writer :coupon_code
-  def coupon_code
-    @coupon_code || (coupon ? coupon.code : nil)
-  end
+  attr_accessor :coupon_code
 
-  def coupon_code_blank?
-    coupon_code.blank?
+  def finished?
+    ["completed", "refunded", "void"].include?(state)
   end
 
   def not_yet_shipped?

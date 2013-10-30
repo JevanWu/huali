@@ -1,7 +1,7 @@
 class NullDiscount
   def initialize(*); end
   def calculate(amount)
-    amount 
+    amount
   end
 end
 
@@ -13,28 +13,31 @@ class OrderDiscountPolicy
     @order = order
     # FIXME a troublesome design
     # Order#coupon_code will read order.coupon as well
-    @coupon_code = order.instance_variable_get(:@coupon_code)
-    @coupon = fetch_coupon(order.coupon_code)
+    @coupon_code = order.coupon_code
+    @coupon_code_record = fetch_coupon(@coupon_code)
   end
 
   def apply
+    if use_coupon?
+      unless @coupon_code_record.usable?(order)
+        raise ArgumentError, "Coupon code(#{@coupon_code_record}) is not usable with the order"
+      end
+
+      @coupon_code_record.use!
+      @order.coupon_code_record = @coupon_code_record
+    end
+
     apply_adjustment
-    @coupon.use_and_record_usage_if_applied(order) if use_coupon?
-    clear_coupon(order) if @coupon_code.blank?
   end
 
   private
 
   def apply_adjustment
-    order.total = discount.calculate(order.item_total)
-  end
-
-  def clear_coupon(order)
-    order.coupon = nil
+    order.update_attribute(:total, discount.calculate(order.item_total))
   end
 
   def adjustment
-    order.adjustment.presence || (@coupon && @coupon.adjustment)
+    order.adjustment.presence || (@coupon_code_record && @coupon_code_record.adjustment)
   end
 
   def discount
@@ -42,10 +45,10 @@ class OrderDiscountPolicy
   end
 
   def use_coupon?
-    order.adjustment.blank? && @coupon
+    order.adjustment.blank? && @coupon_code_record
   end
 
   def fetch_coupon(coupon_code)
-    Coupon.find_by_code(coupon_code)
+    CouponCode.find_by_code(coupon_code)
   end
 end

@@ -8,8 +8,7 @@ feature 'Permission to update seo of collections' do
   given(:web_operation_manager) { create(:administrator, role: 'web_operation_manager') }
 
   background do
-    # FIXME root page should always be setup up front
-    Page.create!(title_en: "Home", title_zh: '首页', permalink: 'home')
+    prepare_home_page
   end
 
   scenario 'Login as operation manager', js: true do
@@ -55,8 +54,7 @@ feature 'Permission to update seo of products' do
   given(:web_operation_manager) { create(:administrator, role: 'web_operation_manager') }
 
   background do
-    # FIXME root page should always be setup up front
-    Page.create!(title_en: "Home", title_zh: '首页', permalink: 'home')
+    prepare_home_page
   end
 
   scenario 'Login as operation manager', js: true do

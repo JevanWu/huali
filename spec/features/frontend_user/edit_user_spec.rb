@@ -4,8 +4,7 @@ feature "Edit user info" do
   given(:user) { create(:user, email: 'user@hua.li', password: 'aaa123', password_confirmation: 'aaa123') }
 
   background do
-    # FIXME root page should always be setup up front
-    Page.create!(title_en: "Home", title_zh: '首页', permalink: 'home')
+    prepare_home_page
 
     login_as(user, scope: :user)
   end
@@ -19,7 +18,7 @@ feature "Edit user info" do
     fill_in '当前密码', with: ''
     click_button '更新'
 
-    page.should have_content('Current password 您需要填写此项')
+    page.should have_content('当前密码 您需要填写此项')
   end
 
   scenario "Update successfully" do

@@ -3,8 +3,7 @@ require 'spec_helper'
 feature "Sign in" do
   background do
     FactoryGirl.create(:user, email: 'user@example.com', password: 'caplin')
-    # FIXME root page should always be setup up front
-    Page.create!(title_en: "Home", title_zh: '首页', permalink: 'home')
+    prepare_home_page
   end
 
   scenario "Signing in with correct credentials", js: true do

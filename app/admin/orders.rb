@@ -30,9 +30,11 @@ ActiveAdmin.register Order do
 
     def edit
       record = Order.find_by_id(params[:id])
-      if record.state.in? ["completed", "refunded", "void"]
+
+      if record.finished?
         redirect_to [:admin, record], alert: t('views.admin.order.cannot_edit')
       end
+
       @order = OrderAdminForm.build_from_record(record)
       populate_collection_data
     end
@@ -43,6 +45,8 @@ ActiveAdmin.register Order do
       @order.bind_record(record)
 
       if @order.save
+        OrderDiscountPolicy.new(@order.record).apply
+
         options[:location] ||= resource_url
         respond_with_dual_blocks(@order, options)
       else
@@ -302,7 +306,11 @@ ActiveAdmin.register Order do
       row :gift_card_text
       row :special_instructions
 
-      row :coupon
+      row :coupon_code_record do
+        if order.coupon_code_record
+          link_to(order.coupon_code_record, admin_coupon_path(order.coupon_code_record.coupon))
+        end
+      end
 
       row :item_total do
         number_to_currency order.item_total, unit: '&yen;'

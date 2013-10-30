@@ -6,8 +6,7 @@ feature 'Permission to bulk export data' do
   given(:operation_manager) { create(:administrator, role: 'operation_manager') }
 
   background do
-    # FIXME root page should always be setup up front
-    Page.create!(title_en: "Home", title_zh: '首页', permalink: 'home')
+    prepare_home_page
     create(:order)
   end
 

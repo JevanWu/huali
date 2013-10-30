@@ -4,8 +4,7 @@ feature "Check sign-in before placing order" do
   given(:product) { create(:product, name_en: 'ruby', name_zh: '红宝石') }
 
   background do
-    # FIXME root page should always be setup up front
-    Page.create!(title_en: "Home", title_zh: '首页', permalink: 'home')
+    prepare_home_page
   end
 
   scenario 'Guest user', js: true do

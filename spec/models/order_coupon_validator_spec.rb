@@ -9,59 +9,42 @@ describe OrderCouponValidator do
     let(:order) do
       Object.new.tap do |order|
         stub(order).errors { errors }
-        stub(order).coupon_code
+        stub(order).coupon_code { 'code' }
       end
     end
-    let(:coupon) { Object.new }
+    let(:coupon_code_record) { Object.new }
 
-    context "when coupon_fetcher returns coupon" do
-      context "which was used by the order" do
-        before(:each) do
-          stub(coupon).used_by_order?(order) { true }
+    before(:each) do
+      stub(order_coupon_validator).
+        coupon_fetcher { lambda { |_| [coupon_code_record] } }
+    end
 
-          stub(order_coupon_validator).
-            coupon_fetcher { lambda { |_| [coupon] } }
-        end
+    context "when conpon code is blank" do
+      it "adds no error" do
+        stub(order).coupon_code { '' }
+        dont_allow(errors).add :coupon_code, :invalid_coupon
 
-        it "returns with no error" do
-          dont_allow(errors).add.with_any_args
-
-          order_coupon_validator.validate(order)
-        end
+        order_coupon_validator.validate(order)
       end
+    end
 
-      context "which was not used by the order" do
-        before(:each) do
-          stub(coupon).used_by_order?(order) { false }
-        end
+    context "when coupon code is not usable" do
+      it "add :invalid_coupon to errors" do
+        stub(coupon_code_record).usable? { false }
 
-        context "and is not usable" do
-          before(:each) do
-            stub(coupon).usable? { false }
-            stub(order_coupon_validator).
-              coupon_fetcher { lambda { |_| [coupon] } }
-          end
+        mock(errors).add :coupon_code, :invalid_coupon
 
-          it "add :invalid_coupon to errors" do
-            mock(errors).add :coupon_code, :invalid_coupon
+        order_coupon_validator.validate(order)
+      end
+    end
 
-            order_coupon_validator.validate(order)
-          end
-        end
+    context "when coupon code is usable" do
+      it "no errors are added" do
+        stub(coupon_code_record).usable? { true }
 
-        context "and is usable" do
-          before(:each) do
-            stub(coupon).usable? { true }
-            stub(order_coupon_validator).
-              coupon_fetcher { lambda { |_| [coupon] } }
-          end
+        dont_allow(errors).add :coupon_code, :invalid_coupon
 
-          it "no errors are added" do
-            dont_allow(errors).add :coupon_code, :invalid_coupon
-
-            order_coupon_validator.validate(order)
-          end
-        end
+        order_coupon_validator.validate(order)
       end
     end
 
