@@ -1,9 +1,14 @@
 class Cart
   attr_accessor :items, :coupon_code
 
-  def initialize(items, coupon_code)
+  def initialize(items, coupon_code, adjustment = nil)
     @items = items
     @coupon_code = coupon_code
+    @adjustment = adjustment
+  end
+
+  def adjustment
+    @adjustment ||= (valid_coupon? ? coupon.adjustment : nil)
   end
 
   def original_total
@@ -43,6 +48,4 @@ class Cart
   def coupon
     CouponCode.find_by_code(coupon_code)
   end
-
-  delegate :adjustment, to: :coupon, allow_nil: true
 end
