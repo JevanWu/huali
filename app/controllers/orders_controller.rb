@@ -108,6 +108,10 @@ class OrdersController < ApplicationController
         redirect_to :root
       end
     end
+
+    @cart = Cart.new(@order.line_items,
+                     @order.coupon_code_record.try(:code),
+                     @order.adjustment)
   end
 
   def gateway

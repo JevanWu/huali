@@ -16,7 +16,7 @@
               = @order.address.post_code
             p
               = @order.address.full_addr
-        == render 'side_item_table', cart: Cart.new(@order.line_items, @order.coupon_code_record.try(:code))
+        == render 'side_item_table', cart: @cart
       .step-main-detail.span8
         .pay-options
           = render 'shared/choose_payment_method', banks: @banks, order: @order
