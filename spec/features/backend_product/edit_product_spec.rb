@@ -24,7 +24,7 @@ feature "Edit product" do
 
     visit "/products/#{product.reload.slug}"
 
-    [:name_zh, :original_price, :price, :height, :width, :depth, :description, :inspiration].each do |attr|
+    [:name_zh, :original_price, :price, :height, :width, :depth, :description].each do |attr|
       page.should have_content(product.send(attr))
     end
   end
