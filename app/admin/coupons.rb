@@ -13,7 +13,7 @@ ActiveAdmin.register Coupon do
 
     def render_excel(coupon_codes, filename)
       columns = ["优惠码", "已使用次数", "剩余次数"]
-      row_data = coupon_codes.map { |o| [o.code, o.used_count, o.available_count] }
+      row_data = coupon_codes.map { |o| [o.code + " ", o.used_count, o.available_count] }
 
       xlsx = XlsxBuilder.new(columns, row_data).serialize
 
