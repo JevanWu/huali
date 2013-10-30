@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130929061507) do
+ActiveRecord::Schema.define(version: 20131023094454) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -344,6 +344,22 @@ ActiveRecord::Schema.define(version: 20130929061507) do
   add_index "shipments", ["order_id"], name: "index_shipments_on_order_id", using: :btree
   add_index "shipments", ["ship_method_id"], name: "index_shipments_on_ship_method_id", using: :btree
   add_index "shipments", ["tracking_num"], name: "index_shipments_on_tracking_num", using: :btree
+
+  create_table "stories", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.boolean  "available"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "picture_file_name"
+    t.string   "picture_content_type"
+    t.integer  "picture_file_size"
+    t.datetime "picture_updated_at"
+    t.string   "author_avatar_file_name"
+    t.string   "author_avatar_content_type"
+    t.integer  "author_avatar_file_size"
+    t.datetime "author_avatar_updated_at"
+  end
 
   create_table "surveys", force: true do |t|
     t.integer  "user_id"
