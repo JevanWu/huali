@@ -10,12 +10,29 @@ ActiveAdmin.register Coupon do
     def permitted_params
       params.permit(coupon: [:adjustment, :expires_at, :available_count, :note, :price_condition, :code_count])
     end
+
+    def render_excel(coupon_codes, filename)
+      columns = ["优惠码", "已使用次数", "剩余次数"]
+      row_data = coupon_codes.map { |o| [o.code, o.used_count, o.available_count] }
+
+      xlsx = XlsxBuilder.new(columns, row_data).serialize
+
+      send_data xlsx, :filename => "#{filename}", :type => Mime::Type.lookup_by_extension(:xlsx)
+    end
   end
 
   filter :expires_at
   filter :adjustment
   filter :expired
   filter :price_condition
+
+  member_action :download do
+    coupon = Coupon.find_by_id(params[:id])
+
+    xlsx_filename = "优惠码-#{coupon.note}(#{coupon.adjustment}).xlsx"
+
+    render_excel(coupon.coupon_codes, xlsx_filename)
+  end
 
   index do
     selectable_column
@@ -45,6 +62,10 @@ ActiveAdmin.register Coupon do
 
       row :code_count do
         coupon.coupon_codes.count
+      end
+
+      row "下载优惠码" do
+        link_to "下载", download_admin_coupon_path(coupon)
       end
 
       row "优惠码" do
