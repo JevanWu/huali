@@ -1,3 +1,8 @@
+<% content_for :js do %>
+  <%= javascript_include_tag 'jquery.imagesloaded' %>
+  <%= javascript_include_tag 'weibo-stories' %>
+<% end %>
+
 <div class="best-products">
   <div id="loader">
     <div id="loaderCircle"><%= image_tag 'loading.gif', class: 'loading' %></div>
