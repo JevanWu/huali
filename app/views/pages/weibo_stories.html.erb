@@ -1,0 +1,18 @@
+<% content_for :js do %>
+  <%= javascript_include_tag 'jquery.imagesloaded' %>
+  <%= javascript_include_tag 'weibo-stories' %>
+<% end %>
+
+<div class="best-products">
+  <div id="loader">
+    <div id="loaderCircle"><%= image_tag 'loading.gif', class: 'loading' %></div>
+  </div>
+  <h3 class="title">
+    <i></i>微博故事<b></b>
+  </h3>
+  <div class="weibo-stories">
+    <div id="tiles">
+      <!-- These is where we place content loaded from the Wookmark API -->
+    </div>
+  </div>
+</div>

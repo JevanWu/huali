@@ -142,6 +142,7 @@ zh-CN:
       setting: 全局设置
       banner: 通知横幅
       period_region_policy: 短期地域规则
+      story: 微博故事
 
     attributes:
       order: &order
@@ -373,6 +374,13 @@ zh-CN:
         content: 横幅内容
         start_date: 开始时间
         end_date: 结束时间
+
+      story:
+        name: 名称
+        description: 故事描述
+        picture: 照片
+        author_avatar: 头像
+        available: 是否有效
 
   models:
     order:

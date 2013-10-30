@@ -20,4 +20,7 @@ class PagesController < ApplicationController
 
   def celebrities
   end
+
+  def weibo_stories
+  end
 end

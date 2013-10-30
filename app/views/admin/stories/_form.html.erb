@@ -1,0 +1,17 @@
+<%= semantic_form_for [:admin, @story] do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :name %>
+    <%= f.input :description, as: :text, input_html: {rows: 4} %>
+    <%= f.input :picture, as: :file %>
+    <% if @story.picture? %>
+      <%= image_tag @story.picture.url(:medium) %>
+    <% end %>
+    <%= f.input :author_avatar, as: :file %>
+    <% if @story.author_avatar? %>
+      <%= image_tag @story.author_avatar.url(:small) %>
+    <% end %>
+    <%= f.input :available %>
+  <% end %>
+  <%= f.submit %>
+<% end %>
+
