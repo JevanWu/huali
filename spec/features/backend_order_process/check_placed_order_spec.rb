@@ -13,7 +13,7 @@ feature "Check placed order" do
     find("#index_table_orders").find('tbody').first('td a').click
 
     page.should have_content(/订单状态.*等待付款/)
-    page.should have_content(/类型.*normal/)
+    page.should have_content(/类型.*普通订单/)
     page.should have_content(/订单编号.*OR.*\d+/)
     page.should have_content(/订单内容.*x\s*\d+/)
     page.should have_content('到达日期')

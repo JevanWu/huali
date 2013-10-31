@@ -13,12 +13,22 @@ ActiveAdmin.register User do
   end
 
   filter :email
+  filter :created_at
 
   index do
     selectable_column
     column :email
     column :sign_in_count
     column :last_sign_in_at
+
+    column :created_at do |user|
+      l user.created_at, format: :short
+    end
+
+    column "订单数量" do |user|
+      user.orders.count
+    end
+
     default_actions
   end
 

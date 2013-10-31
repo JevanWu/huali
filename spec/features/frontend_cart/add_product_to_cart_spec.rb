@@ -4,8 +4,7 @@ feature 'Add product to cart' do
   given(:product) { create(:product, name_en: 'ruby', name_zh: '红宝石') }
 
   background do
-    # FIXME root page should always be setup up front
-    Page.create!(title_en: "Home", title_zh: '首页', permalink: 'home')
+    prepare_home_page
   end
 
   scenario 'Added successfully', js: true do

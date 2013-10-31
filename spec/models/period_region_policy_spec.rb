@@ -5,6 +5,7 @@
 #  created_at :datetime
 #  end_date   :date
 #  id         :integer          not null, primary key
+#  not_open   :boolean
 #  start_date :date
 #  updated_at :datetime
 #

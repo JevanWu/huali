@@ -8,8 +8,7 @@ feature 'Permission to record back order' do
   given(:marketing_manager) { create(:administrator, role: 'marketing_manager') }
 
   background do
-    # FIXME root page should always be setup up front
-    Page.create!(title_en: "Home", title_zh: '首页', permalink: 'home')
+    prepare_home_page
   end
 
   scenario 'Login as operation manager', js: true do

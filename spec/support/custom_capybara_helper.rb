@@ -1,4 +1,21 @@
 module CustomCapybaraHelper
+  def prepare_home_page
+    stub(Product).find.with_any_args do |*args|
+      if args.length > 1
+        $cached_product ||= create(:product)
+
+        products = []
+        args.length.times do
+          products << $cached_product
+        end
+
+        products
+      else
+        Product.send(:__rr__original_find, args.first)
+      end
+    end
+  end
+
   def close_previous_window
     within_window(page.driver.browser.window_handles.first) do
       page.driver.browser.close

@@ -5,8 +5,7 @@ feature "Email list subscribing" do
   given(:collection) { create(:collection, display_name: '生日') }
 
   background do
-    # FIXME root page should always be setup up front
-    Page.create!(title_en: "Home", title_zh: '首页', permalink: 'home')
+    prepare_home_page
   end
 
   scenario "Valid email" do

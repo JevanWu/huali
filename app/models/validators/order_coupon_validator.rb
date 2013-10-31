@@ -4,9 +4,9 @@ class OrderCouponValidator < ActiveModel::Validator
 
   def validate(order)
     begin
-      coupon = fetch_coupon(order.coupon_code)
+      return if order.coupon_code.blank?
 
-      return if coupon.used_by_order?(order)
+      coupon = fetch_coupon(order.coupon_code)
 
       unless coupon.usable?(order)
         order.errors.add :coupon_code, :invalid_coupon
@@ -19,14 +19,14 @@ class OrderCouponValidator < ActiveModel::Validator
   private
 
   def fetch_coupon(coupon_code)
-    coupon = coupon_fetcher.call(code: coupon_code).first
+    coupon_code_record = coupon_fetcher.call(code: coupon_code).first
 
-    raise CouponNotFound if coupon.nil?
+    raise CouponNotFound if coupon_code_record.nil?
 
-    coupon
+    coupon_code_record
   end
 
   def coupon_fetcher
-    Coupon.public_method(:where)
+    CouponCode.public_method(:where)
   end
 end

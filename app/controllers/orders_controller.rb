@@ -80,6 +80,8 @@ class OrdersController < ApplicationController
 
     if @order_form.save
       empty_cart
+
+      OrderDiscountPolicy.new(@order_form.record).apply
       store_order_id(@order_form.record)
 
       update_guest if current_or_guest_user.guest?
@@ -106,6 +108,10 @@ class OrdersController < ApplicationController
         redirect_to :root
       end
     end
+
+    @cart = Cart.new(@order.line_items,
+                     @order.coupon_code_record.try(:code),
+                     @order.adjustment)
   end
 
   def gateway
@@ -150,7 +156,7 @@ class OrdersController < ApplicationController
   def current ; end
 
   def apply_coupon
-    coupon = Coupon.find_by_code(params[:coupon_code])
+    coupon_code = CouponCode.find_by_code(params[:coupon_code])
 
     update_coupon_code(params[:coupon_code]) if @cart
 
@@ -201,6 +207,8 @@ class OrdersController < ApplicationController
 
       if success
         empty_cart
+
+        OrderDiscountPolicy.new(@order_admin_form.record).apply
         store_order_id(@order_admin_form.record)
 
         flash[:notice] = t('controllers.order.order_success')

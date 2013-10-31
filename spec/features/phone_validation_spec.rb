@@ -4,8 +4,7 @@ feature "Phone validation" do
   given(:user) { create(:user, email: 'user@hua.li', password: 'aaa123', password_confirmation: 'aaa123') }
 
   background do
-    # FIXME root page should always be setup up front
-    Page.create!(title_en: "Home", title_zh: '首页', permalink: 'home')
+    prepare_home_page
 
     login_as(user, scope: :user)
   end
@@ -17,7 +16,7 @@ feature "Phone validation" do
     fill_in 'user_phone', with: '18621374266'
     click_button '更新'
 
-    page.should_not have_content('Phone 是无效的')
+    page.should_not have_content('联系方式 是无效的')
   end
 
   scenario "with a valid Chinese fixed-line phone" do
@@ -27,7 +26,7 @@ feature "Phone validation" do
     fill_in 'user_phone', with: '010-65955379'
     click_button '更新'
 
-    page.should_not have_content('Phone 是无效的')
+    page.should_not have_content('联系方式 是无效的')
   end
 
   scenario "with a invalid Chinese mobile phone" do
@@ -37,7 +36,7 @@ feature "Phone validation" do
     fill_in 'user_phone', with: '16611112222'
     click_button '更新'
 
-    page.should have_content('Phone 是无效的')
+    page.should have_content('联系方式 是无效的')
   end
 
   scenario "with a invalid Chinese fixed-line phone" do
@@ -47,7 +46,7 @@ feature "Phone validation" do
     fill_in 'user_phone', with: '010-659553790'
     click_button '更新'
 
-    page.should have_content('Phone 是无效的')
+    page.should have_content('联系方式 是无效的')
   end
 
   scenario "with a valid international mobile phone" do
@@ -58,7 +57,7 @@ feature "Phone validation" do
     fill_in 'user_phone', with: '6740 2312'
     click_button '更新'
 
-    page.should_not have_content('Phone 是无效的')
+    page.should_not have_content('联系方式 是无效的')
   end
 
   scenario "with a valid international fixed-line phone" do
@@ -68,7 +67,7 @@ feature "Phone validation" do
     fill_in 'user_phone', with: '44 668 18 00'
     click_button '更新'
 
-    page.should_not have_content('Phone 是无效的')
+    page.should_not have_content('联系方式 是无效的')
   end
 
 
@@ -79,7 +78,7 @@ feature "Phone validation" do
     fill_in 'user_phone', with: '400-001-6936'
     click_button '更新'
 
-    page.should_not have_content('Phone 是无效的')
+    page.should_not have_content('联系方式 是无效的')
   end
 
   scenario "sanitize before validation" do
@@ -89,6 +88,6 @@ feature "Phone validation" do
     fill_in 'user_phone', with: '07013567933aaaa'
     click_button '更新'
 
-    page.should_not have_content('Phone 是无效的')
+    page.should_not have_content('联系方式 是无效的')
   end
 end

@@ -2,12 +2,11 @@ require 'spec_helper'
 
 feature 'Use coupon' do
   given(:product) { create(:product, name_en: 'ruby', name_zh: '红宝石', price: 200) }
-  given(:coupon) { create(:coupon) }
+  given(:coupon_code_record) { create(:coupon).coupon_codes.first }
   given(:user) { create(:user) }
 
   background do
-    # FIXME root page should always be setup up front
-    Page.create!(title_en: "Home", title_zh: '首页', permalink: 'home')
+    prepare_home_page
     login_as(user, scope: :user)
   end
 
@@ -29,7 +28,7 @@ feature 'Use coupon' do
 
     click_link '放入购花篮'
 
-    find("input[name='coupon_code']").set(coupon.code)
+    find("input[name='coupon_code']").set(coupon_code_record.code)
     within(".discount") do
       click_button '确定'
     end

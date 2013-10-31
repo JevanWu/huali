@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: banners
+#
+#  content    :string(255)
+#  created_at :datetime
+#  end_date   :date
+#  id         :integer          not null, primary key
+#  name       :string(255)
+#  start_date :date
+#  updated_at :datetime
+#
+
 require 'spec_helper'
 
 describe Banner do

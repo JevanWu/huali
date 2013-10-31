@@ -7,8 +7,35 @@ describe Cart do
   let(:product_2) { create(:product, name_zh: '海洋之心', name_en: 'heart_of_ocean', price: 259) }
   let(:cart_item_2) { LineItem.new(product_id: product_2.id, quantity: 2) }
 
-  let(:coupon_code) { create(:coupon, adjustment: '*0.8').code }
+  let(:coupon_code_record) { create(:coupon, adjustment: '*0.8').coupon_codes.first }
+  let(:coupon_code) { coupon_code_record.code }
   let(:cart) { Cart.new([cart_item_1, cart_item_2], coupon_code) }
+
+  describe "#initialize" do
+    context "with coupon code" do
+      context "that is usable" do
+        it "set adjustment with the adjustment in the coupon code" do
+          cart.adjustment.should eq("*0.8")
+        end
+      end
+
+      context "that is not usable" do
+        let(:coupon_code_record) { create(:coupon, expired: true, adjustment: '*0.8').coupon_codes.first }
+
+        it "do not set adjustment with the adjustment in the coupon code" do
+          cart.adjustment.should be_nil
+        end
+      end
+    end
+
+    context "with manual adjustment" do
+      let(:cart) { Cart.new([cart_item_1, cart_item_2], nil, "*0.7") }
+
+      it "set adjustment with the provided adjustment" do
+        cart.adjustment.should eq("*0.7")
+      end
+    end
+  end
 
   describe "#original_total" do
     it "returns total price of all the products to buy" do

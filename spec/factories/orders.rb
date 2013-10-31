@@ -5,7 +5,7 @@
 #  address_id           :integer
 #  adjustment           :string(255)
 #  completed_at         :datetime
-#  coupon_id            :integer
+#  coupon_code_id       :integer
 #  created_at           :datetime         not null
 #  delivery_date        :date
 #  expected_date        :date             not null
@@ -14,6 +14,7 @@
 #  identifier           :string(255)
 #  item_total           :decimal(8, 2)    default(0.0), not null
 #  kind                 :string(255)      default("normal"), not null
+#  merchant_order_no    :string(255)
 #  payment_total        :decimal(8, 2)    default(0.0)
 #  printed              :boolean          default(FALSE)
 #  sender_email         :string(255)

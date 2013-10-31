@@ -19,7 +19,7 @@ class AdminAbility
       can :manage, [Product, Collection, Asset]
       cannot :update_seo, [Product, Collection]
     when "web_operation_manager"
-      can :manage, [Page, Product, Collection, Coupon, Asset, Setting]
+      can :manage, [Page, Product, Collection, Coupon, Asset, Setting, Story]
       can :update_seo, [Product, Collection]
     when "marketing_manager"
       can :manage, [Coupon]
