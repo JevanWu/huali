@@ -27,12 +27,14 @@ class Swipe
     @node.hammer().on("swiperight",{dir:"right"},@swipe)
 
   onBtnClick: (e) =>
+    e.stopPropagation()
     if e.data.dir is "left" and @currentPage isnt 1
       @changePage("+1")
     if e.data.dir is "right" and @currentPage isnt @maxPage
       @changePage("-1")
     return
   onDotClick: (e) =>
+    e.stopPropagation()
     return if $(e.currentTarget).hasClass(css.cur)
     targetPage = @dots.find("a").index($(e.currentTarget))
     @changePage(targetPage)
