@@ -5,15 +5,7 @@ ActiveAdmin.register Administrator do
   filter :email
 
   controller do
-    before_action :authorize_creating_super, only: [:create, :update]
-
     private
-
-    def authorize_creating_super
-      if params[:administrator][:role] == "super"
-        current_admin_ability.authorize! :create_super, Administrator
-      end
-    end
 
     def permitted_params
       params.permit(administrator: [:email, :password, :role])

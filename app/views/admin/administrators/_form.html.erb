@@ -3,11 +3,12 @@
     <%= f.input :email %>
     <%= f.input :password %>
 
-    <% if current_admin_ability.cannot? :create_super, Administrator %>
+    <% if current_admin_ability.cannot? :manage_super, Administrator %>
       <% available_collection = %w(admin operation_manager product_manager web_operation_manager marketing_manager) %>
     <% else %>
       <% available_collection = %w(super admin operation_manager product_manager web_operation_manager marketing_manager) %>
     <% end %>
+
     <%= f.input :role, collection: available_collection %>
   <% end %>
   <%= f.actions %>
