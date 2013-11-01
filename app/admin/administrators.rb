@@ -5,6 +5,8 @@ ActiveAdmin.register Administrator do
   filter :email
 
   controller do
+    private
+
     def permitted_params
       params.permit(administrator: [:email, :password, :role])
     end
