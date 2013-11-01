@@ -1,4 +1,17 @@
 <div class="best-products row">
+  <%# 相框花 %>
+  <div class="square">
+    <a href="/collections/impression-collection-flower-in-photo-frame">
+      <%= image_tag "best-products/flower-in-photo-flame.jpg", width: 460, height: 440 %>
+    </a>
+  </div>
+
+  <%# 花年轮-暗红（小）, 双生 %>
+  <%= render partial: 'collections/product', collection: Product.find(113, 114) %>
+
+  <%# 花年轮-粉（大）, 花年轮-红（大）, 缎与花 %>
+  <%= render partial: 'collections/product', collection: Product.find(115, 116, 117) %>
+
   <%# 色彩系列 %>
   <div class="square">
     <a href="/collections/colorful-life">
@@ -24,17 +37,4 @@
 
   <%# 淡奶之吻, 星空下的问候, 蓝宝石, 红宝石 %>
   <%= render partial: 'collections/product', collection: Product.find(105, 93, 98, 83) %>
-
-  <%# 相框花 %>
-  <div class="square">
-    <a href="/collections/impression-collection-flower-in-photo-frame">
-      <%= image_tag "best-products/flower-in-photo-flame.jpg", width: 460, height: 440 %>
-    </a>
-  </div>
-
-  <%# 花年轮-暗红（小）, 双生 %>
-  <%= render partial: 'collections/product', collection: Product.find(113, 114) %>
-
-  <%# 花年轮-粉（大）, 花年轮-红（大）, 缎与花 %>
-  <%= render partial: 'collections/product', collection: Product.find(115, 116, 117) %>
 </div>
