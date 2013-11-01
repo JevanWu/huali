@@ -9,7 +9,8 @@ class AdminAbility
       can :manage, :all
     when "admin"
       can :manage, :all
-      cannot :manage, Administrator
+      can :manage, Administrator
+      cannot :create_super, Administrator
       cannot :manage, Sidekiq
     when "operation_manager"
       can :manage, [Product, Collection, Order, Transaction, Shipment, Coupon, DefaultRegionRule, DefaultDateRule]
