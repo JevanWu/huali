@@ -60,7 +60,8 @@ class Order < ActiveRecord::Base
 
   validates_presence_of :identifier, :line_items, :state, :total, :item_total
 
-  after_validation :cal_item_total, :cal_total
+  after_validation :cal_item_total
+  after_validation :cal_total, on: :create
 
   state_machine :state, initial: :generated do
     # TODO implement an auth_state dynamically for each state
