@@ -9,7 +9,7 @@
         - @cart.items.each_with_index do |product_in_cart, index|
           li class="#{index + 1 == 3 ? 'last' : ''}"
             = image_tag product_in_cart.img(:medium)
-            .cart-product-item
+            .cart-product-item.item-table data-total = "#{product_in_cart.total}"
               .cart-product-info
                 .cart-product-info-name
                   h3.product-name
@@ -17,18 +17,18 @@
                   h4.product-name-en
                     = product_in_cart.name_en
                 .cart-product-info-price
-                  strong.price
+                  strong.price data-price = "#{product_in_cart.price}"
                     = number_to_currency product_in_cart.price, unit: '&yen;'
                   span ×
                   em #{product_in_cart.quantity}
-              .op
+              .op.quantity
                 .op-num
                   |  数量：
-                  = link_to '-', current_order_path, data: { product: product_in_cart.id }, class: 'minus'
+                  = link_to '-', current_order_path, data: { product: product_in_cart.id }, class: 'minus reduce_quantity'
                   input[type="text" value="#{product_in_cart.quantity}"]
-                  = link_to '+', current_order_path, data: { product: product_in_cart.id }, class: 'plus'
+                  = link_to '+', current_order_path, data: { product: product_in_cart.id }, class: 'plus add_quantity'
                 .op-drop
-                  = link_to '', current_order_path, data: { product: product_in_cart.id }, class: 'drop'
+                  = link_to '', current_order_path, data: { product: product_in_cart.id }, class: 'drop empty_quantity'
       .discount-code
         = form_tag orders_apply_coupon_path, method: :post do
           .input-wrap
@@ -60,4 +60,4 @@
           | 您的订单享受免费配送
 
         = link_to t('views.order.checkout'), new_order_path, class: 'btn-m-confirmBuy'
-  == render 'shared/guess_you_like', related_products: @related_products.take(5)
+  == render 'shared/guess_you_like', related_products: @related_products.take(3)

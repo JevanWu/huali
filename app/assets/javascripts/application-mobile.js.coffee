@@ -10,6 +10,7 @@
 #= require 'common/common-mobile'
 #= require 'module/home-mobile'
 #= require 'module/cart-mobile'
+#= require 'module/cate-mobile'
 #= require 'orders'
 
 $ ->

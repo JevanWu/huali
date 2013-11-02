@@ -69,7 +69,7 @@ $ ->
 
   updateItemRow = (row) ->
     price = $('.price', row).data('price')
-    quantity = parseInt $('.quantity > input', row).val()
+    quantity = parseInt $('.quantity input', row).val()
     total = price * quantity
     row.data('total', total)
     updateTable('.item-table')
