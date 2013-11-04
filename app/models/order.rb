@@ -66,7 +66,7 @@ class Order < ActiveRecord::Base
     # TODO implement an auth_state dynamically for each state
     before_transition to: :completed, do: :complete_order
     after_transition to: :completed, do: :update_sold_total
-    before_transition to: :wait_check, do: :pay_order
+    before_transition to: :wait_check, do: :sync_payment
     after_transition to: :wait_ship, do: :generate_shipment
 
     # use adj. for state with future vision
@@ -250,6 +250,11 @@ class Order < ActiveRecord::Base
     save
   end
 
+  def sync_payment
+    update_attribute(:payment_total,
+                     transactions.by_state('completed').map(&:amount).inject(:+))
+  end
+
   private
 
   def complete_order
@@ -263,10 +268,5 @@ class Order < ActiveRecord::Base
       product.sold_total += item.quantity
       product.save
     end
-  end
-
-  def pay_order
-    self.payment_total = self.transactions.by_state('completed').map(&:amount).inject(:+)
-    save
   end
 end
