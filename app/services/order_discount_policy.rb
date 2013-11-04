@@ -11,8 +11,7 @@ class OrderDiscountPolicy
 
   def initialize(order)
     @order = order
-    # FIXME a troublesome design
-    # Order#coupon_code will read order.coupon as well
+    # Order#coupon_code will read order.coupon_code_record as well
     @coupon_code = order.coupon_code
     @coupon_code_record = fetch_coupon(@coupon_code)
   end
@@ -45,7 +44,8 @@ class OrderDiscountPolicy
   end
 
   def use_coupon?
-    order.adjustment.blank? && @coupon_code_record
+    order.adjustment.blank? && @coupon_code_record &&
+      @coupon_code_record != order.coupon_code_record
   end
 
   def fetch_coupon(coupon_code)

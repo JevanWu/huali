@@ -95,6 +95,10 @@ zh-CN:
         bypass_date_validation: 跳过递送时间验证
         bypass_product_validation: 跳过产品验证
 
+      item_info:
+        quantity: 产品数量
+        product_id: 产品
+
       sender_info:
         name: 寄件人姓名
         email: 寄件人邮箱
