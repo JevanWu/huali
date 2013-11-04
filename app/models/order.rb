@@ -144,7 +144,10 @@ class Order < ActiveRecord::Base
     end
   end
 
-  attr_accessor :coupon_code
+  attr_writer :coupon_code
+  def coupon_code
+    @coupon_code ||= coupon_code_record.try(:code)
+  end
 
   def finished?
     ["completed", "refunded", "void"].include?(state)
