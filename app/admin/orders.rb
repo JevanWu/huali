@@ -213,6 +213,10 @@ ActiveAdmin.register Order do
       [order[:sender_name], order[:sender_email], order[:sender_phone]].select { |s| !s.blank? }.join(', ')
     end
 
+    column :created_at, sortable: :created_at do |order|
+      I18n.l order.created_at, format: :short
+    end
+
     column :delivery_date, sortable: :delivery_date
 
     column :expected_date, sortable: :expected_date
