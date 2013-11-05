@@ -542,6 +542,18 @@ zh-CN:
       you_may_also_like: 您可能还喜欢
       click_to_cart: 加入购花篮
 
+      # banks
+      bank:
+        directPay: 支付宝
+        ICBCB2C: 中国工商银行
+        CMB: 招商银行
+        CCB: 中国建设银行
+        BOCB2C: 中国银行
+        ABC: 中国农业银行
+        COMM: 交通银行
+        CMBC: 中国民生银行
+        paypal: Paypal
+
     product:
       soldout: 已经售罄
       flower_basket: 放入购花篮
