@@ -23,15 +23,17 @@
     .best-products.row
       = render partial: 'product', collection: @products
 .cate-list-style2
-  dt.cate-list-title
-    strong
-      i
-      | 花里>
-    span
-      = @collection.display_name
-    .tabs
-      a.row-view
-      a.square-view
+  dl
+    dt.cate-list-title
+      strong
+        i
+        = @collection.display_name
+        b
+      p
+        = @collection.description
+      .tabs
+        a.row-view
+        a.square-view
   dd
     ul.row
       - @products.each do |product|
