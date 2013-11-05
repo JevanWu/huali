@@ -47,8 +47,9 @@
         .summary-item
           - if @cart.discounted?
             .summary-item-name
-              | 促销优惠：-
+              | 促销优惠：
             .summary-item-value
+              = "- "
               = number_to_currency @cart.discount_money, unit: '&yen;'
         .summary-item.last
           .summary-item-name
