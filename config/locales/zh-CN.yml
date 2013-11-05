@@ -95,6 +95,10 @@ zh-CN:
         bypass_date_validation: 跳过递送时间验证
         bypass_product_validation: 跳过产品验证
 
+      item_info:
+        quantity: 产品数量
+        product_id: 产品
+
       sender_info:
         name: 寄件人姓名
         email: 寄件人邮箱
@@ -189,7 +193,7 @@ zh-CN:
         coupon_code_record: 优惠券
         adjustment: 价格调整
         subject_text: 货品内容
-        created_at: 创建时间
+        created_at: 下单时间
         printed: 已打印
         tracking_num: 快递单号
         kind: 类型
@@ -322,6 +326,7 @@ zh-CN:
         expires_at: 过期时间
         orders: 订单
         code_count: 优惠券数量
+        available_count: 优惠券有效使用次数
 
       user:
         email: 邮箱

@@ -8,6 +8,7 @@
     <%= f.input :expires_at, as: :string, required: true, input_html: { class: 'datepicker' }%>
     <% if @coupon.new_record? %>
       <%= f.input :code_count, as: :number, required: true %>
+      <%= f.input :available_count, as: :number, required: true %>
     <% end %>
   <% end %>
   <%= f.actions %>

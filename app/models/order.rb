@@ -60,13 +60,14 @@ class Order < ActiveRecord::Base
 
   validates_presence_of :identifier, :line_items, :state, :total, :item_total
 
-  after_validation :cal_item_total, :cal_total
+  after_validation :cal_item_total
+  after_validation :cal_total, on: :create
 
   state_machine :state, initial: :generated do
     # TODO implement an auth_state dynamically for each state
     before_transition to: :completed, do: :complete_order
     after_transition to: :completed, do: :update_sold_total
-    before_transition to: :wait_check, do: :pay_order
+    before_transition to: :wait_check, do: :sync_payment
     after_transition to: :wait_ship, do: :generate_shipment
 
     # use adj. for state with future vision
@@ -143,7 +144,10 @@ class Order < ActiveRecord::Base
     end
   end
 
-  attr_accessor :coupon_code
+  attr_writer :coupon_code
+  def coupon_code
+    @coupon_code ||= coupon_code_record.try(:code)
+  end
 
   def finished?
     ["completed", "refunded", "void"].include?(state)
@@ -250,6 +254,11 @@ class Order < ActiveRecord::Base
     save
   end
 
+  def sync_payment
+    update_attribute(:payment_total,
+                     transactions.by_state('completed').map(&:amount).inject(:+))
+  end
+
   private
 
   def complete_order
@@ -263,10 +272,5 @@ class Order < ActiveRecord::Base
       product.sold_total += item.quantity
       product.save
     end
-  end
-
-  def pay_order
-    self.payment_total = self.transactions.by_state('completed').map(&:amount).inject(:+)
-    save
   end
 end
