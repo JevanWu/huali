@@ -19,10 +19,7 @@ FactoryGirl.define do
     expired false
     expires_at 30.days.since
     note "Note"
-    code_count { 1 }
-
-    after(:build) do |coupon|
-      create_list(:coupon_code_record, 5, coupon: coupon)
-    end
+    code_count { 5 }
+    available_count { 1 }
   end
 end

@@ -23,7 +23,7 @@ class Coupon < ActiveRecord::Base
     numericality: { only_integer: true, greater_than_or_equal_to: 1 },
     allow_blank: true
 
-  validates :code_count,
+  validates :code_count, :available_count,
     presence: true,
     numericality: { only_integer: true, greater_than_or_equal_to: 1, allow_blank: true },
     on: :create
@@ -33,7 +33,15 @@ class Coupon < ActiveRecord::Base
 
   after_create :generate_coupon_codes
 
-  attr_writer :code_count
+  attr_writer :code_count, :available_count
+
+  def coupon_code
+    coupon_codes.first
+  end
+
+  def available_count
+    @available_count ||= coupon_code.try(:available_count)
+  end
 
   def code_count
     @code_count ||= coupon_codes.count
@@ -43,7 +51,7 @@ class Coupon < ActiveRecord::Base
 
   def generate_coupon_codes
     code_count.to_i.times do
-      self.coupon_codes.create
+      self.coupon_codes.create(available_count: available_count)
     end
   end
 end

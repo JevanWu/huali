@@ -326,6 +326,7 @@ zh-CN:
         expires_at: 过期时间
         orders: 订单
         code_count: 优惠券数量
+        available_count: 优惠券有效使用次数
 
       user:
         email: 邮箱
