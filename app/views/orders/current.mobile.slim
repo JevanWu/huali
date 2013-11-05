@@ -24,11 +24,11 @@
               .op.quantity
                 .op-num
                   |  数量：
-                  = link_to '-', current_order_path, data: { product: product_in_cart.id }, class: 'minus reduce_quantity'
+                  = link_to '-', current_order_path, data: { product: product_in_cart.product_id }, class: 'minus reduce_quantity'
                   input[type="text" value="#{product_in_cart.quantity}"]
-                  = link_to '+', current_order_path, data: { product: product_in_cart.id }, class: 'plus add_quantity'
+                  = link_to '+', current_order_path, data: { product: product_in_cart.product_id }, class: 'plus add_quantity'
                 .op-drop
-                  = link_to '', current_order_path, data: { product: product_in_cart.id }, class: 'drop empty_quantity'
+                  = link_to '', current_order_path, data: { product: product_in_cart.product_id }, class: 'drop empty_quantity'
       .discount-code
         = form_tag orders_apply_coupon_path, method: :post do
           .input-wrap
