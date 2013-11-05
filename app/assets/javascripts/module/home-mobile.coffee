@@ -1,7 +1,4 @@
 ﻿$ ->
-  new window.Huali.component.Swipe
-    node: $("#slide")
-
   $("#slide .container").width($(window).width()*$("#slide img").length)
   $("#slide").find("img").each (i,el) ->
     $(el).width($(window).width())

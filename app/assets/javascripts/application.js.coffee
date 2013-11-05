@@ -12,7 +12,6 @@
 #= require 'module/home'
 #= require 'module/show'
 #= require 'module/cate'
-#= require 'module/cart'
 #= require 'module/my-order'
 #= require 'module/chosen-select'
 #= require 'module/banner'

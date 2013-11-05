@@ -3,6 +3,28 @@
     width: auto
   .img-wrap
     position: relative
+    width: 100%
+    overflow: hidden
+    .container
+      +clearfix
+      li
+        float: left
+    .btn-left,.btn-right
+      position: absolute
+      top: 50%
+      margin-top: -17px
+      width: 26px
+      height: 35px
+      background-color: #f8f8f8
+      background-repeat: no-repeat
+      background-position: center center
+      z-index: 1
+    .btn-left
+      left: 0
+      background-image: image-url("mobile/swipe_btn_l.png")
+    .btn-right
+      right: 0
+      background-image: image-url("mobile/swipe_btn_r.png")
     .slide-dot
       +clearfix
       position: absolute
@@ -15,7 +37,13 @@
         margin-right: 8px
         &.last
           margin-right: 0
-        @rhombus_2
+        a
+          display: block
+          width: 10px
+          height: 10px
+          background-image: image-url("bg/rhombus_normal.png")
+          &.cur
+            background-image: image-url("bg/rhombus_light.png")
     .main
       width: 460px
       margin: 0 auto
@@ -148,7 +176,7 @@
 .cate-list-style1
   .best-products
     +clearfix
-    padding: 10px 10px 10px 0
+    padding: 10px 0 10px 0
     width: auto
 
 .cate-list-style2

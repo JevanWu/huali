@@ -9,24 +9,20 @@
 
 #l-show-m
   .container
-    .img-wrap
+    #show-slide.img-wrap
+      a.btn-left
+      a.btn-right
       ul.slide-dot
         li
           a.cur
         li
           a
-        li
-          a
         li.last
           a
-      ul.main
+      ul.main.container
         - @asset_urls.take(3).each_with_index do |asset_url, index|
-          - if index == 1
-            li
-              = image_tag asset_url[:full], alt: "#{@product.name} thumbnail images", width: 460, height: 440
-          - else
-            li.is-hidden
-              = image_tag asset_url[:full], alt: "#{@product.name} thumbnail images", width: 460, height: 440
+          li
+            = image_tag asset_url[:full], alt: "#{@product.name} thumbnail images", width: 460, height: 440
     .add-to-cart
       .product-title
         h3.product-name

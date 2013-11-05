@@ -4,6 +4,7 @@
     margin: 5px 0
     li
       +clearfix
+      position: relative
       margin-bottom: 8px
       border: 1px solid #efefef
       padding: 15px
@@ -12,7 +13,6 @@
         margin-right: 41px
       .my-order-item
         float: left
-        position: relative
         strong,.summary,.order-state
           font-size: $content-font
         .summary,.order-number
@@ -20,15 +20,19 @@
           span
             color: $normal-text-color
         .order-state
+          margin-right: 5px
           line-height: 25px
+          +button(80px)
           &.wait-pay
-            color: #ff9933
+            color: #fff
+            background-color: #ccc
         .op
           +clearfix
         .arrow
           position: absolute
           width: 15px
           height: 15px
-          right: 0
-          top: 32px
+          right: 15px
+          top: 50%
+          margin-top: -8px
           background: image-url("bg/arrow_right.png") no-repeat

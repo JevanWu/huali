@@ -7,9 +7,9 @@
     .not-empty
       ul.cart-product-list
         - @cart.items.each_with_index do |product_in_cart, index|
-          li class="#{index + 1 == 3 ? 'last' : ''}"
+          li class="#{index + 1 == 3 ? 'last' : ''} item-table" data-total = "#{product_in_cart.total}"
             = image_tag product_in_cart.img(:medium)
-            .cart-product-item.item-table data-total = "#{product_in_cart.total}"
+            .cart-product-item
               .cart-product-info
                 .cart-product-info-name
                   h3.product-name
