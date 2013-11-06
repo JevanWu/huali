@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :monthly_sold do
-    sold_year 2013
-    sold_month 11
+    sold_year { Date.current.year }
+    sold_month { Date.current.month }
     sold_total 100
     product
   end

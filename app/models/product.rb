@@ -178,4 +178,25 @@ class Product < ActiveRecord::Base
       build_local_region_rule
     end
   end
+
+  def update_monthly_sold(quantity)
+    current_month_sold.update_sold_total(quantity)
+
+    update_attribute(:sold_total, current_month_sold.sold_total)
+  end
+
+  private
+
+  def current_month_sold
+    ret = monthly_solds.current.first
+
+    begin
+      ret ||= monthly_solds.create(sold_year: Date.current.year,
+                                   sold_month: Date.current.month)
+    rescue ActiveRecord::RecordNotUnique
+      ret = monthly_solds.current.first
+    end
+
+    ret
+  end
 end
