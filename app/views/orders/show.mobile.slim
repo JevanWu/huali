@@ -43,18 +43,19 @@
     .product-item
       .product-item-left
         p
-          | 商品小计 :
+          | 价目总计 :
         p
           | 促销优惠 :
       .product-item-right
         p.price-gallery
-          = "￥ #{@order.total}"
+          = number_to_currency @order.item_total, unit: '&yen;'
         p.discount
-          | -￥ 415
+          = "- "
+          = number_to_currency @order.item_total - @order.total, unit: '&yen;'
     p.total-price
       | 本次发货总额：
       em
-        | ￥ 1647
+        = number_to_currency @order.total, unit: '&yen;'
     - if @order.state == 'generated'
       = link_to t('models.order.state.pay'), checkout_order_path(@order), class: 'btn-m-detailPay'
     button.btn-m-cancelPay
