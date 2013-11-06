@@ -71,6 +71,8 @@ class Product < ActiveRecord::Base
   accepts_nested_attributes_for :local_date_rule, allow_destroy: true, update_only: true,
     reject_if: proc { |d| d[:start_date].blank? }
 
+  has_many :monthly_solds
+
   # i18n translation
   translate :name
 
