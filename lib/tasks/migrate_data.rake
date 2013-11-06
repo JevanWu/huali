@@ -68,4 +68,11 @@ namespace :migrate do
     end;
     puts "done";
   end
+
+  desc "Migrate product sold total to monthly sold model"
+  task product_sold_total: :environment do
+    Product.unscoped.each do |product|
+      product.update_monthly_sold(product.sold_total)
+    end
+  end
 end
