@@ -10,7 +10,7 @@
           = image_tag item.img(:thumb)
         .product-item-right
           h3.product-name
-            = link_to item.name, product_path(item)
+            = link_to item.name, product_path(item.product)
           h4.product-name-en
             = item.product.name_en
           p.summary
