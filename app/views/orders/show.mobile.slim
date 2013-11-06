@@ -58,6 +58,3 @@
         = number_to_currency @order.total, unit: '&yen;'
     - if @order.state == 'generated'
       = link_to t('models.order.state.pay'), checkout_order_path(@order), class: 'btn-m-detailPay'
-    button.btn-m-cancelPay
-      | 取消
-
