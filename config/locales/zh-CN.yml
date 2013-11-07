@@ -474,7 +474,7 @@ zh-CN:
         teacher: 老师
         relative: 亲人/长辈
         children: 儿童
-        other: 其他
+        other_relationship: 其他
       gift_purpose:
         new_born: 新生儿
         propose: 求婚
@@ -484,7 +484,7 @@ zh-CN:
         confession: 表白
         business: 商务礼仪
         wish: 祝福
-        other: 其他
+        other_purpose: 其他
 
   controllers:
     order:
