@@ -25,4 +25,12 @@ class ProductsController < ApplicationController
       format.json { render json: @product }
     end
   end
+
+  def trait
+    trait_tags = params[:tags].split(',')
+
+    @products = Product.published
+      .tagged_with(trait_tags, on: :traits)
+      .page(params[:page])
+  end
 end

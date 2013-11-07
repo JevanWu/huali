@@ -86,6 +86,7 @@ class Product < ActiveRecord::Base
   friendly_id :name_en, use: :slugged
 
   acts_as_taggable
+  acts_as_taggable_on :traits
 
   before_save do |product|
     product.name_en.downcase!
