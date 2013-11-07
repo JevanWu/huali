@@ -8,12 +8,9 @@ class SurveysController < ApplicationController
     @survey.user = current_user if current_user
 
     if @survey.save
-      #require 'pry'; require 'pry-remote'; binding.remote_pry;
-      @products = Product.published
-        .tagged_with(survey_params[:receiver_gender], any: true)
-        .tagged_with(survey_params[:gift_purpose], any: true)
 
       flash[:notice] = t('controllers.survey.survey_success')
+      redirect_to controller: :products, action: :trait, tags: @survey.to_trait_tags
     else
       render 'new'
     end
@@ -22,6 +19,6 @@ class SurveysController < ApplicationController
   private
 
   def survey_params
-    params.require(:survey).permit(:gender, :gift_purpose, :receiver_gender)
+    params.require(:survey).permit(:gender, :receiver_gender, :receiver_age, :relationship, :gift_purpose)
   end
 end
