@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131106102124) do
+ActiveRecord::Schema.define(version: 20131107032719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -387,6 +387,8 @@ ActiveRecord::Schema.define(version: 20131106102124) do
     t.string   "gift_purpose"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.string   "receiver_age"
+    t.string   "relationship"
   end
 
   create_table "taggings", force: true do |t|

@@ -458,12 +458,32 @@ zh-CN:
       receiver_gender:
         male: 他
         female: 她
-
-      gift_purpose:
-        lover: 爱人
+      receiver_age:
+        eighteen_and_bellow: 18岁以下
+        nineteen_to_25: 19-25
+        twenty_six_to_40: 26-40
+        forty_one_to_60: 41-60
+        sixty_above: 61岁以上
+      relationship:
+        girlfriend: 女朋友
+        boyfriend: 男朋友
+        wife: 老婆
+        husband: 老公
+        colleague: 同事/客户
         friend: 朋友
-        client: 客户
-        older: 长辈
+        teacher: 老师
+        relative: 亲人/长辈
+        children: 儿童
+        other: 其他
+      gift_purpose:
+        new_born: 新生儿
+        propose: 求婚
+        marriage: 结婚
+        birthday_and_anniversary: 生日/纪念日
+        apology: 道歉
+        confession: 表白
+        business: 商务礼仪
+        wish: 祝福
         other: 其他
 
   controllers:
