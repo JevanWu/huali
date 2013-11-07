@@ -348,7 +348,9 @@ zh-CN:
       survey:
         gender: 您是男生/女生
         receiver_gender: 您准备送花给哪个ta
-        gift_purpose: ta是您的
+        receiver_age: ta的年龄
+        relationship: ta是您的
+        gift_purpose: 送ta礼物的目的
         user: 填写用户
 
       default_date_rule:
