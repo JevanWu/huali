@@ -22,4 +22,8 @@ class Survey < ActiveRecord::Base
   enumerize :gift_purpose, in: [:new_born, :propose, :marriage, :birthday_and_anniversary, :apology, :confession, :business, :wish, :other_purpose]
 
   validates_presence_of :gender, :receiver_gender, :receiver_age, :relationship, :gift_purpose
+
+  def to_trait_tags
+    [receiver_gender, receiver_age, relationship, gift_purpose].sort.join(',')
+  end
 end
