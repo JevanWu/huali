@@ -40,6 +40,7 @@ ActiveAdmin.register Product do
         :name_en,
         :priority,
         :tag_list,
+        :trait_list,
         :inspiration,
         :description,
         :count_on_hand,
@@ -113,6 +114,7 @@ ActiveAdmin.register Product do
       row :priority
 
       row :tag_list
+      row :trait_list
 
       row :sold_total
 

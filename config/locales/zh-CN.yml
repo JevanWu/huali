@@ -266,6 +266,8 @@ zh-CN:
         sku_id: SKU编号
         tags: 标签
         tag_list: 标签
+        traits: 特征
+        trait_list: 特征
         collections: 品类
         published: 是否发布
         inspiration: 产品灵感
