@@ -1,0 +1,15 @@
+<div id="trait_tags" class="">
+  <% [
+       ["收花人性别", Survey.receiver_gender.options],
+       ["收花人年龄", Survey.receiver_age.options],
+       ["关系", Survey.relationship.options],
+       ["目的", Survey.gift_purpose.options]
+  ].each do |item| %>
+    <p id="process-buttons">
+      <strong><%= item.first %>: </strong>
+      <% item.last.each do |o| %>
+        <a class="tag" href="#" value="<%= o.last %>"><%= o.first %></a>
+      <% end %>
+    </p>
+  <% end %>
+</div>
