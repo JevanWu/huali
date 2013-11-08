@@ -25,4 +25,32 @@ class ProductsController < ApplicationController
       format.json { render json: @product }
     end
   end
+
+  def index
+    @collection = Collection.available.find(params[:collection_id])
+
+    @products = Product.published.joins(:collections).
+      where("collections_products.collection_id in (?)",
+            @collection.self_and_descendants.map(&:id)).uniq.page(params[:page])
+
+    respond_to do |format|
+      format.html { render 'index' }
+      format.json { render json: @products }
+    end
+  end
+
+  def tagged_with
+    @collection = Collection.available.find(params[:collection_id])
+
+    collection_ids = @collection.self_and_descendants.map(&:id)
+    @products = Product.published.joins(:collections).
+      where("collections_products.collection_id in (?)", collection_ids).
+      tagged_with(params[:tags], on: :tags).
+      uniq.page(params[:page])
+
+    respond_to do |format|
+      format.html { render 'index' }
+      format.json { render json: @products }
+    end
+  end
 end
