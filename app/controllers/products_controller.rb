@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  before_action :fetch_collection, only: [:index, :tagged_with]
+
   def show
     @product = Product.published.find(params[:id])
 
@@ -27,13 +29,8 @@ class ProductsController < ApplicationController
   end
 
   def index
-    @collection = Collection.available.find(params[:collection_id])
+    @products = Product.published.in_collections(@collection_ids).uniq.page(params[:page])
 
-    @products = Product.published.joins(:collections).
-      where("collections_products.collection_id in (?)",
-            @collection.self_and_descendants.map(&:id)).uniq.page(params[:page])
-
-    @collection_ids = @collection.self_and_descendants.map(&:id)
     prepare_tag_filter
 
     respond_to do |format|
@@ -43,13 +40,8 @@ class ProductsController < ApplicationController
   end
 
   def tagged_with
-    @collection = Collection.available.find(params[:collection_id])
-
-    @collection_ids = @collection.self_and_descendants.map(&:id)
-    @products = Product.published.joins(:collections).
-      where("collections_products.collection_id in (?)", @collection_ids).
-      tagged_with(params[:tags], on: :tags).
-      uniq.page(params[:page])
+    @products = Product.published.in_collections(@collection_ids).
+      tagged_with(params[:tags], on: :tags).uniq.page(params[:page])
 
     prepare_tag_filter
 
@@ -61,9 +53,13 @@ class ProductsController < ApplicationController
 
   private
 
+  def fetch_collection
+    @collection = Collection.available.find(params[:collection_id])
+    @collection_ids = @collection.self_and_descendants.map(&:id)
+  end
+
   def prepare_tag_filter
-    @tag_clouds = Product.published.joins(:collections).
-      where("collections_products.collection_id in (?)", @collection_ids).
+    @tag_clouds = Product.published.in_collections(@collection_ids).
       reorder('').tag_counts_on(:tags)
   end
 end
