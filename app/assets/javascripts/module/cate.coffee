@@ -13,7 +13,7 @@
 
 $ ->
   $("#tag_filter a").click ->
-    url = document.URL
+    url = window.location.pathname
     isTagged = /tagged_with/i.test(url)
 
     url = "#{url}/tagged_with" unless isTagged
