@@ -33,6 +33,9 @@ class ProductsController < ApplicationController
       where("collections_products.collection_id in (?)",
             @collection.self_and_descendants.map(&:id)).uniq.page(params[:page])
 
+    @collection_ids = @collection.self_and_descendants.map(&:id)
+    prepare_tag_filter
+
     respond_to do |format|
       format.html { render 'index' }
       format.json { render json: @products }
@@ -42,15 +45,25 @@ class ProductsController < ApplicationController
   def tagged_with
     @collection = Collection.available.find(params[:collection_id])
 
-    collection_ids = @collection.self_and_descendants.map(&:id)
+    @collection_ids = @collection.self_and_descendants.map(&:id)
     @products = Product.published.joins(:collections).
-      where("collections_products.collection_id in (?)", collection_ids).
+      where("collections_products.collection_id in (?)", @collection_ids).
       tagged_with(params[:tags], on: :tags).
       uniq.page(params[:page])
+
+    prepare_tag_filter
 
     respond_to do |format|
       format.html { render 'index' }
       format.json { render json: @products }
     end
+  end
+
+  private
+
+  def prepare_tag_filter
+    @tag_clouds = Product.published.joins(:collections).
+      where("collections_products.collection_id in (?)", @collection_ids).
+      reorder('').tag_counts_on(:tags)
   end
 end
