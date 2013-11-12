@@ -36,7 +36,7 @@ class Menu
     Menu.new(collection.display_name,
              collection.description,
              :collection,
-             Rails.application.routes.url_helpers.collection_path(collection),
+             Rails.application.routes.url_helpers.collection_products_path(collection),
              parent)
   end
 
