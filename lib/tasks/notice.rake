@@ -26,4 +26,9 @@ namespace :notice do
   task unpaid_orders_email: :environment do
     Notify.delay.unpaid_orders_email
   end
+
+  desc "Notify about orders have delivery date today"
+  task ready_to_ship_orders_today: :environment do
+    Notify.delay.ready_to_ship_orders_today
+  end
 end
