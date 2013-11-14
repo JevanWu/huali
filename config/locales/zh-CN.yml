@@ -390,7 +390,7 @@ zh-CN:
       didi_passenger:
         name: 名称
         phone: 手机号码
-        terms_of_service: 服务条款
+        terms_of_service: 同意条款
 
   models:
     order:
