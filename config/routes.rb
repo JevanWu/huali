@@ -72,7 +72,9 @@ Huali::Application.routes.draw do
 
   get 'banners/:date', to: 'banners#index', as: :banners
   get 'stories', to: 'stories#index'
-  resources :didi_passengers, only: [:new, :create]
+  resources :didi_passengers, only: [:new, :create] do
+    get 'terms', on: :collection
+  end
 
   ActiveAdmin.routes(self)
 

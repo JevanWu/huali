@@ -25,6 +25,9 @@ class DidiPassengersController < ApplicationController
     end
   end
 
+  def terms
+  end
+
   private
 
   def permitted_params
