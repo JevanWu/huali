@@ -3,7 +3,7 @@ class DidiPassenger < ActiveRecord::Base
 
   belongs_to :coupon_code
 
-  validates :phone, :coupon_code, presence: true
+  validates :phone, presence: true
   phoneize :phone
   validates :phone, phone: { allow_blank: true }
 

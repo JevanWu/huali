@@ -4,6 +4,5 @@ FactoryGirl.define do
   factory :didi_passenger do
     name "A name"
     phone "18611112222"
-    coupon_code
   end
 end
