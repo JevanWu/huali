@@ -90,6 +90,16 @@ class Sms
 
   class << self
 
+    def didi_passenger_coupon(didi_passenger_id)
+      didi_passenger = DidiPassenger.find(didi_passenger_id)
+
+      content = <<-STR.strip_heredoc
+      花里花店优惠码：#{didi_passenger.coupon_code}, 赶紧去 http://hua.li 使用吧!
+      STR
+
+      new(phone_number: didi_passenger.phone, body: content).deliver
+    end
+
     def date_wait_make_order(date, *phonenums)
       orders = Order.by_state('wait_make').where('delivery_date = ?', date)
 
