@@ -9,9 +9,17 @@ class DidiPassengersController < ApplicationController
     @didi_passenger = DidiPassenger.new(permitted_params[:didi_passenger])
 
     if @didi_passenger.save
-      #TODO: generate a coupon code and sent it to he phone
-      flash[:notice] = "优惠劵已发送到手机"
-      redirect_to collection_products_path("impression-collection-flower-in-photo-frame")
+      begin
+        @coupon = Coupon.find_by_note!("嘀嘀打车合作")
+
+        DidiPassengerReceiveCouponService.receive_coupon_code(@didi_passenger, @coupon)
+
+        flash[:notice] = "优惠劵已发送到手机"
+        redirect_to collection_products_path("impression-collection-flower-in-photo-frame")
+      rescue ArgumentError, ActiveRecord::RecordNotFound
+        flash[:notice] = "抱歉，该活动已结束"
+        redirect_to collection_products_path("impression-collection-flower-in-photo-frame")
+      end
     else
       render 'new'
     end
