@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   before_action :dev_tools if Rails.env == 'development'
 
   # Temporarily turn off mobile format
-  before_action :ignore_mobile_format
+  #before_action :ignore_mobile_format
 
   # enable squash
   include Squash::Ruby::ControllerMethods
