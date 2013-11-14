@@ -14,6 +14,8 @@ class DidiPassengersController < ApplicationController
 
         DidiPassengerReceiveCouponService.receive_coupon_code(@didi_passenger, @coupon)
 
+        cookies[:coupon_code] = @didi_passenger.coupon_code.code
+
         flash[:notice] = "优惠劵已发送到手机"
         redirect_to collection_products_path("impression-collection-flower-in-photo-frame")
       rescue ArgumentError, ActiveRecord::RecordNotFound
