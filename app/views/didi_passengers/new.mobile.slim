@@ -1,0 +1,10 @@
+.container
+  = simple_form_for @didi_passenger,
+    url: didi_passengers_path,
+    html: { class: 'span8 form-horizontal', method: :post } do |f|
+
+    = f.input :phone, as: :simple_form_phone
+    = f.input :terms_of_service, as: :boolean, placeholder: '您的手机号码'
+
+    .form-actions
+      = f.button :submit, "领取优惠劵", class: 'button'
