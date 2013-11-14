@@ -4,7 +4,7 @@
     html: { class: 'span8 form-horizontal', method: :post } do |f|
 
     = f.input :phone, as: :simple_form_phone
-    = f.input :terms_of_service, as: :boolean, placeholder: '您的手机号码'
+    = f.input :terms_of_service, as: :boolean, hint: link_to("服务条款", terms_didi_passengers_path, target: '_blank')
 
     .form-actions
       = f.button :submit, "领取优惠劵", class: 'button'
