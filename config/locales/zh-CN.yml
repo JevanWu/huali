@@ -387,6 +387,11 @@ zh-CN:
         author_avatar: 头像
         available: 是否有效
 
+      didi_passenger:
+        name: 名称
+        phone: 手机号码
+        terms_of_service: 服务条款
+
   models:
     order:
       state:

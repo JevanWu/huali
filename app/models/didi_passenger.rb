@@ -6,4 +6,8 @@ class DidiPassenger < ActiveRecord::Base
   validates :phone, :coupon_code, presence: true
   phoneize :phone
   validates :phone, phone: { allow_blank: true }
+
+  attr_accessor :terms_of_service
+
+  validates :terms_of_service, acceptance: true
 end
