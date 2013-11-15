@@ -23,16 +23,19 @@
           <td valign="top" style="padding-top:0; padding-bottom:0;">
             <table border="0" cellpadding="10" cellspacing="0" width="100%" class="templateDataTable">
               <tr>
-                <th scope="col" valign="top" width="20%" class="dataTableHeading" mc:edit="data_table_heading00">
+                <th scope="col" valign="top" width="15%" class="dataTableHeading" mc:edit="data_table_heading00">
                   订单号
                 </th>
                 <th scope="col" valign="top" width="20%" class="dataTableHeading" mc:edit="data_table_heading00">
                   发货日期
                 </th>
-                <th scope="col" valign="top" width="30%" class="dataTableHeading" mc:edit="data_table_heading01">
-                  手机号码
+                <th scope="col" valign="top" width="15%" class="dataTableHeading" mc:edit="data_table_heading01">
+                  收件人
                 </th>
-                <th scope="col" valign="top" width="30%" class="dataTableHeading" mc:edit="data_table_heading02">
+                <th scope="col" valign="top" width="25%" class="dataTableHeading" mc:edit="data_table_heading01">
+                  手机
+                </th>
+                <th scope="col" valign="top" width="25%" class="dataTableHeading" mc:edit="data_table_heading02">
                   产品
                 </th>
               </tr>
@@ -43,6 +46,9 @@
                   </td>
                   <td class='dataTableContent'>
                     <%= order.delivery_date %>
+                  </td>
+                  <td class='dataTableContent'>
+                    <%= order.address.fullname %>
                   </td>
                   <td class='dataTableContent'>
                     <%= order.address.phone %>
