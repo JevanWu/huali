@@ -56,54 +56,68 @@ p
   left: 209pt
   width: $lineWidth * 0.4
 
-.shunfeng-sender
-  display: none
+.sender
+  .sender-com
+    width: 53pt
+  .sender-phone
+    width: 77pt
 
-.shunfeng-sender.shunfeng
-  display: block
-
+.sender-shunfeng
   .sender-com
     top: 106pt
     left: 85pt
-    width: 53pt
 
   .sender-addr
-    top: 127pt
-    left: 85pt
+    top: 145pt
+    left: 80pt
 
   .sender-phone
-    top: 163pt
-    left: 124pt
-    width: 77pt
+    top: 125pt
+    left: 85pt
+
+.sender-shentong
+  .sender-com
+    top: 68pt
+    left: 85pt
+
+  .sender-addr
+    top: 116pt
+    left: 31pt
+
+  .sender-phone
+    top: 144pt
+    left: 107pt
 
 .shunfeng-bg
   top: -16pt
   left: -16pt
-
-.shunfeng-bg
   img
     height: 14.7 * 28pt
 
-.shunfeng
+.text
   .addr
-    top: 233pt
-    left: 64pt
     width: 203pt
-
-  .cell
-    top: 270pt
-    left: 126pt
-
   .receipt
-    top: 213pt
-    left: 210pt
     width: 75pt
 
-  .post
-    top: 213pt
-    left: 75pt
+.text-shunfeng
+  .addr
+    top: 266pt
+    left: 80pt
 
-.ems
+  .cell
+    top: 242pt
+    left: 207pt
+
+  .receipt
+    top: 217pt
+    left: 245pt
+
+  .post
+    top: 284pt
+    left: 246pt
+
+.text-ems
   .receipt
     top: 140pt
     left: 68pt
@@ -119,6 +133,24 @@ p
   .post
     top: 213pt
     left: 227pt
+
+.text-shentong
+  .receipt
+    top: 44pt
+    left: 354pt
+
+  .cell
+    top: 143pt
+    left: 378pt
+
+  .addr
+    top: 122pt
+    left: 300pt
+    width: 270pt
+
+  .post
+    top: 100pt
+    left: 484pt
 
 @media print
 
