@@ -18,6 +18,7 @@
               = "￥#{order.total}"
           p.order-number
             = "订单编号: #{order.identifier}"
+          /这里判断有问题，会把“取消”的按钮放到状态里面，应该是将“取消”放在下面的“op”中
           p.order-state.wait-pay
             = t('models.order.state.' + order.state)
           .op
