@@ -3,6 +3,9 @@
     | 订单状态：
     span
       = t('models.order.state.' + @order.state)
+  div.view-logis
+    a[href="javascript:;"]
+      |  查看物流
   .order-detail-main
     - @order.line_items.each do |item|
       .product-item
@@ -58,3 +61,5 @@
         = number_to_currency @order.total, unit: '&yen;'
     - if @order.state == 'generated'
       = link_to t('models.order.state.pay'), checkout_order_path(@order), class: 'btn-m-detailPay'
+
+= render partial: "tracking"
