@@ -20,7 +20,11 @@ Huali::Application.routes.draw do
   get "provinces/:prov_id", to: 'provinces#show'
 
   resources :products, only: [:show]
-  resources :collections, only: [:show]
+  resources :collections, only: [:show] do
+    resources :products, only: [:index] do
+      get 'tagged_with/:tags', to: 'products#tagged_with', on: :collection
+    end
+  end
   resources :reminders, only: [:new, :create]
   resources :surveys, only: [:new, :create]
 

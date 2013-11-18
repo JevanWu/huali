@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  before_action :fetch_collection, only: [:index, :tagged_with]
+
   def show
     @product = Product.published.find(params[:id])
 
@@ -24,5 +26,40 @@ class ProductsController < ApplicationController
       format.html # show.html.erb
       format.json { render json: @product }
     end
+  end
+
+  def index
+    @products = Product.published.in_collections(@collection_ids).uniq.page(params[:page])
+
+    prepare_tag_filter
+
+    respond_to do |format|
+      format.html { render 'index' }
+      format.json { render json: @products }
+    end
+  end
+
+  def tagged_with
+    @products = Product.published.in_collections(@collection_ids).
+      tagged_with(params[:tags], on: :tags).uniq.page(params[:page])
+
+    prepare_tag_filter
+
+    respond_to do |format|
+      format.html { render 'index' }
+      format.json { render json: @products }
+    end
+  end
+
+  private
+
+  def fetch_collection
+    @collection = Collection.available.find(params[:collection_id])
+    @collection_ids = @collection.self_and_descendants.map(&:id)
+  end
+
+  def prepare_tag_filter
+    @tag_clouds = Product.published.in_collections(@collection_ids).
+      reorder('').tag_counts_on(:tags)
   end
 end

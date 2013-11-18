@@ -9,8 +9,8 @@ $fontSize: 11pt
   // adjustment to the actual print layout
   // in Chrome
   position: relative
-  top: -38pt
-  left: -23pt
+  top: -15pt
+  left: -41pt
 
 .sheet-bg img
   // w: 23cm, h, 12.7cm
@@ -56,54 +56,66 @@ p
   left: 209pt
   width: $lineWidth * 0.4
 
-.shunfeng-sender
-  display: none
-
-.shunfeng-sender.shunfeng
-  display: block
-
+.sender
   .sender-com
-    top: 106pt
-    left: 85pt
     width: 53pt
+  .sender-phone
+    width: 77pt
+
+.sender-shunfeng
+  .sender-com
+    top: 90pt
+    left: 85pt
 
   .sender-addr
     top: 127pt
-    left: 85pt
+    left: 80pt
 
   .sender-phone
-    top: 163pt
-    left: 124pt
-    width: 77pt
+    top: 110pt
+    left: 85pt
+    width: 90pt
 
-.shunfeng-bg
-  top: -16pt
-  left: -16pt
+.sender-shentong
+  .sender-com
+    top: 76pt
+    left: 85pt
 
-.shunfeng-bg
-  img
-    height: 14.7 * 28pt
+  .sender-addr
+    top: 147pt
+    left: 31pt
 
-.shunfeng
+  .sender-phone
+    top: 171pt
+    left: 107pt
+    width: 100pt
+
+.text
   .addr
-    top: 233pt
-    left: 64pt
     width: 203pt
+  .receipt
+    width: 75pt
+  .cell
+    width: 120pt
+
+.text-shunfeng
+  .addr
+    top: 225pt
+    left: 73pt
 
   .cell
-    top: 270pt
-    left: 126pt
+    top: 208pt
+    left: 190pt
 
   .receipt
-    top: 213pt
-    left: 210pt
-    width: 75pt
+    top: 190pt
+    left: 232pt
 
   .post
-    top: 213pt
-    left: 75pt
+    top: 244pt
+    left: 229pt
 
-.ems
+.text-ems
   .receipt
     top: 140pt
     left: 68pt
@@ -119,6 +131,41 @@ p
   .post
     top: 213pt
     left: 227pt
+
+.text-shentong
+  .receipt
+    top: 71pt
+    left: 354pt
+
+  .cell
+    top: 173pt
+    left: 378pt
+
+  .addr
+    top: 145pt
+    left: 300pt
+    width: 225pt
+
+  .post
+    top: 156pt
+    left: 484pt
+
+.text-lianbang
+  .receipt
+    top: 166pt
+    left: 95pt
+
+  .cell
+    top: 182pt
+    left: 197pt
+
+  .addr
+    top: 222pt
+    left: 62pt
+
+  .post
+    top: 239pt
+    left: 209pt
 
 @media print
 

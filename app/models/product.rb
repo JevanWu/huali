@@ -79,6 +79,10 @@ class Product < ActiveRecord::Base
 
   # scopes
   default_scope -> { order('priority DESC') }
+  scope :published, -> { where(published: true) }
+  scope :in_collections, ->(collection_ids) do
+    joins(:collections).where("collections_products.collection_id in (?)", collection_ids)
+  end
 
   extend FriendlyId
   friendly_id :name_en, use: :slugged
@@ -90,10 +94,6 @@ class Product < ActiveRecord::Base
   end
 
   class << self
-    def published
-      where(published: true)
-    end
-
     def sort_by_collection
       Product.published.joins(:collections).order('collections.id').to_a.uniq
     end
