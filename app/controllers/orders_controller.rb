@@ -173,6 +173,10 @@ class OrdersController < ApplicationController
     redirect_to orders_path
   end
 
+  def logistics
+    @order = current_or_guest_user.orders.find_by_id(params[:id])
+  end
+
   private
 
     def authorize_to_record_back_order

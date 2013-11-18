@@ -4,6 +4,7 @@
   height: 440px
   margin-left: 20px
   margin-bottom: 20px
+  background-color: $block-bg-color
   +global-box-shadow
   &.first
     margin-left: 0
@@ -25,13 +26,18 @@
     a
       color: $normal-text-color
       font-size: 16px
+      display: inline-block
+      width: 100px
+      overflow: hidden
+      white-space: nowrap
+      text-overflow: ellipsis
     span
       font-size: 14px
     .name
       float: left
     p
       position: absolute
-      right: 10px
-      top: 15px
+      right: 5px
+      top: 10px
       color: $global-text-color
       font-size: $price-font
