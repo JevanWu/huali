@@ -52,3 +52,5 @@
             .share
               span =t(:sharing)
               = render 'shared/product_share_links', product: product
+.pager
+  == paginate @products
