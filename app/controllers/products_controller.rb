@@ -47,6 +47,7 @@ class ProductsController < ApplicationController
 
     respond_to do |format|
       format.html { render 'index' }
+      format.mobile { render 'index' }
       format.json { render json: @products }
     end
   end
