@@ -94,7 +94,7 @@ class Sms
       didi_passenger = DidiPassenger.find(didi_passenger_id)
 
       content = <<-STR.strip_heredoc
-      花里花店优惠码：#{didi_passenger.coupon_code}, 赶紧去 http://hua.li 使用吧!
+      恭喜您成功领取「花里」100元现金券：#{didi_passenger.coupon_code} 。您可通过「花里」官网 www.hua.li 购买喜爱的花品~
       STR
 
       new(phone_number: didi_passenger.phone, body: content).deliver
