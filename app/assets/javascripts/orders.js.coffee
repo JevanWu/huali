@@ -10,11 +10,13 @@ $ ->
     link = $(@)
     pro = Cart.get link.data('product')
     Cart.update(id: pro.id, quantity: pro.quantity + 1)
-    analytics.track 'Added Item To Cart',
+
+    #调试代码别忘了注释
+    ###analytics.track 'Added Item To Cart',
       # FIXME added track for price / category
       category: 'order'
       product_id: pro.id
-      quantity: pro.quantity
+      quantity: pro.quantity###
 
     # ported from https://github.com/segmentio/analytics.js/blob/master/src/analytics.js
     # delayed a bit to shot the tracking out
@@ -67,7 +69,7 @@ $ ->
 
   updateItemRow = (row) ->
     price = $('.price', row).data('price')
-    quantity = parseInt $('.quantity > input', row).val()
+    quantity = parseInt $('.quantity input', row).val()
     total = price * quantity
     row.data('total', total)
     updateTable('.item-table')

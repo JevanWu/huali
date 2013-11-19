@@ -1,8 +1,6 @@
+- content_for :sub_title do
+  | 忘记密码
 .forgot
-  h2
-    i
-    | 忘记密码
-    b
   = simple_form_for resource,
     as: resource_name,
     url: password_path(resource_name),

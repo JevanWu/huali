@@ -23,6 +23,4 @@
           .op
             - if order.state == 'generated'
               = link_to t('models.order.state.pay'), checkout_order_path(order), class: 'btn-m-pay'
-            button.btn-m-cancel
-              | 取消
           = link_to '', order_path(order), class: 'arrow'

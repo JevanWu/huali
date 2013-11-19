@@ -42,7 +42,9 @@ Huali::Application.routes.draw do
   # channel order urls
   get 'orders/channelorder', to: 'orders#channel_order_new', as: :new_channel_order
   post 'orders/channelorder', to: 'orders#channel_order_create', as: :create_channel_order
-  resources :orders, except: [:destroy, :update, :edit]
+  resources :orders, except: [:destroy, :update, :edit] do
+    get 'logistics', on: :member
+  end
 
   post 'shipments/notify/:identifier', to: 'shipments#notify', as: :notify_shipment
 

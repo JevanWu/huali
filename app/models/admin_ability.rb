@@ -25,6 +25,7 @@ class AdminAbility
     when "marketing_manager"
       can :manage, [Coupon]
       can :record_back_order, Order
+      can :update, [Order], kind: 'marketing'
     end
 
     if user.persisted?
