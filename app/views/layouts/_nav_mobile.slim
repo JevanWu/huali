@@ -1,7 +1,7 @@
 nav
   = link_to '首页', root_path
   - Collection.roots.available.each do |root|
-    = link_to root.display_name, collection_path(root)
+    = link_to root.display_name, collection_products_path(root)
   - if user_signed_in?
     .orders
       = link_to '我的订单', orders_path
