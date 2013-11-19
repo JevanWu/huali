@@ -4,6 +4,7 @@
 #= require json3
 #= require lodash.compat
 #= require jquery.hammer
+#= require utils
 #= require 'Huali'
 #= require 'component/Swipe'
 #= require 'common/common-mobile'
