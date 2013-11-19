@@ -27,13 +27,10 @@ class DidiPassengersController < ApplicationController
     end
   end
 
-  def terms
-  end
-
   private
 
   def permitted_params
-    params.permit(didi_passenger: [ { phone: [] }, :terms_of_service])
+    params.permit(didi_passenger: [ { phone: [] }])
   end
 end
 
