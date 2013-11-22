@@ -18,7 +18,7 @@
         = @collection.description
       = render 'tag_filter'
       .tabs
-        span 显示:
+        span
         a.square-view
         a.row-view
   dd
@@ -35,15 +35,14 @@
         = @collection.description
       = render 'tag_filter'
       .tabs
-        span 显示:
+        span
         a.square-view
         a.row-view
   dd
     ul.row
       - @products.each do |product|
         li
-          a
-            = image_tag(product.img(:thumb))
+          = image_tag(product.img(:thumb))
           .des
             .info
               .name

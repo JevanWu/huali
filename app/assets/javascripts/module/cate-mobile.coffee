@@ -7,6 +7,12 @@
       return
     return
 
+  $(".cate-list-style2 li").each (i,el) ->
+    $(el).hammer().on "tap", ->
+      $(el).css("background-color","#6495ed")
+      location.href = $(el).find("h3 a").attr("href")
+      return
+    return
 
   return
 
