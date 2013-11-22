@@ -10,10 +10,12 @@ class CreateCouponCodes < ActiveRecord::Migration
     end
     add_index :coupon_codes, :code, unique: true
 
-    execute "INSERT INTO coupon_codes(coupon_id, code, available_count, used_count) VALUES " <<
-    (Coupon.select(:id, :code, :available_count, :used_count).map do |coupon|
-      "(#{coupon.id}, '#{coupon.code}', #{coupon.available_count}, #{coupon.used_count})"
-    end.join(', '))
+    if Coupon.count > 0
+      execute "INSERT INTO coupon_codes(coupon_id, code, available_count, used_count) VALUES " <<
+      (Coupon.select(:id, :code, :available_count, :used_count).map do |coupon|
+        "(#{coupon.id}, '#{coupon.code}', #{coupon.available_count}, #{coupon.used_count})"
+      end.join(', '))
+    end
   end
 
   def down
