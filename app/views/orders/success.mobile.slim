@@ -7,5 +7,5 @@
           | 多谢惠顾，您的订单已支付成功！
         p
           = "订单编号：#{@order.identifier}"
-      = link_to "查看订单", order_path(@order), class: 'review-order'
-      = link_to '回到首页', root_path, class: 'back-to-homepage'
+        = link_to "查看订单", order_path(@order), class: 'review-order'
+        = link_to '回到首页', root_path, class: 'back-to-homepage'
