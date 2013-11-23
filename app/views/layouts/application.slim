@@ -21,7 +21,8 @@ html
     == render 'layouts/header'
     == render 'layouts/nav'
     == render 'layouts/banner'
-    == yield
+
+    = content_for?(:blog) ? yield(:blog) : yield
     == render 'layouts/footer'
 
   = javascript_include_tag 'application'
