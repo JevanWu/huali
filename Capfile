@@ -37,6 +37,8 @@ ssh_options[:forward_agent] = true
 set :user, 'deployer'
 set :group, 'admin'
 
+set :git_enable_submodules, 1
+
 set :application, "huali"
 
 # multistage settings
