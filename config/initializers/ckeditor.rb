@@ -15,9 +15,18 @@ Ckeditor.setup do |config|
   # config.attachment_file_types = ["doc", "docx", "xls", "odt", "ods", "pdf", "rar", "zip", "tar", "swf"]
 
   # Setup authorization to be run as a before filter
-  # config.authorize_with :cancan
+  config.authorize_with :cancan, AdminAbility
 
+  config.current_user_method do
+    current_administrator
+  end
   # Asset model classes
   # config.picture_model { Ckeditor::Picture }
   # config.attachment_file_model { Ckeditor::AttachmentFile }
+end
+
+Ckeditor::ApplicationController.class_eval do
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to main_app.root_path, alert: exception.message
+  end
 end
