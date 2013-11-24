@@ -77,6 +77,7 @@ gem 'mobylette'
 
 gem 'draper', '~> 1.0'
 
+gem 'ckeditor', github: 'galetahub/ckeditor'
 gem 'huali-blog', path: 'vendor/plugins/huali-blog', require: 'blog'
 
 group :development, :test do

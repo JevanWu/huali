@@ -17,6 +17,14 @@ GIT
       polyamorous (~> 0.6.0)
 
 GIT
+  remote: git://github.com/galetahub/ckeditor.git
+  revision: 6ac7f1eb21cbf439fabeccc63ea804fd8589d68a
+  specs:
+    ckeditor (4.0.6)
+      mime-types
+      orm_adapter
+
+GIT
   remote: git://github.com/huacnlee/rails-settings-cached.git
   revision: 3ae9a33fff32fec4a28cabaa81d9d4329aaa065d
   specs:
@@ -211,7 +219,6 @@ PATH
   remote: vendor/plugins/huali-blog
   specs:
     huali-blog (0.0.1)
-      ckeditor
       kaminari
       rails (~> 4.0.0)
       slim
@@ -272,9 +279,6 @@ GEM
       ffi (~> 1.0, >= 1.0.11)
     choice (0.1.6)
     chronic (0.9.1)
-    ckeditor (4.0.6)
-      mime-types
-      orm_adapter
     climate_control (0.0.3)
       activesupport (>= 3.0)
     closure_tree (4.2.7)
@@ -640,6 +644,7 @@ DEPENDENCIES
   capistrano (~> 2.0)
   capistrano-zen!
   capybara (>= 1.1.2)
+  ckeditor!
   closure_tree
   coffee-rails
   database_cleaner (>= 0.8.0)
