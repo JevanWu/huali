@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131124130251) do
+ActiveRecord::Schema.define(version: 20131124130255) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,52 @@ ActiveRecord::Schema.define(version: 20131124130251) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "blog_categories", force: true do |t|
+    t.string   "name"
+    t.string   "name_en"
+    t.text     "description"
+    t.integer  "position"
+    t.string   "slug"
+    t.string   "keywords"
+    t.integer  "parent_id"
+    t.boolean  "available"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "blog_categories", ["slug"], name: "index_blog_categories_on_slug", unique: true, using: :btree
+
+  create_table "blog_categories_posts", id: false, force: true do |t|
+    t.integer "blog_post_id"
+    t.integer "blog_category_id"
+  end
+
+  create_table "blog_category_hierarchies", id: false, force: true do |t|
+    t.integer "ancestor_id",   null: false
+    t.integer "descendant_id", null: false
+    t.integer "generations",   null: false
+  end
+
+  add_index "blog_category_hierarchies", ["ancestor_id", "descendant_id", "generations"], name: "blog_category_anc_desc_udx", unique: true, using: :btree
+  add_index "blog_category_hierarchies", ["descendant_id"], name: "blog_category_desc_idx", using: :btree
+
+  create_table "blog_posts", force: true do |t|
+    t.string   "title"
+    t.string   "title_en"
+    t.string   "author"
+    t.text     "content"
+    t.text     "excerpt"
+    t.string   "keywords"
+    t.string   "slug"
+    t.boolean  "published"
+    t.datetime "published_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "blog_posts", ["published"], name: "index_blog_posts_on_published", using: :btree
+  add_index "blog_posts", ["slug"], name: "index_blog_posts_on_slug", unique: true, using: :btree
 
   create_table "cities", force: true do |t|
     t.string  "name"
