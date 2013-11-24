@@ -2,6 +2,7 @@ require 'sidekiq/web'
 
 Huali::Application.routes.draw do
 
+  mount Ckeditor::Engine => '/ckeditor'
   # Mount resque under the admin namespace wardened by devise
   constraint = lambda { |request| request.env["warden"].authenticate? and request.env['warden'].user.role == 'super' }
   constraints constraint do
