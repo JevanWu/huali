@@ -4,6 +4,8 @@
     $(this).click ->
       tabIndex = $(this).index() - 1
       $(".cate-list-style1,.cate-list-style2").addClass("is-hidden").eq(tabIndex).removeClass("is-hidden")
+      $(".tabs a").removeClass("active")
+      $(".cate-list-style1,.cate-list-style2").eq(tabIndex).find(".tabs a").eq(tabIndex).addClass("active")
       return
     return
 
