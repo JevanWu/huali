@@ -12,6 +12,10 @@ module Extension
       @menu_list ||= []
     end
 
+    def url_helpers
+      Rails.application.routes.url_helpers
+    end
+
     def build_collection_menus
       Collection.roots.available.each do |root|
         root_menu = Menu.new_from_collection(root)
@@ -42,10 +46,10 @@ module Extension
 
     def build_custom_link_menus
       custom_menu = Menu.new("花里历程", "记录花里从初创至今关于品牌发展与外部合作的历程。您可以在这里更为清晰地了解花里成长的一切。", :link, '#')
-      custom_menu.add_child(Menu.new('合作品牌', nil, :link, brands_path))
-      custom_menu.add_child(Menu.new('花里·明星', nil, :link, celebrities_path))
-      custom_menu.add_child(Menu.new('媒体报道', nil, :link, medias_path))
-      custom_menu.add_child(Menu.new('花里博客', nil, :link, blog_path))
+      custom_menu.add_child(Menu.new('合作品牌', nil, :link, url_helpers.brands_path))
+      custom_menu.add_child(Menu.new('花里·明星', nil, :link, url_helpers.celebrities_path))
+      custom_menu.add_child(Menu.new('媒体报道', nil, :link, url_helpers.medias_path))
+      custom_menu.add_child(Menu.new('花里博客', nil, :link, url_helpers.blog_path))
       menu_list << custom_menu
     end
 
