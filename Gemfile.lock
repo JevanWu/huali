@@ -17,14 +17,6 @@ GIT
       polyamorous (~> 0.6.0)
 
 GIT
-  remote: git://github.com/galetahub/ckeditor.git
-  revision: 6ac7f1eb21cbf439fabeccc63ea804fd8589d68a
-  specs:
-    ckeditor (4.0.6)
-      mime-types
-      orm_adapter
-
-GIT
   remote: git://github.com/huacnlee/rails-settings-cached.git
   revision: 3ae9a33fff32fec4a28cabaa81d9d4329aaa065d
   specs:
@@ -166,6 +158,14 @@ GIT
     activeadmin-sortable-tree (0.0.1)
       activeadmin
       rails (>= 3.2)
+
+GIT
+  remote: git://github.com/ryancheung/ckeditor.git
+  revision: ddfc78b977fbd8e569587df930722c172cbac426
+  specs:
+    ckeditor (4.0.6)
+      mime-types
+      orm_adapter
 
 GIT
   remote: git://github.com/zenhacks/friendly_id.git
