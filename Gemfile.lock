@@ -161,7 +161,7 @@ GIT
 
 GIT
   remote: git://github.com/ryancheung/ckeditor.git
-  revision: ddfc78b977fbd8e569587df930722c172cbac426
+  revision: f6d32ba4b658991950969f7929b19c2dc92d08ba
   specs:
     ckeditor (4.0.6)
       mime-types
