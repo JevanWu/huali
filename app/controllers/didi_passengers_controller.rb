@@ -17,10 +17,10 @@ class DidiPassengersController < ApplicationController
         cookies[:coupon_code] = @didi_passenger.coupon_code.code
 
         flash[:notice] = "现金代码已发送至您手机。"
-        redirect_to collection_products_path("impression-collection-flower-in-photo-frame")
+        redirect_to collection_products_path("latest-design")
       rescue ArgumentError, ActiveRecord::RecordNotFound
         flash[:notice] = "抱歉，该活动已结束"
-        redirect_to collection_products_path("impression-collection-flower-in-photo-frame")
+        redirect_to collection_products_path("latest-design")
       end
     else
       render 'new'
