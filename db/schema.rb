@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131029014153) do
+ActiveRecord::Schema.define(version: 20131112073846) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -161,6 +161,16 @@ ActiveRecord::Schema.define(version: 20131029014153) do
   end
 
   add_index "date_rules", ["product_id"], name: "index_date_rules_on_product_id", using: :btree
+
+  create_table "didi_passengers", force: true do |t|
+    t.string   "name"
+    t.string   "phone"
+    t.integer  "coupon_code_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "didi_passengers", ["coupon_code_id"], name: "index_didi_passengers_on_coupon_code_id", using: :btree
 
   create_table "line_items", force: true do |t|
     t.integer  "order_id"
@@ -375,6 +385,8 @@ ActiveRecord::Schema.define(version: 20131029014153) do
     t.string   "gift_purpose"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.string   "receiver_age"
+    t.string   "relationship"
   end
 
   create_table "taggings", force: true do |t|

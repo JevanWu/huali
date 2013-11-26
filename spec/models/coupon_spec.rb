@@ -38,4 +38,26 @@ describe Coupon do
       end
     end
   end
+
+  describe "#generate_coupon_code" do
+    context "when coupon is expired" do
+      let(:coupon) { create(:coupon, expired: true) }
+
+      it "fail to create new coupon code" do
+        lambda {
+          coupon.generate_coupon_code
+        }.should_not change { coupon.coupon_codes.count }
+      end
+
+      it "returns nil" do
+        coupon.generate_coupon_code.should be_nil
+      end
+    end
+
+    it "creates anther coupon code" do
+        lambda {
+          coupon.generate_coupon_code
+        }.should change { coupon.coupon_codes.count }.by(1)
+    end
+  end
 end
