@@ -9,9 +9,11 @@
 
 #l-show-m
   .container
-    #show-slide.img-wrap
-      a.btn-left
-      a.btn-right
+    #show-slide.img-wrap.swipe
+      ul.main.container.swipe-wrap
+        - @asset_urls.take(3).each_with_index do |asset_url, index|
+          li
+            = image_tag asset_url[:full], alt: "#{@product.name} thumbnail images", width: 460, height: 440
       ul.slide-dot
         li
           a.cur
@@ -19,10 +21,6 @@
           a
         li.last
           a
-      ul.main.container
-        - @asset_urls.take(3).each_with_index do |asset_url, index|
-          li
-            = image_tag asset_url[:full], alt: "#{@product.name} thumbnail images", width: 460, height: 440
     .add-to-cart
       .product-title
         h3.product-name

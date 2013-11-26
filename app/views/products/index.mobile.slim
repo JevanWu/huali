@@ -7,7 +7,7 @@
 - content_for :description do
   = @collection.meta_description
 
-.cate-list-style1.is-hidden
+.cate-list-style1
   dl
     dt.cate-list-title
       strong
@@ -18,12 +18,13 @@
         = @collection.description
       = render 'tag_filter'
       .tabs
+        span
+        a.square-view.active
         a.row-view
-        a.square-view
   dd
     .best-products.row
       = render partial: 'product', collection: @products
-.cate-list-style2
+.cate-list-style2.is-hidden
   dl
     dt.cate-list-title
       strong
@@ -34,14 +35,14 @@
         = @collection.description
       = render 'tag_filter'
       .tabs
-        a.row-view
+        span
         a.square-view
+        a.row-view
   dd
     ul.row
       - @products.each do |product|
         li
-          a
-            = image_tag(product.img(:thumb))
+          = image_tag(product.img(:thumb))
           .des
             .info
               .name
