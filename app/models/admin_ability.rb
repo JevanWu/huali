@@ -22,10 +22,12 @@ class AdminAbility
     when "web_operation_manager"
       can :manage, [Page, Product, Collection, Coupon, Asset, Setting, Story, Banner]
       can :update_seo, [Product, Collection]
+      manage_blog
     when "marketing_manager"
       can :manage, [Coupon]
       can :record_back_order, Order
       can :update, [Order], kind: 'marketing'
+      manage_blog
     end
 
     if user.persisted?
@@ -33,9 +35,24 @@ class AdminAbility
       can :read, Order
       cannot :destroy, :all unless user.role == "super"
 
+      if can? :access, :ckeditor
+        can :destroy, [Ckeditor::Picture, Ckeditor::AttachmentFile]
+      end
+
       unless user.role == 'super' || user.role == 'admin'
         cannot :bulk_export_data, :all
       end
     end
+  end
+
+  private
+
+  def manage_blog
+    can :manage, [BlogCategory, BlogPost]
+
+    # Ckeditor
+    can :access, :ckeditor
+    can :manage, Ckeditor::Picture
+    can :manage, Ckeditor::AttachmentFile
   end
 end

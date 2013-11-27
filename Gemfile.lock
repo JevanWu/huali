@@ -160,6 +160,14 @@ GIT
       rails (>= 3.2)
 
 GIT
+  remote: git://github.com/ryancheung/ckeditor.git
+  revision: f6d32ba4b658991950969f7929b19c2dc92d08ba
+  specs:
+    ckeditor (4.0.6)
+      mime-types
+      orm_adapter
+
+GIT
   remote: git://github.com/zenhacks/friendly_id.git
   revision: c49ce30ff2b370669ccf1708e99fb08ab51435d9
   specs:
@@ -206,6 +214,14 @@ GIT
   revision: 852431bfa9a1b2b74dd24f7185f23ce7b52c760c
   specs:
     forgery (0.5.0)
+
+PATH
+  remote: vendor/plugins/huali-blog
+  specs:
+    huali-blog (0.0.1)
+      kaminari
+      rails (~> 4.0.0)
+      slim
 
 GEM
   remote: http://ruby.taobao.org/
@@ -628,6 +644,7 @@ DEPENDENCIES
   capistrano (~> 2.0)
   capistrano-zen!
   capybara (>= 1.1.2)
+  ckeditor!
   closure_tree
   coffee-rails
   database_cleaner (>= 0.8.0)
@@ -650,6 +667,7 @@ DEPENDENCIES
   guard-pow
   guard-rspec
   guard-spork
+  huali-blog!
   humanizer
   inherited_resources!
   jquery-rails
