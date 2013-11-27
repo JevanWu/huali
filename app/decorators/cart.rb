@@ -8,7 +8,7 @@ class Cart
   end
 
   def adjustment
-    @adjustment ||= (valid_coupon? ? coupon.adjustment : nil)
+    @adjustment ||= (coupon ? coupon.adjustment : nil)
   end
 
   def original_total
@@ -24,7 +24,7 @@ class Cart
   end
 
   def total
-    if adjustment.present? && valid_coupon?
+    if adjustment.present?# && valid_coupon?
       Discount.new(adjustment).calculate(original_total)
     else
       original_total
