@@ -27,6 +27,7 @@ class AdminAbility
       can :manage, [Coupon]
       can :record_back_order, Order
       can :update, [Order], kind: 'marketing'
+      manage_blog
     end
 
     if user.persisted?
