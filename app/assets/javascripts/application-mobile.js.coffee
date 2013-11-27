@@ -12,6 +12,7 @@
 #= require 'module/cate-mobile'
 #= require 'module/show-mobile'
 #= require 'orders'
+#= require 'component/swipe'
 
 $ ->
   console.log('hello mobile world!')

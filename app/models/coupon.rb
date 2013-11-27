@@ -47,6 +47,12 @@ class Coupon < ActiveRecord::Base
     @code_count ||= coupon_codes.count
   end
 
+  def generate_coupon_code
+    return if expired
+
+    coupon_codes.create(available_count: 1)
+  end
+
   private
 
   def generate_coupon_codes

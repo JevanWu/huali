@@ -90,6 +90,16 @@ class Sms
 
   class << self
 
+    def didi_passenger_coupon(didi_passenger_id)
+      didi_passenger = DidiPassenger.find(didi_passenger_id)
+
+      content = <<-STR.strip_heredoc
+      恭喜您成功领取「花里」100元现金券：#{didi_passenger.coupon_code} 。您可通过「花里」官网 www.hua.li 购买喜爱的花品~
+      STR
+
+      new(phone_number: didi_passenger.phone, body: content).deliver
+    end
+
     def date_wait_make_order(date, *phonenums)
       orders = Order.by_state('wait_make').where('delivery_date = ?', date)
 

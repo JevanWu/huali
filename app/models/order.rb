@@ -50,7 +50,8 @@ class Order < ActiveRecord::Base
   belongs_to :coupon_code_record, foreign_key: :coupon_code_id, class_name: 'CouponCode'
 
   extend Enumerize
-  enumerize :kind, in: [:normal, :jd, :tencent, :xigua, :marketing, :customer, :taobao, :b2b], default: :normal
+  enumerize :kind, in: [:normal, :jd, :tencent, :xigua, :marketing, :customer,
+    :taobao, :b2b, :fieldschina], default: :normal
 
   delegate :province_name, :city_name, to: :address, allow_nil: true
   delegate :paymethod, to: :transaction, allow_nil: true

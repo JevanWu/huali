@@ -147,6 +147,7 @@ zh-CN:
       banner: 通知横幅
       period_region_policy: 短期地域规则
       story: 微博故事
+      didi_passenger: 嘀嘀打车活动
 
     attributes:
       order: &order
@@ -387,6 +388,13 @@ zh-CN:
         author_avatar: 头像
         available: 是否有效
 
+      didi_passenger:
+        name: 名称
+        phone: 手机号码
+        terms_of_service: 同意条款
+        coupon_code: 优惠劵
+        created_at: 领取时间
+
   models:
     order:
       state:
@@ -449,6 +457,7 @@ zh-CN:
         taobao: 淘宝订单
         normal: 普通订单
         b2b: B2B订单
+        fieldschina: 甫田
 
     survey:
       gender:
