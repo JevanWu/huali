@@ -320,7 +320,13 @@ ActiveAdmin.register Order do
         number_to_currency order.item_total, unit: '&yen;'
       end
 
-      row :adjustment
+      row :adjustment do
+        if order.adjustment.present?
+          order.adjustment
+        else
+          order.coupon_code_record.try(:adjustment)
+        end
+      end
 
       row :total do
         number_to_currency order.total, unit: '&yen;'
