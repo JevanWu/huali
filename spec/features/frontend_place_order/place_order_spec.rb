@@ -114,4 +114,44 @@ feature 'Place order' do
 
     page.should have_content('红宝石库存不足')
   end
+
+  given(:coupon_code_record) { create(:coupon, adjustment: "-#{product.price}").coupon_codes.first }
+
+  scenario "Order has a total price of 0", js: true do
+    visit "/products/#{product.slug}"
+    click_link('放入购花篮')
+
+
+    find("input[name='coupon_code']").set(coupon_code_record.code)
+    within(".discount") do
+      click_button '确定'
+    end
+
+    within(".cart-checkout .checkout") do
+      click_link('确定')
+    end
+
+    within("#new-order") do
+      fill_in '寄件人姓名', with: '王二'
+      fill_in '寄件人邮箱', with: 'user@example.com'
+      fill_in '寄件人电话', with: '18011112222'
+      select '搜索引擎', from: '来源'
+      fill_in '到达日期', with: Date.current
+      fill_in '收件人姓名', with: '王二'
+      fill_in '收件人电话', with: '18011112222'
+
+      select('上海市', from: '省份')
+      select('市辖区', from: '城市')
+      select('虹口区', from: '地区')
+
+      fill_in '地址', with: 'xx路xx号'
+      fill_in '邮编', with: '201218'
+
+      click_button '确定'
+    end
+
+    page.should have_content('您已经成功创建订单和地址信息')
+    page.should have_content("等待审核")
+  end
+
 end
