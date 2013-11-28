@@ -38,105 +38,34 @@ require 'spec_helper'
 
 describe Order do
 
-  describe "#update_sold_total" do
-    let(:order) { FactoryGirl.create(:order, :wait_confirm) }
+  describe "#skip_payment" do
+    let(:order) { FactoryGirl.create(:order, adjustment: "*0") }
 
-    it 'is called after order state changes to complete' do
-      order.should_receive(:update_sold_total).once
-      order.confirm
+    context "when state of the order isn't :generated" do
+      let(:order) { FactoryGirl.create(:order, :wait_confirm) }
+      it "raise error" do
+        -> {
+          order.skip_payment
+        }.should raise_error(ArgumentError)
+      end
     end
 
-    it 'increments the products quantity by the line items quantity' do
-      former_quantities = order.line_items.map(&:sold_total)
-      increment_amounts = order.line_items.map(&:quantity)
+    context "when total price of the order isn't 0" do
+      it "raise error" do
+        -> {
+          order.skip_payment
+        }.should raise_error(ArgumentError)
+      end
+    end
 
-      order.send(:update_sold_total)
+    context "when total price of the order is 0 and the state is :generated" do
+      it "set the state of order to :wait_check" do
+        order.total = 0
+        order.skip_payment
 
-      result_quantities = order.line_items.map(&:sold_total)
-
-      former_quantities.each_with_index do |amount, i|
-        (former_quantities[i] + increment_amounts[i]).should == result_quantities[i]
+        order.state.should == :wait_check
       end
     end
   end
 
-  describe OrderProductDateValidator do
-    context "when expected_date valid" do
-      let(:order) { FactoryGirl.create(:order, expected_date: "2013-01-01".to_date) }
-
-      subject { order }
-
-      it { should be_valid }
-    end
-
-    context "when expected_date invalid " do
-      let(:order) { FactoryGirl.build(:order, expected_date: "2012-12-01".to_date) }
-
-      before(:each) do
-        order.products.reload.map(&:date_rule)
-        order.valid?
-      end
-
-      subject { order }
-
-      it { should_not be_valid }
-      it "has unavailable_date error in expected_date" do
-        subject.errors[:expected_date].should_not be_blank
-      end
-    end
-  end
-
-  describe OrderProductRegionValidator do
-    before(:each) do
-      order.line_items.each do |line|
-        line.product.local_date_rule = nil
-      end
-    end
-
-    context "when region invalid" do
-      let(:order) { FactoryGirl.create(:order, expected_date: "2013-02-05".to_date) }
-
-      before(:each) do
-        order.products.reload.each do |product|
-          product.create_local_region_rule(province_ids: [199999],
-                                           city_ids: [11111111],
-                                           area_ids: [22222222])
-        end
-
-        order.address = create(:address)
-
-        order.valid?
-      end
-
-      subject { order.address }
-
-      it "has unavailable_location error" do
-        subject.errors[:province].should_not be_blank
-        subject.errors[:city].should_not be_blank
-        subject.errors[:area].should_not be_blank
-      end
-    end
-
-    context "when region valid" do
-      let(:order) { FactoryGirl.create(:order, expected_date: "2013-02-05".to_date) }
-
-      before(:each) do
-        order.products.reload
-        address = create(:address)
-        order.address = address
-
-        order.line_items.reload.each do |line|
-          line.product.local_region_rule = build(:local_region_rule,
-                                           province_ids: [address.province_id.to_s],
-                                           city_ids: [address.city_id.to_s],
-                                           area_ids: [address.area_id.to_s],
-                                           product: line.product)
-        end
-      end
-
-      subject { order }
-
-      it { should be_valid }
-    end
-  end
 end

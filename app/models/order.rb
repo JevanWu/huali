@@ -261,6 +261,13 @@ class Order < ActiveRecord::Base
                      transactions.by_state('completed').map(&:amount).inject(:+))
   end
 
+  def skip_payment
+    raise ArgumentError, "Order state must be :generated" if state.to_sym != :generated
+    raise ArgumentError, "Total price is greater than 0" if total > 0
+
+    update_attribute(:state, :wait_check)
+  end
+
   private
 
   def complete_order
