@@ -50,6 +50,14 @@ class ItemInfo
 
   attribute :product_id, Integer
   attribute :quantity, Integer, default: 0
+
+  def product
+    Product.find(product_id)
+  end
+
+  def total
+    product.price * quantity
+  end
 end
 
 class SenderInfo
@@ -124,10 +132,8 @@ class OrderForm
   end
 
   # FIXME, add the price info into cookie and remove this query
-  def total
-    line_items.map do |item|
-      Product.find(item.product_id).price
-    end.inject(:+)
+  def item_total
+    line_items.map(&:total).reduce(:+)
   end
 
   def add_line_item(product_id, quantity)
@@ -151,6 +157,10 @@ class OrderForm
 
   def to_key
     @record && [@record.id]
+  end
+
+  def to_coupon_rule_opts
+    { total_price: item_total, products: line_items.map(&:product) }
   end
 
   private

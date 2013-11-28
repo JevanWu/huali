@@ -38,9 +38,9 @@ require 'spec_helper'
 
 describe Order do
 
-  describe "#skip_payment" do
-    let(:order) { FactoryGirl.create(:order, adjustment: "*0") }
+  let(:order) { FactoryGirl.create(:order, adjustment: "*0") }
 
+  describe "#skip_payment" do
     context "when state of the order isn't :generated" do
       let(:order) { FactoryGirl.create(:order, :wait_confirm) }
       it "raise error" do
@@ -68,4 +68,7 @@ describe Order do
     end
   end
 
+  it_behaves_like "#to_coupon_rule_opts" do
+    subject { order }
+  end
 end

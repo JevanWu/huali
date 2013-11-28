@@ -13,18 +13,8 @@ describe Cart do
 
   describe "#initialize" do
     context "with coupon code" do
-      context "that is usable" do
-        it "set adjustment with the adjustment in the coupon code" do
-          cart.adjustment.should eq("*0.8")
-        end
-      end
-
-      context "that is not usable" do
-        let(:coupon_code_record) { create(:coupon, expired: true, adjustment: '*0.8').coupon_codes.first }
-
-        it "do not set adjustment with the adjustment in the coupon code" do
-          cart.adjustment.should be_nil
-        end
+      it "set adjustment with the adjustment in the coupon code" do
+        cart.adjustment.should eq("*0.8")
       end
     end
 
@@ -101,5 +91,9 @@ describe Cart do
     it "return the rate of price cut after applying coupon" do
       cart.discount_rate.should == 0.8
     end
+  end
+
+  it_behaves_like "#to_coupon_rule_opts" do
+    subject { cart }
   end
 end

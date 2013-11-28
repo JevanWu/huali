@@ -43,6 +43,10 @@ class Cart
     total / original_total
   end
 
+  def to_coupon_rule_opts
+    { total_price: original_total, products: items.map(&:product) }
+  end
+
   private
 
   def coupon

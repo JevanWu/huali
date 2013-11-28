@@ -268,6 +268,10 @@ class Order < ActiveRecord::Base
     update_attribute(:state, :wait_check)
   end
 
+  def to_coupon_rule_opts
+    { total_price: item_total, products: line_items.map(&:product) }
+  end
+
   private
 
   def complete_order
