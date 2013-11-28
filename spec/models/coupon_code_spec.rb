@@ -44,47 +44,81 @@ describe CouponCode do
     end
   end
 
-  context "when coupon code is manually set expired" do
-    before(:each) do
-      stub(coupon_code).expired { true }
-    end
-
-    it { should_not be_usable }
-  end
-
-  context "when coupon code's expired_at is less than current time" do
-    before(:each) do
-      stub(coupon_code).expires_at { 1.days.ago }
-    end
-
-    it { should_not be_usable }
-  end
-
-  context "when coupon code's available_count is less than 1" do
-    before(:each) do
-      stub(coupon_code).available_count { 0 }
-    end
-
-    it { should_not be_usable }
-  end
-
-  context "check usibility against a order" do
-    context "when total price of the order is less than the price condition of coupon code" do
+  describe "#usable?" do
+    context "when coupon code is manually set expired" do
       before(:each) do
-        stub(coupon_code).price_condition { 300 }
-        stub(order).total { 299 }
+        stub(coupon_code).expired { true }
       end
 
-      it { should_not be_usable(order) }
+      it { should_not be_usable }
     end
 
-    context "when the price_condition has not been set" do
+    context "when coupon code's expired_at is less than current time" do
       before(:each) do
-        stub(coupon_code).price_condition { nil }
-        stub(order).total { 301 }
+        stub(coupon_code).expires_at { 1.days.ago }
       end
 
-      it { should be_usable(order) }
+      it { should_not be_usable }
+    end
+
+    context "when coupon code's available_count is less than 1" do
+      before(:each) do
+        stub(coupon_code).available_count { 0 }
+      end
+
+      it { should_not be_usable }
+    end
+
+    context "when check usibility against a target" do
+      context "and checking against the price condition" do
+        context "when total price of the target is less than the price condition of coupon code" do
+          before(:each) do
+            stub(coupon_code).price_condition { 300 }
+            stub(order).to_coupon_rule_opts { { total_price: 299, products: [] } }
+          end
+
+          it { should_not be_usable(order) }
+        end
+
+        context "when the price_condition has not been set" do
+          before(:each) do
+            stub(coupon_code).price_condition { nil }
+            stub(order).to_coupon_rule_opts { { total_price: 301, products: [] } }
+          end
+
+          it { should be_usable(order) }
+        end
+      end
+
+      context "and checking against the products rule" do
+        let(:product) { create(:product) }
+
+        before do
+          stub(order).to_coupon_rule_opts { { total_price: 301, products: [product] } }
+        end
+
+        context "when none of the products in target was not included in the available products of the coupon" do
+          let(:coupon) { create(:coupon, :with_products_limitation) }
+          let(:coupon_code) { create(:coupon_code, coupon: coupon) }
+
+          it { should_not be_usable(order) }
+        end
+
+        context "when one of the products in target was included in the available products of the coupon" do
+          let(:coupon) { create(:coupon, :with_products_limitation) }
+          let(:coupon_code) { create(:coupon_code, coupon: coupon) }
+
+          before do
+            coupon.products << product
+          end
+
+          it { should be_usable(order) }
+        end
+
+        context "when the available product list is empty" do
+          it { should be_usable(order) }
+        end
+      end
     end
   end
 end
