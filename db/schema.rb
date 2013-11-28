@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131124130255) do
+ActiveRecord::Schema.define(version: 20131128083054) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -208,6 +208,13 @@ ActiveRecord::Schema.define(version: 20131124130255) do
     t.string   "note"
     t.integer  "price_condition"
   end
+
+  create_table "coupons_products", id: false, force: true do |t|
+    t.integer "coupon_id"
+    t.integer "product_id"
+  end
+
+  add_index "coupons_products", ["coupon_id", "product_id"], name: "index_coupons_products_on_coupon_id_and_product_id", unique: true, using: :btree
 
   create_table "date_rules", force: true do |t|
     t.integer  "product_id"
