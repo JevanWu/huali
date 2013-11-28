@@ -32,7 +32,7 @@ class OrderDiscountPolicy
   private
 
   def apply_adjustment
-    order.update_attribute(:total, discount.calculate(order.item_total))
+    order.update_attribute(:total, [discount.calculate(order.item_total), 0].max)
   end
 
   def adjustment
