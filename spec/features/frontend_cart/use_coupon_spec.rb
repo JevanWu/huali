@@ -42,5 +42,19 @@ feature 'Use coupon' do
 
     page.should have_content(/折后总计.*180/)
   end
+
+  given(:coupon_code_record) { create(:coupon, :with_products_limitation).coupon_codes.first }
+  scenario "Coupon code has products limitation", js: true do
+    visit "/products/#{product.slug}"
+
+    click_link '放入购花篮'
+
+    find("input[name='coupon_code']").set(coupon_code_record.code)
+    within(".discount") do
+      click_button '确定'
+    end
+
+    page.should have_content("无效优惠码！请确认信息后输入")
+  end
 end
 
