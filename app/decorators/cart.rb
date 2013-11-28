@@ -20,7 +20,7 @@ class Cart
   end
 
   def valid_coupon?
-    !! coupon && coupon.usable?
+    !! coupon && coupon.usable?(self)
   end
 
   def total
