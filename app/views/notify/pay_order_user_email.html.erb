@@ -8,7 +8,7 @@
             <div mc:edit="std_content00">
               <h3 class='h3'> 恭喜您, 您在花里的订单已经付款成功 </h3>
               <p> 亲爱的 <%= @order.sender_name %>: </p>
-              <p> 我们已经收到您为订单号码 <%= @order.identifier %> 支付的 <%= @order.payment_total %> 款项 </p>
+              <p> 我们已经收到您为订单号码 <%= @order.identifier %> 支付的 <%= @order.transactions.by_state('completed').map(&:amount).inject(:+) %> 款项 </p>
               <p> 我们将尽快安排发货， 确保它将在 <%= @order.expected_date %> 送达 <%= @order.address.full_addr %> 的手中. </p>
               <p> 您也可以在 <%= link_to '这里', order_url(@order) %> 查看该订单的详细信息.  </p>
             </div>
