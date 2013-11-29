@@ -256,12 +256,12 @@ class Order < ActiveRecord::Base
     save
   end
 
+  private
+
   def sync_payment
-    update_attribute(:payment_total,
+    update_column(:payment_total,
                      transactions.by_state('completed').map(&:amount).inject(:+))
   end
-
-  private
 
   def complete_order
     self.completed_at = Time.now
