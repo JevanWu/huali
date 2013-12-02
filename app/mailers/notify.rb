@@ -37,6 +37,11 @@ class Notify < ActionMailer::Base
     @ready_to_ship_orders_today = Order.ready_to_ship_today
     return if @ready_to_ship_orders_today.blank?
 
+
+    columns = Order.column_names.map(&:titleize)
+    row_data = @ready_to_ship_orders_today.map { |o| o.attributes.values }
+
+    attachments['回访订单.xlsx'] = XlsxBuilder.new(columns, row_data).serialize
     mail(to: 'support@hua.li', subject: subject("回访订单"))
   end
 

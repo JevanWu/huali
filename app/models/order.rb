@@ -256,11 +256,6 @@ class Order < ActiveRecord::Base
     save
   end
 
-  def sync_payment
-    update_attribute(:payment_total,
-                     transactions.by_state('completed').map(&:amount).inject(:+))
-  end
-
   def skip_payment
     raise ArgumentError, "Order state must be :generated" if state.to_sym != :generated
     raise ArgumentError, "Total price is greater than 0" if total > 0
@@ -273,6 +268,11 @@ class Order < ActiveRecord::Base
   end
 
   private
+
+  def sync_payment
+    update_column(:payment_total,
+                     transactions.by_state('completed').map(&:amount).inject(:+))
+  end
 
   def complete_order
     self.completed_at = Time.now

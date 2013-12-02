@@ -7,7 +7,7 @@
           <td valign="top" class="bodyContent">
             <div mc:edit="std_content00">
               <h3 class='h3'>新订单已经支付成功。</h3>
-              <p> <%= @order.sender_name %>已经为<%= @order.subject_text %>支付了<%= @order.payment_total %> </p>
+              <p> <%= @order.sender_name %>已经为<%= @order.subject_text %>支付了<%= @order.transactions.by_state('completed').map(&:amount).inject(:+) %> </p>
               <p> 请在 <%= link_to '这里', admin_order_url(@order) %> 审核该订单的详细信息.  </p>
               <p>
                 如果需要联系该顾客，
