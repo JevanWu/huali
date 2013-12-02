@@ -256,6 +256,17 @@ class Order < ActiveRecord::Base
     save
   end
 
+  def skip_payment
+    raise ArgumentError, "Order state must be :generated" if state.to_sym != :generated
+    raise ArgumentError, "Total price is greater than 0" if total > 0
+
+    update_attribute(:state, :wait_check)
+  end
+
+  def to_coupon_rule_opts
+    { total_price: item_total, products: line_items.map(&:product) }
+  end
+
   private
 
   def sync_payment

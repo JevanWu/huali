@@ -328,6 +328,7 @@ zh-CN:
         orders: 订单
         code_count: 优惠券数量
         available_count: 优惠券有效使用次数
+        products: 可用产品
 
       user:
         email: 邮箱

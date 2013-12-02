@@ -21,5 +21,11 @@ FactoryGirl.define do
     note "Note"
     code_count { 5 }
     available_count { 1 }
+
+    trait :with_products_limitation do
+      after(:build) do |coupon|
+        coupon.products = create_list(:product, 2)
+      end
+    end
   end
 end

@@ -87,7 +87,13 @@ class OrdersController < ApplicationController
       update_guest if current_or_guest_user.guest?
 
       flash[:notice] = t('controllers.order.order_success')
-      redirect_to checkout_order_path(@order_form.record)
+
+      if @order_form.record.total <= 0
+        @order_form.record.skip_payment
+        redirect_to order_path(@order_form.record)
+      else
+        redirect_to checkout_order_path(@order_form.record)
+      end
     else
       render 'new'
     end

@@ -8,7 +8,7 @@ ActiveAdmin.register Coupon do
     private
 
     def permitted_params
-      params.permit(coupon: [:adjustment, :expires_at, :available_count, :note, :price_condition, :code_count])
+      params.permit(coupon: [:adjustment, :expires_at, :available_count, :note, :price_condition, :code_count, { product_ids: [] }])
     end
 
     def render_excel(coupon_codes, filename)
@@ -62,6 +62,12 @@ ActiveAdmin.register Coupon do
 
       row :code_count do
         coupon.coupon_codes.count
+      end
+
+      row :products do
+        coupon.products.map do |product|
+          link_to(product.name, admin_product_path(product))
+        end.join(' ').html_safe
       end
 
       row "下载优惠码" do
