@@ -55,7 +55,9 @@ onLoadData = (data) ->
 
 templateString = """
 <li>
-  <img src="<%= picture_url %>" width="<%= width %>" height="<%= height %>" />
+  <a href="<%= origin_link %>" target="_blank">
+    <img src="<%= picture_url %>" width="<%= width %>" height="<%= height %>" />
+  </a>
   <hr />
   <div>
     <img src="<%= author_avatar_url %>" width="40" height="40" />
