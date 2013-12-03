@@ -1,16 +1,42 @@
 <div class="best-products constrained row">
-  <%# 相框花 %>
+  <%# 圣诞节 %>
   <div class="square">
-    <a href="/collections/impression-collection-flower-in-photo-frame">
-      <%= image_tag "best-products/flower-in-photo-flame.jpg", width: 460, height: 440 %>
+    <a href="/collections/latest-design/products">
+      <%= image_tag "best-products/christmas.jpg", width: 460, height: 440 %>
     </a>
   </div>
 
-  <%# 花年轮-暗红（小）, 双生 %>
-  <%= render partial: 'collections/product', collection: Product.find(113, 114) %>
+  <%# 假日松烛, 芳香伊甸园 %>
+  <%= render partial: 'collections/product', collection: Product.find(128, 130) %>
 
-  <%# 花年轮-粉（大）, 花年轮-红（大）, 缎与花 %>
-  <%= render partial: 'collections/product', collection: Product.find(115, 116, 117) %>
+  <%# 木桩烛台, 松果花环, 浆果花环 %>
+  <%= render partial: 'collections/product', collection: Product.find(129, 127, 126) %>
+
+  <%# 鲜花 %>
+  <div class="square">
+    <a href="/collections/fresh-flower/products">
+      <%= image_tag "best-products/fresh_flowers.jpg", width: 460, height: 440 %>
+    </a>
+  </div>
+
+  <%# 普罗旺斯, Paris %>
+  <%= render partial: 'collections/product', collection: Product.find(85, 86) %>
+
+  <%# 海芋恋, 海洋之心, 水边的阿狄丽娜, 花园梦想 %>
+  <%= render partial: 'collections/product', collection: Product.find(118, 22, 92, 102) %>
+
+  <%# 永生花 %>
+  <div class="square">
+    <a href="/collections/preserved-flower/products">
+      <%= image_tag "best-products/preserved-flower.jpg", width: 460, height: 440 %>
+    </a>
+  </div>
+
+  <%# 红宝石, 紫舞 %>
+  <%= render partial: 'collections/product', collection: Product.find(83, 84) %>
+
+  <%# 星空下的问候, 永生·海洋之心, THE ONE-羽毛笔, 初步 %>
+  <%= render partial: 'collections/product', collection: Product.find(93, 103, 122, 119) %>
 
   <%# 色彩系列 %>
   <div class="square">
@@ -25,16 +51,4 @@
   <%# 自然香气, 轻奢世界, 浓情城市, 欧洲花园 %>
   <%= render partial: 'collections/product', collection: Product.find(111, 112, 108, 107) %>
 
-  <%# 永生花 %>
-  <div class="square">
-    <a href="/collections/preserved-flower">
-      <%= image_tag "best-products/preserved-flower.jpg", width: 460, height: 440 %>
-    </a>
-  </div>
-
-  <%# 紫舞, 雨叮咚 %>
-  <%= render partial: 'collections/product', collection: Product.find(84, 106) %>
-
-  <%# 淡奶之吻, 星空下的问候, 蓝宝石, 红宝石 %>
-  <%= render partial: 'collections/product', collection: Product.find(105, 93, 98, 83) %>
 </div>
