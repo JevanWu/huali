@@ -16,7 +16,7 @@
     if _autoIndex >= 6 then _autoIndex = 0
     return
 
-  setInterval(autoSlide,3500)
+  setInterval(autoSlide,5000)
 
   #nav callout
   calloutItemSizeCollection = []
