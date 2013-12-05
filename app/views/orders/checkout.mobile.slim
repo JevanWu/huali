@@ -31,6 +31,8 @@
         | 请选择支付方式
       option[value="directPay" checked="checked"]
         | 支付宝
+      option[value="wechat" checked="checked"]
+        | 微信支付
       - @banks.each do |bank|
         option[value="#{bank}"]
           = I18n.t "views.order.bank.#{bank}"

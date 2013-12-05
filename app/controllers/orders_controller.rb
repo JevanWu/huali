@@ -126,7 +126,7 @@ class OrdersController < ApplicationController
     # params[:pay_info] is mixed with two kinds of info - pay method and merchant_name
     # these two are closed bound together
     payment_opts = process_pay_info(params[:pay_info])
-    transaction = @order.generate_transaction payment_opts
+    transaction = @order.generate_transaction payment_opts.merge(client_ip: request.remote_ip)
     transaction.start
     redirect_to transaction.request_path
   end
@@ -266,6 +266,8 @@ class OrdersController < ApplicationController
         { paymethod: 'directPay', merchant_name: 'Alipay' }
       when 'paypal'
         { paymethod: 'paypal', merchant_name: 'Paypal' }
+      when 'wechat'
+        { paymethod: 'wechat', merchant_name: 'Tenpay' }
       else
         { paymethod: 'bankPay', merchant_name: pay_info }
       end
