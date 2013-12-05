@@ -29,9 +29,9 @@ module Billing
           notify_url: notify_order_url(host: $host || 'localhost') + custom_data,
 
           # shared options
-          body: @opts[:body],
+          body: @opts[:subject],
           out_trade_no: @opts[:identifier],
-          total_fee: @opts[:amount],
+          total_fee: (@opts[:amount] * 100).to_i,
           spbill_create_ip: @opts[:client_ip]
         }
       end
