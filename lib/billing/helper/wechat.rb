@@ -3,7 +3,7 @@ require 'uri'
 
 module Billing
   module Helper
-    module Alipay
+    module Wechat
       def success?
         verified? && right_amount? && trade_state.to_s == "0"
       end
