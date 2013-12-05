@@ -31,10 +31,7 @@ module Billing
           "#{key}=#{value}"
         end.sort * '&'
 
-        Digest::MD5.hexdigest(query + ENV['WECHAT_KEY']) == @sign
-
-        # FIXME verification fails from taobao
-        true
+        Digest::MD5.hexdigest(query + "&key=#{ENV['WECHAT_KEY']}").upcase == @sign
       end
     end
   end
