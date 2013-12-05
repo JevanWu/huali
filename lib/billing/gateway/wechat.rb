@@ -42,7 +42,7 @@ module Billing
 
       def add_sign(query)
         sign = Digest::MD5.hexdigest(query + "&key=#{ENV['WECHAT_KEY']}").upcase
-        query += "&sign=#{sign}&sign_type=MD5"
+        query += "&sign=#{sign}"
       end
     end
   end
