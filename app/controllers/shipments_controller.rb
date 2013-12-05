@@ -6,6 +6,10 @@ class ShipmentsController < ApplicationController
     shipment = Shipment.find_by_identifier params['identifier']
     notifier = ShipmentNotifier.new(params['param'])
 
+    if notifier.status == "abort"
+      render status: :not_acceptable and return
+    end
+
     if shipment.older_than_kuaidi100_notifier(notifier)
       shipment.kuaidi100_result = notifier.data.to_json
       shipment.kuaidi100_status = notifier.state
