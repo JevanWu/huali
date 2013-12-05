@@ -41,7 +41,7 @@ module Billing
       end
 
       def add_sign(query)
-        sign = Digest::MD5.hexdigest(query + ENV['ALIPAY_KEY'])
+        sign = Digest::MD5.hexdigest(query + ENV['WECHAT_KEY'])
         query += "&sign=#{sign}&sign_type=MD5"
       end
     end
