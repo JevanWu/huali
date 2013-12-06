@@ -36,7 +36,7 @@ Huali::Application.routes.draw do
   post 'orders/gateway(/:id)', to: 'orders#gateway', as: :gateway_order
   patch 'orders/cancel/:id', to: 'orders#cancel', as: :cancel_order
   get 'orders/return', as: :return_order
-  post 'orders/notify', as: :notify_order
+  match 'orders/notify', as: :notify_order, via: [:get, :post]
   # back order urls
   get 'orders/backorder', to: 'orders#back_order_new', as: :new_back_order
   post 'orders/backorder', to: 'orders#back_order_create', as: :create_back_order
