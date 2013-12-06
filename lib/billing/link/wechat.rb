@@ -6,7 +6,7 @@ module Billing
       end
 
       def to_s
-        "https://hua.li/?not_implemented=#{@opts[:merchant_trade_no]}"
+        "https://mch.tenpay.com/cgi-bin/mch_tradedetail.cgi?tno=1&transaction_id=#{@opts[:merchant_trade_no]}"
       end
     end
   end
