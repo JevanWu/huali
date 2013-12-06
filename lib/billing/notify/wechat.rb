@@ -33,10 +33,25 @@ module Billing
         http.verify_mode    = OpenSSL::SSL::VERIFY_NONE unless @ssl_strict
         http.use_ssl        = true
 
-        res = http.request(request)
+        response = send_request(http, request)
 
-        Hash.from_xml(res.body)["root"]["trade_state"] == "0"
-        # TODO verified failed
+        return false if response.nil?
+
+        parsed_body = Hash.from_xml(response.body)["root"]
+
+        @params['transaction_id'] == parsed_body["transaction_id"] && parsed_body["trade_state"] == "0"
+      end
+
+      def send_request(http, request)
+        counter = 0
+        begin
+          return http.request(request)
+        rescue
+          counter += 1
+          retry if counter < 2
+
+          return nil
+        end
       end
 
       def add_sign(query)
