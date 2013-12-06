@@ -5,10 +5,10 @@ module Billing
 
       private
 
-      def parse(post)
-        @raw = post.to_s
-        @params = Hash.from_xml(post)["root"]
+      def parse(query_string)
+        super
         @params['trade_no'] = @params['transaction_id']
+        @params
       end
     end
   end
