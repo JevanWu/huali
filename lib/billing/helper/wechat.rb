@@ -23,10 +23,10 @@ module Billing
       end
 
       def verify_sign
-        # sign_type and sign are excluded in MD5 calculation
         @sign_type ||= @params["sign_type"]
         @sign ||= @params["sign"]
 
+        # custom_id and sign are excluded in MD5 calculation
         query = @params.except('sign', 'trade_no', 'custom_id').sort.map do |key, value|
           "#{key}=#{value}"
         end.join('&')
