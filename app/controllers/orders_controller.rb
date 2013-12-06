@@ -151,7 +151,7 @@ class OrdersController < ApplicationController
   end
 
   def notify
-    query = request.raw_post.present? ? request.raw_post : request.query_string # wechat use get to send notify request
+    query = request.raw_post.present? ? request.raw_post : request.query_string # wechat use method 'get' to send notify request
 
     if @transaction.notify(query)
       render text: "success"
