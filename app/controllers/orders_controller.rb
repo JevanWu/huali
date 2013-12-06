@@ -151,7 +151,9 @@ class OrdersController < ApplicationController
   end
 
   def notify
-    if @transaction.notify(request.raw_post)
+    query = request.raw_post.present? ? request.raw_post : request.query_string # wechat use get to send notify request
+
+    if @transaction.notify(query)
       render text: "success"
     else
       render text: "failed", status: 400
