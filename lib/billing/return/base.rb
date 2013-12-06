@@ -12,7 +12,7 @@ module Billing
       end
 
       protected
-      
+
       def reset!
         @params = {}
       end
@@ -20,14 +20,7 @@ module Billing
       def parse(query_string)
         return @params if query_string.blank?
 
-        @params = query_string.split('&').inject({}) do |memo, chunk|
-          next if chunk.empty?
-          key, value = chunk.split('=', 2)
-          next if key.empty?
-          value = value.nil? ? nil : URI.decode(value)
-          memo[URI.decode(key)] = value
-          memo
-        end
+        Rack::Utils.parse_nested_query(query_string).select { |k, v| k.present? && v.present? }
       end
     end
   end
