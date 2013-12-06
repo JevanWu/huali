@@ -11,7 +11,7 @@ module Billing
       private
 
       def right_amount?
-        total_fee.to_f == @opts[:amount]
+        total_fee.to_f == @opts[:amount] * 100 # The unit of total_fee is 分
       end
 
       def verified?
