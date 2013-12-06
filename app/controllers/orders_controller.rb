@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
   before_action :fetch_related_products, only: [:back_order_create, :channel_order_create, :current, :apply_coupon]
   before_action :authenticate_user!, only: [:new, :index, :show, :create, :checkout, :cancel]
   before_action :authenticate_administrator!, only: [:back_order_new, :back_order_create, :channel_order_new, :channel_order_create]
-  before_action :process_custom_data, only: [:return, :notify]
+  before_action :fetch_transaction, only: [:return, :notify]
   skip_before_action :verify_authenticity_token, only: [:notify]
   before_action :authorize_to_record_back_order, only: [:back_order_new, :channel_order_new, :back_order_create, :channel_order_create]
   before_action :validate_cart, only: [:new, :channel_order_new, :back_order_new, :create, :back_order_create, :channel_order_create]
@@ -131,30 +131,29 @@ class OrdersController < ApplicationController
     redirect_to transaction.request_path
   end
 
-  def return
+  def fetch_transaction
     begin
-      transaction = Transaction.find_by_identifier @custom_id
-      if transaction.return(request.query_string)
-        @order = transaction.order
-        render 'success'
-      else
-        @order = transaction.order
-        render 'failed', status: 400
-      end
-    rescue
+      @transaction = Transaction.find_by_identifier!(params["custom_id"])
+      @order = @transaction.order
+    rescue ActiveRecord::RecordNotFound
+      raise ArgumentError, "custom_id in parameters is not right"
+    end
+  end
+
+  private :fetch_transaction
+
+  def return
+    if @transaction.return(request.query_string)
+      render 'success'
+    else
       render 'failed', status: 400
     end
   end
 
   def notify
-    transaction = Transaction.find_by_identifier @custom_id
-    begin
-      if transaction.notify(request.raw_post)
-        render text: "success"
-      else
-        render text: "failed", status: 400
-      end
-    rescue
+    if @transaction.notify(request.raw_post)
+      render text: "success"
+    else
       render text: "failed", status: 400
     end
   end
@@ -254,10 +253,6 @@ class OrdersController < ApplicationController
         flash[:alert] = t('controllers.order.no_items')
         redirect_to :root
       end
-    end
-
-    def process_custom_data
-      @custom_id = request.params["custom_id"]
     end
 
     def process_pay_info(pay_info)
