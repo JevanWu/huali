@@ -20,7 +20,8 @@ module Billing
       def parse(query_string)
         return @params if query_string.blank?
 
-        Rack::Utils.parse_nested_query(query_string).select { |k, v| k.present? && v.present? }
+        @params = Rack::Utils.parse_nested_query(query_string).
+          select { |k, v| k.present? && v.present? }
       end
     end
   end

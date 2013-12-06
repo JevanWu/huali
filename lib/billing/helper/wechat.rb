@@ -27,9 +27,9 @@ module Billing
         @sign_type ||= @params["sign_type"]
         @sign ||= @params["sign"]
 
-        query = @params.except('sign_type', 'sign').map do |key, value|
+        query = @params.except('sign', 'trade_no').sort.map do |key, value|
           "#{key}=#{value}"
-        end.sort * '&'
+        end.join('&')
 
         Digest::MD5.hexdigest(query + "&key=#{ENV['WECHAT_KEY']}").upcase == @sign
       end
