@@ -27,7 +27,7 @@ module Billing
         @sign_type ||= @params["sign_type"]
         @sign ||= @params["sign"]
 
-        query = @params.except('sign', 'trade_no').sort.map do |key, value|
+        query = @params.except('sign', 'trade_no', 'custom_id').sort.map do |key, value|
           "#{key}=#{value}"
         end.join('&')
 
