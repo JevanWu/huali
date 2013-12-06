@@ -25,6 +25,7 @@ module Billing
 
           # default options
           fee_type: "1",
+          bank_type: "WX",
           return_url: return_order_url(host: $host || 'localhost') + custom_data,
           notify_url: notify_order_url(host: $host || 'localhost') + custom_data,
 
