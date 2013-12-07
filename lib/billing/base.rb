@@ -22,7 +22,7 @@ module Billing
 
       # make the internal shared data structure explicit
       @opts = Hash.new
-      [:paymethod, :identifier, :amount, :subject, :body, :merchant_name, :merchant_trade_no].each do |attr|
+      [:paymethod, :identifier, :amount, :subject, :body, :merchant_name, :merchant_trade_no, :client_ip].each do |attr|
         @opts[attr] = @transaction[attr]
       end
 
@@ -41,6 +41,8 @@ module Billing
         Billing.const_get(@type.capitalize).const_get(:Alipay).new(@opts, @query)
       when "paypal"
         Billing.const_get(@type.capitalize).const_get(:Paypal).new(@opts, @query)
+      when "wechat"
+        Billing.const_get(@type.capitalize).const_get(:Wechat).new(@opts, @query)
       end
     end
 
@@ -57,7 +59,7 @@ module Billing
         raise ArgumentError, "the transaction object missing required attributes #{attr}" unless transaction[attr]
       end
 
-      unless transaction[:paymethod].in? %w(paypal directPay bankPay)
+      unless transaction[:paymethod].in? %w(paypal directPay bankPay wechat)
         raise ArgumentError, 'invalid paymethod'
       end
     end

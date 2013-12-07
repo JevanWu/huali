@@ -167,7 +167,8 @@ class Order < ActiveRecord::Base
     default = {
       amount: self.total,
       subject: subject_text,
-      body: body_text
+      body: body_text,
+      client_ip: user.current_sign_in_ip
     }
     self.transactions.create default.merge(opts)
   end
