@@ -9,41 +9,29 @@
 
 #l-show-m
   .container
-    .img-wrap
+    #show-slide.img-wrap.swipe
+      ul.main.container.swipe-wrap
+        - @asset_urls.take(3).each_with_index do |asset_url, index|
+          li
+            = image_tag asset_url[:full], alt: "#{@product.name} thumbnail images", width: 460, height: 440
       ul.slide-dot
         li
           a.cur
         li
           a
-        li
-          a
         li.last
           a
-      ul.main
-        - @asset_urls.take(3).each_with_index do |asset_url, index|
-          - if index == 1
-            li
-              = image_tag asset_url[:thumb], alt: "#{@product.name} thumbnail images", width: 460, height: 440
-          - else
-            li.is-hidden
-              = image_tag asset_url[:thumb], alt: "#{@product.name} thumbnail images", width: 460, height: 440
     .add-to-cart
       .product-title
         h3.product-name
           = @product.name
         h4.product-name-en
           = @product.name_en
-        p.price ￥#{@product.original_price}
-      button.add-btn data-product="#{@product.id}"
+        p.price ￥#{@product.price}
+      button.add-btn.button data-product="#{@product.id}" href="#{current_order_path}"
         | 加入购物车
       .share
         span =t(:sharing)
-        ul.share-to
-          li
-            a.weibo
-          li
-            a.msg
-          li.last
-            a.facebook
+        = render 'shared/product_share_links', product: @product
     .detail
       == render 'product_intro'

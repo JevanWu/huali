@@ -50,7 +50,8 @@ class Order < ActiveRecord::Base
   belongs_to :coupon_code_record, foreign_key: :coupon_code_id, class_name: 'CouponCode'
 
   extend Enumerize
-  enumerize :kind, in: [:normal, :jd, :tencent, :xigua, :marketing, :customer, :taobao, :b2b], default: :normal
+  enumerize :kind, in: [:normal, :jd, :tencent, :xigua, :marketing, :customer,
+    :taobao, :b2b, :fieldschina], default: :normal
 
   delegate :province_name, :city_name, to: :address, allow_nil: true
   delegate :paymethod, to: :transaction, allow_nil: true
@@ -114,6 +115,7 @@ class Order < ActiveRecord::Base
   scope :accountable, -> { where("kind = 'normal'").where("state != 'void' and state != 'generated'") }
   scope :in_day, lambda { |date| where("DATE(created_at AT TIME ZONE 'utc') = DATE(?)", date) }
   scope :unpaid_today, lambda { |hours_ago| in_day(Date.current).where(state: 'generated').where("created_at <= ?", hours_ago.hours.ago) }
+  scope :ready_to_ship_today, lambda { where(delivery_date: Date.current.tomorrow) }
 
   default_scope -> { order("created_at DESC") }
 
@@ -165,7 +167,8 @@ class Order < ActiveRecord::Base
     default = {
       amount: self.total,
       subject: subject_text,
-      body: body_text
+      body: body_text,
+      client_ip: user.current_sign_in_ip
     }
     self.transactions.create default.merge(opts)
   end
@@ -254,12 +257,23 @@ class Order < ActiveRecord::Base
     save
   end
 
-  def sync_payment
-    update_attribute(:payment_total,
-                     transactions.by_state('completed').map(&:amount).inject(:+))
+  def skip_payment
+    raise ArgumentError, "Order state must be :generated" if state.to_sym != :generated
+    raise ArgumentError, "Total price is greater than 0" if total > 0
+
+    update_attribute(:state, :wait_check)
+  end
+
+  def to_coupon_rule_opts
+    { total_price: item_total, products: line_items.map(&:product) }
   end
 
   private
+
+  def sync_payment
+    update_column(:payment_total,
+                     transactions.by_state('completed').map(&:amount).inject(:+))
+  end
 
   def complete_order
     self.completed_at = Time.now

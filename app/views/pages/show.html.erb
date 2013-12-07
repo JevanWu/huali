@@ -11,5 +11,7 @@
 <% end %>
 
 <div class="page-wrapper" id="<%= params[:id] %>-page">
-  <%= markdown @page.content %>
+  <div class="foot-pages">
+    <%= markdown @page.content %>
+  </div>
 </div>

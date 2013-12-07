@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131107032719) do
+ActiveRecord::Schema.define(version: 20131204092848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,6 +81,52 @@ ActiveRecord::Schema.define(version: 20131107032719) do
     t.datetime "updated_at"
   end
 
+  create_table "blog_categories", force: true do |t|
+    t.string   "name"
+    t.string   "name_en"
+    t.text     "description"
+    t.integer  "position"
+    t.string   "slug"
+    t.string   "keywords"
+    t.integer  "parent_id"
+    t.boolean  "available"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "blog_categories", ["slug"], name: "index_blog_categories_on_slug", unique: true, using: :btree
+
+  create_table "blog_categories_posts", id: false, force: true do |t|
+    t.integer "blog_post_id"
+    t.integer "blog_category_id"
+  end
+
+  create_table "blog_category_hierarchies", id: false, force: true do |t|
+    t.integer "ancestor_id",   null: false
+    t.integer "descendant_id", null: false
+    t.integer "generations",   null: false
+  end
+
+  add_index "blog_category_hierarchies", ["ancestor_id", "descendant_id", "generations"], name: "blog_category_anc_desc_udx", unique: true, using: :btree
+  add_index "blog_category_hierarchies", ["descendant_id"], name: "blog_category_desc_idx", using: :btree
+
+  create_table "blog_posts", force: true do |t|
+    t.string   "title"
+    t.string   "title_en"
+    t.string   "author"
+    t.text     "content"
+    t.text     "excerpt"
+    t.string   "keywords"
+    t.string   "slug"
+    t.boolean  "published"
+    t.datetime "published_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "blog_posts", ["published"], name: "index_blog_posts_on_published", using: :btree
+  add_index "blog_posts", ["slug"], name: "index_blog_posts_on_slug", unique: true, using: :btree
+
   create_table "cities", force: true do |t|
     t.string  "name"
     t.integer "post_code"
@@ -89,6 +135,22 @@ ActiveRecord::Schema.define(version: 20131107032719) do
   end
 
   add_index "cities", ["post_code"], name: "index_cities_on_post_code", unique: true, using: :btree
+
+  create_table "ckeditor_assets", force: true do |t|
+    t.string   "data_file_name",               null: false
+    t.string   "data_content_type"
+    t.integer  "data_file_size"
+    t.integer  "assetable_id"
+    t.string   "assetable_type",    limit: 30
+    t.string   "type",              limit: 30
+    t.integer  "width"
+    t.integer  "height"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "ckeditor_assets", ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable", using: :btree
+  add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
 
   create_table "collection_hierarchies", id: false, force: true do |t|
     t.integer "ancestor_id",   null: false
@@ -147,6 +209,13 @@ ActiveRecord::Schema.define(version: 20131107032719) do
     t.integer  "price_condition"
   end
 
+  create_table "coupons_products", id: false, force: true do |t|
+    t.integer "coupon_id"
+    t.integer "product_id"
+  end
+
+  add_index "coupons_products", ["coupon_id", "product_id"], name: "index_coupons_products_on_coupon_id_and_product_id", unique: true, using: :btree
+
   create_table "date_rules", force: true do |t|
     t.integer  "product_id"
     t.date     "start_date"
@@ -161,6 +230,16 @@ ActiveRecord::Schema.define(version: 20131107032719) do
   end
 
   add_index "date_rules", ["product_id"], name: "index_date_rules_on_product_id", using: :btree
+
+  create_table "didi_passengers", force: true do |t|
+    t.string   "name"
+    t.string   "phone"
+    t.integer  "coupon_code_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "didi_passengers", ["coupon_code_id"], name: "index_didi_passengers_on_coupon_code_id", using: :btree
 
   create_table "line_items", force: true do |t|
     t.integer  "order_id"
@@ -378,6 +457,7 @@ ActiveRecord::Schema.define(version: 20131107032719) do
     t.string   "author_avatar_content_type"
     t.integer  "author_avatar_file_size"
     t.datetime "author_avatar_updated_at"
+    t.string   "origin_link"
   end
 
   create_table "surveys", force: true do |t|
@@ -430,6 +510,7 @@ ActiveRecord::Schema.define(version: 20131107032719) do
     t.datetime "processed_at"
     t.datetime "created_at",                                                      null: false
     t.datetime "updated_at",                                                      null: false
+    t.string   "client_ip"
   end
 
   add_index "transactions", ["identifier"], name: "index_transactions_on_identifier", unique: true, using: :btree

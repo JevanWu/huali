@@ -10,6 +10,7 @@
     <% if @story.author_avatar? %>
       <%= image_tag @story.author_avatar.url(:small) %>
     <% end %>
+    <%= f.input :origin_link %>
     <%= f.input :available %>
   <% end %>
   <%= f.submit %>

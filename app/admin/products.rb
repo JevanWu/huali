@@ -68,6 +68,7 @@ ActiveAdmin.register Product do
     end
   end
 
+  filter :published
   filter :name_zh
   filter :name_en
   filter :sku_id

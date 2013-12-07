@@ -32,12 +32,12 @@ class Transaction < ActiveRecord::Base
   validates :identifier, uniqueness: true
   validates :amount, numericality: true
   validates :paymethod, inclusion: {
-    in: %w(paypal directPay bankPay),
+    in: %w(paypal directPay bankPay wechat),
     message: "%{value} is not a valid paymethod."
   }
 
   validates :merchant_name, inclusion: {
-    in: %w(Alipay Paypal ICBCB2C CMB CCB BOCB2C ABC COMM CMBC),
+    in: %w(Alipay Paypal Tenpay ICBCB2C CMB CCB BOCB2C ABC COMM CMBC),
     message: "%{value} is not a valid merchant name."
   }
 

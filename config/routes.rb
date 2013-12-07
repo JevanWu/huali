@@ -2,6 +2,7 @@ require 'sidekiq/web'
 
 Huali::Application.routes.draw do
 
+  mount Ckeditor::Engine => '/ckeditor'
   # Mount resque under the admin namespace wardened by devise
   constraint = lambda { |request| request.env["warden"].authenticate? and request.env['warden'].user.role == 'super' }
   constraints constraint do
@@ -24,7 +25,13 @@ Huali::Application.routes.draw do
       get 'trait/:tags', action: :trait
     end
   end
-  resources :collections, only: [:show]
+
+  resources :collections, only: [:show] do
+    resources :products, only: [:index] do
+      get 'tagged_with/:tags', to: 'products#tagged_with', on: :collection
+    end
+  end
+
   resources :reminders, only: [:new, :create]
   resources :surveys, only: [:new, :create]
 
@@ -35,14 +42,16 @@ Huali::Application.routes.draw do
   post 'orders/gateway(/:id)', to: 'orders#gateway', as: :gateway_order
   patch 'orders/cancel/:id', to: 'orders#cancel', as: :cancel_order
   get 'orders/return', as: :return_order
-  post 'orders/notify', as: :notify_order
+  match 'orders/notify', as: :notify_order, via: [:get, :post]
   # back order urls
   get 'orders/backorder', to: 'orders#back_order_new', as: :new_back_order
   post 'orders/backorder', to: 'orders#back_order_create', as: :create_back_order
   # channel order urls
   get 'orders/channelorder', to: 'orders#channel_order_new', as: :new_channel_order
   post 'orders/channelorder', to: 'orders#channel_order_create', as: :create_channel_order
-  resources :orders, except: [:destroy, :update, :edit]
+  resources :orders, except: [:destroy, :update, :edit] do
+    get 'logistics', on: :member
+  end
 
   post 'shipments/notify/:identifier', to: 'shipments#notify', as: :notify_shipment
 
@@ -69,11 +78,13 @@ Huali::Application.routes.draw do
   get 'celebrities', to: 'pages#celebrities', as: :celebrities
   get 'medias', to: 'pages#medias', as: :medias
   get 'weibo_stories', to: 'pages#weibo_stories', as: :weibo_stories
+  get 'christmas', to: 'pages#christmas', as: :christmas
 
   get 'banners/:date', to: 'banners#index', as: :banners
   get 'stories', to: 'stories#index'
+  resources :didi_passengers, only: [:new, :create], path: 'diditaxi'
 
   ActiveAdmin.routes(self)
 
-  get ':id', to: 'pages#show', as: :page
+  get ':id', to: 'pages#show', id: /(?!blog)(.+)/, as: :page
 end

@@ -5,8 +5,18 @@
     $(el).width($(window).width())
     return
 
-  new Huali.component.Slide
+  bannerSlide = new Huali.component.Slide
     node: $("#slide")
+
+  #make auto slide
+  _autoIndex = 1
+  autoSlide = ->
+    bannerSlide.dots.find("a").eq(_autoIndex).click()
+    _autoIndex++
+    if _autoIndex >= 6 then _autoIndex = 0
+    return
+
+  setInterval(autoSlide,8000)
 
   #nav callout
   calloutItemSizeCollection = []

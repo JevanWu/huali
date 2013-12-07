@@ -24,15 +24,15 @@ class CouponCode < ActiveRecord::Base
 
   validates_presence_of :code, :available_count
 
-  delegate :price_condition, :adjustment, :expired, :expires_at, :note,
+  delegate :price_condition, :adjustment, :expired, :expires_at, :note, :products,
     to: :coupon
 
   def to_s
     code
   end
 
-  def usable?(order = nil)
-    (order ? usable_by_order?(order) : true) &&  # keeps the API call without order or order_form
+  def usable?(target = nil)
+    (target ? usable_by?(target) : true) &&  # keeps the API call without order or order_form
     !expired &&
     expires_at > Time.current &&
     available_count > 0
@@ -47,8 +47,18 @@ class CouponCode < ActiveRecord::Base
 
   private
 
-  def usable_by_order?(order)
-    price_condition ? order.total >= price_condition : true
+  def usable_by?(target)
+    opts = target.to_coupon_rule_opts
+    total_price = opts.fetch(:total_price)
+    products_in_target = opts.fetch(:products)
+
+    return false if price_condition && total_price < price_condition
+
+    unless products.blank?
+      return false if products_in_target.none? { |product| products.include?(product) }
+    end
+
+    true
   end
 
   def generate_code

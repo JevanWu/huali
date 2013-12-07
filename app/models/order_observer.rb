@@ -9,8 +9,6 @@ class OrderObserver < ActiveRecord::Observer
   def after_pay(order, transition)
     return if order.kind == 'marketing'
 
-    order.sync_payment
-
     Sms.delay.pay_order_user_sms(order.id)
     Notify.delay.pay_order_user_email(order.id)
 

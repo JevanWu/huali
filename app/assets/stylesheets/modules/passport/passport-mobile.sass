@@ -19,26 +19,54 @@
     text-align: center
     padding: 40px 0 80px 0
   .passport-mobile-main
-    padding: 0 70px
+    padding: 0 20px
+    .form-actions
+      padding-left: 140px
     .controls
       margin-left: 0
+      .help-inline
+        margin-left: 170px
+    .control-label
+      margin-right: 10px
+      width: 130px
+    .user_remember_me
+      .controls
+        margin-left: 0
+        margin-top: 5px
+        .auto-login
+          margin-left: 0
+    .btn-login
+      margin-left: 25px
+      color: $link-blue-color
+    .btn-m-signup
+      margin-left: 170px
+    .forget-psw
+      margin-left: 25px
+      color: $link-blue-color
+    .meta
+      height: 30px
+      line-height: 30px
+      margin-left: 140px
+    .login-use-oauth
+      margin-left: 140px
     .input-item
       +clearfix
       position: relative
       margin-bottom: 30px
       label
         float: left
-        width: 100px
+        width: 140px
         height: 25px
         line-height: 25px
         padding-left: 10px
         margin-right: 20px
         font-size: $content-font
         color: #4c4c4c
+        abbr
+          color: #c80000
       input
         float: left
-        border: none
-        width: 60%
+        width: 50%
         height: 25px
         font-size: $content-font
         &:focus
@@ -52,8 +80,8 @@
         border-color: #b2b2b2
         border-style: solid
         border-width: 0 1px 1px 1px
-    .error
-      +error(140px,20px)
+    //.error Not worked at the moment
+      //+error(140px,20px)
     button
       margin: 15px 0 30px 0
     .input-footer
@@ -61,6 +89,9 @@
       padding-bottom: 25px
       .signup
         float: left
+        height: 30px
+        line-height: 30px
+        margin-left: 170px
         font-size: $content-font
       .getback
         float: right

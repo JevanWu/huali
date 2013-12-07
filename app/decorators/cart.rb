@@ -8,7 +8,7 @@ class Cart
   end
 
   def adjustment
-    @adjustment ||= (valid_coupon? ? coupon.adjustment : nil)
+    @adjustment ||= (coupon ? coupon.adjustment : nil)
   end
 
   def original_total
@@ -20,12 +20,12 @@ class Cart
   end
 
   def valid_coupon?
-    !! coupon && coupon.usable?
+    !! coupon && coupon.usable?(self)
   end
 
   def total
-    if adjustment.present? && valid_coupon?
-      Discount.new(adjustment).calculate(original_total)
+    if adjustment.present?# && valid_coupon?
+      [Discount.new(adjustment).calculate(original_total), 0].max
     else
       original_total
     end
@@ -41,6 +41,10 @@ class Cart
 
   def discount_rate
     total / original_total
+  end
+
+  def to_coupon_rule_opts
+    { total_price: original_total, products: items.map(&:product) }
   end
 
   private

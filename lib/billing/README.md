@@ -17,7 +17,7 @@ The transaction object used to communicate with the library should contain at le
 
 ```ruby
 {
-  paymethod: "[paypal directPay bankPay]"
+  paymethod: "[paypal directPay bankPay wechat]"
   identifier: 'used to identifier the transaction' # required
   amount: 'amount to be paid in RMB' # required
   subject: 'the summary about the products' # required

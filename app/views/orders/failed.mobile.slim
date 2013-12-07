@@ -8,5 +8,5 @@
         p
           = "订单编号：#{@order.identifier}"
       = link_to '完成支付', checkout_order_path(@order), class: 'btn-m-completePay'
-      a.btn-m-help href="help-center"
+      a.btn-m-help href="/help-center"
         | 帮助

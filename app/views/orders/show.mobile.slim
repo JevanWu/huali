@@ -3,6 +3,8 @@
     | 订单状态：
     span
       = t('models.order.state.' + @order.state)
+  div.view-logis
+    = link_to "查看物流", logistics_order_path(@order), target: '_blank'
   .order-detail-main
     - @order.line_items.each do |item|
       .product-item
@@ -10,7 +12,7 @@
           = image_tag item.img(:thumb)
         .product-item-right
           h3.product-name
-            = link_to item.name, product_path(item)
+            = link_to item.name, product_path(item.product)
           h4.product-name-en
             = item.product.name_en
           p.summary
@@ -43,20 +45,18 @@
     .product-item
       .product-item-left
         p
-          | 商品小计 :
+          | 价目总计 :
         p
           | 促销优惠 :
       .product-item-right
         p.price-gallery
-          = "￥ #{@order.total}"
+          = number_to_currency @order.item_total, unit: '&yen;'
         p.discount
-          | -￥ 415
+          = "- "
+          = number_to_currency @order.item_total - @order.total, unit: '&yen;'
     p.total-price
       | 本次发货总额：
       em
-        | ￥ 1647
+        = number_to_currency @order.total, unit: '&yen;'
     - if @order.state == 'generated'
       = link_to t('models.order.state.pay'), checkout_order_path(@order), class: 'btn-m-detailPay'
-    button.btn-m-cancelPay
-      | 取消
-

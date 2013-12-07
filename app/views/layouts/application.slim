@@ -8,6 +8,8 @@ html
     meta name="Description" content="#{yield :description}"
     meta content="on" http-equiv="cleartype"
     = stylesheet_link_tag 'pc'
+    /[if IE 8]
+      = stylesheet_link_tag 'ie8'
     /[if IE 7]
       = stylesheet_link_tag 'ie7'
 
@@ -21,7 +23,8 @@ html
     == render 'layouts/header'
     == render 'layouts/nav'
     == render 'layouts/banner'
-    == yield
+
+    = content_for?(:blog) ? yield(:blog) : yield
     == render 'layouts/footer'
 
   = javascript_include_tag 'application'

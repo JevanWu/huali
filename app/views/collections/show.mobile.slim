@@ -20,18 +20,20 @@
         a.row-view
         a.square-view
   dd
-    .best-products.row.is-hidden
+    .best-products.row
       = render partial: 'product', collection: @products
 .cate-list-style2
-  dt.cate-list-title
-    strong
-      i
-      | 花里>
-    span
-      = @collection.display_name
-    .tabs
-      a.row-view
-      a.square-view
+  dl
+    dt.cate-list-title
+      strong
+        i
+        = @collection.display_name
+        b
+      p
+        = @collection.description
+      .tabs
+        a.row-view
+        a.square-view
   dd
     ul.row
       - @products.each do |product|
@@ -42,18 +44,13 @@
             .info
               .name
                 h3.product-name
-                  /= link_to product.name, product_path(product), title: product.name
-                  = product.name
+                  = link_to product.name, product_path(product), title: product.name
                 h4.product-name-en
                   = product.name_en
               .price
-                span ￥#{product.original_price}
+                span ￥#{product.price}
             .share
               span =t(:sharing)
-              ul.share-to
-                li
-                  a.weibo
-                li
-                  a.msg
-                li.last
-                  a.facebook
+              = render 'shared/product_share_links', product: product
+.pager
+  == paginate @products

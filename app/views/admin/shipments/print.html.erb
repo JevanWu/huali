@@ -6,16 +6,18 @@
   <%= image_tag "print/#@type.jpg" if @type.present? %>
 </div>
 
-<!-- only used by shunfeng -->
-<div class="shunfeng-sender <%= @type %>">
-  <p class="sender-com">花里花店</p>
-  <p class="sender-addr">上海长寿路1088号悦达国际大厦</p>
-  <p class="sender-phone">400-0016-936</p>
-</div>
+<%# used by shunfeng and shentong %>
+<% unless @type == "lianbang" %>
+  <div class="sender sender-<%= @type %>">
+    <p class="sender-com">花里花店</p>
+    <p class="sender-addr">上海长寿路1088号悦达国际大厦</p>
+    <p class="sender-phone">400-0016-936</p>
+  </div>
+<% end %>
 
-<div class="text <%= @type %>">
+<div class="text text-<%= @type %>">
   <p class="receipt"><%= @address.fullname %></p>
-  <p class="cell"><%= @address.phone %></p>
+  <p class="cell"><%= @address.phone.gsub(" ", "") %></p>
   <p class="addr"><%= @address.print_addr %></p>
   <p class="post"><%= @address.post_code %></p>
 </div>

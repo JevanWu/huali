@@ -147,6 +147,7 @@ zh-CN:
       banner: 通知横幅
       period_region_policy: 短期地域规则
       story: 微博故事
+      didi_passenger: 嘀嘀打车活动
 
     attributes:
       order: &order
@@ -329,6 +330,7 @@ zh-CN:
         orders: 订单
         code_count: 优惠券数量
         available_count: 优惠券有效使用次数
+        products: 可用产品
 
       user:
         email: 邮箱
@@ -389,7 +391,15 @@ zh-CN:
         description: 故事描述
         picture: 照片
         author_avatar: 头像
+        origin_link: 源链接
         available: 是否有效
+
+      didi_passenger:
+        name: 名称
+        phone: 手机号码
+        terms_of_service: 同意条款
+        coupon_code: 优惠劵
+        created_at: 领取时间
 
   models:
     order:
@@ -453,6 +463,7 @@ zh-CN:
         taobao: 淘宝订单
         normal: 普通订单
         b2b: B2B订单
+        fieldschina: 甫田
 
     survey:
       gender:
@@ -565,6 +576,18 @@ zh-CN:
       # suggestion
       you_may_also_like: 您可能还喜欢
       click_to_cart: 加入购花篮
+
+      # banks
+      bank:
+        directPay: 支付宝
+        ICBCB2C: 中国工商银行
+        CMB: 招商银行
+        CCB: 中国建设银行
+        BOCB2C: 中国银行
+        ABC: 中国农业银行
+        COMM: 交通银行
+        CMBC: 中国民生银行
+        paypal: Paypal
 
     product:
       soldout: 已经售罄

@@ -1,0 +1,3 @@
+[submodule "vendor/plugins/huali-blog"]
+	path = vendor/plugins/huali-blog
+	url = git@git.zenhacks.org:ryan/huali-blog.git

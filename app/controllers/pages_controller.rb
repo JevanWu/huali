@@ -23,4 +23,7 @@ class PagesController < ApplicationController
 
   def weibo_stories
   end
+
+  def christmas
+  end
 end

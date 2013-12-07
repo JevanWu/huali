@@ -30,6 +30,8 @@ class Coupon < ActiveRecord::Base
 
   has_many :coupon_codes
   has_many :orders, through: :coupon_codes
+  has_and_belongs_to_many :products
+  accepts_nested_attributes_for :products
 
   after_create :generate_coupon_codes
 
@@ -45,6 +47,12 @@ class Coupon < ActiveRecord::Base
 
   def code_count
     @code_count ||= coupon_codes.count
+  end
+
+  def generate_coupon_code
+    return if expired
+
+    coupon_codes.create(available_count: 1)
   end
 
   private
