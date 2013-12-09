@@ -163,7 +163,22 @@ class OrdersController < ApplicationController
     end
   end
 
-  def current ; end
+  def current
+    if params[:coupon_code].present? && params[:product_ids].present?
+      coupon_code = CouponCode.find_by_code!(params[:coupon_code])
+      products = Product.find(params[:product_ids].split(','))
+
+      if !coupon_code.usable? || products.any? { |p| p.count_on_hand <=0 }
+        flash[:alert] = t('controllers.order.products_sold_out')
+        redirect_to root_path and return
+      end
+
+      cookies[:coupon_code] = coupon_code.to_s
+      cookies['cart'] = products.reduce({}) { |memo, p| memo[p.id] = 1; memo }.to_json
+
+      load_cart
+    end
+  end
 
   def apply_coupon
     coupon_code = CouponCode.find_by_code(params[:coupon_code])
