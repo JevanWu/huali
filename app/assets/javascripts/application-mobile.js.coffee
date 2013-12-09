@@ -13,6 +13,7 @@
 #= require 'module/show-mobile'
 #= require 'orders'
 #= require 'component/swipe'
+#= require 'mediav'
 
 $ ->
   console.log('hello mobile world!')
