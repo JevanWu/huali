@@ -30,7 +30,7 @@ Huali::Application.routes.draw do
   resources :surveys, only: [:new, :create]
 
   # FIXME refactor this routes to be more elegant
-  get 'orders/current', as: :current_order
+  get 'orders/current(/:coupon_code/products/:product_ids)', to: 'orders#current', as: :current_order
   post 'orders/apply_coupon'
   get 'orders/checkout(/:id)', to: 'orders#checkout', as: :checkout_order
   post 'orders/gateway(/:id)', to: 'orders#gateway', as: :gateway_order
