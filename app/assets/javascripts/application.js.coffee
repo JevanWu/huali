@@ -17,3 +17,4 @@
 #= require 'module/chosen-select'
 #= require 'module/banner'
 #= require 'orders'
+#= require 'mediav'
