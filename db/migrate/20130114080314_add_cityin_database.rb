@@ -3,7 +3,6 @@ class Province < ActiveRecord::Base
 end
 
 class City < ActiveRecord::Base
-  attr_accessible :name, :post_code, :parent_post_code
 end
 
 class AddCityinDatabase < ActiveRecord::Migration
