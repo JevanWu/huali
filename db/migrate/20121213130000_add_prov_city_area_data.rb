@@ -3534,15 +3534,12 @@ class AddProvCityAreaData < ActiveRecord::Migration
 
 
   class Province < ActiveRecord::Base
-    attr_accessible :name, :post_code
   end
 
   class City < ActiveRecord::Base
-    attr_accessible :name, :post_code, :parent_post_code
   end
 
   class Area < ActiveRecord::Base
-    attr_accessible :name, :post_code, :parent_post_code
   end
 
   # provinces = [ [`id`, `post_code`, `name`], ... ]
