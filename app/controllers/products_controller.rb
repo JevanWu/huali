@@ -32,12 +32,15 @@ class ProductsController < ApplicationController
     @products = Product.published
       .tagged_with(params[:tags], on: :traits)
       .page(params[:page])
+
+    fetch_order_by
   end
 
   def index
     @products = Product.published.in_collections(@collection_ids).uniq.page(params[:page])
 
     prepare_tag_filter
+    fetch_order_by
 
     respond_to do |format|
       format.html { render 'index' }
@@ -50,6 +53,7 @@ class ProductsController < ApplicationController
       tagged_with(params[:tags], on: :tags).uniq.page(params[:page])
 
     prepare_tag_filter
+    fetch_order_by
 
     respond_to do |format|
       format.html { render 'index' }
@@ -59,6 +63,20 @@ class ProductsController < ApplicationController
   end
 
   private
+
+  def fetch_order_by
+    if params[:order].present?
+      field, direction = params[:order].scan(/^(.*)_(desc|asc)?$/).first
+
+      if field.blank?
+        order_by = "sold_total desc"
+      else
+        order_by = "#{field} #{direction}"
+      end
+
+      @products = @products.reorder(order_by)
+    end
+  end
 
   def fetch_collection
     @collection = Collection.available.find(params[:collection_id])

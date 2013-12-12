@@ -17,11 +17,13 @@
       p
         = @collection.description
       = render 'tag_filter'
-      .tabs
-        span
-          | 显示：
-        a.row-view[href="javascript:;"]
-        a.square-view[href="javascript:;"]
+      .panel
+        = render "product_order"
+        .tabs
+          span
+            | 显示：
+          a.row-view[href="javascript:;"]
+          a.square-view[href="javascript:;"]
   dd.main
     .best-products.row
       = render partial: 'product', collection: @products
