@@ -17,10 +17,12 @@
       p
         = @collection.description
       = render 'tag_filter'
-      .tabs
-        span
-        a.square-view.active
-        a.row-view
+      .panel
+        = render "product_order"
+        .tabs
+          span
+          a.square-view.active
+          a.row-view
   dd
     .best-products.row
       = render partial: 'product', collection: @products
@@ -34,10 +36,12 @@
       p
         = @collection.description
       = render 'tag_filter'
-      .tabs
-        span
-        a.square-view
-        a.row-view
+      .panel
+        = render "product_order"
+        .tabs
+          span
+          a.square-view
+          a.row-view
   dd
     ul.row
       - @products.each do |product|
