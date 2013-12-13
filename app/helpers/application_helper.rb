@@ -22,4 +22,10 @@ module ApplicationHelper
   def controller_and_action?(the_controller, the_action)
     controller_name == the_controller && the_action == action_name
   end
+
+  def display_flower_picker?
+    [/^\/collections/, /^\/products(?!\/trait)/, /^\/$/].any? do |reg|
+      reg =~ request.path
+    end
+  end
 end
