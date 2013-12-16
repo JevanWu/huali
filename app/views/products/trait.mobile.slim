@@ -1,22 +1,10 @@
-- content_for :title do
-  = @collection.meta_title.blank? ? @collection.name : @collection.meta_title
-
-- content_for :keywords do
-  = @collection.meta_keywords
-
-- content_for :description do
-  = @collection.meta_description
-
 .cate-list-style1
   dl
     dt.cate-list-title
       strong
         i
-        = @collection.display_name
+        = "花里帮您选花"
         b
-      p
-        = @collection.description
-      = render 'tag_filter'
       .panel
         = render "product_order"
         .tabs
@@ -31,11 +19,8 @@
     dt.cate-list-title
       strong
         i
-        = @collection.display_name
+        = "花里帮您选花"
         b
-      p
-        = @collection.description
-      = render 'tag_filter'
       .panel
         = render "product_order"
         .tabs

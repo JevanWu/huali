@@ -8,15 +8,17 @@ ActiveAdmin.register Survey do
     private
 
     def permitted_params
-      params.permit survey: [:user_id, :gender, :receiver_gender, :gift_purpose]
+      params.permit survey: [:user_id, :gender, :receiver_gender, :receiver_age, :relationship, :gift_purpose]
     end
   end
 
   index do
     selectable_column
     column :gender
-    column :gift_purpose
     column :receiver_gender
+    column :receiver_age
+    column :relationship
+    column :gift_purpose
     column :user
 
     default_actions
@@ -25,8 +27,10 @@ ActiveAdmin.register Survey do
   show do
     attributes_table do
       row :gender
-      row :gift_purpose
       row :receiver_gender
+      row :receiver_age
+      row :relationship
+      row :gift_purpose
       row :user
     end
   end

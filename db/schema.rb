@@ -252,6 +252,18 @@ ActiveRecord::Schema.define(version: 20131204092848) do
   add_index "line_items", ["order_id"], name: "index_line_items_on_order_id", using: :btree
   add_index "line_items", ["product_id"], name: "index_line_items_on_product_id", using: :btree
 
+  create_table "monthly_solds", force: true do |t|
+    t.integer  "sold_year"
+    t.integer  "sold_month"
+    t.integer  "sold_total", default: 0
+    t.integer  "product_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "monthly_solds", ["product_id", "sold_year", "sold_month"], name: "index_monthly_solds_on_product_id_and_sold_year_and_sold_month", unique: true, using: :btree
+  add_index "monthly_solds", ["product_id"], name: "index_monthly_solds_on_product_id", using: :btree
+
   create_table "oauth_services", force: true do |t|
     t.integer  "user_id"
     t.string   "provider"
@@ -455,6 +467,8 @@ ActiveRecord::Schema.define(version: 20131204092848) do
     t.string   "gift_purpose"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.string   "receiver_age"
+    t.string   "relationship"
   end
 
   create_table "taggings", force: true do |t|

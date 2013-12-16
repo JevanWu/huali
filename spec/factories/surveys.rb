@@ -13,9 +13,11 @@
 
 FactoryGirl.define do
   factory :survey do
-    gender [:male, :female].sample
-    receiver_gender [:male, :female].sample
-    gift_purpose [:lover, :friend, :client, :older, :other].sample
+    gender :male
+    receiver_gender :female
+    receiver_age :nineteen_to_25
+    relationship :girlfriend
+    gift_purpose :propose
     user
   end
 end

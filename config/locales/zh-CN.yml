@@ -267,6 +267,8 @@ zh-CN:
         sku_id: SKU编号
         tags: 标签
         tag_list: 标签
+        traits: 特征
+        trait_list: 特征
         collections: 品类
         published: 是否发布
         inspiration: 产品灵感
@@ -350,7 +352,9 @@ zh-CN:
       survey:
         gender: 您是男生/女生
         receiver_gender: 您准备送花给哪个ta
-        gift_purpose: ta是您的
+        receiver_age: ta的年龄
+        relationship: ta是您的
+        gift_purpose: 送ta礼物的目的
         user: 填写用户
 
       default_date_rule:
@@ -469,13 +473,33 @@ zh-CN:
       receiver_gender:
         male: 他
         female: 她
-
-      gift_purpose:
-        lover: 爱人
+      receiver_age:
+        eighteen_and_bellow: 18岁以下
+        nineteen_to_25: 19-25
+        twenty_six_to_40: 26-40
+        forty_one_to_60: 41-60
+        sixty_above: 61岁以上
+      relationship:
+        girlfriend: 女朋友
+        boyfriend: 男朋友
+        wife: 老婆
+        husband: 老公
+        colleague: 同事/客户
         friend: 朋友
-        client: 客户
-        older: 长辈
-        other: 其他
+        teacher: 老师
+        relative: 亲人/长辈
+        children: 儿童
+        other_relationship: 其他
+      gift_purpose:
+        new_born: 新生儿
+        propose: 求婚
+        marriage: 结婚
+        birthday_and_anniversary: 生日/纪念日
+        apology: 道歉
+        confession: 表白
+        business: 商务礼仪
+        wish: 祝福
+        other_purpose: 其他
 
   controllers:
     order:

@@ -75,3 +75,10 @@ $ ->
     unless $('.flash_error').length > 0
       $('.flashes').remove()
       $('#title_bar').after(fail)
+
+$ ->
+  $("#trait_tags .tag").click ->
+    tag = $(this).attr('value')
+    unless $('#product_trait_list').tagExist(tag)
+      $('#product_trait_list').addTag(tag)
+    return false

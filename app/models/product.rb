@@ -71,6 +71,8 @@ class Product < ActiveRecord::Base
   accepts_nested_attributes_for :local_date_rule, allow_destroy: true, update_only: true,
     reject_if: proc { |d| d[:start_date].blank? }
 
+  has_many :monthly_solds
+
   # i18n translation
   translate :name
 
@@ -88,6 +90,7 @@ class Product < ActiveRecord::Base
   friendly_id :name_en, use: :slugged
 
   acts_as_taggable
+  acts_as_taggable_on :traits
 
   before_save do |product|
     product.name_en.downcase!
@@ -175,5 +178,26 @@ class Product < ActiveRecord::Base
     else
       build_local_region_rule
     end
+  end
+
+  def update_monthly_sold(quantity)
+    current_month_sold.update_sold_total(quantity)
+
+    update_attribute(:sold_total, current_month_sold.sold_total)
+  end
+
+  private
+
+  def current_month_sold
+    ret = monthly_solds.current.first
+
+    begin
+      ret ||= monthly_solds.create(sold_year: Date.current.year,
+                                   sold_month: Date.current.month)
+    rescue ActiveRecord::RecordNotUnique
+      ret = monthly_solds.current.first
+    end
+
+    ret
   end
 end
