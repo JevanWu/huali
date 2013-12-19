@@ -44,7 +44,7 @@ class Notify < ActionMailer::Base
     end
 
     attachments['回访订单.xlsx'] = XlsxBuilder.new(columns, row_data).serialize
-    mail(to: 'support@hua.li', subject: subject("回访订单"))
+    mail(to: 'ella@hua.li', subject: subject("回访订单"))
   end
 
   def unpaid_orders_email
