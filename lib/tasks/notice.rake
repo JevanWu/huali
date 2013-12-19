@@ -6,7 +6,7 @@ namespace :notice do
 
   desc "Notify about Today's Summary"
   task today_order_summary_email: :environment do
-    Notify.delay.date_summary_email(Date.current, 'team@hua.li')
+    Notify.delay.date_summary_email(Date.current, *mail_list)
   end
 
   desc "Notify about heavy day preparation"
@@ -30,5 +30,9 @@ namespace :notice do
   desc "Notify about orders have delivery date today"
   task ready_to_ship_orders_today: :environment do
     Notify.delay.ready_to_ship_orders_today
+  end
+
+  def mail_list
+    ['john@hua.li', 'lin@hua.li', 'ella@hua.li']
   end
 end
