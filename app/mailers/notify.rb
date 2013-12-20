@@ -38,9 +38,9 @@ class Notify < ActionMailer::Base
     return if @ready_to_ship_orders_today.blank?
 
 
-    columns = ["订单号", "收件人", "联系方式", "省份", "快递方式", "产品", "发货日期"]
+    columns = ["订单号", "收件人", "联系方式", "省份", "快递方式", "产品", "发货日期", "来源"]
     row_data = @ready_to_ship_orders_today.map do |o|
-      [o.identifier, o.address.fullname, o.address.phone, o.address.province_name, o.ship_method, o.subject_text, o.delivery_date]
+      [o.identifier, o.address.fullname, o.address.phone, o.address.province_name, o.ship_method, o.subject_text, o.delivery_date, o.source]
     end
 
     attachments['回访订单.xlsx'] = XlsxBuilder.new(columns, row_data).serialize
