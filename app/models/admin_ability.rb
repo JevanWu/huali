@@ -27,6 +27,7 @@ class AdminAbility
       can :manage, [Coupon, Story]
       can :record_back_order, Order
       can :update, [Order], kind: 'marketing'
+      can :read, [Product]
       manage_blog
     end
 
