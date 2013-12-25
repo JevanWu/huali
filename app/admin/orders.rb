@@ -293,6 +293,8 @@ ActiveAdmin.register Order do
         content_tag('span', order.identifier, class: 'barcode35')
       end
 
+      row :last_order
+
       row :merchant_order_no
 
       row :order_content do
