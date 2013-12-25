@@ -113,7 +113,7 @@ class Sms
 [花里花店] hua.li
 STR
 
-      content.scan(/.{1,140}/).each do |snippet|
+      content.scan(/.{1,128}/).each do |snippet|
         phonenums.each do |phone|
           new(phone_number: phone, body: snippet).deliver
         end
