@@ -110,6 +110,22 @@ ActiveAdmin.register Order do
     end
   end
 
+  batch_action :make do |selection|
+    orders = Order.find(selection)
+    failed_orders = []
+
+    orders.each do |o|
+      o.make or failed_orders << o
+    end
+
+    if failed_orders.blank?
+      redirect_to :back, notice: t('views.admin.order.made', count: orders.size)
+    else
+      alert_message = "部分订单制作失败, 请分别单独制作, 失败订单: #{failed_orders.map(&:identifier).join(', ')}"
+      redirect_to :back, alert: alert_message
+    end
+  end
+
   scope :all
   scope :yesterday
   scope :current
