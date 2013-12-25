@@ -92,6 +92,24 @@ ActiveAdmin.register Order do
     redirect_to :back, notice: orders.count.to_s + t('views.admin.order.printed')
   end
 
+  batch_action :ship do |selection|
+    orders = Order.find(selection)
+    failed_shipping_orders = []
+
+    orders.each do |o|
+      unless o.shipment && o.shipment.ship
+        failed_shipping_orders << o
+      end
+    end
+
+    if failed_shipping_orders.blank?
+      redirect_to :back, notice: t('views.admin.order.shipped', count: orders.size)
+    else
+      alert_message = "部分订单发货失败, 请分别单独发货, 失败订单: #{failed_shipping_orders.map(&:identifier).join(', ')}"
+      redirect_to :back, alert: alert_message
+    end
+  end
+
   scope :all
   scope :yesterday
   scope :current

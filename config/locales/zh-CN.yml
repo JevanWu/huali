@@ -529,6 +529,7 @@ zh-CN:
         confirm_cancel: 你确定取消此订单?
         add_product: 添加产品
         cannot_edit: 订单已结束，不能编辑
+        shipped: "发货成功, 共%{count}个订单"
       transaction:
         transaction_state_changed: 交易状态变更为
         confirm_complete: 你确定完成此交易?
