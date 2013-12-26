@@ -293,6 +293,16 @@ ActiveAdmin.register Order do
         content_tag('span', order.identifier, class: 'barcode35')
       end
 
+      row :last_order do
+        associated_order = Order.find_by_identifier(order.last_order)
+
+        if associated_order
+          link_to(order.last_order, admin_order_path(associated_order))
+        elsif order.last_order.present?
+          "#{order.last_order}(无效的订单号)"
+        end
+      end
+
       row :merchant_order_no
 
       row :order_content do

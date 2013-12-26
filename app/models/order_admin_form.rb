@@ -10,6 +10,7 @@ module AdminOnlyInfo
   attribute :kind, Symbol, default: :normal
   attribute :ship_method_id, Integer
   attribute :delivery_date, Date
+  attribute :last_order, String
 end
 
 class OrderAdminForm < OrderForm
@@ -18,6 +19,8 @@ class OrderAdminForm < OrderForm
   # +/-/*/%1234.0
   validates_format_of :adjustment, with: %r{\A[+-x*%/][\s\d.]+\z}, allow_blank: true
   validates_with OrderDeliveryDateValidator
+
+  validates :last_order, presence: true, if: Proc.new { |order| order.kind.to_s == "customer" }
 
   class << self
     def build_from_record(record)
