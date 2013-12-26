@@ -103,14 +103,20 @@ class Sms
     def date_wait_make_order(date, *phonenums)
       orders = Order.by_state('wait_make').where('delivery_date = ?', date)
 
-      content = <<STR
+      order_subject_text = orders.group_by { |o| [o.subject_text, o.ship_method.to_s] }.sort_by { |o| o.first }.map do |k, v|
+        "#{k.last.slice(0, 2)}-#{k.first.sub(/\d+/, v.size.to_s)}"
+      end.join
+
+      content = <<STR.gsub(/(\s|\n)*/m, '')
 #{date.to_s}当天需要制作的订单是共有#{orders.count}:
-#{orders.map(&:subject_text).join(' ')}
+#{order_subject_text}
 [花里花店] hua.li
 STR
 
-      phonenums.each do |phone|
-        new(phone_number: phone, body: content).deliver
+      content.scan(/.{1,128}/).each do |snippet|
+        phonenums.each do |phone|
+          new(phone_number: phone, body: snippet).deliver
+        end
       end
     end
 

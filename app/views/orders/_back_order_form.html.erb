@@ -10,8 +10,9 @@
     <%= f.input :special_instructions, as: :text, input_html: { rows: 3 }, placeholder: '您可将一些特殊要求罗列与此，我们将尽力满足您的要求。' %>
     <%= f.input :kind, as: :radio_buttons, required: true, collection: {
         '市场订单' => :marketing,
-        '顾客订单' => :customer
+        '顾客补发订单' => :customer
         } %>
+    <%= f.input :last_order, hint: "如果订单是补发订单, 该项必填!" %>
   </fieldset>
   <fieldset>
     <legend>递送信息</legend>

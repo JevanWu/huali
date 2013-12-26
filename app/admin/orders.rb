@@ -92,6 +92,40 @@ ActiveAdmin.register Order do
     redirect_to :back, notice: orders.count.to_s + t('views.admin.order.printed')
   end
 
+  batch_action :ship do |selection|
+    orders = Order.find(selection)
+    failed_shipping_orders = []
+
+    orders.each do |o|
+      unless o.shipment && o.shipment.ship
+        failed_shipping_orders << o
+      end
+    end
+
+    if failed_shipping_orders.blank?
+      redirect_to :back, notice: t('views.admin.order.shipped', count: orders.size)
+    else
+      alert_message = "部分订单发货失败, 请分别单独发货, 失败订单: #{failed_shipping_orders.map(&:identifier).join(', ')}"
+      redirect_to :back, alert: alert_message
+    end
+  end
+
+  batch_action :make do |selection|
+    orders = Order.find(selection)
+    failed_orders = []
+
+    orders.each do |o|
+      o.make or failed_orders << o
+    end
+
+    if failed_orders.blank?
+      redirect_to :back, notice: t('views.admin.order.made', count: orders.size)
+    else
+      alert_message = "部分订单制作失败, 请分别单独制作, 失败订单: #{failed_orders.map(&:identifier).join(', ')}"
+      redirect_to :back, alert: alert_message
+    end
+  end
+
   scope :all
   scope :yesterday
   scope :current
@@ -257,6 +291,16 @@ ActiveAdmin.register Order do
       row :identifier do |order|
         content_tag('span', order.identifier) + \
         content_tag('span', order.identifier, class: 'barcode35')
+      end
+
+      row :last_order do
+        associated_order = Order.find_by_identifier(order.last_order)
+
+        if associated_order
+          link_to(order.last_order, admin_order_path(associated_order))
+        elsif order.last_order.present?
+          "#{order.last_order}(无效的订单号)"
+        end
       end
 
       row :merchant_order_no

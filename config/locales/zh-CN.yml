@@ -94,6 +94,7 @@ zh-CN:
         bypass_region_validation: 跳过递送区域验证
         bypass_date_validation: 跳过递送时间验证
         bypass_product_validation: 跳过产品验证
+        last_order: 关联订单号
 
       item_info:
         quantity: 产品数量
@@ -199,6 +200,7 @@ zh-CN:
         tracking_num: 快递单号
         kind: 类型
         kind_text: 类型
+        last_order: 关联订单号
 
       period_region_policy:
         start_date: 起始日期
@@ -459,7 +461,7 @@ zh-CN:
         xigua: 喜瓜网
         tencent: 腾讯
         jd: 京东
-        customer: 顾客订单
+        customer: 顾客补发订单
         taobao: 淘宝订单
         normal: 普通订单
         b2b: B2B订单
@@ -529,6 +531,8 @@ zh-CN:
         confirm_cancel: 你确定取消此订单?
         add_product: 添加产品
         cannot_edit: 订单已结束，不能编辑
+        shipped: "发货成功, 共%{count}个订单"
+        made: "制作成功, 共%{count}个订单"
       transaction:
         transaction_state_changed: 交易状态变更为
         confirm_complete: 你确定完成此交易?

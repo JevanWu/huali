@@ -1,5 +1,10 @@
 zh-CN:
   active_admin:
+    batch_actions:
+      labels:
+        make: 制作
+        ship: 发货
+        printed: 打印
     ship_model: 货运订单
     check_model: 审核订单
     access_denied:

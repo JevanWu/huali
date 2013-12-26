@@ -122,6 +122,22 @@ class Notify < ActionMailer::Base
     mail(to: emails, subject: subject("##{@topic}#已经发货备忘#{Time.now}"))
   end
 
+  def date_wait_make_order_email(date, *emails)
+    orders = Order.by_state('wait_make').where('delivery_date = ?', date)
+
+    order_subject_text = orders.group_by { |o| [o.subject_text, o.ship_method.to_s] }.sort_by { |o| o.first }.map do |k, v|
+      "#{k.last.slice(0, 2)}-#{k.first.sub(/\d+/, v.size.to_s)}"
+    end.join
+
+    @content = <<STR
+#{date.to_s}当天需要制作的订单是共有#{orders.count}:
+#{order_subject_text}
+[花里花店] hua.li
+STR
+
+    mail(to: emails, subject: subject("#{date} 等待制作订单"))
+  end
+
   helper MailerHelper
 
   private
