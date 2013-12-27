@@ -1,3 +1,27 @@
+# Local variables
+templateString = """
+<li>
+  <a href="<%= origin_link %>" target="_blank">
+    <img src="<%= picture_url %>" width="<%= width %>" height="<%= height %>" />
+  </a>
+  <hr />
+  <div>
+    <img src="<%= author_avatar_url %>" width="40" height="40" />
+    <%= description %>
+  </div>
+</li>
+"""
+
+handler = null
+page = 1
+isLoading = false
+apiURL = "stories"
+options =
+  autoResize: true # This will auto-update the layout when the browser window is resized.
+  container: $("#tiles") # Optional, used for some extra CSS styling
+  offset: 20 # Optional, the distance between grid items
+  outerOffset: 0
+
 # When scrolled all the way to the bottom, add more tiles.
 onScroll = (event) ->
 
@@ -52,30 +76,6 @@ onLoadData = (data) ->
 
   # Apply layout.
   applyLayout()
-
-templateString = """
-<li>
-  <a href="<%= origin_link %>" target="_blank">
-    <img src="<%= picture_url %>" width="<%= width %>" height="<%= height %>" />
-  </a>
-  <hr />
-  <div>
-    <img src="<%= author_avatar_url %>" width="40" height="40" />
-    <%= description %>
-  </div>
-</li>
-"""
-
-handler = null
-page = 1
-isLoading = false
-apiURL = "stories"
-options =
-  autoResize: true # This will auto-update the layout when the browser window is resized.
-  container: $("#tiles") # Optional, used for some extra CSS styling
-  offset: 20 # Optional, the distance between grid items
-  outerOffset: 0
-
 
 # Capture scroll event.
 $(document).bind "scroll", onScroll
