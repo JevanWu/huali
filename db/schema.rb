@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131225124055) do
+ActiveRecord::Schema.define(version: 20131227042756) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -459,6 +459,7 @@ ActiveRecord::Schema.define(version: 20131225124055) do
     t.integer  "author_avatar_file_size"
     t.datetime "author_avatar_updated_at"
     t.string   "origin_link"
+    t.integer  "priority",                   default: 0
   end
 
   create_table "surveys", force: true do |t|

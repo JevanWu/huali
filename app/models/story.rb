@@ -3,5 +3,5 @@ class Story < ActiveRecord::Base
   has_attached_file :picture, :styles => { :medium => "200x485>" }
   has_attached_file :author_avatar, :styles => { :small => "40x40>" }
 
-  default_scope -> { order('created_at DESC') }
+  default_scope -> { order('priority DESC') }
 end

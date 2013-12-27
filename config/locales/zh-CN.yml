@@ -394,6 +394,7 @@ zh-CN:
         picture: 照片
         author_avatar: 头像
         origin_link: 源链接
+        priority: 优先级
         available: 是否有效
 
       didi_passenger:

@@ -6,7 +6,7 @@ ActiveAdmin.register Story do
     private
 
     def permitted_params
-      params.permit story: [:name, :description, :picture, :author_avatar, :available, :origin_link]
+      params.permit story: [:name, :description, :picture, :author_avatar, :available, :origin_link, :priority]
     end
   end
 
@@ -21,6 +21,7 @@ ActiveAdmin.register Story do
     column :name
     column :description
     column :available
+    column :priority
 
     default_actions
   end
@@ -40,6 +41,8 @@ ActiveAdmin.register Story do
       row :origin_link do
         link_to(story.origin_link) unless story.origin_link.blank?
       end
+
+      row :priority
 
       row :available
     end
