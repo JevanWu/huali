@@ -48,7 +48,11 @@ class Sms
   end
 
   def sanitized_national_phone
-    phone_number.national.delete(' ')
+    if phone_number.type == :mobile
+      phone_number.national.gsub(/(^0+|\s)/, '')
+    else
+      phone_number.national.gsub(/\s/, '')
+    end
   end
 
   def smsbao
