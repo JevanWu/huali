@@ -45,9 +45,9 @@ module Extension
       custom_menu.add_child(Menu.new('合作品牌', nil, :link, brands_path))
       custom_menu.add_child(Menu.new('花里·明星', nil, :link, celebrities_path))
       custom_menu.add_child(Menu.new('媒体报道', nil, :link, medias_path))
-      custom_menu.add_child(Menu.new('微博故事', nil, :link, weibo_stories_path))
       custom_menu.add_child(Menu.new('花里博客', nil, :link, blog_path))
       menu_list << custom_menu
+      menu_list << Menu.new("花里 Girl", "", :link, weibo_stories_path)
     end
 
     def prepare_menu_list
