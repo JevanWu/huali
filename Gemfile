@@ -80,6 +80,8 @@ gem 'draper', '~> 1.0'
 gem 'ckeditor', github: 'ryancheung/ckeditor'
 gem 'huali-blog', path: 'vendor/plugins/huali-blog', require: 'blog'
 
+gem 'grape'
+
 group :development, :test do
   gem 'rspec-rails', '>= 2.11.0'
   gem 'rspec-instafail'
