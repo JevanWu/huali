@@ -84,6 +84,8 @@ Huali::Application.routes.draw do
   get 'stories', to: 'stories#index'
   resources :didi_passengers, only: [:new, :create], path: 'diditaxi'
 
+  mount API::API => '/api'
+
   ActiveAdmin.routes(self)
 
   get ':id', to: 'pages#show', id: /(?!blog)(.+)/, as: :page
