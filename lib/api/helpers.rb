@@ -7,8 +7,8 @@ module API
       object.page(params[:page]).per(params[:per_page].to_i)
     end
 
-    def authenticate!
-      unauthorized! unless verify_sign?
+    def verify_signature!
+      unauthorized! unless valid_signature?
     end
 
     # error helpers
@@ -42,8 +42,19 @@ module API
 
     private
 
-    def verify_sign?
-      #TODO: Impelement the signature verifing
+    def valid_signature?
+      signer = HmacSignature.new(ENV['API_SIGNING_SECRET'])
+
+      verb = request.request_method
+      host = request.host
+      path = request.path
+      query_params = request.params.reject do |k, _|
+        request.path_parameters.keys.include?(k.to_sym) || k.to_sym == SIGN_PARAM
+      end
+
+      sig  = request.headers[SIGN_HEADER] || request.params[SIGN_PARAM]
+
+      sig == signer.sign(verb, host, path, query_params) #&& (Time.current.to_i - params[:timestamp].to_i) < 120
     end
   end
 end
