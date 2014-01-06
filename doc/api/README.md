@@ -14,7 +14,9 @@ All unsuccessfull API requests would return error message as json with following
 
 ## HTTP Authentication
 
-All API requests require shared key signature. You need to pass a `sign` parameter by url or header. If passed as header, the header name must be "SIGN".
+All API requests require shared key signature. You need to pass a `sign` parameter by url or header.
+If passed as parameter and HTTP Reuqest is a `GET` request, all the parameters should be CGI-escaped.
+If passed as header, the header name must be "SIGN".
 
 If no, or an invalid, `sign` is provided then an error message will be returned with status code 401:
 
