@@ -1,6 +1,6 @@
 module API
   module APIHelpers
-    SIGN_HEADER = "SIGN"
+    SIGN_HEADER = "Sign"
     SIGN_PARAM = :sign
 
     def paginate(object)
@@ -45,16 +45,11 @@ module API
     def valid_signature?
       signer = HmacSignature.new(ENV['API_SIGNING_SECRET'])
 
-      verb = request.request_method
-      host = request.host
-      path = request.path
-      query_params = request.params.reject do |k, _|
-        request.path_parameters.keys.include?(k.to_sym) || k.to_sym == SIGN_PARAM
-      end
+      query_params = request.params.except(:route_info, :sign)
 
       sig  = request.headers[SIGN_HEADER] || request.params[SIGN_PARAM]
 
-      sig == signer.sign(verb, host, path, query_params) #&& (Time.current.to_i - params[:timestamp].to_i) < 120
+      sig == signer.sign(query_params) #&& (Time.current.to_i - params[:timestamp].to_i) < 120
     end
   end
 end
