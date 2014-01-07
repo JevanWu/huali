@@ -3,6 +3,10 @@ module API
     SIGN_HEADER = "Sign"
     SIGN_PARAM = :sign
 
+    def guest_user
+      @guest_user ||= User.build_guest
+    end
+
     def paginate(object)
       object.page(params[:page]).per(params[:per_page].to_i)
     end
@@ -17,8 +21,8 @@ module API
       render_api_error!('403 Forbidden', 403)
     end
 
-    def bad_request!(validation_errors)
-      render_api_error!("400 (Bad request)", 400, validation_errors)
+    def validation_error!(model)
+      render_api_error!("400 (Bad request)", 400, model.errors.messages)
     end
 
     def not_found!(resource = nil)
