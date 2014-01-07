@@ -30,6 +30,9 @@ Parameters:
 + `address_area_id` (optional)      - Receiver area(district) id
 + `address_post_code` (required)    - Receiver post code
 + `address_address` (required)      - Receiver address
++ `line_items[][product_id]` (required) - Order line item product id
++ `line_items[][price]` (required) - Order line item product price
++ `line_items[][quantity]` (required) - Order line item product quantity
 
 
 ## Order update
@@ -65,6 +68,9 @@ Parameters:
 + `address_area_id` (optional)      - Receiver area(district) id
 + `address_post_code` (required)    - Receiver post code
 + `address_address` (required)      - Receiver address
++ `line_items[][product_id]` (required) - Order line item product id
++ `line_items[][price]` (required) - Order line item product price
++ `line_items[][quantity]` (required) - Order line item product quantity
 
 
 ## Order paid
