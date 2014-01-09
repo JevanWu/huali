@@ -31,6 +31,8 @@ Parameters:
 + `address_post_code` (required)    - Receiver post code
 + `address_address` (required)      - Receiver address
 
+
+
 ## Order line items creation
 
 Create the line items of the order
@@ -41,9 +43,10 @@ POST /orders/:id/line_items
 
 Parameters:
 
-+ `product_id` (required) - Order line item product id
-+ `price` (required) - Order line item product price
-+ `quantity` (required) - Order line item product quantity
++ `id` (required)                   - The ID, or identifier, or merchant_order_no of order
++ `product_id` (required)           - Order line item product id
++ `price` (required)                - Order line item product price
++ `quantity` (required)             - Order line item product quantity
 
 
 
