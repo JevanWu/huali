@@ -59,7 +59,7 @@ class Order < ActiveRecord::Base
 
   before_validation :generate_identifier, on: :create
 
-  validates_presence_of :identifier, :line_items, :state, :total, :item_total
+  validates_presence_of :identifier, :state, :total, :item_total
 
   after_validation :cal_item_total
   after_validation :cal_total, on: :create
@@ -193,7 +193,7 @@ class Order < ActiveRecord::Base
 
   def cal_item_total
     return unless state == 'wait_check' or state == 'generated'
-    self.item_total = line_items.map(&:total).inject(:+)
+    self.item_total = line_items.map(&:total).inject(:+).to_f
   end
 
   def cal_total
