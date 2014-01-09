@@ -19,9 +19,6 @@ Parameters:
 + `merchant_trade_no` (optional)    - Merchant trade transaction No.
 + `ship_method_id` (optional)       - EMS: 4, 人工: 3, 顺风: 2, 联邦: 1, 申通: 5
 + `expected_date` (optional)        - Expected arrival date
-+ `bypass_date_validation` (optional) - Bypass date validation(expected arrival date)
-+ `bypass_region_validation` (optional) - Bypass delivery region validation
-+ `bypass_product_validation` (optional) - Bypass product validation
 + `delivery_date` (optional)        - Delivery date
 + `address_fullname` (required)     - Receiver fullname
 + `address_phone` (required)        - Receiver phone
@@ -72,9 +69,6 @@ Parameters:
 + `merchant_trade_no` (optional)    - Merchant trade transaction No.
 + `ship_method_id` (optional)       - EMS: 4, 人工: 3, 顺风: 2, 联邦: 1, 申通: 5
 + `expected_date` (optional)        - Expected arrival date
-+ `bypass_date_validation` (optional) - Bypass date validation(expected arrival date)
-+ `bypass_region_validation` (optional) - Bypass delivery region validation
-+ `bypass_product_validation` (optional) - Bypass product validation
 + `delivery_date` (optional)        - Delivery date
 + `address_fullname` (required)     - Receiver fullname
 + `address_phone` (required)        - Receiver phone
