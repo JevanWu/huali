@@ -16,7 +16,6 @@ Parameters:
 + `special_instructions` (optional) - Special instructions
 + `kind` (required)                 - Order kind, e.g. taobao, tencent
 + `merchant_order_no` (required)    - Merchant order No.
-+ `merchant_trade_no` (optional)    - Merchant trade transaction No.
 + `ship_method_id` (optional)       - EMS: 4, 人工: 3, 顺风: 2, 联邦: 1, 申通: 5
 + `expected_date` (optional)        - Expected arrival date
 + `delivery_date` (optional)        - Delivery date
@@ -66,7 +65,6 @@ Parameters:
 + `special_instructions` (optional) - Special instructions
 + `kind` (required)                 - Order kind, e.g. tabao, tencent
 + `merchant_order_no` (required)    - Merchant order No.
-+ `merchant_trade_no` (optional)    - Merchant trade transaction No.
 + `ship_method_id` (optional)       - EMS: 4, 人工: 3, 顺风: 2, 联邦: 1, 申通: 5
 + `expected_date` (optional)        - Expected arrival date
 + `delivery_date` (optional)        - Delivery date
