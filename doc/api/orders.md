@@ -23,16 +23,28 @@ Parameters:
 + `bypass_region_validation` (optional) - Bypass delivery region validation
 + `bypass_product_validation` (optional) - Bypass product validation
 + `delivery_date` (optional)        - Delivery date
-+ `address[fullname]` (required)     - Receiver fullname
-+ `address[phone]` (required)        - Receiver phone
-+ `address[province_id]` (required)  - Receiver province id
-+ `address[city_id]` (required)      - Receiver city id
-+ `address[area_id]` (optional)      - Receiver area(district) id
-+ `address[post_code]` (required)    - Receiver post code
-+ `address[address]` (required)      - Receiver address
-+ `line_items[][product_id]` (required) - Order line item product id
-+ `line_items[][price]` (required) - Order line item product price
-+ `line_items[][quantity]` (required) - Order line item product quantity
++ `address_fullname` (required)     - Receiver fullname
++ `address_phone` (required)        - Receiver phone
++ `address_province_id` (required)  - Receiver province id
++ `address_city_id` (required)      - Receiver city id
++ `address_area_id` (optional)      - Receiver area(district) id
++ `address_post_code` (required)    - Receiver post code
++ `address_address` (required)      - Receiver address
+
+## Order line items creation
+
+Create the line items of the order
+
+```
+POST /orders/:id/line_items
+```
+
+Parameters:
+
++ `product_id` (required) - Order line item product id
++ `price` (required) - Order line item product price
++ `quantity` (required) - Order line item product quantity
+
 
 
 ## Order update
@@ -68,9 +80,7 @@ Parameters:
 + `address_area_id` (optional)      - Receiver area(district) id
 + `address_post_code` (required)    - Receiver post code
 + `address_address` (required)      - Receiver address
-+ `line_items[][product_id]` (required) - Order line item product id
-+ `line_items[][price]` (required) - Order line item product price
-+ `line_items[][quantity]` (required) - Order line item product quantity
+
 
 
 ## Order paid
