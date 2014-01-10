@@ -9,11 +9,8 @@ GET /addresses/ids
 Parameters:
 
 + `province` (required)             - Province name
-+ `city` (optional)                 - City name
++ `city` (required)                 - City name
 + `area` (optional)                 - District name
-
-One of the two optional parameters `city` and `area` must be present, or it raises a invalid parameter error
-
 
 ```json
 {

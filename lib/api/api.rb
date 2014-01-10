@@ -30,5 +30,6 @@ module API
     helpers APIHelpers
 
     mount Orders
+    mount Addresses
   end
 end

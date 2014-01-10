@@ -31,6 +31,12 @@ module ApiHelpers
     JSON.parse(response.body)
   end
 
+  def import_region_data_from_files
+    region_data = File.expand_path('../../fixtures/regions.sql', __FILE__)
+
+    ActiveRecord::Base.connection.execute(File.read(region_data))
+  end
+
   private
 
   def request_sign(request_params)
