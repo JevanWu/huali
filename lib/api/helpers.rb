@@ -49,7 +49,7 @@ module API
     def valid_signature?
       signer = HmacSignature.new(ENV['API_SIGNING_SECRET'])
 
-      query_params = request.params.except(:route_info, :sign)
+      query_params = request.params.except(:route_info, :sign, :id)
 
       sig  = request.headers[SIGN_HEADER] || request.params[SIGN_PARAM]
 
