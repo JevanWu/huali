@@ -92,6 +92,7 @@ Parameters:
 + `merchant_trade_no` (required)    - Merchant trade transaction No.
 + `payment` (required)              - The amount of the payment by customer
 + `subject_text` (optional)         - The subject text of the payment
++ `method` (optional)               - Available methods: paypal, directPay, wechat, default: directPay
 
 ## Order complete
 
