@@ -84,6 +84,7 @@ When listing resources you can pass the following parameters:
 ## Contents
 
 + [Orders](orders.md)
++ [Addresses](addresses.md)
 
 ## Clients
 
