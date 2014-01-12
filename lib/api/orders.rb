@@ -123,6 +123,7 @@ module API
           Order.find_by_id_and_kind(params[:id], params[:kind])
 
         not_found!("order") and return if @order.blank?
+        forbidden! and return if @order.state != 'generated'
 
         @order.line_items.create(product_id: params[:product_id],
                                  quantity: params[:quantity],

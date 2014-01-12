@@ -133,5 +133,15 @@ describe API::API do
         response.status.should == 201
       end
     end
+
+    context "when the order state is not 'generated'" do
+      let(:order) { create(:order, :wait_check, merchant_order_no: '511862112300756', kind: 'taobao') }
+
+      it "raise 403 Forbidden error" do
+        post api("/orders/#{order.merchant_order_no}/line_items", valid_params), valid_params
+
+        response.status.should == 403
+      end
+    end
   end
 end
