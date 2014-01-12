@@ -3,6 +3,10 @@ require 'spec_helper'
 describe API::API do
   include ApiHelpers
 
+  before do
+    import_region_data_from_files
+  end
+
   let(:province) { create(:province) }
   let(:city) { province.cities.first }
   let(:area) { city.areas.first }
@@ -96,6 +100,37 @@ describe API::API do
         post api("/orders", unvalid_order), unvalid_order
         response.status.should == 400
         response.body.should match("kind")
+      end
+    end
+  end
+
+  describe "POST /orders/:id/line_items" do
+    let(:order) { create(:third_party_order) }
+    let(:product) { create(:product) }
+    let(:invalid_params) { { price: 299, quantity: 2, kind: 'taobao' } }
+    let(:valid_params) { { product_id: product.id , price: 299, quantity: 2, kind: 'taobao' } }
+
+    context "when the id of the order kind not found" do
+      it "returns 404 not found error" do
+        post api("/orders/8829/line_items", valid_params), valid_params
+
+        response.status.should == 404
+      end
+    end
+
+    context "with invalid parameters" do
+      it "returns 400 bad request error" do
+        post api("/orders/#{order.merchant_order_no}/line_items", invalid_params), invalid_params
+
+        response.status.should == 400
+      end
+    end
+
+    context "with valid parameters" do
+      it "creates a line item for the order" do
+        post api("/orders/#{order.merchant_order_no}/line_items", valid_params), valid_params
+
+        response.status.should == 201
       end
     end
   end

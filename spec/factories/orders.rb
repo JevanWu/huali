@@ -84,5 +84,18 @@ FactoryGirl.define do
         create_list(:shipment, Forgery(:basic).number, order: order )
       end
     end
+
+    trait :without_line_items do
+      after(:create) do |order|
+        order.line_items.delete_all
+      end
+    end
+
+    factory :third_party_order do
+      without_line_items
+
+      merchant_order_no { '511862112300756' }
+      kind { 'taobao' }
+    end
   end
 end

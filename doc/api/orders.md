@@ -40,6 +40,7 @@ POST /orders/:id/line_items
 Parameters:
 
 + `id` (required)                   - The ID, or identifier, or merchant_order_no of order
++ `kind` (optional)                 - Order kind, e.g. taobao, tencent, default: normal
 + `product_id` (required)           - Order line item product id
 + `price` (required)                - Order line item product price
 + `quantity` (required)             - Order line item product quantity

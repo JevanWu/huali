@@ -98,6 +98,38 @@ module API
       #   PUT /orders/:id
       put ":id" do
       end
+
+      # Create the line items of the order.
+      #
+      # Parameters:
+      #   id (required)                   - The ID, or identifier, or merchant_order_no of order
+      #   kind (optional)                 - Order kind, e.g. taobao, tencent, default: normal
+      #   product_id (required)           - Order line item product id
+      #   price (required)                - Order line item product price
+      #   quantity (required)             - Order line item product quantity
+
+      # Example Request:
+      #   POST /orders/:id/line_items
+      params do
+        optional :kind, type: String, default: 'normal'
+        requires :product_id, type: Integer
+        requires :price, type: Float
+        requires :quantity, type: Integer
+      end
+
+      post ":id/line_items" do
+        @order = Order.find_by_merchant_order_no_and_kind(params[:id], params[:kind]) ||
+          Order.find_by_identifier_and_kind(params[:id], params[:kind]) ||
+          Order.find_by_id_and_kind(params[:id], params[:kind])
+
+        not_found!("order") and return if @order.blank?
+
+        @order.line_items.create(product_id: params[:product_id],
+                                 quantity: params[:quantity],
+                                 price: params[:price])
+
+        status(201)
+      end
     end
   end
 end
