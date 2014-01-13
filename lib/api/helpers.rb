@@ -1,8 +1,5 @@
 module API
   module APIHelpers
-    SIGN_HEADER = "Sign"
-    SIGN_PARAM = :sign
-
     def guest_user
       @guest_user ||= User.build_guest
     end
@@ -47,13 +44,7 @@ module API
     private
 
     def valid_signature?
-      signer = HmacSignature.new(ENV['API_SIGNING_SECRET'])
-
-      query_params = request.params.except(:route_info, :sign, :id)
-
-      sig  = request.headers[SIGN_HEADER] || request.params[SIGN_PARAM]
-
-      sig == signer.sign(query_params) #&& (Time.current.to_i - params[:timestamp].to_i) < 120
+      ApiAuth.authentic?(request, ENV['API_SIGNING_SECRET'])
     end
   end
 end

@@ -82,6 +82,9 @@ gem 'huali-blog', path: 'vendor/plugins/huali-blog', require: 'blog'
 
 gem 'grape'
 
+gem 'api-auth', github: 'ryancheung/api_auth'
+gem 'rest-client'
+
 group :development, :test do
   gem 'rspec-rails', '>= 2.11.0'
   gem 'rspec-instafail'
