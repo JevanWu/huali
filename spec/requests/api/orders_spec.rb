@@ -60,14 +60,14 @@ describe API::API do
   describe "POST /orders" do
     context "with valid order parameters" do
       it "should create order" do
-        post api("/orders", valid_order), valid_order
+        post api("/orders"), valid_order
         response.status.should == 201
       end
     end
 
     context "when not providing required parameters" do
       it "should return 400 bad request error" do
-        post api("/orders", unvalid_order), unvalid_order
+        post api("/orders"), unvalid_order
         response.status.should == 400
       end
     end
@@ -97,7 +97,7 @@ describe API::API do
       end
 
       it "should return 400 bad request error" do
-        post api("/orders", unvalid_order), unvalid_order
+        post api("/orders"), unvalid_order
         response.status.should == 400
         response.body.should match("kind")
       end
@@ -113,7 +113,7 @@ describe API::API do
 
     context "when the id of the order kind not found" do
       it "returns 404 not found error" do
-        post api("/orders/8829/line_items", valid_params), valid_params
+        post api("/orders/8829/line_items"), valid_params
 
         response.status.should == 404
       end
@@ -121,7 +121,7 @@ describe API::API do
 
     context "with invalid parameters" do
       it "returns 400 bad request error" do
-        post api("/orders/#{order.merchant_order_no}/line_items", invalid_params), invalid_params
+        post api("/orders/#{order.merchant_order_no}/line_items"), invalid_params
 
         response.status.should == 400
       end
@@ -129,7 +129,7 @@ describe API::API do
 
     context "with valid parameters" do
       it "creates a line item for the order" do
-        post api("/orders/#{order.merchant_order_no}/line_items", valid_params), valid_params
+        post api("/orders/#{order.merchant_order_no}/line_items"), valid_params
 
         response.status.should == 201
       end
@@ -139,7 +139,7 @@ describe API::API do
       let(:order) { create(:third_party_order, :wait_check) }
 
       it "raise 403 Forbidden error" do
-        post api("/orders/#{order.merchant_order_no}/line_items", valid_params), valid_params
+        post api("/orders/#{order.merchant_order_no}/line_items"), valid_params
 
         response.status.should == 403
       end
@@ -166,7 +166,7 @@ describe API::API do
 
     context "with invalid parameters" do
       it "returns 400 bad request error" do
-        post api("/orders/#{order.merchant_order_no}/pay", invalid_params), invalid_params
+        post api("/orders/#{order.merchant_order_no}/pay"), invalid_params
 
         response.status.should == 400
       end
@@ -174,7 +174,7 @@ describe API::API do
 
     context "when the id of the order kind not found" do
       it "returns 404 not found error" do
-        post api("/orders/wrong_id/pay", valid_params), valid_params
+        post api("/orders/wrong_id/pay"), valid_params
 
         response.status.should == 404
       end
@@ -184,7 +184,7 @@ describe API::API do
       let(:order) { create(:third_party_order, :wait_check) }
 
       it "raise 403 Forbidden error" do
-        post api("/orders/#{order.merchant_order_no}/pay", valid_params), valid_params
+        post api("/orders/#{order.merchant_order_no}/pay"), valid_params
 
         response.status.should == 403
       end
@@ -204,7 +204,7 @@ describe API::API do
         end
 
         it "updates the old transaction, setting it successful" do
-          post api("/orders/#{order.merchant_order_no}/pay", valid_params), valid_params
+          post api("/orders/#{order.merchant_order_no}/pay"), valid_params
 
           transaction.reload.state.should == 'completed'
           response.status.should == 200
@@ -223,7 +223,7 @@ describe API::API do
         end
 
         it "creates a new transaction and set it successful" do
-          post api("/orders/#{order.merchant_order_no}/pay", valid_params), valid_params
+          post api("/orders/#{order.merchant_order_no}/pay"), valid_params
 
           response.status.should == 200
           order.transaction.merchant_trade_no.should == '2013123011001001920013924875'
@@ -236,7 +236,7 @@ describe API::API do
   describe "POST orders/:id/complete" do
     context "when the id of the order kind not found" do
       it "returns 404 not found error" do
-        post api("/orders/wrong_id/complete", { kind: 'taobao' }), kind: 'taobao'
+        post api("/orders/wrong_id/complete"), kind: 'taobao'
 
         response.status.should == 404
       end
@@ -246,7 +246,7 @@ describe API::API do
       let(:order) { create(:third_party_order, :wait_check) }
 
       it "raise 403 Forbidden error" do
-        post api("/orders/#{order.merchant_order_no}/complete", { kind: 'taobao' }), kind: 'taobao'
+        post api("/orders/#{order.merchant_order_no}/complete"), kind: 'taobao'
 
         response.status.should == 403
       end
@@ -256,7 +256,7 @@ describe API::API do
       let(:order) { create(:third_party_order, :wait_confirm) }
 
       it "complete the order" do
-        post api("/orders/#{order.merchant_order_no}/complete", { kind: 'taobao' }), kind: 'taobao'
+        post api("/orders/#{order.merchant_order_no}/complete"), kind: 'taobao'
 
         order.reload.state.should == 'completed'
         response.status.should == 200

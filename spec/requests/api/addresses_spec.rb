@@ -12,7 +12,7 @@ describe API::API do
       let(:invalid_params) { { } }
 
       before do
-        get api("/addresses/ids", invalid_params), invalid_params
+        get api("/addresses/ids"), invalid_params
       end
 
       context "when not providing required parameter province" do
@@ -34,7 +34,7 @@ describe API::API do
 
     context "with valid parameters" do
       before do
-        get api("/addresses/ids", valid_params), valid_params
+        get api("/addresses/ids"), valid_params
       end
 
       context "of normal province and cities" do
