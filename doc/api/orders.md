@@ -108,3 +108,4 @@ POST /orders/:id/complete
 Parameters:
 
 + `id` (required)                   - The ID, or identifier, or merchant_order_no of order
++ `kind` (optional)                 - Order kind, e.g. taobao, tencent, default: normal

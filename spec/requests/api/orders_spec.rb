@@ -136,7 +136,7 @@ describe API::API do
     end
 
     context "when the order state is not 'generated'" do
-      let(:order) { create(:order, :wait_check, merchant_order_no: '511862112300756', kind: 'taobao') }
+      let(:order) { create(:third_party_order, :wait_check) }
 
       it "raise 403 Forbidden error" do
         post api("/orders/#{order.merchant_order_no}/line_items", valid_params), valid_params
@@ -181,7 +181,7 @@ describe API::API do
     end
 
     context "when the state of the order is not 'generated'" do
-      let(:order) { create(:order, :wait_check, merchant_order_no: '511862112300756', kind: 'taobao') }
+      let(:order) { create(:third_party_order, :wait_check) }
 
       it "raise 403 Forbidden error" do
         post api("/orders/#{order.merchant_order_no}/pay", valid_params), valid_params
@@ -232,4 +232,37 @@ describe API::API do
       end
     end
   end
+
+  describe "POST orders/:id/complete" do
+    context "when the id of the order kind not found" do
+      it "returns 404 not found error" do
+        post api("/orders/wrong_id/complete", { kind: 'taobao' }), kind: 'taobao'
+
+        response.status.should == 404
+      end
+    end
+
+    context "when the state of the order is not 'wait_confirm'" do
+      let(:order) { create(:third_party_order, :wait_check) }
+
+      it "raise 403 Forbidden error" do
+        post api("/orders/#{order.merchant_order_no}/complete", { kind: 'taobao' }), kind: 'taobao'
+
+        response.status.should == 403
+      end
+    end
+
+    context "when the state of the order is 'wait_confirm'" do
+      let(:order) { create(:third_party_order, :wait_confirm) }
+
+      it "complete the order" do
+        post api("/orders/#{order.merchant_order_no}/complete", { kind: 'taobao' }), kind: 'taobao'
+
+        order.reload.state.should == 'completed'
+        response.status.should == 200
+      end
+    end
+
+  end
+
 end

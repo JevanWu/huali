@@ -144,7 +144,7 @@ module API
       #   method (optional)               - Available methods: paypal, directPay, wechat, default: directPay
 
       # Example Request:
-      #   POST /orders/:id/line_items
+      #   POST /orders/:id/pay
       params do
         requires :merchant_trade_no, type: String
         optional :merchant_name, type: String, default: 'Alipay'
@@ -178,6 +178,31 @@ module API
 
         @transaction.start if @transaction.state == 'generated'
         @transaction.complete_deal
+
+        status(200)
+      end
+
+      # Set order as completed. This API is called when Third-party order system notify us that an order is confirmed receiving or completed.
+      #
+      # Parameters:
+      #   id (required)                   - The ID, or identifier, or merchant_order_no of order
+      #   kind (optional)                 - Order kind, e.g. taobao, tencent, default: normal
+
+      # Example Request:
+      #   POST /orders/:id/complete
+      params do
+        optional :kind, type: String, default: 'normal'
+      end
+
+      post ":id/complete" do
+        @order = Order.find_by_merchant_order_no_and_kind(params[:id], params[:kind]) ||
+          Order.find_by_identifier_and_kind(params[:id], params[:kind]) ||
+          Order.find_by_id_and_kind(params[:id], params[:kind])
+
+        not_found!("order") and return if @order.blank?
+        forbidden! and return if @order.state != 'wait_confirm'
+
+        @order.confirm
 
         status(200)
       end
