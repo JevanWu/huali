@@ -131,6 +131,56 @@ module API
 
         status(201)
       end
+
+      # Set order as paid. This API is called when Third-party order system notify us that an order is paid.
+      #
+      # Parameters:
+      #   id (required)                   - The ID, or identifier, or merchant_order_no of order
+      #   merchant_trade_no (required)    - Merchant trade transaction No.
+      #   merchant_name (optional)        - Merchant name, available names: Alipay, Paypal and Tenpay, default: Alipay.
+      #   kind (optional)                 - Order kind, e.g. taobao, tencent, default: normal
+      #   payment (required)              - The amount of the payment by customer
+      #   subject_text (optional)         - The subject text of the payment
+      #   method (optional)               - Available methods: paypal, directPay, wechat, default: directPay
+
+      # Example Request:
+      #   POST /orders/:id/line_items
+      params do
+        requires :merchant_trade_no, type: String
+        optional :merchant_name, type: String, default: 'Alipay'
+        optional :kind, type: String, default: 'normal'
+        requires :payment, type: Float
+        optional :subject_text, type: String
+        optional :method, type: String, default: 'directPay'
+      end
+
+      post ":id/pay" do
+        @order = Order.find_by_merchant_order_no_and_kind(params[:id], params[:kind]) ||
+          Order.find_by_identifier_and_kind(params[:id], params[:kind]) ||
+          Order.find_by_id_and_kind(params[:id], params[:kind])
+
+        not_found!("order") and return if @order.blank?
+        forbidden! and return if @order.state != 'generated'
+
+        @transaction = @order.transactions.where(merchant_trade_no: params[:merchant_trade_no]).first
+
+        unless @transaction
+          opts = {
+            merchant_name: params[:merchant_name],
+            merchant_trade_no: params[:merchant_trade_no],
+            amount: params[:payment],
+            paymethod: params[:method]
+          }
+          opts.merge!(subject: params[:subject_text]) if params[:subject_text].present?
+
+          @transaction = @order.generate_transaction(opts)
+        end
+
+        @transaction.start if @transaction.state == 'generated'
+        @transaction.complete_deal
+
+        status(200)
+      end
     end
   end
 end

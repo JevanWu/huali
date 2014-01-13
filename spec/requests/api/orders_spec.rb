@@ -104,8 +104,9 @@ describe API::API do
     end
   end
 
+  let(:order) { create(:third_party_order, :without_line_items) }
+
   describe "POST /orders/:id/line_items" do
-    let(:order) { create(:third_party_order) }
     let(:product) { create(:product) }
     let(:invalid_params) { { price: 299, quantity: 2, kind: 'taobao' } }
     let(:valid_params) { { product_id: product.id , price: 299, quantity: 2, kind: 'taobao' } }
@@ -141,6 +142,93 @@ describe API::API do
         post api("/orders/#{order.merchant_order_no}/line_items", valid_params), valid_params
 
         response.status.should == 403
+      end
+    end
+  end
+
+  describe "POST orders/:id/pay" do
+    let(:valid_params) do
+      {
+        merchant_trade_no: '2013123011001001920013924875',
+        merchant_name: 'Alipay',
+        kind: 'taobao',
+        payment: 299.0
+      }
+    end
+
+    let(:invalid_params) do
+      {
+        merchant_trade_no: '2013123011001001920013924875',
+        merchant_name: 'Alipay',
+        kind: 'taobao'
+      }
+    end
+
+    context "with invalid parameters" do
+      it "returns 400 bad request error" do
+        post api("/orders/#{order.merchant_order_no}/pay", invalid_params), invalid_params
+
+        response.status.should == 400
+      end
+    end
+
+    context "when the id of the order kind not found" do
+      it "returns 404 not found error" do
+        post api("/orders/wrong_id/pay", valid_params), valid_params
+
+        response.status.should == 404
+      end
+    end
+
+    context "when the state of the order is not 'generated'" do
+      let(:order) { create(:order, :wait_check, merchant_order_no: '511862112300756', kind: 'taobao') }
+
+      it "raise 403 Forbidden error" do
+        post api("/orders/#{order.merchant_order_no}/pay", valid_params), valid_params
+
+        response.status.should == 403
+      end
+    end
+
+    context "with valid parameters and order state" do
+      context "when the merchant_trade_no already exists" do
+        let(:order) { create(:third_party_order, :with_one_transaction) }
+        let(:transaction) { order.transaction.start; order.transaction }
+        let(:valid_params) do
+          {
+            merchant_trade_no: transaction.merchant_trade_no,
+            merchant_name: transaction.merchant_name,
+            kind: order.kind,
+            payment: 299.0
+          }
+        end
+
+        it "updates the old transaction, setting it successful" do
+          post api("/orders/#{order.merchant_order_no}/pay", valid_params), valid_params
+
+          transaction.reload.state.should == 'completed'
+          response.status.should == 200
+        end
+      end
+
+      context "when the merchant_trade_no already exists" do
+        let(:order) { create(:third_party_order) }
+        let(:valid_params) do
+          {
+            merchant_trade_no: '2013123011001001920013924875',
+            merchant_name: 'Alipay',
+            kind: 'taobao',
+            payment: 299.0
+          }
+        end
+
+        it "creates a new transaction and set it successful" do
+          post api("/orders/#{order.merchant_order_no}/pay", valid_params), valid_params
+
+          response.status.should == 200
+          order.transaction.merchant_trade_no.should == '2013123011001001920013924875'
+          order.transaction.state.should == 'completed'
+        end
       end
     end
   end

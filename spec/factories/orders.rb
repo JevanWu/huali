@@ -36,6 +36,7 @@
 
 FactoryGirl.define do
   factory :order do
+    user
     address
     expected_date { "2013-01-01".to_date } # Thuesday
     delivery_date { expected_date - 1 }
@@ -92,8 +93,6 @@ FactoryGirl.define do
     end
 
     factory :third_party_order do
-      without_line_items
-
       merchant_order_no { '511862112300756' }
       kind { 'taobao' }
     end

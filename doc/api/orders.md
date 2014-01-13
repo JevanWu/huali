@@ -91,6 +91,8 @@ Parameters:
 
 + `id` (required)                   - The ID, or identifier, or merchant_order_no of order
 + `merchant_trade_no` (required)    - Merchant trade transaction No.
++ `merchant_name` (optional)        - Merchant name, available names: Alipay, Paypal and Tenpay, default: Alipay.
++ `kind` (optional)                 - Order kind, e.g. taobao, tencent, default: normal
 + `payment` (required)              - The amount of the payment by customer
 + `subject_text` (optional)         - The subject text of the payment
 + `method` (optional)               - Available methods: paypal, directPay, wechat, default: directPay
