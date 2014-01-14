@@ -1,17 +1,4 @@
 <div class="best-products row">
-  <%# 圣诞节 %>
-  <div class="square">
-    <a href="/collections/christmas-day/products">
-      <%= image_tag "best-products/christmas.jpg", width: 460, height: 440 %>
-    </a>
-  </div>
-
-  <%# 假日松烛, 芳香伊甸园 %>
-  <%= render partial: 'collections/product', collection: Product.find(128, 130) %>
-
-  <%# 木桩烛台, 松果花环, 浆果花环 %>
-  <%= render partial: 'collections/product', collection: Product.find(129, 127, 126) %>
-
   <%# 鲜花 %>
   <div class="square">
     <a href="/collections/fresh-flower/products">
