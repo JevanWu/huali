@@ -161,7 +161,7 @@ GIT
 
 GIT
   remote: git://github.com/ryancheung/api_auth.git
-  revision: 3920c31d949e313930d078ccd00b0b12a13c3bc8
+  revision: 7e5700065438758ffa550b4447b30ae1589fba23
   specs:
     api-auth (1.0.3)
 
