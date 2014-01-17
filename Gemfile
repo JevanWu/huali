@@ -82,7 +82,7 @@ gem 'huali-blog', path: 'vendor/plugins/huali-blog', require: 'blog'
 
 gem 'grape'
 
-gem 'api-auth', github: 'ryancheung/api_auth'
+gem 'api-auth', github: 'NicoArbogast/api_auth'
 gem 'rest-client'
 
 group :development, :test do
