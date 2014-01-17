@@ -13,7 +13,6 @@ module API
     end
 
     rescue_from :all do |exception|
-      raise exception
       # lifted from https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/middleware/debug_exceptions.rb#L60
       # why is this not wrapped in something reusable?
       trace = exception.backtrace
