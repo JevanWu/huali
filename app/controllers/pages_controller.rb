@@ -26,4 +26,7 @@ class PagesController < ApplicationController
 
   def christmas
   end
+
+  def valentine
+  end
 end
