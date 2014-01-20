@@ -79,6 +79,7 @@ Huali::Application.routes.draw do
   get 'medias', to: 'pages#medias', as: :medias
   get 'weibo_stories', to: 'pages#weibo_stories', as: :weibo_stories
   get 'christmas', to: 'pages#christmas', as: :christmas
+  get 'valentine', to: 'pages#valentine', as: :valentine
 
   get 'banners/:date', to: 'banners#index', as: :banners
   get 'stories', to: 'stories#index'
