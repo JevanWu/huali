@@ -115,7 +115,7 @@ class Order < ActiveRecord::Base
   scope :accountable, -> { where("kind = 'normal'").where("state != 'void' and state != 'generated'") }
   scope :in_day, lambda { |date| where("DATE(created_at AT TIME ZONE 'utc') = DATE(?)", date) }
   scope :unpaid_today, lambda { |hours_ago| in_day(Date.current).where(state: 'generated').where("created_at <= ?", hours_ago.hours.ago) }
-  scope :ready_to_ship_today, lambda { where(delivery_date: Date.current) }
+  scope :ready_to_ship_today, lambda { |date| where(delivery_date: date) }
 
   default_scope -> { order("created_at DESC") }
 
