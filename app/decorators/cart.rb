@@ -24,11 +24,17 @@ class Cart
   end
 
   def total
-    if adjustment.present?# && valid_coupon?
-      [Discount.new(adjustment).calculate(original_total), 0].max
-    else
-      original_total
+    @total = if adjustment.present?# && valid_coupon?
+               [Discount.new(adjustment).calculate(original_total), 0].max
+             else
+               original_total
+             end
+
+    if limited_promotion_today
+      @total = [Discount.new(limited_promotion_today.adjustment).calculate(@total), 0].max
     end
+
+    @total
   end
 
   def discounted?
@@ -44,10 +50,22 @@ class Cart
   end
 
   def to_coupon_rule_opts
-    { total_price: original_total, products: items.map(&:product) }
+    { total_price: original_total, products: products }
+  end
+
+  def limited_promotion_today
+    products.each do |p|
+      return p.limited_promotion_today if p.limited_promotion_today
+    end
+
+    nil
   end
 
   private
+
+  def products
+    items.map(&:product)
+  end
 
   def coupon
     CouponCode.find_by_code(coupon_code)
