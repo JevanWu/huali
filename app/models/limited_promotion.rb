@@ -10,6 +10,8 @@ class LimitedPromotion < ActiveRecord::Base
     numericality: { only_integer: true, greater_than_or_equal_to: 1, allow_blank: true },
     on: :create
 
+  scope :start_today, -> { where(start_at: (Time.current.beginning_of_day)..(Time.current.end_of_day)) }
+
   def usable?
     started? && !expired? && !out_of_use_count?
   end
@@ -37,5 +39,9 @@ class LimitedPromotion < ActiveRecord::Base
 
   def started?
     start_at <= Time.current
+  end
+
+  def self.retrieve_by_products(product_ids)
+    self.lock.start_today.where("product_id in (?)", product_ids)
   end
 end
