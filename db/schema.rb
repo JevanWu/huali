@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131227042756) do
+ActiveRecord::Schema.define(version: 20140122024939) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -241,12 +241,26 @@ ActiveRecord::Schema.define(version: 20131227042756) do
 
   add_index "didi_passengers", ["coupon_code_id"], name: "index_didi_passengers_on_coupon_code_id", using: :btree
 
+  create_table "limited_promotions", force: true do |t|
+    t.string   "name"
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.string   "adjustment"
+    t.integer  "product_id"
+    t.integer  "available_count"
+    t.integer  "used_count",      default: 0
+    t.boolean  "expired"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "line_items", force: true do |t|
     t.integer  "order_id"
     t.integer  "product_id"
     t.integer  "quantity",   null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal  "price"
   end
 
   add_index "line_items", ["order_id"], name: "index_line_items_on_order_id", using: :btree
@@ -289,7 +303,7 @@ ActiveRecord::Schema.define(version: 20131227042756) do
     t.datetime "created_at",                                                      null: false
     t.datetime "updated_at",                                                      null: false
     t.text     "gift_card_text"
-    t.date     "expected_date",                                                   null: false
+    t.date     "expected_date"
     t.string   "sender_email"
     t.string   "sender_phone"
     t.string   "sender_name"
@@ -305,6 +319,7 @@ ActiveRecord::Schema.define(version: 20131227042756) do
   end
 
   add_index "orders", ["identifier"], name: "index_orders_on_identifier", unique: true, using: :btree
+  add_index "orders", ["merchant_order_no", "kind"], name: "index_orders_on_merchant_order_no_and_kind", using: :btree
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
   create_table "pages", force: true do |t|

@@ -149,6 +149,7 @@ zh-CN:
       period_region_policy: 短期地域规则
       story: 微博故事
       didi_passenger: 嘀嘀打车活动
+      limited_promotion: 限时优惠
 
     attributes:
       order: &order
@@ -403,6 +404,17 @@ zh-CN:
         terms_of_service: 同意条款
         coupon_code: 优惠劵
         created_at: 领取时间
+
+      limited_promotion:
+        name: 名称
+        start_at: 开始时间
+        end_at: 结束时间
+        adjustment: 优惠调整
+        product: 优惠产品
+        product_id: 优惠产品
+        available_count: 有效使用次数
+        used_count: 已使用次数
+        expired: 是否过期
 
   models:
     order:

@@ -1,0 +1,13 @@
+<%= semantic_form_for [:admin, @limited_promotion] do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :name %>
+    <%= f.input :start_at %>
+    <%= f.input :end_at %>
+    <%= f.input :adjustment, placeholder: '+20.0, -30.0, x1.1, *0.9 etc.', hint: 'support multiple calculation(+,-,*,x,%,/), validate format includes "-20.0", "x1.1", "%2" etc.' %>
+    <%= f.input :available_count, as: :number, required: true %>
+    <%= f.input :product, input_html: { :"data-placeholder" => '请选择', class: 'chosen' } %>
+    <%= f.input :expired %>
+  <% end %>
+  <%= f.submit %>
+<% end %>
+
