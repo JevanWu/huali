@@ -12,5 +12,7 @@ class CreateLimitedPromotions < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :limited_promotions, :product_id
   end
 end

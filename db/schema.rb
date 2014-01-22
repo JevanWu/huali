@@ -254,6 +254,8 @@ ActiveRecord::Schema.define(version: 20140122024939) do
     t.datetime "updated_at"
   end
 
+  add_index "limited_promotions", ["product_id"], name: "index_limited_promotions_on_product_id", using: :btree
+
   create_table "line_items", force: true do |t|
     t.integer  "order_id"
     t.integer  "product_id"
