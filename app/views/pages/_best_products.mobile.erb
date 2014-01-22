@@ -1,8 +1,8 @@
 <div class="best-products constrained row">
-  <%# 鲜花 %>
+  <%# New Arrival %>
   <div class="square">
-    <a href="/collections/fresh-flower/products">
-      <%= image_tag "best-products/fresh_flowers.jpg", width: 460, height: 440 %>
+    <a>
+      <%= image_tag "best-products/new-arrival.jpg", width: 460, height: 440 %>
     </a>
   </div>
 
@@ -14,7 +14,7 @@
 
   <%# 永生花 %>
   <div class="square">
-    <a href="/collections/preserved-flower/products">
+    <a>
       <%= image_tag "best-products/preserved-flower.jpg", width: 460, height: 440 %>
     </a>
   </div>
@@ -25,10 +25,10 @@
   <%# 紫舞, 深海之谜, 花年轮, 蓝宝石 %>
   <%= render partial: 'collections/product', collection: Product.find(84, 110, 116, 98) %>
 
-  <%# 色彩系列 %>
+  <%# 鲜花 %>
   <div class="square">
-    <a href="/collections/colorful-life">
-      <%= image_tag "best-products/flower-with-enamel.jpg", width: 460, height: 440 %>
+    <a>
+      <%= image_tag "best-products/fresh_flowers.jpg", width: 460, height: 440 %>
     </a>
   </div>
 
