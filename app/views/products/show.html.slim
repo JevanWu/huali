@@ -43,8 +43,4 @@
         .share
           span = t(:sharing)
           = render 'shared/product_share_links', product: @product
-        - if @product.count_on_hand > 0
-          = link_to t('views.product.flower_basket'), current_order_path, class: 'add-btn button', data: { product: @product.id }
-        - else
-          p.cant-add
-            =t 'views.product.soldout'
+        = product_buy_link(@product, class: 'add-btn button', data: { product: @product.id })

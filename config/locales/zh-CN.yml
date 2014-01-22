@@ -614,6 +614,10 @@ zh-CN:
       product_info: 产品信息
       join_queue: 如需加入订购队列，请联系客服
       add_reminder: 添加提醒
+      start_promo_at: "%{time}开抢"
+      close_promo: 即将开始
+      start_promo: 0元开抢
+      end_promo: 已结束
 
     reminder:
       selected_product: 选择的产品

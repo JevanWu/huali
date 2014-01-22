@@ -41,6 +41,10 @@ class LimitedPromotion < ActiveRecord::Base
     start_at <= Time.current
   end
 
+  def ended?
+    expired? || out_of_use_count?
+  end
+
   def self.retrieve_by_products(product_ids)
     self.lock.start_today.where("product_id in (?)", product_ids)
   end
