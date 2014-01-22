@@ -16,6 +16,9 @@ ActiveAdmin.register LimitedPromotion do
   filter :start_at
   filter :end_at
 
+  scope :all
+  scope :start_today
+
   index do
     selectable_column
     column :name
