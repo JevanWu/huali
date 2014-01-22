@@ -34,7 +34,7 @@ class LimitedPromotion < ActiveRecord::Base
   def close_to_start_time?
     start_in_seconds = start_at - Time.current
 
-    start_in_seconds <= 30 * 60
+    start_in_seconds <= 10 * 60
   end
 
   def started?
