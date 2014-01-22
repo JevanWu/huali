@@ -149,6 +149,7 @@ zh-CN:
       period_region_policy: 短期地域规则
       story: 微博故事
       didi_passenger: 嘀嘀打车活动
+      limited_promotion: 限时优惠
 
     attributes:
       order: &order
@@ -404,6 +405,17 @@ zh-CN:
         coupon_code: 优惠劵
         created_at: 领取时间
 
+      limited_promotion:
+        name: 名称
+        start_at: 开始时间
+        end_at: 结束时间
+        adjustment: 优惠调整
+        product: 优惠产品
+        product_id: 优惠产品
+        available_count: 有效使用次数
+        used_count: 已使用次数
+        expired: 是否过期
+
   models:
     order:
       state:
@@ -513,6 +525,8 @@ zh-CN:
       cancel_failed: 订单取消失败, 请联系客服人员
       no_orders_for_you: 目前您还没有订单哦, 请去花市采购吧
       products_sold_out: 产品已售尽
+      success_to_get_promo_product: 恭喜您, 抢购成功
+      fail_to_get_promo_product: 很抱歉，您错过了0元抢购，但还可以继续付款购买
 
     reminder:
       reminder_success: 您已经成功创建提醒
@@ -602,6 +616,10 @@ zh-CN:
       product_info: 产品信息
       join_queue: 如需加入订购队列，请联系客服
       add_reminder: 添加提醒
+      start_promo_at: "%{time}开抢"
+      close_promo: 即将开始
+      start_promo: 0元开抢
+      end_promo: 已结束
 
     reminder:
       selected_product: 选择的产品
