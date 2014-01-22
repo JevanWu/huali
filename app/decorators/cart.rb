@@ -30,7 +30,7 @@ class Cart
                original_total
              end
 
-    if limited_promotion_today
+    if limited_promotion_today && limited_promotion_today.usable?
       @total = [Discount.new(limited_promotion_today.adjustment).calculate(@total), 0].max
     end
 
