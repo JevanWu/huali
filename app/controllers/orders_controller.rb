@@ -91,6 +91,7 @@ class OrdersController < ApplicationController
 
         if cookies[:in_limited_promotion]
           flash[:notice] = t('controllers.order.success_to_get_promo_product')
+          flash[:limited_promo_result] = 1
         else
           flash[:notice] = t('controllers.order.order_success')
         end
@@ -98,6 +99,7 @@ class OrdersController < ApplicationController
       else
         if cookies[:in_limited_promotion]
           flash[:alert] = t('controllers.order.fail_to_get_promo_product')
+          flash[:limited_promo_result] = 0
         else
           flash[:notice] = t('controllers.order.order_success')
         end
