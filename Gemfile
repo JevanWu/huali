@@ -85,6 +85,8 @@ gem 'grape'
 gem 'api-auth', github: 'NicoArbogast/api_auth'
 gem 'rest-client'
 
+gem 'huali_api', git: 'git@git.zenhacks.org:ryan/huali_api.git', require: 'huali_agent_api'
+
 group :development, :test do
   gem 'rspec-rails', '>= 2.11.0'
   gem 'rspec-instafail'
