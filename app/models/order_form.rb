@@ -44,7 +44,7 @@ class ItemInfo
 
   def initialize(*)
     super
-    self.price = product.price
+    self.price = product.price if product_id
 
     @errors = ActiveModel::Errors.new(self)
   end
