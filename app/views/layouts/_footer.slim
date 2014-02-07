@@ -37,3 +37,20 @@
       =image_tag("QRcode.jpg")
     p
       | 打开微信，点击底部的“发现”，使用 “扫一扫” 即可关注我们。
+
+- if flash[:limited_promo_result] == 1
+  #limited-promo-success.limited-promo
+    b
+      | x
+    .pop-up-content
+      h3 0元抢购
+      .main
+        = t('controllers.order.success_to_get_promo_product')
+- elsif flash[:limited_promo_result] == 0
+  #limited-promo-fail.limited-promo
+    b
+      | x
+    .pop-up-content
+      h3 0元抢购
+      .main
+        = t('controllers.order.fail_to_get_promo_product')

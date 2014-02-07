@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140112151639) do
+ActiveRecord::Schema.define(version: 20140122024939) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -240,6 +240,21 @@ ActiveRecord::Schema.define(version: 20140112151639) do
   end
 
   add_index "didi_passengers", ["coupon_code_id"], name: "index_didi_passengers_on_coupon_code_id", using: :btree
+
+  create_table "limited_promotions", force: true do |t|
+    t.string   "name"
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.string   "adjustment"
+    t.integer  "product_id"
+    t.integer  "available_count"
+    t.integer  "used_count",      default: 0
+    t.boolean  "expired"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "limited_promotions", ["product_id"], name: "index_limited_promotions_on_product_id", using: :btree
 
   create_table "line_items", force: true do |t|
     t.integer  "order_id"

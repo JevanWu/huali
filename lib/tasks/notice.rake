@@ -30,7 +30,7 @@ namespace :notice do
 
   desc "Notify about orders have delivery date today"
   task ready_to_ship_orders_today: :environment do
-    Notify.delay.ready_to_ship_orders_today
+    Notify.delay.ready_to_ship_orders_today(Date.current, 'ella@hua.li')
   end
 
   def mail_list

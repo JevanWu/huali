@@ -14,6 +14,10 @@ module Extension
       if line_items.present?
         @cart = ::Cart.new(line_items, coupon_code)
         @products_in_cart = line_items.map(&:product)
+
+        if @cart.limited_promotion_today
+          cookies[:in_limited_promotion] = true # set flag of buying promo product
+        end
       end
     end
 

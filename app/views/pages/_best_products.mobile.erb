@@ -1,54 +1,41 @@
 <div class="best-products constrained row">
-  <%# 圣诞节 %>
+  <%# New Arrival %>
   <div class="square">
-    <a href="/collections/christmas-day/products">
-      <%= image_tag "best-products/christmas.jpg", width: 460, height: 440 %>
+    <a>
+      <%= image_tag "best-products/new-arrival.jpg", width: 460, height: 440 %>
     </a>
   </div>
 
-  <%# 假日松烛, 芳香伊甸园 %>
-  <%= render partial: 'collections/product', collection: Product.find(128, 130) %>
+  <%# 情人草, The one 羽毛笔 %>
+  <%= render partial: 'collections/product', collection: Product.find(133, 122) %>
 
-  <%# 木桩烛台, 松果花环, 浆果花环 %>
-  <%= render partial: 'collections/product', collection: Product.find(129, 127, 126) %>
-
-  <%# 鲜花 %>
-  <div class="square">
-    <a href="/collections/fresh-flower/products">
-      <%= image_tag "best-products/fresh_flowers.jpg", width: 460, height: 440 %>
-    </a>
-  </div>
-
-  <%# 普罗旺斯, Paris %>
-  <%= render partial: 'collections/product', collection: Product.find(85, 86) %>
-
-  <%# 海芋恋, 海洋之心, 水边的阿狄丽娜, 花园梦想 %>
-  <%= render partial: 'collections/product', collection: Product.find(118, 22, 92, 102) %>
+  <%# 无双玫瑰, 红宝石, 普罗旺斯的一年, Chloe %>
+  <%= render partial: 'collections/product', collection: Product.find(80, 83, 85, 132) %>
 
   <%# 永生花 %>
   <div class="square">
-    <a href="/collections/preserved-flower/products">
+    <a>
       <%= image_tag "best-products/preserved-flower.jpg", width: 460, height: 440 %>
     </a>
   </div>
 
-  <%# 红宝石, 紫舞 %>
-  <%= render partial: 'collections/product', collection: Product.find(83, 84) %>
+  <%# 软妹子, 淡奶之吻 %>
+  <%= render partial: 'collections/product', collection: Product.find(104, 105) %>
 
-  <%# 星空下的问候, 永生·海洋之心, THE ONE-羽毛笔, 初步 %>
-  <%= render partial: 'collections/product', collection: Product.find(93, 103, 122, 119) %>
+  <%# 紫舞, 深海之谜, 花年轮, 蓝宝石 %>
+  <%= render partial: 'collections/product', collection: Product.find(84, 110, 116, 98) %>
 
-  <%# 色彩系列 %>
+  <%# 鲜花 %>
   <div class="square">
-    <a href="/collections/colorful-life/products">
-      <%= image_tag "best-products/flower-with-enamel.jpg", width: 460, height: 440 %>
+    <a>
+      <%= image_tag "best-products/fresh_flowers.jpg", width: 460, height: 440 %>
     </a>
   </div>
 
-  <%# 深海之谜, 弗拉明戈 %>
-  <%= render partial: 'collections/product', collection: Product.find(110, 109) %>
+  <%# 侧耳倾心, 巴黎 %>
+  <%= render partial: 'collections/product', collection: Product.find(135, 86) %>
 
-  <%# 自然香气, 轻奢世界, 浓情城市, 欧洲花园 %>
-  <%= render partial: 'collections/product', collection: Product.find(111, 112, 108, 107) %>
+  <%# 海洋之心, 给柏拉图的信, 花园梦想, 侧耳倾心, 暖 %>
+  <%= render partial: 'collections/product', collection: Product.find(22, 23, 102, 125) %>
 
 </div>

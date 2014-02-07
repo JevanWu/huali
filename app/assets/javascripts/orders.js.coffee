@@ -1,4 +1,3 @@
-#= require jquery.cookie
 #= require_self
 
 $ ->
@@ -6,7 +5,7 @@ $ ->
   $.cookie.json = true
 
   #查看某种花时加入购物车的操作
-  $('.add-btn').click (e) ->
+  $('a.add-btn, button.add-btn').click (e) ->
     link = $(@)
     pro = Cart.get link.data('product')
     Cart.update(id: pro.id, quantity: pro.quantity + 1)

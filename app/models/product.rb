@@ -73,6 +73,8 @@ class Product < ActiveRecord::Base
 
   has_many :monthly_solds
 
+  has_many :limited_promotions
+
   # i18n translation
   translate :name
 
@@ -184,6 +186,10 @@ class Product < ActiveRecord::Base
     current_month_sold.update_sold_total(quantity)
 
     update_attribute(:sold_total, current_month_sold.sold_total)
+  end
+
+  def limited_promotion_today
+    limited_promotions.start_today.first
   end
 
   private

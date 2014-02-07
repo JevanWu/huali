@@ -24,7 +24,6 @@ module ApplicationHelper
   end
 
   def display_flower_picker?
-    return false
     [/^\/collections/, /^\/products(?!\/trait)/, /^\/$/].any? do |reg|
       reg =~ request.path
     end

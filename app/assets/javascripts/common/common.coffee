@@ -82,4 +82,15 @@
       $("#l-nav").removeClass("nav-fixed")
     return
 
+  # show limited promo result popup
+  popUp = ".limited-promo"
+  $(popUp + " .pop-up-content").show()
+  $(popUp).css("top",$(window).scrollTop() + $(window).height()/2 - $(popUp).outerHeight() + "px")
+  $(popUp).css("left",$(window).width()/2 - $(popUp).width()/2 + "px").show()
+
+  # close limited promo popup
+  $(".limited-promo b").click (e) ->
+    $(".limited-promo").hide()
+    return
+
   return

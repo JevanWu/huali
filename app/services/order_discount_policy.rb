@@ -27,9 +27,24 @@ class OrderDiscountPolicy
     end
 
     apply_adjustment
+
+    apply_limited_promotion
   end
 
   private
+
+  def apply_limited_promotion
+    LimitedPromotion.transaction do
+      LimitedPromotion.retrieve_by_products(order.product_ids).each do |promo|
+        if promo.usable?
+          #new_total = Discount.new(promo.adjustment).calculate(order.total)
+          #order.update_attribute(:total, [new_total, 0].max)
+
+          promo.use!
+        end
+      end
+    end
+  end
 
   def apply_adjustment
     order.update_attribute(:total, [discount.calculate(order.item_total), 0].max)

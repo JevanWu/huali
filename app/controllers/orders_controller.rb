@@ -86,12 +86,23 @@ class OrdersController < ApplicationController
 
       update_guest if current_or_guest_user.guest?
 
-      flash[:notice] = t('controllers.order.order_success')
-
       if @order_form.record.total <= 0
         @order_form.record.skip_payment
+
+        if cookies[:in_limited_promotion]
+          flash[:notice] = t('controllers.order.success_to_get_promo_product')
+          flash[:limited_promo_result] = 1
+        else
+          flash[:notice] = t('controllers.order.order_success')
+        end
         redirect_to order_path(@order_form.record)
       else
+        if cookies[:in_limited_promotion]
+          flash[:alert] = t('controllers.order.fail_to_get_promo_product')
+          flash[:limited_promo_result] = 0
+        else
+          flash[:notice] = t('controllers.order.order_success')
+        end
         redirect_to checkout_order_path(@order_form.record)
       end
     else
