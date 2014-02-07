@@ -46,6 +46,7 @@ ActiveAdmin.register Order do
 
       if @order.save
         OrderDiscountPolicy.new(@order.record).apply
+        ApiAgentService.update_receiver_address(@order.record)
 
         options[:location] ||= resource_url
         respond_with_dual_blocks(@order, options)
