@@ -60,7 +60,7 @@ class Order < ActiveRecord::Base
   before_validation :generate_identifier, on: :create
 
   validates_presence_of :identifier, :state, :total, :item_total
-  validates :merchant_order_no, uniqueness: { scope: :kind }
+  validates :merchant_order_no, uniqueness: { scope: :kind }, allow_blank: true
 
   after_validation :cal_item_total
   after_validation :cal_total, on: :create
