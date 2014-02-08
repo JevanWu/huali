@@ -1,4 +1,10 @@
 GIT
+  remote: git://github.com/NicoArbogast/api_auth.git
+  revision: 0ca31b0476c57fb98ca0b704d76d67a8c0b10383
+  specs:
+    api-auth (1.0.3.5)
+
+GIT
   remote: git://github.com/blaet/nulldb.git
   revision: 1556bdfa38fbb466f40712db6c307b59621df5bd
   branch: support_enable_extension
@@ -174,6 +180,16 @@ GIT
     friendly_id (4.1.0.beta.2)
 
 GIT
+  remote: git@git.zenhacks.org:ryan/huali_api.git
+  revision: 1091ec701f1bfb1a13329df8a9b899addbd62440
+  specs:
+    huali_api (0.0.1)
+      activesupport
+      api-auth
+      descendants_tracker (~> 0.0.3)
+      rest-client
+
+GIT
   remote: https://github.com/SamSaffron/MiniProfiler.git
   revision: deef8654370a39b4039b5a0565cb64cd82c25403
   specs:
@@ -237,13 +253,15 @@ GEM
     arbre (1.0.1)
       activesupport (>= 3.0.0)
     arel (4.0.0)
-    atomic (1.1.10)
+    atomic (1.1.14)
     awesome_print (1.1.0)
+    axiom-types (0.0.5)
+      descendants_tracker (~> 0.0.1)
+      ice_nine (~> 0.9)
     axlsx (1.3.6)
       htmlentities (~> 4.3.1)
       nokogiri (>= 1.4.1)
       rubyzip (>= 0.9.5)
-    backports (3.3.2)
     backup (3.4.0)
       open4 (~> 1.3.0)
       thor (>= 0.15.4, < 2)
@@ -287,6 +305,8 @@ GEM
     cocaine (0.5.1)
       climate_control (>= 0.0.3, < 1.0)
     coderay (1.0.9)
+    coercible (1.0.0)
+      descendants_tracker (~> 0.0.1)
     coffee-rails (4.0.0)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0.beta, < 5.0)
@@ -307,7 +327,7 @@ GEM
       debugger-ruby_core_source (~> 1.2.3)
     debugger-linecache (1.2.0)
     debugger-ruby_core_source (1.2.3)
-    descendants_tracker (0.0.1)
+    descendants_tracker (0.0.3)
     devise (3.0.0.rc)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -327,6 +347,7 @@ GEM
       mail (~> 2.2)
     enumerize (0.6.1)
       activesupport (>= 3.2)
+    equalizer (0.0.9)
     erubis (2.7.0)
     eventmachine (1.0.3)
     execjs (1.4.0)
@@ -348,6 +369,16 @@ GEM
     gibbon (0.4.6)
       httparty
       multi_json (>= 1.3.4)
+    grape (0.6.1)
+      activesupport
+      builder
+      hashie (>= 1.2.0)
+      multi_json (>= 1.3.2)
+      multi_xml (>= 0.5.2)
+      rack (>= 1.3.0)
+      rack-accept
+      rack-mount
+      virtus (>= 1.0.0)
     growl (1.0.3)
     guard (1.8.1)
       formatador (>= 0.2.4)
@@ -384,7 +415,8 @@ GEM
       multi_xml (>= 0.5.2)
     httpauth (0.2.0)
     humanizer (2.4.4)
-    i18n (0.6.4)
+    i18n (0.6.9)
+    ice_nine (0.11.0)
     interception (0.3)
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
@@ -421,8 +453,8 @@ GEM
     minitest (4.7.5)
     mobylette (3.4.1)
       actionpack (>= 3.0)
-    multi_json (1.7.7)
-    multi_xml (0.5.4)
+    multi_json (1.8.4)
+    multi_xml (0.5.5)
     multipart-post (1.2.0)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
@@ -493,8 +525,12 @@ GEM
       binding_of_caller (>= 0.7)
       pry (~> 0.9.11)
     rack (1.5.2)
+    rack-accept (0.4.5)
+      rack (>= 0.4)
     rack-contrib (1.1.0)
       rack (>= 0.9.1)
+    rack-mount (0.8.3)
+      rack (>= 1.0.0)
     rack-protection (1.5.0)
       rack
     rack-test (0.6.2)
@@ -522,6 +558,8 @@ GEM
     request_store (1.0.5)
     responders (1.0.0.rc)
       railties (>= 3.2, < 5)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     roadie (2.4.1)
       actionmailer (> 3.0.0, < 5.0.0)
       css_parser (~> 1.3.4)
@@ -589,7 +627,7 @@ GEM
       eventmachine (>= 0.12.6)
       rack (>= 1.0.0)
     thor (0.18.1)
-    thread_safe (0.1.0)
+    thread_safe (0.1.3)
       atomic
     tilt (1.4.1)
     timers (1.1.0)
@@ -600,7 +638,7 @@ GEM
       builder (>= 2.1.2)
       jwt (>= 0.1.2)
       multi_json (>= 1.3.0)
-    tzinfo (0.3.37)
+    tzinfo (0.3.38)
     uglifier (2.1.2)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
@@ -608,9 +646,11 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
-    virtus (0.5.5)
-      backports (~> 3.3)
+    virtus (1.0.1)
+      axiom-types (~> 0.0.5)
+      coercible (~> 1.0)
       descendants_tracker (~> 0.0.1)
+      equalizer (~> 0.0.7)
     warden (1.2.3)
       rack (>= 1.0)
     websocket (1.0.7)
@@ -633,6 +673,7 @@ DEPENDENCIES
   acts-as-taggable-on (~> 2.4.1)
   analytics-ruby
   annotate!
+  api-auth!
   awesome_print
   axlsx
   backup
@@ -660,6 +701,7 @@ DEPENDENCIES
   formtastic!
   friendly_id!
   gibbon
+  grape
   growl
   guard
   guard-bundler
@@ -668,6 +710,7 @@ DEPENDENCIES
   guard-rspec
   guard-spork
   huali-blog!
+  huali_api!
   humanizer
   inherited_resources!
   jquery-rails
@@ -702,6 +745,7 @@ DEPENDENCIES
   ransack!
   rb-fsevent
   redis-rails!
+  rest-client
   roadie
   rr
   rspec-instafail

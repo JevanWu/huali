@@ -21,5 +21,6 @@ FactoryGirl.define do
   factory :line_item do
     product
     quantity { Forgery(:basic).number }
+    price { product.price }
   end
 end

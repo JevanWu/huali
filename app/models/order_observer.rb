@@ -6,6 +6,12 @@ class OrderObserver < ActiveRecord::Observer
     AnalyticWorker.delay.fill_order(order.id)
   end
 
+  def after_cancel(order, transition)
+    if transition.from == "generated" && transition.to == "void"
+      ApiAgentService.cancel_order(order)
+    end
+  end
+
   def after_pay(order, transition)
     return if order.kind == 'marketing'
 
@@ -23,6 +29,8 @@ class OrderObserver < ActiveRecord::Observer
     return if order.kind == "marketing"
     Notify.delay.ship_order_user_email(order.id)
     Sms.delay.ship_order_user_sms(order.id)
+
+    ApiAgentService.ship_order(order)
   end
 
   def after_confirm(order, transition)

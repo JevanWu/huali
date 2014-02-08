@@ -80,17 +80,17 @@ class Transaction < ActiveRecord::Base
       return false
     end
 
-    if processed? or complete_deal(result)
+    if processed? or complete_deal(result.trade_no)
       return self
     else
       return false
     end
   end
 
-  def complete_deal(result)
+  def complete_deal(trade_no = nil)
     if complete
       self.processed_at = Time.now
-      self.merchant_trade_no = result.trade_no
+      self.merchant_trade_no = trade_no if trade_no.present?
       save!
     end
   end

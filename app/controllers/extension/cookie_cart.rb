@@ -6,7 +6,9 @@ module Extension
       line_item_hash, coupon_code = load_cart_cookie
 
       line_items = line_item_hash.map do |k, v|
-        LineItem.new(product_id: k, quantity: v) if Product.published.where(id: k).exists?
+        product = Product.published.where(id: k).first
+
+        LineItem.new(product_id: k, quantity: v, price: product.price) if product
       end.compact
 
       if line_items.present?

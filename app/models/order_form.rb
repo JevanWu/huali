@@ -44,19 +44,22 @@ class ItemInfo
 
   def initialize(*)
     super
+    self.price = product.price if product_id
+
     @errors = ActiveModel::Errors.new(self)
   end
   alias :read_attribute_for_validation :send
 
   attribute :product_id, Integer
   attribute :quantity, Integer, default: 0
+  attribute :price, Float
 
   def product
     Product.find(product_id)
   end
 
   def total
-    product.price * quantity
+    price * quantity
   end
 end
 

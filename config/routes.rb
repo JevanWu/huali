@@ -1,4 +1,5 @@
 require 'sidekiq/web'
+require 'api/api'
 
 Huali::Application.routes.draw do
 
@@ -84,6 +85,9 @@ Huali::Application.routes.draw do
   get 'banners/:date', to: 'banners#index', as: :banners
   get 'stories', to: 'stories#index'
   resources :didi_passengers, only: [:new, :create], path: 'diditaxi'
+
+  API::API.logger Rails.logger
+  mount API::API => '/api'
 
   ActiveAdmin.routes(self)
 
