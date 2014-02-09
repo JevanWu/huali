@@ -32,7 +32,7 @@ class Address < ActiveRecord::Base
   delegate :name, to: :city, prefix: true
   delegate :name, to: :area, prefix: true, allow_nil: true
 
-  validates_presence_of :fullname, :address, :phone, :province, :city, :post_code
+  #validates_presence_of :fullname, :address, :phone, :province, :city, :post_code
 
   # after_validation :fill_in_post_code
 
