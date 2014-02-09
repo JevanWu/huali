@@ -37,7 +37,7 @@ module API
         requires :address_city_id, type: Integer
         optional :address_area_id, type: Integer
         requires :address_post_code, type: Integer
-        requires :address_address, type: String
+        optional :address_address, type: String
       end
 
       post do
