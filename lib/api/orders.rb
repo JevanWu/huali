@@ -31,13 +31,13 @@ module API
       params do
         requires :kind, type: String
         requires :merchant_order_no, type: String
-        requires :address_fullname, type: String
-        requires :address_phone, type: String
-        requires :address_province_id, type: Integer
-        requires :address_city_id, type: Integer
-        optional :address_area_id, type: Integer
-        requires :address_post_code, type: Integer
-        optional :address_address, type: String
+        #requires :address_fullname, type: String
+        #requires :address_phone, type: String
+        #requires :address_province_id, type: Integer
+        #requires :address_city_id, type: Integer
+        #optional :address_area_id, type: Integer
+        #requires :address_post_code, type: Integer
+        #optional :address_address, type: String
       end
 
       post do
