@@ -2,6 +2,7 @@ zh-CN:
   active_admin:
     batch_actions:
       labels:
+        check: 审核
         make: 制作
         ship: 发货
         printed: 打印

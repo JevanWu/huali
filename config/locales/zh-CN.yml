@@ -549,6 +549,7 @@ zh-CN:
         cannot_edit: 订单已结束，不能编辑
         shipped: "发货成功, 共%{count}个订单"
         made: "制作成功, 共%{count}个订单"
+        checked: "审核作成功, 共%{count}个订单"
       transaction:
         transaction_state_changed: 交易状态变更为
         confirm_complete: 你确定完成此交易?
