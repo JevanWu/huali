@@ -20,6 +20,14 @@ class OrderAdminForm < OrderForm
   validates_format_of :adjustment, with: %r{\A[+-x*%/][\s\d.]+\z}, allow_blank: true
   validates_with OrderDeliveryDateValidator
 
+  validate do |order|
+    if order.merchant_order_no.present?
+      if Order.where(merchant_order_no: order.merchant_order_no, kind: order.kind).exists?
+        errors.add :merchant_order_no, :taken
+      end
+    end
+  end
+
   validates :last_order, presence: true, if: Proc.new { |order| order.kind.to_s == "customer" }
 
   class << self
