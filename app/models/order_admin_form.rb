@@ -22,7 +22,10 @@ class OrderAdminForm < OrderForm
 
   validate do |order|
     if order.merchant_order_no.present?
-      if Order.where(merchant_order_no: order.merchant_order_no, kind: order.kind).exists?
+      duplicate_orders = Order.where(merchant_order_no: order.merchant_order_no, kind: order.kind)
+      duplicate_orders = duplicate_orders.where("id != ?", to_key) unless to_key.nil?
+
+      if duplicate_orders.exists?
         errors.add :merchant_order_no, :taken
       end
     end
