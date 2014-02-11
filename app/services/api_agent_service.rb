@@ -21,7 +21,7 @@ class ApiAgentService
 
     def cancel_order(order)
       if ["taobao", "tmall"].include?(order.kind)
-        ApiAgentWorker.delay.cancel_order(order.kind, order.merchant_order_no)
+        ApiAgentWorker.delay.cancel_order(order.kind.to_s, order.merchant_order_no)
       end
     end
 
