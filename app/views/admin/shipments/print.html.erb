@@ -20,6 +20,9 @@
   <p class="cell"><%= @address.phone.gsub(" ", "") %></p>
   <p class="addr"><%= @address.print_addr %></p>
   <p class="post"><%= @address.post_code %></p>
+  <% if @type == 'shunfeng' %>
+    <p class="month_clean">021 1620529</p>
+  <% end %>
 </div>
 
 <div style="margin-top: 30px;">
