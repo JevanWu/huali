@@ -29,6 +29,7 @@
   <%= f.inputs "Check Info" do %>
     <%= f.input :delivery_date, as: :string, input_html: { class: 'datepicker' }%>
     <%= f.input :ship_method_id, as: :radio, collection: ShipMethod.all %>
+    <%= f.input :prechecked, as: :boolean %>
   <% end %>
   <%= f.actions %>
 

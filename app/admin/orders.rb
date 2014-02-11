@@ -254,6 +254,8 @@ ActiveAdmin.register Order do
       status_tag t('models.order.state.' + order.state), order_state(order)
     end
 
+    column :prechecked
+
     column :identifier, sortable: :identifier do |order|
       link_to order.identifier + ', ' + order.id.to_s, admin_order_path(order)
     end
@@ -294,6 +296,8 @@ ActiveAdmin.register Order do
       row :state do
         status_tag t('models.order.state.' + order.state), order_state(order)
       end
+
+      row :prechecked
 
       row :kind_text
 

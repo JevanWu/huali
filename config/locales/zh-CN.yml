@@ -88,6 +88,7 @@ zh-CN:
         subject_text: 货品内容
         created_at: 创建时间
         printed: 已打印
+        prechecked: 初审通过
         tracking_num: 快递单号
         kind: 类型
         kind_text: 类型
@@ -198,6 +199,7 @@ zh-CN:
         subject_text: 货品内容
         created_at: 下单时间
         printed: 已打印
+        prechecked: 初审通过
         tracking_num: 快递单号
         kind: 类型
         kind_text: 类型

@@ -11,6 +11,7 @@ module AdminOnlyInfo
   attribute :ship_method_id, Integer
   attribute :delivery_date, Date
   attribute :last_order, String
+  attribute :prechecked, Virtus::Attribute::Boolean
 end
 
 class OrderAdminForm < OrderForm
