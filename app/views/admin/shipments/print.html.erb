@@ -21,3 +21,7 @@
   <p class="addr"><%= @address.print_addr %></p>
   <p class="post"><%= @address.post_code %></p>
 </div>
+
+<div style="margin-top: 30px;">
+  <%= link_to "打印贺卡", print_card_admin_order_path(@order), style: "color: blue" %>
+</div>

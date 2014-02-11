@@ -5,6 +5,32 @@ ActiveAdmin.register Shipment do
   controller do
     helper :shipments
 
+    def create
+      @shipment = Shipment.new(permitted_params[:shipment])
+      if @shipment.save
+        if @shipment.ship_method_id == 3
+          redirect_to print_card_admin_order_path(@shipment.order)
+        elsif @shipment.tracking_num?
+          redirect_to print_admin_shipment_path(@shipment)
+        end
+      else
+        render :new
+      end
+    end
+
+    def update
+      @shipment = Shipment.find(params[:id])
+      if @shipment.update_attributes(permitted_params[:shipment])
+        if @shipment.ship_method_id == 3
+          redirect_to print_card_admin_order_path(@shipment.order)
+        elsif @shipment.tracking_num?
+          redirect_to print_admin_shipment_path(@shipment)
+        end
+      else
+        render :edit
+      end
+    end
+
     private
 
     def permitted_params
@@ -64,11 +90,11 @@ ActiveAdmin.register Shipment do
   end
 
   member_action :print do
-    order = Shipment.find_by_id(params[:id]).order
-    @address = order.address
+    @order = Shipment.find_by_id(params[:id]).order
+    @address = @order.address
     begin
-      @type = order.ship_method.kuaidi_query_code
-      @shipment_id = order.shipment.identifier
+      @type = @order.ship_method.kuaidi_query_code
+      @shipment_id = @order.shipment.identifier
 
       case @type
       when 'manual'
