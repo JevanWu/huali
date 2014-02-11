@@ -326,7 +326,15 @@ ActiveAdmin.register Order do
         end
       end
 
-      row :merchant_order_no
+      row :merchant_order_no do |order|
+        if order.merchant_order_no.present?
+          if order.kind = 'taobao'
+            link_to order.merchant_order_no, "http://trade.taobao.com/trade/detail/trade_item_detail.htm?bizOrderId=#{order.merchant_order_no}", target: '_blank'
+          elsif order.kind = 'tmall'
+            link_to order.merchant_order_no, "http://trade.tmall.com/detail/orderDetail.htm?bizOrderId=#{order.merchant_order_no}", target: '_blank'
+          end
+        end
+      end
 
       row :order_content do
         order.subject_text
