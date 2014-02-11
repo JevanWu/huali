@@ -13,13 +13,11 @@ class OrderObserver < ActiveRecord::Observer
   end
 
   def after_pay(order, transition)
-    return if order.kind == 'marketing'
-
+    # doesn't process non normal orders
+    return if order.kind != 'normal'
     Sms.delay.pay_order_user_sms(order.id)
     Notify.delay.pay_order_user_email(order.id)
 
-    # doesn't track non normal orders in GA
-    return if order.kind != 'normal'
     Notify.delay.pay_order_admin_email(order.id)
     AnalyticWorker.delay.complete_order(order.id)
     GaTrackWorker.delay.order_track(order.id)
@@ -34,7 +32,7 @@ class OrderObserver < ActiveRecord::Observer
   end
 
   def after_confirm(order, transition)
-    return if order.kind == "marketing"
+    return if order.kind != 'normal'
     Sms.delay.confirm_order_user_sms(order.id)
   end
 end
