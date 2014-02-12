@@ -1,8 +1,10 @@
 $ ->
   bannerTemplate = """
   <div id="banner">
-    <p><%- content %></p>
-    <a class="close" href="#" data-banner="<%- id %>"></a>
+    <p>
+      <%- content %>
+      <a class="close" href="#" data-banner="<%- id %>"></a>
+    </p>
   </div>
   """
 
