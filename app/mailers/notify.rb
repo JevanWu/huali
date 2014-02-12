@@ -8,6 +8,8 @@ class Notify < ActionMailer::Base
   # For User
   def new_order_user_email(order_id)
     @order = Order.full_info(order_id)
+    return if @order.sender_email.blank?
+
     mail(to: @order.sender_email, subject: subject("新订单", @order.subject_text))
   end
 
