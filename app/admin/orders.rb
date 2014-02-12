@@ -158,6 +158,7 @@ ActiveAdmin.register Order do
   filter :created_at
   filter :kind, as: :select, collection: Order.kind.options
   filter :merchant_order_no
+  filter :prechecked
   filter :state, as: :select, collection:
   {
     等待付款: 'generated',
