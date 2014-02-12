@@ -36,4 +36,9 @@ namespace :notice do
   def mail_list
     ['john@hua.li', 'lin@hua.li', 'ella@hua.li']
   end
+
+  desc "Notify about orders shipping failed throught API"
+  task api_shipping_failed_orders: :environment do
+    Notify.delay.api_shipping_failed_orders('ella@hua.li', 'ryan@hua.li')
+  end
 end

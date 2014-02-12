@@ -68,3 +68,7 @@ end
 every 1.hour do
   rake "notice:busy_day_email[情人节,2014-02-01,2014-02-16]"
 end
+
+every 30.minutes do
+  rake "notice:api_shipping_failed_orders"
+end
