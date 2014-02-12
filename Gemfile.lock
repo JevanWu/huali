@@ -181,7 +181,7 @@ GIT
 
 GIT
   remote: git@git.zenhacks.org:ryan/huali_api.git
-  revision: 1091ec701f1bfb1a13329df8a9b899addbd62440
+  revision: 491962dec35c69750e2bd39f0db5ca996d90d15f
   specs:
     huali_api (0.0.1)
       activesupport
@@ -448,7 +448,7 @@ GEM
       rack-contrib
       rails
     method_source (0.8.1)
-    mime-types (1.23)
+    mime-types (1.25.1)
     mini_portile (0.5.1)
     minitest (4.7.5)
     mobylette (3.4.1)
