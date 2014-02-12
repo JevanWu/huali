@@ -146,7 +146,7 @@ STR
       job.item['args'].any? { |a| a.include?(":ship_order") }
     end
 
-    @orders = jobs.map { |job| job.item['args'].scan(/\d{15}/).first }
+    @orders = jobs.map { |job| job.item['args'].first.scan(/\d{15}/).first }
     return if @orders.blank?
 
     mail(to: emails, subject: subject("淘宝/天猫自动发货失败订单, 请人工处理"))
