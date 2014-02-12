@@ -22,7 +22,7 @@ module API
       message << "  " << trace.join("\n  ")
 
       API.logger.add Logger::FATAL, message
-      rack_response({'message' => '500 Internal Server Error'}, 500)
+      rack_response({'message' => '500 Internal Server Error'}.to_json, 500)
     end
 
     format :json
