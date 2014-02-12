@@ -5,8 +5,8 @@ $ ->
   $('.datepicker').datepicker(
       gotoCurrent: true
       # shift order acceptance date after 17:00 every day
-      minDate: if (new Date().getHours() >= 17) then '+1D' else '+0D'
-      maxDate: '+2M'
+      minDate: if (new Date().getHours() >= 17) then '+2D' else '+1D'
+      maxDate: '+2Y'
   )
 
   $('.datepicker-full').datepicker(
