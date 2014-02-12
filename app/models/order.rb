@@ -61,6 +61,7 @@ class Order < ActiveRecord::Base
 
   validates_presence_of :identifier, :state, :total, :item_total
   validates :merchant_order_no, uniqueness: { scope: :kind }, allow_blank: true
+  validates :merchant_order_no, presence: true, if: Proc.new { |order| ['taobao', 'tmall'].include?(order.kind) }
 
   after_validation :cal_item_total
   after_validation :cal_total, on: :create
