@@ -149,6 +149,8 @@ STR
     @orders = jobs.map { |job| job.item['args'].first.scan(/\d{15}/).first }
     return if @orders.blank?
 
+    jobs.map(&:delete)
+
     mail(to: emails, subject: subject("淘宝/天猫自动发货失败订单, 请人工处理"))
   end
 
