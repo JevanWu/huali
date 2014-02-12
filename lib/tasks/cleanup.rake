@@ -13,7 +13,7 @@ namespace :cleanup do
 
   desc "Auto cancel orders older than 24 hours"
   task orders: :environment do
-    Order.where("created_at < :time and state = :state", time: 1.day.ago, state: 'generated').each do |o|
+    Order.where("created_at < :time and state = :state", time: 5.day.ago, state: 'generated').each do |o|
       o.cancel
     end
   end
