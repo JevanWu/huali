@@ -39,6 +39,6 @@ namespace :notice do
 
   desc "Notify about orders shipping failed throught API"
   task api_shipping_failed_orders: :environment do
-    Notify.delay.api_shipping_failed_orders('ella@hua.li', 'ryan@hua.li')
+    Notify.delay.api_shipping_failed_orders('ella@hua.li', 'ryan@hua.li', 'terry@hua.li')
   end
 end
