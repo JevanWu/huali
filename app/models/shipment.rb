@@ -38,6 +38,8 @@ class Shipment < ActiveRecord::Base
 
   validates_presence_of :order, :address, :ship_method
 
+  validates :tracking_num, uniqueness: { scope: :ship_method_id }
+
   state_machine :state, initial: :ready do
     before_transition to: :shipped, do: :ship_order
     after_transition to: :completed, do: :confirm_order
