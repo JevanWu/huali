@@ -21,6 +21,10 @@ ActiveAdmin.register Shipment do
     def update
       @shipment = Shipment.find(params[:id])
       if @shipment.update_attributes(permitted_params[:shipment])
+        if !@shipment.tracking_num?
+          redirect_to admin_shipment_path(@shipment) and return
+        end
+
         if @shipment.ship_method_id == 3
           redirect_to print_card_admin_order_path(@shipment.order)
         elsif @shipment.tracking_num?
