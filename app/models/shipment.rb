@@ -38,7 +38,7 @@ class Shipment < ActiveRecord::Base
 
   validates_presence_of :order, :address, :ship_method
 
-  validates :tracking_num, uniqueness: { scope: :ship_method_id }
+  validates :tracking_num, uniqueness: { scope: :ship_method_id }, allow_blank: true
 
   state_machine :state, initial: :ready do
     before_transition to: :shipped, do: :ship_order
