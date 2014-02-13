@@ -148,7 +148,7 @@ STR
       job.item['args'].any? { |a| a.include?(":ship_order") }
     end
 
-    @orders = jobs.map { |job| job.item['args'].first.scan(/\d{15}/).first }
+    @orders = jobs.map { |job| job.item['args'].first.scan(/\d{15}/).first }.uniq
     return if @orders.blank?
 
     jobs.map(&:delete)
