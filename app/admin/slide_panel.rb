@@ -1,4 +1,6 @@
 ActiveAdmin.register SlidePanel do
+  menu parent: '设置', if: proc { authorized? :read, SlidePanel}
+
   controller do
     def permitted_params
       params.permit(slide_panel: [:name, :href, :visible, :priority, :assets_attributes => [:id, :image]])
