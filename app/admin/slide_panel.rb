@@ -47,11 +47,11 @@ ActiveAdmin.register SlidePanel do
         number_to_human_size(slide_panel.image_file_size)
       end
       row :thumbnails do
-        image_tag slide_panel.image.url(:thumb)
+        image_tag slide_panel.img(:thumb)
       end
 
       row :medium_image do
-        image_tag slide_panel.image.url(:medium)
+        image_tag slide_panel.img(:medium)
       end
       row :image_updated_at
     end
