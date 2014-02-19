@@ -151,7 +151,7 @@ zh-CN:
       story: 微博故事
       didi_passenger: 嘀嘀打车活动
       limited_promotion: 限时优惠
-      slide_panel: 滚动公告
+      slide_panel: 轮播设置
 
     attributes:
       order: &order
