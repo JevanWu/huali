@@ -2,17 +2,19 @@
   <a class="btn-left"></a>
   <a class="btn-right"></a>
   <ul class="container">
-    <li><a><%= image_tag "slide/apologize.jpg" %></a></li>
-    <li><a><%= image_tag "slide/uber.jpg" %></a></li>
-    <li><a href="/valentine"><%= image_tag "slide/valentine.jpg" %></a></li>
-    <li><a href="/products/statice-limonium"><%= image_tag "slide/statice.jpg" %></a></li>
-    <li><a href="/products/a-romantic-night"><%= image_tag "slide/jazz-music.jpg" %></a></li>
+    <% @slides.each do |slide| %>
+      <li><a href=<%= slide.href %>><%=image_tag slide.img(:medium) %></a></li>
+    <% end %>
   </ul>
   <ul class="slide-dot">
-    <li><a class="cur"></a></li>
-    <li><a></a></li>
-    <li><a></a></li>
-    <li><a></a></li>
-    <li class="last"><a></a></li>
+    <% @slides.each do |slide| %>
+      <% if slide.equal? @slides.first %> 
+        <li><a class="cur"></a></li>
+      <% elsif slide.equal? @slides.last %>
+        <li class="last"><a></a></li>
+      <% else %>
+        <li><a></a></li>
+      <% end %>
+    <% end %>
   </ul>
 </div>

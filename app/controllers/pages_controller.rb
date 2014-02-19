@@ -13,6 +13,7 @@ class PagesController < ApplicationController
   end
 
   def home
+    @slides = SlidePanel.where(visible: true).order(:priority)
   end
 
   def brands
