@@ -26,8 +26,8 @@ class DateRule < ActiveRecord::Base
   arrayify_attrs :excluded_dates, :included_dates
 
   def start_date
-    super || (Time.current.hour >= 17 ?
-              Date.current.next_day(3) : Date.current.next_day(2))
+    super || (Time.current.hour >= 15 ?
+              Date.current.next_day(2) : Date.current.next_day(1))
   end
 
   def end_date
