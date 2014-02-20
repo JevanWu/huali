@@ -424,6 +424,7 @@ zh-CN:
         href: 链接
         priority: 优先级
         image: 图片
+        visible: 首页是否可见
 
   models:
     order:
