@@ -72,3 +72,7 @@ end
 every 30.minutes do
   rake "notice:api_shipping_failed_orders"
 end
+
+every :day, at: '2:00 am' do
+  rake "notice:all_orders_excel_email"
+end
