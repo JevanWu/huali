@@ -423,6 +423,7 @@ zh-CN:
         name: 名称
         href: 链接
         priority: 优先级
+        image: 图片
 
   models:
     order:
