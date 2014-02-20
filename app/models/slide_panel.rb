@@ -6,7 +6,7 @@ class SlidePanel < ActiveRecord::Base
   default_scope -> {order(:priority)}
   scope :visible, -> { where(visible: true) }
   
-  has_attached_file :image, styles: { medium: "1583x594>", small: "408x153>", thumb: "266x100>" }
+  has_attached_file :image, styles: { medium: "1583x594>", thumb: "266x100>" }
 
   def img(size)
     self.image.url(size)
