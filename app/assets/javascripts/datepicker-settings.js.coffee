@@ -2,11 +2,11 @@
 #= require jquery.ui.datepicker-zh-CN
 
 $ ->
-  normalDateShift = if (new Date().getHours() >= 17) then '+2D' else '+1D'
+  normalDateShift = if (new Date().getHours() >= 15) then '+2D' else '+1D'
 
   $('.datepicker').datepicker(
       gotoCurrent: true
-      # shift order acceptance date after 17:00 every day
+      # shift order acceptance date after 15:00 every day
       minDate: normalDateShift
       maxDate: '+2Y'
   )
