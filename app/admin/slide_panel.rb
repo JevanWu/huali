@@ -7,16 +7,7 @@ ActiveAdmin.register SlidePanel do
     end
   end
 
-  form html: {enctype: "multipart/form-data"} do |f|
-    f.inputs do
-      f.input :name
-      f.input :href
-      f.input :priority, required: true
-      f.input :image, as: :file
-      f.input :visible, as: :boolean
-      f.actions
-    end
-  end
+  form partial: "form"
 
   index do
     selectable_column
