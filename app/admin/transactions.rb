@@ -6,13 +6,14 @@ ActiveAdmin.register Transaction do
     helper :transactions
 
     private
-    
+
     def permitted_params
       params.permit transaction: [:amount, :body, :merchant_name, :merchant_trade_no, :order_id, :paymethod, :subject]
     end
   end
 
   filter :identifier
+  filter :merchant_trade_no
   filter :paymethod, as: :select, collection: { Paypal: "paypal",  支付宝: "directPay", 网上银行: "bankPay" }
   filter :state, as: :select, collection: { 新建: "generated", 完成: "completed", 处理中: "processing", 失败: "failed" }
   filter :amount
