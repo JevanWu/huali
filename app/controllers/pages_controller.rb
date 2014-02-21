@@ -13,6 +13,7 @@ class PagesController < ApplicationController
   end
 
   def home
+    @slides = SlidePanel.visible
   end
 
   def brands

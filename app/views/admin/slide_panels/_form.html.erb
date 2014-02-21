@@ -1,0 +1,11 @@
+<%= semantic_form_for [:admin, @slide_panel] do |f| %> 
+  <%= f.semantic_errors :priority %>
+  <%= f.inputs do %>
+    <%= f.input :name %>
+    <%= f.input :href %>
+    <%= f.input :priority, required: true %>
+    <%= f.input :image, as: :file %>
+    <%= f.input :visible, as: :boolean %>
+    <%= f.actions %>
+  <% end %>
+<% end %>

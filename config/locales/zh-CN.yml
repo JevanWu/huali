@@ -151,6 +151,7 @@ zh-CN:
       story: 微博故事
       didi_passenger: 嘀嘀打车活动
       limited_promotion: 限时优惠
+      slide_panel: 轮播设置
 
     attributes:
       order: &order
@@ -417,6 +418,13 @@ zh-CN:
         available_count: 有效使用次数
         used_count: 已使用次数
         expired: 是否过期
+
+      slide_panel:
+        name: 名称
+        href: 链接
+        priority: 优先级
+        image: 图片
+        visible: 首页是否可见
 
   models:
     order:
