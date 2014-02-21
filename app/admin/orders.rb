@@ -244,9 +244,8 @@ ActiveAdmin.register Order do
 
   index do
     unless current_admin_ability.cannot? :bulk_export_data, Order
-      div do
-        link_to('Download latest', params.merge(action: :download_latest), class: 'table_tools_button') +
-        link_to('Download All', params.merge(action: :download_all), class: 'table_tools_button')
+      div style: "text-align: right" do
+        link_to('Download latest', params.merge(action: :download_latest), class: 'table_tools_button')
       end
     end
 
@@ -427,13 +426,6 @@ ActiveAdmin.register Order do
   collection_action :download_latest, method: :get do
     orders = Order.within_this_week
     xlsx_filename = "latest-orders-since-#{7.days.ago.to_date}.xlsx"
-
-    render_excel(orders, xlsx_filename)
-  end
-
-  collection_action :download_all, method: :get do
-    orders = Order.all
-    xlsx_filename = "orders-#{Date.current}.xlsx"
 
     render_excel(orders, xlsx_filename)
   end

@@ -41,4 +41,9 @@ namespace :notice do
   task api_shipping_failed_orders: :environment do
     Notify.delay.api_shipping_failed_orders('ella@hua.li', 'ryan@hua.li', 'terry@hua.li')
   end
+
+  desc "Email all orders"
+  task all_orders_excel_email: :environment do
+    Notify.delay.all_orders_excel_email('john@hua.li')
+  end
 end

@@ -156,6 +156,14 @@ STR
     mail(to: emails, subject: subject("淘宝/天猫自动发货失败订单, 请人工处理"))
   end
 
+  def all_orders_excel_email(*emails)
+    columns = Order.column_names.map(&:titleize)
+    row_data = Order.all.to_a.map { |o| o.attributes.values }
+
+    attachments["所有订单 #{Date.current}.xlsx"] = XlsxBuilder.new(columns, row_data).serialize
+    mail(to: emails, subject: subject("所有订单 #{Date.current}"))
+  end
+
   helper MailerHelper
 
   private

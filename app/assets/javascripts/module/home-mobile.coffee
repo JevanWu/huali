@@ -8,7 +8,7 @@
 
   window.homeSwipe = new Swipe(document.getElementById('slide'), {
     speed: 400,
-    auto: false,
+    auto: 6000,
     callback: (index, ele) ->
       $(".slide-dot a").removeClass("cur")
       $(".slide-dot a").eq(index).addClass("cur")
