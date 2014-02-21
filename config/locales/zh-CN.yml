@@ -556,6 +556,7 @@ zh-CN:
         transaction_state_changed: 交易状态变更为
         confirm_complete: 你确定完成此交易?
         confirm_fail: 你确定注销此交易?
+        cannot_edit: 交易已结束，不能编辑
       shipment:
         shipment_state_changed: 递送状态变更为
         confirm_ship: 您选择的快递方式为%{method}, 您填写的快递单号为 %{tracking_num}. 你确定发送这张订单 %{identifier}?

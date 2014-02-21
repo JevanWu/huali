@@ -5,6 +5,13 @@ ActiveAdmin.register Transaction do
   controller do
     helper :transactions
 
+    def edit
+      record = Transaction.find_by(id: params[:id])
+      if record.finished?
+        redirect_to [:admin, record], alert: t('views.admin.transaction.cannot_edit')
+      end
+    end
+
     private
     
     def permitted_params
