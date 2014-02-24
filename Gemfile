@@ -5,6 +5,7 @@ source "http://ruby.taobao.org"
 gem 'rails', '~> 4.0.0', github: 'rails/rails', branch: '4-0-stable'
 gem 'pg', '>= 0.14.1'
 gem 'devise', '3.0.0'
+gem 'devise_invitable', '1.2.1'
 gem 'devise-i18n'
 gem 'cancan', '~> 1.0'
 gem 'rails-i18n'
