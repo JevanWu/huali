@@ -6,9 +6,9 @@ ActiveAdmin.register Transaction do
     helper :transactions
 
     def edit
-      record = Transaction.find_by(id: params[:id])
-      if record.finished?
-        redirect_to [:admin, record], alert: t('views.admin.transaction.cannot_edit')
+      @transaction = Transaction.find_by(id: params[:id])
+      if @transaction.finished?
+        redirect_to [:admin, @transaction], alert: t('views.admin.transaction.cannot_edit')
       end
     end
 
