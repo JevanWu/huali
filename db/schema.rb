@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140224080500) do
+ActiveRecord::Schema.define(version: 20140225102111) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -399,6 +399,18 @@ ActiveRecord::Schema.define(version: 20140224080500) do
 
   add_index "recommendation_relations", ["product_id"], name: "index_recommendation_relations_on_product_id", using: :btree
   add_index "recommendation_relations", ["recommendation_id"], name: "index_recommendation_relations_on_recommendation_id", using: :btree
+
+  create_table "redeems", force: true do |t|
+    t.string   "title"
+    t.integer  "cost_points"
+    t.integer  "user_id"
+    t.integer  "order_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "redeems", ["order_id"], name: "index_redeems_on_order_id", using: :btree
+  add_index "redeems", ["user_id"], name: "index_redeems_on_user_id", using: :btree
 
   create_table "region_rules", force: true do |t|
     t.integer  "region_rulable_id"
