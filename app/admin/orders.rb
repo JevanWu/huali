@@ -79,9 +79,17 @@ ActiveAdmin.register Order do
       columns = Order.column_names.map(&:titleize)
       row_data = orders.map { |o| o.attributes.values }
 
-      xlsx = XlsxBuilder.new(columns, row_data).serialize
+      filename = "/tmp/#{filename}-#{Time.current.to_i}.xlsx"
+      Axlsx::Package.new do |p|
+        p.use_autowidth = false
+        p.workbook.add_worksheet(:name => "Orders") do |sheet|
+          sheet.add_row columns
+          row_data.each { |row| sheet.add_row row }
+        end
+        p.serialize(filename)
+      end
 
-      send_data xlsx, :filename => "#{filename}", :type => Mime::Type.lookup_by_extension(:xlsx)
+      send_file filename, x_sendfile: true, type: Mime::Type.lookup_by_extension(:xlsx).to_s
     end
   end
 
