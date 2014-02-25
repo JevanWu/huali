@@ -573,6 +573,7 @@ ActiveRecord::Schema.define(version: 20140224080500) do
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
+    t.integer  "redeem_points"
   end
 
   add_index "users", ["anonymous_token"], name: "index_users_on_anonymous_token", unique: true, using: :btree
