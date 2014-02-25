@@ -7,6 +7,13 @@ zh-CN:
      order_form:
        create: 确定
 
+  devise:
+    invitations:
+      new:
+        header: 邀请好友
+        submit: 发送邀请
+        hint: 请您填写需邀请的好友的邮箱
+        
   edit: 编辑
   view: 查看
   back: 后退
