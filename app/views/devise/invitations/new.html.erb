@@ -1,0 +1,25 @@
+<% content_for :css do %>
+  <%= stylesheet_link_tag 'invitation'  %>
+<% end %>
+
+<div class="invitation-main">
+<h2><%= t "devise.invitations.new.header" %></h2>
+
+<%= simple_form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post} do |f| %>
+  <%= devise_error_messages! %>
+
+<% resource.class.invite_key_fields.each do |field| -%>
+  <%= f.input field, placeholder: t("devise.invitations.new.hint") %>
+<% end -%>
+
+<input class= "btn-passport"name="commit" type="submit" value= <%= t "devise.invitations.new.submit" %>>
+<% end %>
+
+<br>
+<div><h2>您目前的积分</h2></div>
+<div class="progress">
+    <div class="bar" style="width: 40%;"></div>
+</div>
+
+<button class="btn-passport" disabled>领取礼物</button>
+</div>

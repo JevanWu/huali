@@ -38,6 +38,8 @@ class ApplicationController < ActionController::Base
   def devise_layout
     if Devise::RegistrationsController === self && ["edit", "update"].include?(action_name)
       is_mobile_request? ? 'mobile' : 'application'
+    elsif Devise::InvitationsController === self
+      is_mobile_request? ? 'mobile' : 'application'
     else
       is_mobile_request? ? 'devise_mobile' : 'devise'
     end
