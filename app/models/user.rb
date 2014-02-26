@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
   has_many :oauth_services, dependent: :destroy
   has_many :surveys, dependent: :nullify
   has_one  :tracking_cookie, dependent: :destroy
-  has_many :redeems, dependent: :destroy
+  has_many :point_transactions, dependent: :destroy
 
   delegate :ga_client_id, to: :tracking_cookie, allow_nil: true
 
