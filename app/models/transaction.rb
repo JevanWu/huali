@@ -25,6 +25,7 @@
 class Transaction < ActiveRecord::Base
   belongs_to :order
   has_one :user, through: :order
+  has_one :point_transaction
 
   before_validation :generate_identifier, on: :create
 
