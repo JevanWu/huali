@@ -58,7 +58,7 @@ ActiveAdmin.register Order do
 
     private
 
-    before_action :authorize_to_download_orders, only: [:download_latest, :download_all]
+    before_action :authorize_to_download_orders, only: [:download_latest, :download]
 
     def authorize_to_download_orders
       current_admin_ability.authorize! :bulk_export_data, Order
@@ -245,7 +245,8 @@ ActiveAdmin.register Order do
   index do
     unless current_admin_ability.cannot? :bulk_export_data, Order
       div style: "text-align: right" do
-        link_to('Download latest', params.merge(action: :download_latest), class: 'table_tools_button')
+        link_to('Download latest', params.merge(action: :download_latest), class: 'table_tools_button') +
+        link_to('Export to excel', params.merge(action: :export_to_excel), class: 'table_tools_button')
       end
     end
 
@@ -428,5 +429,35 @@ ActiveAdmin.register Order do
     xlsx_filename = "latest-orders-since-#{7.days.ago.to_date}.xlsx"
 
     render_excel(orders, xlsx_filename)
+  end
+
+  collection_action :download do
+    start_date = "#{params[:start_date][:year]}-#{params[:start_date][:month]}-#{params[:start_date][:day]}".to_date
+    end_date = "#{params[:end_date][:year]}-#{params[:end_date][:month]}-#{params[:end_date][:day]}".to_date
+
+    orders = Order.includes({ line_items: :product }, :transactions, :shipments, { address: [:province, :city, :area] }, :ship_method).
+      where(created_at: start_date..end_date).where(state: ["wait_check", "wait_make", "wait_ship", "wait_confirm", "completed"]).to_a
+
+    filename = "/tmp/orders-#{start_date}-#{end_date}-#{Time.current.to_i}.xlsx"
+    Axlsx::Package.new do |p|
+      p.use_autowidth = false
+      p.workbook.add_worksheet(:name => "Orders") do |sheet|
+        sheet.add_row OrderExcelDecorator::COLUMNS
+
+        orders.each do |o|
+          decorated_order = OrderExcelDecorator.new(o)
+
+          decorated_order.all_rows.each do |row|
+            sheet.add_row(row, types: OrderExcelDecorator::COLUMN_TYPES)
+          end
+        end
+      end
+      p.serialize(filename)
+    end
+
+    send_file filename, x_sendfile: true, type: Mime::Type.lookup_by_extension(:xlsx).to_s
+  end
+
+  collection_action :export_to_excel do
   end
 end
