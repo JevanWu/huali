@@ -400,18 +400,6 @@ ActiveRecord::Schema.define(version: 20140225102111) do
   add_index "recommendation_relations", ["product_id"], name: "index_recommendation_relations_on_product_id", using: :btree
   add_index "recommendation_relations", ["recommendation_id"], name: "index_recommendation_relations_on_recommendation_id", using: :btree
 
-  create_table "redeems", force: true do |t|
-    t.string   "title"
-    t.integer  "cost_points"
-    t.integer  "user_id"
-    t.integer  "order_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "redeems", ["order_id"], name: "index_redeems_on_order_id", using: :btree
-  add_index "redeems", ["user_id"], name: "index_redeems_on_user_id", using: :btree
-
   create_table "region_rules", force: true do |t|
     t.integer  "region_rulable_id"
     t.text     "province_ids"
@@ -585,7 +573,6 @@ ActiveRecord::Schema.define(version: 20140225102111) do
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
-    t.integer  "redeem_points",          default: 0
   end
 
   add_index "users", ["anonymous_token"], name: "index_users_on_anonymous_token", unique: true, using: :btree
