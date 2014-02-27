@@ -36,6 +36,9 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:douban, :weibo, :qq_connect]
 
+  has_many :invited_users, class_name: "User", foreign_key: "invited_by_id"
+  belongs_to :inviter, class_name: "User", foreign_key: "invited_by_id"
+
   has_many :addresses
   has_many :orders
   has_many :transactions, through: :orders
