@@ -159,7 +159,7 @@ class OrdersController < ApplicationController
   def return
     if @transaction.return(request.query_string)
       user = @transaction.order.user
-      HualiPointService.new(user).reward_point
+      HualiPointService.reward_point(user.inviter, user)
       render 'success'
     else
       render 'failed', status: 400
@@ -171,7 +171,7 @@ class OrdersController < ApplicationController
 
     if @transaction.notify(query)
       user = @transaction.order.user
-      HualiPointService.new(user).reward_point
+      HualiPointService.reward_point(user.inviter, user)
       render text: "success"
     else
       render text: "failed", status: 400
