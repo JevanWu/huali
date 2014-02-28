@@ -94,6 +94,18 @@ class User < ActiveRecord::Base
     GaTrackWorker.delay.user_sign_in_track(id)
   end
 
+  def edit_invited_and_paid_counter(num=1)
+    self.invited_and_paid_counter = self.invited_and_paid_counter + num
+  end
+
+  def edit_huali_point(point)
+    self.huali_point = self.huali_point + point
+  end
+
+  def create_income_point_transaction(point, transaction_id=nil)
+    self.point_transactions.create(point: point, transaction_type: "income", expires_on: Date.current.end_of_year.advance(years: 1), transaction_id: transaction_id)
+  end
+
   private
 
     # Generate a friendly string randomically to be used as token.
