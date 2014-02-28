@@ -19,4 +19,16 @@ class HualiPointService
       end
     end
   end
+
+  def self.rebate_point(customer, transaction)
+    if transaction.point_transaction == nil
+      User.transaction do
+        customer.lock!
+        customer.edit_huali_point(transaction.amount*0.01)
+        customer.create_income_point_transaction(transaction.amount*0.01, transaction_id: transaction.id)
+        customer.save!
+      end
+    end
+  end
+
 end
