@@ -80,3 +80,7 @@ end
 every :day, at: '2:00 am' do
   rake "notice:all_orders_excel_email"
 end
+
+every :year do
+  rake "huali_point:annual_reset_and_accounting"
+end
