@@ -103,6 +103,10 @@ class Transaction < ActiveRecord::Base
     "#{Billing::Base.new(:link, self)}"
   end
 
+  def finished?
+    ["completed"].include?(state)
+  end
+
   private
 
   def generate_identifier
@@ -112,4 +116,5 @@ class Transaction < ActiveRecord::Base
   def notify_order
     self.order.pay!
   end
+
 end
