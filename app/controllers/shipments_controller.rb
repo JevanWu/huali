@@ -2,6 +2,15 @@
 require 'ostruct'
 
 class ShipmentsController < ApplicationController
+  def confirm
+    @shipment = Shipment.find_by_id(params[:id])
+    if @shipment.accept
+      redirect_to orders_path, alert: t('views.admin.shipment.shipment_state_changed') + t('models.shipment.state.completed')
+    else
+      redirect_to orders_path, alert: "货运订单状态更新失败"
+    end
+  end
+
   def notify
     shipment = Shipment.find_by_identifier params['identifier']
     notifier = ShipmentNotifier.new(params['param'])

@@ -36,7 +36,10 @@ li.row.order
         p.add-to-share
           a href="#" data-action='share-product' data-product="#{product.id}" 加入分享
       .op-area
-        - if order.state == 'generated'
+        - case order.state
+        - when 'generated'
           = link_to t('models.order.state.pay'), checkout_order_path(order), class: 'btn-completePay'
+        - when 'wait_confirm'
+          = button_to t('models.order.state.confirm_received'), confirm_shipment_path(order.shipment), data: { confirm: t('views.order.confirm_accept') }, class: 'btn-completePay'
 
 = render 'shared/product_share_popup', product: product
