@@ -175,7 +175,7 @@ GIT
 
 GIT
   remote: git://github.com/ryancheung/flowplayer-rails.git
-  revision: 7cb72e06071b03d652cee8beefc959bc6be53dc4
+  revision: daeacb017cee544a5ecd85dd4fc8a0732ca8ba34
   specs:
     flowplayer-rails (0.0.2)
       json
