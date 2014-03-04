@@ -5,8 +5,9 @@ namespace :huali_point do
       users = User.all.lock(true)
       users.each do |user| 
         user.huali_point = 0 
-        valid_transactions = PointTransaction.where(user: user, created_at: -1.year.from_now.beginning_of_year .. -1.year.from_now.end_of_year)
-        valid_transactions.each {|transaction| user.huali_point = user.huali_point + transaction.point}
+        valid_transactions = PointTransaction.where(user: user, 
+                                                    created_at: -1.year.from_now.beginning_of_year .. -1.year.from_now.end_of_year)
+        valid_transactions.each {|transaction| user.huali_point += transaction.point}
         user.save!
       end
     end
