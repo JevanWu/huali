@@ -4,7 +4,7 @@
     <% player.clip autoPlay: true, autoBuffering: true, scaling: "fit" %>
     <% player.play replayLabel: nil, opacity: 0 %>
     <% player.canvas backgroundColor: "transparent", backgroundGradient: "none" %>
-    <% player.plugins controls: { backgroundColor: "rgba(239, 239, 239, 0.1)", backgroundGradient: "none", all: false, scrubber: true, play: true, mute: true, fullscreen: true, autoHide: "always", height: "20px"} %>
+    <% player.plugins controls: { url: asset_path('flowplayer.controls-3.2.16.swf'), backgroundColor: "rgba(239, 239, 239, 0.1)", backgroundGradient: "none", all: false, scrubber: true, play: true, mute: true, fullscreen: true, autoHide: "always", height: "20px"} %>
   <% end %>
 <% end %>
 
