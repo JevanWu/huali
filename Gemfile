@@ -88,6 +88,8 @@ gem 'rest-client'
 
 gem 'huali_api', git: 'git@git.zenhacks.org:ryan/huali_api.git', require: 'huali_agent_api'
 
+gem 'flowplayer-rails', github: 'ryancheung/flowplayer-rails'
+
 group :development, :test do
   gem 'rspec-rails', '>= 2.11.0'
   gem 'rspec-instafail'

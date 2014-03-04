@@ -1,8 +1,23 @@
+<% content_for :js do %>
+  <%= javascript_include_tag 'flowplayer.min.js' %>
+  <%= flowplayer_for :video, asset_path('flowplayer-3.2.18.swf'), 'jquery' do |player| %>
+    <% player.clip autoPlay: true, autoBuffering: true, scaling: "fit" %>
+    <% player.play replayLabel: nil, opacity: 0 %>
+    <% player.canvas backgroundColor: "transparent", backgroundGradient: "none" %>
+    <% player.plugins controls: { backgroundColor: "rgba(239, 239, 239, 0.1)", backgroundGradient: "none", all: false, scrubber: true, play: true, mute: true, fullscreen: true, autoHide: "always", height: "20px"} %>
+  <% end %>
+<% end %>
+
 <div class="best-products">
   <h3 class="title">
     <i></i>媒体报道<b></b>
     <p>花里在媒体中一直有着良好的声誉。诸多平台媒体纷纷报道了花里作为线上花艺品牌的特殊价值与魅力。</p>
   </h3>
+
+  <div class="videos">
+    <a href="https://dl.dropboxusercontent.com/u/42618437/huali_meets_astonmartin.flv" id="video" style="height: 530px" />
+  </div>
+
   <div class="medias">
     <a href="http://lifestyle.rayli.com.cn/0P11/2013-07-04/L0P11007_1076759.html" target="_blank">
       <%= image_tag 'medias/rayli-report.jpg' %>
