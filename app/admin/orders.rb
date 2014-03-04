@@ -385,6 +385,7 @@ ActiveAdmin.register Order do
 
       row :gift_card_text
       row :special_instructions
+      row :memo
 
       row :coupon_code_record do
         if order.coupon_code_record

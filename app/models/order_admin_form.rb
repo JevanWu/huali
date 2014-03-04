@@ -12,6 +12,7 @@ module AdminOnlyInfo
   attribute :delivery_date, Date
   attribute :last_order, String
   attribute :prechecked, Virtus::Attribute::Boolean
+  attribute :memo, String
 end
 
 class OrderAdminForm < OrderForm

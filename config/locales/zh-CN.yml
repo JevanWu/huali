@@ -96,6 +96,7 @@ zh-CN:
         bypass_date_validation: 跳过递送时间验证
         bypass_product_validation: 跳过产品验证
         last_order: 关联订单号
+        memo: 客服备注
 
       item_info:
         quantity: 产品数量
@@ -205,6 +206,7 @@ zh-CN:
         kind: 类型
         kind_text: 类型
         last_order: 关联订单号
+        memo: 客服备注
 
       period_region_policy:
         start_date: 起始日期
