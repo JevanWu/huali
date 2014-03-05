@@ -85,7 +85,7 @@ module API
       #
       # Parameters:
       #   id (required)                   - Either ID, identifier, or merchant_order_no of the order
-      #   kind (optional)                 - Order kind, options are normal, taobao and tmall
+      #   kind (required)                 - Order kind, options are normal, taobao and tmall
       #   product_id (required)           - Order line item product id
       #   price (required)                - Order line item product price
       #   quantity (required)             - Order line item product quantity
@@ -113,7 +113,7 @@ module API
       #
       # Parameters:
       #   id (required)                   - Either ID, identifier, or merchant_order_no of the order
-      #   kind (optional)                 - Order kind, options are normal, taobao and tmall
+      #   kind (required)                 - Order kind, options are normal, taobao and tmall
       #   merchant_trade_no (required)    - Merchant trade transaction No.
       #   merchant_name (optional)        - Merchant name, available names: Alipay, Paypal and Tenpay, default: Alipay.
       #   payment (required)              - The amount of the payment by customer
@@ -157,7 +157,7 @@ module API
       #
       # Parameters:
       #   id (required)                   - Either ID, identifier, or merchant_order_no of the order
-      #   kind (optional)                 - Order kind, options are normal, taobao and tmall
+      #   kind (required)                 - Order kind, options are normal, taobao and tmall
 
       # Example Request:
       #   PUT /orders/completed/:kind/:id
@@ -167,6 +167,22 @@ module API
         forbidden! and return if order.state != 'wait_confirm'
 
         order.confirm
+
+        status(205)
+      end
+
+      # Update memos of an order
+      #
+      # Parameters:
+      #   id (required)                   - Either ID, identifier, or merchant_order_no of the order
+      #   kind (required)                 - Order kind, options are normal, taobao and tmall
+      #   special_instructions (optional) - Special instructions of customer
+      #   memo (optional)                 - Memo of customer service
+      put ":kind/:id/memos" do
+        not_found!("order") and return unless order
+
+        order.update_column(:special_instructions, params[:special_instructions]) if params[:special_instructions].present?
+        order.update_column(:memo, params[:memo]) if params[:memo].present?
 
         status(205)
       end

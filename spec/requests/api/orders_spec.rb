@@ -271,4 +271,24 @@ describe API::API do
 
   end
 
+  describe "PUT orders/:kind/:id/memos" do
+    let(:order) { create(:third_party_order, :wait_confirm) }
+    let(:special_instructions) { "最好能在3/8前送到，谢谢。" }
+    let(:memo) { "送达时间：3/8号前，时间随意" }
+    let(:valid_params) { { special_instructions: special_instructions, memo: memo } }
+
+    it "returns success" do
+      put api("/orders/#{order.kind}/#{order.merchant_order_no}/memos"), valid_params
+
+      response.status.should == 205
+    end
+
+    it "updates memos of the order" do
+      put api("/orders/#{order.kind}/#{order.merchant_order_no}/memos"), valid_params
+
+      order.reload.special_instructions.should == special_instructions
+      order.memo.should == memo
+    end
+  end
+
 end
