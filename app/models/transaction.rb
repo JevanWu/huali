@@ -41,7 +41,7 @@ class Transaction < ActiveRecord::Base
     message: "%{value} is not a valid merchant name."
   }
 
-  validates :merchant_trade_no, uniqueness: { scope: :order_id }
+  validates :merchant_trade_no, uniqueness: { scope: :order_id }, allow_blank: true
 
   state_machine :state, initial: :generated do
     after_transition to: :completed, do: :notify_order
