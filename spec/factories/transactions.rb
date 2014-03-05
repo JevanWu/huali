@@ -30,6 +30,7 @@ FactoryGirl.define do
     body { Forgery(:lorem_ipsum).paragraph }
     merchant_name { %w(Alipay Paypal Tenpay).sample }
     paymethod { %w(paypal directPay bankPay).sample }
-    state { %w(generated wait_check wait_confirm completed).sample }
+    state { %w(generated processing completed failed).sample }
+    merchant_trade_no { SecureRandom.hex(15) }
   end
 end

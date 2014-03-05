@@ -54,6 +54,10 @@ FactoryGirl.define do
       end
     end
 
+    trait :generated do
+      state 'generated'
+    end
+
     trait :wait_check do
       state 'wait_check'
     end
@@ -62,15 +66,19 @@ FactoryGirl.define do
       state 'wait_confirm'
     end
 
+    trait :completed do
+      state 'completed'
+    end
+
     trait :with_one_transaction do
       after(:build) do |order|
-        create_list(:transaction, 1, order: order )
+        create(:transaction, order: order, state: 'generated' )
       end
     end
 
     trait :with_multi_transaction do
       after(:build) do |order|
-        create_list(:transaction, Forgery(:basic).number, order: order )
+        create_list(:transaction, 1..3, order: order)
       end
     end
 
