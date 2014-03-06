@@ -291,4 +291,75 @@ describe API::API do
     end
   end
 
+  describe "POST orders/:kind/:id/refunds" do
+    let(:order) { create(:third_party_order, :wait_confirm, :with_one_transaction) }
+    let(:valid_params) do
+      {
+        merchant_trade_no: order.transaction.merchant_trade_no,
+        merchant_refund_id: "118388942384",
+        amount: 299.0,
+        reason: "未收到花盒"
+      }
+    end
+
+    let(:invalid_params) do
+      {
+        merchant_trade_no: "20492984234032948923",
+        merchant_refund_id: "118388942384",
+        reason: "未收到花盒"
+      }
+    end
+
+    context "with invalid parameters" do
+      it "returns 400 bad request error" do
+        post api("/orders/#{order.kind}/#{order.merchant_order_no}/refunds"), invalid_params
+
+        response.status.should == 400
+      end
+    end
+
+    context "with valid parameters" do
+      context "when the merchant_trade_no not found" do
+        let(:valid_params) do
+          {
+            merchant_trade_no: "20492984234032948923",
+            merchant_refund_id: "118388942384",
+            amount: 299.0,
+            reason: "未收到花盒"
+          }
+        end
+
+        it "returns 400 bad request error" do
+          post api("/orders/#{order.kind}/#{order.merchant_order_no}/refunds"), valid_params
+
+          response.status.should == 400
+        end
+      end
+
+      context "when the merchant_refund_id exists already" do
+        before do
+          create(:refund, merchant_refund_id: valid_params[:merchant_refund_id], order: order)
+        end
+
+        it "do nothing and return success" do
+          post api("/orders/#{order.kind}/#{order.merchant_order_no}/refunds"), valid_params
+
+          response.status.should == 204
+        end
+      end
+
+      it "returns success" do
+        post api("/orders/#{order.kind}/#{order.merchant_order_no}/refunds"), valid_params
+
+        response.status.should == 201
+      end
+
+      it "creates an refund" do
+        lambda {
+          post api("/orders/#{order.kind}/#{order.merchant_order_no}/refunds"), valid_params
+        }.should change { order.refunds.count }.by(1)
+      end
+    end
+  end
+
 end

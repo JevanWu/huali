@@ -186,6 +186,42 @@ module API
 
         status(205)
       end
+
+      # Create a refund request for an order
+      #
+      # Parameters:
+      #   id (required)                   - Either ID, identifier, or merchant_order_no of the order
+      #   kind (required)                 - Order kind, options are normal, taobao and tmall
+      #   merchant_trade_no` (required)   - Merchant trade transaction No.
+      #   merchant_refund_id` (required)  - Merchant refund id
+      #   amount` (required)              - Refunded money
+      #   reason` (optional)              - Refund reason
+      #   ship_method` (optional)         - Ship method, e.g EMS, Shunfeng
+      #   tracking_number` (optional)     - Shipment tracking number
+      params do
+        requires :merchant_trade_no, type: String
+        requires :merchant_refund_id, type: String
+        requires :amount, type: Float
+        optional :reason, type: String
+        optional :ship_method, type: String
+        optional :tracking_number, type: String
+      end
+
+      post ":kind/:id/refunds" do
+        not_found!("order") and return unless order
+
+        transaction = order.transactions.where(merchant_trade_no: params[:merchant_trade_no]).first
+
+        unless transaction
+          render_api_error!("merchant_trade_no##{params[:merchant_trade_no]} not found", 400, { order: order.identifier }) and return
+        end
+
+        permitted_params = ActionController::Parameters.new(params).permit(:merchant_refund_id, :reason, :ship_method, :tracking_number)
+
+        order.generate_refund(transaction, params[:amount], permitted_params)
+
+        status(201)
+      end
     end
   end
 end

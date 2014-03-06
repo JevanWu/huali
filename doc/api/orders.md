@@ -137,6 +137,8 @@ Parameters:
 + `merchant_refund_id` (required)   - Merchant refund id
 + `amount` (required)               - Refunded money
 + `reason` (optional)               - Refund reason
++ `ship_method` (optional)          - Ship method, e.g EMS, Shunfeng
++ `tracking_number` (optional)      - Shipment tracking number
 
 Response:
 
@@ -149,7 +151,9 @@ Status: 201 Created
   "merchant_trade_no": "24898492348230494233",
   "merchant_refund_id": "111932323",
   "amount": 299.0,
-  "reason": "货品有问题"
+  "reason": "货品有问题",
+  "ship_method": "EMS",
+  "tracking_number": "4928492349343"
 }
 ```
 
@@ -166,6 +170,10 @@ Parameters:
 + `id` (required)                   - Either ID, identifier, or merchant_order_no of the order
 + `kind` (required)                 - Order kind, options are normal, taobao and tmall
 + `merchant_refund_id` (required)   - Merchant refund id
++ `amount` (required)               - Refunded money
++ `reason` (optional)               - Refund reason
++ `ship_method` (optional)          - Ship method, e.g EMS, Shunfeng
++ `tracking_number` (optional)      - Shipment tracking number
 
 Response:
 
