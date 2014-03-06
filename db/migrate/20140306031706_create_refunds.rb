@@ -2,8 +2,8 @@ class CreateRefunds < ActiveRecord::Migration
   def change
     create_table :refunds do |t|
       t.references :order, index: true
+      t.references :transaction, index: true
       t.string :state
-      t.string :merchant_trade_no
       t.string :merchant_refund_id
       t.decimal :amount
       t.string :reason

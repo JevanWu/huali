@@ -403,8 +403,8 @@ ActiveRecord::Schema.define(version: 20140306031706) do
 
   create_table "refunds", force: true do |t|
     t.integer  "order_id"
+    t.integer  "transaction_id"
     t.string   "state"
-    t.string   "merchant_trade_no"
     t.string   "merchant_refund_id"
     t.decimal  "amount"
     t.string   "reason"
@@ -416,6 +416,7 @@ ActiveRecord::Schema.define(version: 20140306031706) do
 
   add_index "refunds", ["order_id", "merchant_refund_id"], name: "index_refunds_on_order_id_and_merchant_refund_id", unique: true, using: :btree
   add_index "refunds", ["order_id"], name: "index_refunds_on_order_id", using: :btree
+  add_index "refunds", ["transaction_id"], name: "index_refunds_on_transaction_id", using: :btree
 
   create_table "region_rules", force: true do |t|
     t.integer  "region_rulable_id"
