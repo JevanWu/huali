@@ -153,6 +153,7 @@ zh-CN:
       didi_passenger: 嘀嘀打车活动
       limited_promotion: 限时优惠
       slide_panel: 轮播设置
+      refund: 订单退款
 
     attributes:
       order: &order
@@ -427,6 +428,16 @@ zh-CN:
         priority: 优先级
         image: 图片
         visible: 首页是否可见
+
+      refund:
+        order: 订单
+        state: 退款状态
+        merchant_trade_no: 商户交易号
+        merchant_refund_id: 商户退款单号
+        amount: 金额
+        reason: 退款原因
+        ship_method: 快递方式
+        tracking_number: 快递单号
 
   models:
     order:
