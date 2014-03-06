@@ -424,4 +424,63 @@ describe API::API do
     end
   end
 
+  describe "PUT orders/:kind/:id/refunds/rejected/:merchant_refund_id" do
+    let(:order) { create(:third_party_order, :wait_refund, :with_one_transaction) }
+    let(:transaction) { create(:transaction, order: order, state: 'completed') }
+    let(:refund) { create(:refund, order: order, transaction: transaction) }
+    let(:merchant_refund_id) { refund.merchant_refund_id }
+
+    let(:valid_params) do
+      {
+        merchant_trade_no: transaction.merchant_trade_no,
+        amount: 299.0,
+        reason: "未收到花盒"
+      }
+    end
+
+    let(:invalid_params) do
+      {
+        merchant_trade_no: transaction.merchant_trade_no,
+        reason: "未收到花盒"
+      }
+    end
+
+    context "with invalid parameters" do
+      it "returns 400 bad request error" do
+        put api("/orders/#{order.kind}/#{order.merchant_order_no}/refunds/rejected/#{merchant_refund_id}"), invalid_params
+
+        response.status.should == 400
+      end
+    end
+
+    context "with valid parameters" do
+      context "when the merchant_refund_id does not exist" do
+        let(:merchant_refund_id) { "942389482942394823423" }
+
+        it "creates an refund and reject it" do
+          lambda {
+            put api("/orders/#{order.kind}/#{order.merchant_order_no}/refunds/rejected/#{merchant_refund_id}"), valid_params
+          }.should change { order.refunds.count }.by(1)
+        end
+      end
+
+      it "return success" do
+        put api("/orders/#{order.kind}/#{order.merchant_order_no}/refunds/rejected/#{merchant_refund_id}"), valid_params
+
+        response.status.should == 205
+      end
+
+      it "set the refund state to 'rejected'" do
+        put api("/orders/#{order.kind}/#{order.merchant_order_no}/refunds/rejected/#{merchant_refund_id}"), valid_params
+
+        refund.reload.state.should == 'rejected'
+      end
+
+      it "set the order state back" do
+        put api("/orders/#{order.kind}/#{order.merchant_order_no}/refunds/rejected/#{merchant_refund_id}"), valid_params
+
+        order.reload.state.should_not == 'wait_refund'
+      end
+    end
+  end
 end
