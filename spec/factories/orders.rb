@@ -70,6 +70,10 @@ FactoryGirl.define do
       state 'completed'
     end
 
+    trait :wait_refund do
+      state 'wait_refund'
+    end
+
     trait :with_one_transaction do
       after(:build) do |order|
         create(:transaction, order: order, state: 'generated' )

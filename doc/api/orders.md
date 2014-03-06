@@ -157,9 +157,7 @@ Status: 201 Created
 }
 ```
 
-## Agree a refund of an order
-
-Set state of the refund to 'refunded'
+## Accept a refund of an order
 
 ```
 PUT /orders/:kind/:id/refunds/accepted/:merchant_refund_id
@@ -169,6 +167,7 @@ Parameters:
 
 + `id` (required)                   - Either ID, identifier, or merchant_order_no of the order
 + `kind` (required)                 - Order kind, options are normal, taobao and tmall
++ `merchant_trade_no` (required)    - Merchant trade transaction No.
 + `merchant_refund_id` (required)   - Merchant refund id
 + `amount` (required)               - Refunded money
 + `reason` (optional)               - Refund reason
@@ -183,8 +182,6 @@ Status: 205 Reset Content
 
 ## Reject an refund of an order
 
-Set state of the refund to 'rejected'
-
 ```
 PUT /orders/:kind/:id/refunds/rejected/:merchant_refund_id
 ```
@@ -193,7 +190,12 @@ Parameters:
 
 + `id` (required)                   - Either ID, identifier, or merchant_order_no of the order
 + `kind` (required)                 - Order kind, options are normal, taobao and tmall
++ `merchant_trade_no` (required)    - Merchant trade transaction No.
 + `merchant_refund_id` (required)   - Merchant refund id
++ `amount` (required)               - Refunded money
++ `reason` (optional)               - Refund reason
++ `ship_method` (optional)          - Ship method, e.g EMS, Shunfeng
++ `tracking_number` (optional)      - Shipment tracking number
 
 Response:
 

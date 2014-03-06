@@ -293,9 +293,11 @@ describe API::API do
 
   describe "POST orders/:kind/:id/refunds" do
     let(:order) { create(:third_party_order, :wait_confirm, :with_one_transaction) }
+    let(:transaction) { create(:transaction, order: order, state: 'completed') }
+
     let(:valid_params) do
       {
-        merchant_trade_no: order.transaction.merchant_trade_no,
+        merchant_trade_no: transaction.merchant_trade_no,
         merchant_refund_id: "118388942384",
         amount: 299.0,
         reason: "未收到花盒"
@@ -304,7 +306,7 @@ describe API::API do
 
     let(:invalid_params) do
       {
-        merchant_trade_no: "20492984234032948923",
+        merchant_trade_no: transaction.merchant_trade_no,
         merchant_refund_id: "118388942384",
         reason: "未收到花盒"
       }
@@ -344,7 +346,7 @@ describe API::API do
         it "do nothing and return success" do
           post api("/orders/#{order.kind}/#{order.merchant_order_no}/refunds"), valid_params
 
-          response.status.should == 204
+          response.status.should == 201
         end
       end
 
@@ -358,6 +360,66 @@ describe API::API do
         lambda {
           post api("/orders/#{order.kind}/#{order.merchant_order_no}/refunds"), valid_params
         }.should change { order.refunds.count }.by(1)
+      end
+    end
+  end
+
+  describe "PUT orders/:kind/:id/refunds/accepted/:merchant_refund_id" do
+    let(:order) { create(:third_party_order, :wait_refund, :with_one_transaction) }
+    let(:transaction) { create(:transaction, order: order, state: 'completed') }
+    let(:refund) { create(:refund, order: order, transaction: transaction) }
+    let(:merchant_refund_id) { refund.merchant_refund_id }
+
+    let(:valid_params) do
+      {
+        merchant_trade_no: transaction.merchant_trade_no,
+        amount: 299.0,
+        reason: "未收到花盒"
+      }
+    end
+
+    let(:invalid_params) do
+      {
+        merchant_trade_no: transaction.merchant_trade_no,
+        reason: "未收到花盒"
+      }
+    end
+
+    context "with invalid parameters" do
+      it "returns 400 bad request error" do
+        put api("/orders/#{order.kind}/#{order.merchant_order_no}/refunds/accepted/#{merchant_refund_id}"), invalid_params
+
+        response.status.should == 400
+      end
+    end
+
+    context "with valid parameters" do
+      context "when the merchant_refund_id does not exist" do
+        let(:merchant_refund_id) { "942389482942394823423" }
+
+        it "creates an refund and accept it" do
+          lambda {
+            put api("/orders/#{order.kind}/#{order.merchant_order_no}/refunds/accepted/#{merchant_refund_id}"), valid_params
+          }.should change { order.refunds.count }.by(1)
+        end
+      end
+
+      it "return success" do
+        put api("/orders/#{order.kind}/#{order.merchant_order_no}/refunds/accepted/#{merchant_refund_id}"), valid_params
+
+        response.status.should == 205
+      end
+
+      it "set the refund state to 'accepted'" do
+        put api("/orders/#{order.kind}/#{order.merchant_order_no}/refunds/accepted/#{merchant_refund_id}"), valid_params
+
+        refund.reload.state.should == 'accepted'
+      end
+
+      it "set the order state to 'refunded'" do
+        put api("/orders/#{order.kind}/#{order.merchant_order_no}/refunds/accepted/#{merchant_refund_id}"), valid_params
+
+        order.reload.state.should == 'refunded'
       end
     end
   end
