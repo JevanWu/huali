@@ -490,6 +490,18 @@ zh-CN:
         accept: 送达
         print: 打印
 
+    #states for refund
+    refund:
+      state:
+        pending: 等待退款
+        goods_returned: 已退货
+        accepted: 已接受
+        rejected: 已拒绝
+
+        accept: 接受
+        reject: 拒绝
+        return_goods: 退货
+
   enumerize:
     order:
       kind:
