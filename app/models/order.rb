@@ -288,6 +288,10 @@ class Order < ActiveRecord::Base
     refunds.create(options.merge(amount: amount || transaction.amount, transaction: transaction))
   end
 
+  def has_shipped_shipment?
+    shipments.where("tracking_num IS NOT NULL AND tracking_num != ''").exists?
+  end
+
   private
 
   def sync_payment
