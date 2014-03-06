@@ -77,11 +77,20 @@ describe Order do
     let(:options) { { merchant_refund_id: '42342342343', reason: "不喜欢" } }
 
     it "genereates a refund" do
-      order.generate_refund(transaction, refund_money, options).should be_a(Refund)
+      lambda {
+        order.generate_refund(transaction, refund_money, options)
+      }.should change { order.refunds.count }.by(1)
+    end
+
+    it "set state to 'wait_refund'" do
+      order.generate_refund(transaction, refund_money, options)
+
+      order.state.should == 'wait_refund'
     end
 
     it "genereates a refund with the refund money set to the payment of the transaction if amount is not specified" do
-      order.generate_refund(transaction, nil, options).amount.should == transaction.amount
+      order.generate_refund(transaction, nil, options)
+      order.refunds.last.amount.should == transaction.amount
     end
 
     context "when the transaction state is not completed" do

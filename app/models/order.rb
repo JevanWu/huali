@@ -286,6 +286,10 @@ class Order < ActiveRecord::Base
     raise ArgumentError, "Transaction is not belongs to the order" if transaction.order != self
 
     refunds.create(options.merge(amount: amount || transaction.amount, transaction: transaction))
+
+    cancel if state != 'wait_refund'
+
+    true
   end
 
   def has_shipped_shipment?
