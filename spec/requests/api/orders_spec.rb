@@ -361,6 +361,12 @@ describe API::API do
           post api("/orders/#{order.kind}/#{order.merchant_order_no}/refunds"), valid_params
         }.should change { order.refunds.count }.by(1)
       end
+
+      it "sets the order state to 'wait_refund'" do
+        post api("/orders/#{order.kind}/#{order.merchant_order_no}/refunds"), valid_params
+
+        order.reload.state.should == "wait_refund"
+      end
     end
   end
 
