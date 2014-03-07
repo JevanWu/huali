@@ -13,7 +13,8 @@ Parameters:
 + `sender_phone` (optional)         - Sender phone
 + `coupon_code` (optional)          - Coupon code
 + `gift_card_text` (optional)       - Gift card text
-+ `special_instructions` (optional) - Special instructions
++ `special_instructions` (optional) - Customer memo
++ `memo` (optional)                 - Customer service memo
 + `kind` (required)                 - Order kind, options are normal, taobao and tmall
 + `merchant_order_no` (required)    - Merchant order No.
 + `ship_method_id` (optional)       - EMS: 4, 人工: 3, 顺风: 2, 联邦: 1, 申通: 5

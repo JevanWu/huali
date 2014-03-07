@@ -22,7 +22,8 @@ module API
       #   sender_phone (optional)         - Sender phone
       #   coupon_code (optional)          - Coupon code
       #   gift_card_text (optional)       - Gift card text
-      #   special_instructions (optional) - Special instructions
+      #   special_instructions (optional) - Customer memo
+      #   memo (optional)                 - Customer service memo
       #   kind (required)                 - Order kind, options are normal, taobao and tmall
       #   merchant_order_no (required)    - Merchant order No.
       #   ship_method_id (optional)       - EMS: 4, 人工: 3, 顺风: 2, 联邦: 1, 申通: 5
@@ -57,6 +58,7 @@ module API
                           coupon_code: params[:coupon_code],
                           gift_card_text: params[:gift_card_text],
                           special_instructions: params[:special_instructions],
+                          memo: params[:memo],
                           kind: params[:kind],
                           merchant_order_no: params[:merchant_order_no],
                           ship_method_id: params[:ship_method_id],
