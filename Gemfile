@@ -86,7 +86,7 @@ gem 'grape'
 gem 'api-auth', github: 'ryancheung/api_auth'
 gem 'rest-client'
 
-gem 'huali_api', git: 'git@git.zenhacks.org:ryan/huali_api.git', require: 'huali_agent_api'
+gem 'huali_api', git: 'git@git.zenhacks.org:ryan/huali_api.git', tag: 'v0.1.0', require: 'huali_agent_api'
 
 gem 'flowplayer-rails', github: 'ryancheung/flowplayer-rails'
 

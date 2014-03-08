@@ -189,9 +189,10 @@ GIT
 
 GIT
   remote: git@git.zenhacks.org:ryan/huali_api.git
-  revision: 491962dec35c69750e2bd39f0db5ca996d90d15f
+  revision: 189e9beacb3a5f69d073eb528b8cfff4658abbe6
+  tag: v0.1.0
   specs:
-    huali_api (0.0.1)
+    huali_api (0.1.0)
       activesupport
       api-auth
       descendants_tracker (~> 0.0.3)
