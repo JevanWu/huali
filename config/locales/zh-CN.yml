@@ -76,6 +76,7 @@ zh-CN:
         order_content: 订单内容
         transaction_identifier: 交易编号
         transaction_info: 交易信息
+        refund_info: 退款信息
         shipment_info: 递送信息
         fullname: 收货人姓名
         process_order: 处理订单
@@ -153,7 +154,7 @@ zh-CN:
       didi_passenger: 嘀嘀打车活动
       limited_promotion: 限时优惠
       slide_panel: 轮播设置
-      refund: 订单退款
+      refund: 退款记录
 
     attributes:
       order: &order
@@ -185,6 +186,7 @@ zh-CN:
         order_content: 订单内容
         transaction_identifier: 交易编号
         transaction_info: 交易信息
+        refund_info: 退款信息
         shipment_info: 递送信息
         fullname: 收货人姓名
         process_order: 处理订单
@@ -431,8 +433,11 @@ zh-CN:
 
       refund:
         order: 订单
+        order_identifier: 订单编号
         state: 退款状态
-        merchant_trade_no: 商户交易号
+        transaction: 交易
+        order_identifier: 订单编号
+        transaction_identifier: 交易编号
         merchant_refund_id: 商户退款单号
         amount: 金额
         reason: 退款原因
