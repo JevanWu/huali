@@ -2,6 +2,8 @@
 ActiveAdmin.register Refund do
   menu parent: '订单', if: proc { authorized? :read, Refund }
 
+  actions :index, :show
+
   filter :merchant_refund_id
   filter :order_identifier, as: :string
   filter :transaction_identifier, as: :string
