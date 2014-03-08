@@ -37,10 +37,11 @@
 require 'spec_helper'
 
 describe Order do
-
-  let(:order) { FactoryGirl.create(:order, adjustment: "*0") }
+  let(:order) { FactoryGirl.create(:order, :generated) }
 
   describe "#skip_payment" do
+    let(:order) { FactoryGirl.create(:order, adjustment: "*0") }
+
     context "when state of the order isn't :generated" do
       let(:order) { FactoryGirl.create(:order, :wait_confirm) }
       it "raise error" do
@@ -64,6 +65,51 @@ describe Order do
         order.skip_payment
 
         order.state.should == :wait_check
+      end
+    end
+  end
+
+  describe "#generate_refund" do
+    let(:order) { FactoryGirl.create(:order, :wait_check, :with_one_transaction) }
+    let(:transaction) { create(:transaction, order: order, state: 'completed') }
+    let(:refund_money) { 99.0 }
+
+    let(:options) { { merchant_refund_id: '42342342343', reason: "不喜欢" } }
+
+    it "genereates a refund" do
+      lambda {
+        order.generate_refund(transaction, refund_money, options)
+      }.should change { order.refunds.count }.by(1)
+    end
+
+    it "set state to 'wait_refund'" do
+      order.generate_refund(transaction, refund_money, options)
+
+      order.state.should == 'wait_refund'
+    end
+
+    it "genereates a refund with the refund money set to the payment of the transaction if amount is not specified" do
+      order.generate_refund(transaction, nil, options)
+      order.refunds.last.amount.should == transaction.amount
+    end
+
+    context "when the transaction state is not completed" do
+      let(:transaction) { create(:transaction, order: order, state: 'generated') }
+
+      it "raise error" do
+        lambda {
+          order.generate_refund(transaction)
+        }.should raise_error(ArgumentError)
+      end
+    end
+
+    context "the transaction does not belongs to the order" do
+      let(:transaction) { create(:transaction, state: 'completed') }
+
+      it "raise error" do
+        lambda {
+          order.generate_refund(transaction)
+        }.should raise_error(ArgumentError)
       end
     end
   end

@@ -350,6 +350,15 @@ ActiveAdmin.register Order do
         end
       end
 
+      row :refund_info do
+        unless order.refunds.blank?
+          order.refunds.map do |refund|
+            link_to(refund.merchant_refund_id || refund.id, admin_refund_path(refund)) + \
+            label_tag(" " + t('models.refund.state.' + refund.state))
+          end.join('</br>').html_safe
+        end
+      end
+
       row :shipment_info do
         unless order.shipments.blank?
           order.shipments.map do |shipment|
@@ -385,6 +394,7 @@ ActiveAdmin.register Order do
 
       row :gift_card_text
       row :special_instructions
+      row :memo
 
       row :coupon_code_record do
         if order.coupon_code_record

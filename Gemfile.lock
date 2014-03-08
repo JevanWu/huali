@@ -1,10 +1,4 @@
 GIT
-  remote: git://github.com/NicoArbogast/api_auth.git
-  revision: 0ca31b0476c57fb98ca0b704d76d67a8c0b10383
-  specs:
-    api-auth (1.0.3.5)
-
-GIT
   remote: git://github.com/blaet/nulldb.git
   revision: 1556bdfa38fbb466f40712db6c307b59621df5bd
   branch: support_enable_extension
@@ -164,6 +158,12 @@ GIT
     activeadmin-sortable-tree (0.0.1)
       activeadmin
       rails (>= 3.2)
+
+GIT
+  remote: git://github.com/ryancheung/api_auth.git
+  revision: 9b6d08a8c454ae392f1c68a2d10e46e275c38ce6
+  specs:
+    api-auth (1.1.0)
 
 GIT
   remote: git://github.com/ryancheung/ckeditor.git
