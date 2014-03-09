@@ -96,7 +96,6 @@ describe OrderForm do
       address: valid_receiver,
       line_items: valid_line_items,
       # direct attributes
-      coupon_code: 'xs134fx',
       gift_card_text: '空白卡片',
       special_instructions: '现在的色调有些冷，请往“巴黎”的色调靠拢。把绣球的颜色调浅些或者加香槟玫瑰，送给女性朋友生日的礼物，尽量粉嫩甜蜜些',
       source: '淘宝',
@@ -112,6 +111,28 @@ describe OrderForm do
   end
 
   it_behaves_like "OrderForm::Shared"
+
+  describe "valid?" do
+    context "OrderCouponValidator" do
+      it "calls validate on the validator with subject" do
+        any_instance_of(OrderCouponValidator) do |v|
+          mock(v).validate(subject)
+        end
+
+        subject.valid?
+      end
+
+      it "never calls validate on the validator unless not_yet_shipped" do
+        stub(subject).not_yet_shipped? { false }
+
+        any_instance_of(OrderCouponValidator) do |v|
+          mock(v).validate(subject).never
+        end
+
+        subject.valid?
+      end
+    end
+  end
 
   before do
     stub(subject).item_total { 200 }

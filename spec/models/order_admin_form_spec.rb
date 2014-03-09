@@ -41,7 +41,6 @@ describe OrderAdminForm do
       bypass_date_validation: false,
       bypass_region_validation: false,
       bypass_product_validation: false,
-      coupon_code: 'xs134fx',
       gift_card_text: '空白卡片',
       special_instructions: '现在的色调有些冷，请往“巴黎”的色调靠拢。把绣球的颜色调浅些或者加香槟玫瑰，送给女性朋友生日的礼物，尽量粉嫩甜蜜些',
       source: '淘宝',
@@ -90,6 +89,7 @@ describe OrderAdminForm do
 
     ADMIN_VALIDATORS.each do |validator|
       it "calls validate on #{validator} with subject" do
+        subject
         any_instance_of(validator.constantize) do |v|
           mock(v).validate(subject)
         end
@@ -126,6 +126,28 @@ describe OrderAdminForm do
       end
 
       subject.valid?
+    end
+
+    context "OrderCouponValidator" do
+      it "calls validate with subject if subject was not persisted" do
+        stub(subject).persisted? { false }
+
+        any_instance_of(OrderCouponValidator) do |v|
+          mock(v).validate(subject)
+        end
+
+        subject.valid?
+      end
+
+      it "never calls validate with subject if subject is persisted" do
+        stub(subject).persisted? { true }
+
+        any_instance_of(OrderCouponValidator) do |v|
+          mock(v).validate(subject).never
+        end
+
+        subject.valid?
+      end
     end
   end
 
