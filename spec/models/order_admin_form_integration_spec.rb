@@ -9,7 +9,6 @@ describe OrderForm do
     @user = FactoryGirl.create(:user)
     @city = @province.cities.sample
     @area = @city.areas.sample
-    @coupon = FactoryGirl.create(:coupon)
     @ship_method = FactoryGirl.create(:ship_method)
   end
 
@@ -59,6 +58,7 @@ describe OrderForm do
       bypass_product_validation: false,
       adjustment: '*0.9',
       kind: :taobao,
+      merchant_order_no: '5493284823432942',
       ship_method_id: @ship_method.id,
       delivery_date: '2013-07-31'
     }
@@ -70,33 +70,9 @@ describe OrderForm do
 
   it_behaves_like "OrderForm::Integration::Shared"
 
-  describe '#save' do
-    describe "coupon_code persistance" do
-      context 'with adjustment passed in' do
-        it 'shouldn\'t save the coupon on order' do
-          OrderAdminForm.new(valid_order.merge({coupon_code: @coupon.code})).save
-          order = Order.first
-
-          order.coupon_code.should be_nil
-          order.coupon.should be_nil
-        end
-      end
-
-      context 'without adjustment and with coupon_code' do
-        it 'saves coupon_code if passed in' do
-          OrderAdminForm.new(valid_order.merge({adjustment: nil, coupon_code: @coupon.code})).save
-          order = Order.first
-
-          order.coupon_code.should == @coupon.code
-          order.coupon == @coupon
-        end
-      end
-    end
-  end
-
   describe 'Update Behavior when #build_from_record:' do
     before do
-      OrderAdminForm.new(valid_order.merge({adjustment:nil, coupon_code: @coupon.code})).save
+      OrderAdminForm.new(valid_order.merge(adjustment: nil)).save
     end
 
     let(:form) { OrderAdminForm.build_from_record(order) }
@@ -251,31 +227,6 @@ describe OrderForm do
 
       it 'builds new LineItem records based on new ItemInfo' do
         subject[0].product == @new_product
-      end
-    end
-
-    context 'coupon information' do
-      subject { order }
-
-      before do
-        @new_coupon = FactoryGirl.create(:coupon)
-      end
-
-      it 'updates the coupon relation for new coupon' do
-        form.coupon_code = @new_coupon.code
-        form.save
-
-        order.coupon_code.should == @new_coupon.code
-        order.coupon.should == @new_coupon
-      end
-
-      it 'removes the coupon relation for nil coupon' do
-        form.coupon_code = nil
-        form.save
-
-        order.reload
-        order.coupon_code.should be_nil
-        order.coupon.should be_nil
       end
     end
   end
