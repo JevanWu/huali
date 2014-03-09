@@ -46,6 +46,14 @@ GIT
       orm_adapter
 
 GIT
+  remote: git://github.com/ryancheung/closure_tree.git
+  revision: ffe1abbf63ddd6114dadb988ec4107a304da547e
+  specs:
+    closure_tree (4.4.0)
+      activerecord (>= 3.0.0)
+      with_advisory_lock (>= 0.0.9)
+
+GIT
   remote: git://github.com/ryancheung/flowplayer-rails.git
   revision: 1d11edf0073b5944b0f29cf434060378472d3bc0
   specs:
@@ -175,9 +183,6 @@ GEM
     chronic (0.9.1)
     climate_control (0.0.3)
       activesupport (>= 3.0)
-    closure_tree (4.2.7)
-      activerecord (>= 3.0.0)
-      with_advisory_lock (>= 0.0.9)
     cocaine (0.5.1)
       climate_control (>= 0.0.3, < 1.0)
     coderay (1.0.9)
@@ -595,7 +600,7 @@ GEM
     whenever (0.8.3)
       activesupport (>= 2.3.4)
       chronic (>= 0.6.3)
-    with_advisory_lock (0.0.10)
+    with_advisory_lock (1.0.0)
       activerecord (>= 3.0.0)
     xpath (2.0.0)
       nokogiri (~> 1.3)
@@ -624,7 +629,7 @@ DEPENDENCIES
   capistrano-zen!
   capybara (>= 1.1.2)
   ckeditor!
-  closure_tree
+  closure_tree!
   coffee-rails
   database_cleaner!
   devise (~> 3.2.0)

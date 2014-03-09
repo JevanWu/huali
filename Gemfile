@@ -67,7 +67,7 @@ gem 'uglifier', '>= 1.0.3'
 gem 'bootstrap-sass', '~> 2.2.1.1'
 # gem 'turbo-sprockets-rails3'
 
-gem 'closure_tree'
+gem 'closure_tree', github: 'ryancheung/closure_tree'
 
 gem "activeadmin-sortable-tree", :github => "nebirhos/activeadmin-sortable-tree", :branch => "master"
 
