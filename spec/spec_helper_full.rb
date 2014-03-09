@@ -9,7 +9,7 @@ Spork.prefork do
   Spork.trap_method(Rails::Application, :reload_routes!)
 
   require File.expand_path("../../config/environment", __FILE__)
-  
+
   require 'rspec/rails'
   require 'rspec/autorun'
   require 'database_cleaner'
@@ -25,7 +25,7 @@ Spork.prefork do
       c.syntax = :should
     end
 
-    # Run specs in random order to surface order dependencies. 
+    # Run specs in random order to surface order dependencies.
     config.order = "random"
 
     # FactoryGirl Syntax Mixins
@@ -37,12 +37,10 @@ Spork.prefork do
       DatabaseCleaner.clean_with(:truncation)
     end
 
-    config.before(:each) do
-      DatabaseCleaner.start
-    end
-
-    config.after(:each) do
-      DatabaseCleaner.clean
+    config.around(:each) do |example|
+      DatabaseCleaner.cleaning do
+        example.run
+      end
     end
   end
 end
