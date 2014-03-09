@@ -137,12 +137,12 @@ end
 
 group :test do
   gem 'shoulda-matchers'
-  gem 'activerecord-nulldb-adapter', github: 'blaet/nulldb', branch: 'support_enable_extension'
+  gem 'activerecord-nulldb-adapter'
   gem 'capybara', '>= 1.1.2'
   gem 'selenium-webdriver'
   gem 'spork', '~> 1.0rc'
   gem 'simplecov', require: false
   gem 'email_spec', '>= 1.2.1'
-  gem 'database_cleaner', '>= 0.8.0'
+  gem 'database_cleaner', '~> 1.2.0'
   gem 'rr', require: false
 end

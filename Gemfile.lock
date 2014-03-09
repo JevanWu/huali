@@ -1,12 +1,4 @@
 GIT
-  remote: git://github.com/blaet/nulldb.git
-  revision: 1556bdfa38fbb466f40712db6c307b59621df5bd
-  branch: support_enable_extension
-  specs:
-    activerecord-nulldb-adapter (0.2.3)
-      activerecord (>= 2.0.0)
-
-GIT
   remote: git://github.com/gregbell/active_admin.git
   revision: b61be56caedfe7d7e613156dddcc84118197a2bf
   specs:
@@ -108,6 +100,8 @@ GEM
       activesupport (= 4.0.3)
       arel (~> 4.0.0)
     activerecord-deprecated_finders (1.0.3)
+    activerecord-nulldb-adapter (0.3.1)
+      activerecord (>= 2.0.0)
     activesupport (4.0.3)
       i18n (~> 0.6, >= 0.6.4)
       minitest (~> 4.2)
@@ -195,7 +189,7 @@ GEM
     css_parser (1.3.4)
       addressable
     daemons (1.1.9)
-    database_cleaner (1.0.1)
+    database_cleaner (1.2.0)
     debug_inspector (0.0.2)
     debugger (1.6.1)
       columnize (>= 0.3.1)
@@ -608,7 +602,7 @@ PLATFORMS
 DEPENDENCIES
   activeadmin!
   activeadmin-sortable-tree!
-  activerecord-nulldb-adapter!
+  activerecord-nulldb-adapter
   acts-as-taggable-on (~> 2.4.1)
   analytics-ruby
   annotate
@@ -627,7 +621,7 @@ DEPENDENCIES
   ckeditor!
   closure_tree
   coffee-rails
-  database_cleaner (>= 0.8.0)
+  database_cleaner (~> 1.2.0)
   devise (~> 3.2.0)
   devise-i18n
   devise_invitable (~> 1.3.0)
