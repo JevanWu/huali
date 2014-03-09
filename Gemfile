@@ -143,6 +143,6 @@ group :test do
   gem 'spork', '~> 1.0rc'
   gem 'simplecov', require: false
   gem 'email_spec', '>= 1.2.1'
-  gem 'database_cleaner', '~> 1.2.0'
+  gem 'database_cleaner', github: 'bmabey/database_cleaner'
   gem 'rr', require: false
 end

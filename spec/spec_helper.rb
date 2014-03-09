@@ -111,17 +111,18 @@ Spork.prefork do
 
     # For resetting database to a pristine state
     config.before(:suite) do
-      DatabaseCleaner.strategy = :truncation
+      DatabaseCleaner.strategy = :transaction
       DatabaseCleaner.clean_with(:truncation)
     end
 
-    config.before(:each) do
-      DatabaseCleaner.start
-      set_selenium_window_size(1250, 800) if Capybara.current_driver == :selenium
+    config.around(:each) do |example|
+      DatabaseCleaner.cleaning do
+        example.run
+      end
     end
 
-    config.after(:each) do
-      DatabaseCleaner.clean
+    config.before(:each) do
+      set_selenium_window_size(1250, 800) if Capybara.current_driver == :selenium
     end
   end
 end
