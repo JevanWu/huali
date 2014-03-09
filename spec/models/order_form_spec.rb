@@ -1,13 +1,6 @@
-require 'spec_helper_lite'
-require 'support/shared_examples/active_model_spec'
-require 'support/shared_examples/order_form_shared_spec'
-require 'support/shared_examples/to_coupon_rule_opts_spec'
-require 'active_support/concern'
-require 'active_model'
-require 'phonelib'
-require 'phonelib_extension'
-require 'validators/phone_validator'
+require 'spec_helper'
 require 'order_form'
+require 'nulldb_helper'
 
 describe ReceiverInfo do
   it_behaves_like "ActiveModel::Validations"
@@ -111,7 +104,12 @@ describe OrderForm do
     }
   end
 
-  subject { OrderForm.new(valid_order) }
+  subject do
+    stub(Product).find(12) { $product_12 ||= create(:product, id: 12) }
+    stub(Product).find(13) { $product_13 ||= create(:product, id: 13) }
+
+    OrderForm.new(valid_order)
+  end
 
   it_behaves_like "OrderForm::Shared"
 
