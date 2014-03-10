@@ -17,4 +17,12 @@ namespace :cleanup do
       o.cancel
     end
   end
+
+  desc "reset 'sold_total' of Product monthly"
+  task reset_sold_total: :environment do
+    Product.transaction do
+      products = Product.all
+      products.each { |product| product.lock!; product.sold_total = 0; product.save }
+    end
+  end
 end
