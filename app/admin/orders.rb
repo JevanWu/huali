@@ -403,7 +403,7 @@ ActiveAdmin.register Order do
       end
 
       row :item_total do
-        number_to_currency order.item_total, unit: '&yen;'
+        number_to_currency order.item_total
       end
 
       row :adjustment do
@@ -415,7 +415,7 @@ ActiveAdmin.register Order do
       end
 
       row :total do
-        number_to_currency order.total, unit: '&yen;'
+        number_to_currency order.total
       end
 
       row :source

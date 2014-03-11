@@ -18,7 +18,7 @@
           p.summary
             = "数量：#{item.quantity} 价格："
             em
-              = number_to_currency item.price, unit: '&yen;'
+              = number_to_currency item.price
     - if @order.ship_method.present?
       .product-item
         .product-item-left
@@ -50,13 +50,13 @@
           | 促销优惠 :
       .product-item-right
         p.price-gallery
-          = number_to_currency @order.item_total, unit: '&yen;'
+          = number_to_currency @order.item_total
         p.discount
           = "- "
-          = number_to_currency @order.item_total - @order.total, unit: '&yen;'
+          = number_to_currency @order.item_total - @order.total
     p.total-price
       | 本次发货总额：
       em
-        = number_to_currency @order.total, unit: '&yen;'
+        = number_to_currency @order.total
     - if @order.state == 'generated'
       = link_to t('models.order.state.pay'), checkout_order_path(@order), class: 'btn-m-detailPay'

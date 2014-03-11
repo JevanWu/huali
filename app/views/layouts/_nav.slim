@@ -27,12 +27,12 @@
                       .num
                         = "数量：#{item.quantity}"
                       .price
-                        = number_to_currency item.price, unit: '&yen;'
+                        = number_to_currency item.price
               .summary
                 span
                   | 合计：
                 strong
-                  = number_to_currency @cart.total, unit: '&yen;'
+                  = number_to_currency @cart.total
               .go-checkout
                 = link_to '结算', current_order_path, class: 'checkout'
 
