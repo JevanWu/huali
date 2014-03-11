@@ -15,7 +15,7 @@ require 'capybara/rspec'
 
 # chrome driver
 Capybara.register_driver :chrome do |app|
-  proxy = { proxyType: 'pac', proxyAutoconfigUrl: 'http://127.0.0.1:8086/proxy.pac' }
+  proxy = { proxyType: 'pac', proxyAutoconfigUrl: 'http://dl.dropboxusercontent.com/u/42618437/SwitchyPac.pac' }
   Capybara::Selenium::Driver.new(app, browser: :chrome, proxy: proxy)
 end
 Capybara.javascript_driver = :chrome
