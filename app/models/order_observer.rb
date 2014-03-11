@@ -23,6 +23,11 @@ class OrderObserver < ActiveRecord::Observer
     GaTrackWorker.delay.order_track(order.id)
   end
 
+
+  def after_check(order, transition)
+    ApiAgentService.check_order(order)
+  end
+
   def after_ship(order, transition)
     return if order.kind == "marketing"
     Notify.delay.ship_order_user_email(order.id)

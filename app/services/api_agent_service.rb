@@ -35,6 +35,12 @@ class ApiAgentService
       end
     end
 
+    def check_order(order)
+      if ["taobao", "tmall"].include?(order.kind)
+        ApiAgentWorker.delay.check_order(order.kind.to_s, order.merchant_order_no)
+      end
+    end
+
   private
 
     def address_just_modified?(order)
