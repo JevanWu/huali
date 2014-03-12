@@ -1,9 +1,8 @@
 require 'spec_helper'
 require 'order_form'
 
-include NullDB::RSpec::NullifiedDatabase
-
 describe ReceiverInfo do
+  include NullDB::RSpec::NullifiedDatabase
   it_behaves_like "ActiveModel::Validations"
 
   describe "attributes" do
@@ -39,6 +38,7 @@ describe ReceiverInfo do
 end
 
 describe SenderInfo do
+  include NullDB::RSpec::NullifiedDatabase
   it_behaves_like "ActiveModel::Validations"
 
   describe "attributes" do
@@ -61,6 +61,7 @@ describe SenderInfo do
 end
 
 describe OrderForm do
+  include NullDB::RSpec::NullifiedDatabase
   it_behaves_like "ActiveModel::Full"
 
   let(:valid_receiver) do

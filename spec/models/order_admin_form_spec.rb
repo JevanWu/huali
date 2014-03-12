@@ -2,9 +2,9 @@ require 'spec_helper'
 require 'order_form'
 require 'order_admin_form'
 
-include NullDB::RSpec::NullifiedDatabase
-
 describe OrderAdminForm do
+  include NullDB::RSpec::NullifiedDatabase
+
   let(:valid_receiver) do
     {
       fullname: '张佳婵',
