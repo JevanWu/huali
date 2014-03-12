@@ -1,7 +1,6 @@
 require 'spec_helper'
 require 'order_form'
 require 'order_admin_form'
-require 'nulldb_helper'
 
 describe OrderAdminForm do
   let(:valid_receiver) do
@@ -53,8 +52,8 @@ describe OrderAdminForm do
   end
 
   subject do
-    stub(Product).find(12) { $product_12 ||= create(:product, id: 12, price: 200) }
-    stub(Product).find(13) { $product_13 ||= create(:product, id: 13, price: 300) }
+    stub(Product).find(12) { $product_12 ||= create(:product, price: 200) }
+    stub(Product).find(13) { $product_13 ||= create(:product, price: 300) }
 
     OrderAdminForm.new(valid_order)
   end
@@ -65,8 +64,8 @@ describe OrderAdminForm do
   describe "attributes" do
     [:bypass_date_validation, :bypass_region_validation, :bypass_product_validation].each do |attr|
       it "builds #{attr} default to false" do
-        stub(Product).find(12) { $product_12 ||= create(:product, id: 12, price: 200) }
-        stub(Product).find(13) { $product_13 ||= create(:product, id: 13, price: 300) }
+        stub(Product).find(12) { $product_12 ||= create(:product, price: 200) }
+        stub(Product).find(13) { $product_13 ||= create(:product, price: 300) }
 
         order_admin_form = OrderAdminForm.new(valid_order.except(attr))
         order_admin_form.send(attr).should be_false
@@ -239,7 +238,7 @@ describe OrderAdminForm do
     end
 
     subject do
-      stub(Product).find(29) { $product_29 ||= create(:product, id: 29, price: 200) }
+      stub(Product).find(29) { $product_29 ||= create(:product, price: 200) }
       OrderAdminForm.build_from_record(order_record)
     end
 

@@ -124,6 +124,14 @@ Spork.prefork do
     config.before(:each) do
       set_window_size(1024, 768) if Capybara.current_driver != :rack_test
     end
+
+    # NullDB
+    require 'nulldb_rspec'
+    config.before(:each) do |example_group|
+      unless example_group.example.metadata[:use_real_database]
+        include NullDB::RSpec::NullifiedDatabase
+      end
+    end
   end
 end
 

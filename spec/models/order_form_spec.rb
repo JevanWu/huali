@@ -1,6 +1,5 @@
 require 'spec_helper'
 require 'order_form'
-require 'nulldb_helper'
 
 describe ReceiverInfo do
   it_behaves_like "ActiveModel::Validations"
