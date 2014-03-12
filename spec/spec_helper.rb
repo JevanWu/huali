@@ -45,6 +45,8 @@ Spork.prefork do
 
   require 'email_spec'
 
+  # NullDB
+  require 'nulldb_rspec'
 
   RSpec.configure do |config|
     config.treat_symbols_as_metadata_keys_with_true_values = true
@@ -116,8 +118,12 @@ Spork.prefork do
     end
 
     config.around(:each) do |example|
-      DatabaseCleaner.cleaning do
+      if ActiveRecord::Base.connection.adapter_name == "NullDB"
         example.run
+      else
+        DatabaseCleaner.cleaning do
+          example.run
+        end
       end
     end
 
@@ -125,13 +131,6 @@ Spork.prefork do
       set_window_size(1024, 768) if Capybara.current_driver != :rack_test
     end
 
-    # NullDB
-    require 'nulldb_rspec'
-    config.before(:each) do |example_group|
-      unless example_group.example.metadata[:use_real_database]
-        include NullDB::RSpec::NullifiedDatabase
-      end
-    end
   end
 end
 
