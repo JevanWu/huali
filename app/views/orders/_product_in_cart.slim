@@ -15,7 +15,7 @@
     p.add-to-share
       a href="#" data-action='share-product' data-product="#{product_in_cart.product_id}" 加入分享
   .price data-price = "#{product_in_cart.price}"
-    = number_to_currency product_in_cart.price, unit: '&yen;'
+    = number_to_currency product_in_cart.price
   .op.quantity
     = link_to '-', current_order_path, data: { product: product_in_cart.product_id }, class: 'reduce_quantity'
     input type='text' value="#{product_in_cart.quantity}"

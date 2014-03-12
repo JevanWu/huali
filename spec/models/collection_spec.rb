@@ -54,7 +54,9 @@ describe Collection do
     end
 
     it "returns a array of category with indented names and id" do
-      Collection.parents_options(collection.id).should eq([["爱情", @love.id], ["#{'&nbsp;' * 3}表白", @confess.id], ["#{'&nbsp;' * 6}婚礼", @wedding.id]])
+      [["爱情", @love.id], ["#{'&nbsp;' * 3}表白", @confess.id], ["#{'&nbsp;' * 6}婚礼", @wedding.id]].each do |item|
+        Collection.parents_options(collection.id).should include(item)
+      end
     end
   end
 end
