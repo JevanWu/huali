@@ -1,6 +1,4 @@
 require 'spork'
-require 'rspec'
-require 'rr'
 
 ENV["RAILS_ENV"] ||= 'test'
 
@@ -12,6 +10,7 @@ Spork.prefork do
 
   require 'rspec/rails'
   require 'rspec/autorun'
+  require 'rr'
   require 'database_cleaner'
 
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
