@@ -28,6 +28,7 @@ module ApiHelpers
   def import_region_data_from_files
     region_data = File.expand_path('../../fixtures/regions.sql', __FILE__)
 
+    ActiveRecord::Base.connection.execute("TRUNCATE provinces;TRUNCATE cities; TRUNCATE areas;")
     ActiveRecord::Base.connection.execute(File.read(region_data))
   end
 end
