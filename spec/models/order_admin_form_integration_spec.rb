@@ -1,4 +1,4 @@
-require 'spec_helper_full'
+require 'spec_helper'
 require 'support/shared_examples/order_form_integration_shared_spec'
 
 describe OrderForm do
