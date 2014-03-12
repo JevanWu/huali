@@ -40,7 +40,7 @@ gem 'omniauth-qq-connect'
 gem 'enumerize'
 gem 'virtus'
 
-gem "rails-settings-cached", "~> 0.3.1"
+gem "rails-settings-cached", "~> 0.4.0"
 
 # squash
 gem 'squash_ruby', :require => 'squash/ruby'
