@@ -1,6 +1,8 @@
 require 'spec_helper'
 require 'order_form'
 
+include NullDB::RSpec::NullifiedDatabase
+
 describe ReceiverInfo do
   it_behaves_like "ActiveModel::Validations"
 
