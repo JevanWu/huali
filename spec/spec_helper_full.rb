@@ -3,6 +3,10 @@ require 'spork'
 ENV["RAILS_ENV"] ||= 'test'
 
 Spork.prefork do
+  # load simplecov before load Rails Application
+  require 'simplecov'
+  SimpleCov.start 'rails'
+
   # Use spork with active_admin https://github.com/gregbell/active_admin/wiki/Use-spork
   require "rails/application"
   Spork.trap_method(Rails::Application::RoutesReloader, :reload!)
