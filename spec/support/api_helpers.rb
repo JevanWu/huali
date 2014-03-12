@@ -33,10 +33,10 @@ module ApiHelpers
 end
 
 # API request signing mock, there's no way to calculate Authentication headers in requests specs!
-module API::APIHelpers
-  private
-
-  def valid_signature?
-    true
+API::API.class_eval do
+  helpers do
+    def valid_signature?
+      true
+    end
   end
 end
