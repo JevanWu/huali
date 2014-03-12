@@ -140,7 +140,7 @@ group :test do
   gem 'activerecord-nulldb-adapter'
   gem 'capybara', '>= 1.1.2'
   gem 'selenium-webdriver'
-  gem 'spork', '~> 1.0rc'
+  gem 'spork-rails'
   gem 'simplecov', require: false
   gem 'email_spec', '>= 1.2.1'
   gem 'database_cleaner', github: 'bmabey/database_cleaner'

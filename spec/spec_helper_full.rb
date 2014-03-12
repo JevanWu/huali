@@ -3,8 +3,9 @@ require 'spork'
 ENV["RAILS_ENV"] ||= 'test'
 
 Spork.prefork do
+  # Use spork with active_admin https://github.com/gregbell/active_admin/wiki/Use-spork
   require "rails/application"
-  Spork.trap_method(Rails::Application, :reload_routes!)
+  Spork.trap_method(Rails::Application::RoutesReloader, :reload!)
 
   require File.expand_path("../../config/environment", __FILE__)
 

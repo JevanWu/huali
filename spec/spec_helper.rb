@@ -22,6 +22,10 @@ Spork.prefork do
   require 'simplecov'
   SimpleCov.start 'rails'
 
+  # Use spork with active_admin https://github.com/gregbell/active_admin/wiki/Use-spork
+  require "rails/application"
+  Spork.trap_method(Rails::Application::RoutesReloader, :reload!)
+
   ENV["RAILS_ENV"] ||= 'test'
   require File.expand_path("../../config/environment", __FILE__)
 
