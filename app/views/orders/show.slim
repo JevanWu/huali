@@ -22,13 +22,13 @@
             - item_total = @order.line_items.map(&:total).reduce(:+)
             span
               | 价目总计：
-              = number_to_currency item_total, unit: '&yen;'
+              = number_to_currency item_total
             span
               | 本次发货总额：
-              = number_to_currency @order.total, unit: '&yen;'
+              = number_to_currency @order.total
             span
               | 促销优惠：-
-              = number_to_currency item_total - @order.total, unit: '&yen;'
+              = number_to_currency item_total - @order.total
         .attach
           = @order.gift_card_text
         .info

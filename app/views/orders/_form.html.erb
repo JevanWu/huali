@@ -35,7 +35,7 @@
       <%= builder.input :city_id, collection: [], prompt: "请选择城市", required:true %>
       <%= builder.input :area_id, collection: [] %>
       <%= builder.input :address, as: 'text', required:true, input_html: { rows: 3 }, placeholder: '详细地址' %>
-      <%= builder.input :post_code, placeholder: '邮编', required: true, hint: %(<a id='query-postcode' href="#" target='_blank'>查询邮编</a>) %>
+      <%= builder.input :post_code, placeholder: '邮编', required: true, hint: %(<a id='query-postcode' href="#" target='_blank'>查询邮编</a>).html_safe %>
     <% end %>
   </fieldset>
 

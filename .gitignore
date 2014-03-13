@@ -83,6 +83,4 @@ public/sitemap.xml.gz
 
 config/unicorn.rb
 unicorn.sh
-spec/features/backend_slide_panel/.add_slide_panel_spec.rb.swo
-spec/features/backend_product/.add_product_spec.rb.swo
-spec/features/backend_slide_panel/.add_slide_panel_spec.rb.swn
+.lock-closuretree-*

@@ -18,6 +18,9 @@
 #
 #  index_addresses_on_user_id  (user_id)
 #
+def generate_random_unique_post_code
+  (0..50).to_a.sort{ rand() - 0.5 }[0..15].join[0, 8]
+end
 
 FactoryGirl.define do
   factory :address do
@@ -28,7 +31,7 @@ FactoryGirl.define do
     fullname { Forgery(:name).full_name }
     address { Forgery(:address).street_address }
     phone { "+86 186 2137 4266" }
-    post_code { 8.times.map { rand 9 }.join }
+    post_code { generate_random_unique_post_code }
 
     trait :with_user do
       user
@@ -37,7 +40,7 @@ FactoryGirl.define do
 
   factory :province do
     name { Forgery(:address).province}
-    post_code { 8.times.map { rand 9 }.join }
+    post_code { generate_random_unique_post_code }
     available true
 
     after(:build) do |prov|
@@ -54,7 +57,7 @@ FactoryGirl.define do
 
   factory :city do
     name { Forgery(:address).city }
-    post_code { 8.times.map { rand 9 }.join }
+    post_code { generate_random_unique_post_code }
     available true
     province
 
@@ -72,7 +75,7 @@ FactoryGirl.define do
 
   factory :area do
     name { Forgery(:address).city}
-    post_code { 8.times.map { rand 9 }.join }
+    post_code { generate_random_unique_post_code }
     available true
     city
 

@@ -1,7 +1,6 @@
 require 'virtus'
 
-module AdminOnlyInfo
-  include Virtus
+class OrderAdminForm < OrderForm
   attribute :bypass_date_validation, Virtus::Attribute::Boolean, default: false
   attribute :bypass_region_validation, Virtus::Attribute::Boolean, default: false
   attribute :bypass_product_validation, Virtus::Attribute::Boolean, default: false
@@ -13,10 +12,6 @@ module AdminOnlyInfo
   attribute :last_order, String
   attribute :prechecked, Virtus::Attribute::Boolean
   attribute :memo, String
-end
-
-class OrderAdminForm < OrderForm
-  include AdminOnlyInfo
 
   # +/-/*/%1234.0
   validates_format_of :adjustment, with: %r{\A[+-x*%/][\s\d.]+\z}, allow_blank: true

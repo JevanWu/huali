@@ -52,7 +52,7 @@ ActiveAdmin.register Order do
         respond_with_dual_blocks(@order, options)
       else
         populate_collection_data
-        render active_admin_template('edit')
+        render 'edit'
       end
     end
 
@@ -205,7 +205,7 @@ ActiveAdmin.register Order do
       @order.errors.messages.update(order.errors.messages)
 
       populate_collection_data
-      render active_admin_template('edit'), layout: false
+      render 'edit', layout: false
     end
   end
 
@@ -403,7 +403,7 @@ ActiveAdmin.register Order do
       end
 
       row :item_total do
-        number_to_currency order.item_total, unit: '&yen;'
+        number_to_currency order.item_total
       end
 
       row :adjustment do
@@ -415,7 +415,7 @@ ActiveAdmin.register Order do
       end
 
       row :total do
-        number_to_currency order.total, unit: '&yen;'
+        number_to_currency order.total
       end
 
       row :source

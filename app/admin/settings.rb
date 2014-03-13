@@ -4,7 +4,7 @@ ActiveAdmin.register Setting do
   actions :index, :edit, :show, :update, :new, :create
 
   config.filters = false
-  
+
   index do
     column :id
     column :var
@@ -17,11 +17,11 @@ ActiveAdmin.register Setting do
   form partial: 'form'
 
   controller do
-    
+
     private
 
     def permitted_params
-      params setting: [:var, :value]
+      params.permit setting: [:var, :value]
     end
   end
 end
