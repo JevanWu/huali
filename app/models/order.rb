@@ -48,6 +48,7 @@ class Order < ActiveRecord::Base
   has_many :shipments, dependent: :destroy
   has_many :products, through: :line_items
   belongs_to :coupon_code_record, foreign_key: :coupon_code_id, class_name: 'CouponCode'
+  has_many :refunds
 
   extend Enumerize
   enumerize :kind, in: [:normal, :jd, :tencent, :xigua, :marketing, :customer,
@@ -115,7 +116,7 @@ class Order < ActiveRecord::Base
   scope :within_this_week, -> { where('delivery_date >= ? AND delivery_date <= ? ', Date.current.beginning_of_week, Date.current.end_of_week) }
   scope :within_this_month, -> { where('delivery_date >= ? AND delivery_date <= ? ', Date.current.beginning_of_month, Date.current.end_of_month) }
   scope :accountable, -> { where("kind = 'normal'").where("state != 'void' and state != 'generated'") }
-  scope :in_day, lambda { |date| where("DATE(created_at AT TIME ZONE 'utc') = DATE(?)", date) }
+  scope :in_day, lambda { |date| where("created_at >= ? and created_at < ?", date, date.tomorrow) }
   scope :unpaid_today, lambda { |hours_ago| in_day(Date.current).where(state: 'generated').where("created_at <= ?", hours_ago.hours.ago) }
   scope :ready_to_ship_today, lambda { |date| where(delivery_date: date).where('state NOT IN (?)', ['void', 'refunded']) }
 
@@ -268,6 +269,31 @@ class Order < ActiveRecord::Base
 
   def to_coupon_rule_opts
     { total_price: item_total, products: line_items.map(&:product) }
+  end
+
+  # Generate an refund
+  # Use the payment of the transaction as refund money if amount is not explicitly specified
+  #
+  # @param transaction [Transaction]
+  # @param amount [Decimal] Optional. Refund money
+  # @param options [Hash] Other optons
+  # @option options [String] :merchant_refund_id Merchant refund id
+  # @option options [String] :reason Refund reason
+  # @option options [String] :ship_method Ship method, e.g. EMS, Shunfeng
+  # @option options [String] :tracking_number Shipment tracking number
+  def generate_refund(transaction, amount = nil, options = {})
+    raise ArgumentError, "Invalid transaction state: #{transaction.state}" if transaction.state != "completed"
+    raise ArgumentError, "Transaction is not belongs to the order" if transaction.order != self
+
+    refunds.create(options.merge(amount: amount || transaction.amount, transaction: transaction))
+
+    cancel if state != 'wait_refund'
+
+    true
+  end
+
+  def has_shipped_shipment?
+    shipments.where("tracking_num IS NOT NULL AND tracking_num != ''").exists?
   end
 
   private

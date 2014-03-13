@@ -16,7 +16,7 @@ require 'capistrano-zen/config'
 require "whenever/capistrano"
 set :whenever_roles, [:db, :app]
 
-require 'squash/rails/capistrano'
+require 'squash/rails/capistrano2'
 
 # Use Git as Version Control System
 set :scm, :git

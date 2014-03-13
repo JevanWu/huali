@@ -85,6 +85,7 @@ zh-CN:
         order_content: 订单内容
         transaction_identifier: 交易编号
         transaction_info: 交易信息
+        refund_info: 退款信息
         shipment_info: 递送信息
         fullname: 收货人姓名
         process_order: 处理订单
@@ -105,6 +106,7 @@ zh-CN:
         bypass_date_validation: 跳过递送时间验证
         bypass_product_validation: 跳过产品验证
         last_order: 关联订单号
+        memo: 客服备注
 
       item_info:
         quantity: 产品数量
@@ -161,6 +163,7 @@ zh-CN:
       didi_passenger: 嘀嘀打车活动
       limited_promotion: 限时优惠
       slide_panel: 轮播设置
+      refund: 退款记录
 
     attributes:
       order: &order
@@ -192,6 +195,7 @@ zh-CN:
         order_content: 订单内容
         transaction_identifier: 交易编号
         transaction_info: 交易信息
+        refund_info: 退款信息
         shipment_info: 递送信息
         fullname: 收货人姓名
         process_order: 处理订单
@@ -214,6 +218,7 @@ zh-CN:
         kind: 类型
         kind_text: 类型
         last_order: 关联订单号
+        memo: 客服备注
 
       period_region_policy:
         start_date: 起始日期
@@ -435,6 +440,19 @@ zh-CN:
         image: 图片
         visible: 首页是否可见
 
+      refund:
+        order: 订单
+        order_identifier: 订单编号
+        state: 退款状态
+        transaction: 交易
+        order_identifier: 订单编号
+        transaction_identifier: 交易编号
+        merchant_refund_id: 商户退款单号
+        amount: 金额
+        reason: 退款原因
+        ship_method: 快递方式
+        tracking_number: 快递单号
+
   models:
     order:
       state:
@@ -485,6 +503,18 @@ zh-CN:
         ship: 发货
         accept: 送达
         print: 打印
+
+    #states for refund
+    refund:
+      state:
+        pending: 等待退款
+        goods_returned: 已退货
+        accepted: 已接受
+        rejected: 已拒绝
+
+        accept: 接受
+        reject: 拒绝
+        return_goods: 退货
 
   enumerize:
     order:
@@ -573,6 +603,7 @@ zh-CN:
         transaction_state_changed: 交易状态变更为
         confirm_complete: 你确定完成此交易?
         confirm_fail: 你确定注销此交易?
+        cannot_edit: 交易已结束，不能编辑
       shipment:
         shipment_state_changed: 递送状态变更为
         confirm_ship: 您选择的快递方式为%{method}, 您填写的快递单号为 %{tracking_num}. 你确定发送这张订单 %{identifier}?
@@ -647,3 +678,14 @@ zh-CN:
 
     pagination:
       truncate: "..."
+
+  number:
+    currency:
+      format:
+        delimiter: ! ','
+        format: ! '%u %n'
+        precision: 2
+        separator: .
+        significant: false
+        strip_insignificant_zeros: false
+        unit: ¥

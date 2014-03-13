@@ -72,7 +72,7 @@ class XlsxBuilder
   end
 
   def package
-    @package ||= ::Axlsx::Package.new(:use_shared_strings => true)
+    @package ||= ::Axlsx::Package.new(use_autowidth: false)
   end
 
   def to_stream

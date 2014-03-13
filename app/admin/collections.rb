@@ -3,12 +3,13 @@ ActiveAdmin.register Collection do
   menu parent: '产品', if: proc { authorized? :read, Collection }
 
   sortable tree: true,
-           max_levels: 0, # infinite indent levels
+           max_levels: 2, # infinite indent levels
            protect_root: false, # allow root items to be dragged
            sorting_attribute: :priority,
            parent_method: :parent,
            children_method: :children,
-           roots_method: :roots
+           roots_method: :roots,
+           collapsible: true
 
   filter :name_zh
   filter :display_name
@@ -36,7 +37,7 @@ ActiveAdmin.register Collection do
 
   index as: :sortable do
     label :display_name
-    default_actions
+    actions
   end
 
   form partial: "form"

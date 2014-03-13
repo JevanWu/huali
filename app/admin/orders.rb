@@ -52,13 +52,13 @@ ActiveAdmin.register Order do
         respond_with_dual_blocks(@order, options)
       else
         populate_collection_data
-        render active_admin_template('edit')
+        render 'edit'
       end
     end
 
     private
 
-    before_action :authorize_to_download_orders, only: [:download_latest, :download_all]
+    before_action :authorize_to_download_orders, only: [:download_latest, :download]
 
     def authorize_to_download_orders
       current_admin_ability.authorize! :bulk_export_data, Order
@@ -79,9 +79,17 @@ ActiveAdmin.register Order do
       columns = Order.column_names.map(&:titleize)
       row_data = orders.map { |o| o.attributes.values }
 
-      xlsx = XlsxBuilder.new(columns, row_data).serialize
+      filename = "/tmp/#{filename}-#{Time.current.to_i}.xlsx"
+      Axlsx::Package.new do |p|
+        p.use_autowidth = false
+        p.workbook.add_worksheet(:name => "Orders") do |sheet|
+          sheet.add_row columns
+          row_data.each { |row| sheet.add_row row }
+        end
+        p.serialize(filename)
+      end
 
-      send_data xlsx, :filename => "#{filename}", :type => Mime::Type.lookup_by_extension(:xlsx)
+      send_file filename, x_sendfile: true, type: Mime::Type.lookup_by_extension(:xlsx).to_s
     end
   end
 
@@ -197,7 +205,7 @@ ActiveAdmin.register Order do
       @order.errors.messages.update(order.errors.messages)
 
       populate_collection_data
-      render active_admin_template('edit'), layout: false
+      render 'edit', layout: false
     end
   end
 
@@ -225,19 +233,11 @@ ActiveAdmin.register Order do
   end
 
   member_action :print_shipment do
-    order= Order.find_by_id(params[:id])
-    @address = order.address
-    begin
-      @type = order.ship_method.kuaidi_query_code
-      @shipment_id = order.shipment.identifier
+    @order= Order.find_by_id(params[:id])
 
-      case @type
-      when 'manual'
-        render 'admin/shipments/print_blank', layout: 'plain_print'
-      else
-        render 'admin/shipments/print', layout: 'plain_print'
-      end
-    rescue NoMethodError
+    if @order.shipment
+      redirect_to print_admin_shipment_path(@order.shipment)
+    else
       redirect_to :back, alert: t('views.admin.shipment.cannot_print')
     end
   end
@@ -245,7 +245,8 @@ ActiveAdmin.register Order do
   index do
     unless current_admin_ability.cannot? :bulk_export_data, Order
       div style: "text-align: right" do
-        link_to('Download latest', params.merge(action: :download_latest), class: 'table_tools_button')
+        link_to('Download latest', params.merge(action: :download_latest), class: 'table_tools_button') +
+        link_to('Export to excel', params.merge(action: :export_to_excel), class: 'table_tools_button')
       end
     end
 
@@ -349,6 +350,15 @@ ActiveAdmin.register Order do
         end
       end
 
+      row :refund_info do
+        unless order.refunds.blank?
+          order.refunds.map do |refund|
+            link_to(refund.merchant_refund_id || refund.id, admin_refund_path(refund)) + \
+            label_tag(" " + t('models.refund.state.' + refund.state))
+          end.join('</br>').html_safe
+        end
+      end
+
       row :shipment_info do
         unless order.shipments.blank?
           order.shipments.map do |shipment|
@@ -384,6 +394,7 @@ ActiveAdmin.register Order do
 
       row :gift_card_text
       row :special_instructions
+      row :memo
 
       row :coupon_code_record do
         if order.coupon_code_record
@@ -392,7 +403,7 @@ ActiveAdmin.register Order do
       end
 
       row :item_total do
-        number_to_currency order.item_total, unit: '&yen;'
+        number_to_currency order.item_total
       end
 
       row :adjustment do
@@ -404,7 +415,7 @@ ActiveAdmin.register Order do
       end
 
       row :total do
-        number_to_currency order.total, unit: '&yen;'
+        number_to_currency order.total
       end
 
       row :source
@@ -428,5 +439,35 @@ ActiveAdmin.register Order do
     xlsx_filename = "latest-orders-since-#{7.days.ago.to_date}.xlsx"
 
     render_excel(orders, xlsx_filename)
+  end
+
+  collection_action :download do
+    start_date = "#{params[:start_date][:year]}-#{params[:start_date][:month]}-#{params[:start_date][:day]}".to_date
+    end_date = "#{params[:end_date][:year]}-#{params[:end_date][:month]}-#{params[:end_date][:day]}".to_date
+
+    orders = Order.includes({ line_items: :product }, :transactions, :shipments, { address: [:province, :city, :area] }, :ship_method).
+      where(created_at: start_date..end_date).where(state: ["wait_check", "wait_make", "wait_ship", "wait_confirm", "completed"]).to_a
+
+    filename = "/tmp/orders-#{start_date}-#{end_date}-#{Time.current.to_i}.xlsx"
+    Axlsx::Package.new do |p|
+      p.use_autowidth = false
+      p.workbook.add_worksheet(:name => "Orders") do |sheet|
+        sheet.add_row OrderExcelDecorator::COLUMNS
+
+        orders.each do |o|
+          decorated_order = OrderExcelDecorator.new(o)
+
+          decorated_order.all_rows.each do |row|
+            sheet.add_row(row, types: OrderExcelDecorator::COLUMN_TYPES)
+          end
+        end
+      end
+      p.serialize(filename)
+    end
+
+    send_file filename, x_sendfile: true, type: Mime::Type.lookup_by_extension(:xlsx).to_s
+  end
+
+  collection_action :export_to_excel do
   end
 end

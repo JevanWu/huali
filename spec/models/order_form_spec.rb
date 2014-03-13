@@ -1,15 +1,8 @@
-require 'spec_helper_lite'
-require 'support/shared_examples/active_model_spec'
-require 'support/shared_examples/order_form_shared_spec'
-require 'support/shared_examples/to_coupon_rule_opts_spec'
-require 'active_support/concern'
-require 'active_model'
-require 'phonelib'
-require 'phonelib_extension'
-require 'validators/phone_validator'
+require 'spec_helper'
 require 'order_form'
 
 describe ReceiverInfo do
+  include NullDB::RSpec::NullifiedDatabase
   it_behaves_like "ActiveModel::Validations"
 
   describe "attributes" do
@@ -45,6 +38,7 @@ describe ReceiverInfo do
 end
 
 describe SenderInfo do
+  include NullDB::RSpec::NullifiedDatabase
   it_behaves_like "ActiveModel::Validations"
 
   describe "attributes" do
@@ -67,6 +61,7 @@ describe SenderInfo do
 end
 
 describe OrderForm do
+  include NullDB::RSpec::NullifiedDatabase
   it_behaves_like "ActiveModel::Full"
 
   let(:valid_receiver) do
@@ -103,7 +98,6 @@ describe OrderForm do
       address: valid_receiver,
       line_items: valid_line_items,
       # direct attributes
-      coupon_code: 'xs134fx',
       gift_card_text: '空白卡片',
       special_instructions: '现在的色调有些冷，请往“巴黎”的色调靠拢。把绣球的颜色调浅些或者加香槟玫瑰，送给女性朋友生日的礼物，尽量粉嫩甜蜜些',
       source: '淘宝',
@@ -111,9 +105,36 @@ describe OrderForm do
     }
   end
 
-  subject { OrderForm.new(valid_order) }
+  subject do
+    stub(Product).find(12) { $product_12 ||= create(:product, id: 12) }
+    stub(Product).find(13) { $product_13 ||= create(:product, id: 13) }
+
+    OrderForm.new(valid_order)
+  end
 
   it_behaves_like "OrderForm::Shared"
+
+  describe "valid?" do
+    context "OrderCouponValidator" do
+      it "calls validate on the validator with subject" do
+        any_instance_of(OrderCouponValidator) do |v|
+          mock(v).validate(subject)
+        end
+
+        subject.valid?
+      end
+
+      it "never calls validate on the validator unless not_yet_shipped" do
+        stub(subject).not_yet_shipped? { false }
+
+        any_instance_of(OrderCouponValidator) do |v|
+          mock(v).validate(subject).never
+        end
+
+        subject.valid?
+      end
+    end
+  end
 
   before do
     stub(subject).item_total { 200 }

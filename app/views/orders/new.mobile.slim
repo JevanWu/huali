@@ -19,10 +19,10 @@
       - if @cart.discounted?
         p.discount
           | 促销优惠：-
-          = number_to_currency @cart.discount_money, unit: '&yen;'
+          = number_to_currency @cart.discount_money
       p.total-price
         | 总计：
         span
-          = number_to_currency @cart.total, unit: '&yen;'
+          = number_to_currency @cart.total
 
   = render 'form'

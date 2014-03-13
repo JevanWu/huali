@@ -42,6 +42,8 @@ class Transaction < ActiveRecord::Base
     message: "%{value} is not a valid merchant name."
   }
 
+  validates :merchant_trade_no, uniqueness: { scope: :order_id }, allow_blank: true
+
   state_machine :state, initial: :generated do
     after_transition to: :completed, do: :notify_order
 
@@ -104,6 +106,10 @@ class Transaction < ActiveRecord::Base
     "#{Billing::Base.new(:link, self)}"
   end
 
+  def finished?
+    ["completed"].include?(state)
+  end
+
   private
 
   def generate_identifier
@@ -113,4 +119,5 @@ class Transaction < ActiveRecord::Base
   def notify_order
     self.order.pay!
   end
+
 end
