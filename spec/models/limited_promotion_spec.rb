@@ -1,3 +1,24 @@
+# == Schema Information
+#
+# Table name: limited_promotions
+#
+#  adjustment      :string(255)
+#  available_count :integer
+#  created_at      :datetime
+#  end_at          :datetime
+#  expired         :boolean
+#  id              :integer          not null, primary key
+#  name            :string(255)
+#  product_id      :integer
+#  start_at        :datetime
+#  updated_at      :datetime
+#  used_count      :integer          default(0)
+#
+# Indexes
+#
+#  index_limited_promotions_on_product_id  (product_id)
+#
+
 require 'spec_helper'
 
 describe LimitedPromotion do

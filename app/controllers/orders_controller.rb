@@ -140,7 +140,7 @@ class OrdersController < ApplicationController
     # params[:pay_info] is mixed with two kinds of info - pay method and merchant_name
     # these two are closed bound together
     payment_opts = process_pay_info(params[:pay_info])
-    transaction = @order.generate_transaction payment_opts.merge(client_ip: request.remote_ip)
+    transaction = @order.generate_transaction payment_opts.merge(client_ip: request.remote_ip), params[:use_huali_point]
     transaction.start
     redirect_to transaction.request_path
   end
@@ -157,8 +157,9 @@ class OrdersController < ApplicationController
   private :fetch_transaction
 
   def return
+    user = @transaction.order.user
     if @transaction.return(request.query_string)
-      user = @transaction.order.user
+      HualiPointService.minus_expense_point(user, @transaction)
       HualiPointService.reward_point(user.inviter, user)
       HualiPointService.rebate_point(user, @transaction)
       render 'success'
