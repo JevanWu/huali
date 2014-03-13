@@ -52,7 +52,7 @@ ActiveAdmin.register Order do
         respond_with_dual_blocks(@order, options)
       else
         populate_collection_data
-        render active_admin_template('edit')
+        render 'edit'
       end
     end
 
@@ -205,7 +205,7 @@ ActiveAdmin.register Order do
       @order.errors.messages.update(order.errors.messages)
 
       populate_collection_data
-      render active_admin_template('edit'), layout: false
+      render 'edit', layout: false
     end
   end
 
@@ -350,6 +350,15 @@ ActiveAdmin.register Order do
         end
       end
 
+      row :refund_info do
+        unless order.refunds.blank?
+          order.refunds.map do |refund|
+            link_to(refund.merchant_refund_id || refund.id, admin_refund_path(refund)) + \
+            label_tag(" " + t('models.refund.state.' + refund.state))
+          end.join('</br>').html_safe
+        end
+      end
+
       row :shipment_info do
         unless order.shipments.blank?
           order.shipments.map do |shipment|
@@ -385,6 +394,7 @@ ActiveAdmin.register Order do
 
       row :gift_card_text
       row :special_instructions
+      row :memo
 
       row :coupon_code_record do
         if order.coupon_code_record
@@ -393,7 +403,7 @@ ActiveAdmin.register Order do
       end
 
       row :item_total do
-        number_to_currency order.item_total, unit: '&yen;'
+        number_to_currency order.item_total
       end
 
       row :adjustment do
@@ -405,7 +415,7 @@ ActiveAdmin.register Order do
       end
 
       row :total do
-        number_to_currency order.total, unit: '&yen;'
+        number_to_currency order.total
       end
 
       row :source

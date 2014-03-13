@@ -2,10 +2,10 @@ require 'spec_helper'
 
 describe Cart do
   let(:product_1) { create(:product, name_zh: '红宝石', name_en: 'ruby', price: 200) }
-  let(:cart_item_1) { LineItem.new(product_id: product_1.id, quantity: 1) }
+  let(:cart_item_1) { LineItem.new(product_id: product_1.id, quantity: 1, price: product_1.price) }
 
   let(:product_2) { create(:product, name_zh: '海洋之心', name_en: 'heart_of_ocean', price: 259) }
-  let(:cart_item_2) { LineItem.new(product_id: product_2.id, quantity: 2) }
+  let(:cart_item_2) { LineItem.new(product_id: product_2.id, quantity: 2, price: product_2.price) }
 
   let(:coupon_code_record) { create(:coupon, adjustment: '*0.8').coupon_codes.first }
   let(:coupon_code) { coupon_code_record.code }

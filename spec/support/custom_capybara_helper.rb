@@ -25,4 +25,9 @@ module CustomCapybaraHelper
   def accept_confirm
     page.driver.browser.switch_to.alert.accept
   end
+
+  def set_window_size(width, height)
+    window = Capybara.current_session.driver.browser.manage.window
+    window.resize_to(width, height)
+  end
 end

@@ -15,6 +15,10 @@ class ApiAgentWorker
       api_client.ship_order(kind, merchant_order_no, ship_method_id, tracking_num)
     end
 
+    def check_order(kind, merchant_order_no)
+      api_client.check_order(kind, merchant_order_no)
+    end
+
   private
     def api_client
       @@api_client ||= Huali::Client.new(api_access_id: 'huali_agent',

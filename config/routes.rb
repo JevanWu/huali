@@ -82,6 +82,7 @@ Huali::Application.routes.draw do
   get 'weibo_stories', to: 'pages#weibo_stories', as: :weibo_stories
   get 'christmas', to: 'pages#christmas', as: :christmas
   get 'valentine', to: 'pages#valentine', as: :valentine
+  get 'white_day', to: 'pages#white_day', as: :white_day
 
   get 'banners/:date', to: 'banners#index', as: :banners
   get 'stories', to: 'stories#index'

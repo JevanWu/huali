@@ -2,35 +2,35 @@
 # it preloads rails and database related test components
 
 require 'spork'
-require 'rr'
-require 'capybara/rspec'
-#Capybara.javascript_driver = :selenium
-
-# poltergeist
-#require 'capybara/poltergeist'
-#Capybara.register_driver :poltergeist do |app|
-  #Capybara::Poltergeist::Driver.new(app, js_errors: false, phantomjs_options: ["--proxy=127.0.0.1:8087"])
-#end
-#Capybara.javascript_driver = :poltergeist
-
-# chrome driver
-Capybara.register_driver :chrome do |app|
-  proxy = { proxyType: 'pac', proxyAutoconfigUrl: 'http://127.0.0.1:8086/proxy.pac' }
-  Capybara::Selenium::Driver.new(app, browser: :chrome, proxy: proxy)
-end
-Capybara.javascript_driver = :chrome
-#Capybara.default_driver = :chrome
-
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
 
 Spork.prefork do
+
+  require 'rr'
+  require 'capybara/rspec'
+
+  # chrome driver
+  Capybara.register_driver :chrome do |app|
+    proxy = { proxyType: 'pac', proxyAutoconfigUrl: "file:///#{::Rails.root}/spec/fixtures/SwitchyPac.pac" }
+    Capybara::Selenium::Driver.new(app, browser: :chrome, proxy: proxy)
+  end
+  Capybara.javascript_driver = :chrome
+  #Capybara.default_driver = :chrome
+
   # load simplecov before load Rails Application
   require 'simplecov'
   SimpleCov.start 'rails'
 
+  # Use spork with active_admin https://github.com/gregbell/active_admin/wiki/Use-spork
+  require "rails/application"
+  Spork.trap_method(Rails::Application::RoutesReloader, :reload!)
+
   ENV["RAILS_ENV"] ||= 'test'
   require File.expand_path("../../config/environment", __FILE__)
+
+  # Eager load custom simple_form and formtastic inputs
+  Dir["app/inputs/*_input.rb"].each { |f| require File.basename(f) }
 
   # tweak Rails for faster tests
   Rails.logger.level = 4
@@ -45,6 +45,8 @@ Spork.prefork do
 
   require 'email_spec'
 
+  # NullDB
+  require 'nulldb_rspec'
 
   RSpec.configure do |config|
     config.treat_symbols_as_metadata_keys_with_true_values = true
@@ -111,27 +113,27 @@ Spork.prefork do
 
     # For resetting database to a pristine state
     config.before(:suite) do
-      DatabaseCleaner.strategy = :truncation
+      DatabaseCleaner.strategy = :transaction
       DatabaseCleaner.clean_with(:truncation)
     end
 
+    config.around(:each) do |example|
+      if ActiveRecord::Base.connection.adapter_name == "NullDB"
+        example.run
+      else
+        DatabaseCleaner.cleaning do
+          example.run
+        end
+      end
+    end
+
     config.before(:each) do
-      DatabaseCleaner.start
-      set_selenium_window_size(1250, 800) if Capybara.current_driver == :selenium
+      set_window_size(1024, 768) if Capybara.current_driver != :rack_test
     end
 
-    config.after(:each) do
-      DatabaseCleaner.clean
-    end
   end
-end
-
-def set_selenium_window_size(width, height)
-  window = Capybara.current_session.driver.browser.manage.window
-  window.resize_to(width, height)
 end
 
 Spork.each_run do
   FactoryGirl.reload
-  Dir["app/inputs/*_input.rb"].each { |f| require File.basename(f) }
-end
+end if Spork.using_spork?
