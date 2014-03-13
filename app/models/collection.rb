@@ -39,8 +39,6 @@ class Collection < ActiveRecord::Base
   scope :available, -> { where(available: true) }
   scope :primary, -> { where(primary_category: true) }
 
-  default_scope -> { order('priority DESC') }
-
   def show_name
     display_name || name
   end

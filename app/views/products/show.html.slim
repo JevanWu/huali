@@ -34,9 +34,9 @@
           - unless @product.original_price.nil?
             del
               i
-                = number_to_currency @product.original_price, unit: '&yen;'
+                = number_to_currency @product.original_price
           p.price
-            = number_to_currency @product.price, unit: '&yen;'
+            = number_to_currency @product.price
           p 免运费
           - if @product.width? && @product.depth? && @product.height?
             p.size 花盒尺寸(宽度*深度*高度)：#{@product.width}cm*#{@product.depth}cm*#{@product.height}cm

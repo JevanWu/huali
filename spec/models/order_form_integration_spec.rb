@@ -1,4 +1,4 @@
-require 'spec_helper_full'
+require 'spec_helper'
 require 'support/shared_examples/order_form_integration_shared_spec'
 
 describe OrderForm do
@@ -9,7 +9,7 @@ describe OrderForm do
     @user = FactoryGirl.create(:user)
     @city = @province.cities.sample
     @area = @city.areas.sample
-    @coupon = FactoryGirl.create(:coupon)
+    @coupon_code_record = FactoryGirl.create(:coupon_code)
   end
 
   let(:valid_receiver) do
@@ -63,10 +63,11 @@ describe OrderForm do
   describe "coupon_code persistance" do
     context 'with passed in coupon_code' do
       it 'saves coupon_code if passed in' do
-        OrderForm.new(valid_order.merge({coupon_code: @coupon.code})).save
+        order_form = OrderForm.new(valid_order.merge({coupon_code: @coupon_code_record.code}))
+        order_form.save
+        OrderDiscountPolicy.new(order_form.record).apply
         order = Order.first
-        order.coupon_code.should == @coupon.code
-        order.coupon == @coupon
+        order.coupon_code.should == @coupon_code_record.code
       end
     end
   end

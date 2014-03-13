@@ -4,8 +4,7 @@ require 'phonelib_extension'
 require 'validators/all'
 
 class ReceiverInfo
-  include Virtus
-  include Virtus::ValueObject
+  include Virtus.value_object
   extend ActiveModel::Naming
   extend ActiveModel::Translation
   include ActiveModel::Validations
@@ -14,13 +13,15 @@ class ReceiverInfo
 
   attr_reader :errors
 
-  attribute :fullname, String
-  attribute :phone, String
-  attribute :province_id, Integer
-  attribute :city_id, Integer
-  attribute :area_id, Integer
-  attribute :address, String
-  attribute :post_code, Integer
+  values do
+    attribute :fullname, String
+    attribute :phone, String
+    attribute :province_id, Integer
+    attribute :city_id, Integer
+    attribute :area_id, Integer
+    attribute :address, String
+    attribute :post_code, Integer
+  end
 
   validates_presence_of :fullname, :address, :phone, :province_id, :city_id, :post_code
 
@@ -35,8 +36,7 @@ class ReceiverInfo
 end
 
 class ItemInfo
-  include Virtus
-  include Virtus::ValueObject
+  include Virtus.value_object
   extend ActiveModel::Translation
   extend ActiveModel::Naming
 
@@ -50,9 +50,11 @@ class ItemInfo
   end
   alias :read_attribute_for_validation :send
 
-  attribute :product_id, Integer
-  attribute :quantity, Integer, default: 0
-  attribute :price, Float
+  values do
+    attribute :product_id, Integer
+    attribute :quantity, Integer, default: 0
+    attribute :price, Float
+  end
 
   def product
     Product.find(product_id)
@@ -64,8 +66,7 @@ class ItemInfo
 end
 
 class SenderInfo
-  include Virtus::ValueObject
-  include Virtus
+  include Virtus.value_object
   include ActiveModel::Validations
   include Phonelib::Extension
 
@@ -74,24 +75,16 @@ class SenderInfo
     @errors = ActiveModel::Errors.new(self)
   end
 
-  attribute :name, String
-  attribute :email, String
-  attribute :phone, String
+  values do
+    attribute :name, String
+    attribute :email, String
+    attribute :phone, String
+  end
 
   phoneize :phone
   validates :phone, phone: { allow_blank: true }
 
   validates_presence_of :email, :phone, :name
-end
-
-module OrderInfo
-  include Virtus
-
-  attribute :coupon_code, String
-  attribute :gift_card_text, String
-  attribute :special_instructions, String
-  attribute :source, String, default: ''
-  attribute :expected_date, Date
 end
 
 # The Role of OrderForm
@@ -101,14 +94,20 @@ end
 # - Inherited Behavior for specialized builds
 
 class OrderForm
-  include Virtus
+  include Virtus.model
 
   extend ActiveModel::Naming
   include ActiveModel::Conversion
   include ActiveModel::Validations
 
   attr_accessor :user
-  include OrderInfo
+
+  attribute :coupon_code, String
+  attribute :gift_card_text, String
+  attribute :special_instructions, String
+  attribute :source, String, default: ''
+  attribute :expected_date, Date
+
   attribute :sender, SenderInfo
   attribute :address, ReceiverInfo
   attribute :line_items, Array[ItemInfo]
