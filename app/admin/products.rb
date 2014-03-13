@@ -158,11 +158,11 @@ ActiveAdmin.register Product do
       row :count_on_hand
 
       row :original_price do
-        number_to_currency product.original_price, unit: '&yen;'
+        number_to_currency product.original_price
       end
 
       row :price do
-        number_to_currency product.price, unit: '&yen;'
+        number_to_currency product.price
       end
 
       row :height do

@@ -28,15 +28,16 @@ module ApiHelpers
   def import_region_data_from_files
     region_data = File.expand_path('../../fixtures/regions.sql', __FILE__)
 
+    ActiveRecord::Base.connection.execute("TRUNCATE provinces;TRUNCATE cities; TRUNCATE areas;")
     ActiveRecord::Base.connection.execute(File.read(region_data))
   end
 end
 
 # API request signing mock, there's no way to calculate Authentication headers in requests specs!
-module API::APIHelpers
-  private
-
-  def valid_signature?
-    true
+API::API.class_eval do
+  helpers do
+    def valid_signature?
+      true
+    end
   end
 end

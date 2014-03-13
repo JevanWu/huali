@@ -13,7 +13,7 @@ class AdminAbility
       cannot :manage, Sidekiq
       cannot :manage_super, Administrator # For use in view
     when "operation_manager"
-      can :manage, [Product, Collection, Order, Transaction, Shipment, Coupon, DefaultRegionRule, DefaultDateRule, SlidePanel]
+      can :manage, [Product, Collection, Order, Transaction, Refund, Shipment, Coupon, DefaultRegionRule, DefaultDateRule, SlidePanel]
       cannot :update_seo, [Product, Collection]
       can :record_back_order, Order
     when "product_manager"

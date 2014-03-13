@@ -19,7 +19,7 @@
                     = product_in_cart.name_en
                 .cart-product-info-price
                   strong.price data-price = "#{product_in_cart.price}"
-                    = number_to_currency product_in_cart.price, unit: '&yen;'
+                    = number_to_currency product_in_cart.price
                   span ×
                   em #{product_in_cart.quantity}
               .op.quantity
@@ -44,20 +44,20 @@
           .summary-item-name
             | 商品小计：
           .summary-item-value
-            = number_to_currency @cart.original_total, unit: '&yen;'
+            = number_to_currency @cart.original_total
         .summary-item
           - if @cart.discounted?
             .summary-item-name
               | 促销优惠：
             .summary-item-value
               = "- "
-              = number_to_currency @cart.discount_money, unit: '&yen;'
+              = number_to_currency @cart.discount_money
         .summary-item.last
           .summary-item-name
             | 折后总计
           .summary-item-value
             span.total-price
-              = number_to_currency @cart.total, unit: '&yen;'
+              = number_to_currency @cart.total
         p.note
           | 您的订单享受免费配送
 
