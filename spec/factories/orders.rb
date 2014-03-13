@@ -8,14 +8,17 @@
 #  coupon_code_id       :integer
 #  created_at           :datetime         not null
 #  delivery_date        :date
-#  expected_date        :date             not null
+#  expected_date        :date
 #  gift_card_text       :text
 #  id                   :integer          not null, primary key
 #  identifier           :string(255)
 #  item_total           :decimal(8, 2)    default(0.0), not null
 #  kind                 :string(255)      default("normal"), not null
+#  last_order           :string(255)
+#  memo                 :text
 #  merchant_order_no    :string(255)
 #  payment_total        :decimal(8, 2)    default(0.0)
+#  prechecked           :boolean
 #  printed              :boolean          default(FALSE)
 #  sender_email         :string(255)
 #  sender_name          :string(255)
@@ -30,8 +33,9 @@
 #
 # Indexes
 #
-#  index_orders_on_identifier  (identifier) UNIQUE
-#  index_orders_on_user_id     (user_id)
+#  index_orders_on_identifier                  (identifier) UNIQUE
+#  index_orders_on_merchant_order_no_and_kind  (merchant_order_no,kind)
+#  index_orders_on_user_id                     (user_id)
 #
 
 FactoryGirl.define do
