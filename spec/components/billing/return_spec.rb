@@ -7,6 +7,8 @@ describe Billing::Return do
     before(:each) do
       @transaction = { identifier: 'TR1302200011', paymethod: 'directPay', amount: 329.00 }
       @query_str = "buyer_email=sniper_eagle%40163.com&buyer_id=2088002511212114&exterface=create_direct_pay_by_user&is_success=T&notify_id=RqPnCoPT3K9%252Fvwbh3I73%252FoH6FPP49gyMfLDeJ3rI0KW%252Fj0IFLsUwFfBUrpQQro%252F2Hy6u&notify_time=2013-02-20+16%3A29%3A18&notify_type=trade_status_sync&out_trade_no=TR1302200011&payment_type=1&seller_email=tzgbusiness%40gmail.com&seller_id=2088801670489935&subject=%E7%8F%8A%E7%91%9A+x+1%2C&total_fee=329.00&trade_no=2013022001197311&trade_status=TRADE_SUCCESS&sign=d4c42425dc944ff104936f6cdeb84b59&sign_type=MD5"
+      stub(ENV).[]('ALIPAY_EMAIL') { 'tzgbusiness@gmail.com' }
+      stub(ENV).[]('ALIPAY_KEY') { 'app_key' }
     end
 
     subject { Billing::Base.new(type, @transaction, @query_str) }

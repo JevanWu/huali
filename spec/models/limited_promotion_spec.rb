@@ -6,8 +6,8 @@ describe LimitedPromotion do
   subject { limited_promotion }
 
   describe "#close_to_start_time?" do
-    context "when start time is greater than current time by 30 minutes" do
-      let(:limited_promotion) { create(:limited_promotion, start_at: 28.minutes.since) }
+    context "when start time is greater than current time by 10 minutes" do
+      let(:limited_promotion) { create(:limited_promotion, start_at: 9.minutes.since) }
 
       it "returns true" do
         subject.should be_close_to_start_time

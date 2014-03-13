@@ -29,10 +29,6 @@ describe "routes for Order", type: :routing do
     { delete: "/orders/234" }.should_not be_routable
   end
 
-  it "doesn't route to action to edit order" do
-    { get: "/orders/234/edit" }.should_not be_routable
-  end
-
   it "doesn't route to action to update order" do
     { put: "/orders/234" }.should_not be_routable
   end

@@ -34,7 +34,7 @@ FactoryGirl.define do
 
     factory :collection_with_products do
       after(:build) do |collection|
-        create_list(:product, Forgery(:basic).number, :with_collection, collection: collection )
+        create_list(:product, rand(2..5))
       end
     end
 

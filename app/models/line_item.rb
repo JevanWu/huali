@@ -23,6 +23,7 @@ class LineItem < ActiveRecord::Base
 
   validates :product, presence: true
   validates :quantity, numericality: { only_integer: true, message: ('quantity must be numbers.'), greater_than: -1 }
+  validates :product_id, uniqueness: { scope: :order_id }
 
   delegate :discount?, :sold_total, :img, :name, :name_en, :height, :width,
     :depth, :category_name, :published, to: :product

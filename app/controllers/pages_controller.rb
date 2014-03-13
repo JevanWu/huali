@@ -30,4 +30,7 @@ class PagesController < ApplicationController
 
   def valentine
   end
+
+  def white_day
+  end
 end

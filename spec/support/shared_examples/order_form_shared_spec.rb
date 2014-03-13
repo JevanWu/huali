@@ -37,7 +37,6 @@ shared_examples_for "OrderForm::Shared" do
                   'OrderProductRegionValidator',
                   'OrderProductDateValidator',
                   'OrderItemValidator',
-                  'OrderCouponValidator',
                   'OrderProductAvailabilityValidator',
                   'OrderCustomizedRegionValidator'
                  ]

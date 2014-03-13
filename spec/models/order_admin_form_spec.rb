@@ -1,16 +1,10 @@
-require 'spec_helper_lite'
-require 'support/shared_examples/active_model_spec'
-require 'support/shared_examples/order_form_shared_spec'
+require 'spec_helper'
 require 'order_form'
 require 'order_admin_form'
-require 'active_record'
-require 'nulldb_helper'
-require 'order'
-require 'address'
-require 'line_item'
-require 'coupon'
 
 describe OrderAdminForm do
+  include NullDB::RSpec::NullifiedDatabase
+
   let(:valid_receiver) do
     {
       fullname: '张佳婵',
@@ -48,7 +42,6 @@ describe OrderAdminForm do
       bypass_date_validation: false,
       bypass_region_validation: false,
       bypass_product_validation: false,
-      coupon_code: 'xs134fx',
       gift_card_text: '空白卡片',
       special_instructions: '现在的色调有些冷，请往“巴黎”的色调靠拢。把绣球的颜色调浅些或者加香槟玫瑰，送给女性朋友生日的礼物，尽量粉嫩甜蜜些',
       source: '淘宝',
@@ -56,7 +49,16 @@ describe OrderAdminForm do
     }
   end
 
-  subject { OrderAdminForm.new(valid_order) }
+  before do
+    create(:product, id: 12, price: 200)
+  end
+
+  subject do
+    stub(Product).find(12) { $product_12 ||= create(:product, id: 12, price: 200) }
+    stub(Product).find(13) { $product_13 ||= create(:product, id: 13, price: 300) }
+
+    OrderAdminForm.new(valid_order)
+  end
 
   it_behaves_like "ActiveModel::Full"
   it_behaves_like "OrderForm::Shared"
@@ -64,6 +66,9 @@ describe OrderAdminForm do
   describe "attributes" do
     [:bypass_date_validation, :bypass_region_validation, :bypass_product_validation].each do |attr|
       it "builds #{attr} default to false" do
+        stub(Product).find(12) { $product_12 ||= create(:product, id: 12, price: 200) }
+        stub(Product).find(13) { $product_13 ||= create(:product, id: 13, price: 300) }
+
         order_admin_form = OrderAdminForm.new(valid_order.except(attr))
         order_admin_form.send(attr).should be_false
       end
@@ -85,6 +90,7 @@ describe OrderAdminForm do
 
     ADMIN_VALIDATORS.each do |validator|
       it "calls validate on #{validator} with subject" do
+        subject
         any_instance_of(validator.constantize) do |v|
           mock(v).validate(subject)
         end
@@ -121,6 +127,28 @@ describe OrderAdminForm do
       end
 
       subject.valid?
+    end
+
+    context "OrderCouponValidator" do
+      it "calls validate with subject if subject was not persisted" do
+        stub(subject).persisted? { false }
+
+        any_instance_of(OrderCouponValidator) do |v|
+          mock(v).validate(subject)
+        end
+
+        subject.valid?
+      end
+
+      it "never calls validate with subject if subject is persisted" do
+        stub(subject).persisted? { true }
+
+        any_instance_of(OrderCouponValidator) do |v|
+          mock(v).validate(subject).never
+        end
+
+        subject.valid?
+      end
     end
   end
 
@@ -184,12 +212,9 @@ describe OrderAdminForm do
     let(:coupon_param) do
       {
                  :id => 73,
-               :code => "09fad8a2",
          :adjustment => "*0.85",
             :expired => false,
          :expires_at => 'Tue, 31 Dec 2013',
-    :available_count => 1,
-         :used_count => 0,
                :note => "顾客补偿"
       }
     end
@@ -211,12 +236,13 @@ describe OrderAdminForm do
       order = Order.new(order_param)
       order.address = Address.new(address_param)
       order.line_items << LineItem.new(line_item_param)
-      order.coupon = Coupon.new(coupon_param)
       order
     end
 
-    subject { OrderAdminForm.build_from_record(order_record) }
-
+    subject do
+      stub(Product).find(29) { $product_29 ||= create(:product, price: 200) }
+      OrderAdminForm.build_from_record(order_record)
+    end
 
     it 'populates the sender attribute' do
       subject.sender.should == SenderInfo.new(order_param.slice(:sender_email,
@@ -227,12 +253,6 @@ describe OrderAdminForm do
 
     it { subject.address.should == ReceiverInfo.new(address_param) }
     it { subject.line_items[0].should == ItemInfo.new(line_item_param) }
-    it { subject.coupon_code.should == coupon_param[:code] }
-
-    it 'preserves nil of coupon' do
-      order_record.coupon = nil
-      subject.coupon_code.should be_nil
-    end
 
     it { should be_persisted }
 

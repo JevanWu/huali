@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140219065217) do
+ActiveRecord::Schema.define(version: 20140306031706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -319,6 +319,7 @@ ActiveRecord::Schema.define(version: 20140219065217) do
     t.string   "merchant_order_no"
     t.string   "last_order"
     t.boolean  "prechecked"
+    t.text     "memo"
   end
 
   add_index "orders", ["identifier"], name: "index_orders_on_identifier", unique: true, using: :btree
@@ -399,6 +400,23 @@ ActiveRecord::Schema.define(version: 20140219065217) do
 
   add_index "recommendation_relations", ["product_id"], name: "index_recommendation_relations_on_product_id", using: :btree
   add_index "recommendation_relations", ["recommendation_id"], name: "index_recommendation_relations_on_recommendation_id", using: :btree
+
+  create_table "refunds", force: true do |t|
+    t.integer  "order_id"
+    t.integer  "transaction_id"
+    t.string   "state"
+    t.string   "merchant_refund_id"
+    t.decimal  "amount"
+    t.string   "reason"
+    t.string   "ship_method"
+    t.string   "tracking_number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "refunds", ["order_id", "merchant_refund_id"], name: "index_refunds_on_order_id_and_merchant_refund_id", unique: true, using: :btree
+  add_index "refunds", ["order_id"], name: "index_refunds_on_order_id", using: :btree
+  add_index "refunds", ["transaction_id"], name: "index_refunds_on_transaction_id", using: :btree
 
   create_table "region_rules", force: true do |t|
     t.integer  "region_rulable_id"
