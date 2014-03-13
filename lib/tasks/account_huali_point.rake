@@ -1,5 +1,5 @@
 namespace :huali_point do
-  desc "reset the users' huali points and account the huali points from point transaction annually"
+  desc "reset the users' huali points and count the huali points from point transaction annually"
   task annual_reset_and_accounting: :reset_huali_point do
     User.transaction do
       users = User.all
