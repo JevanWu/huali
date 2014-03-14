@@ -19,8 +19,10 @@
 #
 
 class PointTransaction < ActiveRecord::Base
+  extend Enumerize
+
   belongs_to :user
   belongs_to :transaction
 
-  validates :transaction_type, inclusion: { in: %w(income expense), message: "%{value} is not a valid transaction type!" }
+  enumerize :transaction_type, in: [:income, :expense]
 end
