@@ -185,7 +185,9 @@ class Product < ActiveRecord::Base
   def update_monthly_sold(quantity, date=Date.current)
     month_sold(date).update_sold_total(quantity)
 
-    update_attribute(:sold_total, month_sold(Date.current).sold_total)
+    if date == Date.current
+      update_column(:sold_total, month_sold(date).sold_total)
+    end
   end
 
   def limited_promotion_today
