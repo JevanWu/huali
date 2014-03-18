@@ -184,7 +184,7 @@ class OrdersController < ApplicationController
   def current
     if params[:coupon_code].present? && params[:product_ids].present?
       coupon_code = CouponCode.find_by_code!(params[:coupon_code])
-      products = Product.find(params[:product_ids].split(','))
+      products = Product.where(slug: params[:product_ids].split(',')).to_a
 
       if !coupon_code.usable? || products.any? { |p| p.count_on_hand <=0 }
         flash[:alert] = t('controllers.order.products_sold_out')

@@ -1,6 +1,10 @@
 ActiveAdmin.register SlidePanel do
   menu parent: '设置', if: proc { authorized? :read, SlidePanel}
 
+  sortable tree: false,
+           protect_root: false,
+           sorting_attribute: :priority
+
   controller do
     def permitted_params
       params.permit(slide_panel: [:name, :href, :visible, :priority, :image]) 
@@ -9,18 +13,17 @@ ActiveAdmin.register SlidePanel do
 
   form partial: "form"
 
-  index do
-    selectable_column
-    column "ID" do |slide_panel|
+  index as: :sortable do
+    label "ID" do |slide_panel|
       link_to slide_panel.id, admin_slide_panel_path(slide_panel)
     end
-    column :name
-    column :href
-    column :priority
-    column :image do |slide_panel|
+    label :name
+    label :href
+    label :priority
+    label :image do |slide_panel|
       image_tag slide_panel.img(:thumb)
     end
-    default_actions
+    actions
   end
 
 

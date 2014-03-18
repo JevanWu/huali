@@ -58,10 +58,6 @@ module Billing
       [:paymethod, :identifier, :amount].each do |attr|
         raise ArgumentError, "the transaction object missing required attributes #{attr}" unless transaction[attr]
       end
-
-      unless transaction[:paymethod].in? %w(paypal directPay bankPay wechat)
-        raise ArgumentError, 'invalid paymethod'
-      end
     end
 
     def self.validate_merchant_trade_no

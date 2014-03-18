@@ -16,7 +16,7 @@ class OrderProductDateValidator < OrderProductBaseValidator
 
   def validate_product(product, expected_date)
     raise "No global date_rule settings found" if product.default_date_rule.blank?
-    rule_runner_options = build_rule_runner_options(product.merged_date_rule)
+    rule_runner_options = build_rule_runner_options(product.date_rule)
     DateRuleRunner.new(rule_runner_options).apply_test(expected_date)
   end
 

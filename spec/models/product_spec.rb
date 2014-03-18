@@ -119,4 +119,17 @@ describe Product do
       product.sold_total.should == 110
     end
   end
+
+
+  describe "#date_rule" do
+    let(:product_with_local_rule) { create(:product, :with_local_rules) }
+
+    it "date_rule equals to local_date_rule if it has local_date_rule" do
+      product_with_local_rule.date_rule.should eq product_with_local_rule.local_date_rule
+    end 
+
+    it "date_rule equals to default_date_rule if it has no local_date_rule" do
+      product.date_rule.should eq product.default_date_rule
+    end
+  end
 end

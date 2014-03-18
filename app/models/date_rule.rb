@@ -42,22 +42,4 @@ class DateRule < ActiveRecord::Base
       start_date.next_month(2)
     end
   end
-
-  def merge(other)
-    if other.nil?
-      self
-    else
-      OpenStruct.new(
-        # Override rule in start and end dates
-        start_date: other.start_date,
-        end_date: other.end_date,
-
-        # Union included_dates
-        included_dates: (self.included_dates | other.included_dates),
-
-        # Union excluded_dates and excluded_weekdays
-        excluded_dates: (self.excluded_dates | other.excluded_dates),
-        excluded_weekdays: (self.excluded_weekdays | other.excluded_weekdays))
-    end
-  end
 end
