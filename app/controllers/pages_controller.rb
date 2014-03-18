@@ -33,4 +33,7 @@ class PagesController < ApplicationController
 
   def white_day
   end
+
+  def huali_point
+  end
 end
