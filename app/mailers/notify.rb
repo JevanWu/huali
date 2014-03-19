@@ -164,6 +164,19 @@ STR
     mail(to: emails, subject: subject("所有订单 #{Date.current}"))
   end
 
+  def invite_message(user, from, subject, content)
+    @user = user
+    @token = user.raw_invitation_token
+    invitation_link = accept_user_invitation_url(:invitation_token => @token)
+ 
+    mail(:from => from, :bcc => from, :to => @user.email, :subject => subject) do |format|
+      content = content.gsub('{{invitation_link}}', invitation_link)
+      format.text do
+        render :text => content
+      end
+    end 
+  end
+
   helper MailerHelper
 
   private

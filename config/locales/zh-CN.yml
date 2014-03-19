@@ -10,9 +10,15 @@ zh-CN:
   devise:
     invitations:
       new:
+        email: 好友邮箱
+        subject: 邮件主题
+        content: 邮件内容
         header: 邀请好友
         submit: 发送邀请
         hint: 请您填写需邀请的好友的邮箱
+        subject_content_not_be_empty: 邮件主题和内容部能为空！
+        has_been_our_user: 该邮箱地址已成为我们的用户！
+        email_sent: 邀请邮件已发送
       user:
         send_instructions: 您的邀请已成功发送
         

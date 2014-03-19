@@ -2,24 +2,31 @@
   <%= stylesheet_link_tag 'invitation'  %>
 <% end %>
 
-<div class="invitation-main">
-<h2><%= t "devise.invitations.new.header" %></h2>
+<div class="account-info-container">
+  <%= render 'shared/account_info_header' %>
+  <div class="invitation-main">
+  <h2><%= t "devise.invitations.new.header" %></h2>
 
-<%= simple_form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post} do |f| %>
-  <%= devise_error_messages! %>
+  <%= simple_form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post} do |f| %>
+    <%= devise_error_messages! %>
 
-<% resource.class.invite_key_fields.each do |field| -%>
-  <%= f.input field, placeholder: t("devise.invitations.new.hint") %>
-<% end -%>
+  <br>
+  <%= f.label t("devise.invitations.new.email") %>
+  <%= f.text_field :email %>
+  <br>
+  <%= label_tag t("devise.invitations.new.subject") %>
+  <%= text_field_tag :invite_subject %>
+  <br>
+  <%= label_tag t("devise.invitations.new.content") %>
+  <%= text_area_tag :invite_content %>
+  <br>
+  <br>
 
-<input class= "btn-passport"name="commit" type="submit" value= <%= t "devise.invitations.new.submit" %>>
-<% end %>
 
-<br>
-<div><h2>您目前的积分</h2></div>
-<div class="progress">
-  <div class="bar" style="width: <%= current_user.huali_point/10 %>;"></div>
-</div>
+  <input class= "btn-passport"name="commit" type="submit" value= <%= t "devise.invitations.new.submit" %>>
+  <% end %>
 
-<button class="btn-passport" disabled>领取礼物</button>
+  <br>
+  </div>
+  <div class="account-info-line"> </div>
 </div>
