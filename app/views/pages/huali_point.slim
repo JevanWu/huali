@@ -2,8 +2,8 @@
   = render 'shared/account_info_header'
   .huali-point-container
     p
-      = "我的花点: 300点 "
-      = link_to '如何获得花点？', remote: true
+      = "我的花点: #{current_user.huali_point}点 "
+      = link_to '如何获得花点？', '#', class: 'selected-link'
     p
       = "提示: 所获得花点会在第二年的年底清零，请注意使用！每一个花点分别从各自所获得日期开始计算"
     p
@@ -24,5 +24,5 @@
       = link_to '前往选购', root_path, class: 'button btn'
       | &nbsp
       | &nbsp
-      = link_to '前往邀请', root_path, class: 'button btn'
+      = link_to '前往邀请', new_user_invitation_path, class: 'button btn'
     .account-info-line
