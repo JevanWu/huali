@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'feature_spec_helper'
 
 feature "Update products in order" do
   let(:admin) { create(:administrator) }
