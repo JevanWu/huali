@@ -35,5 +35,6 @@ class PagesController < ApplicationController
   end
 
   def huali_point
+    @selected_menu = :huali_point
   end
 end

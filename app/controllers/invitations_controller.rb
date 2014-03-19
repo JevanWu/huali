@@ -22,4 +22,9 @@ class InvitationsController < Devise::InvitationsController
     end
     render :new
   end
+
+  def new
+    @selected_menu = :refer_friend
+    super
+  end
 end

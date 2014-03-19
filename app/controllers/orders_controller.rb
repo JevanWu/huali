@@ -10,6 +10,7 @@ class OrdersController < ApplicationController
 
   def index
     @orders = current_or_guest_user.orders
+    @selected_menu = :my_order
   end
 
   def show
