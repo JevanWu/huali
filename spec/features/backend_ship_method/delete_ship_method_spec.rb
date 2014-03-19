@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'feature_spec_helper'
 
 feature "Delete ship method" do
   given(:super_admin) { create(:administrator, role: 'super') }

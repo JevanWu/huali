@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'feature_spec_helper'
 
 feature "list slide panel" do
   let(:admin) { create(:administrator) }

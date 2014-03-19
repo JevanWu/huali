@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'feature_spec_helper'
 
 feature 'Place order' do
   let(:province) { create(:province, name: '上海市') }

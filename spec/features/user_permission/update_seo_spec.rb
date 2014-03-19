@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'feature_spec_helper'
 
 feature 'Permission to update seo of collections' do
   let(:collection) { create(:collection, name_en: 'birthday') }

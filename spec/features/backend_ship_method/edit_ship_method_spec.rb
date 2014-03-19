@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'feature_spec_helper'
 
 feature "Edit ship method" do
   let(:admin) { create(:administrator) }
