@@ -108,6 +108,7 @@ class User < ActiveRecord::Base
 
   def edit_invited_and_paid_counter(num=1)
     self.invited_and_paid_counter += num
+    self.save!
   end
 
   def edit_huali_point(point)
