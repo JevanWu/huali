@@ -32,7 +32,7 @@ class HualiPointService
   end
 
   def self.minus_expense_point(customer, transaction)
-    if transaction.use_huali_point
+    if transaction.use_huali_point && transaction.point_transaction == nil
       User.transaction do 
         if customer.huali_point > transaction.order.total.to_i
           customer.edit_huali_point(-transaction.order.total.to_i)

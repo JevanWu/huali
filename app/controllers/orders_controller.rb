@@ -145,8 +145,8 @@ class OrdersController < ApplicationController
     transaction.start
     if transaction.amount == 0
       flash[:alert] = t('views.order.paid')
-      transaction.complete
       HualiPointService.minus_expense_point(transaction.user, transaction)
+      transaction.complete
       redirect_to orders_path
     else
       redirect_to transaction.request_path
@@ -181,6 +181,7 @@ class OrdersController < ApplicationController
 
     if @transaction.notify(query)
       user = @transaction.order.user
+      HualiPointService.minus_expense_point(user, @transaction)
       HualiPointService.reward_point(user.inviter, user)
       HualiPointService.rebate_point(user, @transaction)
       render text: "success"

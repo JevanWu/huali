@@ -112,7 +112,7 @@ class User < ActiveRecord::Base
 
   def edit_huali_point(point)
     self.huali_point += point
-    self.save
+    self.save!
   end
 
   def create_income_point_transaction(point, transaction_id=nil)
