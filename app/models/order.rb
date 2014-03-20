@@ -177,7 +177,8 @@ class Order < ActiveRecord::Base
       use_huali_point: use_huali_point,
       subject: subject_text,
       body: body_text,
-      client_ip: user.current_sign_in_ip
+      client_ip: user.current_sign_in_ip,
+      use_huali_point: use_huali_point ? true : false
     }
     self.transactions.create default.merge(opts)
   end

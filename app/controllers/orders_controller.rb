@@ -143,7 +143,14 @@ class OrdersController < ApplicationController
     payment_opts = process_pay_info(params[:pay_info])
     transaction = @order.generate_transaction payment_opts.merge(client_ip: request.remote_ip), params[:use_huali_point]
     transaction.start
-    redirect_to transaction.request_path
+    if transaction.amount == 0
+      flash[:alert] = t('views.order.paid')
+      transaction.complete
+      HualiPointService.minus_expense_point(transaction.user, transaction)
+      redirect_to orders_path
+    else
+      redirect_to transaction.request_path
+    end
   end
 
   def fetch_transaction
