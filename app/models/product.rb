@@ -194,16 +194,14 @@ class Product < ActiveRecord::Base
     limited_promotions.start_today.first
   end
 
-  private
-
   def month_sold(date)
-    ret = monthly_solds.query_by_date(date.year, date.month)
+    ret = monthly_solds.by_date(date.year, date.month)
 
     begin
-      ret ||= monthly_solds.create(sold_year: date.year,
+      ret = monthly_solds.create(sold_year: date.year,
                                    sold_month: date.month)
     rescue ActiveRecord::RecordNotUnique
-      ret = monthly_solds.query_by_date(date.year, date.month)
+      ret = monthly_solds.by_date(date.year, date.month)
     end
 
     ret
