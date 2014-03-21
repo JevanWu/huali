@@ -16,6 +16,7 @@
 #  state             :string(255)      default("generated")
 #  subject           :string(255)
 #  updated_at        :datetime         not null
+#  use_huali_point   :boolean          default(FALSE)
 #
 # Indexes
 #
