@@ -174,11 +174,10 @@ class Order < ActiveRecord::Base
     need_to_pay = self.total > self.user.huali_point ? self.total - self.user.huali_point : 0
     default = {
       amount: use_huali_point ? need_to_pay : self.total,
-      use_huali_point: use_huali_point,
+      use_huali_point: use_huali_point ? true : false,
       subject: subject_text,
       body: body_text,
       client_ip: user.current_sign_in_ip,
-      use_huali_point: use_huali_point ? true : false
     }
     self.transactions.create default.merge(opts)
   end
