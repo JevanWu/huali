@@ -35,11 +35,11 @@ class HualiPointService
     if transaction.use_huali_point && transaction.point_transaction == nil
       User.transaction do 
         if customer.huali_point > transaction.order.total.to_i
-          customer.edit_huali_point(-transaction.order.total.to_i)
           customer.create_expense_point_transaction(transaction.order.total.to_i, transaction.id)
+          customer.edit_huali_point(-transaction.order.total.to_i)
         else
-          customer.edit_huali_point(-customer.huali_point)
           customer.create_expense_point_transaction(customer.huali_point, transaction.id)
+          customer.edit_huali_point(-customer.huali_point)
         end
       end
     end
