@@ -22,7 +22,7 @@ namespace :cleanup do
   task reset_sold_total: :environment do
     Product.transaction do
       products = Product.all
-      products.each { |product| product.lock!; product.update_clumn(:sold_total, 0)}
+      products.each { |product| product.lock!; product.update_clumn(:sold_total, 0) unless product.monthly_sold(Date.current)}
     end
   end
 end
