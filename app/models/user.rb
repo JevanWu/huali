@@ -107,13 +107,11 @@ class User < ActiveRecord::Base
   end
 
   def edit_invited_and_paid_counter(num=1)
-    self.invited_and_paid_counter += num
-    self.save!
+    update_column(:invited_and_paid_counter, invited_and_paid_counter + num)
   end
 
   def edit_huali_point(point)
-    self.huali_point += point
-    self.save!
+    update_column(:huali_point, huali_point + point)
   end
 
   def create_income_point_transaction(point, description=nil, transaction_id=nil)
