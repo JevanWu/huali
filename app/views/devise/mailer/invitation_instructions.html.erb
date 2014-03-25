@@ -1,8 +1,9 @@
-<p>Hello <%= @resource.email %>!</p>
+<p>Hi <%= @user.username.titleize %>!</p>
 
-<p>Someone has invited you to <%= root_url %>, you can accept it through the link below.</p>
+<p> 我刚在<%= link_to '花里花店', root_url %>看到了好多花盒，设计挺特别的，最重要的是它们都有各自独特的寓意~ 我现在推荐给你这家花店，希望它也能为你带去一些生活中被遗忘的美丽！</p>
 
-<p><%= link_to 'Accept invitation', accept_invitation_url(@resource, :invitation_token => @resource.invitation_token) %></p>
+<p> ps: 注册成为会员，不但能获得20点花点，还可以定期收到花里发布的最新花品哦！</p>
+<p class="center"><%= link_to '点击注册', accept_invitation_url(@user, :invitation_token => @user.invitation_token) %></p>
 
-<p>If you don't want to accept the invitation, please ignore this email.<br />
-Your account won't be created until you access the link above and set your password.</p>
+
+
