@@ -103,20 +103,40 @@ describe Product do
     end
   end
 
+
   let(:product) { create(:product) }
-
   describe "#update_monthly_sold" do
-    before do
+    before do 
       @monthly_sold = create(:monthly_sold, product: product)
-      product.update_monthly_sold(10)
     end
 
-    it "updates the sold_total of current month sold record" do
-      @monthly_sold.reload.sold_total.should == 110
+    context "updates the month sold of this month" do 
+
+      it "updates the sold_total of sold record of this month" do
+        product.update_monthly_sold(10, Date.current)
+        @monthly_sold.reload.sold_total.should == 110
+      end
+
+      it "updates the sold_total of the product at this month" do
+        mock(product).update_column(:sold_total, @monthly_sold.sold_total + 10)
+        product.update_monthly_sold(10, Date.current)
+      end
     end
 
-    it "updates the sold_total of the product with current month sold total" do
-      product.sold_total.should == 110
+    context "updates the month sold of last month" do 
+      before do 
+        product.update_monthly_sold(10, -1.month.from_now.to_date)
+      end
+
+      it "updates the sold_total of sold record of last month" do
+        @last_monthly_sold = product.month_sold(-1.month.from_now.to_date)
+        @last_monthly_sold.sold_total.should == 10
+        @monthly_sold.reload.sold_total.should == 100
+      end
+
+      it "does not updates the sold_total of the product at this month" do
+        dont_allow(product).update_column(:sold_total, @monthly_sold.sold_total) 
+      end
     end
   end
 
