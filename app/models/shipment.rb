@@ -27,7 +27,7 @@
 
 #
 class Shipment < ActiveRecord::Base
-  scope: :shipped_and_recieved, -> { where(state: 'shipped', kuaidi100_status: '3') }
+  scope :shipped_and_recieved, -> { where(state: 'shipped', kuaidi100_status: '3') }
 
   belongs_to :address
   belongs_to :ship_method
