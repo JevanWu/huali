@@ -21,4 +21,9 @@ class InvitationsController < Devise::InvitationsController
     @selected_menu = :refer_friend
     super
   end
+
+  def update
+    HualiPointService.reward_invitee_point(self.resource)
+    super
+  end
 end

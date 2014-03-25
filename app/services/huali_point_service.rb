@@ -1,5 +1,10 @@
 class HualiPointService
 
+  def self.reward_invitee_point(invitee)
+    invitee.edit_huali_point(20) 
+    invitee.create_income_point_transaction(20, t("point_transaction.accept_description")) 
+  end
+
   def self.reward_inviter_point(inviter, invitee)
     if inviter
       User.transaction do 
