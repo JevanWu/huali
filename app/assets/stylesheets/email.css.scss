@@ -16,7 +16,8 @@ img{border:0; height:auto; line-height:100%; outline:none; text-decoration:none;
 table td{border-collapse:collapse;}
 #backgroundTable{height:100% !important; margin:0; padding:0; width:100% !important;}
 a {
-  color: $tintColor;
+  color: #a9643c;
+  text-decoration: none;
 }
 
 /* Template Styles */
@@ -133,6 +134,8 @@ h4, .h4{
 #templateHeader{
   background-color:#FFFFFF;
   border-bottom:0;
+  padding-bottom: 33px;
+  padding-top: 20px;
 }
 
 /**
@@ -176,8 +179,20 @@ h4, .h4{
  */
 #templateContainer, .bodyContent{
   background-color:#FFFFFF;
+  p{
+    text-align:justify;
+  }
 }
 
+.center{
+  text-align: center !important;
+}
+
+.main-content{
+  margin-left: 15px;
+  margin-right: 15px;
+  display: block;
+}
 /**
  * @tab Body
  * @section body text
@@ -278,7 +293,7 @@ h4, .h4{
  */
 .templateButton{
   @include border-radius(3px);
-  background-color: $tintColor;
+  background-color: #000000;
   border:0;
   border-collapse:separate !important;
 }
