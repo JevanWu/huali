@@ -20,9 +20,13 @@ namespace :cleanup do
 
   desc "reset 'sold_total' of Product monthly"
   task reset_sold_total: :environment do
-    Product.transaction do
-      products = Product.all
-      products.each { |product| product.lock!; product.update_clumn(:sold_total, 0) unless product.monthly_sold(Date.current)}
+    products = Product.all
+
+    products.each do |product|
+      product.transaction do
+        product.lock!
+        product.update_column(:sold_total, 0) unless product.monthly_solds.by_date(Date.current).first
+      end
     end
   end
 end
