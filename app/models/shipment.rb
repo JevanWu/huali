@@ -27,17 +27,16 @@
 
 #
 class Shipment < ActiveRecord::Base
+  scope: :shipped_and_recieved, -> { where(state: 'shipped', kuaidi100_status: '3') }
+
   belongs_to :address
   belongs_to :ship_method
   belongs_to :order
   has_one :user, through: :order
 
   after_update :sync_with_kuaidi100_status
-
   before_validation :copy_address, :generate_identifier, on: :create
-
   validates_presence_of :order, :address, :ship_method
-
   validates :tracking_num, uniqueness: { scope: :ship_method_id }, allow_blank: true
 
   state_machine :state, initial: :ready do

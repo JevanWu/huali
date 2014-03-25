@@ -30,6 +30,10 @@ every :day, at: '2:00 am' do
   command "backup perform -t asset_backup"
 end
 
+every :day, at: '0:01 am' do
+  rake 'shipment:auto_confirm_received'
+end
+
 every :day, at: '5:45 pm' do
   rake 'cleanup:guests'
   rake 'cleanup:orders'
@@ -75,4 +79,8 @@ end
 
 every :day, at: '2:00 am' do
   rake "notice:all_orders_excel_email"
+end
+
+every :year do
+  rake "huali_point:annual_reset_and_accounting"
 end
