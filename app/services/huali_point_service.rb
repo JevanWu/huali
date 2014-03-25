@@ -1,20 +1,14 @@
 class HualiPointService
 
-  def self.reward_point(inviter, invitee)
+  def self.reward_inviter_point(inviter, invitee)
     if inviter
       User.transaction do 
         inviter.lock!
         unless invitee.invitation_rewarded? 
           inviter.edit_invited_and_paid_counter
-          invitee.invitation_rewarded = true
-          invitee.save!
-          if inviter.invited_and_paid_counter >= 5
-            User.transaction do
-              inviter.edit_huali_point(400)
-              inviter.create_income_point_transaction(400)
-              inviter.edit_invited_and_paid_counter(-5)
-            end
-          end
+          inviter.create_income_point_transaction(80, t("point_transaction.refer_description"))
+          inviter.edit_huali_point(80)
+          invitee.update_column(:invitation_rewarded, true)
         end
       end
     end
