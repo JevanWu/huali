@@ -42,4 +42,26 @@ class HualiPointService
       end
     end
   end
+
+  def self.process_refund(customer, transaction)
+    if transaction.use_huali_point
+      if transaction.amount == transaction.order.total
+        User.transaction do
+          customer.lock!
+          customer.create_income_point_transaction(transaction.amount, t("point_transaction.refund_description"), transaction.id)
+          customer.edit_huali_point(transaction.amount)
+        end
+      elsif transaction.amount < transaction.order.total
+        User.transaction do
+          customer.create_income_point_transaction(transaction.order.total - transaction.amount, t("point_transaction.refund_description"), transaction.id)
+          customer.edit_huali_point(transaction.order.total - transaction.amount)
+        end
+      end
+    else
+      User.transaction do
+        customer.create_expense_point_transaction(transaction.amount*0.01, t("point_transaction.refund_description"), transaction.id)
+        customer.edit_huali_point(-transaction.amount*0.01)
+      end
+    end
+  end
 end
