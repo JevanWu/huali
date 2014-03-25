@@ -116,12 +116,14 @@ class User < ActiveRecord::Base
     self.save!
   end
 
-  def create_income_point_transaction(point, transaction_id=nil)
-    self.point_transactions.create(point: point, transaction_type: "income", expires_on: Date.current.end_of_year.advance(years: 1), transaction_id: transaction_id)
+  def create_income_point_transaction(point, description=nil, transaction_id=nil)
+    self.point_transactions.create(point: point, transaction_type: "income", 
+                                   description: description, expires_on: Date.current.end_of_year.advance(years: 1), transaction_id: transaction_id)
   end
 
-  def create_expense_point_transaction(point, transaction_id=nil)
-    self.point_transactions.create(point: point, transaction_type: "expense", expires_on: Date.current.end_of_year.advance(years: 1), transaction_id: transaction_id)
+  def create_expense_point_transaction(point, description=nil, transaction_id=nil)
+    self.point_transactions.create(point: point, transaction_type: "expense", 
+                                   description: description, expires_on: Date.current.end_of_year.advance(years: 1), transaction_id: transaction_id)
   end
 
   private

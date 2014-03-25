@@ -22,6 +22,12 @@ zh-CN:
       user:
         send_instructions: 您的邀请已成功发送
         
+  point_transaction: 
+    refer_description: 邀请好友获得
+    accept_description: 接受邀请获得
+    rebase_description: 返利1%花点
+    expense_description: 购买消费
+    refund_description: 退款所致
   edit: 编辑
   view: 查看
   back: 后退
