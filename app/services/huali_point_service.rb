@@ -23,9 +23,8 @@ class HualiPointService
     unless transaction.point_transaction
       User.transaction do
         customer.lock!
+        customer.create_income_point_transaction(transaction.amount*0.01, t("point_transaction.rebase_description"), transaction.id)
         customer.edit_huali_point(transaction.amount*0.01)
-        customer.create_income_point_transaction(transaction.amount*0.01, transaction.id)
-        customer.save!
       end
     end
   end
@@ -33,11 +32,11 @@ class HualiPointService
   def self.minus_expense_point(customer, transaction)
     if transaction.use_huali_point && transaction.point_transaction == nil
       User.transaction do 
-        if customer.huali_point > transaction.order.total.to_i
-          customer.create_expense_point_transaction(transaction.order.total.to_i, transaction.id)
-          customer.edit_huali_point(-transaction.order.total.to_i)
+        if customer.huali_point > transaction.order.total
+          customer.create_expense_point_transaction(transaction.order.total, t("point_transaction.expense_description"), transaction.id)
+          customer.edit_huali_point(-transaction.order.total)
         else
-          customer.create_expense_point_transaction(customer.huali_point, transaction.id)
+          customer.create_expense_point_transaction(customer.huali_point, t("point_transaction.expense_description"), transaction.id)
           customer.edit_huali_point(-customer.huali_point)
         end
       end
