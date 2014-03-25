@@ -10,20 +10,13 @@
   <%= simple_form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post} do |f| %>
     <%= devise_error_messages! %>
 
-  <br>
-  <%= f.label t("devise.invitations.new.email") %>
-  <%= f.text_field :email %>
-  <br>
-  <%= label_tag t("devise.invitations.new.subject") %>
-  <%= text_field_tag :invite_subject %>
-  <br>
-  <%= label_tag t("devise.invitations.new.content") %>
-  <%= text_area_tag :invite_content %>
-  <br>
-  <br>
+    <% resource.class.invite_key_fields.each do |field| -%>
+      <p><%= f.label field %><br />
+      <%= f.text_field field %></p>
+    <% end -%>
 
-
-  <input class= "btn-passport"name="commit" type="submit" value= <%= t "devise.invitations.new.submit" %>>
+  <p><%= f.submit t("devise.invitations.new.submit"), class: "btn-passport" %></p>
+    
   <% end %>
 
   <br>
