@@ -1,8 +1,12 @@
+require 'pry'
 class HualiPointService
 
   def self.reward_invitee_point(invitee)
-    invitee.edit_huali_point(20) 
-    invitee.create_income_point_transaction(20, t("point_transaction.accept_description")) 
+    User.transaction do 
+      invitee.lock!
+      invitee.edit_huali_point(20) 
+      invitee.create_income_point_transaction(20, I18n.t("point_transaction.accept_description")) 
+    end
   end
 
   def self.reward_inviter_point(inviter, invitee)
@@ -11,7 +15,7 @@ class HualiPointService
         inviter.lock!
         unless invitee.invitation_rewarded? 
           inviter.edit_invited_and_paid_counter
-          inviter.create_income_point_transaction(80, t("point_transaction.refer_description"))
+          inviter.create_income_point_transaction(80, I18n.t("point_transaction.refer_description"))
           inviter.edit_huali_point(80)
           invitee.update_column(:invitation_rewarded, true)
         end
@@ -23,7 +27,7 @@ class HualiPointService
     unless transaction.point_transaction
       User.transaction do
         customer.lock!
-        customer.create_income_point_transaction(transaction.amount*0.01, t("point_transaction.rebase_description"), transaction.id)
+        customer.create_income_point_transaction(transaction.amount*0.01, I18n.t("point_transaction.rebase_description"), transaction.id)
         customer.edit_huali_point(transaction.amount*0.01)
       end
     end
@@ -33,10 +37,10 @@ class HualiPointService
     if transaction.use_huali_point && transaction.point_transaction == nil
       User.transaction do 
         if customer.huali_point > transaction.order.total
-          customer.create_expense_point_transaction(transaction.order.total, t("point_transaction.expense_description"), transaction.id)
+          customer.create_expense_point_transaction(transaction.order.total, I18n.t("point_transaction.expense_description"), transaction.id)
           customer.edit_huali_point(-transaction.order.total)
         else
-          customer.create_expense_point_transaction(customer.huali_point, t("point_transaction.expense_description"), transaction.id)
+          customer.create_expense_point_transaction(customer.huali_point, I18n.t("point_transaction.expense_description"), transaction.id)
           customer.edit_huali_point(-customer.huali_point)
         end
       end
@@ -48,18 +52,18 @@ class HualiPointService
       if transaction.amount == transaction.order.total
         User.transaction do
           customer.lock!
-          customer.create_income_point_transaction(transaction.amount, t("point_transaction.refund_description"), transaction.id)
+          customer.create_income_point_transaction(transaction.amount, I18n.t("point_transaction.refund_description"), transaction.id)
           customer.edit_huali_point(transaction.amount)
         end
       elsif transaction.amount < transaction.order.total
         User.transaction do
-          customer.create_income_point_transaction(transaction.order.total - transaction.amount, t("point_transaction.refund_description"), transaction.id)
+          customer.create_income_point_transaction(transaction.order.total - transaction.amount, I18n.t("point_transaction.refund_description"), transaction.id)
           customer.edit_huali_point(transaction.order.total - transaction.amount)
         end
       end
     else
       User.transaction do
-        customer.create_expense_point_transaction(transaction.amount*0.01, t("point_transaction.refund_description"), transaction.id)
+        customer.create_expense_point_transaction(transaction.amount*0.01, I18n.t("point_transaction.refund_description"), transaction.id)
         customer.edit_huali_point(-transaction.amount*0.01)
       end
     end
