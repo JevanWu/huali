@@ -29,7 +29,9 @@ ActiveAdmin.register Administrator do
   show do
     attributes_table do
       row :email
-      row :role
+      row :role do
+        administrator.role_text
+      end
       row :current_sign_in_at
       row :last_sign_in_at
       row :sign_in_count
