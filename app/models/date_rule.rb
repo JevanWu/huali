@@ -29,7 +29,7 @@ class DateRule < ActiveRecord::Base
     if Setting.date_rule_start_date.present?
       Setting.date_rule_start_date
     else
-      super || (Time.current.hour >= 15 ? Date.current.next_day(2) : Date.current.next_day(1))
+      super || (Time.current.hour >= 15 ? Date.current.next_day(3) : Date.current.next_day(2))
     end
   end
 
