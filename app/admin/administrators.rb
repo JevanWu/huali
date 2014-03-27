@@ -15,7 +15,11 @@ ActiveAdmin.register Administrator do
   index do
     selectable_column
     column :email
-    column :role
+
+    column :role, sortable: :role do |admin|
+      admin.role_text
+    end
+
     column :last_sign_in_at
     default_actions
   end
