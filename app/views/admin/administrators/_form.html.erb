@@ -9,7 +9,7 @@
       <% available_collection = Administrator.role.options %>
     <% end %>
 
-    <%= f.input :role, collection: available_collection %>
+    <%= f.input :role, collection: options_for_select(available_collection, 'product_manager'), include_blank: false %>
   <% end %>
   <%= f.actions %>
 <% end %>
