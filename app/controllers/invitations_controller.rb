@@ -1,6 +1,6 @@
 class InvitationsController < Devise::InvitationsController
   def create
-    @from = "#{current_user.name.titleize} via Huali"
+    @from = current_user.email
     @subject = "#{current_user.name.titleize} invited you to checkout Huali"
     @user = User.invite!(params[:user], current_user) do |u|
       u.skip_invitation = true
@@ -10,8 +10,8 @@ class InvitationsController < Devise::InvitationsController
       @user.errors[:base] = t("devise.invitations.new.has_been_our_user")
     else
       @user.deliver_invitation
-      email =  Notify.invite_message(@user, @from, @subject)
-      email.deliver
+      Notify.delay.invite_message(@user, @from, @subject)
+
       flash[:alert] = t("devise.invitations.new.email_sent")
     end
     render :new
