@@ -6,6 +6,43 @@
       = link_to '如何获得花点？', '#', class: 'selected-link'
     p
       = "提示: 所获得花点会在第二年的年底清零，请注意使用！每一个花点分别从各自所获得日期开始计算"
+    .point-transactions
+      .table-header
+        = '花点记录'
+      table
+        tr
+          td.col1
+            | 时间
+          td.col2
+            | 订单号
+          td.col3 
+            | 交易描述
+          td.col4 
+            | 花点
+          td.col5 
+            | 过期时间
+        - @point_transactions.each do |transaction|
+          tr
+            td
+              = transaction.created_at.to_formatted_s(:db)
+            td 
+              = transaction.transaction.order.identifier
+            td
+              = transaction.description
+            - if transaction.transaction_type == "income"
+              td.income 
+                = "+#{transaction.point}"
+            - else
+              td 
+                = "-#{transaction.point}"
+            td
+              = transaction.expires_on
+    .pagination
+      .previous-page
+        = link_to_previous_page @point_transactions, '上一页'
+      = paginate @point_transactions
+      .next-page
+        = link_to_next_page @point_transactions, '下一页'
     p
       = link_to '使用花点', root_path, class: 'button btn'
     .account-info-thin-line
