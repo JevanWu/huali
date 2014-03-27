@@ -1,5 +1,7 @@
 module ShipmentsHelper
   def shipment_state_shift(shipment)
+    return if current_admin_ability.cannot? :update, Shipment
+
     buttons = case shipment.state
     when "ready"
       link_to(t('models.shipment.state.print'), print_admin_shipment_path(shipment), { target: '_blank' }) + \
