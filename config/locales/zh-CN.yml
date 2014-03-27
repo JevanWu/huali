@@ -21,6 +21,7 @@ zh-CN:
         email_sent: 邀请邮件已发送
       user:
         send_instructions: 您的邀请已成功发送
+        invitation_token_invalid: 无效的邀请链接
         
   point_transaction: 
     refer_description: 邀请好友获得
