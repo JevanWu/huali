@@ -30,7 +30,8 @@ class AdminAbility
       can :read, [Product]
       manage_blog
     when "customer_service"
-      can :read, [Product, Order, Transaction, Refund, Shipment, Coupon]
+      can :read, [Product, Coupon]
+      can :manage, [Order, Transaction, Refund, Shipment]
     end
 
     if user.persisted?
