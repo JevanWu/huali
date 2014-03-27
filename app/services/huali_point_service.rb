@@ -1,4 +1,3 @@
-require 'pry'
 class HualiPointService
 
   def self.reward_invitee_point(invitee)
