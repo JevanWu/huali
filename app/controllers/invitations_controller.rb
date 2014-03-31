@@ -2,19 +2,20 @@ class InvitationsController < Devise::InvitationsController
   def create
     @from = current_user.email
     @subject = "#{current_user.name.titleize} invited you to checkout Huali"
-    @user = User.invite!(params[:user], current_user) do |u|
+    self.resource = resource_class.invite!(invite_params, current_user) do |u|
       u.skip_invitation = true
     end
 
-    if @user.invitation_sent_at
-      @user.errors[:base] = t("devise.invitations.new.has_been_our_user")
-    else
-      @user.deliver_invitation
-      Notify.delay.invite_message(@user, @from, @subject)
+    resource.deliver_invitation
 
-      flash[:alert] = t("devise.invitations.new.email_sent")
+    if resource.errors.empty?
+      set_flash_message :notice, :send_instructions, :email => self.resource.email if self.resource.invitation_sent_at
+      email = Notify.invite_message(@from, resource, @subject)
+      email.deliver
+      redirect_to new_user_invitation_path
+    else
+      respond_with_navigational(resource) { render :new }
     end
-    render :new
   end
 
   def new
@@ -22,8 +23,21 @@ class InvitationsController < Devise::InvitationsController
     super
   end
 
-  def update
+  def update 
+    self.resource = accept_resource
+
+    #reward huali points
     HualiPointService.reward_invitee_point(self.resource)
-    super
+
+    if resource.errors.empty?
+      yield resource if block_given?
+      flash_message = resource.active_for_authentication? ? :updated : :updated_not_active                                                                                        
+      set_flash_message :notice, flash_message
+      sign_in(resource_name, resource)
+      respond_with resource, :location => after_accept_path_for(resource)
+    else
+      respond_with_navigational(resource){ render :edit }
+    end
   end
+
 end
