@@ -1,22 +1,22 @@
 .account-info-header
   .menu
     .item
-      - unless [:my_order, :huali_point, :refer_friend].any? {|var| var == @selected_menu}
+      - if params[:controller] == 'devise_invitable/registrations' && params[:action] == 'edit'
         = link_to '我的信息', edit_user_registration_path, class: 'selected-link'
       - else
         = link_to '我的信息', edit_user_registration_path
     .item
-      - if @selected_menu == :my_order
+      - if params[:controller] == 'orders' && params[:action] == 'index'
         = link_to '我的订单', orders_path, class: 'selected-link'
       - else
         = link_to '我的订单', orders_path
     .item
-      - if @selected_menu == :huali_point
+      - if params[:controller] == 'pages' && params[:action] == 'huali_point'
         = link_to '我的点数', huali_point_path, class: 'selected-link'
       - else
         = link_to '我的点数', huali_point_path
     .item
-      - if @selected_menu == :refer_friend
+      - if params[:controller] == 'invitations' && params[:action] == 'new'
         = link_to '邀请好友', new_user_invitation_path, class: 'selected-link'
       - else
         = link_to '邀请好友', new_user_invitation_path

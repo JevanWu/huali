@@ -18,11 +18,6 @@ class InvitationsController < Devise::InvitationsController
     end
   end
 
-  def new
-    @selected_menu = :refer_friend
-    super
-  end
-
   def update 
     self.resource = accept_resource
 

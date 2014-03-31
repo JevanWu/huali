@@ -35,7 +35,6 @@ class PagesController < ApplicationController
   end
 
   def huali_point
-    @selected_menu = :huali_point
     @point_transactions = current_user.point_transactions.order(:created_at).page(params[:page]).per(3)
   end
 end
