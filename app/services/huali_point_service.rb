@@ -23,7 +23,7 @@ class HualiPointService
   end
 
   def self.rebate_point(customer, transaction)
-    unless transaction.point_transaction
+    unless transaction.use_huali_point?
       User.transaction do
         customer.lock!
         customer.create_income_point_transaction(transaction.amount*0.01, I18n.t("point_transaction.rebase_description"), transaction.id)
