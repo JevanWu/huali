@@ -23,6 +23,9 @@ zh-CN:
         send_instructions: 您的邀请已成功发送
         invitation_token_invalid: 无效的邀请链接
         updated: 接受邀请成功
+      edit: 
+        header: 请设置密码
+        submit_button: 提交
         
   point_transaction: 
     refer_description: 邀请好友获得
