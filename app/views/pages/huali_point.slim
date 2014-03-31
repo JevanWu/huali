@@ -26,7 +26,7 @@
             td
               = transaction.created_at.to_formatted_s(:db)
             td 
-              = transaction.transaction.order.identifier
+              = transaction.transaction.order.identifier if transaction.transaction
             td
               = transaction.description
             - if transaction.transaction_type == "income"
