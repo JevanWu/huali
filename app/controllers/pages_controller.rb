@@ -36,6 +36,6 @@ class PagesController < ApplicationController
 
   def huali_point
     @selected_menu = :huali_point
-    @point_transactions = PointTransaction.order(:created_at).page(params[:page]).per(3)
+    @point_transactions = current_user.point_transactions.order(:created_at).page(params[:page]).per(3)
   end
 end
