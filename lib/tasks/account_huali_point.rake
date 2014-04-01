@@ -9,7 +9,7 @@ namespace :huali_point do
         valid_transactions = PointTransaction.where(user: user, 
                                                     created_at: -1.year.from_now.beginning_of_year .. -1.year.from_now.end_of_year)
         valid_transactions.each do |transaction| 
-          if transaction.transaction_type == 'income' 
+          if %w(income, refund).any?{|x| x == transaction.transaction_type}
             user.huali_point += transaction.point
           else
             user.huali_point -= transaction.point
