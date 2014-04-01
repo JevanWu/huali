@@ -26,4 +26,6 @@ class PointTransaction < ActiveRecord::Base
   belongs_to :transaction
 
   enumerize :transaction_type, in: [:income, :refund, :expense]
+
+  scope :available, -> { where(expires_on: 1.year.ago.beginning_of_year.to_date .. Date.current) }
 end

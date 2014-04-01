@@ -1,22 +1,21 @@
 namespace :huali_point do
   desc "reset the users' huali points and count the huali points from point transaction annually"
   task annual_reset_and_accounting: :environment do
-    User.transaction do
-      users = User.all
-      users.each do |user| 
+    User.find_each do |user|
+      User.transaction do
         user.lock!
-        user.update_column(:huali_point, 0) 
-        valid_transactions = PointTransaction.where(user: user, 
-                                                    expires_on: -1.year.from_now.beginning_of_year .. -1.year.from_now.end_of_year)
+
         annual_huali_points = 0
-        valid_transactions.each do |transaction| 
-          if %w(income refund).any?{|x| x == transaction.transaction_type}
+        user.point_transactions.available.each do |transaction|
+          if %w(income refund).include?(transaction.transaction_type)
             annual_huali_points += transaction.point
           else
             annual_huali_points -= transaction.point
           end
         end
-        user.edit_huali_point(annual_huali_points)
+
+        user.update_column(:huali_point, 0.0)
+        user.edit_huali_point(annual_huali_points) unless annual_huali_points == 0
       end
     end
   end
