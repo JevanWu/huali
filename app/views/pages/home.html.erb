@@ -6,6 +6,16 @@
 花里花店是目前中国领先的在线精品花艺品牌，通过在线渠道向全国消费者提供高质量的花艺消费品。花里，用心定制惊喜，用优雅的法式美学为您的生活增色。
 <% end %>
 
+<% content_for :js do %>
+  <%= javascript_include_tag 'flowplayer.min.js' %>
+  <%= flowplayer_for :video, asset_path('flowplayer-3.2.18.swf'), 'jquery' do |player| %>
+    <% player.clip autoPlay: false, autoBuffering: true, scaling: "fit" %>
+    <% player.play replayLabel: nil, opacity: 0 %>
+    <% player.canvas backgroundColor: "transparent", backgroundGradient: "none" %>
+    <% player.plugins controls: { url: asset_path('flowplayer.controls-3.2.16.swf'), backgroundColor: "rgba(239, 239, 239, 0.1)", backgroundGradient: "none", all: false, scrubber: true, play: true, mute: true, fullscreen: true, autoHide: "always", height: "20px"} %>
+  <% end %>
+<% end %>
+
 <%= render 'slide' %>
 <%= render 'best_products' %>
 <div class="best-products">
@@ -13,7 +23,7 @@
   <div class="brands">
     <a href="http://www.hermes.com/" target="_blank" class="hermes">Hermes</a>
     <a href="http://www.acquadiparma.cn/cn/" target="_blank" class="acqua">Acqua DI Parma</a>
-    <a href="/products/green-breath" target="_blank" class="chole">chole</a>
+    <a href="http://www.chloe.com/" target="_blank" class="chole">chole</a>
     <a href="http://www.parfums.valentino.com/" target="_blank" class="valentine-perfume">Valentino perfume</a>
     <a href="http://www.shanghaitang.com/" target="_blank" class="shanghai-beach">shanghai beach</a>
     <a href="http://www.helenarubinstein.cn/helena-rubinstein/_zh/_cn/home/index.aspx" target="_blank" class="HR">HR</a>
@@ -26,6 +36,17 @@
     <a href="http://www.yhouse.com/" target="_blank" class="yhouse">YHouse</a>
   </div>
 </div>
+
+<div class="best-products">
+  <h3 class="title">
+    <i></i>媒体报道<b></b>
+  </h3>
+
+  <div class="videos">
+    <a href="http://hua.li/system/videos/huali_meets_astonmartin.mp4" id="video" style="height: 529px"></a>
+  </div>
+</div>
+
 <div class="best-products">
   <h3 class="title"><i></i>花里·明星<b></b></h3>
   <div class="huali-brief">

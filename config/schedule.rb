@@ -84,3 +84,7 @@ end
 every :year do
   rake "huali_point:annual_reset_and_accounting"
 end
+
+every :month do
+  rake 'cleanup:reset_sold_total'
+end

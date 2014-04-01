@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'feature_spec_helper'
 
 feature "View placed order" do
   given(:user) { create(:user, email: 'user@hua.li', password: 'aaa123', password_confirmation: 'aaa123') }

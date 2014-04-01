@@ -17,6 +17,12 @@ ActiveAdmin.register Transaction do
     def permitted_params
       params.permit transaction: [:amount, :body, :merchant_name, :merchant_trade_no, :order_id, :paymethod, :subject]
     end
+
+    before_action :authorize_to_update_transaction, only: [:batch_action, :start, :complete, :fail]
+
+    def authorize_to_update_transaction
+      current_admin_ability.authorize! :update, Transaction
+    end
   end
 
   filter :identifier

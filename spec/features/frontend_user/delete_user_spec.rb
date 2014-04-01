@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'feature_spec_helper'
 
 feature "Delete user account" do
   given(:user) { create(:user, email: 'user@example.com', password: 'aaa123', password_confirmation: 'aaa123') }

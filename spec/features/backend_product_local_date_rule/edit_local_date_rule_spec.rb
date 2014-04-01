@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'feature_spec_helper'
 
 feature "Edit local date rule of product" do
   let(:admin) { create(:administrator) }

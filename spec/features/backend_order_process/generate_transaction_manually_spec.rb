@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'feature_spec_helper'
 
 feature "Generate transaction manually for order" do
   let(:admin) { create(:administrator) }

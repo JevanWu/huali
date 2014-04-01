@@ -1,4 +1,4 @@
-# spec_helper.rb is used for unit and integration tests
+# feature_spec_helper.rb is used for acceptance tests
 # it preloads rails and database related test components
 
 require 'spork'
@@ -8,6 +8,15 @@ require 'spork'
 Spork.prefork do
 
   require 'rr'
+  require 'capybara/rspec'
+
+  # chrome driver
+  Capybara.register_driver :chrome do |app|
+    proxy = { proxyType: 'pac', proxyAutoconfigUrl: "file:///#{::Rails.root}/spec/fixtures/SwitchyPac.pac" }
+    Capybara::Selenium::Driver.new(app, browser: :chrome, proxy: proxy)
+  end
+  Capybara.javascript_driver = :chrome
+  #Capybara.default_driver = :chrome
 
   # load simplecov before load Rails Application
   require 'simplecov'
@@ -28,15 +37,13 @@ Spork.prefork do
 
   require 'rspec/rails'
   require 'rspec/autorun'
+  require 'capybara/rails'
 
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
   require 'email_spec'
-
-  # NullDB
-  require 'nulldb_rspec'
 
   RSpec.configure do |config|
     config.treat_symbols_as_metadata_keys_with_true_values = true
@@ -47,12 +54,14 @@ Spork.prefork do
       c.syntax = :should
     end
 
-    # Devise Helper for sign_in, sign_out, login_<user>
-    config.include Devise::TestHelpers, type: [:controller, :request]
-    config.extend ControllerMacros, type: [:controller, :request]
-
     # FactoryGirl Syntax Mixins
     config.include FactoryGirl::Syntax::Methods
+
+    # Warden helper for stubbed login and logout
+    config.include Warden::Test::Helpers, type: :feature
+
+    config.include RegionRuleHelper, type: :feature
+    config.include CustomCapybaraHelper, type: :feature
 
     # FactoryGirl Logging
     config.before(:suite) do
@@ -78,9 +87,6 @@ Spork.prefork do
       ActiveRecord::Base.connection.execute("DEALLOCATE ALL")
     end
 
-    config.include(EmailSpec::Helpers)
-    config.include(EmailSpec::Matchers)
-
     # config.fixture_path = "#{::Rails.root}/spec/fixtures"
     # config.use_transactional_fixtures = true
 
@@ -97,18 +103,18 @@ Spork.prefork do
 
     # For resetting database to a pristine state
     config.before(:suite) do
-      DatabaseCleaner.strategy = :transaction
+      DatabaseCleaner.strategy = :truncation
       DatabaseCleaner.clean_with(:truncation)
     end
 
     config.around(:each) do |example|
-      if ActiveRecord::Base.connection.adapter_name == "NullDB"
+      DatabaseCleaner.cleaning do
         example.run
-      else
-        DatabaseCleaner.cleaning do
-          example.run
-        end
       end
+    end
+
+    config.before(:each) do
+      set_window_size(1024, 768) if Capybara.current_driver != :rack_test
     end
 
   end
