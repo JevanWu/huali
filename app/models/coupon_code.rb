@@ -9,16 +9,19 @@
 #  id              :integer          not null, primary key
 #  updated_at      :datetime
 #  used_count      :integer          default(0)
+#  user_id         :integer
 #
 # Indexes
 #
 #  index_coupon_codes_on_code       (code) UNIQUE
 #  index_coupon_codes_on_coupon_id  (coupon_id)
+#  index_coupon_codes_on_user_id    (user_id)
 #
 
 class CouponCode < ActiveRecord::Base
   belongs_to :coupon
   has_many :orders
+  belongs_to :user
 
   before_validation :generate_code, on: :create
 
@@ -61,12 +64,23 @@ class CouponCode < ActiveRecord::Base
     true
   end
 
-  def generate_code
-    loop do
-      generated_code = SecureRandom.hex[0...8]
+  def generate_code(prefix=0)
+    if true
+      loop do
+        generated_code = SecureRandom.random_number(9999999)
+        generated_code = prefix.to_s + generated_code.to_s
 
-      unless self.class.where(code: generated_code).exists?
-        self.code = generated_code and break
+        unless self.class.where(code: generated_code).exists?
+          self.code = generated_code and break
+        end
+      end
+    else
+      loop do
+        generated_code = SecureRandom.hex[0...8]
+
+        unless self.class.where(code: generated_code).exists?
+          self.code = generated_code and break
+        end
       end
     end
   end
