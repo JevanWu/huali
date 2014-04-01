@@ -2,7 +2,7 @@ namespace :huali_point do
   desc "reset the users' huali points and count the huali points from point transaction annually"
   task annual_reset_and_accounting: :environment do
     User.find_each do |user|
-      User.transaction do
+      user.transaction do
         user.lock!
 
         annual_huali_points = 0
