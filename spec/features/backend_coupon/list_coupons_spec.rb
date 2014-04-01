@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'feature_spec_helper'
 
 feature "List coupons" do
   let(:admin) { create(:administrator) }

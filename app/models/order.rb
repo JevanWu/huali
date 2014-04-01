@@ -316,7 +316,7 @@ class Order < ActiveRecord::Base
 
   def update_sold_total
     line_items.each do |item|
-      item.product.update_monthly_sold(item.quantity)
+      item.product.update_monthly_sold(item.quantity, self.delivery_date)
     end
   end
 end

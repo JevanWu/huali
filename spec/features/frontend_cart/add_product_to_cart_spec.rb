@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'feature_spec_helper'
 
 feature 'Add product to cart' do
   given(:product) { create(:product, name_en: 'ruby', name_zh: '红宝石') }

@@ -29,8 +29,6 @@ class Administrator < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :rememberable, :trackable, :validatable
 
-  validates :role, inclusion: {
-    in: %w(super admin operation_manager product_manager web_operation_manager marketing_manager),
-    message: "%{value} is not a valid administrator role."
-  }
+  extend Enumerize
+  enumerize :role, in: %i(super admin operation_manager product_manager web_operation_manager marketing_manager customer_service)
 end

@@ -76,3 +76,7 @@ end
 every :day, at: '2:00 am' do
   rake "notice:all_orders_excel_email"
 end
+
+every :month do
+  rake 'cleanup:reset_sold_total'
+end

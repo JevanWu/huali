@@ -523,6 +523,15 @@ zh-CN:
         return_goods: 退货
 
   enumerize:
+    administrator:
+      role:
+        super: 超级管理员
+        admin: 系统管理员
+        operation_manager: 经营管理员
+        product_manager: 产品管理员
+        web_operation_manager: Web 经营管理员
+        marketing_manager: 市场管理员
+        customer_service: 客服
     order:
       kind:
         marketing: 市场订单

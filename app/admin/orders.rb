@@ -59,6 +59,11 @@ ActiveAdmin.register Order do
     private
 
     before_action :authorize_to_download_orders, only: [:download_latest, :download]
+    before_action :authorize_to_update_order, only: [:cancel, :refund, :pay, :check, :make, :ship, :update, :batch_action]
+
+    def authorize_to_update_order
+      current_admin_ability.authorize! :update, Order
+    end
 
     def authorize_to_download_orders
       current_admin_ability.authorize! :bulk_export_data, Order

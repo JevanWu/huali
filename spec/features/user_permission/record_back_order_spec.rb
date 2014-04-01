@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'feature_spec_helper'
 
 feature 'Permission to record back order' do
   let(:product) { create(:product, name_en: 'ruby', name_zh: '红宝石') }

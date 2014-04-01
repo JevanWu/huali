@@ -14,6 +14,8 @@ module TransactionsHelper
   end
 
   def transaction_state_shift(transaction)
+    return if current_admin_ability.cannot? :update, Transaction
+
     buttons = case transaction.state
     when "generated"
       link_to(t('models.transaction.state.start'), start_admin_transaction_path(transaction))

@@ -4,12 +4,12 @@
     <%= f.input :password %>
 
     <% if current_admin_ability.cannot? :manage_super, Administrator %>
-      <% available_collection = %w(admin operation_manager product_manager web_operation_manager marketing_manager) %>
+      <% available_collection = Administrator.role.options(except: 'super') %>
     <% else %>
-      <% available_collection = %w(super admin operation_manager product_manager web_operation_manager marketing_manager) %>
+      <% available_collection = Administrator.role.options %>
     <% end %>
 
-    <%= f.input :role, collection: available_collection %>
+    <%= f.input :role, collection: available_collection, include_blank: false %>
   <% end %>
   <%= f.actions %>
 <% end %>

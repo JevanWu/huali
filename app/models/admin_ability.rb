@@ -29,6 +29,9 @@ class AdminAbility
       can :update, [Order], kind: 'marketing'
       can :read, [Product]
       manage_blog
+    when "customer_service"
+      can :read, [Product, Coupon]
+      can :manage, [Order, Transaction, Refund, Shipment]
     end
 
     if user.persisted?

@@ -182,26 +182,25 @@ class Product < ActiveRecord::Base
     end
   end
 
-  def update_monthly_sold(quantity)
-    current_month_sold.update_sold_total(quantity)
+  def update_monthly_sold(quantity, date=Date.current)
+    month_sold(date).update_sold_total(quantity)
 
-    update_attribute(:sold_total, current_month_sold.sold_total)
+    if date == Date.current
+      update_column(:sold_total, month_sold(date).sold_total)
+    end
   end
 
   def limited_promotion_today
     limited_promotions.start_today.first
   end
 
-  private
-
-  def current_month_sold
-    ret = monthly_solds.current.first
+  def month_sold(date)
+    ret = monthly_solds.by_date(date).first
 
     begin
-      ret ||= monthly_solds.create(sold_year: Date.current.year,
-                                   sold_month: Date.current.month)
+      ret ||= monthly_solds.create(sold_year: date.year, sold_month: date.month)
     rescue ActiveRecord::RecordNotUnique
-      ret = monthly_solds.current.first
+      ret = monthly_solds.by_date(date).first
     end
 
     ret

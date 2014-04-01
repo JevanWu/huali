@@ -40,6 +40,12 @@ ActiveAdmin.register Shipment do
     def permitted_params
       params.permit shipment: [:order_id, :note, :ship_method_id, :tracking_num]
     end
+
+    before_action :authorize_to_update_shipment, only: [:batch_action, :ship, :accept, :update]
+
+    def authorize_to_update_shipment
+      current_admin_ability.authorize! :update, Shipment
+    end
   end
 
   batch_action :destroy, false

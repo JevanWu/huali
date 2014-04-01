@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'feature_spec_helper'
 
 feature "Edit order after order item price changed" do
   let(:admin) { create(:administrator) }

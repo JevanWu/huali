@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'feature_spec_helper'
 
 feature "Delete local region rule of product" do
   let(:admin) { create(:administrator) }

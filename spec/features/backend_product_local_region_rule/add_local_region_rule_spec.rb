@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'feature_spec_helper'
 
 feature "Add local region rule to product" do
   let(:admin) { create(:administrator) }
