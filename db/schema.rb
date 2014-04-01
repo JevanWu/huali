@@ -351,7 +351,7 @@ ActiveRecord::Schema.define(version: 20140313080543) do
   end
 
   create_table "point_transactions", force: true do |t|
-    t.integer  "point",            default: 0
+    t.decimal  "point",            precision: 5, scale: 2, default: 0.0
     t.string   "transaction_type"
     t.string   "description"
     t.date     "expires_on"
@@ -583,20 +583,20 @@ ActiveRecord::Schema.define(version: 20140313080543) do
   add_index "transactions", ["order_id"], name: "index_transactions_on_order_id", using: :btree
 
   create_table "users", force: true do |t|
-    t.string   "email",                    default: "",         null: false
-    t.string   "encrypted_password",       default: ""
+    t.string   "email",                                            default: "",         null: false
+    t.string   "encrypted_password",                               default: ""
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",            default: 0
+    t.integer  "sign_in_count",                                    default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "anonymous_token"
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
-    t.string   "role",                     default: "customer", null: false
+    t.datetime "created_at",                                                            null: false
+    t.datetime "updated_at",                                                            null: false
+    t.string   "role",                                             default: "customer", null: false
     t.string   "phone"
     t.string   "name"
     t.string   "invitation_token"
@@ -606,9 +606,9 @@ ActiveRecord::Schema.define(version: 20140313080543) do
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
-    t.integer  "invited_and_paid_counter", default: 0
-    t.boolean  "invitation_rewarded",      default: false
-    t.integer  "huali_point",              default: 0
+    t.integer  "invited_and_paid_counter",                         default: 0
+    t.boolean  "invitation_rewarded",                              default: false
+    t.decimal  "huali_point",              precision: 5, scale: 2, default: 0.0
   end
 
   add_index "users", ["anonymous_token"], name: "index_users_on_anonymous_token", unique: true, using: :btree
