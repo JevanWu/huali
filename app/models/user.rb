@@ -8,7 +8,7 @@
 #  current_sign_in_ip       :string(255)
 #  email                    :string(255)      default(""), not null
 #  encrypted_password       :string(255)      default("")
-#  huali_point              :integer          default(0)
+#  huali_point              :decimal(5, 2)    default(0.0)
 #  id                       :integer          not null, primary key
 #  invitation_accepted_at   :datetime
 #  invitation_created_at    :datetime
@@ -107,21 +107,21 @@ class User < ActiveRecord::Base
   end
 
   def edit_invited_and_paid_counter(num=1)
-    self.invited_and_paid_counter += num
-    self.save!
+    update_column(:invited_and_paid_counter, invited_and_paid_counter + num)
   end
 
   def edit_huali_point(point)
-    self.huali_point += point
-    self.save!
+    update_column(:huali_point, huali_point + point)
   end
 
-  def create_income_point_transaction(point, transaction_id=nil)
-    self.point_transactions.create(point: point, transaction_type: "income", expires_on: Date.current.end_of_year.advance(years: 1), transaction_id: transaction_id)
+  def create_income_point_transaction(point, description=nil, transaction_id=nil)
+    self.point_transactions.create(point: point, transaction_type: "income", 
+                                   description: description, expires_on: Date.current.end_of_year.advance(years: 1), transaction_id: transaction_id)
   end
 
-  def create_expense_point_transaction(point, transaction_id=nil)
-    self.point_transactions.create(point: point, transaction_type: "expense", expires_on: Date.current.end_of_year.advance(years: 1), transaction_id: transaction_id)
+  def create_expense_point_transaction(point, description=nil, transaction_id=nil)
+    self.point_transactions.create(point: point, transaction_type: "expense", 
+                                   description: description, expires_on: Date.current.end_of_year.advance(years: 1), transaction_id: transaction_id)
   end
 
   private

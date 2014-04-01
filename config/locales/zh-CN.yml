@@ -21,7 +21,18 @@ zh-CN:
         email_sent: 邀请邮件已发送
       user:
         send_instructions: 您的邀请已成功发送
+        invitation_token_invalid: 无效的邀请链接
+        updated: 接受邀请成功
+      edit: 
+        header: 请设置密码
+        submit_button: 提交
         
+  point_transaction: 
+    refer_description: 邀请好友获得
+    accept_description: 接受邀请获得
+    rebase_description: 返利1%花点
+    expense_description: 购买消费
+    refund_description: 退款所致
   edit: 编辑
   view: 查看
   back: 后退

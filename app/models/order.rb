@@ -77,6 +77,7 @@ class Order < ActiveRecord::Base
     after_transition to: :completed, do: :update_sold_total
     before_transition to: :wait_check, do: :sync_payment
     after_transition to: :wait_ship, do: :generate_shipment
+    after_transition to: :refunded, do: :process_refund_huali_point
 
     # use adj. for state with future vision
     # use v. for event name
@@ -174,7 +175,7 @@ class Order < ActiveRecord::Base
     need_to_pay = self.total > self.user.huali_point ? self.total - self.user.huali_point : 0
     default = {
       amount: use_huali_point ? need_to_pay : self.total,
-      use_huali_point: use_huali_point ? true : false,
+      use_huali_point: !!use_huali_point,
       subject: subject_text,
       body: body_text,
       client_ip: user.current_sign_in_ip,
@@ -303,6 +304,10 @@ class Order < ActiveRecord::Base
   end
 
   private
+
+  def process_refund_huali_point
+    HualiPointService.process_refund(self.user, self.transaction)
+  end
 
   def sync_payment
     update_column(:payment_total,
