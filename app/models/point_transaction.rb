@@ -25,5 +25,5 @@ class PointTransaction < ActiveRecord::Base
   belongs_to :user
   belongs_to :transaction
 
-  enumerize :transaction_type, in: [:income, :expense]
+  enumerize :transaction_type, in: [:income, :refund, :expense]
 end
