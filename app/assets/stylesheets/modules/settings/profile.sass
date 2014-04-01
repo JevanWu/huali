@@ -1,22 +1,8 @@
 .profile
   width: $global-width
-  margin: 0 auto
-  padding-top: 60px
-.profile-list
-  width: 285px
-  font-size: $content-font
-  ul
-    line-height: 2
-  .delete-account
-    a
-      color: $link-blue-color
-  .delete-info
-    padding-top: 390px
+  padding-top: 30px
 .profile-edit
-  width: 568px
   margin-left: 0
-  padding-left: 30px
-  border-left: 1px solid #eeeeee
   h2
     border-bottom: 1px solid $border-light-color
     width: 430px
@@ -36,8 +22,6 @@
     input[type="text"]
       width: 100%
       float: none
-  form
-    margin-top: 5px
   span.help-inline
     +error(175px)
   .save
@@ -53,3 +37,9 @@
   input#user_phone
     float: none
     margin-left: 5px
+  .form-actions
+    padding-left: 28px
+    input
+      margin: 0
+  .delete-info
+    float: right

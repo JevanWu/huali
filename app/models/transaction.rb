@@ -4,6 +4,7 @@
 #
 #  amount            :decimal(8, 2)
 #  body              :text
+#  client_ip         :string(255)
 #  created_at        :datetime         not null
 #  id                :integer          not null, primary key
 #  identifier        :string(255)
@@ -15,6 +16,7 @@
 #  state             :string(255)      default("generated")
 #  subject           :string(255)
 #  updated_at        :datetime         not null
+#  use_huali_point   :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -25,6 +27,7 @@
 class Transaction < ActiveRecord::Base
   belongs_to :order
   has_one :user, through: :order
+  has_one :point_transaction
 
   before_validation :generate_identifier, on: :create
 

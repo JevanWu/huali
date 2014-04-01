@@ -5,6 +5,7 @@
 #  created_at :datetime         not null
 #  id         :integer          not null, primary key
 #  order_id   :integer
+#  price      :decimal(, )
 #  product_id :integer
 #  quantity   :integer          not null
 #  updated_at :datetime         not null
