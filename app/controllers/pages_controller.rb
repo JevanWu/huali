@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  before_action :authenticate_user!, only: :huali_point
 
   def show
     @page = Page.find_by_permalink!(params[:id])
