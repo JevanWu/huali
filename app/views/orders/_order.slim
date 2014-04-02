@@ -18,7 +18,10 @@ li.row.order
         br
         = "收件人：#{order.address.fullname}"
       td.col5
-        = t('models.order.state.' + order.state)
+        - if order.state == 'generated'
+          = link_to '去付款', checkout_order_path(order), class: 'btn-post'
+        - else
+          = t('models.order.state.' + order.state)
       td.col6
         = link_to '查看订单详情', order_path(order)
 
