@@ -35,7 +35,7 @@ class Coupon < ActiveRecord::Base
 
   after_create :generate_coupon_codes
 
-  attr_writer :code_count, :available_count
+  attr_accessor :code_count, :available_count, :all_use_number, :prefix
 
   def coupon_code
     coupon_codes.first
@@ -59,7 +59,29 @@ class Coupon < ActiveRecord::Base
 
   def generate_coupon_codes
     code_count.to_i.times do
-      self.coupon_codes.create(available_count: available_count)
+      code = generate_code(@all_use_number, @prefix)
+      coupon_codes.create(available_count: available_count, code: code) 
+    end
+  end
+
+  def generate_code(all_use_number=true, prefix=0)
+    if all_use_number == "true"
+      loop do
+        suffix_code = SecureRandom.random_number(9999999)
+        generated_code = prefix.to_s + suffix_code.to_s
+
+        unless CouponCode.where(code: generated_code).exists?
+          return generated_code.ljust(8, '0')
+        end
+      end
+    else
+      loop do
+        generated_code = SecureRandom.hex[0...8]
+
+        unless CouponCode.where(code: generated_code).exists?
+          return generated_code
+        end
+      end
     end
   end
 end

@@ -9,6 +9,8 @@
     <% if @coupon.new_record? %>
       <%= f.input :code_count, as: :number, required: true %>
       <%= f.input :available_count, as: :number, required: true %>
+      <%= f.input :all_use_number, as: :radio, required: true %>
+      <%= f.input :prefix, as: :number, required: true %>
     <% end %>
 
     <%= f.input :products, input_html: { :"data-placeholder" => '请选择', class: 'chosen' }, hint: "为空则表示没有产品限制"  %>
