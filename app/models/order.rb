@@ -171,7 +171,7 @@ class Order < ActiveRecord::Base
     self.identifier = uid_prefixed_by('OR')
   end
 
-  def generate_transaction(opts, use_huali_point)
+  def generate_transaction(opts, use_huali_point = false)
     need_to_pay = self.total > self.user.huali_point ? self.total - self.user.huali_point : 0
     default = {
       amount: use_huali_point ? need_to_pay : self.total,
