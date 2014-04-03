@@ -90,6 +90,8 @@ gem 'huali_api', git: 'git@git.zenhacks.org:ryan/huali_api.git', tag: 'v0.1.0', 
 
 gem 'flowplayer-rails', github: 'ryancheung/flowplayer-rails'
 
+gem 'dalli'
+
 group :development, :test do
   gem 'rspec-rails', '>= 2.11.0'
   gem 'rspec-instafail'
