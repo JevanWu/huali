@@ -1,45 +1,28 @@
 li.row.order
-  .col1.span3
-    span
-      = l order.created_at.to_date, format: :long
-    a
-      = link_to '查看订单详情', order_path(order)
-    span.number
-      = "订单编号: #{order.identifier}"
-    span
-      = "总价：￥#{order.total}"
-    p
-      = "收件人：#{order.address.fullname}"
-      i.tooltip-viewDetail
-    .viewDetail.is-hidden
-      h4 收件地址：
-      p
-        = order.address.full_addr
-  .col2.span3
-    .order-table-state
-      - if order.delivery_date.present?
-        span.post-date
-          = "发送日期：#{l order.delivery_date, format: :long}"
-      strong.state
-        = t('models.order.state.' + order.state)
-
-    .product-info
-      - product = order.products.first
-      = image_tag(product.img(:medium), width: '140')
-      .product-info-main
-        h3.product-name
+  table
+    tr
+      td.col1
+        - product = order.products.first
+        = image_tag(product.img(:medium), width: '140')
+      td.col2
+        .product-name
           = link_to product.name, product_path(product)
-        h4.product-name-en
+        .product-name-en
           = product.name_en
-        p
-          | 免费配送
-        p.add-to-share
-          a href="#" data-action='share-product' data-product="#{product.id}" 加入分享
-      .op-area
-        - case order.state
-        - when 'generated'
-          = link_to t('models.order.state.pay'), checkout_order_path(order), class: 'btn-completePay'
-        - when 'wait_confirm'
+      td.col3
+        = "￥#{order.total}"
+      td.col4
+        = l order.created_at.to_date, format: :long
+        br
+        = "订单编号: #{order.identifier}"
+        br
+        = "收件人：#{order.address.fullname}"
+      td.col5
+        - if order.state == 'generated'
+          = link_to '去付款', checkout_order_path(order), class: 'btn-post'
+        - elsif order.state == 'wait_confirm'
           = button_to t('models.order.state.confirm_received'), confirm_shipment_path(order.shipment), data: { confirm: t('views.order.confirm_accept') }, class: 'btn-completePay'
-
-= render 'shared/product_share_popup', product: product
+        - else
+          = t('models.order.state.' + order.state)
+      td.col6
+        = link_to '查看订单详情', order_path(order)

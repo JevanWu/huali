@@ -32,11 +32,6 @@ describe Billing::Base do
         lambda { Billing::Base.new type, transaction, query }.should raise_error ArgumentError, "the transaction object missing required attributes #{attr}"
       end
     end
-
-    it 'raises an error if the paymethod is not valid' do
-      transaction[:paymethod] = 'invalid_paymethod'
-      lambda { Billing::Base.new type, transaction, query }.should raise_error ArgumentError, 'invalid paymethod'
-    end
   end
 
   context 'create the billing instance' do

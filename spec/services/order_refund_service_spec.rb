@@ -61,15 +61,13 @@ describe OrderRefundService do
       stub(order).update_column
     end
 
-    context "when the state of the order is not 'wait_refund'" do
+    context "when the state of the order is 'completed'" do
       before do
-        stub(order).state { 'wait_make' }
+        stub(order).state { 'completed' }
       end
 
-      it "raise error" do
-        lambda {
-          described_class.reject_refund(order, refund)
-        }.should raise_error(ArgumentError)
+      it "does not modify the order state" do
+        dont_allow(order).update_column(:state, anything)
       end
     end
 

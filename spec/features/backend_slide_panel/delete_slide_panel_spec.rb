@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'feature_spec_helper'
 
 feature "Delete slide panel" do
   let(:super_admin) { create(:administrator, role: 'super') }

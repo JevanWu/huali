@@ -2,7 +2,6 @@ module Extension
   module MenuNavigator
     extend ActiveSupport::Concern
     included do
-      before_action :prepare_menu_list
       helper_method :menu_list
     end
 
@@ -10,12 +9,17 @@ module Extension
 
     def menu_list
       @menu_list ||= []
+
+      Rails.cache.fetch('menu_list', expires_in: 30.day) do
+        prepare_menu_list
+        @menu_list
+      end
     end
 
     def build_collection_menus
       Collection.roots.available.each do |root|
         root_menu = Menu.new_from_collection(root)
-        menu_list << root_menu
+        @menu_list << root_menu
 
         children = root.children.available.to_a
 
@@ -46,8 +50,8 @@ module Extension
       custom_menu.add_child(Menu.new('花里·明星', nil, :link, celebrities_path))
       custom_menu.add_child(Menu.new('媒体报道', nil, :link, medias_path))
       custom_menu.add_child(Menu.new('花里博客', nil, :link, blog_path))
-      menu_list << custom_menu
-      menu_list << Menu.new("HualiGirls", "", :link, weibo_stories_path)
+      @menu_list << custom_menu
+      @menu_list << Menu.new("HualiGirls", "", :link, weibo_stories_path)
     end
 
     def prepare_menu_list

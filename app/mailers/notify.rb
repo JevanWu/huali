@@ -164,6 +164,14 @@ STR
     mail(to: emails, subject: subject("所有订单 #{Date.current}"))
   end
 
+  def invite_message(from, resource, subject)
+    @resource = resource
+    @token = @resource.raw_invitation_token
+    # invitation_link = accept_user_invitation_url(invitation_token: @token)
+ 
+    mail(from: from, to: @resource.email, subject: subject, template_path: 'devise/mailer', template_name: 'invitation_instructions')
+  end
+
   helper MailerHelper
 
   private

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'feature_spec_helper'
 
 feature "List default region rules" do
   let(:admin) { create(:administrator) }

@@ -26,8 +26,11 @@ class DateRule < ActiveRecord::Base
   arrayify_attrs :excluded_dates, :included_dates
 
   def start_date
-    super || (Time.current.hour >= 15 ?
-              Date.current.next_day(2) : Date.current.next_day(1))
+    if Setting.date_rule_start_date.present?
+      Setting.date_rule_start_date
+    else
+      super || (Time.current.hour >= 15 ? Date.current.next_day(3) : Date.current.next_day(2))
+    end
   end
 
   def end_date
@@ -40,24 +43,6 @@ class DateRule < ActiveRecord::Base
       start_date.next_day($1.to_i)
     else
       start_date.next_month(2)
-    end
-  end
-
-  def merge(other)
-    if other.nil?
-      self
-    else
-      OpenStruct.new(
-        # Override rule in start and end dates
-        start_date: other.start_date,
-        end_date: other.end_date,
-
-        # Union included_dates
-        included_dates: (self.included_dates | other.included_dates),
-
-        # Union excluded_dates and excluded_weekdays
-        excluded_dates: (self.excluded_dates | other.excluded_dates),
-        excluded_weekdays: (self.excluded_weekdays | other.excluded_weekdays))
     end
   end
 end

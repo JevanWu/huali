@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'feature_spec_helper'
 
 feature "Delete coupon" do
   given(:super_admin) { create(:administrator, role: 'super') }

@@ -2,7 +2,7 @@
 #= require jquery.ui.datepicker-zh-CN
 
 $ ->
-  normalDateShift = if (new Date().getHours() >= 15) then '+2D' else '+1D'
+  normalDateShift = if (new Date().getHours() >= 15) then '+3D' else '+2D'
 
   $('.datepicker').datepicker(
       gotoCurrent: true

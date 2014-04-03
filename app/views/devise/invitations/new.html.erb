@@ -1,0 +1,21 @@
+<div class="account-info-container">
+  <%= render 'shared/account_info_header' %>
+  <div class="invitation-main">
+  <h2><%= t "devise.invitations.new.header" %></h2>
+
+  <%= simple_form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post} do |f| %>
+    <%= devise_error_messages! %>
+
+    <% resource.class.invite_key_fields.each do |field| -%>
+      <p><%= f.label field %><br />
+      <%= f.text_field field %></p>
+    <% end -%>
+
+  <p><%= f.submit t("devise.invitations.new.submit"), class: "btn-passport" %></p>
+    
+  <% end %>
+
+  <br>
+  </div>
+  <div class="account-info-line"> </div>
+</div>

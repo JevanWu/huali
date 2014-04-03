@@ -11,7 +11,7 @@ ActiveAdmin.register Setting do
     column :thing_id
     column :thing_type
 
-    default_actions
+    actions
   end
 
   form partial: 'form'

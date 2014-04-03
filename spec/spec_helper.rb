@@ -1,4 +1,4 @@
-# spec_helper.rb is used for acceptance tests
+# spec_helper.rb is used for unit and integration tests
 # it preloads rails and database related test components
 
 require 'spork'
@@ -8,15 +8,6 @@ require 'spork'
 Spork.prefork do
 
   require 'rr'
-  require 'capybara/rspec'
-
-  # chrome driver
-  Capybara.register_driver :chrome do |app|
-    proxy = { proxyType: 'pac', proxyAutoconfigUrl: "file:///#{::Rails.root}/spec/fixtures/SwitchyPac.pac" }
-    Capybara::Selenium::Driver.new(app, browser: :chrome, proxy: proxy)
-  end
-  Capybara.javascript_driver = :chrome
-  #Capybara.default_driver = :chrome
 
   # load simplecov before load Rails Application
   require 'simplecov'
@@ -37,7 +28,6 @@ Spork.prefork do
 
   require 'rspec/rails'
   require 'rspec/autorun'
-  require 'capybara/rails'
 
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
@@ -63,12 +53,6 @@ Spork.prefork do
 
     # FactoryGirl Syntax Mixins
     config.include FactoryGirl::Syntax::Methods
-
-    # Warden helper for stubbed login and logout
-    config.include Warden::Test::Helpers, type: :feature
-
-    config.include RegionRuleHelper, type: :feature
-    config.include CustomCapybaraHelper, type: :feature
 
     # FactoryGirl Logging
     config.before(:suite) do
@@ -125,10 +109,6 @@ Spork.prefork do
           example.run
         end
       end
-    end
-
-    config.before(:each) do
-      set_window_size(1024, 768) if Capybara.current_driver != :rack_test
     end
 
   end

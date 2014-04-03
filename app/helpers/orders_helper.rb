@@ -46,6 +46,8 @@ module OrdersHelper
   end
 
   def order_state_shift(order)
+    return if current_admin_ability.cannot? :update, Order
+
     buttons = case order.state
     when "generated"
 

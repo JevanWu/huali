@@ -30,7 +30,7 @@ shared_examples_for "order date validator" do
       invalid_rule = valid_rule.dup
       invalid_rule.excluded_dates = ['2013-01-01']
 
-      stub(product2).merged_date_rule { invalid_rule }
+      stub(product2).date_rule { invalid_rule }
 
       mock(order_errors).add(:expected_date, :unavailable_date)
       dont_allow(line_item1_errors).add.with_any_args
@@ -58,7 +58,7 @@ describe OrderProductDateValidator do
       Object.new.tap do |pro|
         stub(pro).id { pro_var.to_s.sub('product', '').to_i }
         stub(pro).default_date_rule { Object.new }
-        stub(pro).merged_date_rule { valid_rule }
+        stub(pro).date_rule { valid_rule }
         stub(pro).name { "#{pro}_name" }
       end
     end

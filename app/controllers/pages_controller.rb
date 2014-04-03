@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  before_action :authenticate_user!, only: :huali_point
 
   def show
     @page = Page.find_by_permalink!(params[:id])
@@ -32,5 +33,9 @@ class PagesController < ApplicationController
   end
 
   def white_day
+  end
+
+  def huali_point
+    @point_transactions = current_user.point_transactions.order(:created_at).page(params[:page]).per(3)
   end
 end

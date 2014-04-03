@@ -29,7 +29,8 @@
             == link_to page.title, page_path(page), title: page.title
     .masthead-addition
       p 
-        = "工作时间: 周一至周五9:30-18:30, 周末和法定节假日休息"
+        - if Setting.work_time
+          = Setting.work_time
         span.icp 
           = "沪ICP备12040819号-1"
 

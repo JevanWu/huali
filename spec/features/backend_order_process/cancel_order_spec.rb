@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'feature_spec_helper'
 
 feature "Cancel order" do
   let(:admin) { create(:administrator) }

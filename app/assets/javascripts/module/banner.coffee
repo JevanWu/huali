@@ -3,8 +3,8 @@ $ ->
   <div id="banner">
     <p>
       <%- content %>
-      <a class="close" href="#" data-banner="<%- id %>"></a>
     </p>
+    <a class="close" href="#" data-banner="<%- id %>"></a>
   </div>
   """
 

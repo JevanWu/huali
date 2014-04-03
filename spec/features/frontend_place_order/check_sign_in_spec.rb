@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'feature_spec_helper'
 
 feature "Check sign-in before placing order" do
   given(:product) { create(:product, name_en: 'ruby', name_zh: '红宝石') }
