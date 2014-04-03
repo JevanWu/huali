@@ -20,8 +20,9 @@ li.row.order
       td.col5
         - if order.state == 'generated'
           = link_to '去付款', checkout_order_path(order), class: 'btn-post'
+        - elsif order.state == 'wait_confirm'
+          = button_to t('models.order.state.confirm_received'), confirm_shipment_path(order.shipment), data: { confirm: t('views.order.confirm_accept') }, class: 'btn-completePay'
         - else
           = t('models.order.state.' + order.state)
       td.col6
         = link_to '查看订单详情', order_path(order)
-

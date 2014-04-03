@@ -491,6 +491,7 @@ zh-CN:
         init_transaction: 生成交易
         refund: 退款
         confirm: 确认
+        confirm_received: 确认收货
         cancel: 取消
         print: 打印订单
         print_card: 打印贺卡
@@ -657,6 +658,7 @@ zh-CN:
       basket: 购花篮
       order_list: 订单中心
       in_total: 总计
+      confirm_accept: 您确认您已收到我们的货物了吗？
 
       # success
       address_and_info: 地址和信息

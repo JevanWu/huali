@@ -55,6 +55,7 @@ Huali::Application.routes.draw do
   end
 
   post 'shipments/notify/:identifier', to: 'shipments#notify', as: :notify_shipment
+  post 'shipments/confirm/:id', to: 'shipments#confirm', as: :confirm_shipment
 
   # non-individual collections routes
   get '/collections/:id', to: 'collections#show'
