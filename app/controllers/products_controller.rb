@@ -1,5 +1,12 @@
 class ProductsController < ApplicationController
   before_action :fetch_collection, only: [:index, :tagged_with]
+  before_action only: :show do
+    @menu_nav_type = 'product'
+  end
+
+  before_action except: :show do
+    @menu_nav_type = 'collection'
+  end
 
   def show
     @product = Product.published.find(params[:id])

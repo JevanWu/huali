@@ -55,6 +55,7 @@ module Extension
     end
 
     def prepare_menu_list
+      @menu_list << Menu.new("花里首页", nil, :link, '/')
       build_collection_menus
       build_custom_link_menus
     end

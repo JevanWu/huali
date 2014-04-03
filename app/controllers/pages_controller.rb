@@ -14,6 +14,7 @@ class PagesController < ApplicationController
   end
 
   def home
+    @menu_nav_type = 'home'
     @slides = SlidePanel.visible
   end
 
