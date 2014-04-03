@@ -1,8 +1,9 @@
 #l-nav
   .nav-inner
     ul.nav-item.is-mouseleave.row
-      - menu_list.each do |root|
-        li: a href="#{root.url}"
+      - menu_nav_type = @menu_nav_type || 'other'
+      - menu_list.each_with_index do |root, i|
+        li: a href="#{root.url}" onClick="ga('send', 'event', 'main_navigator', 'click', '#{menu_nav_type}_m_nav_#{i + 1}', '#{root.name}')"
           = root.name
           i.l-stack
 
