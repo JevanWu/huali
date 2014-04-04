@@ -9,11 +9,13 @@
 #  id              :integer          not null, primary key
 #  updated_at      :datetime
 #  used_count      :integer          default(0)
+#  user_id         :integer
 #
 # Indexes
 #
 #  index_coupon_codes_on_code       (code) UNIQUE
 #  index_coupon_codes_on_coupon_id  (coupon_id)
+#  index_coupon_codes_on_user_id    (user_id)
 #
 
 # Read about factories at https://github.com/thoughtbot/factory_girl

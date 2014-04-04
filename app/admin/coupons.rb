@@ -8,7 +8,7 @@ ActiveAdmin.register Coupon do
     private
 
     def permitted_params
-      params.permit(coupon: [:adjustment, :expires_at, :available_count, :note, :price_condition, :code_count, { product_ids: [] }])
+      params.permit(coupon: [:adjustment, :expires_at, :available_count, :note, :price_condition, :all_use_number, :prefix, :code_count, { product_ids: [] }])
     end
 
     def render_excel(coupon_codes, filename)

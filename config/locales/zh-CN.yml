@@ -368,6 +368,8 @@ zh-CN:
         code_count: 优惠券数量
         available_count: 优惠券有效使用次数
         products: 可用产品
+        all_use_number: 是否使用全数字优惠码
+        prefix: 优惠码前缀
 
       user:
         email: 邮箱
