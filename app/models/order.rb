@@ -306,7 +306,9 @@ class Order < ActiveRecord::Base
   private
 
   def process_refund_huali_point
-    HualiPointService.process_refund(self.user, self.transaction)
+    if self.transaction
+      HualiPointService.process_refund(self.user, self.transaction)
+    end
   end
 
   def sync_payment
