@@ -13,7 +13,7 @@ class AdminAbility
       cannot :manage, Sidekiq
       cannot :manage_super, Administrator # For use in view
     when "operation_manager"
-      can :manage, [Product, Collection, Order, Transaction, Refund, Shipment, Coupon, DefaultRegionRule, DefaultDateRule, SlidePanel]
+      can :manage, [Product, Collection, Order, Transaction, Refund, Shipment, Coupon, DefaultRegionRule, DefaultDateRule, PeriodRegionPolicy, SlidePanel, Setting]
       cannot :update_seo, [Product, Collection]
       can :record_back_order, Order
     when "product_manager"
@@ -30,8 +30,9 @@ class AdminAbility
       can :read, [Product]
       manage_blog
     when "customer_service"
-      can :read, [Product, Coupon]
-      can :manage, [Order, Transaction, Refund, Shipment]
+      can :read, [Coupon]
+      can :manage, [Product, Collection, Order, Transaction, Refund, Shipment]
+      can :manage, [DefaultRegionRule, DefaultDateRule, PeriodRegionPolicy]
     end
 
     if user.persisted?
