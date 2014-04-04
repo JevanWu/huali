@@ -18,7 +18,11 @@ li.row.order
         br
         = "收件人：#{order.address.fullname}"
       td.col5
-        = t('models.order.state.' + order.state)
+        - if order.state == 'generated'
+          = link_to '去付款', checkout_order_path(order), class: 'btn-post'
+        - elsif order.state == 'wait_confirm'
+          = button_to t('models.order.state.confirm_received'), confirm_shipment_path(order.shipment), data: { confirm: t('views.order.confirm_accept') }, class: 'btn-completePay'
+        - else
+          = t('models.order.state.' + order.state)
       td.col6
         = link_to '查看订单详情', order_path(order)
-
