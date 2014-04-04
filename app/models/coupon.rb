@@ -59,8 +59,9 @@ class Coupon < ActiveRecord::Base
 
   def generate_coupon_codes
     code_count.to_i.times do
-      code = generate_code(@all_use_number, @prefix)
-      coupon_codes.create(available_count: available_count, code: code) 
+      if code = generate_code(@all_use_number, @prefix)
+        coupon_codes.create(available_count: available_count, code: code) 
+      end
     end
   end
 
