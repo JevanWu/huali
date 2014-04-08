@@ -473,6 +473,8 @@ zh-CN:
         tracking_number: 快递单号
 
   models:
+    user:
+      binding_coupon_code: 绑定优惠码
     order:
       state:
         wait_check: 等待审核
