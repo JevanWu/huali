@@ -1,0 +1,14 @@
+.h1 
+  = form_tag("/admin/users/#{@user.id}/add_binding_coupon_code", method: :patch)
+    p
+      = label "user_email", "user_email"
+      = text_field_tag "user_email", @user.email, disabled: true
+    p
+      = label "user_name", "user_name"
+      = text_field_tag "user_name", @user.name, disabled: true
+    p
+      = label "coupon_code", "coupon_code"
+      = text_field_tag "coupon_code"
+    p
+      = submit_tag "submit"
+
