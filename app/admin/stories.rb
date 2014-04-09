@@ -16,14 +16,24 @@ ActiveAdmin.register Story do
   filter :description
   filter :available
 
-  index do
-    selectable_column
-    column :name
-    column :description
-    column :available
-    column :priority
+  scope :available
+  scope :unavailable
 
-    default_actions
+  config.sort_order = "priority_asc"
+
+  sortable tree: false,
+           protect_root: false,
+           sorting_attribute: :priority
+
+  index as: :sortable do
+    label :picture do |story|
+      %(
+        #{image_tag(story.picture.url(:medium), height: '100px')}
+        #{story.name}: #{story.description.truncate(50)}
+      ).html_safe
+    end
+
+    actions
   end
 
   show do
