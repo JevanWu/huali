@@ -33,3 +33,5 @@ zh-CN:
       unknown: 未知
       guests: guest账户
       non_guests: 非guest账户
+      available: 有效
+      unavailable: 无效

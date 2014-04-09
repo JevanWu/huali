@@ -1,6 +1,6 @@
 class StoriesController < ApplicationController
   def index
-    @stories = Story.available.page(params[:page]).per(8)
+    @stories = Story.available.order('priority').page(params[:page]).per(8)
     @result = @stories.map do |story|
       {
         description: story.description,
