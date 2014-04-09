@@ -50,8 +50,8 @@ class HualiPointService
     if transaction.use_huali_point
       User.transaction do
         customer.lock!
-        customer.create_income_point_transaction(transaction.order.total - transaction.amount, I18n.t("point_transaction.refund_description"), transaction.id)
-        customer.edit_huali_point(transaction.order.total - transaction.amount)
+        customer.create_income_point_transaction(transaction.point_transaction.point, I18n.t("point_transaction.refund_description"), transaction.id)
+        customer.edit_huali_point(transaction.point_transaction.point)
       end
     end
   end
