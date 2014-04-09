@@ -167,7 +167,6 @@ class OrdersController < ApplicationController
     user = @transaction.order.user
     if @transaction.return(request.query_string)
       HualiPointService.minus_expense_point(user, @transaction)
-      HualiPointService.rebate_point(user, @transaction)
       render 'success'
     else
       render 'failed', status: 400
@@ -180,7 +179,6 @@ class OrdersController < ApplicationController
     if @transaction.notify(query)
       user = @transaction.order.user
       HualiPointService.minus_expense_point(user, @transaction)
-      HualiPointService.rebate_point(user, @transaction)
       render text: "success"
     else
       render text: "failed", status: 400
