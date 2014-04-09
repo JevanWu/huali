@@ -4,13 +4,13 @@
       span Main Info
     ol
       li
-        = label "user_email", "user_email"
+        = label "user_email", t("active_admin.view.labels.user_email")
         = text_field_tag "user_email", @user.email, disabled: true
       li
-        = label "user_name", "user_name"
+        = label "user_name", t("active_admin.view.labels.user_name")
         = text_field_tag "user_name", @user.name, disabled: true
       li
-        = label "coupon_code", "coupon_code"
+        = label "coupon_code", t("active_admin.view.labels.coupon_code")
         = text_field_tag "coupon_code"
   fieldset.actions
     ol
