@@ -49,6 +49,6 @@ SitemapGenerator::Sitemap.create do
       end
     end
 
-    add(collection_path(collection), lastmod: collection.updated_at, images: collection_images)
+    add(collection_products_path(collection), lastmod: collection.updated_at, images: collection_images)
   end
 end
