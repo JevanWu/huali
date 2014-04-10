@@ -4,7 +4,7 @@
 #l-header
   position: relative
   margin: 0 auto
-  height: 134px
+  height: 100px
   width: $global-width
   padding: 0 5px
   text-align: center
@@ -12,14 +12,16 @@
   background: image-url("bg/body.png") repeat
   a
     display: inline-block
-    margin-top: 19px
+    margin-top: 10px
+    img
+      height: 80px
   strong
     position: absolute
     display: block
     height: 18px
     line-height: 18px
     right: 5px
-    bottom: 10px
+    top: 10px
     color: $global-text-color
     padding-left: 25px
     background-image: image-url("bg/tel.png")
@@ -28,12 +30,14 @@
     right: 5px
     height: 25px
     line-height: 17px
-    top: 20px
+    bottom: 10px
     .query, .submit
       height: 15px
     .query
       margin: 0 2px 0 0
       padding: 4px 6px
+      width: 120px
+      color: #999999
     .submit
       +button(38px,25px)
       color: white !important
