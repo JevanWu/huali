@@ -94,7 +94,9 @@ ActiveAdmin.register Product do
       image_tag product.img(:thumb)
     end
 
-    column :product_type
+    column :product_type do |product|
+      product.product_type.text
+    end
 
     column :collections do |product|
       product.collections.map do |collection|
@@ -115,7 +117,9 @@ ActiveAdmin.register Product do
       row :name_en
       row :sku_id
       row :published
-      row :product_type
+      row :product_type do 
+        product.product_type.text
+      end
       row :priority
 
       row :tag_list
