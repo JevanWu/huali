@@ -27,7 +27,7 @@
               = transaction.created_at.to_formatted_s(:db)
             td 
               - if transaction.transaction
-                = link_to '#{transaction.transaction.order.identifier}', order_path(transaction.transaction.order) 
+                = link_to "#{transaction.transaction.order.identifier}", order_path(transaction.transaction.order) 
             td
               = transaction.description
             - if transaction.transaction_type == "income"

@@ -72,6 +72,19 @@
       $("#l-nav").removeClass("nav-fixed")
     return
 
+  #display qq customer service 
+  $(window).scroll ->
+    if $("#customer-service-anchor").length
+      windowTop = $(window).scrollTop()
+      anchorTop = $("#customer-service-anchor").offset().top
+      if windowTop >= anchorTop
+        if $("#qq-customer-service").hasClass("visible") then return
+        $("#qq-customer-service").addClass("visible")
+      else
+        if not $("#qq-customer-service").hasClass("visible") then return
+        $("#qq-customer-service").removeClass("visible")
+      return
+
   # show limited promo result popup
   popUp = ".limited-promo"
   $(popUp + " .pop-up-content").show()
