@@ -2,12 +2,12 @@
 #l-fixed-area-container
 	#l-header.row
       #bookmark
-        a id="bookmarkme" href="#" rel="sidebar" title="收藏花里"
+        a id="bookmarkme" href="#" rel="sidebar" title="收藏花里" onClick="analytics.track('Add to bookmark', { category: 'Header' });"
           | 收藏花里
       #search
         = form_tag '/search', method: :get do
           = text_field_tag :q, params[:q], class: 'query'
-          = submit_tag '搜索', class: 'submit', name: nil
+          = submit_tag '搜索', class: 'submit', name: nil, onClick: "analytics.track('Search', { category: 'Header', label: $('#q').val() });"
 	  a href="/"
 	    =image_tag('logo.png', alt: "花里logo")
 	  strong.tel 400-001-6936
