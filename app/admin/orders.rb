@@ -165,6 +165,7 @@ ActiveAdmin.register Order do
   scope :within_this_month
 
   filter :identifier
+  filter :subject_text
   filter :printed, as: :select, collection: { 是: true, 否: false }
   filter :expected_date
   filter :delivery_date
