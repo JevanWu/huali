@@ -25,11 +25,20 @@
     color: $global-text-color
     padding-left: 25px
     background-image: image-url("bg/tel.png")
+  #bookmark
+    position: absolute
+    right: 130px
+    top: 10px
+    a
+      margin: 0
+      color: #a9643c
+      text-decoration: none
   #search
     position: absolute
     right: 5px
     height: 25px
-    line-height: 17px
+    line-height: 15px
+    font-size: 15px
     bottom: 10px
     .query, .submit
       height: 15px
@@ -38,6 +47,7 @@
       padding: 4px 6px
       width: 120px
       color: #999999
+
     .submit
       +button(38px,25px)
       color: white !important

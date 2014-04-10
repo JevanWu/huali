@@ -1,6 +1,9 @@
 == render 'layouts/messages'
 #l-fixed-area-container
 	#l-header.row
+      #bookmark
+        a id="bookmarkme" href="#" rel="sidebar" title="收藏花里"
+          | 收藏花里
       #search
         = form_tag '/search', method: :get do
           = text_field_tag :q, params[:q], class: 'query'
