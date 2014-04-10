@@ -27,5 +27,9 @@ FactoryGirl.define do
         coupon.products = create_list(:product, 2)
       end
     end
+
+    after(:build) do |coupon|
+      create(:coupon_code, coupon: coupon)
+    end
   end
 end
