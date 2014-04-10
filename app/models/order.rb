@@ -329,7 +329,9 @@ class Order < ActiveRecord::Base
   end
 
   def reward_and_rebate_huali_point
-    HualiPointService.reward_inviter_point(self.user.inviter, self.user)
-    HualiPointService.rebate_point(self.user, self.transaction)
+    if self.user
+      HualiPointService.reward_inviter_point(self.user.inviter, self.user)
+      HualiPointService.rebate_point(self.user, self.transaction)
+    end
   end
 end
