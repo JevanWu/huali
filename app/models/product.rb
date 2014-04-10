@@ -19,6 +19,7 @@
 #  original_price               :decimal(, )
 #  price                        :decimal(8, 2)
 #  priority                     :integer          default(5)
+#  product_type                 :string(255)
 #  published                    :boolean          default(FALSE)
 #  rectangle_image_content_type :string(255)
 #  rectangle_image_file_name    :string(255)
@@ -36,7 +37,6 @@
 #  index_products_on_default_region_rule_id  (default_region_rule_id)
 #  index_products_on_slug                    (slug) UNIQUE
 #
-
 
 class Product < ActiveRecord::Base
   paginates_per 12
