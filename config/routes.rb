@@ -21,6 +21,7 @@ Huali::Application.routes.draw do
   get "provinces/available_for_products", to: 'provinces#available_for_products'
   get "provinces/:prov_id", to: 'provinces#show'
 
+  get 'search', to: 'products#search'
   resources :products, only: [:show] do
     collection do
       get 'trait/:tags', action: :trait

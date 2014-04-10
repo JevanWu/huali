@@ -102,6 +102,10 @@ class Product < ActiveRecord::Base
     def sort_by_collection
       Product.published.joins(:collections).order('collections.id').to_a.uniq
     end
+
+    def search(word)
+      published.where("name_zh like ? or name_en like ?", "%#{word}%", "%#{word}%")
+    end
   end
 
   def related_products(limit = 5)
