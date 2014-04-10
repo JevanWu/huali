@@ -27,6 +27,7 @@
 #  source               :string(255)      default(""), not null
 #  special_instructions :text
 #  state                :string(255)      default("ready")
+#  subject_text         :text             default("")
 #  total                :decimal(8, 2)    default(0.0), not null
 #  updated_at           :datetime         not null
 #  user_id              :integer

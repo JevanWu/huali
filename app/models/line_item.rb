@@ -21,6 +21,7 @@ class LineItem < ActiveRecord::Base
   belongs_to :product
 
   before_validation :adjust_quantity
+  after_create :insert_order_subject_text
 
   validates :product, presence: true
   validates :quantity, numericality: { only_integer: true, message: ('quantity must be numbers.'), greater_than: -1 }
@@ -68,5 +69,16 @@ class LineItem < ActiveRecord::Base
     def update_order
       # update the order totals, etc.
       order.update!
+    end
+
+    def insert_order_subject_text
+      subject_text = ""
+      if self.order.subject_text.present?
+        subject_text = self.order.subject_text + 
+          ", #{self.name} x #{self.quantity}"
+      else
+        subject_text = "#{self.name} x #{self.quantity}" 
+      end
+      self.order.update_column(:subject_text, subject_text)
     end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140401075640) do
+ActiveRecord::Schema.define(version: 20140410072329) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -322,6 +322,7 @@ ActiveRecord::Schema.define(version: 20140401075640) do
     t.string   "last_order"
     t.boolean  "prechecked"
     t.text     "memo"
+    t.text     "subject_text",                                 default: ""
   end
 
   add_index "orders", ["identifier"], name: "index_orders_on_identifier", unique: true, using: :btree
@@ -393,6 +394,7 @@ ActiveRecord::Schema.define(version: 20140401075640) do
     t.integer  "rectangle_image_file_size"
     t.datetime "rectangle_image_updated_at"
     t.string   "sku_id"
+    t.string   "product_type"
   end
 
   add_index "products", ["default_date_rule_id"], name: "index_products_on_default_date_rule_id", using: :btree
