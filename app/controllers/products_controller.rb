@@ -69,6 +69,18 @@ class ProductsController < ApplicationController
     end
   end
 
+  def search
+    @products = Product.search(params[:q].downcase).page(params[:page])
+
+    prepare_tag_filter
+    fetch_order_by
+
+    respond_to do |format|
+      format.html { render 'search' }
+      format.json { render json: @products }
+    end
+  end
+
   private
 
   def fetch_order_by
