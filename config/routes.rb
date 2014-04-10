@@ -21,14 +21,15 @@ Huali::Application.routes.draw do
   get "provinces/available_for_products", to: 'provinces#available_for_products'
   get "provinces/:prov_id", to: 'provinces#show'
 
+  get 'search', to: 'products#search'
   resources :products, only: [:show] do
     collection do
       get 'trait/:tags', action: :trait
     end
   end
 
-  resources :collections, only: [:show] do
-    resources :products, only: [:index] do
+  resources :collections, only: [] do
+    resources :products, only: [:index], path: '/' do
       get 'tagged_with/:tags', to: 'products#tagged_with', on: :collection
     end
   end
@@ -56,9 +57,6 @@ Huali::Application.routes.draw do
 
   post 'shipments/notify/:identifier', to: 'shipments#notify', as: :notify_shipment
   post 'shipments/confirm/:id', to: 'shipments#confirm', as: :confirm_shipment
-
-  # non-individual collections routes
-  get '/collections/:id', to: 'collections#show'
 
   devise_for :administrators
 
