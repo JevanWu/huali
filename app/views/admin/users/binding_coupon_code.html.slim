@@ -10,8 +10,10 @@
         = label "user_name", t("active_admin.view.labels.user_name")
         = text_field_tag "user_name", @user.name, disabled: true
       li
+        = "已绑定的优惠码：#{@user.coupon_codes.map(&:code).join(',')}"
+      li
         = label "coupon_code", t("active_admin.view.labels.coupon_code")
-        = text_field_tag "coupon_code"
+        = text_field_tag "coupon_code", nil, autofocus: true
   fieldset.actions
     ol
       li
