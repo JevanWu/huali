@@ -6,6 +6,11 @@ class InvitationsController < Devise::InvitationsController
       u.skip_invitation = true
     end
 
+    if resource.email.nil?
+      flash[:error] = "Email address is required!"
+      redirect_to new_user_invitation_path and return
+    end
+
     resource.deliver_invitation
 
     if resource.errors.empty?
