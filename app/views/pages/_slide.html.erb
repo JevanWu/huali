@@ -3,12 +3,12 @@
   <a class="btn-right"></a>
   <ul class="container">
     <% @slides.each do |slide| %>
-      <li><a href=<%= slide.href %>><%=image_tag slide.img(:medium) %></a></li>
+      <li><a href=<%= slide.href %> target="_blank"><%=image_tag slide.img(:medium) %></a></li>
     <% end %>
   </ul>
   <ul class="slide-dot">
     <% @slides.each do |slide| %>
-      <% if slide.equal? @slides.first %> 
+      <% if slide.equal? @slides.first %>
         <li><a class="cur"></a></li>
       <% elsif slide.equal? @slides.last %>
         <li class="last"><a></a></li>
