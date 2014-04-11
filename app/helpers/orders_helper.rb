@@ -82,11 +82,13 @@ module OrdersHelper
               end
              ) + \
       link_to(t('models.order.state.cancel'), cancel_admin_order_path(order), data: { confirm: t('views.admin.order.confirm_cancel') })
+      link_to(t('models.user.binding_coupon_code'), binding_coupon_code_admin_user_path(order.user))
     when "wait_refund"
       link_to(t('models.order.state.refund'), refund_admin_order_path(order))
     when "wait_confirm"
       link_to(t('models.order.state.confirm'), accept_admin_shipment_path(order.shipment), data: { confirm: t('views.admin.order.confirm_accept') }) + \
       link_to(t('models.order.state.cancel'), cancel_admin_order_path(order), data: { confirm: t('views.admin.order.confirm_cancel') })
+      link_to(t('models.user.binding_coupon_code'), binding_coupon_code_admin_user_path(order.user))
     end
     content_tag('div', buttons, id: 'process-buttons')
   end

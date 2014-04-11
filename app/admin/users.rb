@@ -12,6 +12,22 @@ ActiveAdmin.register User do
     end
   end
 
+  member_action :binding_coupon_code do 
+    @user = User.find params[:id]
+  end
+
+  member_action :add_binding_coupon_code, method: :patch do
+    @coupon_code = CouponCode.find_by(code: params[:coupon_code])
+    if @coupon_code
+      @user = User.find params[:id]
+      @coupon_code.user = @user
+      flash[:notice] = "添加优惠码成功" if @coupon_code.save
+    else
+      flash[:notice] = "没有相应的优惠码"
+    end
+    redirect_to binding_coupon_code_admin_user_path(@user)
+  end
+
   filter :email
   filter :created_at
 
@@ -28,8 +44,6 @@ ActiveAdmin.register User do
     column "订单数量" do |user|
       user.orders.count
     end
-
-    default_actions
   end
 
   form partial: "form"
