@@ -95,7 +95,7 @@ ActiveAdmin.register Product do
     end
 
     column :product_type do |product|
-      product.product_type.text
+      product.product_type_text
     end
 
     column :collections do |product|
@@ -117,8 +117,8 @@ ActiveAdmin.register Product do
       row :name_en
       row :sku_id
       row :published
-      row :product_type do 
-        product.product_type.text
+      row :product_type do
+        product.product_type_text
       end
       row :priority
 
