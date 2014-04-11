@@ -10,8 +10,7 @@ class InvitationsController < Devise::InvitationsController
 
     if resource.errors.empty?
       set_flash_message :notice, :send_instructions, :email => self.resource.email if self.resource.invitation_sent_at
-      email = Notify.invite_message(@from, resource, @subject)
-      email.deliver
+      Notify.delay.invite_message(@from, resource, @subject)
       redirect_to new_user_invitation_path
     else
       respond_with_navigational(resource) { render :new }
