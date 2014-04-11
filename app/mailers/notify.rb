@@ -8,7 +8,7 @@ class Notify < ActionMailer::Base
   # For User
   def new_order_user_email(order_id)
     @order = Order.full_info(order_id)
-    return if @order.sender_email.blank?
+    return if @order.nil? || @order.sender_email.blank?
 
     mail(to: @order.sender_email, subject: subject("新订单", @order.subject_text))
   end
@@ -168,7 +168,7 @@ STR
     @resource = resource
     @token = @resource.raw_invitation_token
     # invitation_link = accept_user_invitation_url(invitation_token: @token)
- 
+
     mail(from: from, to: @resource.email, subject: subject, template_path: 'devise/mailer', template_name: 'invitation_instructions')
   end
 
