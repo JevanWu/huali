@@ -4,7 +4,7 @@
     <%= f.input :published, as: :boolean %>
     <%= f.input :name_zh, required: true %>
     <%= f.input :name_en, required: true %>
-    <%= f.input :product_type %>
+    <%= f.input :product_type, include_blank: false %>
     <%= f.input :priority %>
 
     <%= f.input :tag_list, input_html: { class: 'tag-list' } %>
