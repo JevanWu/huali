@@ -21,13 +21,14 @@ class LineItem < ActiveRecord::Base
   belongs_to :product
 
   before_validation :adjust_quantity
+  after_create :update_order_subject_text
 
   validates :product, presence: true
   validates :quantity, numericality: { only_integer: true, message: ('quantity must be numbers.'), greater_than: -1 }
   validates :product_id, uniqueness: { scope: :order_id }
 
   delegate :discount?, :sold_total, :img, :name, :name_en, :height, :width,
-    :depth, :category_name, :published, to: :product
+    :depth, :category_name, :published, :product_type, :product_type_text, to: :product
 
   # after_save :update_order
   # after_destroy :update_order
@@ -64,9 +65,21 @@ class LineItem < ActiveRecord::Base
     !sufficient_stock?
   end
 
-  private
-    def update_order
-      # update the order totals, etc.
-      order.update!
+private
+
+  def update_order
+    # update the order totals, etc.
+    order.update!
+  end
+
+  def update_order_subject_text
+    type_string = product_type == "others" ? "" : "(#{product_type_text})"
+    subject_string = "#{name}#{type_string} x #{quantity}"
+
+    if order.subject_text.present?
+      order.update_column(:subject_text, "#{order.subject_text}, #{subject_string}")
+    else
+      order.update_column(:subject_text, subject_string)
     end
+  end
 end

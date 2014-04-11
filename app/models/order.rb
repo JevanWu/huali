@@ -27,6 +27,7 @@
 #  source               :string(255)      default(""), not null
 #  special_instructions :text
 #  state                :string(255)      default("ready")
+#  subject_text         :text             default("")
 #  total                :decimal(8, 2)    default(0.0), not null
 #  updated_at           :datetime         not null
 #  user_id              :integer
@@ -249,10 +250,6 @@ class Order < ActiveRecord::Base
 
   def shipment
     shipments.last
-  end
-
-  def subject_text
-    line_items.inject('') { |sum, item| sum + "#{item.name} x #{item.quantity}, "}
   end
 
   def body_text
