@@ -39,6 +39,8 @@
 #
 
 class Product < ActiveRecord::Base
+  extend Enumerize
+  
   paginates_per 12
 
   attr_accessor :quantity
@@ -80,6 +82,7 @@ class Product < ActiveRecord::Base
 
   # validations
   validates_presence_of :name_en, :name_zh, :count_on_hand, :assets, :collections, :price
+  enumerize :product_type, in: [:fresh_flower, :preserved_flower, :others, :fake_flower], default: :others
 
   # scopes
   default_scope -> { order('priority DESC') }
@@ -101,6 +104,10 @@ class Product < ActiveRecord::Base
   class << self
     def sort_by_collection
       Product.published.joins(:collections).order('collections.id').to_a.uniq
+    end
+
+    def search(word)
+      published.where("name_zh like ? or name_en like ?", "%#{word}%", "%#{word}%")
     end
   end
 
