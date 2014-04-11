@@ -29,7 +29,8 @@
         == render 'shared/guess_you_like', related_products: @related_products.take(3)
       .add-to-cart.span3
         .product-title
-          h3.product-name = @product.name
+          - product_type = @product.product_type == "others" ? "" : "(#{@product.product_type_text})"
+          h3.product-name = "#{@product.name}#{product_type}"
           h4.product-name-en = @product.name_en
           - unless @product.original_price.nil?
             del
