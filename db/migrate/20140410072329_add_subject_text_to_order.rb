@@ -7,11 +7,12 @@ class AddSubjectTextToOrder < ActiveRecord::Migration
         line_items = LineItem.all
         line_items.each do |li|
           subject_text = ""
+          type = li.product_type == "others" ? "" : "(#{li.product_type_text})" 
           if li.order.subject_text.present?
             subject_text = li.order.subject_text + 
-              ", #{li.name} x #{li.quantity}"
+              ", #{li.name}#{type} x #{li.quantity}"
           else
-            subject_text = "#{li.name} x #{li.quantity}" 
+            subject_text = "#{li.name}#{type} x #{li.quantity}" 
           end
           li.order.update_column(:subject_text, subject_text)
         end

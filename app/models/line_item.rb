@@ -28,7 +28,7 @@ class LineItem < ActiveRecord::Base
   validates :product_id, uniqueness: { scope: :order_id }
 
   delegate :discount?, :sold_total, :img, :name, :name_en, :height, :width,
-    :depth, :category_name, :published, to: :product
+    :depth, :category_name, :published, :product_type, :product_type_text, to: :product
 
   # after_save :update_order
   # after_destroy :update_order
@@ -73,11 +73,12 @@ class LineItem < ActiveRecord::Base
 
     def insert_order_subject_text
       subject_text = ""
+      type = self.product_type == "others" ? "" : "(#{self.product_type_text})" 
       if self.order.subject_text.present?
         subject_text = self.order.subject_text + 
-          ", #{self.name} x #{self.quantity}"
+          ", #{self.name}#{type} x #{self.quantity}"
       else
-        subject_text = "#{self.name} x #{self.quantity}" 
+        subject_text = "#{self.name}#{type} x #{self.quantity}" 
       end
       self.order.update_column(:subject_text, subject_text)
     end
