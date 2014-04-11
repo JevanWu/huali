@@ -42,6 +42,7 @@ ActiveAdmin.register Product do
         :tag_list,
         :trait_list,
         :inspiration,
+        :product_type,
         :description,
         :count_on_hand,
         :price,
@@ -93,6 +94,10 @@ ActiveAdmin.register Product do
       image_tag product.img(:thumb)
     end
 
+    column :product_type do |product|
+      product.product_type.text
+    end
+
     column :collections do |product|
       product.collections.map do |collection|
         link_to collection.name, admin_collection_path(collection)
@@ -112,6 +117,9 @@ ActiveAdmin.register Product do
       row :name_en
       row :sku_id
       row :published
+      row :product_type do 
+        product.product_type.text
+      end
       row :priority
 
       row :tag_list
