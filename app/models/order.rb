@@ -75,6 +75,7 @@ class Order < ActiveRecord::Base
     # TODO implement an auth_state dynamically for each state
     before_transition to: :completed, do: :complete_order
     after_transition to: :completed, do: :update_sold_total
+    after_transition to: :completed, do: :reward_and_rebate_huali_point
     before_transition to: :wait_check, do: :sync_payment
     after_transition to: :wait_ship, do: :generate_shipment
     after_transition to: :refunded, do: :process_refund_huali_point
@@ -306,7 +307,9 @@ class Order < ActiveRecord::Base
   private
 
   def process_refund_huali_point
-    HualiPointService.process_refund(self.user, self.transaction)
+    if self.transaction
+      HualiPointService.process_refund(self.user, self.transaction)
+    end
   end
 
   def sync_payment
@@ -322,6 +325,13 @@ class Order < ActiveRecord::Base
   def update_sold_total
     line_items.each do |item|
       item.product.update_monthly_sold(item.quantity, self.delivery_date)
+    end
+  end
+
+  def reward_and_rebate_huali_point
+    if self.user
+      HualiPointService.reward_inviter_point(self.user.inviter, self.user)
+      HualiPointService.rebate_point(self.user, self.transaction)
     end
   end
 end

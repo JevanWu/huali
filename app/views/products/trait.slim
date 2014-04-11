@@ -14,7 +14,7 @@
           a.square-view[href="javascript:;"]
   dd.main
     .best-products.row
-      = render partial: 'collections/product', collection: @products
+      = render partial: 'products/product', collection: @products
 
     ul.row-item.is-hidden
       - @products.each do |product|

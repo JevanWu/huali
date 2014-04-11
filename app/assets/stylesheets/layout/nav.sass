@@ -22,8 +22,7 @@
       .cart-preview
         padding: 10px
         background-color: $cart-bg-color
-        border-width: 0 1px 1px 1px
-        border-style: solid
+        +global-box-shadow
         border-color: $border-lighter-color
         .cart-preview-empty
           text-align: center
@@ -150,6 +149,7 @@
             padding-left: 0
 
   .nav-callout-container
+    +global-box-shadow
     position: absolute
     visibility: hidden
     top: 35px

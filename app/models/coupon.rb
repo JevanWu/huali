@@ -60,31 +60,25 @@ class Coupon < ActiveRecord::Base
   private
 
   def generate_coupon_codes
-    code_count.to_i.times do
-      if code = generate_code(@all_use_number, @prefix)
-        coupon_codes.create(available_count: available_count, code: code) 
+    Thread.new do
+      code_count.to_i.times do
+        if code = generate_code(@all_use_number, @prefix)
+          coupon_codes.create(available_count: available_count, code: code)
+        end
       end
     end
   end
 
-  def generate_code(all_use_number=true, prefix=0)
-    if all_use_number == "true"
-      loop do
+  def generate_code(all_use_number = true, prefix = 0)
+    loop do
+      if all_use_number == "true"
         suffix_code = SecureRandom.random_number(9999999)
-        generated_code = prefix.to_s + suffix_code.to_s
-
-        unless CouponCode.where(code: generated_code).exists?
-          return generated_code.ljust(8, '0')
-        end
-      end
-    else
-      loop do
+        generated_code = "#{prefix}#{suffix_code}".ljust(8, '0')
+      else
         generated_code = SecureRandom.hex[0...8]
-
-        unless CouponCode.where(code: generated_code).exists?
-          return generated_code
-        end
       end
+
+      !CouponCode.where(code: generated_code).exists? and return generated_code
     end
   end
 end

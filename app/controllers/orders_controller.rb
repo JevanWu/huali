@@ -167,8 +167,6 @@ class OrdersController < ApplicationController
     user = @transaction.order.user
     if @transaction.return(request.query_string)
       HualiPointService.minus_expense_point(user, @transaction)
-      HualiPointService.reward_inviter_point(user.inviter, user)
-      HualiPointService.rebate_point(user, @transaction)
       render 'success'
     else
       render 'failed', status: 400
@@ -177,12 +175,9 @@ class OrdersController < ApplicationController
 
   def notify
     query = request.raw_post.present? ? request.raw_post : request.query_string # wechat use method 'get' to send notify request
-
+    user = @transaction.order.user
     if @transaction.notify(query)
-      user = @transaction.order.user
       HualiPointService.minus_expense_point(user, @transaction)
-      HualiPointService.reward_inviter_point(user.inviter, user)
-      HualiPointService.rebate_point(user, @transaction)
       render text: "success"
     else
       render text: "failed", status: 400
