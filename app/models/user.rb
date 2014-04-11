@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
   has_many :surveys, dependent: :nullify
   has_one  :tracking_cookie, dependent: :destroy
   has_many :point_transactions, dependent: :destroy
-  has_many :coupon_code, dependent: :destroy
+  has_many :coupon_codes, dependent: :destroy
 
   delegate :ga_client_id, to: :tracking_cookie, allow_nil: true
 
@@ -116,12 +116,12 @@ class User < ActiveRecord::Base
   end
 
   def create_income_point_transaction(point, description=nil, transaction_id=nil)
-    self.point_transactions.create(point: point, transaction_type: "income", 
+    self.point_transactions.create(point: point, transaction_type: "income",
                                    description: description, expires_on: Date.current.end_of_year.advance(years: 1), transaction_id: transaction_id)
   end
 
   def create_expense_point_transaction(point, description=nil, transaction_id=nil)
-    self.point_transactions.create(point: point, transaction_type: "expense", 
+    self.point_transactions.create(point: point, transaction_type: "expense",
                                    description: description, expires_on: Date.current.end_of_year.advance(years: 1), transaction_id: transaction_id)
   end
 
