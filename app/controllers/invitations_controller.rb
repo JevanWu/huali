@@ -7,7 +7,7 @@ class InvitationsController < Devise::InvitationsController
     end
 
     if resource.email.nil?
-      flash[:error] = "Email address is required!"
+      flash[:error] = "请填写需要邀请的邮箱地址!"
       redirect_to new_user_invitation_path and return
     end
 
