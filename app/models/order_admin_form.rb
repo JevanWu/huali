@@ -84,6 +84,7 @@ class OrderAdminForm < OrderForm
 
     # rebuild line_items
     @record.line_items.destroy_all
+    @record.update_columns(subject_text: "")
     @record.line_items = line_items.map { |params| LineItem.new(params) }
     @record.save!
     @record
