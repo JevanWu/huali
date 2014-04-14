@@ -6,7 +6,7 @@
 #  description      :string(255)
 #  expires_on       :date
 #  id               :integer          not null, primary key
-#  point            :decimal(5, 2)    default(0.0)
+#  point            :decimal(8, 2)    default(0.0)
 #  transaction_id   :integer
 #  transaction_type :string(255)
 #  updated_at       :datetime

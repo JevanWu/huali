@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140410072329) do
+ActiveRecord::Schema.define(version: 20140414093126) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -354,7 +354,7 @@ ActiveRecord::Schema.define(version: 20140410072329) do
   end
 
   create_table "point_transactions", force: true do |t|
-    t.decimal  "point",            precision: 5, scale: 2, default: 0.0
+    t.decimal  "point",            precision: 8, scale: 2, default: 0.0
     t.string   "transaction_type"
     t.string   "description"
     t.date     "expires_on"
@@ -612,7 +612,7 @@ ActiveRecord::Schema.define(version: 20140410072329) do
     t.string   "invited_by_type"
     t.integer  "invited_and_paid_counter",                         default: 0
     t.boolean  "invitation_rewarded",                              default: false
-    t.decimal  "huali_point",              precision: 5, scale: 2, default: 0.0
+    t.decimal  "huali_point",              precision: 8, scale: 2, default: 0.0
   end
 
   add_index "users", ["anonymous_token"], name: "index_users_on_anonymous_token", unique: true, using: :btree
