@@ -241,9 +241,17 @@ ActiveAdmin.register Order do
   member_action :print_shipment do
     @order= Order.find_by_id(params[:id])
 
-    if @order.shipment
-      redirect_to print_admin_shipment_path(@order.shipment)
-    else
+    @address = @order.address
+    begin
+      @type = @order.ship_method.kuaidi_query_code
+
+      case @type
+      when 'manual'
+        render 'admin/shipments/print_blank', layout: 'plain_print'
+      else
+        render 'admin/shipments/print', layout: 'plain_print'
+      end
+    rescue NoMethodError
       redirect_to :back, alert: t('views.admin.shipment.cannot_print')
     end
   end
