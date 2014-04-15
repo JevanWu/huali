@@ -1,4 +1,9 @@
 class InvitationsController < Devise::InvitationsController
+
+  def new
+    redirect_to root_path
+  end
+
   def create
     @from = current_user.email
     @subject = "#{current_user.name.titleize} invited you to checkout Huali"

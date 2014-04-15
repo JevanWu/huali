@@ -39,4 +39,8 @@ class PagesController < ApplicationController
   def huali_point
     @point_transactions = current_user.point_transactions.order(:created_at).page(params[:page]).per(3)
   end
+
+  def refer_friend
+    @user = User.new
+  end
 end
