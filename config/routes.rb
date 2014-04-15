@@ -81,6 +81,7 @@ Huali::Application.routes.draw do
   get 'christmas', to: 'pages#christmas', as: :christmas
   get 'valentine', to: 'pages#valentine', as: :valentine
   get 'white_day', to: 'pages#white_day', as: :white_day
+  get 'muqinjie', to: 'pages#mother_day', as: :muqinjie
   get 'huali_point', to: 'pages#huali_point', as: :huali_point
 
   get 'banners/:date', to: 'banners#index', as: :banners
