@@ -172,6 +172,7 @@ class Order < ActiveRecord::Base
 
   def generate_identifier
     self.identifier = uid_prefixed_by('OR')
+    self.validation_code = self.identifier.gsub(/[a-zA-Z]*/, '').to_i.to_s(16)
   end
 
   def generate_transaction(opts, use_huali_point = false)
