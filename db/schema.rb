@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140414093126) do
+ActiveRecord::Schema.define(version: 20140416093201) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -323,6 +323,7 @@ ActiveRecord::Schema.define(version: 20140414093126) do
     t.boolean  "prechecked"
     t.text     "memo"
     t.text     "subject_text",                                 default: ""
+    t.string   "validation_code"
   end
 
   add_index "orders", ["identifier"], name: "index_orders_on_identifier", unique: true, using: :btree
