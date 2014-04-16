@@ -118,8 +118,8 @@ class Transaction < ActiveRecord::Base
       0
     when 'wechat'
       amount * 0.02
-    else
-      amount * 0.01
+    else # Alipay
+      amount * 0.005
     end
   end
 
