@@ -23,11 +23,11 @@ zh-CN:
         send_instructions: 您的邀请已成功发送
         invitation_token_invalid: 无效的邀请链接
         updated: 接受邀请成功
-      edit: 
+      edit:
         header: 请设置密码
         submit_button: 提交
-        
-  point_transaction: 
+
+  point_transaction:
     refer_description: 邀请好友获得
     accept_description: 接受邀请获得
     rebase_description: 返利1%花点
@@ -634,6 +634,7 @@ zh-CN:
         confirm_cancel: 你确定取消此订单?
         add_product: 添加产品
         cannot_edit: 订单已结束，不能编辑
+        cannot_print: 订单未完成审核，不能打印
         shipped: "发货成功, 共%{count}个订单"
         made: "制作成功, 共%{count}个订单"
         checked: "审核作成功, 共%{count}个订单"
@@ -718,8 +719,8 @@ zh-CN:
     pagination:
       truncate: "..."
 
-    user: 
-      labels: 
+    user:
+      labels:
         user_email: 用户邮箱
         user_name: 用户姓名
         coupon_code: 对应优惠码

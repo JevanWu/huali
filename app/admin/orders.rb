@@ -258,7 +258,11 @@ ActiveAdmin.register Order do
 
   member_action :print do
     @order = Order.find_by_id(params[:id])
-    render 'print', layout: 'plain_print'
+    if ['generated', 'wait_check'].include?(@order.state)
+      redirect_to admin_order_path(@order), alert: t('views.admin.order.cannot_print')
+    else
+      render 'print', layout: 'plain_print'
+    end
   end
 
   index do
