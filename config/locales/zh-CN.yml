@@ -236,6 +236,7 @@ zh-CN:
         kind_text: 类型
         last_order: 关联订单号
         memo: 客服备注
+        validation_code: 正品序列号
 
       period_region_policy:
         start_date: 起始日期
