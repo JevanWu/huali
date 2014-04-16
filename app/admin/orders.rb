@@ -256,6 +256,11 @@ ActiveAdmin.register Order do
     end
   end
 
+  member_action :print do
+    @order = Order.find_by_id(params[:id])
+    render 'print', layout: 'plain_print'
+  end
+
   index do
     unless current_admin_ability.cannot? :bulk_export_data, Order
       div style: "text-align: right" do

@@ -38,7 +38,7 @@ module OrdersHelper
 
   def print_order(order)
     buttons =
-    link_to(t('models.order.state.print'), '#', class: 'print') + \
+    link_to(t('models.order.state.print'), print_admin_order_path(order), { target: '_blank' }) + \
     link_to(t('models.order.state.print_card'), print_card_admin_order_path(order), { target: '_blank' }) + \
     link_to(t('models.order.state.print_shipment'), print_shipment_admin_order_path(order), { target: '_blank' })
 
