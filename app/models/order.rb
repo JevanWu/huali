@@ -31,6 +31,7 @@
 #  total                :decimal(8, 2)    default(0.0), not null
 #  updated_at           :datetime         not null
 #  user_id              :integer
+#  validation_code      :string(255)
 #
 # Indexes
 #
