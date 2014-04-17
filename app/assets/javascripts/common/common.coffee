@@ -74,16 +74,19 @@
 
   #display qq customer service 
   $(window).scroll ->
-    if $("#customer-service-anchor").length
+    if $(".scroll-anchor").length
       windowTop = $(window).scrollTop()
-      anchorTop = $("#customer-service-anchor").offset().top
+      anchorTop = $(".scroll-anchor").offset().top
       if windowTop >= anchorTop
-        if $("#qq-customer-service").hasClass("visible") then return
-        $("#qq-customer-service").addClass("visible")
+        if $(".scroll-object").hasClass("visible") then return
+        $(".scroll-object").addClass("visible")
       else
-        if not $("#qq-customer-service").hasClass("visible") then return
-        $("#qq-customer-service").removeClass("visible")
+        if not $(".scroll-object").hasClass("visible") then return
+        $(".scroll-object").removeClass("visible")
       return
+
+  #scroll to
+  $("#scrollTop").scrollTo()
 
   # show limited promo result popup
   popUp = ".limited-promo"
