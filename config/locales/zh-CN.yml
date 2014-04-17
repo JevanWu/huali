@@ -248,9 +248,9 @@ zh-CN:
         email: 邮箱
         password: 密码
         role: 角色
-        current_sign_in_at: 当前登陆时间
-        last_sign_in_at: 上次登陆时间
-        sign_in_count: 登陆次数
+        current_sign_in_at: 当前登录时间
+        last_sign_in_at: 上次登录时间
+        sign_in_count: 登录次数
 
       address:
         province: 省份
