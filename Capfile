@@ -91,6 +91,7 @@ namespace :sitemap do
   task :refresh do
     if rails_env == 'production'
       run "cd #{release_path} && bundle exec rake sitemap:refresh"
+      run "gunzip -c #{release_path}/public/sitemap.xml.gz>#{release_path}/public/sitemap.xml"
     end
   end
 end
@@ -122,3 +123,4 @@ task :copy_nondigest_assets, roles: :app do
   run "cd #{latest_release} && #{rake} RAILS_ENV=#{rails_env} ckeditor:copy_nondigest_assets"
 end
 after 'deploy:assets:precompile', 'copy_nondigest_assets'
+
