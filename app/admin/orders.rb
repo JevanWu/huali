@@ -165,6 +165,7 @@ ActiveAdmin.register Order do
   scope :within_this_month
 
   filter :identifier
+  filter :validation_code
   filter :subject_text
   filter :printed, as: :select, collection: { 是: true, 否: false }
   filter :expected_date
@@ -253,6 +254,15 @@ ActiveAdmin.register Order do
       end
     rescue NoMethodError
       redirect_to :back, alert: t('views.admin.shipment.cannot_print')
+    end
+  end
+
+  member_action :print do
+    @order = Order.find_by_id(params[:id])
+    if ['generated', 'wait_check'].include?(@order.state)
+      redirect_to admin_order_path(@order), alert: t('views.admin.order.cannot_print')
+    else
+      render 'print', layout: 'plain_print'
     end
   end
 

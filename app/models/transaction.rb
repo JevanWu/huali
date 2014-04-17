@@ -112,6 +112,17 @@ class Transaction < ActiveRecord::Base
     ["completed"].include?(state)
   end
 
+  def commission_fee
+    case paymethod
+    when 'paypal'
+      0
+    when 'wechat'
+      amount * 0.02
+    else # Alipay
+      amount * 0.005
+    end
+  end
+
   private
 
   def generate_identifier
