@@ -89,7 +89,7 @@ end
 
 namespace :sitemap do
   task :refresh do
-    if rails_env == 'production'
+    if rails_env == 'staging' 
       run "cd #{release_path} && bundle exec rake sitemap:refresh"
       run "gunzip -c #{release_path}/public/sitemap.xml.gz>#{release_path}/public/sitemap.xml"
     end
