@@ -12,6 +12,7 @@
         = f.input :password
         = f.input :name, placeholder: '您的称呼, 以便我们和您联系'
         = f.input :phone, as: :simple_form_phone, placeholder: '以便我们和您核对信息'
+        = f.input :current_password
 
         .form-actions
           = f.button :submit, t(".update"), class: 'button refresh'
