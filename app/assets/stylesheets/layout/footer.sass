@@ -14,7 +14,10 @@
       background-color: black
       color: #ffffff
 #l-footer
-  margin-top: 30px
+  width: 100%
+  position: absolute
+  bottom: 0
+  clear: both 
   background-color: $masthead-bg-color
   .footer-inner
     width: 940px
@@ -76,28 +79,28 @@
               background-image: image-url("social/weixin.png")
             &.weixin:hover
               background-image: image-url("social/weixin_hover.png")
-.masthead
-  background-color: $masthead-bg-color
-  color: $layout-text-color
-  border-top: 1px solid $border-masthead-color
-  .masthead-inner
-    width: $global-width
-    margin: 0 auto
-    padding-top: 10px
-    .masthead-main
-      +clearfix
-      p
-        float: left
-      ul
-        float: right
+  .masthead
+    background-color: $masthead-bg-color
+    color: $layout-text-color
+    border-top: 1px solid $border-masthead-color
+    .masthead-inner
+      width: $global-width
+      margin: 0 auto
+      padding-top: 10px
+      .masthead-main
         +clearfix
-        li
+        p
           float: left
-          margin-left: 19px
-          a
-            color: $layout-text-color
-    .masthead-addition
-      padding: 15px 0 30px 0
-      +clearfix
-      .icp
-        float: right
+        ul
+          float: right
+          +clearfix
+          li
+            float: left
+            margin-left: 19px
+            a
+              color: $layout-text-color
+      .masthead-addition
+        padding: 15px 0 30px 0
+        +clearfix
+        .icp
+          float: right
