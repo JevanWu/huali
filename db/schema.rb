@@ -396,7 +396,7 @@ ActiveRecord::Schema.define(version: 20140418094759) do
     t.datetime "rectangle_image_updated_at"
     t.string   "sku_id"
     t.string   "product_type"
-    t.boolean  "discountable"
+    t.boolean  "discountable",                                         default: true
   end
 
   add_index "products", ["default_date_rule_id"], name: "index_products_on_default_date_rule_id", using: :btree
