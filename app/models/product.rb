@@ -40,7 +40,7 @@
 
 class Product < ActiveRecord::Base
   extend Enumerize
-  
+
   paginates_per 12
 
   attr_accessor :quantity
@@ -99,6 +99,10 @@ class Product < ActiveRecord::Base
 
   before_save do |product|
     product.name_en.downcase!
+  end
+
+  after_initialize do |product|
+    product.discountable = true if product.discountable.nil?
   end
 
   class << self
