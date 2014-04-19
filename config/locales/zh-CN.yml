@@ -78,6 +78,8 @@ zh-CN:
         product_out_of_stock: '%{product_name}库存不足，可用库存%{count_on_hand}'
         product_in_unavailable_date: '%{product_name}无法在该递送日期配送'
         product_in_unavailable_region: '%{product_name}无法配送到该区域'
+        product_not_discountable: "对不起! 产品 %{product_name} 是不参与打折的"
+        contains_products_not_discountable: "购物车有不参与打折的产品"
         must_be_less_than_expected_date: 必须小于到达日期
 
     models:
@@ -331,6 +333,7 @@ zh-CN:
         default_date_rule: 默认递送时间规则
         default_region_rule: 默认递送地域规则
         product_type: 产品类型
+        discountable: 是否参与打折
 
       collection:
         name_zh: 中文名
