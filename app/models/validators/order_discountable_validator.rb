@@ -3,8 +3,12 @@ class OrderDiscountableValidator < ActiveModel::Validator
     if order.coupon_code.present?
       order.line_items.each do |item|
         unless item.product.discountable
-          order.errors.add(:coupon_code, :product_not_discountable, product_name: item.product.name)
+          item.errors.add(:base, :product_not_discountable, product_name: item.product.name)
         end
+      end
+
+      if order.line_items.any? { |item| !item.product.discountable }
+        order.errors.add(:coupon_code, :contains_products_not_discountable)
       end
     end
   end
