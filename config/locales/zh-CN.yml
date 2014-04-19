@@ -78,6 +78,7 @@ zh-CN:
         product_out_of_stock: '%{product_name}库存不足，可用库存%{count_on_hand}'
         product_in_unavailable_date: '%{product_name}无法在该递送日期配送'
         product_in_unavailable_region: '%{product_name}无法配送到该区域'
+        product_not_discountable: "对不起! 产品 %{product_name} 是不参与打折的"
         must_be_less_than_expected_date: 必须小于到达日期
 
     models:
