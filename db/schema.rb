@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140418094759) do
+ActiveRecord::Schema.define(version: 20140421145203) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -368,6 +368,16 @@ ActiveRecord::Schema.define(version: 20140418094759) do
   add_index "point_transactions", ["transaction_id"], name: "index_point_transactions_on_transaction_id", using: :btree
   add_index "point_transactions", ["user_id"], name: "index_point_transactions_on_user_id", using: :btree
 
+  create_table "print_groups", force: true do |t|
+    t.string   "name"
+    t.integer  "ship_method_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "print_groups", ["name"], name: "index_print_groups_on_name", unique: true, using: :btree
+  add_index "print_groups", ["ship_method_id"], name: "index_print_groups_on_ship_method_id", using: :btree
+
   create_table "products", force: true do |t|
     t.string   "name_zh",                                              default: "",    null: false
     t.string   "name_en",                                              default: "",    null: false
@@ -397,6 +407,7 @@ ActiveRecord::Schema.define(version: 20140418094759) do
     t.string   "sku_id"
     t.string   "product_type"
     t.boolean  "discountable",                                         default: true
+    t.string   "promo_tag"
   end
 
   add_index "products", ["default_date_rule_id"], name: "index_products_on_default_date_rule_id", using: :btree

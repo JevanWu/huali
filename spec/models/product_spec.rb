@@ -8,6 +8,7 @@
 #  default_region_rule_id       :integer
 #  depth                        :decimal(8, 2)
 #  description                  :text
+#  discountable                 :boolean          default(TRUE)
 #  height                       :decimal(8, 2)
 #  id                           :integer          not null, primary key
 #  inspiration                  :text
@@ -20,6 +21,7 @@
 #  price                        :decimal(8, 2)
 #  priority                     :integer          default(5)
 #  product_type                 :string(255)
+#  promo_tag                    :string(255)
 #  published                    :boolean          default(FALSE)
 #  rectangle_image_content_type :string(255)
 #  rectangle_image_file_name    :string(255)
