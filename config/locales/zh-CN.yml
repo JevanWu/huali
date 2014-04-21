@@ -485,6 +485,17 @@ zh-CN:
         created_at: 创建于
         updated_at: 更新于
 
+      print_order:
+        order: 订单
+        order_id: 订单
+        print_group: 打印组
+        print_group_id: 打印组
+        order_printed: 出库单已打印
+        card_printed: 贺卡已打印
+        shipment_printed: 快递单已打印
+        created_at: 创建于
+        updated_at: 更新于
+
   models:
     user:
       binding_coupon_code: 绑定优惠码
