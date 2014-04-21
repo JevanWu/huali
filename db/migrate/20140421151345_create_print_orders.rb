@@ -3,9 +3,9 @@ class CreatePrintOrders < ActiveRecord::Migration
     create_table :print_orders do |t|
       t.references :order
       t.references :print_group, index: true
-      t.boolean :order_printed
-      t.boolean :card_printed
-      t.boolean :shipment_printed
+      t.boolean :order_printed, default: false
+      t.boolean :card_printed, default: false
+      t.boolean :shipment_printed, default: false
 
       t.timestamps
     end

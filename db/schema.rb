@@ -381,9 +381,9 @@ ActiveRecord::Schema.define(version: 20140421151345) do
   create_table "print_orders", force: true do |t|
     t.integer  "order_id"
     t.integer  "print_group_id"
-    t.boolean  "order_printed"
-    t.boolean  "card_printed"
-    t.boolean  "shipment_printed"
+    t.boolean  "order_printed",    default: false
+    t.boolean  "card_printed",     default: false
+    t.boolean  "shipment_printed", default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

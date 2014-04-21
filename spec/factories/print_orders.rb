@@ -2,13 +2,13 @@
 #
 # Table name: print_orders
 #
-#  card_printed     :boolean
+#  card_printed     :boolean          default(FALSE)
 #  created_at       :datetime
 #  id               :integer          not null, primary key
 #  order_id         :integer
-#  order_printed    :boolean
+#  order_printed    :boolean          default(FALSE)
 #  print_group_id   :integer
-#  shipment_printed :boolean
+#  shipment_printed :boolean          default(FALSE)
 #  updated_at       :datetime
 #
 # Indexes
