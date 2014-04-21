@@ -16,5 +16,6 @@
 
 class PrintGroup < ActiveRecord::Base
   belongs_to :ship_method
+  has_many :print_orders
   validates :name, uniqueness: true
 end
