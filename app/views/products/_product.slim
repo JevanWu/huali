@@ -1,4 +1,4 @@
-.a-product.span3 class="#{'first' if (product_counter % 4) == 0}"
+.a-product.span3 class="#{ 'first' if (product_counter % 4) == 0 } #{ 'sold-out' if (product.count_on_hand == 0) }"
   a href="#{product_path(product)}" target="_blank"
     .product-pic = image_tag product.rectangle_image(:medium), alt: "#{product.name} medium images"
     .tags
