@@ -8,6 +8,7 @@
 #  default_region_rule_id       :integer
 #  depth                        :decimal(8, 2)
 #  description                  :text
+#  discountable                 :boolean          default(TRUE)
 #  height                       :decimal(8, 2)
 #  id                           :integer          not null, primary key
 #  inspiration                  :text

@@ -1,4 +1,5 @@
 .a-product
+  position: relative
   float: left
   width: 220px
   height: 400px
@@ -10,7 +11,6 @@
     margin-left: 0
   .information
     +clearfix
-    position: relative
     height: 62px
     padding-top: 16px
     padding-bottom: 5px
@@ -35,7 +35,23 @@
     .name
       float: left
     p
-      margin-top: 2px
+      margin-top: 4px
       width: 100%
       text-align: center
       font-size: 12px
+  .tags
+    position: absolute
+    width: 100%
+    bottom: 76px
+    .tag
+      font-size: 11px
+      float: right
+      padding: 1px 2px 0px 2px
+      margin-left: 5px
+      margin-right: 5px
+      color: black
+      border: solid 1px black 
+      text-decoration: none
+    .important-tag
+      color: $price-color !important
+      border: solid 1px $price-color !important
