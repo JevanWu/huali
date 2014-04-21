@@ -1,41 +1,44 @@
 <div class="best-products row">
-  <%# New Arrival %>
-  <div class="square">
-    <a>
-      <%= image_tag "best-products/new-arrival.jpg", width: 460, height: 440 %>
-    </a>
-  </div>
+  <%# <%# New Arrival %>
+  <%# <div class="square">
+  <%#   <a>
+  <%#     <%= image_tag "best-products/new-arrival.jpg", width: 460, height: 440 %>
+  <%#   </a>
+  <%# </div>
+
+  <%# 波卡波卡, 馨香康乃馨, 无双玫瑰, 普罗旺斯的一年, 迷人基因, 森林之匙, 妈妈, 行星系列-火星, 黑桃皇后, 琥珀, 海洋之心, 做一个春梦%>
+  <%= render partial: 'products/product', collection: Product.find(175, 176, 80, 85, 178, 179, 180, 181, 183, 40, 22, 162) %>
 
   <%# 普罗旺斯的一年, 无双玫瑰%>
-  <%= render partial: 'products/product', collection: Product.find(85, 80) %>
+  <%# <%= render partial: 'products/product', collection: Product.find(85, 80) %>
 
   <%# 入侵他的生活, 入侵他的生活2, 来自海洋的你, 做一个春梦%>
-  <%= render partial: 'products/product', collection: Product.find(161, 162, 163, 164) %>
+  <%# <%= render partial: 'products/product', collection: Product.find(161, 162, 163, 164) %>
 
   <%# 永生花 %>
-  <div class="square">
-    <a>
-      <%= image_tag "best-products/preserved-flower.jpg", width: 460, height: 440 %>
-    </a>
-  </div>
+  <!-- <div class="square"> -->
+  <!--   <a> -->
+  <!--     <%= image_tag "best&#45;products/preserved&#45;flower.jpg", width: 460, height: 440 %> -->
+  <!--   </a> -->
+  <!-- </div> -->
 
   <%# 软妹子, 淡奶之吻 %>
-  <%= render partial: 'products/product', collection: Product.find(104, 105) %>
+  <%# <%= render partial: 'products/product', collection: Product.find(104, 105) %>
 
   <%# 紫舞, 深海之谜, 蓝宝石, 欧洲花园 %>
-  <%= render partial: 'products/product', collection: Product.find(84, 110, 98, 107) %>
+  <%# <%= render partial: 'products/product', collection: Product.find(84, 110, 98, 107) %>
 
   <%# 鲜花 %>
-  <div class="square">
-    <a>
-      <%= image_tag "best-products/fresh_flowers.jpg", width: 460, height: 440 %>
-    </a>
-  </div>
+  <!-- <div class="square"> -->
+  <!--   <a> -->
+  <!--     <%= image_tag "best&#45;products/fresh_flowers.jpg", width: 460, height: 440 %> -->
+  <!--   </a> -->
+  <!-- </div> -->
 
   <%# 侧耳倾心, 巴黎 %>
-  <%= render partial: 'products/product', collection: Product.find(135, 86) %>
+  <%# <%= render partial: 'products/product', collection: Product.find(135, 86) %>
 
   <%# 海洋之心, 给柏拉图的信, 花园梦想, 侧耳倾心, 暖 %>
-  <%= render partial: 'products/product', collection: Product.find(22, 23, 102, 125) %>
+  <%# <%= render partial: 'products/product', collection: Product.find(22, 23, 102, 125) %>
 
 </div>

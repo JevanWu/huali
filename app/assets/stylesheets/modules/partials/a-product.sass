@@ -1,43 +1,41 @@
 .a-product
   float: left
   width: 220px
-  height: 440px
+  height: 400px
   margin-left: 20px
   margin-bottom: 20px
   background-color: $block-bg-color
   +global-box-shadow
   &.first
     margin-left: 0
-  .share
-    margin-top: 0px
-    padding: 10px 10px 1px 10px
-    border-bottom: 1px solid $global-border-color
-    .share-to
-      float: right
-    li
-      margin-right: 7px
   .information
     +clearfix
     position: relative
-    height: 30px
-    padding: 10px
-    em
+    height: 62px
+    padding-top: 16px
+    padding-bottom: 5px
+    strong
+      line-height: 18px
+    em, span, p
       display: block
+    em
+      line-height: 0.8
     a
       color: $normal-text-color
-      font-size: 16px
+      font-size: 12px
       display: inline-block
-      width: 100px
-      overflow: hidden
       white-space: nowrap
+      width: 100%
       text-overflow: ellipsis
+      text-align: center
     span
-      font-size: 14px
+      font-size: 12px
+      width: 100%
+      text-align: center
     .name
       float: left
     p
-      position: absolute
-      right: 5px
-      top: 10px
-      color: $global-text-color
-      font-size: $price-font
+      margin-top: 2px
+      width: 100%
+      text-align: center
+      font-size: 12px
