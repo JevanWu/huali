@@ -22,4 +22,6 @@ class PrintOrder < ActiveRecord::Base
   belongs_to :print_group
 
   validates :order, uniqueness: true
+
+  default_scope { order("created_at") }
 end

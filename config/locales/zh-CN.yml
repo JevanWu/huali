@@ -184,6 +184,7 @@ zh-CN:
       slide_panel: 轮播设置
       refund: 退款记录
       print_group: 打印组
+      print_order: 打印队列
 
     attributes:
       order: &order
