@@ -4,7 +4,7 @@ module Extension
     include Squash::Ruby::ControllerMethods
 
     included do
-      unless Rails.application.config.consider_all_requests_local
+      if Rails.env.production?
         rescue_from 'Exception' do |exception|
           notify_squash exception
           render_error 500, exception
