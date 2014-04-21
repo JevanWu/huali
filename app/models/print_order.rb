@@ -23,7 +23,7 @@ class PrintOrder < ActiveRecord::Base
 
   validates :order, uniqueness: true
 
-  default_scope { order("created_at") }
+  default_scope { limit(20).order("created_at") }
 
   def self.from_order(order)
     print_group = PrintGroup.where(ship_method: order.ship_method).sample
