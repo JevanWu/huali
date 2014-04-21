@@ -14,8 +14,14 @@ em,strong
 ol,ul
   list-style: none
 
+html
+  height: 100%
+
 body
+  position: relative
+  min-height: 100%
   font: #{$default-font}/#{$default-lineHeight} "Hiragino Sans GB", "微软雅黑", Arial, sans-serif
+  background: image-url("bg/body.png") repeat
 
 a
   text-decoration: none
@@ -30,11 +36,8 @@ img
 p,strong,i,a,b
   background-repeat: no-repeat
 
-body
-  background: image-url("bg/body.png") repeat
-
 .main-content
-  min-height: 300px
+  padding-bottom: 180px
 
 #scrollTop
   position: fixed
