@@ -34,7 +34,7 @@ namespace :notice do
   end
 
   def mail_list
-    ['john@hua.li', 'lin@hua.li', 'ella@hua.li', 'tyler@hua.li', 'xinliang@hua.li']
+    ['john@hua.li', 'lin@hua.li', 'ella@hua.li', 'tyler@hua.li', 'xinliang@hua.li', 'ryan@hua.li']
   end
 
   desc "Notify about orders shipping failed throught API"
