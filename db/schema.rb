@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140418094759) do
+ActiveRecord::Schema.define(version: 20140421092449) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -397,6 +397,7 @@ ActiveRecord::Schema.define(version: 20140418094759) do
     t.string   "sku_id"
     t.string   "product_type"
     t.boolean  "discountable",                                         default: true
+    t.string   "promo_tag"
   end
 
   add_index "products", ["default_date_rule_id"], name: "index_products_on_default_date_rule_id", using: :btree

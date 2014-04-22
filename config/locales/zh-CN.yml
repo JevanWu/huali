@@ -550,6 +550,8 @@ zh-CN:
         preserved_flower: 永生花
         fresh_flower: 鲜花
         fake_flower: 高仿花
+      promo_tag:
+        limit: 限量
     administrator:
       role:
         super: 超级管理员
