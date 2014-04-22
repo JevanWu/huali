@@ -36,3 +36,5 @@ zh-CN:
       non_guests: 非guest账户
       available: 有效
       unavailable: 无效
+      visible: 官网可见
+      invisible: 官网不可见
