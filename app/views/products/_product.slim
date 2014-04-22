@@ -7,7 +7,7 @@
           = product.promo_tag_text
       - else
         .tag
-          = product.product_type_text
+          = product.product_type_text if product.product_type != "others"
   .information
     strong
       em = link_to product.name_zh, product_path(product), title: product.name, target: "_blank"
