@@ -11,13 +11,13 @@ div.container
     h3 订单信息
     p
       |花里正品序号：
-      - suffix = @order.gift_card_text.present? ? "" : "X" 
+      - suffix = @order.gift_card_text.present? ? "" : "X"
       = "#{@order.validation_code}#{suffix}"
     p.barcode
       span
         |条形码：
       span.barcode35
-        = @order.identifier
+        = @order.identifier.sub(/[a-zA-Z]*/, '')
     p
       |官网订单号：
       = @order.identifier
