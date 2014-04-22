@@ -45,12 +45,12 @@ module Extension
     end
 
     def build_custom_link_menus
-      custom_menu = Menu.new("花里历程", "记录花里从初创至今关于品牌发展与外部合作的历程。您可以在这里更为清晰地了解花里成长的一切。", :link, '#')
-      custom_menu.add_child(Menu.new('合作品牌', nil, :link, brands_path))
-      custom_menu.add_child(Menu.new('花里·明星', nil, :link, celebrities_path))
-      custom_menu.add_child(Menu.new('媒体报道', nil, :link, medias_path))
-      custom_menu.add_child(Menu.new('花里博客', nil, :link, blog_path))
-      @menu_list << custom_menu
+      # custom_menu = Menu.new("花里历程", "记录花里从初创至今关于品牌发展与外部合作的历程。您可以在这里更为清晰地了解花里成长的一切。", :link, '#')
+      # custom_menu.add_child(Menu.new('合作品牌', nil, :link, brands_path))
+      # custom_menu.add_child(Menu.new('花里·明星', nil, :link, celebrities_path))
+      # custom_menu.add_child(Menu.new('媒体报道', nil, :link, medias_path))
+      # custom_menu.add_child(Menu.new('花里博客', nil, :link, blog_path))
+      # @menu_list << custom_menu
       @menu_list << Menu.new("HualiGirls", "", :link, weibo_stories_path)
     end
 
