@@ -6,8 +6,9 @@
         .tag.important-tag
           = product.promo_tag_text
       - else
-        .tag
-          = product.product_type_text if product.product_type != "others"
+        -if product.product_type != "others"
+          .tag
+            = product.product_type_text
   .information
     strong
       em = link_to product.name_zh, product_path(product), title: product.name, target: "_blank"
