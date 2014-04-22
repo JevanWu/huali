@@ -23,22 +23,14 @@ module Extension
 
         children = root.children.available.to_a
 
-        if children.size == 0
-          products = root.products.published.limit(10)
+        children.each do |child_collection|
+          child_menu = Menu.new_from_collection(child_collection)
+          root_menu.add_child(child_menu)
+
+          products = child_collection.products.published.limit(3)
 
           products.each do |product|
-            root_menu.add_child(Menu.new_from_product(product))
-          end
-        else
-          children.each do |child_collection|
-            child_menu = Menu.new_from_collection(child_collection)
-            root_menu.add_child(child_menu)
-
-            products = child_collection.products.published.limit(3)
-
-            products.each do |product|
-              child_menu.add_child(Menu.new_from_product(product))
-            end
+            child_menu.add_child(Menu.new_from_product(product))
           end
         end
       end
