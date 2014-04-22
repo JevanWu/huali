@@ -57,6 +57,7 @@ ActiveAdmin.register Product do
         :default_region_rule_id,
         :rectangle_image,
         :discountable,
+        :promo_tag,
         :assets_attributes => [ :id, :image, :_destroy ],
         :collection_ids => [],
         :recommendation_ids => [],
@@ -118,6 +119,7 @@ ActiveAdmin.register Product do
       row :name_en
       row :sku_id
       row :published
+      row :promo_tag
       row :discountable
       row :product_type do
         product.product_type_text
