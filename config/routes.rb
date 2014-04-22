@@ -34,7 +34,6 @@ Huali::Application.routes.draw do
     end
   end
 
-  resources :reminders, only: [:new, :create]
   resources :surveys, only: [:new, :create]
 
   # FIXME refactor this routes to be more elegant

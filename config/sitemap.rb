@@ -34,6 +34,7 @@ SitemapGenerator::Sitemap.create do
   add '/medias', changefreq: 'monthly',  priority: 0.33
   add '/blog', changefreq: 'daily', priority: 0.5 
   add '/muqinjie', changefreq: 'weekly', priority: 0.95
+  add '/weibo_stories', changefreq: 'monthly', priority: 0.5
 
   I18n.locale = :'zh-CN'
 

@@ -135,4 +135,12 @@ module OrdersHelper
       <a href="http://www.sf-express.com/cn/sc/delivery_step/enquiry/serviceTime.html" target="_blank">顺丰查询</a>
     STR
   end
+
+  def show_adjustment(order)
+    if order.adjustment.present?
+      order.adjustment
+    else
+      order.coupon_code_record.try(:adjustment)
+    end
+  end
 end

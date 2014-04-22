@@ -1,11 +1,17 @@
-.a-product.span3 class="#{'first' if (product_counter % 4) == 0}"
+.a-product.span3 class="#{ 'first' if (product_counter % 4) == 0 } #{ 'sold-out' if (product.count_on_hand == 0) }"
   a href="#{product_path(product)}" target="_blank"
-    = image_tag product.rectangle_image(:medium), alt: "#{product.name} medium images"
-  .share
-    span =t(:sharing)
-    = render 'shared/product_share_links', product: product
+    .product-pic = image_tag product.rectangle_image(:medium), alt: "#{product.name} medium images"
+    .tags
+      - if product.promo_tag.present?
+        .tag.important-tag
+          = product.promo_tag_text
+      - else
+        -if product.product_type != "others"
+          .tag
+            = product.product_type_text
   .information
     strong
-      em = link_to product.name, product_path(product), title: product.name, target: "_blank"
+      em = link_to product.name_zh, product_path(product), title: product.name, target: "_blank"
       span = product.name_en
-    p ￥#{product.price}
+    p ￥#{product.price.to_i}
+

@@ -11,7 +11,7 @@ div.container
     h3 订单信息
     p
       |花里正品序号：
-      - suffix = @order.gift_card_text.present? ? "" : "X" 
+      - suffix = @order.gift_card_text.present? ? "" : "X"
       = "#{@order.validation_code}#{suffix}"
     p.barcode
       span
@@ -21,6 +21,13 @@ div.container
     p
       |官网订单号：
       = @order.identifier
+    - if @order.coupon_code_record
+      p
+        |所使用优惠码：
+        = @order.coupon_code_record
+      p
+        |价格调整：
+        = show_adjustment(@order)
     p
       |订单类型：
       = @order.kind_text
