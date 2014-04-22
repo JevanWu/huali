@@ -118,6 +118,7 @@ ActiveAdmin.register Product do
       row :name_en
       row :sku_id
       row :published
+      row :promo_tag
       row :discountable
       row :product_type do
         product.product_type_text
