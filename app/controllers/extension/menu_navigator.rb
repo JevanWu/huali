@@ -23,9 +23,9 @@ module Extension
 
         children = root.children.available.to_a
 
-        if children.size == 0
+        if children.size == 0 && root.name_zh != '花里精选'
           products = root.products.published.limit(10)
-
+                 
           products.each do |product|
             root_menu.add_child(Menu.new_from_product(product))
           end
