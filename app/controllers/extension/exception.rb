@@ -25,6 +25,7 @@ module Extension
     def render_error(status, exception)
       respond_to do |format|
         format.html { render template: "errors/error_#{status}", layout: 'layouts/error', status: status }
+        format.mobile { render template: "errors/error_#{status}", layout: 'layouts/error', status: status }
         format.json { render nothing: true, status: status }
       end
     end
