@@ -92,6 +92,8 @@ gem 'flowplayer-rails', github: 'ryancheung/flowplayer-rails'
 
 gem 'dalli'
 
+gem 'omnicontacts'
+
 group :development, :test do
   gem 'rspec-rails', '>= 2.11.0'
   gem 'rspec-instafail'

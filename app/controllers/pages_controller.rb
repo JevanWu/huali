@@ -41,5 +41,13 @@ class PagesController < ApplicationController
 
   def refer_friend
     @user = User.new
+    contacts = request.env['omnicontacts.contacts']
+    @valid_contacts = Array.new
+    contacts.each do |contact|
+      if !contact[:name].nil? && !contact[:email].nil?
+        @valid_contacts << contact
+      end
+    end
+    # @user = request.env['omnicontacts.user']
   end
 end
