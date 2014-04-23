@@ -17,7 +17,7 @@
     return
 
   # cancel auto slide
-  setInterval(autoSlide,6000)
+  setInterval(autoSlide,8000)
 
   #nav callout
   calloutItemSizeCollection = []
