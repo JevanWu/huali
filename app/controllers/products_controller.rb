@@ -70,7 +70,7 @@ class ProductsController < ApplicationController
   end
 
   def search
-    @products = Product.search(params[:q].downcase).page(params[:page])
+    @products = Product.search(params[:q].to_s.downcase).page(params[:page])
 
     prepare_tag_filter
     fetch_order_by

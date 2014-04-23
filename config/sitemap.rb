@@ -25,10 +25,16 @@
 SitemapGenerator::Sitemap.default_host = "http://www.hua.li"
 
 SitemapGenerator::Sitemap.create do
-  add '/faq', changefreq: 'weekly'
-  add '/about', changefreq: 'weekly'
-  add '/help-center', changefreq: 'weekly'
-  add '/copyright', changefreq: 'weekly'
+  add '/faq', changefreq: 'weekly', priority: 0.33
+  add '/about', changefreq: 'monthly', priority: 0.33
+  add '/help-center', changefreq: 'weekly', priority: 0.33
+  add '/copyright', changefreq: 'yearly', priority: 0.33
+  add '/brands', changefreq: 'monthly', priority: 0.33
+  add '/celebrities', changefreq: 'monthly', priority: 0.33
+  add '/medias', changefreq: 'monthly',  priority: 0.33
+  add '/blog', changefreq: 'daily', priority: 0.5 
+  add '/muqinjie', changefreq: 'weekly', priority: 0.95
+  add '/weibo_stories', changefreq: 'monthly', priority: 0.5
 
   I18n.locale = :'zh-CN'
 
@@ -38,7 +44,7 @@ SitemapGenerator::Sitemap.create do
       { loc: asset.image.url(:medium), title: product.name }
     end
 
-    add(product_path(product), lastmod: product.updated_at, images: product_images)
+    add(product_path(product), lastmod: product.updated_at, images: product_images, priority: 0.5)
   end
 
   Collection.find_each do |collection|
@@ -49,6 +55,6 @@ SitemapGenerator::Sitemap.create do
       end
     end
 
-    add(collection_products_path(collection), lastmod: collection.updated_at, images: collection_images)
+    add(collection_products_path(collection), lastmod: collection.updated_at, images: collection_images, priority: 0.5)
   end
 end

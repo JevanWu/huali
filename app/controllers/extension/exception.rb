@@ -4,7 +4,7 @@ module Extension
     include Squash::Ruby::ControllerMethods
 
     included do
-      unless Rails.application.config.consider_all_requests_local
+      if Rails.env.production?
         rescue_from 'Exception' do |exception|
           notify_squash exception
           render_error 500, exception
@@ -25,7 +25,8 @@ module Extension
     def render_error(status, exception)
       respond_to do |format|
         format.html { render template: "errors/error_#{status}", layout: 'layouts/error', status: status }
-        format.all { render nothing: true, status: status }
+        format.mobile { render template: "errors/error_#{status}", layout: 'layouts/error', status: status }
+        format.json { render nothing: true, status: status }
       end
     end
   end

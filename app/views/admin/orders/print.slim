@@ -1,0 +1,113 @@
+- content_for :css do
+  = stylesheet_link_tag "admin_order_print", media: "all"
+
+- content_for :js do
+  = javascript_include_tag "admin_order_print"
+
+div.container
+  div.header
+    h2 花里花店发货单
+  div.content
+    h3 订单信息
+    p
+      |花里正品序号：
+      - suffix = @order.gift_card_text.present? ? "" : "X"
+      = "#{@order.validation_code}#{suffix}"
+    p.barcode
+      span
+        |条形码：
+      span.barcode35
+        = @order.identifier
+    p
+      |官网订单号：
+      = @order.identifier
+    - if @order.coupon_code_record
+      p
+        |所使用优惠码：
+        = @order.coupon_code_record
+    p
+      |价格调整：
+      = discount_amount(@order)
+    p
+      |订单类型：
+      = @order.kind_text
+    p
+      |合作方订单号：
+      = @order.merchant_order_no
+
+    h3 递送信息
+    p
+      |客户姓名：
+      = @order.sender_name
+    p
+      |客户电话：
+      = @order.sender_phone
+    p
+      |快递方式：
+      = @order.ship_method
+    p
+      |收货人姓名：
+      = @order.address.fullname
+    p
+      |收货人电话：
+      = @order.address.phone
+    p
+      |收货人地址：
+      = @order.address.address
+    p
+      |订购日期：
+      = l @order.created_at, format: :long
+    p
+      |发货日期：
+      = @order.delivery_date
+    p
+      |发货地点：上海花里总部
+
+    h3 交易信息
+    - transaction = @order.transactions.where(state: 'completed').first
+    - if transaction
+        p
+          |支付方式：
+          = t transaction.paymethod
+        p
+          |应收金额：
+          - point_used = transaction.point_transaction && transaction.point_transaction.transaction_type.expense? ? transaction.point_transaction.point : 0
+          = transaction.amount + point_used
+        p
+          |实付金额：
+          = transaction.amount
+        p
+          |交易手续费：
+          = transaction.commission_fee
+
+    h3 备注信息
+    p
+      |客户留言：
+      = @order.special_instructions
+    p
+      |备注：
+      = @order.memo
+
+    h3 商品信息
+    table
+      tr
+        td 商品名称
+        td 商品编码
+        td 产品类型
+        td 数量
+        td 单价
+        td 金额小计
+        td 备注
+      - @order.line_items.each do |item|
+        td
+          = item.name
+        td
+        td
+          = item.product.product_type_text
+        td
+          = item.quantity
+        td
+          = item.price
+        td
+          = item.total
+        td

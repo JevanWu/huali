@@ -30,11 +30,11 @@ namespace :notice do
 
   desc "Notify about orders have delivery date today"
   task ready_to_ship_orders_today: :environment do
-    Notify.delay.ready_to_ship_orders_today(Date.current, 'ella@hua.li')
+    Notify.delay.ready_to_ship_orders_today(Date.current, 'ella@hua.li', 'apple@hua.li')
   end
 
   def mail_list
-    ['john@hua.li', 'lin@hua.li', 'ella@hua.li']
+    ['john@hua.li', 'lin@hua.li', 'ella@hua.li', 'tyler@hua.li', 'xinliang@hua.li', 'ryan@hua.li']
   end
 
   desc "Notify about orders shipping failed throught API"

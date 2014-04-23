@@ -38,7 +38,7 @@ module OrdersHelper
 
   def print_order(order)
     buttons =
-    link_to(t('models.order.state.print'), '#', class: 'print') + \
+    link_to(t('models.order.state.print'), print_admin_order_path(order), { target: '_blank' }) + \
     link_to(t('models.order.state.print_card'), print_card_admin_order_path(order), { target: '_blank' }) + \
     link_to(t('models.order.state.print_shipment'), print_shipment_admin_order_path(order), { target: '_blank' })
 
@@ -134,5 +134,12 @@ module OrdersHelper
       <a href="http://cndxp.apac.fedex.com/app/transittime?method=init&language=zh&region=CN" target="_blank">联邦查询</a>
       <a href="http://www.sf-express.com/cn/sc/delivery_step/enquiry/serviceTime.html" target="_blank">顺丰查询</a>
     STR
+  end
+
+  def discount_amount(order)
+    original_price = 0
+    order.line_items.each{ |item| original_price += item.price }
+    real_pay = order.transaction.try(:amount) || 0
+    original_price - real_pay
   end
 end

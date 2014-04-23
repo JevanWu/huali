@@ -118,6 +118,7 @@ class OrderForm
   validates_with OrderItemValidator, if: :validate_item?
   validates_with OrderProductAvailabilityValidator, if: :validate_item?
   validates_with OrderCouponValidator, if: :validate_coupon?
+  validates_with OrderDiscountableValidator, if: :validate_discountable?
 
   validates :expected_date, presence: true
 
@@ -168,6 +169,10 @@ class OrderForm
   private
 
   def validate_coupon?
+    not_yet_shipped?
+  end
+
+  def validate_discountable?
     not_yet_shipped?
   end
 

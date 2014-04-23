@@ -31,6 +31,7 @@
 #  total                :decimal(8, 2)    default(0.0), not null
 #  updated_at           :datetime         not null
 #  user_id              :integer
+#  validation_code      :string(255)
 #
 # Indexes
 #
@@ -171,6 +172,7 @@ class Order < ActiveRecord::Base
 
   def generate_identifier
     self.identifier = uid_prefixed_by('OR')
+    self.validation_code = self.identifier.gsub(/[a-zA-Z]*/, '').to_i.to_s(16)
   end
 
   def generate_transaction(opts, use_huali_point = false)

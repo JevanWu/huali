@@ -17,30 +17,30 @@
 <% end %>
 
 <%= render 'slide' %>
-<div id="customer-service-anchor"></div>
+<div class="scroll-anchor"></div>
 <%= render 'best_products' %>
 <div class="best-products">
-  <h3 class="title"><i></i>合作品牌<b></b></h3>
+  <h3 class="title"><i></i><%= link_to '合作品牌', brands_path %><b></b></h3>
   <div class="brands">
-    <a href="http://www.hermes.com/" target="_blank" class="hermes">Hermes</a>
-    <a href="http://www.acquadiparma.cn/cn/" target="_blank" class="acqua">Acqua DI Parma</a>
-    <a href="http://www.chloe.com/" target="_blank" class="chole">chole</a>
-    <a href="http://www.parfums.valentino.com/" target="_blank" class="valentine-perfume">Valentino perfume</a>
-    <a href="http://www.shanghaitang.com/" target="_blank" class="shanghai-beach">shanghai beach</a>
-    <a href="http://www.helenarubinstein.cn/helena-rubinstein/_zh/_cn/home/index.aspx" target="_blank" class="HR">HR</a>
-    <a href="http://www.ritzcarlton.com/" target="_blank" class="Ritz-Carlton">Ritz-Carlton</a>
-    <a href="http://www.leodiamond.com.hk/sc/index.html" target="_blank" class="leo-diamond">Leo Diamond</a>
+    <a target="_blank" class="hermes">Hermes</a>
+    <a target="_blank" class="acqua">Acqua DI Parma</a>
+    <a target="_blank" class="chole">chole</a>
+    <a target="_blank" class="valentine-perfume">Valentino perfume</a>
+    <a target="_blank" class="shanghai-beach">shanghai beach</a>
+    <a target="_blank" class="HR">HR</a>
+    <a target="_blank" class="Ritz-Carlton">Ritz-Carlton</a>
+    <a target="_blank" class="leo-diamond">Leo Diamond</a>
 
-    <a href="http://www.godiva.cn/" target="_blank" class="godiva-chocolatier">Godiva Chocolatier</a>
-    <a href="http://www.zinodavidoff.com/fragrances/" target="_blank" class="davidoff">Davidoff perfume</a>
-    <a href="http://www.sonoko-ginza.com/" target="_blank" class="sonoko">Sonoko</a>
-    <a href="http://www.yhouse.com/" target="_blank" class="yhouse">YHouse</a>
+    <a target="_blank" class="godiva-chocolatier">Godiva Chocolatier</a>
+    <a target="_blank" class="davidoff">Davidoff perfume</a>
+    <a target="_blank" class="sonoko">Sonoko</a>
+    <a target="_blank" class="yhouse">YHouse</a>
   </div>
 </div>
 
 <div class="best-products">
   <h3 class="title">
-    <i></i>媒体报道<b></b>
+    <i></i><%= link_to '媒体报道', medias_path %><b></b>
   </h3>
 
   <div class="videos">
@@ -49,13 +49,10 @@
 </div>
 
 <div class="best-products">
-  <h3 class="title"><i></i>花里·明星<b></b></h3>
+  <h3 class="title"><i></i><%= link_to '花里·明星', celebrities_path %><b></b></h3>
   <div class="huali-brief">
     <div class="intro">
     </div>
     <a href="<%= celebrities_path %>" class="celebrities"></a>
   </div>
-</div>
-<div id="qq-customer-service">
-  <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=2874898695&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:2874898695:53" alt="点击这里给我发消息" title="点击这里给我发消息"/></a>
 </div>

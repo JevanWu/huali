@@ -1,9 +1,9 @@
 <% content_for :js do %>
-  <%= javascript_include_tag "admin_order_print" %>
+  <%= javascript_include_tag "admin_card_print" %>
 <% end %>
 
 <% content_for :css do %>
-  <%= stylesheet_link_tag "admin_order_print", media: "all" %>
+  <%= stylesheet_link_tag "admin_card_print", media: "all" %>
 <% end %>
 
 <div id="sheet-bg">
@@ -16,6 +16,7 @@
       </div>
       <p></p>
       <p id="sender"></p>
+      <p id="validation_code"><%= "正品验证序号: #{@order.validation_code}" %></p>
     </div>
   </div>
 </div>

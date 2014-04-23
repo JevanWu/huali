@@ -34,7 +34,6 @@ Huali::Application.routes.draw do
     end
   end
 
-  resources :reminders, only: [:new, :create]
   resources :surveys, only: [:new, :create]
 
   # FIXME refactor this routes to be more elegant
@@ -81,6 +80,7 @@ Huali::Application.routes.draw do
   get 'christmas', to: 'pages#christmas', as: :christmas
   get 'valentine', to: 'pages#valentine', as: :valentine
   get 'white_day', to: 'pages#white_day', as: :white_day
+  get 'muqinjie', to: 'pages#mother_day', as: :muqinjie
   get 'huali_point', to: 'pages#huali_point', as: :huali_point
   get 'refer_friend', to: 'pages#refer_friend', as: :refer_friend
 

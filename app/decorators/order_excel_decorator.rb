@@ -2,7 +2,6 @@ class OrderExcelDecorator < Draper::Decorator
   include Draper::LazyHelpers
   delegate_all
 
-  FRESH_FLOWERS = [22, 23, 28, 102, 125, 44, 135, 117, 132, 114, 87, 145, 154, 91, 48, 53, 131, 29, 52, 25, 75, 148, 51, 92]
   COLUMNS = ["下单时间",
              "下单星期",
              "订单号",
@@ -15,7 +14,8 @@ class OrderExcelDecorator < Draper::Decorator
              "快递方式",
              "快递单号",
              "花品名称",
-             "鲜花/永生花",
+             "价格",
+             "产品类型",
              "送花人姓名",
              "送花人邮箱",
              "联系方式",
@@ -31,6 +31,8 @@ class OrderExcelDecorator < Draper::Decorator
              "详细地址",
              "支付方式",
              "交易编号",
+             "实付金额",
+             "交易手续费",
              "送达情况",
              "满意度",
              "问题类别",
@@ -49,7 +51,8 @@ class OrderExcelDecorator < Draper::Decorator
              :string, # 快递方式
              :string, # 快递单号
              :string, # 花品名称
-             :string, # 鲜花/永生花
+             nil, # 价格
+             :string, # 产品类型
              :string, # 送花人姓名
              :string, # 送花人邮箱
              :string, # 联系方式
@@ -65,16 +68,14 @@ class OrderExcelDecorator < Draper::Decorator
              :string, # 详细地址
              :string, # 支付方式
              :string, # 交易编号
+             nil, # 实付金额
+             nil, # 交易手续费
              :string, # 送达情况
              :string, # 满意度
              :string, # 问题类别
              :string, # 处理意见
              :string # 问题详情
   ]
-
-  def self.flower_type(line_item)
-    FRESH_FLOWERS.include?(line_item.product_id) ? "鲜花" : "永生花"
-  end
 
   def created_on
     created_at.to_date
@@ -108,11 +109,6 @@ class OrderExcelDecorator < Draper::Decorator
 
   def left_items
     items[1..-1]
-  end
-
-  # First line item flower type row in excel
-  def first_flower_type
-    self.class.flower_type(first_item)
   end
 
   def receiver_name
@@ -155,6 +151,14 @@ class OrderExcelDecorator < Draper::Decorator
     success_transaction ? success_transaction.merchant_trade_no : ""
   end
 
+  def transaction_amount
+    success_transaction ? success_transaction.amount : ""
+  end
+
+  def transaction_commission_fee
+    success_transaction ? success_transaction.commission_fee : ""
+  end
+
   def first_row
     [created_on,
      create_week,
@@ -168,7 +172,8 @@ class OrderExcelDecorator < Draper::Decorator
      ship_method,
      shipment_tracking_num,
      first_item.name,
-     first_flower_type,
+     first_item.price,
+     first_item.product_type_text,
      sender_name,
      sender_email,
      sender_phone,
@@ -184,6 +189,8 @@ class OrderExcelDecorator < Draper::Decorator
      receiver_address,
      transaction_merchant_name,
      transaction_merchant_trade_no,
+     transaction_amount,
+     transaction_commission_fee,
      "", # 送达情况
      "", # 满意度
      "", # 问题类别
@@ -206,7 +213,8 @@ class OrderExcelDecorator < Draper::Decorator
        "",
        "",
        item.name,
-       self.class.flower_type(item),
+       item.price,
+       item.product_type_text,
        "",
        "",
        "",

@@ -23,11 +23,11 @@ zh-CN:
         send_instructions: 您的邀请已成功发送
         invitation_token_invalid: 无效的邀请链接
         updated: 接受邀请成功
-      edit: 
+      edit:
         header: 请设置密码
         submit_button: 提交
-        
-  point_transaction: 
+
+  point_transaction:
     refer_description: 邀请好友获得
     accept_description: 接受邀请获得
     rebase_description: 返利1%花点
@@ -78,6 +78,8 @@ zh-CN:
         product_out_of_stock: '%{product_name}库存不足，可用库存%{count_on_hand}'
         product_in_unavailable_date: '%{product_name}无法在该递送日期配送'
         product_in_unavailable_region: '%{product_name}无法配送到该区域'
+        product_not_discountable: "对不起! 产品 %{product_name} 是不参与打折的"
+        contains_products_not_discountable: "购物车有不参与打折的产品"
         must_be_less_than_expected_date: 必须小于到达日期
 
     models:
@@ -236,6 +238,7 @@ zh-CN:
         kind_text: 类型
         last_order: 关联订单号
         memo: 客服备注
+        validation_code: 正品序列号
 
       period_region_policy:
         start_date: 起始日期
@@ -247,9 +250,9 @@ zh-CN:
         email: 邮箱
         password: 密码
         role: 角色
-        current_sign_in_at: 当前登陆时间
-        last_sign_in_at: 上次登陆时间
-        sign_in_count: 登陆次数
+        current_sign_in_at: 当前登录时间
+        last_sign_in_at: 上次登录时间
+        sign_in_count: 登录次数
 
       address:
         province: 省份
@@ -330,6 +333,8 @@ zh-CN:
         default_date_rule: 默认递送时间规则
         default_region_rule: 默认递送地域规则
         product_type: 产品类型
+        discountable: 是否参与打折
+        promo_tag: 推广标签
 
       collection:
         name_zh: 中文名
@@ -546,6 +551,8 @@ zh-CN:
         preserved_flower: 永生花
         fresh_flower: 鲜花
         fake_flower: 高仿花
+      promo_tag:
+        limit: 限量
     administrator:
       role:
         super: 超级管理员
@@ -634,6 +641,7 @@ zh-CN:
         confirm_cancel: 你确定取消此订单?
         add_product: 添加产品
         cannot_edit: 订单已结束，不能编辑
+        cannot_print: 订单未完成审核，不能打印
         shipped: "发货成功, 共%{count}个订单"
         made: "制作成功, 共%{count}个订单"
         checked: "审核作成功, 共%{count}个订单"
@@ -718,8 +726,8 @@ zh-CN:
     pagination:
       truncate: "..."
 
-    user: 
-      labels: 
+    user:
+      labels:
         user_email: 用户邮箱
         user_name: 用户姓名
         coupon_code: 对应优惠码
