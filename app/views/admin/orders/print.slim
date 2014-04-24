@@ -99,15 +99,16 @@ div.container
         td 金额小计
         td 备注
       - @order.line_items.each do |item|
-        td
-          = item.name
-        td
-        td
-          = item.product.product_type_text
-        td
-          = item.quantity
-        td
-          = item.price
-        td
-          = item.total
-        td
+        tr
+          td
+            = item.name
+          td
+          td
+            = item.product.product_type_text
+          td
+            = item.quantity
+          td
+            = item.price
+          td
+            = item.total
+          td
