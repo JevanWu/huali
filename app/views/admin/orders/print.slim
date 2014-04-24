@@ -25,9 +25,9 @@ div.container
       p
         |所使用优惠码：
         = @order.coupon_code_record
-      p
-        |价格调整：
-        = show_adjustment(@order)
+    p
+      |价格调整：
+      = discount_amount(@order)
     p
       |订单类型：
       = @order.kind_text

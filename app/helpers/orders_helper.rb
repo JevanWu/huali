@@ -136,11 +136,10 @@ module OrdersHelper
     STR
   end
 
-  def show_adjustment(order)
-    if order.adjustment.present?
-      order.adjustment
-    else
-      order.coupon_code_record.try(:adjustment)
-    end
+  def discount_amount(order)
+    original_price = 0
+    order.line_items.each{ |item| original_price += item.price }
+    real_pay = order.transaction.try(:amount) || 0
+    original_price - real_pay
   end
 end
