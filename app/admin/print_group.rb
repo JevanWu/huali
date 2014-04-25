@@ -1,6 +1,9 @@
 ActiveAdmin.register PrintGroup do
   menu parent: '订单打印', if: proc { authorized? :read, PrintGroup }
 
+  filter :name
+  filter :ship_method
+
   controller do
     def permitted_params
       params.permit(print_group: [:name, :ship_method_id])
