@@ -1,6 +1,7 @@
 module API
   # Print orders API
   class PrintOrders < Grape::API
+    PRINT_BATCH_SIZE = 20
     resource :printing do
       # Get order print queue by print group.
       #
@@ -13,7 +14,7 @@ module API
       get ':print_group/orders/unprinted' do
         print_group = PrintGroup.find_by_name(params[:print_group])
 
-        print_group.print_orders.where(order_printed: false).map(&:order_id)
+        print_group.print_orders.where(order_printed: false).limit(PRINT_BATCH_SIZE).map(&:order_id)
       end
 
       # Get order card print queue by print group.
@@ -27,7 +28,7 @@ module API
       get ':print_group/order_cards/unprinted' do
         print_group = PrintGroup.find_by_name(params[:print_group])
 
-        print_group.print_orders.where(card_printed: false).map(&:order_id)
+        print_group.print_orders.where(card_printed: false).limit(PRINT_BATCH_SIZE).map(&:order_id)
       end
 
       # Get order shipment print queue by print group.
@@ -41,7 +42,7 @@ module API
       get ':print_group/order_shipments/unprinted' do
         print_group = PrintGroup.find_by_name(params[:print_group])
 
-        print_group.print_orders.where(shipment_printed: false).map(&:order_id)
+        print_group.print_orders.where(shipment_printed: false).limit(PRINT_BATCH_SIZE).map(&:order_id)
       end
 
       # Update order print status.
