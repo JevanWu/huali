@@ -83,6 +83,7 @@ Huali::Application.routes.draw do
   get 'muqinjie', to: 'pages#mother_day', as: :muqinjie
   get 'huali_point', to: 'pages#huali_point', as: :huali_point
   get 'refer_friend', to: 'pages#refer_friend', as: :refer_friend
+  get '/contacts/failure', to: 'pages#failure'
 
   get 'banners/:date', to: 'banners#index', as: :banners
   get 'stories', to: 'stories#index'
