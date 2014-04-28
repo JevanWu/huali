@@ -1,0 +1,35 @@
+.account-info-container
+  = render 'shared/account_info_header'
+  .invitation-main
+    h2
+      = t "devise.invitations.new.header"
+
+    = simple_form_for @user, :url => invitation_path(@user), :html => {:method => :post} do |f|
+      - if @user.errors.any?
+        #error_explanation
+          h2
+            = "#{ pluralize(@user.errors.count, "error") } prohibited this user from being saved:"
+
+          ul
+          - @user.errors.full_messages.each do |msg|
+            li
+              = msg
+
+      - @user.class.invite_key_fields.each do |field|
+        p
+          = f.text_field field
+
+      p
+        = f.submit t("devise.invitations.new.submit"), class: "btn-passport"
+      
+    br
+  .account-info-line
+  .invitation-main
+    h2
+      |导入联系人
+    .list
+      .item
+        input{type="checkbox"}
+        |hello
+    = link_to '连接Gmail', '/contact/gmail', class: 'huali-btn'
+
