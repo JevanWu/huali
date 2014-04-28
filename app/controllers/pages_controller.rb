@@ -1,3 +1,4 @@
+require 'pry'
 class PagesController < ApplicationController
   before_action :authenticate_user!, only: :huali_point
 
@@ -41,13 +42,35 @@ class PagesController < ApplicationController
 
   def refer_friend
     @user = User.new
-    contacts = request.env['omnicontacts.contacts']
-    @valid_contacts = Array.new
-    contacts.each do |contact|
-      if !contact[:name].nil? && !contact[:email].nil?
-        @valid_contacts << contact
-      end
-    end
+  end
+
+  def contact_callback
+    # retrieved_contacts = request.env['omnicontacts.contacts']
+    # unless retrieved_contacts.nil?
+    #   @contacts = Hash.new
+    #   retrieved_contacts.each do |contact|
+    #     person = OpenStruct.new
+    #     unless contact[:name].nil? && contact[:email].nil?
+    #       if contact[:name].nil? 
+    #         insert_person_info do
+    #           name = /[^@]+/.matchs(contact[:email]).to_s
+    #           person.name = name
+    #         end
+    #       else
+    #         insert_person_info do
+    #           person.name = contact[:name]
+    #         end
+    #       end
+    #     end
+    #   end
+    # end
     # @user = request.env['omnicontacts.user']
+    
+  end
+
+  def insert_person_info
+    yield
+    person.email = contact[:email]
+    @contacts[contact[:name]] = person
   end
 end
