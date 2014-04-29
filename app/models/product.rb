@@ -21,6 +21,7 @@
 #  price                        :decimal(8, 2)
 #  priority                     :integer          default(5)
 #  product_type                 :string(255)
+#  promo_tag                    :string(255)
 #  published                    :boolean          default(FALSE)
 #  rectangle_image_content_type :string(255)
 #  rectangle_image_file_name    :string(255)

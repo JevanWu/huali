@@ -23,5 +23,6 @@ module API
 
     mount Orders
     mount Addresses
+    mount PrintOrders
   end
 end

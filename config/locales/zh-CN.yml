@@ -183,6 +183,8 @@ zh-CN:
       limited_promotion: 限时优惠
       slide_panel: 轮播设置
       refund: 退款记录
+      print_group: 打印组
+      print_order: 打印队列
 
     attributes:
       order: &order
@@ -477,6 +479,24 @@ zh-CN:
         reason: 退款原因
         ship_method: 快递方式
         tracking_number: 快递单号
+
+      print_group:
+        name: 名称
+        ship_method: 快递方式
+        ship_method_id: 快递方式
+        created_at: 创建于
+        updated_at: 更新于
+
+      print_order:
+        order: 订单
+        order_id: 订单
+        print_group: 打印组
+        print_group_id: 打印组
+        order_printed: 出库单已打印
+        card_printed: 贺卡已打印
+        shipment_printed: 快递单已打印
+        created_at: 创建于
+        updated_at: 更新于
 
   models:
     user:

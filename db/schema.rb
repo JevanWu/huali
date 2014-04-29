@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140421092449) do
+ActiveRecord::Schema.define(version: 20140421151345) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -367,6 +367,29 @@ ActiveRecord::Schema.define(version: 20140421092449) do
 
   add_index "point_transactions", ["transaction_id"], name: "index_point_transactions_on_transaction_id", using: :btree
   add_index "point_transactions", ["user_id"], name: "index_point_transactions_on_user_id", using: :btree
+
+  create_table "print_groups", force: true do |t|
+    t.string   "name"
+    t.integer  "ship_method_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "print_groups", ["name"], name: "index_print_groups_on_name", unique: true, using: :btree
+  add_index "print_groups", ["ship_method_id"], name: "index_print_groups_on_ship_method_id", using: :btree
+
+  create_table "print_orders", force: true do |t|
+    t.integer  "order_id"
+    t.integer  "print_group_id"
+    t.boolean  "order_printed",    default: false
+    t.boolean  "card_printed",     default: false
+    t.boolean  "shipment_printed", default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "print_orders", ["order_id"], name: "index_print_orders_on_order_id", unique: true, using: :btree
+  add_index "print_orders", ["print_group_id"], name: "index_print_orders_on_print_group_id", using: :btree
 
   create_table "products", force: true do |t|
     t.string   "name_zh",                                              default: "",    null: false

@@ -81,6 +81,7 @@ class Order < ActiveRecord::Base
     before_transition to: :wait_check, do: :sync_payment
     after_transition to: :wait_ship, do: :generate_shipment
     after_transition to: :refunded, do: :process_refund_huali_point
+    after_transition to: :wait_make, do: :print_order
 
     # use adj. for state with future vision
     # use v. for event name
@@ -304,6 +305,10 @@ class Order < ActiveRecord::Base
   end
 
   private
+
+  def print_order
+    PrintOrder.from_order(self)
+  end
 
   def process_refund_huali_point
     if self.transaction
