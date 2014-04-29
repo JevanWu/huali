@@ -16,7 +16,7 @@ class AdminAbility
       can :manage, [Product, Collection, Order, Transaction, Refund, Shipment, Coupon, DefaultRegionRule, DefaultDateRule, PeriodRegionPolicy, SlidePanel, Setting]
       cannot :update_seo, [Product, Collection]
       can :record_back_order, Order
-      can :manage, [PrintGroup, PrintOrder]
+      can :read, [PrintGroup, PrintOrder]
     when "product_manager"
       can :manage, [Product, Collection, Asset]
       cannot :update_seo, [Product, Collection]
@@ -34,7 +34,7 @@ class AdminAbility
       can :read, [Coupon]
       can :manage, [Product, Collection, Order, Transaction, Refund, Shipment]
       can :manage, [DefaultRegionRule, DefaultDateRule, PeriodRegionPolicy]
-      can :manage, [PrintGroup, PrintOrder]
+      can :read, [PrintGroup, PrintOrder]
     end
 
     if user.persisted?
