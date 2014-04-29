@@ -9,15 +9,16 @@
     node: $("#slide")
 
   #make auto slide
-  _autoIndex = 1
   autoSlide = ->
-    bannerSlide.dots.find("a").eq(_autoIndex).click()
-    _autoIndex++
-    if _autoIndex >= 6 then _autoIndex = 0
+    if bannerSlide.currentPage == bannerSlide.dots.find("a").length
+      bannerSlide.dots.find("a").eq(0).click()
+    else
+      bannerSlide.dots.find("a").eq(bannerSlide.currentPage).click()
+
     return
 
   # cancel auto slide
-  setInterval(autoSlide,6000)
+  setInterval(autoSlide,8000)
 
   #nav callout
   calloutItemSizeCollection = []

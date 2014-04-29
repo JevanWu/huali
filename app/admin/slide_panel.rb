@@ -11,6 +11,9 @@ ActiveAdmin.register SlidePanel do
     end
   end
 
+  scope :visible
+  scope :invisible
+
   form partial: "form"
 
   index as: :sortable do

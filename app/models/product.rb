@@ -8,6 +8,7 @@
 #  default_region_rule_id       :integer
 #  depth                        :decimal(8, 2)
 #  description                  :text
+#  discountable                 :boolean          default(TRUE)
 #  height                       :decimal(8, 2)
 #  id                           :integer          not null, primary key
 #  inspiration                  :text
@@ -83,6 +84,7 @@ class Product < ActiveRecord::Base
   # validations
   validates_presence_of :name_en, :name_zh, :count_on_hand, :assets, :collections, :price
   enumerize :product_type, in: [:fresh_flower, :preserved_flower, :others, :fake_flower], default: :others
+  enumerize :promo_tag, in: [:limit]
 
   # scopes
   default_scope -> { order('priority DESC') }

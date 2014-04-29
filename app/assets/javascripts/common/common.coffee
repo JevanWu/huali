@@ -84,6 +84,8 @@
         if not $(".scroll-object").hasClass("visible") then return
         $(".scroll-object").removeClass("visible")
       return
+    else
+      $("#qq-customer-service").addClass("visible")
 
   #scroll to
   $("#scrollTop").scrollTo()
