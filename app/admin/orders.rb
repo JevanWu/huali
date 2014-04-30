@@ -13,7 +13,7 @@ ActiveAdmin.register Order do
         selected = (Order.column_names - %w{sender_email sender_phone sender_name total}).join(',')
         Order.select(selected).includes(:address, :line_items)
       else
-        Order.includes(:address, :line_items)
+        Order.includes(:address, :line_items, :ship_method, :shipments, :user)
       end
     end
 
