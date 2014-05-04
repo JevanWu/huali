@@ -61,14 +61,7 @@ module OrdersHelper
       link_to(t('models.order.state.check'), check_admin_order_path(order), data: { confirm: t('views.admin.order.confirm_check') }) + \
       link_to(t('models.order.state.cancel'), cancel_admin_order_path(order), data: { confirm: t('views.admin.order.confirm_cancel') })
     when "wait_make"
-      link_to(t('models.order.state.add_shipment'),
-              if order.shipment.blank?
-                new_admin_shipment_path("shipment[order_id]" => order.id,
-                                        "shipment[ship_method_id]" => order.ship_method_id)
-              else
-                edit_admin_shipment_path(order.shipment)
-              end
-             ) + \
+      link_to(t('models.order.state.add_shipment'), add_shipment_admin_order_path(order), target: '_blank') + \
       link_to(t('models.order.state.make'), make_admin_order_path(order), data: { confirm: t('views.admin.order.confirm_make') }) + \
       link_to(t('models.order.state.cancel'), cancel_admin_order_path(order), data: { confirm: t('views.admin.order.confirm_cancel') })
     when "wait_ship"
