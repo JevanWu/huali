@@ -1,15 +1,17 @@
-
-.a-product.span3 class="#{ 'sold-out' if (product.count_on_hand == 0) }"
-  a href="#{product_path(product)}"
-    .product-pic = image_tag product.rectangle_image(:medium), alt: "#{product.name} medium images"
+.a-product.span3
+  a href="#{product_path(product)}" target="_blank"
+    .product-pic
+      = image_tag product.rectangle_image(:medium), alt: "#{product.name} medium images", class: !product.has_stock? ? 'sold-out' : nil
     .tags
-      - if product.promo_tag.present?
+      - if !product.has_stock?
         .tag.important-tag
+          | 已售罄
+      - elsif product.promo_tag.present?
+        .tag
           = product.promo_tag_text
-      - else
-        -if product.product_type != "others"
-          .tag
-            = product.product_type_text
+      - elsif product.product_type != "others"
+        .tag
+          = product.product_type_text
   .information
     strong
       em = link_to product.name_zh, product_path(product), title: product.name, target: "_blank"
