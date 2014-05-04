@@ -149,7 +149,7 @@ class Product < ActiveRecord::Base
   end
 
   def has_stock?
-    !!@count_on_hand
+    count_on_hand > 0
   end
 
   def discount?
