@@ -49,18 +49,12 @@ class PagesController < ApplicationController
     unless retrieved_contacts.nil?
       @contacts = Array.new
       retrieved_contacts.each do |c|
+        next if !c[:email].nil?
         contact = OpenStruct.new
-        unless c[:email].nil?
-          if c[:name].nil? 
-            contact.name = c[:email]
-            contact.email = c[:email]
-            @contacts << contact
-          else
-            contact.name = c[:name]
-            contact.email = c[:email]
-            @contacts << contact
-          end
-        end
+        name = c[:name].nil? ? c[:email] : c[:name]
+        contact.name = name
+        contact.email = c[:email]
+        @contacts << contact
       end
     end
     @user = User.new
