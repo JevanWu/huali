@@ -12,9 +12,9 @@
 #= require 'module/home-mobile'
 #= require 'module/cate-mobile'
 #= require 'module/show-mobile'
+#= require moment.min
+#= require 'module/banner'
 #= require 'orders'
 #= require 'component/swipe'
 #= require 'mediav'
 
-$ ->
-  console.log('hello mobile world!')
