@@ -2,7 +2,7 @@ source "http://ruby.taobao.org"
 # source "http://bundler-api.herokuapp.com"
 # source 'http://rubygems.org'
 
-gem 'rails', '~> 4.0.3'
+gem 'rails', '~> 4.0.5'
 gem 'pg', '>= 0.14.1'
 gem 'devise', '~> 3.2.0'
 gem 'devise_invitable', '~> 1.3.0'
