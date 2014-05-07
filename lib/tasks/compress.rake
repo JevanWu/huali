@@ -1,8 +1,4 @@
 namespace :assets do
-  def image_regex
-    '.*(jpg|png|jpeg)$'
-  end
-
   desc "compress assets stored by Paperclip"
   task :compress do
     system <<-CMD
