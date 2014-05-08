@@ -71,16 +71,30 @@ class ProductsController < ApplicationController
   end
 
   def search
+    #TODO: refactor
     @products = Product.solr_search do 
       fulltext params[:q]
-      order_by(:price, :desc) 
-      with(:published, true)
+      with :published, true
     end.results
-    # .search(params[:q].to_s.downcase).page(params[:page])
 
     prepare_tag_filter
-    fetch_order_by
 
+    if params[:order].present?
+      field, direction = params[:order].scan(/^(.*)_(desc|asc)?$/).first
+
+      if field.blank?
+        order = :sold_total, :desc
+      else
+        order = :"#{field}", :"#{direction}"
+      end
+
+      @products = Product.solr_search do 
+        fulltext params[:q]
+        with :published, true
+        order_by(order[0], order[1])
+      end.results
+    end
+    
     respond_to do |format|
       format.html { render 'search' }
       format.json { render json: @products }
@@ -94,15 +108,12 @@ class ProductsController < ApplicationController
       field, direction = params[:order].scan(/^(.*)_(desc|asc)?$/).first
 
       if field.blank?
-        order_by = :sold_total, :desc
+        order_by = "sold_total desc"
       else
-        order_by = :"#{field}", :"#{direction}"
+        order_by = "#{field} #{direction}"
       end
 
-      @products = Product.solr_search do 
-        fulltext params[:q]
-        order_by(:price, :asc)
-      end.results
+      @products = @products.reorder(order_by)
     end
   end
 
