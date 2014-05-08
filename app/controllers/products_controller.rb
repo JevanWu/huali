@@ -71,6 +71,9 @@ class ProductsController < ApplicationController
 
   def search
     @products = Product.search(params[:q].to_s.downcase).page(params[:page])
+    @products = Product.solr_search do 
+      fulltext params[:q]
+    end.results
 
     prepare_tag_filter
     fetch_order_by
