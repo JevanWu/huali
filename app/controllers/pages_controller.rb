@@ -35,6 +35,9 @@ class PagesController < ApplicationController
   def white_day
   end
 
+  def pick_up
+  end
+
   def huali_point
     @point_transactions = current_user.point_transactions.order(:created_at).page(params[:page]).per(3)
   end
