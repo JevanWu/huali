@@ -1,3 +1,4 @@
+require 'pry'
 class ProductsController < ApplicationController
   before_action :fetch_collection, only: [:index, :tagged_with]
   before_action only: :show do
@@ -70,10 +71,12 @@ class ProductsController < ApplicationController
   end
 
   def search
-    @products = Product.search(params[:q].to_s.downcase).page(params[:page])
     @products = Product.solr_search do 
       fulltext params[:q]
+      order_by(:price, :desc) 
+      with(:published, true)
     end.results
+    # .search(params[:q].to_s.downcase).page(params[:page])
 
     prepare_tag_filter
     fetch_order_by
@@ -91,12 +94,15 @@ class ProductsController < ApplicationController
       field, direction = params[:order].scan(/^(.*)_(desc|asc)?$/).first
 
       if field.blank?
-        order_by = "sold_total desc"
+        order_by = :sold_total, :desc
       else
-        order_by = "#{field} #{direction}"
+        order_by = :"#{field}", :"#{direction}"
       end
 
-      @products = @products.reorder(order_by)
+      @products = Product.solr_search do 
+        fulltext params[:q]
+        order_by(:price, :asc)
+      end.results
     end
   end
 

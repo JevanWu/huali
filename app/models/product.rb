@@ -88,7 +88,7 @@ class Product < ActiveRecord::Base
   enumerize :promo_tag, in: [:limit]
 
   # scopes
-  default_scope -> { order('priority DESC') }
+  # default_scope -> { order('priority DESC') }
   scope :published, -> { where(published: true) }
   scope :in_collections, ->(collection_ids) do
     joins(:collections).where("collections_products.collection_id in (?)", collection_ids)
@@ -110,7 +110,11 @@ class Product < ActiveRecord::Base
 
   searchable do 
     text :name_en, :name_zh
+    integer :sold_total
+    double :price
+    boolean :published
   end
+
   class << self
     def sort_by_collection
       Product.published.joins(:collections).order('collections.id').to_a.uniq
