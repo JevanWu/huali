@@ -1,4 +1,3 @@
-require 'pry'
 class ProductsController < ApplicationController
   before_action :fetch_collection, only: [:index, :tagged_with]
   before_action only: :show do
