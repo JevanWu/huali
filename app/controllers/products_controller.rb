@@ -9,7 +9,7 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.published.find(params[:id])
+    @product = Product.published.find(params[:id]).order_by_priority
 
     # FIXME products always have assets now
     assets  = @product.assets || []
@@ -38,13 +38,13 @@ class ProductsController < ApplicationController
   def trait
     @products = Product.published
       .tagged_with(params[:tags], on: :traits)
-      .page(params[:page])
+      .page(params[:page]).order_by_priority
 
     fetch_order_by
   end
 
   def index
-    @products = Product.published.in_collections(@collection_ids).uniq.page(params[:page])
+    @products = Product.published.in_collections(@collection_ids).uniq.page(params[:page]).order_by_priority
 
     prepare_tag_filter
     fetch_order_by
@@ -57,7 +57,7 @@ class ProductsController < ApplicationController
 
   def tagged_with
     @products = Product.published.in_collections(@collection_ids).
-      tagged_with(params[:tags], on: :tags).uniq.page(params[:page])
+      tagged_with(params[:tags], on: :tags).uniq.page(params[:page]).order_by_priority
 
     prepare_tag_filter
     fetch_order_by
@@ -70,11 +70,34 @@ class ProductsController < ApplicationController
   end
 
   def search
-    @products = Product.search(params[:q].to_s.downcase).page(params[:page])
+    #TODO: refactor
+    @products = Product.solr_search do 
+      fulltext params[:q] do 
+        boost_fields :name_zh => 2.0, :name_en => 2.0
+      end
+      with :published, true
+    end.results
 
     prepare_tag_filter
-    fetch_order_by
 
+    if params[:order].present?
+      field, direction = params[:order].scan(/^(.*)_(desc|asc)?$/).first
+
+      if field.blank?
+        order = :sold_total, :desc
+      else
+        order = :"#{field}", :"#{direction}"
+      end
+
+      @products = Product.solr_search do 
+        fulltext params[:q] do
+          boost_fields :name_zh => 2.0, :name_en => 2.0
+        end
+        with :published, true
+        order_by(order[0], order[1])
+      end.results
+    end
+    
     respond_to do |format|
       format.html { render 'search' }
       format.json { render json: @products }

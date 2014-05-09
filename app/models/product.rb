@@ -21,6 +21,7 @@
 #  price                        :decimal(8, 2)
 #  priority                     :integer          default(5)
 #  product_type                 :string(255)
+#  promo_tag                    :string(255)
 #  published                    :boolean          default(FALSE)
 #  rectangle_image_content_type :string(255)
 #  rectangle_image_file_name    :string(255)
@@ -87,7 +88,7 @@ class Product < ActiveRecord::Base
   enumerize :promo_tag, in: [:limit]
 
   # scopes
-  default_scope -> { order('priority DESC') }
+  scope :order_by_priority, -> { order('priority DESC') }
   scope :published, -> { where(published: true) }
   scope :in_collections, ->(collection_ids) do
     joins(:collections).where("collections_products.collection_id in (?)", collection_ids)
@@ -107,14 +108,21 @@ class Product < ActiveRecord::Base
     product.discountable = true if product.discountable.nil?
   end
 
+  searchable do 
+    text :name_en, :name_zh, :description
+    integer :sold_total
+    double :price
+    boolean :published
+  end
+
   class << self
     def sort_by_collection
       Product.published.joins(:collections).order('collections.id').to_a.uniq
     end
 
-    def search(word)
-      published.where("name_zh like ? or name_en like ?", "%#{word}%", "%#{word}%")
-    end
+    # def search(word)
+    #   published.where("name_zh like ? or name_en like ?", "%#{word}%", "%#{word}%")
+    # end
   end
 
   def related_products(limit = 5)
@@ -148,7 +156,7 @@ class Product < ActiveRecord::Base
   end
 
   def has_stock?
-    !!@count_on_hand
+    count_on_hand > 0
   end
 
   def discount?

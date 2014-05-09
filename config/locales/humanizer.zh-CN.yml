@@ -16,9 +16,9 @@ zh-CN:
       - question: "十除以二等于几?"
         answers: ["5", "five", "五"]
       - question: 星期一过完是星期几?
-        answer: ["tuesday","周二", "二", "2"]
+        answer: ["tuesday","周二", "二", "2", "星期二", "週二"]
       - question: 一年的最后一个月是几月?
-        answer: ["december","十二月","十二", '12']
+        answer: ["december","十二月","十二", "12"]
       - question: 一小时有多少分钟?
         answers: ["60", "sixty", "六十"]
       - question: 下的反义词是什么?

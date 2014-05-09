@@ -1,5 +1,5 @@
 .sold-out
-  opacity: 0.5
+  opacity: 0.4
 .a-product
   position: relative
   float: left
@@ -9,6 +9,10 @@
   margin-bottom: 20px
   background-color: $block-bg-color
   +global-box-shadow
+  .product-pic
+    img
+      width: 220px
+      height: 328px
   &.first
     margin-left: 0
   .information
@@ -52,7 +56,7 @@
       margin-left: 5px
       margin-right: 5px
       color: black
-      border: solid 1px black 
+      border: solid 1px black
       text-decoration: none
     .important-tag
       color: $price-color !important

@@ -13,7 +13,7 @@ ActiveAdmin.register Order do
         selected = (Order.column_names - %w{sender_email sender_phone sender_name total}).join(',')
         Order.select(selected).includes(:address, :line_items)
       else
-        Order.includes(:address, :line_items)
+        Order.includes(:address, :line_items, :ship_method, :shipments, :user)
       end
     end
 
@@ -194,6 +194,17 @@ ActiveAdmin.register Order do
   filter :address_address, as: :string
   filter :ship_method
   filter :source, as: :select, collection: ["微博", "人人", "豆瓣", "Facebook", "微信", "杂志等平面媒体", "搜索引擎", "朋友推荐", "网络广告", "视频网站", "淘宝", "电视", "其他"]
+
+  member_action :add_shipment  do
+    order = Order.find_by_id(params[:id])
+
+    if order.shipment.blank?
+      redirect_to new_admin_shipment_path("shipment[order_id]" => order.id,
+                                          "shipment[ship_method_id]" => order.ship_method_id)
+    else
+      redirect_to edit_admin_shipment_path(order.shipment)
+    end
+  end
 
   member_action :pay  do
     order = Order.find_by_id(params[:id])
