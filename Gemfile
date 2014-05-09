@@ -95,13 +95,13 @@ gem 'dalli'
 gem 'omnicontacts'
 
 gem 'sunspot_rails'
-gem 'sunspot_solr'
 
 group :development, :test do
   gem 'rspec-rails', '>= 2.11.0'
   gem 'rspec-instafail'
   gem 'factory_girl_rails', '>= 4.0.0'
   gem 'forgery', git: 'https://github.com/zenhacks/forgery.git'
+  gem 'sunspot_solr'
 end
 
 group :production, :staging do
