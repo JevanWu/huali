@@ -109,7 +109,7 @@ class Product < ActiveRecord::Base
   end
 
   searchable do 
-    text :name_en, :name_zh
+    text :name_en, :name_zh, :description
     integer :sold_total
     double :price
     boolean :published

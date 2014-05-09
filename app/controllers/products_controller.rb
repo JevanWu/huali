@@ -73,7 +73,9 @@ class ProductsController < ApplicationController
   def search
     #TODO: refactor
     @products = Product.solr_search do 
-      fulltext params[:q]
+      fulltext params[:q] do 
+        boost_fields :name_zh => 2.0, :name_en => 2.0
+      end
       with :published, true
     end.results
 
@@ -89,7 +91,9 @@ class ProductsController < ApplicationController
       end
 
       @products = Product.solr_search do 
-        fulltext params[:q]
+        fulltext params[:q] do
+          boost_fields :name_zh => 2.0, :name_en => 2.0
+        end
         with :published, true
         order_by(order[0], order[1])
       end.results
