@@ -38,13 +38,13 @@ class ProductsController < ApplicationController
   def trait
     @products = Product.published
       .tagged_with(params[:tags], on: :traits)
-      .page(params[:page])
+      .page(params[:page]).order_by_priority
 
     fetch_order_by
   end
 
   def index
-    @products = Product.published.in_collections(@collection_ids).uniq.page(params[:page])
+    @products = Product.published.in_collections(@collection_ids).uniq.page(params[:page]).order_by_priority
 
     prepare_tag_filter
     fetch_order_by
@@ -57,7 +57,7 @@ class ProductsController < ApplicationController
 
   def tagged_with
     @products = Product.published.in_collections(@collection_ids).
-      tagged_with(params[:tags], on: :tags).uniq.page(params[:page])
+      tagged_with(params[:tags], on: :tags).uniq.page(params[:page]).order_by_priority
 
     prepare_tag_filter
     fetch_order_by
@@ -70,10 +70,18 @@ class ProductsController < ApplicationController
   end
 
   def search
-    @products = Product.search(params[:q].to_s.downcase).page(params[:page])
+    @products = Product.solr_search do
+      fulltext params[:q]
+      with :published, true
+
+      if params[:order].present?
+        field, direction = params[:order].scan(/\A(sold_total|price)_?(desc|asc)?\Z/).first
+        sort_order = field == "sold_total" ? [:sold_total, :desc] : [field, direction]
+        order_by(*sort_order)
+      end
+    end.results
 
     prepare_tag_filter
-    fetch_order_by
 
     respond_to do |format|
       format.html { render 'search' }
