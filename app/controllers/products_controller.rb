@@ -9,7 +9,7 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.published.find(params[:id]).order_by_priority
+    @product = Product.published.find(params[:id])
 
     # FIXME products always have assets now
     assets  = @product.assets || []
@@ -70,34 +70,19 @@ class ProductsController < ApplicationController
   end
 
   def search
-    #TODO: refactor
-    @products = Product.solr_search do 
-      fulltext params[:q] do 
-        boost_fields :name_zh => 2.0, :name_en => 2.0
-      end
+    @products = Product.solr_search do
+      fulltext params[:q]
       with :published, true
+
+      if params[:order].present?
+        field, direction = params[:order].scan(/\A(sold_total|price)_?(desc|asc)?\Z/).first
+        sort_order = field == "sold_total" ? [:sold_total, :desc] : [field, direction]
+        order_by(*sort_order)
+      end
     end.results
 
     prepare_tag_filter
 
-    if params[:order].present?
-      field, direction = params[:order].scan(/^(.*)_(desc|asc)?$/).first
-
-      if field.blank?
-        order = :sold_total, :desc
-      else
-        order = :"#{field}", :"#{direction}"
-      end
-
-      @products = Product.solr_search do 
-        fulltext params[:q] do
-          boost_fields :name_zh => 2.0, :name_en => 2.0
-        end
-        with :published, true
-        order_by(order[0], order[1])
-      end.results
-    end
-    
     respond_to do |format|
       format.html { render 'search' }
       format.json { render json: @products }

@@ -108,8 +108,18 @@ class Product < ActiveRecord::Base
     product.discountable = true if product.discountable.nil?
   end
 
-  searchable do 
-    text :name_en, :name_zh, :description
+  searchable do
+    text :name_en, :name_zh, boost: 5.0
+    text :product_type_text, boost: 3.0
+    text :price, boost: 2.0 do
+      price.to_i
+    end
+    text :collections do
+      collections.map(&:display_name)
+    end
+
+    text :description
+
     integer :sold_total
     double :price
     boolean :published
@@ -119,10 +129,6 @@ class Product < ActiveRecord::Base
     def sort_by_collection
       Product.published.joins(:collections).order('collections.id').to_a.uniq
     end
-
-    # def search(word)
-    #   published.where("name_zh like ? or name_en like ?", "%#{word}%", "%#{word}%")
-    # end
   end
 
   def related_products(limit = 5)
