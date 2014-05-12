@@ -429,7 +429,9 @@ ActiveAdmin.register Order do
 
       row :gift_card_text
       row :special_instructions
-      row :memo
+      row :memo do
+        order.memo.to_s.html_safe
+      end
 
       row :coupon_code_record do
         if order.coupon_code_record

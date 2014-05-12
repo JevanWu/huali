@@ -237,7 +237,7 @@ class OrdersController < ApplicationController
       @order_admin_form.sender ||= SenderInfo.new({
                                                   name: 'Huali',
                                                   email: 'support@hua.li',
-                                                  phone: '400-001-6936'
+                                                  phone: '400-087-8899'
                                                 })
       @order_admin_form.user = current_or_guest_user
 
