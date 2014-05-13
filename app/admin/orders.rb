@@ -187,6 +187,7 @@ ActiveAdmin.register Order do
     已经完成: 'completed'
   }
   filter :sender_name, as: :string
+  filter :sender_phone, as: :string
   filter :address_fullname, as: :string
   filter :address_phone, as: :string
   filter :address_province_name, as: :string
