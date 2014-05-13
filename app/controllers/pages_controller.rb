@@ -51,7 +51,7 @@ class PagesController < ApplicationController
     unless retrieved_contacts.nil?
       @contacts = Array.new
       retrieved_contacts.each do |c|
-        next if !c[:email].nil?
+        next if c[:email].nil?
         contact = OpenStruct.new
         name = c[:name].nil? ? c[:email] : c[:name]
         contact.name = name
