@@ -171,6 +171,7 @@ ActiveAdmin.register Order do
   filter :expected_date
   filter :delivery_date
   filter :created_at
+  filter :coupon_code_record_code, as: :string
   filter :kind, as: :select, collection: Order.kind.options
   filter :merchant_order_no
   filter :prechecked
@@ -330,6 +331,8 @@ ActiveAdmin.register Order do
 
   show do
     attributes_table do
+      row :created_at
+
       row :state do
         status_tag t('models.order.state.' + order.state), order_state(order)
       end
