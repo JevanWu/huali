@@ -35,6 +35,9 @@ class PagesController < ApplicationController
   def white_day
   end
 
+  def pick_up
+  end
+
   def huali_point
     @point_transactions = current_user.point_transactions.order(:created_at).page(params[:page]).per(3)
   end
@@ -48,7 +51,7 @@ class PagesController < ApplicationController
     unless retrieved_contacts.nil?
       @contacts = Array.new
       retrieved_contacts.each do |c|
-        next if !c[:email].nil?
+        next if c[:email].nil?
         contact = OpenStruct.new
         name = c[:name].nil? ? c[:email] : c[:name]
         contact.name = name

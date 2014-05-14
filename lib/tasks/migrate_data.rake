@@ -42,7 +42,7 @@ namespace :migrate do
   desc "Migrate global settings"
   task global_settings: :environment do
     Setting.expected_date_notice = "端午节周末接受订单。订单除周日，周一外均可送达."
-    Setting.head_service_notice = "For English Service: 400-001-6936"
+    Setting.head_service_notice = "For English Service: 400-087-8899"
   end
 
   desc "Fix mistyped phones"

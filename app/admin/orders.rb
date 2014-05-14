@@ -187,6 +187,7 @@ ActiveAdmin.register Order do
     已经完成: 'completed'
   }
   filter :sender_name, as: :string
+  filter :sender_phone, as: :string
   filter :address_fullname, as: :string
   filter :address_phone, as: :string
   filter :address_province_name, as: :string
@@ -429,7 +430,9 @@ ActiveAdmin.register Order do
 
       row :gift_card_text
       row :special_instructions
-      row :memo
+      row :memo do
+        order.memo.to_s.html_safe
+      end
 
       row :coupon_code_record do
         if order.coupon_code_record

@@ -88,7 +88,7 @@ class Product < ActiveRecord::Base
   enumerize :promo_tag, in: [:limit]
 
   # scopes
-  default_scope -> { order('priority DESC') }
+  scope :order_by_priority, -> { order('priority DESC') }
   scope :published, -> { where(published: true) }
   scope :in_collections, ->(collection_ids) do
     joins(:collections).where("collections_products.collection_id in (?)", collection_ids)
@@ -108,13 +108,26 @@ class Product < ActiveRecord::Base
     product.discountable = true if product.discountable.nil?
   end
 
+  searchable do
+    text :name_en, :name_zh, boost: 5.0
+    text :product_type_text, boost: 3.0
+    text :price, boost: 2.0 do
+      price.to_i
+    end
+    text :collections do
+      collections.map(&:display_name)
+    end
+
+    text :description
+
+    integer :sold_total
+    double :price
+    boolean :published
+  end
+
   class << self
     def sort_by_collection
       Product.published.joins(:collections).order('collections.id').to_a.uniq
-    end
-
-    def search(word)
-      published.where("name_zh like ? or name_en like ?", "%#{word}%", "%#{word}%")
     end
   end
 

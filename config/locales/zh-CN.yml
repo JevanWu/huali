@@ -594,6 +594,7 @@ zh-CN:
         normal: 普通订单
         b2b: B2B订单
         fieldschina: 甫田
+        self_pickup: 自提订单
 
     survey:
       gender:

@@ -396,6 +396,7 @@ GEM
     polyamorous (0.6.4)
       activerecord (>= 3.0)
     polyglot (0.3.4)
+    pr_geohash (1.0.0)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
@@ -499,6 +500,8 @@ GEM
       nokogiri (> 1.5.0, < 1.7.0)
       sprockets
     rr (1.1.2)
+    rsolr (1.0.10)
+      builder (>= 2.1.2)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
@@ -572,6 +575,14 @@ GEM
     squash_ruby (1.4.0)
       json
     state_machine (1.2.0)
+    sunspot (2.1.0)
+      pr_geohash (~> 1.0)
+      rsolr (~> 1.0.7)
+    sunspot_rails (2.1.0)
+      nokogiri
+      rails (>= 3)
+      sunspot (= 2.1.0)
+    sunspot_solr (2.1.0)
     temple (0.6.5)
     thin (1.5.1)
       daemons (>= 1.0.9)
@@ -721,6 +732,8 @@ DEPENDENCIES
   squash_rails
   squash_ruby
   state_machine
+  sunspot_rails
+  sunspot_solr
   thin (>= 1.4.1)
   twilio-ruby
   uglifier (>= 1.0.3)
