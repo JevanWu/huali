@@ -34,6 +34,13 @@ ActiveAdmin.register Coupon do
     render_excel(coupon.coupon_codes, xlsx_filename)
   end
 
+  member_action :orders do
+    coupon = Coupon.find_by_id(params[:id])
+
+    @grouped_orders = coupon.orders.where("state not IN (?)", ["generated", "void", "wait_refund", "refunded"]).
+      group_by { |o| o.created_at.to_date.month }
+  end
+
   index do
     selectable_column
     column :adjustment
@@ -56,6 +63,11 @@ ActiveAdmin.register Coupon do
           link_to(order.identifier, admin_order_path(order))
         end.join(' ').html_safe
       end
+
+      row :orders do
+        link_to("订单详情", orders_admin_coupon_path(coupon), target: "_blank")
+      end
+
       row :note
       row :expired
       row :expires_at
