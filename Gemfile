@@ -59,6 +59,7 @@ gem 'roadie'
 # rails-4 upgrade
 gem 'rails-observers'
 gem 'sprockets-rails'
+gem 'sprockets', '<= 2.11.0'
 
 gem 'sass-rails'
 gem 'coffee-rails'
