@@ -5,17 +5,17 @@ class ContactsImporter
   end
 
   def get_contacts
-    @agent = Mechanize.new 
-    page = @agent.get signin_url
-    @login_form = page.form
+    raise NotImplementedError
   end
 
   def signin_url
     raise NotImplementedError
   end
 
-  def report_error
-    raise NotImplementedError
+  def success_login?
+    @agent = Mechanize.new 
+    page = @agent.get signin_url
+    @login_form = page.form
   end
 end
 

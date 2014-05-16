@@ -23,18 +23,23 @@ class PagesController < ApplicationController
   end
 
   def email_signin
-    if params[:provider]
-      render "netease_signin"
-    else
-      raise ActionController::RoutingError.new('Not Found')
-    end
+    # if params[:provider]
+    render "netease_signin"
+    # else
+    #   raise ActionController::RoutingError.new('Not Found')
+    # end
   end
 
   def import_email_contacts
     @username = params[:email]
     @password = params[:passwd] 
     importer = NeteaseImporter.new(@username, @password)
-    @contacts = importer.get_contacts
+    if importer.success_login?
+      @contacts = importer.get_contacts
+    else
+      flash[:alert] = "Login failed! Please check your username and password"
+      redirect_to email_signin_path and return
+    end
     @user = User.new
     render :refer_friend
   end
