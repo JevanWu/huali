@@ -36,6 +36,7 @@
               = contact.name
           = submit_tag "邀请所勾选者", class: "btn-passport" 
     - else
-      = link_to '导入Gmail', '/contacts/gmail', class: 'huali-btn'
-      = link_to '导入163', email_signin_path(:provider => '163'), class: 'huali-btn'
+      .mail-providers
+        = link_to image_tag("mail-logo/gmail_logo.png"), '/contacts/gmail'
+        = link_to image_tag("mail-logo/163_logo.png"), email_signin_path(:provider => '163')
 
