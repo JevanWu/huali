@@ -49,6 +49,9 @@ zh-CN:
   depth: 长
   size: 尺寸
   image: 图片
+  email: 邮箱地址
+  password: 密码
+  submit: 提交
 
   publish: 发布
   unpublish: 撤销发布

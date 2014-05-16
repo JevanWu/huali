@@ -5,12 +5,12 @@
       = image_tag("mail-logo/163_logo.png")
     = form_tag(import_contacts_path, method: :post)
       p
-        = label_tag "Email:"
+        = label_tag t("email")
         = email_field_tag "email"
       p
-        = label_tag "Password:"
+        = label_tag t("password")
         = password_field_tag "passwd" 
 
       p
-        = submit_tag "submit", class: 'btn-passport'
+        = submit_tag t("submit"), class: 'btn-passport'
 
