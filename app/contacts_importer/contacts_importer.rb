@@ -1,17 +1,23 @@
 class ContactsImporter
   def initialize(user_name, passwd)
-    @username = user_name #"ryancg"
-    @password = passwd #"aaa123"
-    @signin_url = 'http://mail.163.com/'
+    @username = user_name 
+    @password = passwd
   end
 
   def get_contacts
     @agent = Mechanize.new 
-    page = @agent.get @signin_url
+    page = @agent.get signin_url
     @login_form = page.form
-    @login_form["username"] = @username
-    @login_form["password"] = @password
+  end
+
+  def signin_url
+    raise NotImplementedError
+  end
+
+  def report_error
+    raise NotImplementedError
   end
 end
+
 
 
