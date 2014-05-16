@@ -72,6 +72,8 @@ Huali::Application.routes.draw do
 
   get 'settings/profile', to: 'users#edit_profile'
   put 'settings/profile', to: 'users#update_profile'
+  get 'settings/admin', to: 'users#edit_account'
+  put 'account/password', to: 'users#update_password'
 
   root to: "pages#home"
   get 'home', to: 'pages#home', as: :home

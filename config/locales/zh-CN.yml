@@ -644,6 +644,9 @@ zh-CN:
       products_sold_out: 产品已售尽
       success_to_get_promo_product: 恭喜您, 抢购成功
       fail_to_get_promo_product: 很抱歉，您错过了0元抢购，但还可以继续付款购买
+    user:
+      profile_updated: 个人资料更新成功
+      password_updated: 密码更新成功
 
     reminder:
       reminder_success: 您已经成功创建提醒
