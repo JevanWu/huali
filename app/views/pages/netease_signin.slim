@@ -1,14 +1,16 @@
-.mail-signin
-  .logo
-    = image_tag("mail-logo/163_logo.png")
-  = form_tag(import_contacts_path, method: :post)
-    p
-      = label_tag "Email:"
-      = email_field_tag "email"
-    p
-      = label_tag "Password:"
-      = password_field_tag "passwd" 
+.account-info-container
+  = render 'shared/account_info_header'
+  .mail-signin
+    .logo
+      = image_tag("mail-logo/163_logo.png")
+    = form_tag(import_contacts_path, method: :post)
+      p
+        = label_tag "Email:"
+        = email_field_tag "email"
+      p
+        = label_tag "Password:"
+        = password_field_tag "passwd" 
 
-    p
-      = submit_tag "submit", class: 'btn-passport'
+      p
+        = submit_tag "submit", class: 'btn-passport'
 
