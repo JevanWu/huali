@@ -30,7 +30,13 @@ class PagesController < ApplicationController
     end
   end
 
+  def import_email_contacts
+    @username = params[:email]
+    @password = params[:passwd] 
+    importer = NeteaseImporter.new(@username, @password)
+    @contacts = importer.get_contacts
     @user = User.new
+    render :refer_friend
   end
 
   def contact_callback

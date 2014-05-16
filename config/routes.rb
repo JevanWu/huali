@@ -84,6 +84,8 @@ Huali::Application.routes.draw do
   get 'muqinjie', to: 'pages#mother_day', as: :muqinjie
   get 'huali_point', to: 'pages#huali_point', as: :huali_point
   get 'refer_friend', to: 'pages#refer_friend', as: :refer_friend
+  get 'email_signin', to: 'pages#email_signin', as: :email_signin
+  post 'import_contacts', to: 'pages#import_email_contacts', as: :import_contacts
   get '/contacts/failure', to: 'pages#failure'
   get '/contact_callback', to: 'pages#contact_callback'
 
