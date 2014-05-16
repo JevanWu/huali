@@ -87,7 +87,7 @@ Huali::Application.routes.draw do
   get 'email_signin', to: 'pages#email_signin', as: :email_signin
   post 'import_contacts', to: 'pages#import_email_contacts', as: :import_contacts
   get '/contacts/failure', to: 'pages#failure'
-  get '/contact_callback', to: 'pages#contact_callback'
+  get '/contacts/:importer/callback', to: 'pages#contact_callback'
 
   get 'banners/:date', to: 'banners#index', as: :banners
   get 'stories', to: 'stories#index'
