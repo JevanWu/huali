@@ -37,7 +37,7 @@ class PagesController < ApplicationController
     if importer.success_login?
       @contacts = importer.get_contacts
     else
-      flash[:alert] = "Login failed! Please check your username and password"
+      flash[:alert] = t("login_failed")
       redirect_to email_signin_path and return
     end
     @user = User.new
