@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, only: [:edit_profile, :edit_account, :update_password, :update_profile]
-  respond_to :json
+  before_action :authenticate_user!, except: [:check_user_exist, :subscribe_email]
+  respond_to :json, :html
 
   def edit_profile
     @user = current_user
@@ -32,6 +32,10 @@ class UsersController < ApplicationController
     else
       render "edit_account"
     end
+  end
+
+  def huali_point
+    @point_transactions = current_user.point_transactions.order(:created_at).page(params[:page]).per(3)
   end
 
   def check_user_exist

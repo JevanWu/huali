@@ -1,6 +1,4 @@
 class PagesController < ApplicationController
-  before_action :authenticate_user!, only: :huali_point
-
   def show
     @page = Page.find_by_permalink!(params[:id])
 
@@ -36,10 +34,6 @@ class PagesController < ApplicationController
   end
 
   def pick_up
-  end
-
-  def huali_point
-    @point_transactions = current_user.point_transactions.order(:created_at).page(params[:page]).per(3)
   end
 
   def refer_friend
