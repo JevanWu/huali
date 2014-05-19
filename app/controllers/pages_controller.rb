@@ -36,10 +36,6 @@ class PagesController < ApplicationController
   def pick_up
   end
 
-  def refer_friend
-    @user = User.new
-  end
-
   def contact_callback
     retrieved_contacts = request.env['omnicontacts.contacts']
     unless retrieved_contacts.nil?

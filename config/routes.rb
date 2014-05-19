@@ -75,6 +75,7 @@ Huali::Application.routes.draw do
   get 'settings/admin', to: 'users#edit_account'
   put 'account/password', to: 'users#update_password'
   get 'settings/huali_point', to: 'users#huali_point', as: :huali_point
+  get 'settings/refer_friend', to: 'users#refer_friend', as: :refer_friend
 
   root to: "pages#home"
   get 'home', to: 'pages#home', as: :home
@@ -88,7 +89,6 @@ Huali::Application.routes.draw do
   get 'white_day', to: 'pages#white_day', as: :white_day
   get 'pick_up', to: 'pages#pick_up', as: :pick_up
   get 'muqinjie', to: 'pages#mother_day', as: :muqinjie
-  get 'refer_friend', to: 'pages#refer_friend', as: :refer_friend
   get '/contacts/failure', to: 'pages#failure'
   get '/contact_callback', to: 'pages#contact_callback'
 

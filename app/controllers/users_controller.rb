@@ -38,6 +38,10 @@ class UsersController < ApplicationController
     @point_transactions = current_user.point_transactions.order(:created_at).page(params[:page]).per(3)
   end
 
+  def refer_friend
+    @user = User.new
+  end
+
   def check_user_exist
     if u = User.find_by_email(check_user_params)
       result = { found: true, email: u.email }
