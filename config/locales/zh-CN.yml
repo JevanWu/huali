@@ -647,6 +647,13 @@ zh-CN:
     user:
       profile_updated: 个人资料更新成功
       password_updated: 密码更新成功
+      omnicontacts:
+        not_authorized:
+          未成功授权，请重试
+        timeout:
+          授权超时
+        internal_error:
+          内部错误
 
     reminder:
       reminder_success: 您已经成功创建提醒

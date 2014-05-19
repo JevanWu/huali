@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, except: [:check_user_exist, :subscribe_email]
+  before_action :authenticate_user!,
+    except: [:check_user_exist, :subscribe_email, :omnicontacts_callback, :omnicontacts_failure]
   respond_to :json, :html
 
   def edit_profile
@@ -59,6 +60,28 @@ class UsersController < ApplicationController
     else
       redirect_to root_path, notice: "无效的 Email, 订阅失败"
     end
+  end
+
+  def omnicontacts_callback
+    retrieved_contacts = request.env['omnicontacts.contacts']
+    unless retrieved_contacts.nil?
+      @contacts = Array.new
+      retrieved_contacts.each do |c|
+        next if c[:email].nil?
+        contact = OpenStruct.new
+        name = c[:name].nil? ? c[:email] : c[:name]
+        contact.name = name
+        contact.email = c[:email]
+        @contacts << contact
+      end
+    end
+    @user = User.new
+    render :refer_friend
+    # @user = request.env['omnicontacts.user']
+  end
+
+  def omnicontacts_failure
+    @error_message = t("controllers.user.omnicontacts.#{params[:error_message]}")
   end
 
   private

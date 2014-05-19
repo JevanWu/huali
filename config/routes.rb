@@ -77,6 +77,9 @@ Huali::Application.routes.draw do
   get 'settings/huali_point', to: 'users#huali_point', as: :huali_point
   get 'settings/refer_friend', to: 'users#refer_friend', as: :refer_friend
 
+  match "/contacts/:importer/callback" => "users#omnicontacts_callback", via: [:get, :post]
+  match '/contacts/failure', to: 'users#omnicontacts_failure', via: [:get, :post]
+
   root to: "pages#home"
   get 'home', to: 'pages#home', as: :home
   get 'partner', to: 'pages#partner', as: :partner
@@ -89,8 +92,6 @@ Huali::Application.routes.draw do
   get 'white_day', to: 'pages#white_day', as: :white_day
   get 'pick_up', to: 'pages#pick_up', as: :pick_up
   get 'muqinjie', to: 'pages#mother_day', as: :muqinjie
-  get '/contacts/failure', to: 'pages#failure'
-  get '/contact_callback', to: 'pages#contact_callback'
 
   get 'banners/:date', to: 'banners#index', as: :banners
   get 'stories', to: 'stories#index'
