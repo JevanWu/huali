@@ -35,4 +35,7 @@ class PagesController < ApplicationController
 
   def pick_up
   end
+
+  def join_us
+  end
 end
