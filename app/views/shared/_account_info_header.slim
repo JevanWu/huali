@@ -1,23 +1,13 @@
 .account-info-header
   .menu
     .item
-      - if params[:controller] == 'devise_invitable/registrations' && params[:action] == 'edit'
-        = link_to '我的信息', edit_user_registration_path, class: 'selected-link'
-      - else
-        = link_to '我的信息', edit_user_registration_path
+      = link_to '资料', { controller: 'users', action: 'edit_profile' }, class: params[:action] == 'edit_profile' ? 'selected-link' : ''
     .item
-      - if params[:controller] == 'orders' && params[:action] == 'index'
-        = link_to '我的订单', orders_path, class: 'selected-link'
-      - else
-        = link_to '我的订单', orders_path
+      = link_to '账户', { controller: 'users', action: 'edit_account' }, class: params[:action] == 'edit_account' ? 'selected-link' : ''
     .item
-      - if params[:controller] == 'pages' && params[:action] == 'huali_point'
-        = link_to '我的点数', huali_point_path, class: 'selected-link'
-      - else
-        = link_to '我的点数', huali_point_path
+      = link_to '花点', { controller: 'users', action: 'huali_point' }, class: params[:action] == 'huali_point' ? 'selected-link' : ''
     .item
-      - if params[:controller] == 'pages' && params[:action] == 'refer_friend'
-        = link_to '邀请好友', refer_friend_path, class: 'selected-link'
-      - else
-        = link_to '邀请好友', refer_friend_path
+      = link_to '订单', orders_path, class: params[:controller] == 'orders' ? 'selected-link' : ''
+    .item
+      = link_to '邀请', { controller: 'users', action: 'refer_friend' }, class: params[:action] == 'refer_friend' ? 'selected-link' : ''
 .account-info-line
