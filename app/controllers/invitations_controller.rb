@@ -7,12 +7,12 @@ class InvitationsController < Devise::InvitationsController
   def create
     @from = current_user.email
     @subject = "#{current_user.name.titleize} invited you to checkout Huali"
+
     if invite_params.present?
       skip_invitation
 
       if self.resource.email.nil?
-        flash[:error] = "请填写需要邀请的邮箱地址!"
-        render "/pages/refer_friend" and return
+        render "/users/refer_friend" and return
       end
 
       send_invitation_email{ redirect_to refer_friend_path }
@@ -27,7 +27,7 @@ class InvitationsController < Devise::InvitationsController
     end
   end
 
-  def update 
+  def update
     self.resource = accept_resource
 
     #reward huali points
@@ -35,7 +35,7 @@ class InvitationsController < Devise::InvitationsController
 
     if resource.errors.empty?
       yield resource if block_given?
-      flash_message = resource.active_for_authentication? ? :updated : :updated_not_active                                                                                        
+      flash_message = resource.active_for_authentication? ? :updated : :updated_not_active
       set_flash_message :notice, flash_message
       sign_in(resource_name, resource)
       respond_with resource, :location => after_accept_path_for(resource)
@@ -59,7 +59,7 @@ class InvitationsController < Devise::InvitationsController
       Notify.delay.invite_message(@from, self.resource, @subject)
       yield if block_given?
     else
-      render "/pages/refer_friend" and return
+      render "/users/refer_friend" and return
     end
   end
 

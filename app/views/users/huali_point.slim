@@ -15,26 +15,26 @@
             | 时间
           td.col2
             | 订单号
-          td.col3 
+          td.col3
             | 交易描述
-          td.col4 
+          td.col4
             | 花点
-          td.col5 
+          td.col5
             | 过期时间
         - @point_transactions.each do |transaction|
           tr
             td
               = transaction.created_at.to_formatted_s(:db)
-            td 
+            td
               - if transaction.transaction
-                = link_to "#{transaction.transaction.order.identifier}", order_path(transaction.transaction.order) 
+                = link_to "#{transaction.transaction.order.identifier}", order_path(transaction.transaction.order)
             td
               = transaction.description
             - if transaction.transaction_type == "income"
-              td.income 
+              td.income
                 = "+#{transaction.point}"
             - else
-              td 
+              td
                 = "-#{transaction.point}"
             td
               = transaction.expires_on
@@ -50,7 +50,7 @@
         br
         |花点是流通于花里官网，可用于抵扣或兑换花里产品的积分，1点花点在花里等价于1元人民币
       a name = 'how_to'
-      p 
+      p
         |如何获得花点？
         br
         |方式一：每购得一件商品，确认收货后您将获得该商品价格1%的花点（例子：购买单价为300的花盒，您将会获得3个花点）
@@ -61,5 +61,5 @@
         = link_to '前往选购', root_path, class: 'button btn'
         | &nbsp
         | &nbsp
-        = link_to '前往邀请', new_user_invitation_path, class: 'button btn'
+        = link_to '前往邀请', { action: 'refer_friend' }, class: 'button btn'
     .account-info-line

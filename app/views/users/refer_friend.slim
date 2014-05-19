@@ -5,23 +5,12 @@
       = t "devise.invitations.new.header"
 
     = simple_form_for @user, :url => invitation_path(@user), :html => {:method => :post} do |f|
-      - if @user.errors.any?
-        #error_explanation
-          h2
-            = "#{ pluralize(@user.errors.count, "error") } prohibited this user from being saved:"
-
-          ul
-          - @user.errors.full_messages.each do |msg|
-            li
-              = msg
-
-      - @user.class.invite_key_fields.each do |field|
-        p
-          = f.text_field field
+      p
+        = f.input :email
 
       p
         = f.submit t("devise.invitations.new.submit"), class: "btn-passport"
-      
+
     br
   .account-info-line
   .invitation-main
@@ -34,7 +23,7 @@
             p
               = check_box_tag "emails[]", "#{contact.email}", true, class: "item"
               = contact.name
-          = submit_tag "邀请所勾选者", class: "btn-passport" 
+          = submit_tag "邀请所勾选者", class: "btn-passport"
     - else
       .mail-providers
         = link_to image_tag("mail-logo/gmail_logo.png"), '/contacts/gmail'

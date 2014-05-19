@@ -70,6 +70,18 @@ Huali::Application.routes.draw do
   get 'users/check_user_exist', to: 'users#check_user_exist'
   post 'users/subscribe_email', to: 'users#subscribe_email'
 
+  get 'settings/profile', to: 'users#edit_profile'
+  put 'settings/profile', to: 'users#update_profile'
+  get 'settings/admin', to: 'users#edit_account'
+  put 'account/password', to: 'users#update_password'
+  get 'settings/huali_point', to: 'users#huali_point', as: :huali_point
+  get 'settings/refer_friend', to: 'users#refer_friend', as: :refer_friend
+
+  match "/contacts/:importer/callback" => "users#omnicontacts_callback", via: [:get, :post]
+  match '/contacts/failure', to: 'users#omnicontacts_failure', via: [:get, :post]
+  get "/email-contacts/signin", to: "users#email_mimic_signin", as: :email_signin
+  post "/email-contacts/import-contacts", to: "users#import_email_contacts", as: :import_contacts
+
   root to: "pages#home"
   get 'home', to: 'pages#home', as: :home
   get 'partner', to: 'pages#partner', as: :partner
@@ -82,12 +94,6 @@ Huali::Application.routes.draw do
   get 'white_day', to: 'pages#white_day', as: :white_day
   get 'pick_up', to: 'pages#pick_up', as: :pick_up
   get 'muqinjie', to: 'pages#mother_day', as: :muqinjie
-  get 'huali_point', to: 'pages#huali_point', as: :huali_point
-  get 'refer_friend', to: 'pages#refer_friend', as: :refer_friend
-  get 'email_signin', to: 'pages#email_signin', as: :email_signin
-  post 'import_contacts', to: 'pages#import_email_contacts', as: :import_contacts
-  get '/contacts/failure', to: 'pages#failure'
-  get '/contacts/:importer/callback', to: 'pages#contact_callback'
 
   get 'banners/:date', to: 'banners#index', as: :banners
   get 'stories', to: 'stories#index'

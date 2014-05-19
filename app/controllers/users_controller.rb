@@ -43,7 +43,7 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  def email_signin
+  def email_mimic_signin
     # if params[:provider]
     render "netease_signin"
     # else
@@ -82,6 +82,24 @@ class UsersController < ApplicationController
     else
       redirect_to root_path, notice: "无效的 Email, 订阅失败"
     end
+  end
+
+  def omnicontacts_callback
+    retrieved_contacts = request.env['omnicontacts.contacts']
+    unless retrieved_contacts.nil?
+      @contacts = Array.new
+      retrieved_contacts.each do |c|
+        next if c[:email].nil?
+        contact = OpenStruct.new
+        name = c[:name].nil? ? c[:email] : c[:name]
+        contact.name = name
+        contact.email = c[:email]
+        @contacts << contact
+      end
+    end
+    @user = User.new
+    render :refer_friend
+    # @user = request.env['omnicontacts.user']
   end
 
   def omnicontacts_failure
