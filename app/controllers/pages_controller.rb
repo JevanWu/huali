@@ -33,7 +33,7 @@ class PagesController < ApplicationController
   def import_email_contacts
     @username = params[:email]
     @password = params[:passwd] 
-    importer = NeteaseImporter.new(@username, @password)
+    importer = ContactsImporter::Netease.new(@username, @password)
     if importer.success_login?
       @contacts = importer.get_contacts
     else
