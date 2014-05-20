@@ -1,6 +1,6 @@
 class OrderRefundService
   def self.accept_refund(order, refund)
-    raise ArgumentError, "Invalid order state: #{order.state}" unless ['wait_refund', 'refunded'].include?(order.state)
+    raise ArgumentError, "Invalid order state: #{order.state}" unless ['wait_refund', 'refunded', 'completed'].include?(order.state)
     raise ArgumentError, "Trying to accept a refund that is rejected" if refund.state == 'rejected'
 
     ActiveRecord::Base.transaction do
