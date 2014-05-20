@@ -79,6 +79,8 @@ class ProductsController < ApplicationController
         sort_order = field == "sold_total" ? [:sold_total, :desc] : [field, direction]
         order_by(*sort_order)
       end
+
+      paginate :page => params[:page], :per_page => 12
     end.results
 
     prepare_tag_filter
