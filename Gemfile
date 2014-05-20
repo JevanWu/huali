@@ -97,6 +97,8 @@ gem 'omnicontacts'
 
 gem 'sunspot_rails'
 
+gem 'mechanize'
+
 group :development, :test do
   gem 'rspec-rails', '>= 2.11.0'
   gem 'rspec-instafail'

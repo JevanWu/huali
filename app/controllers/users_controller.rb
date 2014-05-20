@@ -43,6 +43,28 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def email_mimic_signin
+    # if params[:provider]
+    render "netease_signin"
+    # else
+    #   raise ActionController::RoutingError.new('Not Found')
+    # end
+  end
+
+  def import_email_contacts
+    @username = params[:email]
+    @password = params[:passwd] 
+    importer = ContactsImporter::Netease.new(@username, @password)
+    if importer.success_login?
+      @contacts = importer.get_contacts
+    else
+      flash[:alert] = t("login_failed")
+      redirect_to email_signin_path and return
+    end
+    @user = User.new
+    render :refer_friend
+  end
+
   def check_user_exist
     if u = User.find_by_email(check_user_params)
       result = { found: true, email: u.email }

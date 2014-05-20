@@ -79,6 +79,8 @@ Huali::Application.routes.draw do
 
   match "/contacts/:importer/callback" => "users#omnicontacts_callback", via: [:get, :post]
   match '/contacts/failure', to: 'users#omnicontacts_failure', via: [:get, :post]
+  get "/email_contacts/signin", to: "users#email_mimic_signin", as: :email_signin
+  post "/email_contacts/import_contacts", to: "users#import_email_contacts", as: :import_contacts
 
   root to: "pages#home"
   get 'home', to: 'pages#home', as: :home

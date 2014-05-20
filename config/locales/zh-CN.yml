@@ -49,6 +49,10 @@ zh-CN:
   depth: 长
   size: 尺寸
   image: 图片
+  email: 邮箱地址
+  password: 密码
+  submit: 提交
+  login_failed: 登录失败！请确认您的用户名和密码是否正确
 
   publish: 发布
   unpublish: 撤销发布
