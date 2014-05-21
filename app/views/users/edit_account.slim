@@ -3,7 +3,7 @@
   .profile
     .profile-edit
       = simple_form_for @user, url: { action: 'update_password' },
-        html: { class: 'form-horizontal', method: :put } do |f|
+        html: { class: 'form-horizontal', method: :patch } do |f|
 
         = f.input :current_password
         = f.input :password

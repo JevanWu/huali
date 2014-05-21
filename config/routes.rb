@@ -71,9 +71,9 @@ Huali::Application.routes.draw do
   post 'users/subscribe_email', to: 'users#subscribe_email'
 
   get 'settings/profile', to: 'users#edit_profile'
-  put 'settings/profile', to: 'users#update_profile'
+  patch 'settings/profile', to: 'users#update_profile'
   get 'settings/admin', to: 'users#edit_account'
-  put 'account/password', to: 'users#update_password'
+  patch 'account/password', to: 'users#update_password'
   get 'settings/huali_point', to: 'users#huali_point', as: :huali_point
   get 'settings/refer_friend', to: 'users#refer_friend', as: :refer_friend
 

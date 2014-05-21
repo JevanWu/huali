@@ -3,7 +3,7 @@
   .profile
     .profile-edit
       = simple_form_for @user, url: { action: 'update_profile' },
-        html: { class: 'form-horizontal', method: :put } do |f|
+        html: { class: 'form-horizontal', method: :patch } do |f|
 
         = f.input :email
         = f.input :name, placeholder: '您的称呼, 以便我们和您联系'
