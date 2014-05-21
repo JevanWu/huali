@@ -1,5 +1,5 @@
 module ContactsImporter
-  class Netease < Base
+  class Netease163 < Base
     def get_contacts
       @contacts = Array.new
       retrieved_contacts = query_contacts

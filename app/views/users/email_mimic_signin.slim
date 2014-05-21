@@ -2,7 +2,10 @@
   = render 'shared/account_info_header'
   .mail-signin
     .logo
-      = image_tag("mail-logo/163_logo.png")
+      - if @provider == "163"
+        = image_tag("mail-logo/163_logo.png")
+      - elsif @provider == "126"
+        = image_tag("mail-logo/126_logo.png")
     = form_tag(import_contacts_path, method: :post)
       p
         = label_tag t("email")
@@ -10,7 +13,8 @@
       p
         = label_tag t("password")
         = password_field_tag "passwd" 
-
+      p
+        = hidden_field_tag "email_provider", @provider
       p
         = submit_tag t("submit"), class: 'btn-passport'
 
