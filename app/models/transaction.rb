@@ -113,13 +113,17 @@ class Transaction < ActiveRecord::Base
   end
 
   def commission_fee
+    return 0 if order.kind == 'taobao'
+    return (0.05 * amount).round(2) if order.kind == 'tmall'
+    return 0 if order.kind != 'normal'
+
     case paymethod
     when 'paypal'
       0
     when 'wechat'
-      amount * 0.02
+      (amount * 0.02).round(2)
     else # Alipay
-      amount * 0.005
+      (amount * 0.009).round(2)
     end
   end
 
