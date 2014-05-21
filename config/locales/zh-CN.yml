@@ -304,6 +304,7 @@ zh-CN:
         created_at: 创建于
         updated_at: 更新于
         modify_transaction_state: 修改交易状态
+        commission_fee: 交易服务费
 
       product:
         thumbnail: 缩略图
