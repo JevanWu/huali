@@ -44,17 +44,22 @@ class UsersController < ApplicationController
   end
 
   def email_mimic_signin
-    # if params[:provider]
-    render "netease_signin"
-    # else
-    #   raise ActionController::RoutingError.new('Not Found')
-    # end
+    if params[:provider]
+      @provider = params[:provider]
+    else    
+      raise ActionController::RoutingError.new('Not Found')
+    end
   end
 
   def import_email_contacts
     @username = params[:email]
     @password = params[:passwd] 
-    importer = ContactsImporter::Netease.new(@username, @password)
+    if params[:email_provider] == "163"
+      importer = ContactsImporter::Netease163.new(@username, @password)
+    elsif params[:email_provider] == "126"
+      importer = ContactsImporter::Netease126.new(@username, @password)
+    end
+
     if importer.success_login?
       @contacts = importer.get_contacts
     else
