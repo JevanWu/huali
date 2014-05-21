@@ -73,7 +73,7 @@ gem 'closure_tree', github: 'ryancheung/closure_tree'
 
 gem "activeadmin-sortable-tree", :github => "nebirhos/activeadmin-sortable-tree", :branch => "master"
 
-gem 'phonelib', '~> 0.2.4'
+gem 'phonelib', '~> 0.3.1'
 
 gem 'mobylette'
 
