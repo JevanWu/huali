@@ -29,6 +29,9 @@ div.container
       |价格调整：
       = discount_amount(@order)
     p
+      |优惠后价格：
+      = @order.transaction.try(:amount)
+    p
       |订单类型：
       = @order.kind_text
     p
