@@ -44,6 +44,6 @@ class ShipmentNotifier < OpenStruct
     super raw_message['lastResult']
 
     # parse formated unified time format
-    @updated_time = DateTime.parse data.first['ftime']
+    @updated_time = DateTime.parse data.first['ftime'] if data.first
   end
 end
