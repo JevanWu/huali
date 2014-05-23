@@ -21,22 +21,29 @@ div.container
     p
       |官网订单号：
       = @order.identifier
-    - if @order.coupon_code_record
+    - unless ["tmall", "taobao"].include? @order.kind
+      - if @order.coupon_code_record
+        p
+          |所使用优惠码：
+          = @order.coupon_code_record
+      - adjustment = @order.adjustment || @order.coupon_code.try(:adjustment)
+      - if adjustment.present?
+        p
+          |优惠调整：
+          = adjustment
+        p
+          |优惠金额：
+          = discount_amount(@order)
       p
-        |所使用优惠码：
-        = @order.coupon_code_record
-    p
-      |价格调整：
-      = discount_amount(@order)
-    p
-      |优惠后价格：
-      = @order.transaction.try(:amount)
+        |优惠后价格：
+        = @order.transaction.try(:amount)
     p
       |订单类型：
       = @order.kind_text
-    p
-      |合作方订单号：
-      = @order.merchant_order_no
+    - unless @order.kind == "normal"
+      p
+        |合作方订单号：
+        = @order.merchant_order_no
 
     h3 递送信息
     p

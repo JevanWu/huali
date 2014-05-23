@@ -302,8 +302,12 @@ ActiveAdmin.register Order do
 
     column :ship_method
 
-    column :sender_info do |order|
-      [order[:sender_name], order[:sender_email], order[:sender_phone]].select { |s| !s.blank? }.join(', ')
+    column :sender_name do |order|
+      order[:sender_name]
+    end
+
+    column :kind do |order|
+      order.kind_text
     end
 
     column :created_at, sortable: :created_at do |order|
