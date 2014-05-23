@@ -29,6 +29,8 @@ class Sms
   end
 
   def deliver
+    return unless phone_number.types.include?(:mobile)
+
     case delivery_method
     when :sms
       send_sms
@@ -48,11 +50,7 @@ class Sms
   end
 
   def sanitized_national_phone
-    if phone_number.type == :mobile
-      phone_number.national.gsub(/(^0+|\s)/, '')
-    else
-      phone_number.national.gsub(/\s/, '')
-    end
+    phone_number.national.to_s.gsub(/\s/, '')
   end
 
   def smsbao
