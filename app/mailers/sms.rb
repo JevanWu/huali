@@ -29,6 +29,8 @@ class Sms
   end
 
   def deliver
+    return unless phone_number.types.include?(:mobile)
+
     case delivery_method
     when :sms
       send_sms
