@@ -131,7 +131,7 @@ module OrdersHelper
 
   def discount_amount(order)
     original_price = 0
-    order.line_items.each{ |item| original_price += item.price }
+    order.line_items.each{ |item| original_price += item.price * item.quantity }
     real_pay = order.transaction.try(:amount) || 0
     original_price - real_pay
   end
