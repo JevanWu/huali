@@ -497,7 +497,7 @@ ActiveAdmin.register Order do
     Axlsx::Package.new do |p|
       p.use_autowidth = false
       p.workbook.add_worksheet(:name => "Orders") do |sheet|
-        sheet.add_row OrderExcelDecorator::COLUMNS
+        sheet.add_row OrderExcelDecorator::COLUMNS, widths: OrderExcelDecorator::COLUMNS.map { 15 }
 
         orders.each do |o|
           decorated_order = OrderExcelDecorator.new(o)

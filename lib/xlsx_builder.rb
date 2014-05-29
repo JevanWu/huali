@@ -88,7 +88,7 @@ class XlsxBuilder
   # tranform column names into array of localized strings
   # @return [Array]
   def header_row
-    sheet.add_row columns.map { |column| localized_column(column, i18n_scope) }, style: header_style_id, widths: [20, 20, 20 , 20, 20, 20, 20, 20]
+    sheet.add_row columns.map { |column| localized_column(column, i18n_scope) }, style: header_style_id, widths: columns.map { 80 }
   end
 
   def header_style_id
