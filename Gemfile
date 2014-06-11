@@ -99,6 +99,9 @@ gem 'sunspot_rails'
 
 gem 'mechanize'
 
+gem 'tiny_tds'
+gem 'activerecord-sqlserver-adapter', '~> 4.0.0'
+
 group :development, :test do
   gem 'rspec-rails', '>= 2.11.0'
   gem 'rspec-instafail'
