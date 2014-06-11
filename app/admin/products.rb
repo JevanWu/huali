@@ -47,6 +47,7 @@ ActiveAdmin.register Product do
         :count_on_hand,
         :price,
         :original_price,
+        :sku_id,
         :width,
         :depth,
         :height,
