@@ -9,7 +9,7 @@ module Erp
     self.table_name = "lysoorder"
     self.primary_key = "FInterID"
 
-    has_many :order_entries, foreign_key: 'FInterID', primary_key: 'FID'
+    has_many :order_entries, foreign_key: 'FInterID', primary_key: 'FInterID'
     coerce_sqlserver_date :FDate
 
     validates :FOrg, :FDate, :FBillNo, :FInterID, presence: true
