@@ -30,7 +30,7 @@ module Erp
                 FTransNo: transaction.try(:merchant_trade_no),
                 FTransType: trans_type(transaction),
                 FTransFee: transaction.try(:commission_fee),
-                FShipment: "#{shipment.ship_method}: #{shipment.tracking_num}")
+                FShipment: shipment && "#{shipment.ship_method}: #{shipment.tracking_num}")
 
       order.line_items.each do |item|
         ret.order_entries.build(FNumber: item.sku_id,
