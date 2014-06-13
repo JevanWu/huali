@@ -48,7 +48,7 @@ module Erp
     private
 
       def trans_type(transaction)
-        return nil if transaction.nil?
+        return '*' if transaction.nil?
 
         case transaction.paymethod
         when 'paypal'
