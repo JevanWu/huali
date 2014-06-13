@@ -20,7 +20,8 @@ module Erp
     def validate_in_erp
       result = Erp::Order.execute_procedure :validate_order, FBillNo: @order.identifier
 
-      return true if result.blank?
+      error_code = result.first['FError']
+      return true if error_code == 0
 
       @erp_order.destroy
       logger.error("ERP OrderValidation failed: #{@order.identifier}")
