@@ -20,6 +20,7 @@ module Erp
 
     def self.from_order(order)
       transaction = order.transactions.find { |t| t.state == 'completed' }
+      shipment = order.shipments.find { |t| ["shipped", "completed"].include?(t.state) }
 
       ret = new(FOrg: CLIENT_CODES[order.kind.to_sym],
                 FDate: order.created_at.to_date,
@@ -28,7 +29,8 @@ module Erp
                 FInterID: order.id,
                 FTransNo: transaction.try(:merchant_trade_no),
                 FTransType: trans_type(transaction),
-                FTransFee: transaction.try(:commission_fee))
+                FTransFee: transaction.try(:commission_fee),
+                FShipment: "#{shipment.ship_method}: #{shipment.tracking_num}")
 
       order.line_items.each do |item|
         ret.order_entries.build(FNumber: item.sku_id,
