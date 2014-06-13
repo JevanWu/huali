@@ -10,7 +10,7 @@ module Erp
       if @erp_order.persisted?
         validate_in_erp and import_to_erp and return true
       else
-        logger.error("ERP Validation errors: #{@erp_order.errors.full_messages}")
+        logger.error("ERP Validation errors: #{@order.identifier} #{@erp_order.errors.full_messages}")
         false
       end
     end
