@@ -82,7 +82,9 @@ namespace :migrate do
     end_date = "2014-05-25".to_date
 
     orders = Order.includes({ line_items: :product }, :transactions, :shipments, :ship_method).
-      where(delivery_date: start_date..end_date).where(state: ["wait_confirm", "completed"]).to_a
+      where(delivery_date: start_date..end_date).
+      where(state: ["wait_confirm", "completed"]).
+      where(kind: ['normal', 'taobao', 'tmall']).to_a
 
     orders.each do |order|
       if Erp::OrderImporter.new(order).import
