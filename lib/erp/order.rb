@@ -13,6 +13,7 @@ module Erp
     coerce_sqlserver_date :FDate
 
     validates :FOrg, :FDate, :FBillNo, :FInterID, presence: true
+    validates :FBillNo, uniqueness: true
 
     extend Enumerize
     enumerize :FOrg, in: CLIENT_CODES.values, default: CLIENT_CODES.values.first
