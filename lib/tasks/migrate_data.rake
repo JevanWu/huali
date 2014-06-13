@@ -75,4 +75,19 @@ namespace :migrate do
       product.update_monthly_sold(product.sold_total)
     end
   end
+
+  desc "improt order to erp"
+  task import_order: :environment do
+    start_date = "2014-04-26".to_date
+    end_date = "2014-05-25".to_date
+
+    orders = Order.includes({ line_items: :product }, :transactions, :shipments, :ship_method).
+      where(delivery_date: start_date..end_date).where(state: ["wait_confirm", "completed"]).to_a
+
+    orders.each do |order|
+      if Erp::OrderImporter.new(order).import
+        puts "#{order.identifier} was imported!"
+      end
+    end
+  end
 end
