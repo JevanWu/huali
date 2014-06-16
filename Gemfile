@@ -99,6 +99,8 @@ gem 'sunspot_rails'
 
 gem 'mechanize'
 
+gem "highcharts-rails", "~> 3.0.0"
+
 group :development, :test do
   gem 'rspec-rails', '>= 2.11.0'
   gem 'rspec-instafail'
