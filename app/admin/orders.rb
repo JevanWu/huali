@@ -282,6 +282,7 @@ ActiveAdmin.register Order do
   index do
     unless current_admin_ability.cannot? :bulk_export_data, Order
       div style: "text-align: right" do
+        link_to('Daily order report', params.merge(action: :daily_report), class: 'table_tools_button') +
         link_to('Download latest', params.merge(action: :download_latest), class: 'table_tools_button') +
         link_to('Export to excel', params.merge(action: :export_to_excel), class: 'table_tools_button')
       end
