@@ -58,7 +58,7 @@ ActiveAdmin.register Order do
 
     private
 
-    before_action :authorize_to_download_orders, only: [:download_latest, :download]
+    before_action :authorize_to_download_orders, only: [:download_latest, :download, :daily_report]
     before_action :authorize_to_update_order, only: [:cancel, :refund, :pay, :check, :make, :ship, :update, :batch_action]
 
     def authorize_to_update_order
@@ -477,6 +477,10 @@ ActiveAdmin.register Order do
         order[:sender_phone].presence
       end
     end
+  end
+
+  collection_action :daily_report, method: :get do
+    @daily_order_report = DailyOrderReport.new(30.days.ago.to_date, Date.current)
   end
 
   collection_action :download_latest, method: :get do
