@@ -113,6 +113,11 @@ class OrdersController < ApplicationController
   def checkout
     @banks = ['ICBCB2C', 'CMB', 'CCB', 'BOCB2C', 'ABC', 'COMM', 'CMBC']
 
+    if request.env["HTTP_USER_AGENT"].include? "MicroMessenger"
+      @use_wechat_agent = true
+    else
+      @use_wechat_agent = false
+
     if params[:id]
       @order = current_or_guest_user.orders.find_by_id(params[:id])
 
