@@ -2,7 +2,7 @@ source "http://ruby.taobao.org"
 # source "http://bundler-api.herokuapp.com"
 # source 'http://rubygems.org'
 
-gem 'rails', '~> 4.0.3'
+gem 'rails', '~> 4.0.5'
 gem 'pg', '>= 0.14.1'
 gem 'devise', '~> 3.2.0'
 gem 'devise_invitable', '~> 1.3.0'
@@ -15,7 +15,7 @@ gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'ransack'
 gem 'inherited_resources'
 gem 'formtastic'
-gem 'axlsx'
+gem 'axlsx', '2.0.0'
 gem 'paperclip', '~> 3.0'
 gem 'simple_form'
 gem 'kramdown', '~> 0.13'
@@ -59,6 +59,7 @@ gem 'roadie'
 # rails-4 upgrade
 gem 'rails-observers'
 gem 'sprockets-rails'
+gem 'sprockets', '<= 2.11.0'
 
 gem 'sass-rails'
 gem 'coffee-rails'
@@ -72,7 +73,7 @@ gem 'closure_tree', github: 'ryancheung/closure_tree'
 
 gem "activeadmin-sortable-tree", :github => "nebirhos/activeadmin-sortable-tree", :branch => "master"
 
-gem 'phonelib', '~> 0.2.4'
+gem 'phonelib', '~> 0.3.1'
 
 gem 'mobylette'
 
@@ -95,6 +96,10 @@ gem 'dalli'
 gem 'omnicontacts'
 
 gem 'sunspot_rails'
+
+gem 'mechanize'
+
+gem "highcharts-rails", "~> 3.0.0"
 
 group :development, :test do
   gem 'rspec-rails', '>= 2.11.0'

@@ -118,6 +118,7 @@ ActiveAdmin.register Transaction do
       end
 
       row :amount
+      row :commission_fee
       row :subject
       row :body
     end

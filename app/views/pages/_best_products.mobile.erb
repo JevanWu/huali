@@ -1,11 +1,11 @@
 <div class="best-products constrained row">
-  <% product_row_1 = [180, 178, 179, 132]  %>
-  <% product_row_2 = [176, 22, 175, 161]  %>
-  <% product_row_3 = [162, 183, 125, 40]  %>
-  <% product_row_4 = [85, 133, 80, 181]  %>
-  <% products =  Product.find(product_row_1 + product_row_2 + product_row_3 + product_row_4) %>
+  <% product_row_1 = [197, 198, 178, 179]  %>
+  <% product_row_2 = [196, 22, 175, 177]  %>
+  <% product_row_3 = [162, 146, 85, 181]  %>
+  <%# <% product_row_4 = [85, 133, 80, 181]  %>
+  <% products =  Product.find(product_row_1 + product_row_2 + product_row_3) %>
   <%= render partial: 'products/product', collection: products.select { |p| product_row_1.include?(p.id) }.sort_by { |p| product_row_1.index(p.id) } %>
   <%= render partial: 'products/product', collection: products.select { |p| product_row_2.include?(p.id) }.sort_by { |p| product_row_2.index(p.id) } %>
   <%= render partial: 'products/product', collection: products.select { |p| product_row_3.include?(p.id) }.sort_by { |p| product_row_3.index(p.id) } %>
-  <%= render partial: 'products/product', collection: products.select { |p| product_row_4.include?(p.id) }.sort_by { |p| product_row_4.index(p.id) } %>
+  <%# <%= render partial: 'products/product', collection: products.select { |p| product_row_4.include?(p.id) }.sort_by { |p| product_row_4.index(p.id) } %>
 </div>

@@ -49,7 +49,11 @@ module Phonelib
 
             return original_phone unless parsed_phone.valid?
 
-            parsed_phone.international
+            parsed_phone.international.scan(/(\+\d+\s)(.+)/) do |code, number|
+              return code + number.gsub(/\s/, '')
+            end
+
+            return parsed_phone.international
           end
         end
       end

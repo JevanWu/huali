@@ -17,4 +17,5 @@
 #= require 'orders'
 #= require 'component/swipe'
 #= require 'mediav'
+#= require 'wechat-pay'
 

@@ -49,6 +49,10 @@ zh-CN:
   depth: 长
   size: 尺寸
   image: 图片
+  email: 邮箱地址
+  password: 密码
+  submit: 提交
+  login_failed: 登录失败！请确认您的用户名和密码是否正确
 
   publish: 发布
   unpublish: 撤销发布
@@ -241,6 +245,7 @@ zh-CN:
         last_order: 关联订单号
         memo: 客服备注
         validation_code: 正品序列号
+        coupon_code_record_code: 优惠劵
 
       period_region_policy:
         start_date: 起始日期
@@ -299,6 +304,7 @@ zh-CN:
         created_at: 创建于
         updated_at: 更新于
         modify_transaction_state: 修改交易状态
+        commission_fee: 交易服务费
 
       product:
         thumbnail: 缩略图
@@ -570,7 +576,7 @@ zh-CN:
         others: 其他
         preserved_flower: 永生花
         fresh_flower: 鲜花
-        fake_flower: 高仿花
+        fake_flower: 仿真花
       promo_tag:
         limit: 限量
     administrator:
@@ -594,6 +600,7 @@ zh-CN:
         normal: 普通订单
         b2b: B2B订单
         fieldschina: 甫田
+        self_pickup: 自提订单
 
     survey:
       gender:
@@ -642,6 +649,16 @@ zh-CN:
       products_sold_out: 产品已售尽
       success_to_get_promo_product: 恭喜您, 抢购成功
       fail_to_get_promo_product: 很抱歉，您错过了0元抢购，但还可以继续付款购买
+    user:
+      profile_updated: 个人资料更新成功
+      password_updated: 密码更新成功
+      omnicontacts:
+        not_authorized:
+          未成功授权，请重试
+        timeout:
+          授权超时
+        internal_error:
+          内部错误
 
     reminder:
       reminder_success: 您已经成功创建提醒

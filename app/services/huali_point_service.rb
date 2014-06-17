@@ -23,6 +23,7 @@ class HualiPointService
   end
 
   def self.rebate_point(customer, transaction)
+    return if transaction.nil?
     unless transaction.use_huali_point?
       User.transaction do
         customer.lock!

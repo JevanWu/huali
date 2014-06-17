@@ -58,7 +58,7 @@ ActiveAdmin.register Order do
 
     private
 
-    before_action :authorize_to_download_orders, only: [:download_latest, :download]
+    before_action :authorize_to_download_orders, only: [:download_latest, :download, :daily_report]
     before_action :authorize_to_update_order, only: [:cancel, :refund, :pay, :check, :make, :ship, :update, :batch_action]
 
     def authorize_to_update_order
@@ -171,6 +171,7 @@ ActiveAdmin.register Order do
   filter :expected_date
   filter :delivery_date
   filter :created_at
+  filter :coupon_code_record_code, as: :string
   filter :kind, as: :select, collection: Order.kind.options
   filter :merchant_order_no
   filter :prechecked
@@ -187,6 +188,7 @@ ActiveAdmin.register Order do
     已经完成: 'completed'
   }
   filter :sender_name, as: :string
+  filter :sender_phone, as: :string
   filter :address_fullname, as: :string
   filter :address_phone, as: :string
   filter :address_province_name, as: :string
@@ -280,6 +282,7 @@ ActiveAdmin.register Order do
   index do
     unless current_admin_ability.cannot? :bulk_export_data, Order
       div style: "text-align: right" do
+        link_to('Daily order report', params.merge(action: :daily_report), class: 'table_tools_button') +
         link_to('Download latest', params.merge(action: :download_latest), class: 'table_tools_button') +
         link_to('Export to excel', params.merge(action: :export_to_excel), class: 'table_tools_button')
       end
@@ -300,8 +303,12 @@ ActiveAdmin.register Order do
 
     column :ship_method
 
-    column :sender_info do |order|
-      [order[:sender_name], order[:sender_email], order[:sender_phone]].select { |s| !s.blank? }.join(', ')
+    column :sender_name do |order|
+      order[:sender_name]
+    end
+
+    column :kind do |order|
+      order.kind_text
     end
 
     column :created_at, sortable: :created_at do |order|
@@ -329,6 +336,8 @@ ActiveAdmin.register Order do
 
   show do
     attributes_table do
+      row :created_at
+
       row :state do
         status_tag t('models.order.state.' + order.state), order_state(order)
       end
@@ -429,7 +438,9 @@ ActiveAdmin.register Order do
 
       row :gift_card_text
       row :special_instructions
-      row :memo
+      row :memo do
+        order.memo.to_s.html_safe
+      end
 
       row :coupon_code_record do
         if order.coupon_code_record
@@ -469,6 +480,10 @@ ActiveAdmin.register Order do
     end
   end
 
+  collection_action :daily_report, method: :get do
+    @daily_order_report = DailyOrderReport.new(30.days.ago.to_date, Date.current)
+  end
+
   collection_action :download_latest, method: :get do
     orders = Order.within_this_week
     xlsx_filename = "latest-orders-since-#{7.days.ago.to_date}.xlsx"
@@ -481,13 +496,13 @@ ActiveAdmin.register Order do
     end_date = "#{params[:end_date][:year]}-#{params[:end_date][:month]}-#{params[:end_date][:day]}".to_date
 
     orders = Order.includes({ line_items: :product }, :transactions, :shipments, { address: [:province, :city, :area] }, :ship_method).
-      where(created_at: start_date..end_date).where(state: ["wait_check", "wait_make", "wait_ship", "wait_confirm", "completed"]).to_a
+      where(delivery_date: start_date..end_date).where(state: ["wait_confirm", "completed"]).to_a
 
     filename = "/tmp/orders-#{start_date}-#{end_date}-#{Time.current.to_i}.xlsx"
     Axlsx::Package.new do |p|
       p.use_autowidth = false
       p.workbook.add_worksheet(:name => "Orders") do |sheet|
-        sheet.add_row OrderExcelDecorator::COLUMNS
+        sheet.add_row OrderExcelDecorator::COLUMNS, widths: OrderExcelDecorator::COLUMNS.map { 15 }
 
         orders.each do |o|
           decorated_order = OrderExcelDecorator.new(o)
