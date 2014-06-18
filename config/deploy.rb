@@ -3,7 +3,6 @@ lock '3.2.1'
 
 set :application, 'huali'
 set :repo_url, 'git@git.zenhacks.org:yangchenyun/huali.git'
-set :git_enable_submodules, 1
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
