@@ -40,6 +40,7 @@ set :rbenv_roles, :all # default value
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
+set :sidekiq_config, "#{fetch(:deploy_to)}/current/config/sidekiq.yml"
 
 namespace :deploy do
 
