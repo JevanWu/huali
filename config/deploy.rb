@@ -9,7 +9,7 @@ set :git_enable_submodules, 1
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
 # Default deploy_to directory is /var/www/my_app
-set :deploy_to, "~/repositories/#{fetch(:application)}-production"
+set :deploy_to, "~/repositories/#{fetch(:application)}-#{fetch(:stage)}"
 
 # Default value for :scm is :git
 # set :scm, :git
@@ -29,8 +29,8 @@ set :linked_files, %w{config/database.yml config/application.yml config/unicorn.
 # Default value for linked_dirs is []
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
-# gem 'capistrano/rbenv'
-set :rbenv_type, :user # or :system, depends on your rbenv setup
+# rbenv configuration
+set :rbenv_type, fetch(:stage) == :staging ? :system : :user # staing server use system rbenv setup
 set :rbenv_ruby, '2.0.0-p247'
 set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
 set :rbenv_map_bins, %w{rake gem bundle ruby rails}
