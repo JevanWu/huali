@@ -68,8 +68,8 @@ namespace :deploy do
       within release_path do
         with rails_env: fetch(:stage) do
           unless fetch(:stage) == :staging
-            invoke 'sitemap:refresh'
-            execute :gunzip, "-fc #{fetch(:release_path)}/public/sitemap.xml.gz > #{fetch(:release_path)}/public/sitemap.xml"
+            execute :rake , 'sitemap:refresh'
+            execute :gunzip, "-fc public/sitemap.xml.gz > public/sitemap.xml"
           end
         end
       end
