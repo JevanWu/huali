@@ -73,13 +73,6 @@ GIT
       rest-client
 
 GIT
-  remote: https://github.com/zenhacks/capistrano-zen.git
-  revision: 59a0e07b7910d57c93ac43e080e2e305bebac103
-  specs:
-    capistrano-zen (0.0.3)
-      capistrano (>= 2.5.3)
-
-GIT
   remote: https://github.com/zenhacks/forgery.git
   revision: 852431bfa9a1b2b74dd24f7185f23ce7b52c760c
   specs:
@@ -162,12 +155,19 @@ GEM
       thor
     builder (3.1.4)
     cancan (1.6.10)
-    capistrano (2.15.5)
-      highline
-      net-scp (>= 1.0.0)
-      net-sftp (>= 2.0.0)
-      net-ssh (>= 2.0.14)
-      net-ssh-gateway (>= 1.1.0)
+    capistrano (3.2.1)
+      i18n
+      rake (>= 10.0.0)
+      sshkit (~> 1.3)
+    capistrano-bundler (1.1.2)
+      capistrano (~> 3.0)
+      sshkit (~> 1.2)
+    capistrano-rails (1.1.1)
+      capistrano (~> 3.1)
+      capistrano-bundler (~> 1.1)
+    capistrano-rbenv (2.0.2)
+      capistrano (~> 3.1)
+      sshkit (~> 1.3)
     capybara (2.1.0)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -194,6 +194,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
+    colorize (0.7.3)
     columnize (0.3.6)
     connection_pool (1.1.0)
     css_parser (1.3.4)
@@ -300,7 +301,6 @@ GEM
     hashie (2.0.5)
     highcharts-rails (3.0.10)
       railties (>= 3.1)
-    highline (1.6.19)
     hike (1.2.3)
     htmlentities (4.3.1)
     http-cookie (1.0.2)
@@ -366,13 +366,9 @@ GEM
     multipart-post (1.2.0)
     net-http-digest_auth (1.4)
     net-http-persistent (2.9.4)
-    net-scp (1.1.2)
+    net-scp (1.2.1)
       net-ssh (>= 2.6.5)
-    net-sftp (2.1.2)
-      net-ssh (>= 2.6.5)
-    net-ssh (2.6.8)
-    net-ssh-gateway (1.2.0)
-      net-ssh (>= 2.6.5)
+    net-ssh (2.9.1)
     newrelic_rpm (3.6.5.130)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
@@ -592,6 +588,10 @@ GEM
       squash_ruby
     squash_ruby (1.4.0)
       json
+    sshkit (1.5.1)
+      colorize
+      net-scp (>= 1.1.2)
+      net-ssh (>= 2.8.0)
     state_machine (1.2.0)
     sunspot (2.1.0)
       pr_geohash (~> 1.0)
@@ -665,8 +665,10 @@ DEPENDENCIES
   bond
   bootstrap-sass (~> 2.2.1.1)
   cancan (~> 1.0)
-  capistrano (~> 2.0)
-  capistrano-zen!
+  capistrano (~> 3.0)
+  capistrano-bundler (~> 1.1)
+  capistrano-rails (~> 1.1)
+  capistrano-rbenv (~> 2.0)
   capybara (>= 1.1.2)
   ckeditor!
   closure_tree!
