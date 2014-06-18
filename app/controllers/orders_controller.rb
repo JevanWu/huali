@@ -117,6 +117,7 @@ class OrdersController < ApplicationController
       @use_wechat_agent = true
     else
       @use_wechat_agent = false
+    end
 
     if params[:id]
       @order = current_or_guest_user.orders.find_by_id(params[:id])
