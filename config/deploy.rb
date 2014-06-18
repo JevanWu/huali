@@ -69,7 +69,7 @@ desc 'Copy ckeditor nondigest assets'
 task :copy_nondigest_assets do
   on roles(:app), in: :sequence do
     within release_path do
-      with rails_env: :production do
+      with rails_env: fetch(:stage) do
         execute :rake, 'ckeditor:copy_nondigest_assets'
       end
     end
