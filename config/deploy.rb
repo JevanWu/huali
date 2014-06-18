@@ -62,6 +62,19 @@ namespace :deploy do
     end
   end
 
+  after :restart, :refresh_sitemap do
+    on roles(:app), in: :sequence do
+      within release_path do
+        with rails_env: fetch(:stage) do
+          unless fetch(:stage) == :staging
+            invoke 'sitemap:refresh'
+            execute :gunzip, "-fc #{fetch(:release_path)}/public/sitemap.xml.gz > #{fetch(:release_path)}/public/sitemap.xml"
+          end
+        end
+      end
+    end
+  end
+
 end
 
 # CKEditor
