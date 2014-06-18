@@ -28,7 +28,7 @@
         = @order.address.full_addr
 
   - if @use_wechat_agent
-    = content_tag(:button, "立即支付")
+    = content_tag(:button, "立即支付"), id: "getBrandWCPayRequest", class: 'btn-m-confirmPay button'
   - else
     = form_tag(gateway_order_path(@order), method: "post") do
       select.pay-ways name="pay_info"
