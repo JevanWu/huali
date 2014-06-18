@@ -56,4 +56,4 @@ $(document).ready ->
 
     completeString = string2 + "&sign="+signValue
     oldPackageString = completeString
-                                                                                                                                             return completeString
+    return completeString
