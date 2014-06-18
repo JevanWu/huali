@@ -36,7 +36,7 @@ set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 set :rbenv_roles, :all # default value
 
 # Default value for default_env is {}
-set :default_env, { path: "~/.rbenv/shims:~/.rbenv/bin:$PATH" }
+# set :default_env, {}
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
