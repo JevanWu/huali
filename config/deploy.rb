@@ -10,7 +10,7 @@ set :rails_env, fetch(:stage).to_s
 set :branch, fetch(:rails_env) == 'staging' ? :staging : :master
 
 # Default deploy_to directory is /var/www/my_app
-set :deploy_to, "~/repositories/#{fetch(:application)}-#{fetch(:rails_env)}"
+set :deploy_to, "/home/deployer/repositories/#{fetch(:application)}-#{fetch(:rails_env)}"
 
 # Default value for :scm is :git
 # set :scm, :git
@@ -43,6 +43,8 @@ set :rbenv_roles, :all # default value
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 set :sidekiq_config, "#{fetch(:deploy_to)}/current/config/sidekiq.yml"
+
+set :assets_dir, %w(public/system)
 
 namespace :deploy do
 

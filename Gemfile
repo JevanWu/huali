@@ -147,7 +147,7 @@ group :development do
   gem 'capistrano-bundler', '~> 1.1', require: false
   gem 'capistrano-rbenv', '~> 2.0', require: false
   gem 'capistrano-sidekiq'
-  gem "capistrano-db-tasks", require: false
+  gem "capistrano-db-tasks", github: 'sgruhier/capistrano-db-tasks', require: false
 
   gem 'railroady'
   gem "rails-erd"
