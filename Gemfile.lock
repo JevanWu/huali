@@ -39,7 +39,8 @@ GIT
 
 GIT
   remote: git://github.com/ryancheung/capistrano-db-tasks.git
-  revision: 9f248986dec9e5979e749d6ef82742b68a232e99
+  revision: 8b2778dc310a3cb174f53b8c85b43366daa97c18
+  branch: postgresql-9.2
   specs:
     capistrano-db-tasks (0.3)
       capistrano (>= 3.0.0)
