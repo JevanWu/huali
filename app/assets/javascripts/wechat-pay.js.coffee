@@ -40,7 +40,7 @@ $(document).ready ->
     out_trade_no = "OR1406180007"
     total_fee = "10000"
     fee_type = "1"
-    notify_url = "http://www.hua.li"
+    notify_url = "http://www.hua.li/wechat/pay"
     spbill_create_ip = "127.0.0.1"
     input_charset = "GBK"
     
