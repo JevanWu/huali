@@ -4,11 +4,13 @@ lock '3.2.1'
 set :application, 'huali'
 set :repo_url, 'git@git.zenhacks.org:yangchenyun/huali.git'
 
+set :rails_env, fetch(:stage).to_s
+
 # Default branch is :master
-ask :branch, fetch(:stage) == :staging ? :staging : :master
+set :branch, fetch(:rails_env) == 'staging' ? :staging : :master
 
 # Default deploy_to directory is /var/www/my_app
-set :deploy_to, "~/repositories/#{fetch(:application)}-#{fetch(:stage)}"
+set :deploy_to, "~/repositories/#{fetch(:application)}-#{fetch(:rails_env)}"
 
 # Default value for :scm is :git
 # set :scm, :git
@@ -29,7 +31,7 @@ set :linked_files, %w{config/database.yml config/application.yml config/unicorn.
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
 # rbenv configuration
-set :rbenv_type, fetch(:stage) == :staging ? :system : :user # staing server use system rbenv setup
+set :rbenv_type, fetch(:rails_env) == 'staging' ? :system : :user # staing server use system rbenv setup
 set :rbenv_ruby, '2.0.0-p247'
 set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
 set :rbenv_map_bins, %w{rake gem bundle ruby rails}
@@ -41,8 +43,6 @@ set :rbenv_roles, :all # default value
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 set :sidekiq_config, "#{fetch(:deploy_to)}/current/config/sidekiq.yml"
-
-set :rails_env, fetch(:stage)
 
 namespace :deploy do
 
@@ -65,14 +65,15 @@ namespace :deploy do
     end
   end
 
-  after :restart, :refresh_sitemap do
+  # Only refresh sitemap on production servers
+  after :restart, 'sitemap:refresh' unless fetch(:rails_env) == 'staging'
+
+  # Custom task to unzip generated sitemap.xml.gz file
+  after 'sitemap:refresh', 'sitemap:unzip' do
     on roles(:app), in: :sequence do
       within release_path do
-        with rails_env: fetch(:stage) do
-          unless fetch(:stage) == :staging
-            execute :rake , 'sitemap:refresh'
-            execute :gunzip, "-fc public/sitemap.xml.gz > public/sitemap.xml"
-          end
+        with rails_env: fetch(:rails_env) do
+          execute :gunzip, "-fc public/sitemap.xml.gz > public/sitemap.xml"
         end
       end
     end
@@ -85,7 +86,7 @@ desc 'Copy ckeditor nondigest assets'
 task :copy_nondigest_assets do
   on roles(:app), in: :sequence do
     within release_path do
-      with rails_env: fetch(:stage) do
+      with rails_env: fetch(:rails_env) do
         execute :rake, 'ckeditor:copy_nondigest_assets'
       end
     end
