@@ -4,7 +4,7 @@ lock '3.2.1'
 set :application, 'huali'
 set :repo_url, 'git@git.zenhacks.org:yangchenyun/huali.git'
 
-set :rails_env, fetch(:stage).to_s
+set :rails_env, fetch(:stage) == :staging ? 'staging' : 'production'
 
 # Default branch is :master
 set :branch, fetch(:rails_env) == 'staging' ? :staging : :master
