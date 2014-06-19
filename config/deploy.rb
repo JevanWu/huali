@@ -42,6 +42,8 @@ set :rbenv_roles, :all # default value
 # set :keep_releases, 5
 set :sidekiq_config, "#{fetch(:deploy_to)}/current/config/sidekiq.yml"
 
+set :rails_env, fetch(:stage)
+
 namespace :deploy do
 
   desc 'Restart application'
