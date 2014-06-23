@@ -1,0 +1,8 @@
+.account-info-container
+  = render 'shared/account_info_header'
+  .postcard-container
+    = simple_form_for @postcard do |f|
+      = f.input :content
+      = f.input :question
+      = f.submit
+  .account-info-line
