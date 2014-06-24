@@ -19,5 +19,6 @@
 #= require 'module/chosen-select'
 #= require 'module/banner'
 #= require 'module/bookmark'
+#= require 'module/postcard'
 #= require 'orders'
 #= require 'mediav'

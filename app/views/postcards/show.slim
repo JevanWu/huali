@@ -3,4 +3,8 @@
   .postcard-container
     = @postcard.content
     = @postcard.question
+    = @postcard.answer
+    - @postcard.assets.each do |asset|
+      = image_tag asset.image.url
+
   .account-info-line

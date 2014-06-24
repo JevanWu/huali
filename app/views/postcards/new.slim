@@ -3,6 +3,10 @@
   .postcard-container
     = simple_form_for @postcard do |f|
       = f.input :content
+      = f.simple_fields_for :assets do |builder|
+        = render "asset_fields", f: builder 
+      = link_to_add_fields("Add", f, :assets)
       = f.input :question
+      = f.input :answer
       = f.submit
   .account-info-line
