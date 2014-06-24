@@ -47,6 +47,7 @@ ActiveAdmin.register Product do
         :count_on_hand,
         :price,
         :original_price,
+        :sku_id,
         :width,
         :depth,
         :height,
@@ -86,7 +87,7 @@ ActiveAdmin.register Product do
   index do
     selectable_column
     column "ID" do |product|
-      link_to product.sku_id || product.id, product_path(product)
+      link_to product.id, product_path(product)
     end
 
     column :name_zh

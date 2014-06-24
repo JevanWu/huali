@@ -4,6 +4,8 @@
 #= require region_rule_edit
 #= require admin_prov_city_area_update
 #= require chosen.jquery
+#= require highcharts
+#= require highcharts/modules/exporting
 
 $ ->
   $('form').on 'click', '.remove_fields', (event) ->

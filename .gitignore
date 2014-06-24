@@ -87,3 +87,4 @@ public/sitemap.xml.gz
 config/unicorn.rb
 unicorn.sh
 .lock-closuretree-*
+/db/*.sql

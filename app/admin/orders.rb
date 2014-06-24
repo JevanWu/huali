@@ -58,7 +58,7 @@ ActiveAdmin.register Order do
 
     private
 
-    before_action :authorize_to_download_orders, only: [:download_latest, :download]
+    before_action :authorize_to_download_orders, only: [:download_latest, :download, :daily_report]
     before_action :authorize_to_update_order, only: [:cancel, :refund, :pay, :check, :make, :ship, :update, :batch_action]
 
     def authorize_to_update_order
@@ -282,6 +282,7 @@ ActiveAdmin.register Order do
   index do
     unless current_admin_ability.cannot? :bulk_export_data, Order
       div style: "text-align: right" do
+        link_to('Daily order report', params.merge(action: :daily_report), class: 'table_tools_button') +
         link_to('Download latest', params.merge(action: :download_latest), class: 'table_tools_button') +
         link_to('Export to excel', params.merge(action: :export_to_excel), class: 'table_tools_button')
       end
@@ -477,6 +478,10 @@ ActiveAdmin.register Order do
         order[:sender_phone].presence
       end
     end
+  end
+
+  collection_action :daily_report, method: :get do
+    @daily_order_report = DailyOrderReport.new(30.days.ago.to_date, Date.current)
   end
 
   collection_action :download_latest, method: :get do

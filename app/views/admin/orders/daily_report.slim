@@ -1,0 +1,7 @@
+h3
+  = "当前日期：#{Date.current}"
+h3
+  = "平均单价：#{@daily_order_report.average_order_amount} 元"
+#order_amount style="min-width: 310px; height: 400px; margin: 0 auto"
+#order_count style="min-width: 310px; height: 400px; margin: 0 auto"
+= render 'report_chart'
