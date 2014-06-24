@@ -22,6 +22,14 @@ class PostcardsController < ApplicationController
 
   def show
     @postcard = Postcard.find(params[:id])
+    answer = params[:answer]
+    if (!@postcard.question.nil?) && (answer != @postcard.answer)
+      redirect_to postcards_question_path(@postcard)
+    end
+  end
+
+  def question
+    @postcard = Postcard.find(params[:id])
   end
 
   private
