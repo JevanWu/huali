@@ -78,8 +78,8 @@ namespace :migrate do
 
   desc "improt order to erp"
   task import_order: :environment do
-    start_date = "2014-04-26".to_date
-    end_date = "2014-05-25".to_date
+    start_date = "2014-05-26".to_date
+    end_date = "2014-06-23".to_date
 
     orders = Order.includes({ line_items: :product }, :transactions, :shipments, :ship_method).
       where(delivery_date: start_date..end_date).

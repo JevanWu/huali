@@ -30,7 +30,13 @@ module Erp
     end
 
     def import_to_erp
-      Erp::Order.execute_procedure :import_order, FBillNo: @order.identifier
+      begin
+        Erp::Order.execute_procedure :import_order, FBillNo: @order.identifier
+      rescue ActiveRecord::StatementInvalid => e
+        @erp_order.destroy
+        logger.error("ERP OrderImport failed: #{@order.identifier}")
+        false
+      end
     end
 
     def logger
