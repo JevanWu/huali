@@ -4,7 +4,6 @@
     h3
       | question: 
       = @postcard.question
-    /*= form_tag postcard_path(@postcard) */
-    /*  = text_field_tag :answer*/
-    /*  = submit_tag "submit"*/
-    = link_to "show", postcard_path(@postcard, answer: "123")
+    = form_tag postcard_answer_path(@postcard) 
+      = text_field_tag :answer
+      = submit_tag "submit"
