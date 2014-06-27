@@ -4,6 +4,7 @@
       .postcard-images
         = image_tag asset.image.url
       br
-    p = @postcard.content
+    .content
+      = @postcard.content
 
   .account-info-line

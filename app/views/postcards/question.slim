@@ -1,6 +1,6 @@
 .account-info-container
   .postcard-container
-    h1
+    .question
       = @postcard.question
     = form_tag postcard_answer_path(@postcard) 
       = text_field_tag :answer
