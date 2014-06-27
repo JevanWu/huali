@@ -8,7 +8,7 @@ module Erp
     def self.update_shipment(order_identifier, shipment_info)
       seorder = self.find_by_FBillNo(order_identifier)
 
-      seorder.update_column(:FHeadSelfS0155, shipment_info)
+      seorder and shipment_info and seorder.update_column(:FHeadSelfS0155, shipment_info)
     end
   end
 end
