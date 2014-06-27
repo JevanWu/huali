@@ -99,6 +99,9 @@ gem 'sunspot_rails'
 
 gem 'mechanize'
 
+gem 'tiny_tds'
+gem 'activerecord-sqlserver-adapter', '~> 4.0.0'
+
 gem "highcharts-rails", "~> 3.0.0"
 
 gem 'i18n', github: 'svenfuchs/i18n', tag: 'v0.6.10'

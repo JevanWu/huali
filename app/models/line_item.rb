@@ -28,7 +28,7 @@ class LineItem < ActiveRecord::Base
   validates :product_id, uniqueness: { scope: :order_id }
 
   delegate :discount?, :sold_total, :img, :name, :name_en, :height, :width,
-    :depth, :category_name, :published, :product_type, :product_type_text, to: :product
+    :depth, :category_name, :published, :product_type, :product_type_text, :sku_id, to: :product
 
   # after_save :update_order
   # after_destroy :update_order
