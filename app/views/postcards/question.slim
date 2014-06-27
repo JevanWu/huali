@@ -1,9 +1,7 @@
 .account-info-container
-  = render 'shared/account_info_header'
   .postcard-container
-    h3
-      | question: 
+    h1
       = @postcard.question
     = form_tag postcard_answer_path(@postcard) 
       = text_field_tag :answer
-      = submit_tag "submit"
+      = submit_tag "submit", class: "huali-btn"

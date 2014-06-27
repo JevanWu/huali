@@ -1,0 +1,30 @@
+doctype html
+html
+  head
+    title = content_for?(:title) ? yield(:title) + ' ' : 'Huali-Store'
+    meta charset="utf-8"
+    meta name="Keywords" content="#{yield :keywords}"
+    meta name="Description" content="#{yield :description}"
+    meta name="viewport" content="target-densitydpi=480,width=480,user-scalable=no"
+    meta name="HandheldFriendly" content="True"
+    meta name="MobileOptimized" content="480"
+    meta content="on" http-equiv="cleartype"
+    = stylesheet_link_tag 'mobile'
+    = yield(:css)
+
+  body
+    == render 'layouts/messages'
+    #passport-mobile
+      .passport-nav
+        a href="#{root_path}"
+          |  
+        = yield :sub_title
+      .passport-mobile-logo
+        a href="#{root_path}"
+          =image_tag('logo.png')
+      .passport-mobile-main
+        == yield
+
+  = javascript_include_tag 'application-mobile'
+  = yield(:js)
+
