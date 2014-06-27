@@ -26,7 +26,7 @@ class OrderObserver < ActiveRecord::Observer
 
   def after_check(order, transition)
     ApiAgentService.check_order(order)
-    ErpWorker::ImportOrder.perform_async(order)
+    ErpWorker::ImportOrder.perform_async(order.id)
   end
 
   def after_ship(order, transition)
