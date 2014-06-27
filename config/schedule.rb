@@ -44,6 +44,10 @@ every :day, at: '3:00 am' do
   rake "sitemap:refresh"
 end
 
+every :day, at: '3:30 am' do
+  rake "erp:check_shipped_orders"
+end
+
 every :day, at: '9:00 pm' do
   rake "notice:today_order_sms_and_email"
 end
