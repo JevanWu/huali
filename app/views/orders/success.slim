@@ -13,5 +13,8 @@
             | 您可以
             = link_to "查看订单", order_path(@order)
           p
+            | 您还可以
+            = link_to '制作电子贺卡', new_postcard_path(order_id: @order.id), class: 'button btn'
+          p
             | 或者
             = link_to '回到首页', root_path

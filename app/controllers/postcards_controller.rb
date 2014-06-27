@@ -2,7 +2,12 @@ require 'securerandom'
 class PostcardsController < ApplicationController
   
   def new
-    @postcard = Postcard.new
+    if params[:order_id]
+      order = Order.find params[:order_id]
+      @postcard = order.build_postcard
+    else
+      @postcard = Postcard.new
+    end
     @asset = @postcard.assets.build
   end
 
@@ -34,7 +39,7 @@ class PostcardsController < ApplicationController
 
   private
   def permitted_params
-    params.require(:postcard).permit(:content, :question, :answer, assets_attributes: [:image, :_destroy])
+    params.require(:postcard).permit(:content, :question, :answer, :order_id, assets_attributes: [:image, :_destroy])
   end
 
   def generate_identifier
