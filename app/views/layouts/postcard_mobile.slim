@@ -15,10 +15,6 @@ html
   body
     == render 'layouts/messages'
     #passport-mobile
-      .passport-nav
-        a href="#{root_path}"
-          |  
-        = yield :sub_title
       .passport-mobile-logo
         a href="#{root_path}"
           =image_tag('logo.png')
