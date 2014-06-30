@@ -8,9 +8,9 @@ $fontSize: 11pt
 .sheet-bg
   // adjustment to the actual print layout
   // in Chrome
-  position: relative
-  top: -15pt
-  left: -75pt
+  position: absolute
+  top: 0pt
+  left: 0pt
 
 .sheet-bg img
   // w: 23cm, h, 12.7cm
@@ -18,6 +18,13 @@ $fontSize: 11pt
   // dpi: 28dot/cm
   width: 23 * 28pt
   height: 12.7 * 28pt
+
+.shenge-bg img
+  // w: 23cm, h, 12.7cm
+  // http://en.wikipedia.org/wiki/Dots_per_inch
+  // dpi: 28dot/cm
+  width: 19.3 * 28pt
+  height: 13 * 28pt
 
 p
   font-family: sans-serif
@@ -61,6 +68,20 @@ p
     width: 53pt
   .sender-phone
     width: 77pt
+
+.sender-shenge
+  .sender-com
+    top: 87pt
+    left: 85pt
+
+  .sender-addr
+    top: 143pt
+    left: 83pt
+
+  .sender-phone
+    top: 159pt
+    left: 40pt
+    width: 90pt
 
 .sender-shunfeng
   .sender-com
@@ -111,6 +132,27 @@ p
     width: 75pt
   .cell
     width: 120pt
+
+.text-shenge
+  .addr
+    top: 153pt
+    left: 276pt
+
+  .cell
+    top: 199pt
+    left: 294pt
+
+  .receipt
+    top: 83pt
+    left: 327pt
+
+  .post
+    top: 197pt
+    left: 435pt
+
+  .month_clean
+    top: 240pt
+    left: 284pt
 
 .text-shunfeng
   .addr
@@ -189,6 +231,9 @@ p
   font-size: 8pt
   width: 300pt
 
+.text-shenge .product_text
+  top: 61pt
+  left: 23pt
 .text-lianbang .product_text
   top: 60pt
   left: 368pt
@@ -203,6 +248,9 @@ p
   top: 17pt
   left: 427pt
 
+.text-shenge .delivery_date
+  top: 83pt
+  left: 206pt
 .text-lianbang .delivery_date
   top: 51pt
   left: 368pt
