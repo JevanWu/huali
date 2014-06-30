@@ -272,6 +272,8 @@ GEM
     figaro (0.7.0)
       bundler (~> 1.0)
       rails (>= 3, < 5)
+    font-awesome-sass (4.1.0)
+      sass (~> 3.2)
     formatador (0.2.4)
     formtastic (2.3.0.rc2)
       actionpack (>= 3.0)
@@ -611,6 +613,8 @@ GEM
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     state_machine (1.2.0)
+    summernote-rails (0.4.0)
+      railties (>= 3.1)
     sunspot (2.1.0)
       pr_geohash (~> 1.0)
       rsolr (~> 1.0.7)
@@ -706,6 +710,7 @@ DEPENDENCIES
   faraday
   figaro
   flowplayer-rails!
+  font-awesome-sass
   forgery!
   formtastic
   friendly_id
@@ -781,6 +786,7 @@ DEPENDENCIES
   squash_rails
   squash_ruby
   state_machine
+  summernote-rails
   sunspot_rails
   sunspot_solr
   thin (>= 1.4.1)

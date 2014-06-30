@@ -2,12 +2,12 @@
   = render 'shared/account_info_header'
   .postcard-container
     = simple_form_for @postcard do |f|
-      = f.input :content
+      = f.input :content, input_html: { class: "summernote" }
       = f.simple_fields_for :assets do |builder|
         = render "asset_fields", f: builder 
       = link_to_add_fields("Add", f, :assets)
-      = f.input :question
-      = f.input :answer
+      = f.input :question, input_html: { placeholder: "you can set a question for receiver" }
+      = f.input :answer, input_html: { placeholder: "please set the answer" }
       = f.input :order_id, as: :hidden
-      = f.submit
+      = f.submit value: "Submit", class: "huali-btn"
   .account-info-line
