@@ -9,6 +9,7 @@
 #  identifier :string(255)
 #  order_id   :integer
 #  question   :string(255)
+#  slug       :string(255)
 #  updated_at :datetime
 #
 # Indexes

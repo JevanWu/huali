@@ -9,6 +9,7 @@
 #  identifier :string(255)
 #  order_id   :integer
 #  question   :string(255)
+#  slug       :string(255)
 #  updated_at :datetime
 #
 # Indexes
@@ -22,4 +23,7 @@ class Postcard < ActiveRecord::Base
   has_many :assets, as: :viewable, dependent: :destroy
   belongs_to :order
   accepts_nested_attributes_for :assets, reject_if: lambda { |a| a[:image].blank? }, allow_destroy: true
+
+  extend FriendlyId
+  friendly_id :identifier, use: :slugged
 end

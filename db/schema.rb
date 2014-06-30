@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140625055729) do
+ActiveRecord::Schema.define(version: 20140630033026) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -381,6 +381,7 @@ ActiveRecord::Schema.define(version: 20140625055729) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "order_id"
+    t.string   "slug"
   end
 
   add_index "postcards", ["identifier"], name: "index_postcards_on_identifier", using: :btree
