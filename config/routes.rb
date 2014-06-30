@@ -44,12 +44,15 @@ Huali::Application.routes.draw do
   patch 'orders/cancel/:id', to: 'orders#cancel', as: :cancel_order
   get 'orders/return', as: :return_order
   match 'orders/notify', as: :notify_order, via: [:get, :post]
+
+  # Disable back order entry
   # back order urls
-  get 'orders/backorder', to: 'orders#back_order_new', as: :new_back_order
-  post 'orders/backorder', to: 'orders#back_order_create', as: :create_back_order
+  #get 'orders/backorder', to: 'orders#back_order_new', as: :new_back_order
+  #post 'orders/backorder', to: 'orders#back_order_create', as: :create_back_order
   # channel order urls
-  get 'orders/channelorder', to: 'orders#channel_order_new', as: :new_channel_order
-  post 'orders/channelorder', to: 'orders#channel_order_create', as: :create_channel_order
+  #get 'orders/channelorder', to: 'orders#channel_order_new', as: :new_channel_order
+  #post 'orders/channelorder', to: 'orders#channel_order_create', as: :create_channel_order
+
   resources :orders, except: [:destroy, :update, :edit] do
     get 'logistics', on: :member
   end
