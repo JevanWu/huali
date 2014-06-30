@@ -98,12 +98,7 @@ ActiveAdmin.register Shipment do
       @type = @order.ship_method.kuaidi_query_code
       @shipment_id = @order.shipment.identifier
 
-      case @type
-      when 'manual'
-        render 'admin/shipments/print_blank', layout: 'plain_print'
-      else
-        render 'admin/shipments/print', layout: 'plain_print'
-      end
+      render 'admin/shipments/print', layout: 'plain_print'
     rescue NoMethodError
       redirect_to :back, alert: t('views.admin.shipment.cannot_print')
     end
