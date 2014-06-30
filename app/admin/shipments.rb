@@ -8,11 +8,7 @@ ActiveAdmin.register Shipment do
     def create
       @shipment = Shipment.new(permitted_params[:shipment])
       if @shipment.save
-        if @shipment.ship_method_id == 3
-          redirect_to print_card_admin_order_path(@shipment.order)
-        elsif @shipment.tracking_num?
-          redirect_to print_admin_shipment_path(@shipment)
-        end
+        redirect_to print_admin_shipment_path(@shipment) if @shipment.tracking_num?
       else
         render :new
       end
@@ -25,11 +21,7 @@ ActiveAdmin.register Shipment do
           redirect_to admin_shipment_path(@shipment) and return
         end
 
-        if @shipment.ship_method_id == 3
-          redirect_to print_card_admin_order_path(@shipment.order)
-        elsif @shipment.tracking_num?
-          redirect_to print_admin_shipment_path(@shipment)
-        end
+        redirect_to print_admin_shipment_path(@shipment) if @shipment.tracking_num?
       else
         render :edit
       end
