@@ -20,8 +20,5 @@
 #= require 'module/banner'
 #= require 'module/bookmark'
 #= require 'module/postcard'
-#= require 'bootstrap'
-#= require 'summernote'
-#= require 'module/load-summernote'
 #= require 'orders'
 #= require 'mediav'
