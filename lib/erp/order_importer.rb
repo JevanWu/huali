@@ -8,10 +8,10 @@ module Erp
       @erp_order = Erp::Order.from_order(@order)
 
       if @erp_order.persisted?
-        validate_in_erp and import_to_erp and return true
+        validate_in_erp
+        import_to_erp
       else
-        logger.error("ERP Validation errors: #{@order.identifier} #{@erp_order.errors.full_messages}")
-        false
+        raise ArgumentError, "ERP Validation errors: #{@order.identifier} #{@erp_order.errors.full_messages}"
       end
     end
 
@@ -20,13 +20,10 @@ module Erp
     def validate_in_erp
       result = Erp::Order.execute_procedure :validate_order, FBillNo: @order.identifier
 
-      error_code = result.first['FError']
-      return true if error_code == 0
-
-      @erp_order.destroy
-      logger.error("ERP OrderValidation failed: #{@order.identifier}")
-
-      false
+      unless result.first['FError'] == 0
+        @erp_order.destroy
+        raise ArgumentError, "ERP OrderValidation failed: #{@order.identifier}"
+      end
     end
 
     def import_to_erp
@@ -34,13 +31,8 @@ module Erp
         Erp::Order.execute_procedure :import_order, FBillNo: @order.identifier
       rescue ActiveRecord::StatementInvalid => e
         @erp_order.destroy
-        logger.error("ERP OrderImport failed: #{@order.identifier}")
-        false
+        raise "ERP OrderImport failed: #{@order.identifier}"
       end
-    end
-
-    def logger
-      @logger ||= Logger.new("#{Rails.root}/log/erp.log")
     end
   end
 end

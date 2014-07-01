@@ -171,11 +171,6 @@ STR
     mail(from: from, to: @resource.email, subject: subject, template_path: 'devise/mailer', template_name: 'invitation_instructions')
   end
 
-  def erp_import_failed(order_identifier)
-    @order_identifier = order_identifier
-    mail(to: ['it@hua.li', 'xinliang@hua.li'], subject: subject("ERP 导入失败订单 #{Date.current}"))
-  end
-
   helper MailerHelper
 
   private

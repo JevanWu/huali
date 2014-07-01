@@ -5,8 +5,7 @@ module ErpWorker
 
     def perform(order_id)
       order = Order.find(order_id)
-
-      Erp::OrderImporter.new(order).import or Notify.delay.erp_import_failed(order.identifier)
+      Erp::OrderImporter.new(order).import
     end
   end
 end

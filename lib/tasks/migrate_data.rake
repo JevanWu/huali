@@ -87,9 +87,7 @@ namespace :migrate do
       where(kind: ['normal', 'taobao', 'tmall']).to_a
 
     orders.each do |order|
-      if Erp::OrderImporter.new(order).import
-        puts "#{order.identifier} was imported!"
-      end
+      Erp::OrderImporter.new(order).import
     end
   end
 end
