@@ -1,6 +1,7 @@
 - qr = RQRCode::QRCode.new( postcard_url(postcard), :size => 10, :level => :h )
 
-.qrcode
+.qrcode#qrcode
+  .hint = "电子贺卡二维码"
   table
     - qr.modules.each_index do |x|
       tr
