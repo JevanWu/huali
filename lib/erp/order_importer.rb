@@ -31,7 +31,7 @@ module Erp
         Erp::Order.execute_procedure :import_order, FBillNo: @order.identifier
       rescue ActiveRecord::StatementInvalid => e
         @erp_order.destroy
-        raise "ERP OrderImport failed: #{@order.identifier}"
+        raise ArgumentError, "ERP OrderImport failed: #{@order.identifier}"
       end
     end
   end
