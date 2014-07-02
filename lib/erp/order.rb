@@ -5,6 +5,8 @@ module Erp
     taobao: '01.01.0003'
   }
 
+  TAX_RATE = 0.17
+
   class Order < ErpDatabase
     self.table_name = "lysoorder"
     self.primary_key = "FInterID"
@@ -37,7 +39,7 @@ module Erp
                                 FQty: item.quantity,
                                 FTaxPrice: item.price,
                                 FTaxAmount: item.total,
-                                FTaxRate: 0.03,
+                                FTaxRate: TAX_RATE,
                                 FExpectedDate: order.expected_date,
                                 FDiscount: discount_by_item(order, transaction, item))
       end
