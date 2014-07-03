@@ -48,7 +48,7 @@ gem 'squash_ruby', :require => 'squash/ruby'
 gem 'squash_rails', :require => 'squash/rails'
 
 # background jobs
-gem 'sidekiq', '~> 2.9'
+gem 'sidekiq'
 gem 'sidekiq-failures'
 gem 'slim'
 gem 'sinatra', require: nil
