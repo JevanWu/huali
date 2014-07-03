@@ -68,6 +68,8 @@ Huali::Application.configure do
   # ImageMagick Process path on production server (Ubuntu 12.04 LTS)
   Paperclip.options[:command_path] = "/usr/bin/"
 
+  Highcharts::Converter.options[:command_path] = "/usr/bin/"
+
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
