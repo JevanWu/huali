@@ -103,7 +103,11 @@ class OrdersController < ApplicationController
         else
           flash[:notice] = t('controllers.order.order_success')
         end
-        redirect_to checkout_order_path(@order_form.record)
+          if request.env["HTTP_USER_AGENT"].include? "MicroMessenger"
+            return and redirect_to checkout_order_path(@order_form.record, showwxpaytitle: 1)
+          else
+            return and redirect_to checkout_order_path(@order_form.record)
+          end
       end
     else
       render 'new'
