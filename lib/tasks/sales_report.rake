@@ -121,11 +121,12 @@ namespace :notice do
     Notify.delay.sales_report(@daily_order_report.average_order_amount,
                               @amount_chart_image_url,
                               @count_chart_image_url,
-                              'tony@tzgpartners.com',
                               'ben@tzgpartners.com',
+                              'tony@tzgpartners.com',
                               'john@hua.li',
+                              'ryan@hua.li',
                               'lin@hua.li',
                               'tyler@hua.li',
-                              'ryan@hua.li')
+                              'ella@hua.li')
   end
 end

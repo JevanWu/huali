@@ -92,6 +92,6 @@ every :month do
   rake 'cleanup:reset_sold_total'
 end
 
-every :day, at: '11:50 pm' do
+every :day, at: '10:58 pm' do
   rake "notice:sales_report"
 end
