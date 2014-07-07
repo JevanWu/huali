@@ -40,7 +40,7 @@ module Erp
                                 FTaxPrice: item.price,
                                 FTaxAmount: item.total,
                                 FTaxRate: TAX_RATE,
-                                FExpectedDate: order.expected_date,
+                                FExpectedDate: order.delivery_date, # Import delivery_date instead of expected_date
                                 FDiscount: discount_by_item(order, transaction, item))
       end
 
