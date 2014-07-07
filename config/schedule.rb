@@ -44,7 +44,7 @@ every :day, at: '3:00 am' do
   rake "sitemap:refresh"
 end
 
-every 8.hours do
+every 3.hours do
   rake "erp:check_shipped_orders"
 end
 
