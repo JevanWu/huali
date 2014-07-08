@@ -28,7 +28,7 @@ $(document).ready ->
   getTimeStamp = ->
     timestamp = new Date().getTime()
     timestampstring = timestamp.toString()
-    oldTimeStamp = timestampstring
+    lastTimeStamp = timestampstring
     return timestampstring
 
   getNonceStr = ->
@@ -36,7 +36,7 @@ $(document).ready ->
     rang = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
     for i in [0..10]
       nonceStr += range.charAt(Math.floor(Math.random() * range.length))
-    last_nonceStr = nonceStr
+    lastNonceStr = nonceStr
     return nonceStr
 
   getSignType ->
@@ -45,7 +45,12 @@ $(document).ready ->
   getPaySign ->
     app_id = getAppId().toString()
     app_key = getAppKey().toString()
-    nonce_str = last_nonceStr
+    nonce_str = lastNonceStr
+    package_str = lastPackageString
+    time_stamp = lastTimeStamp
+    keyValueString = "appid=" + app_id + "&appkey=" + app_key + "&noncestr=" + nonce_str + "&package=" + package_str + "&timestamp=" + time_stamp
+    sign = CryptoJS.SHA1(keyValueString).toString()
+    return sign
 
   getPackage ->
     banktype = "WX"
