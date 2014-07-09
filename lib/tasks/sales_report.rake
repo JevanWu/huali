@@ -124,6 +124,7 @@ namespace :notice do
                               'ben@tzgpartners.com',
                               'tony@tzgpartners.com',
                               'john@hua.li',
+                              'JohnLoong@gmail.com',
                               'ryan@hua.li',
                               'lin@hua.li',
                               'tyler@hua.li',
