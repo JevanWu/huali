@@ -22,7 +22,7 @@
 #     add article_path(article), lastmod: article.updated_at
 #   end
 
-SitemapGenerator::Sitemap.default_host = "http://www.hua.li"
+SitemapGenerator::Sitemap.default_host = "http://hua.li"
 
 SitemapGenerator::Sitemap.create do
   add '/faq', changefreq: 'weekly', priority: 0.33
