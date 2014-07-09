@@ -38,6 +38,7 @@ SitemapGenerator::Sitemap.create do
   add '/collections/givenchy', changefreq: 'monthly', priority: 0.8
   add '/collections/davidoff', changefreq: 'monthly', priority: 0.8
   add '/collections/chloe', changefreq: 'monthly', priority: 0.8
+  add '/collections/sally-hansen', changefreq: 'monthly', priority: 0.8
 
   I18n.locale = :'zh-CN'
 
