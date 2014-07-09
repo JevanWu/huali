@@ -29,7 +29,7 @@ module Erp
     def import_to_erp
       begin
         Erp::Order.execute_procedure :import_order, FBillNo: @order.identifier
-      rescue ActiveRecord::StatementInvalid => e
+      rescue
         @erp_order.destroy
         raise ArgumentError, "ERP OrderImport failed: #{@order.identifier}"
       end
