@@ -151,14 +151,18 @@ class OrdersController < ApplicationController
       paid_fee = params[:xml][:total_fee]
       transaction_id = params[:xml][:transaction_id]
       trade_state = "success" if params[:xml][:trade_state] == "0"
-      order = Order.find_by identifier: identifier
+      begin
+        order = Order.find_by identifier: identifier
+        payment_opts = process_pay_info('wechat')
+        transaction = order.generate_transaction payment_opts.merge(client_ip: request.remote_ip), false
+        transaction.update_columns(merchant_trade_no: transaction_id, processed_at: Time.now)
+        transaction.complete
+        flash[:alert] = t('views.order.paid')
+        redirect_to orders_path
+      rescue ActiveRecord::RecordNotFound
+        raise ArgumentError, "Sorry! the order is not valid. please contact our customer service"
+      end
 
-      payment_opts = process_pay_info('wechat')
-      transaction = order.generate_transaction payment_opts.merge(client_ip: request.remote_ip), false
-      transaction.update_columns(merchant_trade_no: transaction_id, processed_at: Time.now)
-      transaction.complete
-      flash[:alert] = t('views.order.paid')
-      redirect_to orders_path
     else
       @order = Order.find_by_id(params[:id] || session[:order_id])
 
