@@ -145,20 +145,36 @@ class OrdersController < ApplicationController
   end
 
   def gateway
-    @order = Order.find_by_id(params[:id] || session[:order_id])
+    if @use_wechat_agent
+      open_id = params[:xml][:OpenId]
+      identifier = params[:xml][:out_trade_no]
+      paid_fee = params[:xml][:total_fee]
+      transaction_id = params[:xml][:transaction_id]
+      trade_state = "success" if params[:xml][:trade_state] == "0"
+      order = Order.find_by identifier: identifier
 
-    # params[:pay_info] is mixed with two kinds of info - pay method and merchant_name
-    # these two are closed bound together
-    payment_opts = process_pay_info(params[:pay_info])
-    transaction = @order.generate_transaction payment_opts.merge(client_ip: request.remote_ip), params[:use_huali_point]
-    transaction.start
-    if transaction.amount == 0
-      flash[:alert] = t('views.order.paid')
-      HualiPointService.minus_expense_point(transaction.user, transaction)
+      payment_opts = process_pay_info('wechat')
+      transaction = order.generate_transaction payment_opts.merge(client_ip: request.remote_ip), false
+      transaction.update_columns(merchant_trade_no: transaction_id, processed_at: Time.now)
       transaction.complete
+      flash[:alert] = t('views.order.paid')
       redirect_to orders_path
     else
-      redirect_to transaction.request_path
+      @order = Order.find_by_id(params[:id] || session[:order_id])
+
+      # params[:pay_info] is mixed with two kinds of info - pay method and merchant_name
+      # these two are closed bound together
+      payment_opts = process_pay_info(params[:pay_info])
+      transaction = @order.generate_transaction payment_opts.merge(client_ip: request.remote_ip), params[:use_huali_point]
+      transaction.start
+      if transaction.amount == 0
+        flash[:alert] = t('views.order.paid')
+        HualiPointService.minus_expense_point(transaction.user, transaction)
+        transaction.complete
+        redirect_to orders_path
+      else
+        redirect_to transaction.request_path
+      end
     end
   end
 
