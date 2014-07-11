@@ -101,6 +101,7 @@ Huali::Application.routes.draw do
   get 'stories', to: 'stories#index'
   resources :didi_passengers, only: [:new, :create], path: 'diditaxi'
 
+  get 'wechats/pay', to: 'wechats#pay', as: :wechats_pay
   API::API.logger Rails.logger
   mount API::API => '/api'
 
