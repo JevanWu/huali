@@ -156,11 +156,15 @@ class OrdersController < ApplicationController
         payment_opts = process_pay_info('wechat')
         transaction = order.generate_transaction payment_opts.merge(client_ip: request.remote_ip), false
         transaction.update_columns(merchant_trade_no: transaction_id, processed_at: Time.now)
-        transaction.complete
-        flash[:alert] = t('views.order.paid')
+        if paid_fee == transaction.amount
+          transaction.complete 
+        else
+          raise ArgumentError, "The paid money is not equivalent to price"
+          flash[:alert] = t('views.order.paid')
+        end
         redirect_to orders_path
       rescue ActiveRecord::RecordNotFound
-        raise ArgumentError, "Sorry! the order is not valid. please contact our customer service"
+        raise ArgumentError, "Sorry! the order doesn't exist. please contact our customer service"
       end
 
     else
