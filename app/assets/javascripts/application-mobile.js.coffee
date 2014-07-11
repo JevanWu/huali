@@ -17,5 +17,7 @@
 #= require 'orders'
 #= require 'component/swipe'
 #= require 'mediav'
+#= require 'md5'
+#= reuqire 'sha1'
 #= require 'wechat-pay'
 
