@@ -2,7 +2,6 @@
 
 class Notify < ActionMailer::Base
   add_template_helper ApplicationHelper
-  after_action :set_emailcar_header
 
   default from: 'support@hua.li', content_type: 'text/html', css: 'email'
 
@@ -182,11 +181,7 @@ STR
 
   helper MailerHelper
 
-private
-
-  def set_emailcar_header
-    headers["X-Scedm-Tid"] = "#{ENV["EMAILCAR_SMTP_USERNAME"]}.#{Time.current.to_i}"
-  end
+  private
 
   # Examples
   #
