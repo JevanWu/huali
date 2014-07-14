@@ -35,6 +35,10 @@ SitemapGenerator::Sitemap.create do
   add '/blog', changefreq: 'daily', priority: 0.5
   add '/muqinjie', changefreq: 'weekly', priority: 0.95
   add '/weibo_stories', changefreq: 'monthly', priority: 0.5
+  add '/collections/givenchy', changefreq: 'monthly', priority: 0.8
+  add '/collections/davidoff', changefreq: 'monthly', priority: 0.8
+  add '/collections/chloe', changefreq: 'monthly', priority: 0.8
+  add '/collections/sally-hansen', changefreq: 'monthly', priority: 0.8
 
   I18n.locale = :'zh-CN'
 
