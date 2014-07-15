@@ -21,7 +21,7 @@ module Wechat
     
       signString = "bank_type="+banktype+"&body="+body+"&fee_type="+fee_type+"&input_charset="+input_charset+"&notify_url="+notify_url+"&out_trade_no="+out_trade_no+"&partner="+partner+"&spbill_create_ip="+spbill_create_ip+"&total_fee="+total_fee+"&key="+partnerKey
     
-      md5SignValue = ("" + Digest::MD5.digest(signString)).upcase
+      md5SignValue = ("" + Digest::MD5.hexdigest(signString)).upcase
     
       banktype = URI.escape(banktype)
       body = URI.escape(body)
@@ -48,7 +48,7 @@ module Wechat
       maxPos = chars.length
       noceStr = ""
       for i in (0..32) 
-          noceStr += chars[Random.new.rand(0..maxPos)]
+          noceStr += chars[Random.new.rand(0...maxPos)]
       end
       return noceStr
     end
@@ -64,7 +64,7 @@ module Wechat
       package_string = package_str
       time_stamp = timestamp
       keyvaluestring = "appid="+app_id+"&appkey="+app_key+"&noncestr="+nonce_str+"&package="+package_string+"&timestamp="+time_stamp
-      sign = Digest::MD5.digest(keyvaluestring).to_s
+      sign = Digest::SHA1.hexdigest(keyvaluestring).to_s
       return sign
     end
   end
