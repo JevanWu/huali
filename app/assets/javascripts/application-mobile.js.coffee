@@ -19,5 +19,4 @@
 #= require 'mediav'
 #= require 'sha1'
 #= require 'md5'
-#= require 'wechat-pay'
 
