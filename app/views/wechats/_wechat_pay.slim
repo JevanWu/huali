@@ -1,0 +1,16 @@
+javascript: 
+  document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+    $('#getBrandWCPayRequest').click(function(e){
+      WeixinJSBridge.invoke('getBrandWCPayRequest',{
+        "appId" : "#{j(appid)}",
+        "timeStamp" : "#{j(timestamp)}", 
+        "nonceStr" : "#{j(nonce_str)}",
+        "package" : "#{j(package)}",
+        "signType" : "#{j(sign_type)}", 
+        "paySign" : "#{j(sign)}" 
+      },function(res){
+        if(res.err_msg == "get_brand_wcpay_request:ok" ) {}
+      }); 
+    });
+     WeixinJSBridge.log('yo~ ready.');
+  }, false)
