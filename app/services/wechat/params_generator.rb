@@ -1,4 +1,5 @@
 require 'uri'
+require 'cgi'
 require 'digest'
 
 module Wechat
@@ -12,8 +13,8 @@ module Wechat
       body = "fresh flower"
       fee_type = "1"
       input_charset = "GBK"
-      notify_url = "http://staging_wechat.zenhacks.org/wechats"
-      out_trade_no = "22399777777"
+      notify_url = "http://staging_wechat.zenhacks.org/wechats/"
+      out_trade_no = "OR1406180007"
       partner = ENV["WECHAT_PARTNERID"]
       spbill_create_ip = "127.0.0.1"
       total_fee = "1"
@@ -27,7 +28,7 @@ module Wechat
       body = URI.escape(body)
       fee_type = URI.escape(fee_type)
       input_charset = URI.escape(input_charset)
-      notify_url = URI.escape(notify_url)
+      notify_url = CGI.escape(notify_url)
       out_trade_no = URI.escape(out_trade_no)
       partner = URI.escape(partner)
       spbill_create_ip = URI.escape(spbill_create_ip)
@@ -47,7 +48,7 @@ module Wechat
       chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
       maxPos = chars.length
       noceStr = ""
-      for i in (0..32) 
+      for i in (0...32) 
           noceStr += chars[Random.new.rand(0...maxPos)]
       end
       return noceStr
