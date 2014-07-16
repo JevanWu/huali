@@ -35,14 +35,10 @@ SitemapGenerator::Sitemap.create do
   add '/blog', changefreq: 'daily', priority: 0.5
   add '/muqinjie', changefreq: 'weekly', priority: 0.95
   add '/weibo_stories', changefreq: 'monthly', priority: 0.5
-  add '/collections/givenchy', changefreq: 'monthly', priority: 0.8
-  add '/collections/davidoff', changefreq: 'monthly', priority: 0.8
-  add '/collections/chloe', changefreq: 'monthly', priority: 0.8
-  add '/collections/sally-hansen', changefreq: 'monthly', priority: 0.8
 
   I18n.locale = :'zh-CN'
 
-  promotion_collections = ['marc-jacobs', 'swarovski-elements'].map { |slug| Collection.friendly.find(slug) }
+  promotion_collections = ['givenchy', 'davidoff', 'chloe', 'sally-hansen', 'marc-jacobs', 'swarovski-elements'].map { |slug| Collection.friendly.find(slug) }
   promotion_collections.each do |collection|
     add collection_products_path(collection), lastmod: collection.updated_at, priority: 0.8
   end
