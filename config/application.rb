@@ -66,7 +66,7 @@ module Huali
 
     config.action_mailer.smtp_settings = {
       address: ENV["EMAILCAR_SMTP_SERVER"],
-      #port: 587,
+      port: 25,
       user_name: ENV["EMAILCAR_SMTP_USERNAME"],
       password: ENV["EMAILCAR_SMTP_PASSWORD"]
     }
