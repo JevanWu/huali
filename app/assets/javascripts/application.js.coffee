@@ -21,3 +21,4 @@
 #= require 'module/bookmark'
 #= require 'orders'
 #= require 'mediav'
+#= require 'bootstrap-tab'

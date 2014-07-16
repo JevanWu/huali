@@ -20,44 +20,46 @@
 <%= render 'slide' %>
 <div class="scroll-anchor"></div>
 <%= render 'best_products' %>
-<div class="best-products">
-  <h3 class="title"><i></i><%= link_to '合作品牌', brands_path %><b></b></h3>
-  <div class="brands">
-    <a target="_blank" class="hermes brands">Hermes</a>
-    <a target="_blank" class="acqua brands">Acqua DI Parma</a>
-    <a target="_blank" class="chole brands" href="http://hua.li/collections/chloe">chole</a>
-    <a target="_blank" class="valentine-perfume brands">Valentino perfume</a>
-    <a target="_blank" class="swarovski-elements brands" href="http://hua.li/collections/swarovski-elements">Swarovski</a>
-    <a target="_blank" class="marc-jacobs brands" href="http://hua.li/collections/marc-jacobs">Marc Jacobs</a>
-    <a target="_blank" class="givenchy brands" href="http://hua.li/collections/givenchy">Givenchy</a>
-    <a target="_blank" class="sally-hansen brands" href="http://hua.li/collections/sally-hansen">Sally Hansen</a>
-    <a target="_blank" class="shanghai-beach brands">shanghai beach</a>
-    <a target="_blank" class="HR brands">HR</a>
-    <a target="_blank" class="Ritz-Carlton brands">Ritz-Carlton</a>
-    <a target="_blank" class="leo-diamond brands">Leo Diamond</a>
 
-    <a target="_blank" class="godiva-chocolatier brands">Godiva Chocolatier</a>
-    <a target="_blank" class="davidoff brands" href="http://hua.li/collections/davidoff">Davidoff perfume</a>
-    <a target="_blank" class="sonoko brands">Sonoko</a>
-    <a target="_blank" class="yhouse brands">YHouse</a>
-  </div>
-</div>
+<div class="best-products tabbable"> <!-- Only required for left/right tabs -->
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#tab1" data-toggle="tab">合作品牌</a></li>
+    <li><a href="#tab2" data-toggle="tab">媒体报道</a></li>
+    <li><a href="#tab3" data-toggle="tab">花里·明星</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="tab1">
+      <div class="brands">
+        <a target="_blank" class="hermes brands">Hermes</a>
+        <a target="_blank" class="acqua brands">Acqua DI Parma</a>
+        <a target="_blank" class="chole brands" href="http://hua.li/collections/chloe">chole</a>
+        <a target="_blank" class="valentine-perfume brands">Valentino perfume</a>
+        <a target="_blank" class="swarovski-elements brands" href="http://hua.li/collections/swarovski-elements">Swarovski</a>
+        <a target="_blank" class="marc-jacobs brands" href="http://hua.li/collections/marc-jacobs">Marc Jacobs</a>
+        <a target="_blank" class="givenchy brands" href="http://hua.li/collections/givenchy">Givenchy</a>
+        <a target="_blank" class="sally-hansen brands" href="http://hua.li/collections/sally-hansen">Sally Hansen</a>
+        <a target="_blank" class="shanghai-beach brands">shanghai beach</a>
+        <a target="_blank" class="HR brands">HR</a>
+        <a target="_blank" class="Ritz-Carlton brands">Ritz-Carlton</a>
+        <a target="_blank" class="leo-diamond brands">Leo Diamond</a>
 
-<div class="best-products">
-  <h3 class="title">
-    <i></i><%= link_to '媒体报道', medias_path %><b></b>
-  </h3>
-
-  <div class="videos">
-    <a id="video" style="height: 529px"></a>
-  </div>
-</div>
-
-<div class="best-products">
-  <h3 class="title"><i></i><%= link_to '花里·明星', celebrities_path %><b></b></h3>
-  <div class="huali-brief">
-    <div class="intro">
+        <a target="_blank" class="godiva-chocolatier brands">Godiva Chocolatier</a>
+        <a target="_blank" class="davidoff brands" href="http://hua.li/collections/davidoff">Davidoff perfume</a>
+        <a target="_blank" class="sonoko brands">Sonoko</a>
+        <a target="_blank" class="yhouse brands">YHouse</a>
+      </div>
     </div>
-    <a href="<%= celebrities_path %>" class="celebrities"></a>
+    <div class="tab-pane" id="tab2">
+      <div class="videos">
+        <a id="video" style="height: 529px"></a>
+      </div>
+    </div>
+    <div class="tab-pane" id="tab3">
+      <div class="huali-brief">
+        <div class="intro">
+        </div>
+        <a href="<%= celebrities_path %>" class="celebrities"></a>
+      </div>
+    </div>
   </div>
 </div>
