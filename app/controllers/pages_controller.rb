@@ -38,4 +38,7 @@ class PagesController < ApplicationController
 
   def join_us
   end
+
+  def qixijie
+  end
 end
