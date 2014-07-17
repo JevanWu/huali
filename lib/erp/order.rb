@@ -5,6 +5,14 @@ module Erp
     taobao: '01.01.0003'
   }
 
+  CTRIP_COUPON_CHARGES = {
+    # [*coupon_id] => Charging price
+    89 => 220,
+    157 => 220,
+    91 => 400,
+    90 => 800
+  }
+
   TAX_RATE = 0.17
 
   class Order < ErpDatabase
@@ -66,11 +74,17 @@ module Erp
       end
 
       def discount_by_item(order, transaction, item)
-        return item.total if transaction.nil?
+        (item.total / order.item_total.to_f) * total_discount(order, transaction)
+      end
 
-        total_discount = [order.item_total - transaction.amount, 0].max
+      def total_discount(order, transaction)
+        [order.item_total - ctrip_order_charge(order) - transaction.try(:amount).to_f , 0].max
+      end
 
-        (item.total / order.item_total.to_f) * total_discount
+      def ctrip_order_charge(order)
+        coupon_id = order.try(:coupon_code_record).try(:coupon_id)
+
+        CTRIP_COUPON_CHARGES[coupon_id].to_f
       end
     end
   end
