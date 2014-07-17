@@ -2,7 +2,8 @@ module Erp
   CLIENT_CODES = {
     normal: '01.01.0001',
     tmall: '01.01.0002',
-    taobao: '01.01.0003'
+    taobao: '01.01.0003',
+    ctrip: '01.02.0031'
   }
 
   CTRIP_COUPON_CHARGES = {
@@ -32,7 +33,7 @@ module Erp
       transaction = order.transactions.find { |t| t.state == 'completed' }
       shipment = order.shipments.find { |t| ["shipped", "completed"].include?(t.state) }
 
-      ret = new(FOrg: CLIENT_CODES[order.kind.to_sym],
+      ret = new(FOrg: order_org(order),
                 FDate: order.created_at.to_date,
                 FBillNo: order.identifier,
                 FNote: order.memo,
@@ -59,6 +60,14 @@ module Erp
     class << self
 
     private
+
+      def order_org(order)
+        if ctrip_order_charge(order) > 0
+          CLIENT_CODES[:ctrip]
+        else
+          CLIENT_CODES[order.kind.to_sym]
+        end
+      end
 
       def trans_type(transaction)
         return '*' if transaction.nil?
