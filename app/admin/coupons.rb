@@ -21,6 +21,7 @@ ActiveAdmin.register Coupon do
     end
   end
 
+  filter :note
   filter :expires_at
   filter :adjustment
   filter :expired
