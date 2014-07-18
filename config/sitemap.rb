@@ -33,7 +33,8 @@ SitemapGenerator::Sitemap.create do
   add '/celebrities', changefreq: 'monthly', priority: 0.33
   add '/medias', changefreq: 'monthly',  priority: 0.33
   add '/blog', changefreq: 'daily', priority: 0.5
-  add '/muqinjie', changefreq: 'weekly', priority: 0.95
+  add '/muqinjie', changefreq: 'weekly', priority: 0.6
+  add '/qixijie', changefreq: 'weekly', priority: 0.9
   add '/weibo_stories', changefreq: 'monthly', priority: 0.5
 
   I18n.locale = :'zh-CN'
