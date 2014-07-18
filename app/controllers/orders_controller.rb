@@ -119,6 +119,12 @@ class OrdersController < ApplicationController
 
     if request.env["HTTP_USER_AGENT"].include? "MicroMessenger"
       @use_wechat_agent = true
+      @appid = Wechat::ParamsGenerator.get_appid
+      @timestamp = Wechat::ParamsGenerator.get_timestamp
+      @nonce_str = Wechat::ParamsGenerator.get_nonce_str
+      @package = Wechat::ParamsGenerator.get_package
+      @sign_type = Wechat::ParamsGenerator.get_signtype
+      @sign = Wechat::ParamsGenerator.get_sign(@nonce_str, @package, @timestamp)
     else
       @use_wechat_agent = false
     end
