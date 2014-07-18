@@ -146,7 +146,7 @@ STR
 
     query = Sidekiq::RetrySet.new
     jobs = query.select do |job|
-      Array === job.item['args'] && job.item['args'].any? { |a| a.include?(":ship_order") }
+      job.item['args'].any? { |a| a.to_s.include?(":ship_order") }
     end
 
     @orders = jobs.map { |job| job.item['args'].first.scan(/\d{15}/).first }.uniq
