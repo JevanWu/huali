@@ -17,6 +17,4 @@
 #= require 'orders'
 #= require 'component/swipe'
 #= require 'mediav'
-#= require 'sha1'
-#= require 'md5'
 
