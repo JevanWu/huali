@@ -8,16 +8,16 @@ module Wechat
       ENV["WECHAT_APPID"]
     end
 
-    def self.get_package
+    def self.get_package(order, client_ip)
       banktype = "WX"
-      body = "fresh flower"
+      body = order.products.first.name_zh 
       fee_type = "1"
       input_charset = "GBK"
-      notify_url = "http://staging_wechat.zenhacks.org/wechats/"
-      out_trade_no = "OR1406180007"
+      notify_url = "http://staging_wechat.zenhacks.org/orders/gateway"
+      out_trade_no = order.identifier
       partner = ENV["WECHAT_PARTNERID"]
-      spbill_create_ip = "127.0.0.1"
-      total_fee = "1"
+      spbill_create_ip = client_ip 
+      total_fee = order.total.to_s
       partnerKey = ENV["WECHAT_PARTNERKEY"] 
     
       signString = "bank_type="+banktype+"&body="+body+"&fee_type="+fee_type+"&input_charset="+input_charset+"&notify_url="+notify_url+"&out_trade_no="+out_trade_no+"&partner="+partner+"&spbill_create_ip="+spbill_create_ip+"&total_fee="+total_fee+"&key="+partnerKey

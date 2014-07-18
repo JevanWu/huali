@@ -7,6 +7,7 @@ class OrdersController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:notify]
   before_action :authorize_to_record_back_order, only: [:back_order_new, :channel_order_new, :back_order_create, :channel_order_create]
   before_action :validate_cart, only: [:new, :channel_order_new, :back_order_new, :create, :back_order_create, :channel_order_create]
+  before_action :justify_wechat_agent(request), only: [:checkout, :gateway]
 
   def index
     @orders = current_or_guest_user.orders
@@ -117,32 +118,14 @@ class OrdersController < ApplicationController
   def checkout
     @banks = ['ICBCB2C', 'CMB', 'CCB', 'BOCB2C', 'ABC', 'COMM', 'CMBC']
 
-    if request.env["HTTP_USER_AGENT"].include? "MicroMessenger"
-      @use_wechat_agent = true
-      @appid = Wechat::ParamsGenerator.get_appid
-      @timestamp = Wechat::ParamsGenerator.get_timestamp
-      @nonce_str = Wechat::ParamsGenerator.get_nonce_str
-      @package = Wechat::ParamsGenerator.get_package
-      @sign_type = Wechat::ParamsGenerator.get_signtype
-      @sign = Wechat::ParamsGenerator.get_sign(@nonce_str, @package, @timestamp)
+    @order = current_or_guest_user.orders.find_by_id(params[:id]) if params[:id]
+    @order ||= Order.find_by_id(session[:order_id])
+
+    if @order.blank?
+      flash[:alert] = t('controllers.order.order_not_exist')
+      redirect_to :root and return
     else
-      @use_wechat_agent = false
-    end
-
-    if params[:id]
-      @order = current_or_guest_user.orders.find_by_id(params[:id])
-
-      if @order.blank?
-        flash[:alert] = t('controllers.order.order_not_exist')
-        redirect_to :root and return
-      end
-    else
-      @order = Order.find_by_id(session[:order_id])
-
-      if @order.blank?
-        flash[:alert] = t('controllers.order.no_items')
-        redirect_to :root and return
-      end
+      set_wechat_pay_params(@order, request.remote_ip) if @use_wechat_agent
     end
 
     @cart = Cart.new(@order.line_items,
@@ -152,16 +135,17 @@ class OrdersController < ApplicationController
 
   def gateway
     if @use_wechat_agent
-      open_id = params[:xml][:OpenId]
+      #open_id = params[:xml][:OpenId]
       identifier = params[:xml][:out_trade_no]
       paid_fee = params[:xml][:total_fee]
       transaction_id = params[:xml][:transaction_id]
       trade_state = "success" if params[:xml][:trade_state] == "0"
+
       begin
         order = Order.find_by identifier: identifier
         payment_opts = process_pay_info('wechat')
         transaction = order.generate_transaction payment_opts.merge(client_ip: request.remote_ip), false
-        transaction.update_columns(merchant_trade_no: transaction_id, processed_at: Time.now)
+        transaction.update_columns(merchant_trade_no: transaction_id, processed_at: Time.current)
         if paid_fee == transaction.amount
           transaction.complete 
         else
@@ -349,4 +333,20 @@ class OrdersController < ApplicationController
       end
     end
 
+    def justify_wechat_agent(request)
+      if request.env["HTTP_USER_AGENT"].include? "MicroMessenger"
+        @use_wechat_agent = true
+      else
+        @use_wechat_agent = false
+      end
+    end
+
+    def set_wechat_pay_params(order, client_ip)
+      @appid = Wechat::ParamsGenerator.get_appid
+      @timestamp = Wechat::ParamsGenerator.get_timestamp
+      @nonce_str = Wechat::ParamsGenerator.get_nonce_str
+      @package = Wechat::ParamsGenerator.get_package(order, client_ip)
+      @sign_type = Wechat::ParamsGenerator.get_signtype
+      @sign = Wechat::ParamsGenerator.get_sign(@nonce_str, @package, @timestamp)
+    end
 end
