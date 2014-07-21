@@ -68,5 +68,9 @@ module Wechat
       sign = Digest::SHA1.hexdigest(keyvaluestring).to_s
       return sign
     end
+
+    def self.wechat_oauth_url
+      return "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + ENV["WECHAT_APPID"] + "&redirect_uri="+ CGI.escape(new_order_url) + "&response_type=code&scope=" + "snsapi_base" + "&state=123#wechat_redirect"
+    end
   end
 end

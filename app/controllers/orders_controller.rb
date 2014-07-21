@@ -7,7 +7,7 @@ class OrdersController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:notify]
   before_action :authorize_to_record_back_order, only: [:back_order_new, :channel_order_new, :back_order_create, :channel_order_create]
   before_action :validate_cart, only: [:new, :channel_order_new, :back_order_new, :create, :back_order_create, :channel_order_create]
-  before_action :justify_wechat_agent(request), only: [:checkout, :gateway]
+  before_action :justify_wechat_agent, only: [:current, :checkout, :gateway]
 
   def index
     @orders = current_or_guest_user.orders
@@ -221,6 +221,8 @@ class OrdersController < ApplicationController
       cookies[:coupon_code] = coupon_code.to_s
       cookies['cart'] = products.reduce({}) { |memo, p| memo[p.id] = 1; memo }.to_json
 
+      @wechat_oauth_url = Wechat::ParamsGenerator.wechat_oauth_url if @use_wechat_agent
+
       load_cart
     end
   end
@@ -333,7 +335,7 @@ class OrdersController < ApplicationController
       end
     end
 
-    def justify_wechat_agent(request)
+    def justify_wechat_agent
       if request.env["HTTP_USER_AGENT"].include? "MicroMessenger"
         @use_wechat_agent = true
       else
