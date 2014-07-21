@@ -221,9 +221,15 @@ class OrdersController < ApplicationController
       cookies[:coupon_code] = coupon_code.to_s
       cookies['cart'] = products.reduce({}) { |memo, p| memo[p.id] = 1; memo }.to_json
 
-      @wechat_oauth_url = Wechat::ParamsGenerator.wechat_oauth_url if @use_wechat_agent
 
       load_cart
+    end
+
+    if @use_wechat_agent
+      # params: redirect_url
+      @wechat_oauth_url = Wechat::ParamsGenerator.wechat_oauth_url(new_order_url) 
+    else
+      @wechat_oauth_url = new_order_path
     end
   end
 
