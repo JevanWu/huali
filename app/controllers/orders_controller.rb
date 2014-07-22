@@ -209,6 +209,30 @@ class OrdersController < ApplicationController
   end
 
   def current
+    if @use_wechat_agent
+      code = params[:code]
+      state = params[:state]
+      # params: target, redirect_url
+      request_url = Wechat::ParamsGenerator.wechat_oauth_url(:access_token, new_order_url, code) 
+      wechat_responses = RestClient.get request_url 
+      if !wechat_responses["errmsg"]
+        access_token = wechat_responses["access_token"]
+        expires_in = wechat_responses["expires_in"]
+        refresh_token = wechat_responses["refresh_token"]
+        openid = wechat_responses["openid"]
+        #sign in user
+        user = User.find_by_openid(openid)
+        if user
+          sign_in user
+        else
+          oauth_provider = OauthProvider.create(identifier: openid, provider: "wechat")
+          user = oauth_provider.create_user(role: "customer")
+        end
+      else
+        raise ArgumentError, wechat_responses["errmsg"]
+      end
+    end
+
     if params[:coupon_code].present? && params[:product_ids].present?
       coupon_code = CouponCode.find_by_code!(params[:coupon_code])
       products = Product.where(slug: params[:product_ids].split(',')).to_a
@@ -223,13 +247,6 @@ class OrdersController < ApplicationController
 
 
       load_cart
-    end
-
-    if @use_wechat_agent
-      # params: redirect_url
-      @wechat_oauth_url = Wechat::ParamsGenerator.wechat_oauth_url(new_order_url) 
-    else
-      @wechat_oauth_url = new_order_path
     end
   end
 
@@ -338,14 +355,6 @@ class OrdersController < ApplicationController
         { paymethod: 'wechat', merchant_name: 'Tenpay' }
       else
         { paymethod: 'bankPay', merchant_name: pay_info }
-      end
-    end
-
-    def justify_wechat_agent
-      if request.env["HTTP_USER_AGENT"].include? "MicroMessenger"
-        @use_wechat_agent = true
-      else
-        @use_wechat_agent = false
       end
     end
 

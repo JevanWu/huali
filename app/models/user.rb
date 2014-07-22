@@ -53,6 +53,7 @@ class User < ActiveRecord::Base
 
   has_many :addresses
   has_many :orders
+  has_many :oauth_providers, dependent: :destroy
   has_many :transactions, through: :orders
   has_many :shipments, through: :orders
   has_many :oauth_services, dependent: :destroy
@@ -123,6 +124,11 @@ class User < ActiveRecord::Base
   def create_expense_point_transaction(point, description=nil, transaction_id=nil)
     self.point_transactions.create(point: point, transaction_type: "expense",
                                    description: description, expires_on: Date.current.end_of_year.advance(years: 1), transaction_id: transaction_id)
+  end
+
+  def self.find_by_openid(openid)
+    oauth_provider = OauthProvider.find_by identifier: openid
+    user = oauth_provider.user
   end
 
   private
