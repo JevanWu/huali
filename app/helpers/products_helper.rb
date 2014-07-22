@@ -8,20 +8,20 @@ module ProductsHelper
     link_to(name, '#', class: "add_fields", data: {id: id, fields: fields.gsub('\n', '')})
   end
 
-  def product_buy_link(product, options, is_mobile = false)
+  def product_buy_link(product, options, is_mobile = false, path = current_order_path)
     link, sold_out_text = nil, nil
 
     if product.limited_promotion_today
       if product.limited_promotion_today.ended?
         sold_out_text = t('views.product.end_promo')
       elsif product.limited_promotion_today.started?
-        link = buy_button_or_link(t('views.product.start_promo'), current_order_path, options, is_mobile)
+        link = buy_button_or_link(t('views.product.start_promo'), path, options, is_mobile)
       else
         link = promo_pending_tag(product.limited_promotion_today, options)
       end
     else
       if product.count_on_hand > 0
-        link = buy_button_or_link(t('views.product.flower_basket'), current_order_path, options, is_mobile)
+        link = buy_button_or_link(t('views.product.flower_basket'), path, options, is_mobile)
       else
         sold_out_text = t('views.product.soldout')
       end

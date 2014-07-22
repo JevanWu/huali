@@ -30,7 +30,7 @@
         h4.product-name-en
           = @product.name_en
         p.price ￥#{@product.price}
-      = product_buy_link(@product, { class: 'add-btn button', data: { product: @product.id }}, true)
+      = product_buy_link(@product, { class: 'add-btn button', data: { product: @product.id }}, true, @wechat_oauth_url)
       .share
         span =t(:sharing)
         = render 'shared/product_share_links', product: @product
