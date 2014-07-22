@@ -2,7 +2,7 @@
 
 class Notify < ActionMailer::Base
   add_template_helper ApplicationHelper
-  after_action :set_emailcar_header
+  #after_action :set_emailcar_header
 
   default from: 'support@hua.li', content_type: 'text/html', css: 'email'
 
@@ -146,7 +146,7 @@ STR
 
     query = Sidekiq::RetrySet.new
     jobs = query.select do |job|
-      Array === job.item['args'] && job.item['args'].any? { |a| a.include?(":ship_order") }
+      job.item['args'].any? { |a| a.to_s.include?(":ship_order") }
     end
 
     @orders = jobs.map { |job| job.item['args'].first.scan(/\d{15}/).first }.uniq
