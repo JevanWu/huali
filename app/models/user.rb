@@ -6,7 +6,7 @@
 #  created_at               :datetime         not null
 #  current_sign_in_at       :datetime
 #  current_sign_in_ip       :string(255)
-#  email                    :string(255)      default(""), not null
+#  email                    :string(255)
 #  encrypted_password       :string(255)      default("")
 #  huali_point              :decimal(8, 2)    default(0.0)
 #  id                       :integer          not null, primary key
