@@ -225,7 +225,8 @@ class OrdersController < ApplicationController
         user = User.find_by_openid(openid)
         if user.nil?
           oauth_provider = OauthProvider.create(identifier: openid, provider: "wechat")
-          user = oauth_provider.create_user(role: "customer")
+          user = oauth_provider.build_user(role: "customer")
+          user.save(validate: false)
         end
         sign_in user
       else
