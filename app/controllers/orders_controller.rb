@@ -213,6 +213,7 @@ class OrdersController < ApplicationController
       code = params[:code]
       state = params[:state]
       # params: target, redirect_url
+      return if code.nil?
       request_url = Wechat::ParamsGenerator.wechat_oauth_url(:access_token, new_order_url, code) 
       wechat_responses = RestClient.get request_url 
       if !wechat_responses["errmsg"]
