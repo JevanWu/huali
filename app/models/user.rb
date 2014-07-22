@@ -128,7 +128,11 @@ class User < ActiveRecord::Base
 
   def self.find_by_openid(openid)
     oauth_provider = OauthProvider.find_by identifier: openid
-    user = oauth_provider.user
+    if oauth_provider.nil?
+      return nil
+    else
+      user = oauth_provider.user
+    end
   end
 
   private

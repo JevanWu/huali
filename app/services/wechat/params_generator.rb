@@ -69,7 +69,7 @@ module Wechat
       return sign
     end
 
-    def self.wechat_oauth_url(target, redirect_url, code)
+    def self.wechat_oauth_url(target, redirect_url, code = "")
       if target == :code
         return "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + ENV["WECHAT_APPID"] + "&redirect_uri="+ CGI.escape(redirect_url) + "&response_type=code&scope=" + "snsapi_base" + "&state=123#wechat_redirect"
       elsif target == :access_token
