@@ -60,6 +60,14 @@ class ApplicationController < ActionController::Base
       super # Administrator will use the default one
     end
   end
+
+  def justify_wechat_agent
+    if request.env["HTTP_USER_AGENT"].include? "MicroMessenger"
+      @use_wechat_agent = true
+    else
+      @use_wechat_agent = false
+    end
+  end
 end
 
 class User::ParameterSanitizer < Devise::ParameterSanitizer

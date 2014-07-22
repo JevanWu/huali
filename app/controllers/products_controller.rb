@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   before_action :fetch_collection, only: [:index, :tagged_with]
+  before_action :justify_wechat_agent, only: [:show]
   before_action only: :show do
     @menu_nav_type = 'product'
   end
