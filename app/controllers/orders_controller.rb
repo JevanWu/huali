@@ -223,12 +223,11 @@ class OrdersController < ApplicationController
         openid = wechat_responses["openid"]
         #sign in user
         user = User.find_by_openid(openid)
-        if user
-          sign_in user
-        else
+        if user.nil?
           oauth_provider = OauthProvider.create(identifier: openid, provider: "wechat")
           user = oauth_provider.create_user(role: "customer")
         end
+        sign_in user
       else
         raise ArgumentError, wechat_responses["errmsg"]
       end
