@@ -1,4 +1,5 @@
 # encoding: utf-8
+require 'json'
 class OrdersController < ApplicationController
   before_action :fetch_related_products, only: [:back_order_create, :channel_order_create, :current, :apply_coupon]
   before_action :authenticate_user!, only: [:new, :index, :show, :create, :checkout, :cancel]
@@ -216,6 +217,7 @@ class OrdersController < ApplicationController
       return if code.nil?
       request_url = Wechat::ParamsGenerator.wechat_oauth_url(:access_token, new_order_url, code) 
       wechat_responses = RestClient.get request_url 
+      wechat_responses = JSON.parse wechat_responses
       if !wechat_responses["errmsg"]
         access_token = wechat_responses["access_token"]
         expires_in = wechat_responses["expires_in"]
