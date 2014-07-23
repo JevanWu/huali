@@ -145,7 +145,7 @@ window.Cart = {
     for id, quantity of cart
       delete cart[id] if quantity <= 0
 
-    $.cookie('cart', cart, path: '/')
+    $.cookie('cart', cart, { expires: 0.5, path: '/' })
 
   get: (id) ->
     quantity = $.cookie('cart') && $.cookie('cart')[id] || 0
@@ -171,7 +171,7 @@ window.isMeta = (e) ->
   which = e.which; button = e.button
 
   if (!which && button != undefined)
-    return (!button & 1) && (!button & 2) && (button & 4);
+    return (!button & 1) && (!button & 2) && (button & 4)
   else if (which == 2)
     return true
 
