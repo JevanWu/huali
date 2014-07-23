@@ -48,7 +48,7 @@ gem 'squash_ruby', :require => 'squash/ruby'
 gem 'squash_rails', :require => 'squash/rails'
 
 # background jobs
-gem 'sidekiq', '~> 2.9'
+gem 'sidekiq'
 gem 'sidekiq-failures'
 gem 'slim'
 gem 'sinatra', require: nil
@@ -99,7 +99,12 @@ gem 'sunspot_rails'
 
 gem 'mechanize'
 
+gem 'tiny_tds'
+gem 'activerecord-sqlserver-adapter', '~> 4.0.0'
+
 gem "highcharts-rails", "~> 3.0.0"
+
+gem 'i18n', github: 'svenfuchs/i18n', tag: 'v0.6.10'
 
 group :development, :test do
   gem 'rspec-rails', '>= 2.11.0'
@@ -138,8 +143,15 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'annotate'
-  gem 'capistrano', '~>2.0'
-  gem 'capistrano-zen', git: 'https://github.com/zenhacks/capistrano-zen.git', require: false
+
+  # Deployment
+  gem 'capistrano', '~> 3.0', require: false
+  gem 'capistrano-rails',   '~> 1.1', require: false
+  gem 'capistrano-bundler', '~> 1.1', require: false
+  gem 'capistrano-rbenv', '~> 2.0', require: false
+  gem 'capistrano-sidekiq'
+  gem "capistrano-db-tasks", github: 'ryancheung/capistrano-db-tasks', branch: 'postgresql-9.2', require: false
+
   gem 'railroady'
   gem "rails-erd"
   gem 'ruby-graphviz', require: 'graphviz' # Optional: only required for graphing

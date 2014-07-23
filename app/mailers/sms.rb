@@ -50,7 +50,7 @@ class Sms
   end
 
   def sanitized_national_phone
-    phone_number.national.to_s.gsub(/\s/, '')
+    phone_number.national.to_s.gsub(/\s/, '').sub(/^0/, '')
   end
 
   def smsbao

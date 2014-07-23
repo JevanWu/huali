@@ -82,6 +82,7 @@ class Order < ActiveRecord::Base
     after_transition to: :wait_ship, do: :generate_shipment
     after_transition to: :refunded, do: :process_refund_huali_point
     after_transition to: :wait_make, do: :print_order
+    after_transition to: :wait_check, do: :update_product_stock
 
     # use adj. for state with future vision
     # use v. for event name
@@ -304,7 +305,15 @@ class Order < ActiveRecord::Base
     shipments.where("tracking_num IS NOT NULL AND tracking_num != ''").exists?
   end
 
-  private
+private
+
+  def update_product_stock
+    if kind.to_s == 'normal'
+      line_items.each do |item|
+        item.product.update_stock(item.quantity)
+      end
+    end
+  end
 
   def print_order
     PrintOrder.from_order(self)

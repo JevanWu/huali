@@ -1,8 +1,8 @@
 - if root.has_two_column_child_menus?
   - column_1_children, column_2_children = root.splitted_children
   .nav-callout-item-col1
-    p
-      = root.description
+    /*p*/
+    /*  = root.description*/
     dl
       == render partial: 'layouts/child_menu', collection: column_1_children
   .nav-callout-item-col2
@@ -11,8 +11,8 @@
 
 - else
   .nav-callout-item-col1
-    p
-      = root.description
+    /*p*/
+    /*  = root.description*/
     dl
       == render partial: 'layouts/child_menu', collection: root.children
     - if %w[鲜花 永生花].include?(root.name)

@@ -8,4 +8,5 @@
 :queues:
   - [default, 5]
   - [mailer, 5]
-  - [analytics, 10]
+  - [erp_import_order, 10]
+  - [erp_update_shipment, 10]
