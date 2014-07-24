@@ -43,19 +43,19 @@
         .summary-item
           .summary-item-name
             | 商品小计：
-          .summary-item-value
+          .summary-item-value.price
             = number_to_currency @cart.original_total
         .summary-item
           - if @cart.discounted?
             .summary-item-name
               | 促销优惠：
-            .summary-item-value
+            .summary-item-value.discount
               = "- "
               = number_to_currency @cart.discount_money
         .summary-item.last
           .summary-item-name
             | 折后总计
-          .summary-item-value
+          .summary-item-value.discounted-price
             span.total-price
               = number_to_currency @cart.total
         p.note
