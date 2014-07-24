@@ -142,6 +142,16 @@ STR
       new(phone_number: @order.sender_phone, body: content).deliver
     end
 
+    def ship_order_receiver_sms(order_id)
+      @order = Order.full_info(order_id)
+
+      content = <<STR
+你有满载祝福的神秘礼物向你飞奔而来，将在这两天到达，记得查收你的美好哦「花里花店」
+STR
+
+      new(phone_number: @order.address.phone, body: content).deliver
+    end
+
     def confirm_order_user_sms(order_id)
       @order = Order.full_info(order_id)
 
