@@ -26,6 +26,7 @@ class OrdersController < ApplicationController
     @order_form = OrderForm.new(coupon_code: cookies[:coupon_code])
     @order_form.address = ReceiverInfo.new
     @order_form.sender = SenderInfo.new(current_user.as_json) # nil.as_json => nil
+    @coupon_code = @card.present? && @card.coupon.present? ? @card.coupon : ""
     AnalyticWorker.delay.open_order(current_user.id, @products_in_cart.map(&:name), Time.now)
   end
 

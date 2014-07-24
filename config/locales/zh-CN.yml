@@ -388,6 +388,7 @@ zh-CN:
       user:
         email: 邮箱
         phone: 联系方式
+        name: 您的姓名
         created_at: 注册时间
         password: 密码
         password_confirmation: 密码
