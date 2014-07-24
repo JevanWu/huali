@@ -30,13 +30,6 @@ class ProductsController < ApplicationController
     # suggestion
     @related_products = @product.related_products
 
-    if @use_wechat_agent
-      # params: target, redirect_url
-      @wechat_oauth_url = Wechat::ParamsGenerator.wechat_oauth_url(:code, current_order_url) 
-    else
-      @wechat_oauth_url = current_order_path
-    end
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @product }
