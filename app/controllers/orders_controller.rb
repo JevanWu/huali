@@ -111,6 +111,20 @@ class OrdersController < ApplicationController
     end
   end
 
+  def edit_gift_card
+    @order = Order.find params[:id]
+  end
+
+  def update_gift_card
+    gift_card_text = params[:order][:gift_card_text]
+    special_instructions = params[:order][:special_instructions]
+    if Order.update(gift_card_text: gift_card_text, special_instructions: special_instructions)
+      redirect_to orders_path, flash: {success: "The gift card text has been updadted"}
+    else
+      render "edit_gift_card"
+    end
+  end
+
   def checkout
     @banks = ['ICBCB2C', 'CMB', 'CCB', 'BOCB2C', 'ABC', 'COMM', 'CMBC']
 
