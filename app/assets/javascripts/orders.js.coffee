@@ -152,7 +152,7 @@ window.Cart = {
     { id: id, quantity: quantity }
 
   empty: ->
-    $.removeCookie('cart', path: '/')
+    $.removeCookie('cart', { path: '/' } )
 
   quantityAll: ->
     cart = $.cookie('cart')
