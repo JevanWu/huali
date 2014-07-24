@@ -145,14 +145,14 @@ window.Cart = {
     for id, quantity of cart
       delete cart[id] if quantity <= 0
 
-    $.cookie('cart', cart, { expires: 0.5, path: '/' })
+    $.cookie('cart', cart, path: '/' )
 
   get: (id) ->
     quantity = $.cookie('cart') && $.cookie('cart')[id] || 0
     { id: id, quantity: quantity }
 
   empty: ->
-    $.removeCookie('cart', { path: '/' } )
+    $.removeCookie('cart',  path: '/' )
 
   quantityAll: ->
     cart = $.cookie('cart')
