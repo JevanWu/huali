@@ -13,11 +13,11 @@ module Wechat
       body = order.products.first.name_zh 
       fee_type = "1"
       input_charset = "GBK"
-      notify_url = "http://staging_wechat.zenhacks.org/orders/gateway"
+      notify_url = ENV["WECHAT_PAY_NOTIFY_PATH"]
       out_trade_no = order.identifier
       partner = ENV["WECHAT_PARTNERID"]
-      spbill_create_ip = client_ip 
-      total_fee = order.total.to_s
+      spbill_create_ip = client_ip.to_s
+      total_fee = (order.total * 100).to_i.to_s
       partnerKey = ENV["WECHAT_PARTNERKEY"] 
     
       signString = "bank_type="+banktype+"&body="+body+"&fee_type="+fee_type+"&input_charset="+input_charset+"&notify_url="+notify_url+"&out_trade_no="+out_trade_no+"&partner="+partner+"&spbill_create_ip="+spbill_create_ip+"&total_fee="+total_fee+"&key="+partnerKey

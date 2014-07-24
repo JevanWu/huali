@@ -1,15 +1,10 @@
 # Custom Redis configuration
-config_file = Rails.root.join('config', 'resque.yml')
-
-resque_url = if File.exists?(config_file)
-               YAML.load_file(config_file)[Rails.env]
-             else
-               "localhost:6379"
-             end
+resque_url = "localhost:6379"
 
 Sidekiq.configure_server do |config|
   config.failures_default_mode = :exhausted
   config.redis = { url: "redis://#{resque_url}" }
+  config.error_handlers << Proc.new { |ex, ctx_hash| Squash::Ruby.notify(ex, ctx_hash) }
 end
 
 Sidekiq.configure_client do |config|

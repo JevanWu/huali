@@ -109,11 +109,11 @@ describe Product do
 
   let(:product) { create(:product) }
   describe "#update_monthly_sold" do
-    before do 
+    before do
       @monthly_sold = create(:monthly_sold, product: product)
     end
 
-    context "updates the month sold of this month" do 
+    context "updates the month sold of this month" do
 
       it "updates the sold_total of sold record of this month" do
         product.update_monthly_sold(10, Date.current)
@@ -126,8 +126,8 @@ describe Product do
       end
     end
 
-    context "updates the month sold of last month" do 
-      before do 
+    context "updates the month sold of last month" do
+      before do
         product.update_monthly_sold(10, -1.month.from_now.to_date)
       end
 
@@ -138,7 +138,7 @@ describe Product do
       end
 
       it "does not updates the sold_total of the product at this month" do
-        dont_allow(product).update_column(:sold_total, @monthly_sold.sold_total) 
+        dont_allow(product).update_column(:sold_total, @monthly_sold.sold_total)
       end
     end
   end
@@ -149,10 +149,20 @@ describe Product do
 
     it "date_rule equals to local_date_rule if it has local_date_rule" do
       product_with_local_rule.date_rule.should eq product_with_local_rule.local_date_rule
-    end 
+    end
 
     it "date_rule equals to default_date_rule if it has no local_date_rule" do
       product.date_rule.should eq product.default_date_rule
+    end
+  end
+
+  describe "#update_stock" do
+    let(:product) { create(:product, count_on_hand: 10) }
+
+    it "update count_on_hand by substracting sold count" do
+      mock(product).update_column(:count_on_hand, 0)
+
+      product.update_stock(10)
     end
   end
 end

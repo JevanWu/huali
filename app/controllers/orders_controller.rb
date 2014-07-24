@@ -1,13 +1,15 @@
 # encoding: utf-8
+require 'json'
 class OrdersController < ApplicationController
+  before_action :justify_wechat_agent, only: [:current, :checkout, :gateway, :new]
   before_action :fetch_related_products, only: [:back_order_create, :channel_order_create, :current, :apply_coupon]
+  before_action :signin_with_openid, only: [:new]
   before_action :authenticate_user!, only: [:new, :index, :show, :create, :checkout, :cancel]
   before_action :authenticate_administrator!, only: [:back_order_new, :back_order_create, :channel_order_new, :channel_order_create]
   before_action :fetch_transaction, only: [:return, :notify]
   skip_before_action :verify_authenticity_token, only: [:notify]
   before_action :authorize_to_record_back_order, only: [:back_order_new, :channel_order_new, :back_order_create, :channel_order_create]
   before_action :validate_cart, only: [:new, :channel_order_new, :back_order_new, :create, :back_order_create, :channel_order_create]
-  before_action :justify_wechat_agent, only: [:current, :checkout, :gateway]
 
   def index
     @orders = current_or_guest_user.orders
@@ -134,29 +136,30 @@ class OrdersController < ApplicationController
   end
 
   def gateway
-    if @use_wechat_agent
+    if params[:xml].present? && params[:id].nil?
       #open_id = params[:xml][:OpenId]
       identifier = params[:xml][:out_trade_no]
       paid_fee = params[:xml][:total_fee]
       transaction_id = params[:xml][:transaction_id]
+      partner = params[:xml][:partner]
       trade_state = "success" if params[:xml][:trade_state] == "0"
 
       begin
         order = Order.find_by identifier: identifier
-        payment_opts = process_pay_info('wechat')
-        transaction = order.generate_transaction payment_opts.merge(client_ip: request.remote_ip), false
-        transaction.update_columns(merchant_trade_no: transaction_id, processed_at: Time.current)
-        if paid_fee == transaction.amount
+        if paid_fee == order.total && partner == ENV["WECHAT_PARTNERID"]
+          payment_opts = process_pay_info('wechat')
+          transaction = order.generate_transaction payment_opts.merge(client_ip: request.remote_ip)
+          transaction.update_columns(merchant_trade_no: transaction_id, processed_at: Time.current)
           transaction.complete 
-        else
-          raise ArgumentError, "The paid money is not equivalent to price"
           flash[:alert] = t('views.order.paid')
+        else
+          raise ArgumentError, "The paid money is not equivalent to price of products"
+          flash[:alert] = "The paid money is not equivalent to price of products"
         end
         redirect_to orders_path
       rescue ActiveRecord::RecordNotFound
         raise ArgumentError, "Sorry! the order doesn't exist. please contact our customer service"
       end
-
     else
       @order = Order.find_by_id(params[:id] || session[:order_id])
 
@@ -209,26 +212,6 @@ class OrdersController < ApplicationController
   end
 
   def current
-    if @use_wechat_agent
-      code = params[:code]
-      state = params[:state]
-      # params: target, redirect_url
-      return if code.nil?
-      request_url = Wechat::ParamsGenerator.wechat_oauth_url(:access_token, new_order_url, code) 
-      wechat_responses = RestClient.get request_url 
-      if !wechat_responses["errmsg"]
-        access_token = wechat_responses["access_token"]
-        expires_in = wechat_responses["expires_in"]
-        refresh_token = wechat_responses["refresh_token"]
-        openid = wechat_responses["openid"]
-        #sign in user
-        user = User.find_by_openid(openid)
-        sign_in user
-      else
-        raise ArgumentError, wechat_responses["errmsg"]
-      end
-    end
-
     if params[:coupon_code].present? && params[:product_ids].present?
       coupon_code = CouponCode.find_by_code!(params[:coupon_code])
       products = Product.where(slug: params[:product_ids].split(',')).to_a
@@ -244,6 +227,7 @@ class OrdersController < ApplicationController
 
       load_cart
     end
+    @wechat_oauth_url = Wechat::ParamsGenerator.wechat_oauth_url(:code, new_order_url) 
   end
 
   def apply_coupon
@@ -361,5 +345,28 @@ class OrdersController < ApplicationController
       @package = Wechat::ParamsGenerator.get_package(order, client_ip)
       @sign_type = Wechat::ParamsGenerator.get_signtype
       @sign = Wechat::ParamsGenerator.get_sign(@nonce_str, @package, @timestamp)
+    end
+
+    def signin_with_openid
+      if @use_wechat_agent
+        code = params[:code]
+        state = params[:state]
+        # params: target, redirect_url
+        return if code.nil?
+        request_url = Wechat::ParamsGenerator.wechat_oauth_url(:access_token, new_order_url, code) 
+        wechat_responses = RestClient.get request_url 
+        wechat_responses = JSON.parse wechat_responses
+        if !wechat_responses["errmsg"]
+          access_token = wechat_responses["access_token"]
+          expires_in = wechat_responses["expires_in"]
+          refresh_token = wechat_responses["refresh_token"]
+          openid = wechat_responses["openid"]
+          #sign in user
+          user = User.find_by_openid(openid)
+          sign_in user
+        else
+          raise ArgumentError, wechat_responses["errmsg"]
+        end
+      end
     end
 end

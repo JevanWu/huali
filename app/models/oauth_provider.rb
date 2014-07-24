@@ -16,4 +16,6 @@
 
 class OauthProvider < ActiveRecord::Base
   belongs_to :user
+
+  validates :identifier, uniqueness: { scope: :provider, message: "the identifier already exists for this provider" }
 end

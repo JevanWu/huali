@@ -44,6 +44,10 @@ every :day, at: '3:00 am' do
   rake "sitemap:refresh"
 end
 
+every 3.hours do
+  rake "erp:check_shipped_orders"
+end
+
 every :day, at: '9:00 pm' do
   rake "notice:today_order_sms_and_email"
 end
@@ -57,7 +61,6 @@ every 2.hours do
 end
 
 every 30.minutes do
-  rake "sidekiq:restart_if_not_exist"
   rake "sidekiq:clean_needless_retries"
 end
 
@@ -87,4 +90,8 @@ end
 
 every :month do
   rake 'cleanup:reset_sold_total'
+end
+
+every :day, at: '10:58 pm' do
+  rake "notice:sales_report"
 end

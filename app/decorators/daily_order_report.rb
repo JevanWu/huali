@@ -73,6 +73,6 @@ private
   def orders
     @orders ||= Order.includes(:transactions).
       where(state: ['wait_make', 'wait_ship', 'wait_confirm', 'completed']).
-      where(created_at: start_date..end_date).to_a
+      where(created_at: start_date.beginning_of_day .. end_date.end_of_day).to_a
   end
 end

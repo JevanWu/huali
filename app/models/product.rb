@@ -232,4 +232,8 @@ class Product < ActiveRecord::Base
 
     ret
   end
+
+  def update_stock(sold_count)
+    update_column(:count_on_hand, [count_on_hand - sold_count, 0].max)
+  end
 end

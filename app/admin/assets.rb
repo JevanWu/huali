@@ -17,7 +17,7 @@ ActiveAdmin.register Asset do
       f.input :image, as: :file
       f.input :viewable_type, label: "BelongsTo"
     end
-    f.buttons
+    f.actions
   end
 
   index do
