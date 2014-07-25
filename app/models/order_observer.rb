@@ -3,7 +3,13 @@ class OrderObserver < ActiveRecord::Observer
   def after_create(order)
     return unless order.kind == 'normal'
     Notify.delay.new_order_user_email(order.id)
-    AnalyticWorker.delay.fill_order(order.id)
+
+    Analytics.track(user_id: order.user.id,
+                    event: 'Placed Order',
+                    properties: {
+                      products: order.line_items.map { |item| { id: item.product.id, name: item.name, price: item.product.price, quantity: item.quantity } },
+                      coupon_code: order.coupon_code
+                    })
   end
 
   def after_cancel(order, transition)
