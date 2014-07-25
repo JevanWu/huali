@@ -31,7 +31,7 @@ gem 'faraday'
 gem 'acts-as-taggable-on', '~> 2.4.1'
 gem 'gibbon'
 gem 'twilio-ruby'
-gem 'analytics-ruby'
+gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
 # oauth
 gem 'omniauth'
 gem 'omniauth-douban-oauth2'
