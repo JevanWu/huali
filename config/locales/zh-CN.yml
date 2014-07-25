@@ -734,6 +734,11 @@ zh-CN:
       other_customer_bought: 其他客户购买了
       click_to_cart: 加入购花篮
 
+      #gift card
+      gift_card:
+        not_allowed_to_edit: 您没有修改此贺卡的权限
+        updated_successfully: 贺卡信息已经成功修改
+
       # banks
       bank:
         directPay: 支付宝

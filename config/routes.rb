@@ -45,7 +45,7 @@ Huali::Application.routes.draw do
   get 'orders/return', as: :return_order
   match 'orders/notify', as: :notify_order, via: [:get, :post]
   get 'orders/:id/gift_card/edit', to: 'orders#edit_gift_card', as: :edit_gift_card
-  post 'orders/:id/gift_card/update', to: 'orders#update_gift_card', as: :update_gift_card
+  match 'orders/:id/gift_card/update', to: 'orders#update_gift_card', as: :update_gift_card, via: [:put, :patch]
 
   # Disable back order entry
   # back order urls
