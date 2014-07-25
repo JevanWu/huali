@@ -76,6 +76,8 @@ class User < ActiveRecord::Base
     message: "%{value} is not a valid user role."
   }
 
+  validates_presence_of :name, :phone
+
   phoneize :phone
   validates :phone, phone: { allow_blank: true }
 

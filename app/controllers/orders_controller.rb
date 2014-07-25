@@ -1,7 +1,7 @@
 # encoding: utf-8
 class OrdersController < ApplicationController
   before_action :fetch_related_products, only: [:back_order_create, :channel_order_create, :current, :apply_coupon]
-  before_action :authenticate_user!, only: [:new, :index, :show, :create, :checkout, :cancel]
+  before_action :authenticate_user!, only: [:new, :index, :show, :create, :checkout, :cancel, :edit_gift_card, :update_gift_card]
   before_action :authenticate_administrator!, only: [:back_order_new, :back_order_create, :channel_order_new, :channel_order_create]
   before_action :fetch_transaction, only: [:return, :notify]
   skip_before_action :verify_authenticity_token, only: [:notify]
@@ -26,6 +26,7 @@ class OrdersController < ApplicationController
     @order_form = OrderForm.new(coupon_code: cookies[:coupon_code])
     @order_form.address = ReceiverInfo.new
     @order_form.sender = SenderInfo.new(current_user.as_json) # nil.as_json => nil
+    @coupon_code = @card.present? && @card.coupon.present? ? @card.coupon : ""
     AnalyticWorker.delay.open_order(current_user.id, @products_in_cart.map(&:name), Time.now)
   end
 
@@ -107,6 +108,24 @@ class OrdersController < ApplicationController
       end
     else
       render 'new'
+    end
+  end
+
+  def edit_gift_card
+    order = Order.find params[:id]
+    if order.user == current_user
+      @order = order
+    else
+      redirect_to root_path, flash: { success: t('views.order.gift_card.not_allowed_to_edit') }
+    end
+  end
+
+  def update_gift_card
+    order = Order.find params[:id]
+    if order.update(gift_card_params)
+      redirect_to orders_path, flash: { success: t('views.order.gift_card.updated_successfully') }
+    else
+      render "edit_gift_card"
     end
   end
 
@@ -309,4 +328,7 @@ class OrdersController < ApplicationController
       end
     end
 
+    def gift_card_params
+      params.require(:order).permit(:gift_card_text, :special_instructions)
+    end
 end

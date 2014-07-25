@@ -388,6 +388,7 @@ zh-CN:
       user:
         email: 邮箱
         phone: 联系方式
+        name: 您的姓名
         created_at: 注册时间
         password: 密码
         password_confirmation: 密码
@@ -732,6 +733,11 @@ zh-CN:
       # suggestion
       other_customer_bought: 其他客户购买了
       click_to_cart: 加入购花篮
+
+      #gift card
+      gift_card:
+        not_allowed_to_edit: 您没有修改此贺卡的权限
+        updated_successfully: 贺卡信息已经成功修改
 
       # banks
       bank:
