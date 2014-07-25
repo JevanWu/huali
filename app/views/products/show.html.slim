@@ -42,4 +42,4 @@
         .share
           span = t(:sharing)
           = render 'shared/product_share_links', product: @product
-        = product_buy_link(@product, class: 'add-btn button', data: { product: @product.id })
+        = product_buy_link(@product, class: 'add-btn button', data: { product: @product.id }, onClick: "analytics.track('Add to Cart', { category: 'Order', label: '#{@product.name}' });")
