@@ -20,5 +20,5 @@
 #= require 'module/banner'
 #= require 'module/bookmark'
 #= require 'orders'
-#= require 'mediav'
 #= require 'bootstrap-tab'
+#= require 'segmentio'
