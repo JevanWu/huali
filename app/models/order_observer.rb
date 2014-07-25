@@ -7,8 +7,11 @@ class OrderObserver < ActiveRecord::Observer
     Analytics.track(user_id: order.user.id,
                     event: 'Placed Order',
                     properties: {
-                      products: order.line_items.map { |item| { id: item.product.id, name: item.name, price: item.product.price, quantity: item.quantity } },
-                      coupon_code: order.coupon_code
+                      id: order.identifier,
+                      products: order.line_items.map { |item| { id: item.product.id, name: item.name, price: item.price, quantity: item.quantity } },
+                      coupon_code: order.coupon_code,
+                      province: order.province_name,
+                      city: order.city_name
                     })
   end
 
@@ -23,8 +26,17 @@ class OrderObserver < ActiveRecord::Observer
     Notify.delay.pay_order_user_email(order.id)
 
     Notify.delay.pay_order_admin_email(order.id)
-    AnalyticWorker.delay.complete_order(order.id)
-    GaTrackWorker.delay.order_track(order.id)
+    Analytics.track(user_id: order.user.id,
+                    event: 'Paid Order',
+                    properties: {
+                      id: order.identifier,
+                      products: order.line_items.map { |item| { id: item.product.id, name: item.name, price: item.product.price, quantity: item.quantity } },
+                      revenue: order.payment_total,
+                      coupon_code: order.coupon_code_record.to_s,
+                      province: order.province_name,
+                      city: order.city_name,
+                      paymethod: order.paymethod
+                    })
   end
 
   def after_check(order, transition)
