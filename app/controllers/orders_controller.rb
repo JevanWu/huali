@@ -112,7 +112,12 @@ class OrdersController < ApplicationController
   end
 
   def edit_gift_card
-    @order = Order.find params[:id]
+    order = Order.find params[:id]
+    if order.user == current_user
+      @order = order
+    else
+      redirect_to root_path, flash: {success: "You are not allowed to edit this gift card"}
+    end
   end
 
   def update_gift_card
