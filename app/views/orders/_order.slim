@@ -25,4 +25,6 @@ li.row.order
         - else
           = t('models.order.state.' + order.state)
       td.col6
-        = link_to '查看订单详情', order_path(order)
+        p = link_to '查看订单详情', order_path(order)
+        - if %w(generated wait_check wait_make).include? order.state
+          p = link_to '编辑贺卡信息', edit_gift_card_path(order)

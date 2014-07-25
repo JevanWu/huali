@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :invitable, :async, :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :timeoutable,
+         :recoverable, :rememberable, :trackable, :validatable, 
          :omniauthable, :omniauth_providers => [:douban, :weibo, :qq_connect]
 
   has_many :invitees, class_name: "User", foreign_key: "invited_by_id"
@@ -75,6 +75,8 @@ class User < ActiveRecord::Base
     in: %w(customer),
     message: "%{value} is not a valid user role."
   }
+
+  validates_presence_of :name, :phone
 
   phoneize :phone
   validates :phone, phone: { allow_blank: true }
@@ -126,10 +128,6 @@ class User < ActiveRecord::Base
   def create_expense_point_transaction(point, description=nil, transaction_id=nil)
     self.point_transactions.create(point: point, transaction_type: "expense",
                                    description: description, expires_on: Date.current.end_of_year.advance(years: 1), transaction_id: transaction_id)
-  end
-
-  def timeout_in
-    1.day
   end
 
   private

@@ -10,19 +10,20 @@
   <fieldset>
     <legend>您的个人信息</legend>
     <%= f.fields_for :sender, @order_form.sender do |builder|%>
-      <%= builder.input :name, required:true, placeholder: '您的姓名' %>
-      <%= builder.input :email, required:true, placeholder: '以便及时收到订单更新'  %>
+      <%= builder.input :name, required:true, placeholder: '您的姓名', as: :hidden %>
+      <%= builder.input :email, required:true, placeholder: '以便及时收到订单更新', as: :hidden %>
       <%= builder.input :phone, as: :simple_form_phone, required:true, placeholder: '以便我们和您核对信息'  %>
     <% end %>
+    <%= f.input :coupon_code, as: :hidden %> 
   </fieldset>
 
-  <fieldset>
-    <legend>订单信息</legend>
-    <%= f.input :coupon_code, placeholder: '如果您有优惠券，请在这里填写' %>
-    <%= f.input :gift_card_text, as: :text, input_html: { rows: 3, maxlength: 80 }, placeholder: '我们可以代您书写给TA的话，请注明落款哦！', hint: '80字以内哦' %>
-    <%= f.input :special_instructions, as: :text, input_html: { rows: 3 }, placeholder: '您可将一些特殊要求罗列与此，我们将尽力满足您的要求。' %>
-    <%= f.input :source, required:true, as: :select, collection: lambda { ["微博", "人人", "豆瓣", "Facebook", "微信", "杂志等平面媒体", "搜索引擎", "朋友推荐", "网络广告", "视频网站", "淘宝", "电视", "其他"].shuffle } %>
-  </fieldset>
+  <!-- <fieldset> -->
+  <!--   <legend>订单信息</legend> -->
+  <!--   <%= f.input :coupon_code, placeholder: '如果您有优惠券，请在这里填写' %> -->
+  <!--   <%= f.input :gift_card_text, as: :text, input_html: { rows: 3, maxlength: 80 }, placeholder: '我们可以代您书写给TA的话，请注明落款哦！', hint: '80字以内哦' %> -->
+  <!--   <%= f.input :special_instructions, as: :text, input_html: { rows: 3 }, placeholder: '您可将一些特殊要求罗列与此，我们将尽力满足您的要求。' %> -->
+  <!--   <%= f.input :source, required:true, as: :select, collection: lambda { ["微博", "人人", "豆瓣", "Facebook", "微信", "杂志等平面媒体", "搜索引擎", "朋友推荐", "网络广告", "视频网站", "淘宝", "电视", "其他"].shuffle } %> -->
+  <!-- </fieldset> -->
 
   <fieldset>
     <legend>递送信息</legend>
@@ -35,7 +36,7 @@
       <%= builder.input :city_id, collection: [], prompt: "请选择城市", required:true %>
       <%= builder.input :area_id, collection: [] %>
       <%= builder.input :address, as: 'text', required:true, input_html: { rows: 3 }, placeholder: '详细地址' %>
-      <%= builder.input :post_code, placeholder: '邮编', required: true, hint: %(<a id='query-postcode' href="#" target='_blank'>查询邮编</a>).html_safe %>
+      <%= builder.input :post_code, placeholder: '邮编', hint: %(<a id='query-postcode' href="#" target='_blank'>查询邮编</a>).html_safe %>
     <% end %>
   </fieldset>
 
