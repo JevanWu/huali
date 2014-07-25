@@ -136,10 +136,7 @@ GEM
     acts-as-taggable-on (2.4.1)
       rails (>= 3, < 5)
     addressable (2.3.5)
-    analytics-ruby (0.3.2)
-      faraday (>= 0.8, < 0.10)
-      faraday_middleware (>= 0.8, < 0.10)
-      multi_json (~> 1.0)
+    analytics-ruby (2.0.5)
     annotate (2.6.2)
       activerecord (>= 2.3.0)
       rake (>= 0.8.7)
@@ -269,8 +266,6 @@ GEM
       railties (>= 3.0.0)
     faraday (0.8.7)
       multipart-post (~> 1.1)
-    faraday_middleware (0.9.0)
-      faraday (>= 0.7.4, < 0.9)
     ffi (1.9.0)
     figaro (0.7.0)
       bundler (~> 1.0)
@@ -676,7 +671,7 @@ DEPENDENCIES
   activerecord-nulldb-adapter
   activerecord-sqlserver-adapter (~> 4.0.0)
   acts-as-taggable-on (~> 2.4.1)
-  analytics-ruby
+  analytics-ruby (~> 2.0.0)
   annotate
   api-auth!
   awesome_print
