@@ -106,7 +106,10 @@ class User < ActiveRecord::Base
   end
 
   def after_database_authentication
-    GaTrackWorker.delay.user_sign_in_track(id)
+    Analytics.track(user_id: id,
+                    event: 'Signed In',
+                    properties: { sign_in_count: sign_in_count },
+                    timestamp: Time.current)
   end
 
   def edit_invited_and_paid_counter(num=1)
