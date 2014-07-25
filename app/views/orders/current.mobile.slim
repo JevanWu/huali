@@ -39,24 +39,30 @@
               p.error
                 | 无效优惠码！请确认信息后输入
       .summary
-        .summary-item
-          .summary-item-name
-            | 商品小计：
-          .summary-item-value.price
-            = number_to_currency @cart.original_total
-        .summary-item
-          - if @cart.discounted?
+        - if @cart.discounted?
+          .summary-item
+            .summary-item-name
+              | 商品小计：
+            .summary-item-value.price
+              = number_to_currency @cart.original_total
+          .summary-item
             .summary-item-name
               | 促销优惠：
             .summary-item-value.discount
               = "- "
               = number_to_currency @cart.discount_money
-        .summary-item.last
-          .summary-item-name
-            | 折后总计
-          .summary-item-value.discounted-price
-            span.total-price
-              = number_to_currency @cart.total
+          .summary-item.last
+            .summary-item-name
+              | 折后总计
+            .summary-item-value.discounted-price
+              span.total-price
+                = number_to_currency @cart.total
+        - else
+          .summary-item
+            .summary-item-name
+              | 商品小计：
+            .summary-item-value.discounted-price
+              = number_to_currency @cart.original_total
         p.note
           | 您的订单享受免费配送
 
