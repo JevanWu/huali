@@ -79,6 +79,10 @@ class OrdersController < ApplicationController
       @order_form.add_line_item(item.product_id, item.quantity)
     end
 
+    if !@order_form.user.name.present?
+      redirect_to settings_profile_path, flash: {success: "请填写您的称呼"}
+    end
+
     if @order_form.save
       empty_cart
 
