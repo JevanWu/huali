@@ -1,5 +1,10 @@
 <% if current_user %>
   <script>
-    analytics.alias(<%= current_user.id %>); 
+    $(function () {
+      analytics.identify('<%= current_user.id %>', {
+        name: '<%= current_user.name %>',
+        email: '<%= current_user.email %>'
+      });
+    });
   </script>
 <% end %>

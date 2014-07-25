@@ -21,3 +21,4 @@
 #= require 'module/bookmark'
 #= require 'orders'
 #= require 'bootstrap-tab'
+#= require 'segmentio'
