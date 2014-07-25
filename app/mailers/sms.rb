@@ -123,43 +123,49 @@ STR
     end
 
     def pay_order_user_sms(order_id)
-      @order = Order.full_info(order_id)
+      order = Order.full_info(order_id)
 
       content = <<STR
-尊敬的#{@order.sender_name},订单#{@order.identifier}已经支付成功.我们将尽快为您制作发货.
-[花里花店] hua.li
+感谢您订购我们的花盒（#{order.identifier}）！我们的花艺师正在精心挑选花材，为您的ta定制无与伦比的惊喜「花里花店」
 STR
 
-      new(phone_number: @order.sender_phone, body: content).deliver
+      new(phone_number: order.sender_phone, body: content).deliver
     end
 
     def ship_order_user_sms(order_id)
-      @order = Order.full_info(order_id)
+      order = Order.full_info(order_id)
 
       content = <<STR
-尊敬的#{@order.sender_name},订单#{@order.identifier}已经通过#{@order.shipment.ship_method.name}发货, 编号为#{@order.shipment.tracking_num}。
-[花里花店] hua.li
+您订购的花盒（#{order.identifier}）已制作完成，我们的#{order.shipment.ship_method.name}快递师傅载着您满满的情意出发啦（快递单号：#{order.shipment.tracking_num}）「花里花店」
 STR
 
-      new(phone_number: @order.sender_phone, body: content).deliver
+      new(phone_number: order.sender_phone, body: content).deliver
+    end
+
+    def ship_order_receiver_sms(order_id)
+      order = Order.full_info(order_id)
+
+      content = <<STR
+你有满载祝福的神秘礼物向你飞奔而来，将在这两天到达，记得查收你的美好哦「花里花店」
+STR
+
+      new(phone_number: order.address.phone, body: content).deliver
     end
 
     def confirm_order_user_sms(order_id)
-      @order = Order.full_info(order_id)
+      order = Order.full_info(order_id)
 
       regular_content = <<STR
-亲爱的#{@order.sender_name}, 您选购的商品已经在今日#{Time.now.to_s(:time)}送达#{@order.address.fullname}的手中，感谢您的选购，期待您再次光临.
-[花里花店] hua.li
+您订购的花盒已被ta欣然签收，我们将永远记录这一份美好祝福「花里花店」
 STR
 
       taobao_content = <<STR
-亲爱的#{@order.sender_name}, 您选购的商品已经在今日#{Time.now.to_s(:time)}送达#{@order.address.fullname}的手中，感谢您的选购，您的全5分好评对我们特别重要。我期待您再次光临.
-[花里花店] hua.li
+您订购的花盒已被ta欣然签收，我们将永远记录这一份美好祝福。您的全5分好评对我们特别重要，期待您再次光临.「花里花店」
 STR
 
-      content = @order.from_taobao? ? taobao_content : regular_content
+      content = order.from_taobao? ? taobao_content : regular_content
 
-      new(phone_number: @order.sender_phone, body: content).deliver
+      new(phone_number: order.sender_phone, body: content).deliver
     end
 
   end

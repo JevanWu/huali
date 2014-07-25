@@ -16,10 +16,6 @@ html
 
     = yield(:css)
 
-    / segmentio library code and frontend related tracking
-    = javascript_include_tag "segmentio"
-    = render "layouts/segmentio"
-
   body
     == render 'layouts/header'
     == render 'layouts/nav'
@@ -33,4 +29,5 @@ html
     == render 'layouts/footer'
 
   = javascript_include_tag 'application'
+  = render "layouts/segmentio"
   = yield(:js)
