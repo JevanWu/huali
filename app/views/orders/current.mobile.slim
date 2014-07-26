@@ -66,5 +66,5 @@
         p.note
           | 您的订单享受免费配送
 
-        = link_to t('views.order.checkout'), new_order_path, class: 'btn-m-confirmBuy'
+        = link_to t('views.order.checkout'), new_order_path, class: 'btn-m-confirmBuy', onClick: "analytics.track('Placing order', { category: 'Order', label: 'Items: ' + JSON.stringify($.cookie('cart')) + 'Coupon Code: ' + $('input[name=coupon_code]').val() });"
   == render 'shared/guess_you_like', related_products: @related_products.take(3)

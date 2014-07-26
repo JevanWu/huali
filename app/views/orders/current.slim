@@ -53,7 +53,7 @@
                     | 原价：
                     span
                       = number_to_currency @cart.original_total
-            = link_to t('views.order.checkout'), new_order_path, class: 'btn-checkout'
+            = link_to t('views.order.checkout'), new_order_path, class: 'btn-checkout', onClick: "analytics.track('Placing order', { category: 'Order', label: 'Items: ' + JSON.stringify($.cookie('cart')) + 'Coupon Code: ' + $('input[name=coupon_code]').val() });"
             /- if current_admin_ability.can? :record_back_order, Order
               /.admin-btn-area.row
                 /= link_to t('views.order.back_checkout'), new_back_order_path, class: 'btn-checkout'

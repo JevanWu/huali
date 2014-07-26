@@ -27,12 +27,6 @@ class OrdersController < ApplicationController
     @order_form.address = ReceiverInfo.new
     @order_form.sender = SenderInfo.new(current_user.as_json) # nil.as_json => nil
 
-    Analytics.track(user_id: current_user.id,
-                    event: 'Placing Order',
-                    properties: {
-                      products: @cart.items.map { |item| { id: item.product.id, name: item.name, price: item.product.price, quantity: item.quantity } },
-                      coupon_code: @cart.coupon_code
-                    })
     @coupon_code = @card.present? && @card.coupon.present? ? @card.coupon : ""
   end
 
