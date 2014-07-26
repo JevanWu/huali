@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :invitable, :async, :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, 
+         :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:douban, :weibo, :qq_connect]
 
   has_many :invitees, class_name: "User", foreign_key: "invited_by_id"
@@ -108,8 +108,7 @@ class User < ActiveRecord::Base
   def after_database_authentication
     Analytics.track(user_id: id,
                     event: 'Signed In',
-                    properties: { sign_in_count: sign_in_count },
-                    timestamp: Time.current)
+                    properties: { category: 'User', label: email })
   end
 
   def edit_invited_and_paid_counter(num=1)
