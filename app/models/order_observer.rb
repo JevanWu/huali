@@ -9,6 +9,9 @@ class OrderObserver < ActiveRecord::Observer
                     properties: {
                       label: order.identifier,
                       category: 'Order'
+                    },
+                    context: {
+                      'Google Analytics' => { clientId: order.user.tracking_cookie.ga_client_id }
                     })
   end
 
@@ -33,6 +36,9 @@ class OrderObserver < ActiveRecord::Observer
                       coupon_code: order.coupon_code_record.to_s,
                       province: order.province_name,
                       city: order.city_name
+                    },
+                    context: {
+                      'Google Analytics' => { clientId: order.user.tracking_cookie.ga_client_id }
                     })
   end
 
