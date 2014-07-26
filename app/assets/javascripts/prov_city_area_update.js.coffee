@@ -19,7 +19,9 @@ $ ->
       data: { product_ids: Cart.product_ids().join(',') }
       success: (data) ->
         $(citySelector).empty().append(reduceToOptions(data))
-        $(citySelector).trigger("chosen:updated")
+        toggleSelector(citySelector, false)
+      beforeSend: ->
+        toggleSelector(citySelector, true)
 
   updateAreaSelector = (city_id) ->
     return unless city_id?.length > 0
@@ -29,7 +31,12 @@ $ ->
       data: { product_ids: Cart.product_ids().join(',') }
       success: (data) ->
         $(areaSelector).empty().append(reduceToOptions(data))
-        $(areaSelector).trigger("chosen:updated")
+        toggleSelector(areaSelector, false)
+      beforeSend: ->
+        toggleSelector(areaSelector, true)
+
+  toggleSelector = (selector, disabled) ->
+    $(selector).prop('disabled', disabled).trigger("chosen:updated")
 
   emptyAreaSelector = ->
     $(areaSelector).empty()
