@@ -8,7 +8,8 @@ class OrderObserver < ActiveRecord::Observer
                     event: 'Placed Order',
                     properties: {
                       id: order.identifier,
-                      products: order.line_items.map { |item| { id: item.product.id, name: item.name, price: item.price, quantity: item.quantity } },
+                      total: order.total,
+                      products: order.line_items.map { |item| { id: item.product.id, name: item.name, price: item.price, quantity: item.quantity, category: item.product_type_text } },
                       coupon_code: order.coupon_code,
                       province: order.province_name,
                       city: order.city_name
