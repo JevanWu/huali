@@ -22,8 +22,14 @@
       <%= builder.input :fullname, required: true, placeholder: '收件人姓名' %>
       <%= builder.input :phone, as: :simple_form_phone, required: true, placeholder: '收件人联系方式'  %>
       <%= builder.input :province_id, collection: [], prompt: "请选择", required:true, hint: "如遇递送地址无法选择，请联系客服电话：400-087-8899", input_html: { 'data-placeholder' => '请选择', class: 'chosen' } %>
-      <%= builder.input :city_id, collection: [], prompt: "请选择", required:true, input_html: { 'data-placeholder' => '请选择', class: 'chosen' } %>
-      <%= builder.input :area_id, collection: [], prompt: "请选择", input_html: { 'data-placeholder' => '请选择', class: 'chosen' } %>
+      <%= builder.input :city_id do %>
+        <%= builder.input_field :city_id , collection: [], 'data-placeholder' => '请选择', class: 'chosen' %>
+        <%= image_tag('loading.gif', class: 'loading') %>
+      <% end %>
+      <%= builder.input :area_id do %>
+        <%= builder.input_field :area_id , collection: [], 'data-placeholder' => '请选择', class: 'chosen' %>
+        <%= image_tag('loading.gif', class: 'loading') %>
+      <% end %>
       <%= builder.input :address, as: 'text', required:true, input_html: { rows: 3 }, placeholder: '详细地址' %>
       <%= builder.input :post_code, placeholder: '邮编', hint: %(<a id='query-postcode' href="#" target='_blank'>查询邮编</a>).html_safe %>
     <% end %>

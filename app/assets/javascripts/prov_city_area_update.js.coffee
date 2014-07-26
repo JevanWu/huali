@@ -43,6 +43,7 @@ $ ->
 
   toggleSelector = (selector, disabled) ->
     $(selector).prop('disabled', disabled).trigger("chosen:updated")
+    $(selector).siblings().last().toggle(disabled)
 
   emptyAreaSelector = ->
     $(areaSelector).empty()
