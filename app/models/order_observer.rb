@@ -7,12 +7,8 @@ class OrderObserver < ActiveRecord::Observer
     Analytics.track(user_id: order.user.id,
                     event: 'Placed Order',
                     properties: {
-                      id: order.identifier,
-                      total: order.total,
-                      products: order.line_items.map { |item| { id: item.product.id, name: item.name, price: item.price, quantity: item.quantity, category: item.product_type_text } },
-                      coupon_code: order.coupon_code,
-                      province: order.province_name,
-                      city: order.city_name
+                      label: order.identifier,
+                      category: 'Order'
                     })
   end
 
@@ -28,15 +24,15 @@ class OrderObserver < ActiveRecord::Observer
 
     Notify.delay.pay_order_admin_email(order.id)
     Analytics.track(user_id: order.user.id,
-                    event: 'Paid Order',
+                    event: 'Completed Order',
                     properties: {
                       id: order.identifier,
-                      products: order.line_items.map { |item| { id: item.product.id, name: item.name, price: item.product.price, quantity: item.quantity } },
-                      revenue: order.payment_total,
+                      total: order.total,
+                      revenue: order.transaction.amount,
+                      products: order.line_items.map { |item| { id: item.product.id, name: item.name, price: item.price, quantity: item.quantity, category: item.product_type_text } },
                       coupon_code: order.coupon_code_record.to_s,
                       province: order.province_name,
-                      city: order.city_name,
-                      paymethod: order.paymethod
+                      city: order.city_name
                     })
   end
 
