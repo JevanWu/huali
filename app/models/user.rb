@@ -105,12 +105,6 @@ class User < ActiveRecord::Base
     self.save!
   end
 
-  def after_database_authentication
-    Analytics.track(user_id: id,
-                    event: 'Signed In',
-                    properties: { category: 'User', label: email })
-  end
-
   def edit_invited_and_paid_counter(num=1)
     update_column(:invited_and_paid_counter, invited_and_paid_counter + num)
   end

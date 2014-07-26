@@ -2,26 +2,44 @@ module Extension
   module SignInRedirect
     extend ActiveSupport::Concern
 
-    included do
-      after_action :store_location
-    end
-
-    def store_location
-      # store last url as long as it isn't a /users path or /administrator path
-      # avoid redirect loop
-      if !(request.fullpath =~ /\/users|\/administrators/) && !request.xhr?
-        session[:previous_url] = request.fullpath
-      end
-    end
-
     def after_sign_in_path_for(resource)
-      case resource
-      when User
+      if User === resource
         migrate_from_guest
-        touch_or_create_tracking_cookie(resource)
-        session[:previous_url] || root_path
-      when Administrator
-        admin_root_path
+        track_user(resource)
+      end
+
+      session["user_return_to"] || root_path
+    end
+
+    def track_user(user)
+      touch_or_create_tracking_cookie(user)
+
+      if user.created_at > 10.seconds.ago # new user
+        Analytics.identify(user_id: user.id,
+                           traits: { name: user.name,
+                                     email: user.email,
+                                     phone: user.phone,
+                                     created_at: user.created_at },
+                           context: {
+                             'Google Analytics' => { clientId: user.tracking_cookie.ga_client_id }
+                           })
+
+        Analytics.track(user_id: user.id,
+                        event: 'Signed Up',
+                        properties: {
+                          label: user.email,
+                          category: 'User'
+                        },
+                        context: {
+                          'Google Analytics' => { clientId: user.tracking_cookie.ga_client_id }
+                        })
+      else
+        Analytics.track(user_id: user.id,
+                        event: 'Signed In',
+                        properties: { category: 'User', label: user.email },
+                        context: {
+                          'Google Analytics' => { clientId: user.tracking_cookie.ga_client_id }
+                        })
       end
     end
   end
