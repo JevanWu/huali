@@ -126,10 +126,12 @@ class OrdersController < ApplicationController
 
   def update_gift_card
     order = Order.find params[:id]
-    if order.update(gift_card_params)
+
+    if ['generated', 'wait_check'].include?(order.state) # Only gitf cards of generated and wait_check orders can be updated
+      order.update(gift_card_params)
       redirect_to orders_path, flash: { success: t('views.order.gift_card.updated_successfully') }
     else
-      render "edit_gift_card"
+      redirect_to orders_path, flash: { success: t('views.order.gift_card.cannot_edit') }
     end
   end
 
