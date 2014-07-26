@@ -8,25 +8,14 @@
   <% end %>
 
   <fieldset>
-    <legend>您的个人信息</legend>
+    <legend>订单信息</legend>
     <%= f.fields_for :sender, @order_form.sender do |builder|%>
       <%= builder.input :name, required:true, placeholder: '您的姓名', as: :hidden %>
       <%= builder.input :email, required:true, placeholder: '以便及时收到订单更新', as: :hidden %>
       <%= builder.input :phone, as: :simple_form_phone, required:true, placeholder: '以便我们和您核对信息'  %>
     <% end %>
     <%= f.input :coupon_code, as: :hidden %> 
-  </fieldset>
 
-  <!-- <fieldset> -->
-  <!--   <legend>订单信息</legend> -->
-  <!--   <%= f.input :coupon_code, placeholder: '如果您有优惠券，请在这里填写' %> -->
-  <!--   <%= f.input :gift_card_text, as: :text, input_html: { rows: 3, maxlength: 80 }, placeholder: '我们可以代您书写给TA的话，请注明落款哦！', hint: '80字以内哦' %> -->
-  <!--   <%= f.input :special_instructions, as: :text, input_html: { rows: 3 }, placeholder: '您可将一些特殊要求罗列与此，我们将尽力满足您的要求。' %> -->
-  <!--   <%= f.input :source, required:true, as: :select, collection: lambda { ["微博", "人人", "豆瓣", "Facebook", "微信", "杂志等平面媒体", "搜索引擎", "朋友推荐", "网络广告", "视频网站", "淘宝", "电视", "其他"].shuffle } %> -->
-  <!-- </fieldset> -->
-
-  <fieldset>
-    <legend>递送信息</legend>
     <%= f.input :expected_date, as: :string, required:true, input_html: { class: 'datepicker' }, placeholder: '寄给TA的时间', hint: Setting.expected_date_notice || ("0元花盒将在2月8日后发货" if @cart.limited_promotion_today) %>
 
     <%= f.fields_for :address, @order_form.address do |builder|%>
