@@ -3,6 +3,10 @@ module Extension
     extend ActiveSupport::Concern
 
     def after_sign_in_path_for(resource)
+      if Administrator === resource
+        return admin_root_path
+      end
+
       if User === resource
         migrate_from_guest
         track_user(resource)
