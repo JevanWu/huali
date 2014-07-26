@@ -14,16 +14,16 @@ module Extension
     def track_user(user)
       touch_or_create_tracking_cookie(user)
 
-      if user.created_at > 10.seconds.ago # new user
-        Analytics.identify(user_id: user.id,
-                           traits: { name: user.name,
-                                     email: user.email,
-                                     phone: user.phone,
-                                     created_at: user.created_at },
-                           context: {
-                             'Google Analytics' => { clientId: user.tracking_cookie.ga_client_id }
-                           })
+      Analytics.identify(user_id: user.id,
+                         traits: { name: user.name,
+                                   email: user.email,
+                                   phone: user.phone,
+                                   created_at: user.created_at },
+                         context: {
+                           'Google Analytics' => { clientId: user.tracking_cookie.ga_client_id }
+                         })
 
+      if user.created_at > 10.seconds.ago # new user
         Analytics.track(user_id: user.id,
                         event: 'Signed Up',
                         properties: {
