@@ -85,6 +85,7 @@ class OrdersController < ApplicationController
 
     if @order_form.save
       empty_cart
+      delete_address_select_cookies
 
       OrderDiscountPolicy.new(@order_form.record).apply
       store_order_id(@order_form.record)
@@ -111,6 +112,7 @@ class OrdersController < ApplicationController
         redirect_to checkout_order_path(@order_form.record)
       end
     else
+      set_address_select_cookies
       render 'new'
     end
   end
@@ -336,5 +338,17 @@ class OrdersController < ApplicationController
 
     def gift_card_params
       params.require(:order).permit(:gift_card_text, :special_instructions)
+    end
+
+    def set_address_select_cookies
+      cookies[:address_province_id] = @order_form.address.province_id
+      cookies[:address_city_id] = @order_form.address.city_id
+      cookies[:address_area_id] = @order_form.address.area_id
+    end
+
+    def delete_address_select_cookies
+      cookies.delete :address_province_id
+      cookies.delete :address_city_id
+      cookies.delete :address_area_id
     end
 end
