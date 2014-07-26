@@ -2,7 +2,7 @@ $ ->
   [proSelector, citySelector, areaSelector] = $('select').filter (index) ->
     $(@).attr('id').match /_address_(province|city|area)_id$/
 
-  updateProvinceSelector = ->
+  updateProvinceSelector = (default_value) ->
     $.ajax
       url: "/provinces/available_for_products"
       dataType: 'json'
@@ -10,8 +10,9 @@ $ ->
       success: (data) ->
         $(proSelector).empty().append(reduceToOptions(data))
         $(proSelector).trigger("chosen:updated")
+        selectValue(proSelector, default_value) if default_value?
 
-  updateCitySelector = (prov_id) ->
+  updateCitySelector = (prov_id, default_value) ->
     return unless prov_id?.length > 0
     $.ajax
       url: "/provinces/#{prov_id}/cities/available_for_products"
@@ -20,10 +21,11 @@ $ ->
       success: (data) ->
         $(citySelector).empty().append(reduceToOptions(data))
         toggleSelector(citySelector, false)
+        selectValue(citySelector, default_value) if default_value?
       beforeSend: ->
         toggleSelector(citySelector, true)
 
-  updateAreaSelector = (city_id) ->
+  updateAreaSelector = (city_id, default_value) ->
     return unless city_id?.length > 0
     $.ajax
       url: "/cities/#{city_id}/areas/available_for_products"
@@ -32,8 +34,12 @@ $ ->
       success: (data) ->
         $(areaSelector).empty().append(reduceToOptions(data))
         toggleSelector(areaSelector, false)
+        selectValue(areaSelector, default_value) if default_value?
       beforeSend: ->
         toggleSelector(areaSelector, true)
+
+  selectValue = (selector, value) ->
+    $(selector).val(value).trigger("chosen:updated").trigger('change')
 
   toggleSelector = (selector, disabled) ->
     $(selector).prop('disabled', disabled).trigger("chosen:updated")
@@ -52,9 +58,9 @@ $ ->
 
   $(proSelector).on 'change',  ->
     emptyAreaSelector()
-    updateCitySelector $(@).val()
+    updateCitySelector $(@).val(), $.cookie('address_city_id')
 
   $(citySelector).on 'change', ->
-    updateAreaSelector $(@).val()
+    updateAreaSelector $(@).val(), $.cookie('address_area_id')
 
-  updateProvinceSelector()
+  updateProvinceSelector($.cookie('address_province_id'))
