@@ -23,9 +23,12 @@ class OrderObserver < ActiveRecord::Observer
 
   def after_pay(order, transition)
     Sms.delay.pay_order_user_sms(order.id)
-    Notify.delay.pay_order_user_email(order.id)
 
-    Notify.delay.pay_order_admin_email(order.id)
+    if order.kind == 'normal'
+      Notify.delay.pay_order_user_email(order.id)
+      Notify.delay.pay_order_admin_email(order.id)
+    end
+
     Analytics.track(user_id: order.user.id,
                     event: 'Completed Order',
                     properties: {
