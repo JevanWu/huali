@@ -11,7 +11,7 @@ class OrderObserver < ActiveRecord::Observer
                       category: 'Order'
                     },
                     context: {
-                      'Google Analytics' => { clientId: order.user.tracking_cookie.ga_client_id }
+                      'Google Analytics' => { clientId: order.user.tracking_cookie.try(:ga_client_id) }
                     })
   end
 
@@ -38,7 +38,7 @@ class OrderObserver < ActiveRecord::Observer
                       city: order.city_name
                     },
                     context: {
-                      'Google Analytics' => { clientId: order.user.tracking_cookie.ga_client_id }
+                      'Google Analytics' => { clientId: order.user.tracking_cookie.try(:ga_client_id) }
                     })
   end
 
