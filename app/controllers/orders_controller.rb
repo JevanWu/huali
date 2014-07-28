@@ -81,6 +81,7 @@ class OrdersController < ApplicationController
 
     if !@order_form.user.name.present?
       redirect_to settings_profile_path, flash: {success: "请填写您的称呼"}
+      return
     end
 
     if @order_form.save
