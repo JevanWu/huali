@@ -13,7 +13,7 @@
     = f.input :password, required: true
 
     - if devise_mapping.rememberable?
-      = f.input :remember_me, as: :boolean, input_html: { class: 'auto-login' }
+      = f.input :remember_me, as: :hidden, input_html: { class: 'auto-login', value: '1' }
 
     .form-actions
       = f.button :submit,  t('.sign_in'), class: 'btn-passport'

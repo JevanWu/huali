@@ -29,7 +29,8 @@ class OrdersController < ApplicationController
     @order_form = OrderForm.new(coupon_code: cookies[:coupon_code])
     @order_form.address = ReceiverInfo.new
     @order_form.sender = SenderInfo.new(current_user.as_json) # nil.as_json => nil
-    AnalyticWorker.delay.open_order(current_user.id, @products_in_cart.map(&:name), Time.now)
+
+    @coupon_code = @card.present? && @card.coupon.present? ? @card.coupon : ""
   end
 
   # channel order
@@ -81,8 +82,13 @@ class OrdersController < ApplicationController
       @order_form.add_line_item(item.product_id, item.quantity)
     end
 
+    if !@order_form.user.name.present?
+      redirect_to settings_profile_path, flash: {success: "请填写您的称呼"}
+    end
+
     if @order_form.save
       empty_cart
+      delete_address_select_cookies
 
       OrderDiscountPolicy.new(@order_form.record).apply
       store_order_id(@order_form.record)
@@ -113,7 +119,28 @@ class OrdersController < ApplicationController
         end
       end
     else
+      set_address_select_cookies
       render 'new'
+    end
+  end
+
+  def edit_gift_card
+    order = Order.find params[:id]
+    if order.user == current_user
+      @order = order
+    else
+      redirect_to root_path, flash: { success: t('views.order.gift_card.not_allowed_to_edit') }
+    end
+  end
+
+  def update_gift_card
+    order = Order.find params[:id]
+
+    if ['generated', 'wait_check'].include?(order.state) # Only gitf cards of generated and wait_check orders can be updated
+      order.update(gift_card_params)
+      redirect_to orders_path, flash: { success: t('views.order.gift_card.updated_successfully') }
+    else
+      redirect_to orders_path, flash: { success: t('views.order.gift_card.cannot_edit') }
     end
   end
 
@@ -368,5 +395,19 @@ class OrdersController < ApplicationController
           raise ArgumentError, wechat_responses["errmsg"]
         end
       end
+    def gift_card_params
+      params.require(:order).permit(:gift_card_text, :special_instructions)
+    end
+
+    def set_address_select_cookies
+      cookies[:address_province_id] = @order_form.address.province_id
+      cookies[:address_city_id] = @order_form.address.city_id
+      cookies[:address_area_id] = @order_form.address.area_id
+    end
+
+    def delete_address_select_cookies
+      cookies.delete :address_province_id
+      cookies.delete :address_city_id
+      cookies.delete :address_area_id
     end
 end

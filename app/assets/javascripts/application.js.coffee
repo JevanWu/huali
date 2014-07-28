@@ -5,7 +5,7 @@
 #= require underscore
 #= require json3
 #= require lodash.compat
-#= require chosen.jquery
+#= require chosen-jquery
 #= require moment.min
 #= require jquery.wookmark
 #= require utils
@@ -21,3 +21,4 @@
 #= require 'module/bookmark'
 #= require 'orders'
 #= require 'bootstrap-tab'
+#= require 'segmentio'

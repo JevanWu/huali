@@ -23,7 +23,7 @@ class ReceiverInfo
     attribute :post_code, Integer
   end
 
-  validates_presence_of :fullname, :address, :phone, :province_id, :city_id, :post_code
+  validates_presence_of :fullname, :address, :phone, :province_id, :city_id
 
   phoneize :phone
   validates :phone, phone: { allow_blank: true }

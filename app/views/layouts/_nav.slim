@@ -3,14 +3,9 @@
     ul.nav-item.is-mouseleave.row
       - menu_nav_type = @menu_nav_type || 'other'
       - menu_list.each_with_index do |root, i|
-        - if %w(花里首页 花里精选 定制惊喜 花里花外).include? root.name
-          li: a href="#{root.url}" rel="nofollow" onClick="analytics.track('Click Menu', { name: '#{root.name}', category: 'Main Navigator', label: '#{menu_nav_type}_m_nav_#{i + 1}' });"
-            = root.name
-            i.l-stack
-        - else
-          li: a href="#{root.url}" onClick="analytics.track('Click Menu', { name: '#{root.name}', category: 'Main Navigator', label: '#{menu_nav_type}_m_nav_#{i + 1}' });"
-            = root.name
-            i.l-stack
+        li: a href="#{root.url}" rel="#{'nofollow' if %w(花里首页 花里精选 定制惊喜 花里花外).include?(root.name)}" onClick="analytics.track('Click Menu', { label: '#{menu_nav_type}_#{root.name}', category: 'Main Navigator' });"
+          = root.name
+          i.l-stack
 
     ul.operate
       li.cart-li-preview

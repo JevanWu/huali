@@ -249,7 +249,7 @@ class Order < ActiveRecord::Base
   end
 
   def transaction
-    transactions.last
+    transactions.where(state: 'completed').first || transactions.last
   end
 
   def shipment
@@ -261,7 +261,7 @@ class Order < ActiveRecord::Base
   end
 
   def from_taobao?
-    source == '淘宝' or special_instructions.index('淘宝')
+    ['taobao', 'tmall'].include?(kind.to_s)
   end
 
   def print

@@ -95,6 +95,7 @@
     .summary
       .summary-item
         +clearfix
+        font-size: $price-font
         border-bottom: 1px solid #f2f2f2
         &.last
           border-bottom: none
@@ -103,6 +104,12 @@
           float: left
         .summary-item-value
           text-align: right
+        .price
+          text-decoration: line-through
+        .discount
+          color: red
+        .discounted-price
+          color: $price-color
       .note
         font-size: $content-font
         color: $content-normal-color

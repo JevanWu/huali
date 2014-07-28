@@ -1,12 +1,12 @@
 <div id="slide" class="swipe">
   <ul class="container swipe-wrap">
     <% @slides.each do |slide| %>
-      <li><a href=<%= slide.href %>><%=image_tag slide.img(:medium) %></a></li>
+      <li><a href='<%= slide.href %>' onClick="analytics.track('Click Banner', { category: 'Slider', label: '<%= slide.name %>' });"><%=image_tag slide.img(:medium) %></a></li>
     <% end %>
   </ul>
   <ul class="slide-dot">
     <% @slides.each do |slide| %>
-      <% if slide.equal? @slides.first %> 
+      <% if slide.equal? @slides.first %>
         <li><a class="cur"></a></li>
       <% elsif slide.equal? @slides.last %>
         <li class="last"><a></a></li>

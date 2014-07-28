@@ -7,11 +7,11 @@ ActiveAdmin.register SlidePanel do
 
   controller do
     def permitted_params
-      params.permit(slide_panel: [:name, :href, :visible, :priority, :image]) 
+      params.permit(slide_panel: [:name, :href, :visible, :priority, :image])
     end
   end
 
-  scope :visible
+  scope :visible, default: true
   scope :invisible
 
   form partial: "form"
