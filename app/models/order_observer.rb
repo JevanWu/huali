@@ -37,6 +37,7 @@ class OrderObserver < ActiveRecord::Observer
                       id: order.identifier,
                       total: order.total,
                       revenue: order.transaction.amount,
+                      currency: 'CNY',
                       products: order.line_items.map { |item| { id: item.product.id, name: item.name, price: item.price, quantity: item.quantity, category: item.product_type_text } },
                       coupon_code: order.coupon_code_record.to_s,
                       province: order.province_name,
