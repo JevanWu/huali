@@ -126,15 +126,12 @@ class User < ActiveRecord::Base
 
   def self.find_by_openid(openid)
     oauth_provider = OauthProvider.find_by identifier: openid
-    if oauth_provider.nil? || oauth_provider.user.nil?
-      oauth_provider = OauthProvider.create(identifier: openid, provider: "wechat")
-      user = oauth_provider.build_user(name: "匿名", role: "customer")
+    if oauth_provider.nil?
+      user = User.new(name: "匿名", role: "customer")
       user.save(validate: false)
-    else
-      user = oauth_provider.user
+      oauth_provider = user.oauth_providers.create(identifier: openid, provider: "wechat")
     end
-
-    return user
+    oauth_provider.user
   end
 
   private

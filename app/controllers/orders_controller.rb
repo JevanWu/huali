@@ -381,8 +381,8 @@ class OrdersController < ApplicationController
         # params: target, redirect_url
         return if code.nil?
         request_url = Wechat::ParamsGenerator.wechat_oauth_url(:access_token, new_order_url, code) 
-        wechat_responses = RestClient.get request_url 
-        wechat_responses = JSON.parse wechat_responses
+        wechat_response = RestClient.get request_url 
+        wechat_responses = JSON.parse wechat_response
         if !wechat_responses["errmsg"]
           access_token = wechat_responses["access_token"]
           expires_in = wechat_responses["expires_in"]
