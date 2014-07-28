@@ -1,7 +1,7 @@
 - if related_products.present?
   .guess-you-like
     .guess-title
-      = t('views.order.you_may_also_like')
+      = t('views.order.other_customer_bought')
     ul.row
       - related_products.each_with_index do |product, index|
         - if index + 1 == related_products.size

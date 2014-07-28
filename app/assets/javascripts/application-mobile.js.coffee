@@ -16,4 +16,4 @@
 #= require 'module/banner'
 #= require 'orders'
 #= require 'component/swipe'
-
+#= require 'segmentio'

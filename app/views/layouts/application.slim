@@ -16,11 +16,6 @@ html
 
     = yield(:css)
 
-    / segmentio library code and frontend related tracking
-    = javascript_include_tag "segmentio"
-    = javascript_include_tag "http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js"
-    = render "layouts/segmentio"
-
   body
     == render 'layouts/header'
     == render 'layouts/nav'
@@ -34,4 +29,5 @@ html
     == render 'layouts/footer'
 
   = javascript_include_tag 'application'
+  = render 'layouts/segmentio'
   = yield(:js)
