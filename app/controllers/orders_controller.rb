@@ -83,7 +83,7 @@ class OrdersController < ApplicationController
     end
 
     if !@order_form.user.name.present?
-      redirect_to settings_profile_path, flash: {success: "请填写您的称呼"}
+      redirect_to settings_profile_path, flash: {success: "请填写您的姓名"} and return
     end
 
     if @order_form.save
@@ -395,6 +395,8 @@ class OrdersController < ApplicationController
           raise ArgumentError, wechat_responses["errmsg"]
         end
       end
+    end
+    
     def gift_card_params
       params.require(:order).permit(:gift_card_text, :special_instructions)
     end
