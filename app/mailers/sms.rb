@@ -66,7 +66,7 @@ class Sms
       c: body
 
     unless response.body == '0'
-      raise StandardError, SMSBAO_ERROR_CODE[response.body] + ". " + "phone number is #{sanitized_national_phone}. " + "content is #{body}."
+      raise StandardError, "Response body: #{response.body}" + ". " + "phone number is #{sanitized_national_phone}. " + "content is #{body}."
     end
   end
 

@@ -32,6 +32,8 @@ class OrderObserver < ActiveRecord::Observer
     Analytics.track(user_id: order.user.id,
                     event: 'Completed Order',
                     properties: {
+                      label: order.identifier,
+                      category: 'Order',
                       id: order.identifier,
                       total: order.total,
                       revenue: order.transaction.amount,

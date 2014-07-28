@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
   before_action :justify_wechat_agent, only: [:current, :checkout, :gateway, :new]
   before_action :fetch_related_products, only: [:back_order_create, :channel_order_create, :current, :apply_coupon]
   before_action :signin_with_openid, only: [:new]
-  before_action :authenticate_user!, only: [:new, :index, :show, :create, :checkout, :cancel]
+  before_action :authenticate_user!, only: [:new, :index, :show, :create, :checkout, :cancel, :edit_gift_card, :update_gift_card]
   before_action :authenticate_administrator!, only: [:back_order_new, :back_order_create, :channel_order_new, :channel_order_create]
   before_action :fetch_transaction, only: [:return, :notify]
   skip_before_action :verify_authenticity_token, only: [:notify]
@@ -396,7 +396,7 @@ class OrdersController < ApplicationController
         end
       end
     end
-    
+
     def gift_card_params
       params.require(:order).permit(:gift_card_text, :special_instructions)
     end
