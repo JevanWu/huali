@@ -88,3 +88,4 @@ config/unicorn.rb
 unicorn.sh
 .lock-closuretree-*
 /db/*.sql
+/db/huali_dev_*
