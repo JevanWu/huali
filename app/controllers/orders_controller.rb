@@ -27,12 +27,6 @@ class OrdersController < ApplicationController
     @order_form.address = ReceiverInfo.new
     @order_form.sender = SenderInfo.new(current_user.as_json) # nil.as_json => nil
 
-    Analytics.track(user_id: current_user.id,
-                    event: 'Placing Order',
-                    properties: {
-                      products: @cart.items.map { |item| { id: item.product.id, name: item.name, price: item.product.price, quantity: item.quantity } },
-                      coupon_code: @cart.coupon_code
-                    })
     @coupon_code = @card.present? && @card.coupon.present? ? @card.coupon : ""
   end
 
@@ -91,6 +85,7 @@ class OrdersController < ApplicationController
 
     if @order_form.save
       empty_cart
+      delete_address_select_cookies
 
       OrderDiscountPolicy.new(@order_form.record).apply
       store_order_id(@order_form.record)
@@ -117,6 +112,7 @@ class OrdersController < ApplicationController
         redirect_to checkout_order_path(@order_form.record)
       end
     else
+      set_address_select_cookies
       render 'new'
     end
   end
@@ -132,10 +128,12 @@ class OrdersController < ApplicationController
 
   def update_gift_card
     order = Order.find params[:id]
-    if order.update(gift_card_params)
+
+    if ['generated', 'wait_check'].include?(order.state) # Only gitf cards of generated and wait_check orders can be updated
+      order.update(gift_card_params)
       redirect_to orders_path, flash: { success: t('views.order.gift_card.updated_successfully') }
     else
-      render "edit_gift_card"
+      redirect_to orders_path, flash: { success: t('views.order.gift_card.cannot_edit') }
     end
   end
 
@@ -340,5 +338,17 @@ class OrdersController < ApplicationController
 
     def gift_card_params
       params.require(:order).permit(:gift_card_text, :special_instructions)
+    end
+
+    def set_address_select_cookies
+      cookies[:address_province_id] = @order_form.address.province_id
+      cookies[:address_city_id] = @order_form.address.city_id
+      cookies[:address_area_id] = @order_form.address.area_id
+    end
+
+    def delete_address_select_cookies
+      cookies.delete :address_province_id
+      cookies.delete :address_city_id
+      cookies.delete :address_area_id
     end
 end

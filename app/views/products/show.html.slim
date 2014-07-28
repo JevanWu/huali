@@ -7,6 +7,8 @@
 - content_for :description do
   = @product.meta_description
 
+= render 'view_product_tracking'
+
 #l-show
   .container
     .title
@@ -42,4 +44,4 @@
         .share
           span = t(:sharing)
           = render 'shared/product_share_links', product: @product
-        = product_buy_link(@product, class: 'add-btn button', data: { product: @product.id }, onClick: "analytics.track('Add to Cart', { category: 'Order', label: '#{@product.name}' });")
+        = product_buy_link(@product, class: 'add-btn button', data: { product: @product.id }, onClick: "analytics.track('Added Product', { id: '#{@product.id}', name: '#{@product.name}', category: '#{@product.product_type_text}', price: #{@product.price}, label: '#{@product.name}', quantity: 1 });")

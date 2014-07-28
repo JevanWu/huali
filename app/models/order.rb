@@ -249,7 +249,7 @@ class Order < ActiveRecord::Base
   end
 
   def transaction
-    transactions.last
+    transactions.where(state: 'completed').first || transactions.last
   end
 
   def shipment

@@ -738,6 +738,7 @@ zh-CN:
       gift_card:
         not_allowed_to_edit: 您没有修改此贺卡的权限
         updated_successfully: 贺卡信息已经成功修改
+        cannot_edit: 订单已通过审核，不能修改贺卡信息，如需添加贺卡请致电客服
 
       # banks
       bank:

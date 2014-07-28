@@ -106,6 +106,8 @@ gem "highcharts-rails", "~> 3.0.0"
 
 gem 'i18n', github: 'svenfuchs/i18n', tag: 'v0.6.10'
 
+gem 'chosen-rails'
+
 group :development, :test do
   gem 'rspec-rails', '>= 2.11.0'
   gem 'rspec-instafail'

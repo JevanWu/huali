@@ -30,7 +30,7 @@
             = form_tag orders_apply_coupon_path, method: :post do
               .input-wrap
                 input type="text" name="coupon_code"
-                button.btn-discount type="submit"
+                button.btn-discount type="submit" onClick="analytics.track('Use Coupon', { category: 'Order', label: $('input[name=coupon_code]').val() });"
                   | 确定
                 - if @cart.coupon_code && !@cart.valid_coupon?
                   p.error
@@ -53,7 +53,7 @@
                     | 原价：
                     span
                       = number_to_currency @cart.original_total
-            = link_to t('views.order.checkout'), new_order_path, class: 'btn-checkout'
+            = link_to t('views.order.checkout'), new_order_path, class: 'btn-checkout', onClick: "analytics.track('Placing order', { category: 'Order', label: 'Coupon Code: ' + $('input[name=coupon_code]').val() + '; Items: ' + JSON.stringify($.cookie('cart')) });"
             /- if current_admin_ability.can? :record_back_order, Order
               /.admin-btn-area.row
                 /= link_to t('views.order.back_checkout'), new_back_order_path, class: 'btn-checkout'
