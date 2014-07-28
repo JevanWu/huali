@@ -1,7 +1,7 @@
 <div id="slide" class="swipe">
   <ul class="container swipe-wrap">
     <% @slides.each do |slide| %>
-      <li><a href='<%= slide.href %>' onClick="analytics.track('Click', { category: 'Slider', label: '<%= slide.name %>' });"><%=image_tag slide.img(:medium) %></a></li>
+      <li><a href='<%= slide.href %>' onClick="analytics.track('Click Banner', { category: 'Slider', label: '<%= slide.name %>' });"><%=image_tag slide.img(:medium) %></a></li>
     <% end %>
   </ul>
   <ul class="slide-dot">
