@@ -80,7 +80,7 @@ class OrdersController < ApplicationController
     end
 
     if !@order_form.user.name.present?
-      redirect_to settings_profile_path, flash: {success: "请填写您的称呼"}
+      redirect_to settings_profile_path, flash: {success: "请填写您的姓名"}
       return
     end
 
