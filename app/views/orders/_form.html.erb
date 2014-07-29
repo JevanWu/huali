@@ -33,6 +33,8 @@
       <%= builder.input :address, as: 'text', required:true, input_html: { rows: 3 }, placeholder: '详细地址' %>
       <%= builder.input :post_code, placeholder: '邮编', hint: %(<a id='query-postcode' href="#" target='_blank'>查询邮编</a>).html_safe %>
     <% end %>
+    <%= f.input :gift_card_text, as: :text, input_html: { rows: 3, maxlength: 80 }, placeholder: '我们可以代您书写给TA的话，请注明落款!', hint: '80字以内哦' %>
+    <%= f.input :special_instructions, as: :text, input_html: { rows: 3 }, placeholder: '您可将一些特殊要求罗列与此，我们将尽力满足您的要求。' %>
   </fieldset>
 
   <div class="form-actions">
