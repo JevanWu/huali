@@ -85,6 +85,7 @@ zh-CN:
         product_not_discountable: "对不起! 产品 %{product_name} 是不参与打折的"
         contains_products_not_discountable: "购物车有不参与打折的产品"
         must_be_less_than_expected_date: 必须小于到达日期
+        not_able_to_edit_adjustment: 订单已审核，不能更新价格调整
 
     models:
       order_form: 订单
