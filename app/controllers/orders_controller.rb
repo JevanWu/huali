@@ -163,30 +163,25 @@ class OrdersController < ApplicationController
   end
 
   def gateway
-    if params[:xml].present? && params[:id].nil?
-      #open_id = params[:xml][:OpenId]
-      identifier = params[:xml][:out_trade_no]
-      paid_fee = params[:xml][:total_fee]
-      transaction_id = params[:xml][:transaction_id]
-      partner = params[:xml][:partner]
-      trade_state = "success" if params[:xml][:trade_state] == "0"
+    if params[:out_trade_no].present? && params[:total_fee].present?
+      identifier = params[:out_trade_no]
+      paid_fee = params[:total_fee]
+      transaction_id = params[:transaction_id]
+      partner = params[:partner]
+      trade_state = "success" if params[:trade_state] == "0"
 
-      begin
-        order = Order.find_by identifier: identifier
-        if paid_fee == order.total && partner == ENV["WECHAT_PARTNERID"]
-          payment_opts = process_pay_info('wechat')
-          transaction = order.generate_transaction payment_opts.merge(client_ip: request.remote_ip)
-          transaction.update_columns(merchant_trade_no: transaction_id, processed_at: Time.current)
-          transaction.complete 
-          flash[:alert] = t('views.order.paid')
-        else
-          raise ArgumentError, "The paid money is not equivalent to price of products"
-          flash[:alert] = "The paid money is not equivalent to price of products"
-        end
-        redirect_to orders_path
-      rescue ActiveRecord::RecordNotFound
-        raise ArgumentError, "Sorry! the order doesn't exist. please contact our customer service"
+      order = Order.find_by identifier: identifier
+      if paid_fee == order.total && partner == ENV["WECHAT_PARTNERID"]
+        payment_opts = process_pay_info('wechat')
+        transaction = order.generate_transaction payment_opts.merge(client_ip: request.remote_ip)
+        transaction.update_columns(merchant_trade_no: transaction_id, processed_at: Time.current)
+        transaction.complete 
+        flash[:alert] = t('views.order.paid')
+      else
+        raise ArgumentError, "The paid money is not equivalent to price of products"
+        flash[:alert] = "The paid money is not equivalent to price of products"
       end
+      redirect_to orders_path
     else
       @order = Order.find_by_id(params[:id] || session[:order_id])
 
