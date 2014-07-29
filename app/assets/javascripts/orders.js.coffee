@@ -198,3 +198,13 @@ $ ->
       $(this).attr('href', href + region)
     else
       event.preventDefault()
+
+  $('button#gift-card-info-trigger').click (event) ->
+    event.preventDefault()
+    text = $(this).text()
+    if text == "添加贺卡内容"
+      $(this).text("隐藏贺卡内容")
+    else
+      $(this).text("添加贺卡内容")
+      
+    $('#gift-card-info').toggle('slow')
