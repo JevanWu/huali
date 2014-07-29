@@ -30,6 +30,15 @@ class OrderObserver < ActiveRecord::Observer
     end
 
     Analytics.track(user_id: order.user.id,
+                    event: 'Paid Order',
+                    properties: {
+                      label: order.identifier,
+                      category: 'Order'
+                    },
+                    context: {
+                      'Google Analytics' => { clientId: order.user.ga_client_id }
+                    })
+    Analytics.track(user_id: order.user.id,
                     event: 'Completed Order',
                     properties: {
                       label: order.identifier,

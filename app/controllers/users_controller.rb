@@ -46,14 +46,14 @@ class UsersController < ApplicationController
   def email_mimic_signin
     if params[:provider]
       @provider = params[:provider]
-    else    
+    else
       raise ActionController::RoutingError.new('Not Found')
     end
   end
 
   def import_email_contacts
     @username = params[:email]
-    @password = params[:passwd] 
+    @password = params[:passwd]
     if params[:email_provider] == "163"
       importer = ContactsImporter::Netease163.new(@username, @password)
     elsif params[:email_provider] == "126"
@@ -77,7 +77,7 @@ class UsersController < ApplicationController
       result = { found: false }
     end
 
-    respond_with(result)
+    render json: result
   end
 
   def subscribe_email

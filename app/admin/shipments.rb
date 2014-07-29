@@ -8,7 +8,12 @@ ActiveAdmin.register Shipment do
     def create
       @shipment = Shipment.new(permitted_params[:shipment])
       if @shipment.save
-        redirect_to print_admin_shipment_path(@shipment) if @shipment.tracking_num?
+        @shipment.order.make if @shipment.order.state == 'wait_make'
+        if @shipment.tracking_num?
+          redirect_to print_admin_shipment_path(@shipment)
+        else
+          redirect_to admin_shipment_path(@shipment)
+        end
       else
         render :new
       end
