@@ -171,6 +171,9 @@ class OrdersController < ApplicationController
       trade_state = "success" if params[:trade_state] == "0"
 
       order = Order.find_by identifier: identifier
+      
+      render text: "success" and return if order.state == "wait_check"
+
       if paid_fee == order.total && partner == ENV["WECHAT_PARTNERID"]
         payment_opts = process_pay_info('wechat')
         transaction = order.generate_transaction payment_opts.merge(client_ip: request.remote_ip)
