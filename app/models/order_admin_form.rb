@@ -102,7 +102,7 @@ class OrderAdminForm < OrderForm
   end
 
   def validate_item?
-    return false unless not_yet_made?
+    return false unless not_yet_shipped?
 
     super && !bypass_product_validation
   end
@@ -116,10 +116,10 @@ class OrderAdminForm < OrderForm
   end
 
   def able_to_edit_adjustment
-    errors.add(:adjustment, :not_able_to_edit_adjustment) if !not_yet_made? && adjustment.present?
+    errors.add(:adjustment, :not_able_to_edit_adjustment) if !not_yet_shipped? && adjustment != @record.adjustment
   end
 
-  def not_yet_made?
-    ['generated', 'wait_check'].include?(@record.state)
+  def not_yet_shipped?
+    ['generated', 'wait_check', 'wait_make'].include?(@record.state)
   end
 end

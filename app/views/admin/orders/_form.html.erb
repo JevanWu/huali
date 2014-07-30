@@ -33,12 +33,11 @@
   <% end %>
   <%= f.actions %>
 
-  <% if ['generated', 'wait_check'].include?(@order.record.state) %>
-    <%= f.inputs "Payment Info" do %>
-      <%= f.input :adjustment,
-        placeholder: '+20.0, -30.0, x1.1, *0.9 etc.',
-        hint: 'support multiple calculation(+,-,*,x,%,/), validate format includes "-20.0", "x1.1", "%2" etc.' %>
-    <% end %>
+  <%= f.inputs "Payment Info" do %>
+    <%= f.input :adjustment,
+      placeholder: '+20.0, -30.0, x1.1, *0.9 etc.',
+      input_html: { readonly: !['generated', 'wait_check', 'wait_make'].include?(@order.record.state) },
+      hint: 'support multiple calculation(+,-,*,x,%,/), validate format includes "-20.0", "x1.1", "%2" etc.' %>
   <% end %>
 
   <%= f.inputs "Order Info" do %>
@@ -51,7 +50,7 @@
     <%= f.input :memo, as: :text %>
   <% end %>
 
-  <% if ['generated', 'wait_check'].include?(@order.record.state) %>
+  <% if ['generated', 'wait_check', 'wait_make'].include?(@order.record.state) %>
     <%= f.inputs "Line Items" do %>
       <%= formtastic_error_messages_for(@order.line_items) %>
       <%= render partial: 'line_item_fields',
