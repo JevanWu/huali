@@ -305,6 +305,10 @@ class Order < ActiveRecord::Base
     shipments.where("tracking_num IS NOT NULL AND tracking_num != ''").exists?
   end
 
+  def paid?
+    self.state != "generated"
+  end
+
 private
 
   def update_product_stock

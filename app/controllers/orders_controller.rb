@@ -163,44 +163,20 @@ class OrdersController < ApplicationController
   end
 
   def gateway
-    if params[:out_trade_no].present? && params[:total_fee].present?
-      identifier = params[:out_trade_no]
-      paid_fee = params[:total_fee]
-      transaction_id = params[:transaction_id]
-      partner = params[:partner]
-      trade_state = "success" if params[:trade_state] == "0"
+    @order = Order.find_by_id(params[:id] || session[:order_id])
 
-      order = Order.find_by identifier: identifier
-      
-      render text: "success" and return if order.state == "wait_check"
-
-      if paid_fee == order.total && partner == ENV["WECHAT_PARTNERID"]
-        payment_opts = process_pay_info('wechat')
-        transaction = order.generate_transaction payment_opts.merge(client_ip: request.remote_ip)
-        transaction.update_columns(merchant_trade_no: transaction_id, processed_at: Time.current)
-        transaction.complete 
-        flash[:alert] = t('views.order.paid')
-      else
-        raise ArgumentError, "The paid money is not equivalent to price of products"
-        flash[:alert] = "The paid money is not equivalent to price of products"
-      end
+    # params[:pay_info] is mixed with two kinds of info - pay method and merchant_name
+    # these two are closed bound together
+    payment_opts = process_pay_info(params[:pay_info])
+    transaction = @order.generate_transaction payment_opts.merge(client_ip: request.remote_ip), params[:use_huali_point]
+    transaction.start
+    if transaction.amount == 0
+      flash[:alert] = t('views.order.paid')
+      HualiPointService.minus_expense_point(transaction.user, transaction)
+      transaction.complete
       redirect_to orders_path
     else
-      @order = Order.find_by_id(params[:id] || session[:order_id])
-
-      # params[:pay_info] is mixed with two kinds of info - pay method and merchant_name
-      # these two are closed bound together
-      payment_opts = process_pay_info(params[:pay_info])
-      transaction = @order.generate_transaction payment_opts.merge(client_ip: request.remote_ip), params[:use_huali_point]
-      transaction.start
-      if transaction.amount == 0
-        flash[:alert] = t('views.order.paid')
-        HualiPointService.minus_expense_point(transaction.user, transaction)
-        transaction.complete
-        redirect_to orders_path
-      else
-        redirect_to transaction.request_path
-      end
+      redirect_to transaction.request_path
     end
   end
 
@@ -226,13 +202,22 @@ class OrdersController < ApplicationController
   end
 
   def notify
-    query = request.raw_post.present? ? request.raw_post : request.query_string # wechat use method 'get' to send notify request
-    user = @transaction.order.user
-    if @transaction.notify(query)
-      HualiPointService.minus_expense_point(user, @transaction)
-      render text: "success"
+    if params[:pay_info] || params[:sign_key_index]
+      query = request.raw_post.present? ? request.raw_post : request.query_string # wechat use method 'get' to send notify request
+      user = @transaction.order.user
+      if @transaction.notify(query)
+        HualiPointService.minus_expense_point(user, @transaction)
+        render text: "success"
+      else
+        render text: "failed", status: 400
+      end
     else
-      render text: "failed", status: 400
+      bill = Billing::Base.new(:notify, nil, params.merge(client_ip: request.remote_ip))
+      if bill.success?
+        render text: "success"
+      else
+        render text: "fail"
+      end
     end
   end
 
