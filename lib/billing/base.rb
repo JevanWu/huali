@@ -1,12 +1,3 @@
-require 'billing/gateway/alipay.rb'
-require 'billing/gateway/paypal.rb'
-require 'billing/return/alipay.rb'
-require 'billing/return/paypal.rb'
-require 'billing/notify/alipay.rb'
-require 'billing/notify/paypal.rb'
-require 'billing/link/alipay.rb'
-require 'billing/link/paypal.rb'
-
 module Billing
   class Base
     def self.new(type, transaction, query = nil)

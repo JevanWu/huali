@@ -1,7 +1,7 @@
 require 'uri'
 
 module Billing
-  class Notify
+  module Notify
     class Wechat < Base
       include Billing::Helper::Wechat
 

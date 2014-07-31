@@ -1,7 +1,7 @@
 require 'digest/md5'
 
 module Billing
-  class Gateway
+  module Gateway
     class Wechat < Gateway::Base
 
       SERVICE_URL = "https://gw.tenpay.com/gateway/pay.htm?"

@@ -1,5 +1,5 @@
 module Billing
-  class Link
+  module Link
     class Alipay
       def initialize(opts, query = nil)
         @opts = opts
