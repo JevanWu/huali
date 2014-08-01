@@ -230,9 +230,9 @@ class OrdersController < ApplicationController
   end
 
   def apply_coupon
-    coupon_code = CouponCode.find_by_code(params[:coupon_code])
+    coupon_code = CouponCode.find_by_code(params[:coupon_code].try(:downcase))
 
-    update_coupon_code(params[:coupon_code]) if @cart
+    update_coupon_code(params[:coupon_code].try(:downcase)) if @cart
 
     render :current
   end
