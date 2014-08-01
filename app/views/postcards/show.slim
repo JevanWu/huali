@@ -1,0 +1,11 @@
+.account-info-container
+  = render 'shared/account_info_header'
+  .postcard-container
+    - @postcard.assets.each do |asset|
+      .postcard-images
+        = image_tag asset.image.url
+      br
+    .content
+      = @postcard.content
+
+  .account-info-line

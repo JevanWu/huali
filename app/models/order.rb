@@ -52,9 +52,11 @@ class Order < ActiveRecord::Base
   has_many :line_items, dependent: :destroy
   has_many :transactions, dependent: :destroy
   has_many :shipments, dependent: :destroy
+  has_one :postcard, dependent: :destroy
   has_many :products, through: :line_items
   belongs_to :coupon_code_record, foreign_key: :coupon_code_id, class_name: 'CouponCode'
   has_many :refunds
+
 
   extend Enumerize
   enumerize :kind, in: [:normal, :jd, :tencent, :xigua, :marketing, :customer,

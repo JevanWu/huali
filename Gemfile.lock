@@ -541,6 +541,7 @@ GEM
       css_parser (~> 1.3.4)
       nokogiri (> 1.5.0, < 1.7.0)
       sprockets
+    rqrcode (0.4.2)
     rr (1.1.2)
     rsolr (1.0.10)
       builder (>= 2.1.2)
@@ -773,6 +774,7 @@ DEPENDENCIES
   redis-rails
   rest-client
   roadie
+  rqrcode
   rr
   rspec-instafail
   rspec-rails (>= 2.11.0)

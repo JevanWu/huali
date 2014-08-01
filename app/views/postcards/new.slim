@@ -1,0 +1,14 @@
+.best-products
+  .gift-card
+    fieldset
+      legend
+        | 编辑电子贺卡
+      = simple_form_for @postcard do |f|
+        = f.input :content, input_html: { rows: 8}, placeholder: '在此填写贺卡内容'
+        = f.input :question
+        = f.input :answer
+        = f.input :order_id, as: :hidden
+        = f.simple_fields_for :assets do |builder|
+          = render "asset_fields", f: builder 
+        = link_to_add_fields("添加", f, :assets)
+        p = f.submit "保存", class: "button btn80 next-step"

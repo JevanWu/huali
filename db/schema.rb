@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140421151345) do
+ActiveRecord::Schema.define(version: 20140630033026) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -243,6 +243,11 @@ ActiveRecord::Schema.define(version: 20140421151345) do
 
   add_index "didi_passengers", ["coupon_code_id"], name: "index_didi_passengers_on_coupon_code_id", using: :btree
 
+  create_table "image_text_collections", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "limited_promotions", force: true do |t|
     t.string   "name"
     t.datetime "start_at"
@@ -367,6 +372,20 @@ ActiveRecord::Schema.define(version: 20140421151345) do
 
   add_index "point_transactions", ["transaction_id"], name: "index_point_transactions_on_transaction_id", using: :btree
   add_index "point_transactions", ["user_id"], name: "index_point_transactions_on_user_id", using: :btree
+
+  create_table "postcards", force: true do |t|
+    t.string   "identifier"
+    t.text     "content"
+    t.string   "question"
+    t.string   "answer"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "order_id"
+    t.string   "slug"
+  end
+
+  add_index "postcards", ["identifier"], name: "index_postcards_on_identifier", using: :btree
+  add_index "postcards", ["order_id"], name: "index_postcards_on_order_id", using: :btree
 
   create_table "print_groups", force: true do |t|
     t.string   "name"

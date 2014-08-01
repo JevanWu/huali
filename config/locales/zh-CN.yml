@@ -91,6 +91,9 @@ zh-CN:
       order_form: 订单
 
     attributes:
+      postcard:
+        content: 内容
+
       order_form:
         identifier: 订单编号
         merchant_order_no: 合作方订单编号
@@ -248,6 +251,11 @@ zh-CN:
         validation_code: 正品序列号
         coupon_code_record_code: 优惠劵
 
+      postcard: 
+        content: 内容
+        question: 查看贺卡问题
+        answer: 查看贺卡答案
+        
       period_region_policy:
         start_date: 起始日期
         end_date: 失效日期
