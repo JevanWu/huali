@@ -2,6 +2,7 @@
 
 class Notify < ActionMailer::Base
   add_template_helper ApplicationHelper
+  #after_action :set_emailcar_header
 
   default from: 'support@hua.li', content_type: 'text/html', css: 'email'
 
@@ -145,7 +146,7 @@ STR
 
     query = Sidekiq::RetrySet.new
     jobs = query.select do |job|
-      job.item['args'].any? { |a| a.include?(":ship_order") }
+      job.item['args'].any? { |a| a.to_s.include?(":ship_order") }
     end
 
     @orders = jobs.map { |job| job.item['args'].first.scan(/\d{15}/).first }.uniq
@@ -171,9 +172,21 @@ STR
     mail(from: from, to: @resource.email, subject: subject, template_path: 'devise/mailer', template_name: 'invitation_instructions')
   end
 
+  def sales_report(average_order_amount, amount_chart_image_url, count_chart_image_url, *emails)
+    @amount_chart_image_url = amount_chart_image_url
+    @count_chart_image_url = count_chart_image_url
+    @average_order_amount = average_order_amount
+
+    mail(to: emails, subject: subject("Sales Report - #{Date.current}"))
+  end
+
   helper MailerHelper
 
-  private
+private
+
+  def set_emailcar_header
+    headers["X-Scedm-Tid"] = "#{ENV["EMAILCAR_SMTP_USERNAME"]}.#{Time.current.to_i}"
+  end
 
   # Examples
   #

@@ -48,12 +48,17 @@ Huali::Application.routes.draw do
   patch 'orders/cancel/:id', to: 'orders#cancel', as: :cancel_order
   get 'orders/return', as: :return_order
   match 'orders/notify', as: :notify_order, via: [:get, :post]
+  get 'orders/:id/gift_card/edit', to: 'orders#edit_gift_card', as: :edit_gift_card
+  match 'orders/:id/gift_card/update', to: 'orders#update_gift_card', as: :update_gift_card, via: [:put, :patch]
+
+  # Disable back order entry
   # back order urls
-  get 'orders/backorder', to: 'orders#back_order_new', as: :new_back_order
-  post 'orders/backorder', to: 'orders#back_order_create', as: :create_back_order
+  #get 'orders/backorder', to: 'orders#back_order_new', as: :new_back_order
+  #post 'orders/backorder', to: 'orders#back_order_create', as: :create_back_order
   # channel order urls
-  get 'orders/channelorder', to: 'orders#channel_order_new', as: :new_channel_order
-  post 'orders/channelorder', to: 'orders#channel_order_create', as: :create_channel_order
+  #get 'orders/channelorder', to: 'orders#channel_order_new', as: :new_channel_order
+  #post 'orders/channelorder', to: 'orders#channel_order_create', as: :create_channel_order
+
   resources :orders, except: [:destroy, :update, :edit] do
     get 'logistics', on: :member
   end
@@ -98,6 +103,7 @@ Huali::Application.routes.draw do
   get 'white_day', to: 'pages#white_day', as: :white_day
   get 'pick_up', to: 'pages#pick_up', as: :pick_up
   get 'muqinjie', to: 'pages#mother_day', as: :muqinjie
+  get 'qixijie', to: 'pages#qixijie', as: :qixijie
   get 'join_us', to: 'pages#join_us'
 
   get 'banners/:date', to: 'banners#index', as: :banners

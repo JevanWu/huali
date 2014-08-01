@@ -145,14 +145,14 @@ window.Cart = {
     for id, quantity of cart
       delete cart[id] if quantity <= 0
 
-    $.cookie('cart', cart, path: '/')
+    $.cookie('cart', cart, { expires: 1, path: '/'} )
 
   get: (id) ->
     quantity = $.cookie('cart') && $.cookie('cart')[id] || 0
     { id: id, quantity: quantity }
 
   empty: ->
-    $.removeCookie('cart', path: '/')
+    $.removeCookie('cart', { path: '/' } )
 
   quantityAll: ->
     cart = $.cookie('cart')
@@ -171,7 +171,7 @@ window.isMeta = (e) ->
   which = e.which; button = e.button
 
   if (!which && button != undefined)
-    return (!button & 1) && (!button & 2) && (button & 4);
+    return (!button & 1) && (!button & 2) && (button & 4)
   else if (which == 2)
     return true
 
@@ -198,3 +198,13 @@ $ ->
       $(this).attr('href', href + region)
     else
       event.preventDefault()
+
+  $('button#gift-card-info-trigger').click (event) ->
+    event.preventDefault()
+    text = $(this).text()
+    if text == "添加贺卡内容"
+      $(this).text("隐藏贺卡内容")
+    else
+      $(this).text("添加贺卡内容")
+      
+    $('#gift-card-info').toggle('slow')

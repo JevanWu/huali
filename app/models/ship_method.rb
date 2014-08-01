@@ -14,7 +14,7 @@
 class ShipMethod < ActiveRecord::Base
   has_many :shipments
 
-  validates_presence_of :name, :method
+  validates_presence_of :name, :method, :kuaidi_query_code
   validates :method, inclusion: {
     in: %w(express manual),
     message: "%{value} is not a valid shipment_method."

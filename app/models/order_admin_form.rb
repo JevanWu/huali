@@ -29,6 +29,7 @@ class OrderAdminForm < OrderForm
   end
 
   validates :last_order, presence: true, if: Proc.new { |order| order.kind.to_s == "customer" }
+  validate :able_to_edit_adjustment
 
   class << self
     def build_from_record(record)
@@ -82,10 +83,13 @@ class OrderAdminForm < OrderForm
     @record.update_attributes(order)
     @record.address.update_attributes(address)
 
-    # rebuild line_items
-    @record.line_items.destroy_all
-    @record.update_columns(subject_text: "")
-    @record.line_items = line_items.map { |params| LineItem.new(params) }
+    # rebuild line_items if item could changes
+    if validate_item?
+      @record.line_items.destroy_all
+      @record.update_columns(subject_text: "")
+      @record.line_items = line_items.map { |params| LineItem.new(params) }
+    end
+
     @record.save!
     @record
   end
@@ -98,6 +102,8 @@ class OrderAdminForm < OrderForm
   end
 
   def validate_item?
+    return false unless not_yet_shipped?
+
     super && !bypass_product_validation
   end
 
@@ -107,5 +113,13 @@ class OrderAdminForm < OrderForm
 
   def validate_product_delivery_date?
     super && !bypass_date_validation
+  end
+
+  def able_to_edit_adjustment
+    errors.add(:adjustment, :not_able_to_edit_adjustment) if !not_yet_shipped? && adjustment != @record.adjustment
+  end
+
+  def not_yet_shipped?
+    ['generated', 'wait_check', 'wait_make'].include?(@record.state)
   end
 end

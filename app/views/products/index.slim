@@ -15,7 +15,7 @@
         = @collection.display_name
         b
       p
-        = @collection.description
+        = @collection.description.html_safe
       .panel
         = render "product_order"
         .tabs

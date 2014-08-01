@@ -16,7 +16,7 @@ ActiveAdmin.register Story do
   filter :description
   filter :available
 
-  scope :available
+  scope :available, default: true
   scope :unavailable
 
   config.sort_order = "priority_asc"

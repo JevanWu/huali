@@ -76,6 +76,8 @@ class User < ActiveRecord::Base
     message: "%{value} is not a valid user role."
   }
 
+  validates_presence_of :name, :phone
+
   phoneize :phone
   validates :phone, phone: { allow_blank: true }
 
@@ -101,10 +103,6 @@ class User < ActiveRecord::Base
       uid: oauth_info['uid']
     )
     self.save!
-  end
-
-  def after_database_authentication
-    GaTrackWorker.delay.user_sign_in_track(id)
   end
 
   def edit_invited_and_paid_counter(num=1)

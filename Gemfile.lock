@@ -124,6 +124,9 @@ GEM
     activerecord-deprecated_finders (1.0.3)
     activerecord-nulldb-adapter (0.3.1)
       activerecord (>= 2.0.0)
+    activerecord-sqlserver-adapter (4.0.0)
+      activerecord (~> 4.0.0)
+      arel (~> 4.0.1)
     activesupport (4.0.5)
       i18n (~> 0.6, >= 0.6.9)
       minitest (~> 4.2)
@@ -133,10 +136,7 @@ GEM
     acts-as-taggable-on (2.4.1)
       rails (>= 3, < 5)
     addressable (2.3.5)
-    analytics-ruby (0.3.2)
-      faraday (>= 0.8, < 0.10)
-      faraday_middleware (>= 0.8, < 0.10)
-      multi_json (~> 1.0)
+    analytics-ruby (2.0.5)
     annotate (2.6.2)
       activerecord (>= 2.3.0)
       rake (>= 0.8.7)
@@ -197,7 +197,13 @@ GEM
     childprocess (0.3.9)
       ffi (~> 1.0, >= 1.0.11)
     choice (0.1.6)
+    chosen-rails (1.1.0)
+      coffee-rails (>= 3.2)
+      compass-rails (>= 1.1.2)
+      railties (>= 3.0)
+      sass-rails (>= 3.2)
     chronic (0.10.2)
+    chunky_png (1.3.1)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.1)
@@ -214,6 +220,12 @@ GEM
     coffee-script-source (1.6.3)
     colorize (0.7.3)
     columnize (0.3.6)
+    compass (0.12.2)
+      chunky_png (~> 1.2)
+      fssm (>= 0.2.7)
+      sass (~> 3.1)
+    compass-rails (2.0.0)
+      compass (>= 0.12.2)
     connection_pool (2.0.0)
     css_parser (1.3.4)
       addressable
@@ -266,8 +278,6 @@ GEM
       railties (>= 3.0.0)
     faraday (0.8.7)
       multipart-post (~> 1.1)
-    faraday_middleware (0.9.0)
-      faraday (>= 0.7.4, < 0.9)
     ffi (1.9.0)
     figaro (0.7.0)
       bundler (~> 1.0)
@@ -277,6 +287,7 @@ GEM
       actionpack (>= 3.0)
     friendly_id (5.0.3)
       activerecord (>= 4.0.0)
+    fssm (0.2.10)
     gibbon (0.4.6)
       httparty
       multi_json (>= 1.3.4)
@@ -501,7 +512,7 @@ GEM
       ffi (>= 0.5.0)
     rb-kqueue (0.2.0)
       ffi (>= 0.5.0)
-    redis (3.0.7)
+    redis (3.1.0)
     redis-actionpack (4.0.0)
       actionpack (~> 4)
       redis-rack (~> 1.5.0)
@@ -509,8 +520,8 @@ GEM
     redis-activesupport (4.0.0)
       activesupport (~> 4)
       redis-store (~> 1.1.0)
-    redis-namespace (1.4.1)
-      redis (~> 3.0.4)
+    redis-namespace (1.5.0)
+      redis (~> 3.0, >= 3.0.4)
     redis-rack (1.5.0)
       rack (~> 1.5)
       redis-store (~> 1.1.0)
@@ -564,9 +575,9 @@ GEM
       websocket (~> 1.0.4)
     shoulda-matchers (2.2.0)
       activesupport (>= 3.0.0)
-    sidekiq (2.17.7)
+    sidekiq (3.1.4)
       celluloid (>= 0.15.2)
-      connection_pool (>= 1.0.0)
+      connection_pool (>= 2.0.0)
       json
       redis (>= 3.0.6)
       redis-namespace (>= 1.3.1)
@@ -628,6 +639,7 @@ GEM
     thread_safe (0.3.4)
     tilt (1.4.1)
     timers (1.1.0)
+    tiny_tds (0.6.2)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
@@ -671,8 +683,9 @@ DEPENDENCIES
   activeadmin!
   activeadmin-sortable-tree!
   activerecord-nulldb-adapter
+  activerecord-sqlserver-adapter (~> 4.0.0)
   acts-as-taggable-on (~> 2.4.1)
-  analytics-ruby
+  analytics-ruby (~> 2.0.0)
   annotate
   api-auth!
   awesome_print
@@ -690,6 +703,7 @@ DEPENDENCIES
   capistrano-rbenv (~> 2.0)
   capistrano-sidekiq
   capybara (>= 1.1.2)
+  chosen-rails
   ckeditor!
   closure_tree!
   coffee-rails
@@ -768,7 +782,7 @@ DEPENDENCIES
   sass-rails
   selenium-webdriver
   shoulda-matchers
-  sidekiq (~> 2.9)
+  sidekiq
   sidekiq-failures
   simple_form
   simplecov
@@ -784,6 +798,7 @@ DEPENDENCIES
   sunspot_rails
   sunspot_solr
   thin (>= 1.4.1)
+  tiny_tds
   twilio-ruby
   uglifier (>= 1.0.3)
   unicorn

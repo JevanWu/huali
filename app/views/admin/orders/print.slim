@@ -17,7 +17,7 @@ div.container
       span
         |条形码：
       span.barcode35
-        = @order.identifier
+        = @order.identifier.sub(/^OR/, '')
     p
       |官网订单号：
       = @order.identifier

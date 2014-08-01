@@ -44,6 +44,6 @@ namespace :notice do
 
   desc "Email all orders"
   task all_orders_excel_email: :environment do
-    Notify.delay.all_orders_excel_email('john@hua.li')
+    Notify.delay.all_orders_excel_email('JohnLoong@gmail.com')
   end
 end
