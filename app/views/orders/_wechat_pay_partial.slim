@@ -10,7 +10,9 @@ javascript:
         "signType" : "#{j(sanitize sign_type)}", 
         "paySign" : "#{j(sanitize sign)}" 
       },function(res){
-        if(res.err_msg == "get_brand_wcpay_request:ok" ) {}
+        if(res.err_msg == "get_brand_wcpay_request:ok" ) {
+          window.location = "#{j(root_path)}"
+        }
       }); 
     });
     WeixinJSBridge.log('yo~ ready.');
