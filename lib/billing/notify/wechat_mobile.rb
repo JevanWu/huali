@@ -10,6 +10,7 @@ module Billing
       end
 
       def success?
+        find_order
         if valid_request? 
           process_order
           true
@@ -20,17 +21,20 @@ module Billing
 
       private
 
+      def find_order
+        @order = Order.find_by identifier: out_trade_no
+      end
+
       def valid_request?
         verified? && right_amount? && trade_state.to_s == "0"
       end
 
       def process_order
-        order = Order.find_by identifier: identifier
         
-        return if order.paid?
+        return if @order.paid?
 
         payment_opts = { paymethod: 'wechat', merchant_name: 'Tenpay' }
-        transaction = order.generate_transaction payment_opts.merge(client_ip: client_ip) #TODO: add params[:use_huali_point]
+        transaction = @order.generate_transaction payment_opts.merge(client_ip: client_ip) #TODO: add params[:use_huali_point]
         transaction.update_columns(merchant_trade_no: transaction_id, processed_at: Time.current)
         transaction.start
         transaction.complete 
@@ -46,7 +50,7 @@ module Billing
       end
 
       def right_amount?
-        total_fee.to_f == @opts[:amount] * 100 # The unit of total_fee is 分
+        total_fee.to_f == @order.total * 100 # The unit of total_fee is 分
       end
 
       # def verify_sign
