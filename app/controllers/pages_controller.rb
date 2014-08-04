@@ -13,6 +13,11 @@ class PagesController < ApplicationController
   def home
     @menu_nav_type = 'home'
     @slides = SlidePanel.visible
+    if params[:coupon_code].present? && cookies[:coupon_code] != params[:coupon_code]
+      cookies[:coupon_code] = params[:coupon_code]
+      flash[:notice] = "已使用现金券：#{params[:coupon_code]}, 商品总价减100元"
+      flash.discard(:notice)
+    end
   end
 
   def brands

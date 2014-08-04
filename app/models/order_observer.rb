@@ -11,7 +11,7 @@ class OrderObserver < ActiveRecord::Observer
                       category: 'Order'
                     },
                     context: {
-                      'Google Analytics' => { clientId: order.user.tracking_cookie.try(:ga_client_id) }
+                      'Google Analytics' => { clientId: order.user.ga_client_id }
                     })
   end
 
@@ -30,6 +30,15 @@ class OrderObserver < ActiveRecord::Observer
     end
 
     Analytics.track(user_id: order.user.id,
+                    event: 'Paid Order',
+                    properties: {
+                      label: order.identifier,
+                      category: 'Order'
+                    },
+                    context: {
+                      'Google Analytics' => { clientId: order.user.ga_client_id }
+                    })
+    Analytics.track(user_id: order.user.id,
                     event: 'Completed Order',
                     properties: {
                       label: order.identifier,
@@ -37,18 +46,22 @@ class OrderObserver < ActiveRecord::Observer
                       id: order.identifier,
                       total: order.total,
                       revenue: order.transaction.amount,
+                      currency: 'CNY',
                       products: order.line_items.map { |item| { id: item.product.id, name: item.name, price: item.price, quantity: item.quantity, category: item.product_type_text } },
                       coupon_code: order.coupon_code_record.to_s,
                       province: order.province_name,
                       city: order.city_name
                     },
                     context: {
-                      'Google Analytics' => { clientId: order.user.tracking_cookie.try(:ga_client_id) }
+                      'Google Analytics' => { clientId: order.user.ga_client_id }
                     })
   end
 
   def after_check(order, transition)
     ApiAgentService.check_order(order)
+  end
+
+  def after_make(order, transition)
     ErpWorker::ImportOrder.perform_async(order.id)
   end
 
@@ -63,5 +76,9 @@ class OrderObserver < ActiveRecord::Observer
 
   def after_confirm(order, transition)
     Sms.delay.confirm_order_user_sms(order.id)
+  end
+
+  def after_refund(order, transition)
+    ErpWorker::ImportOrder.perform_async(order.id)
   end
 end

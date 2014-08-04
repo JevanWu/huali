@@ -122,6 +122,10 @@ class OrderForm
 
   validates :expected_date, presence: true
 
+  def coupon_code
+    @coupon_code.try(:downcase)
+  end
+
   def save
     return false unless valid?
     begin

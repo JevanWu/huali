@@ -36,6 +36,7 @@
   <%= f.inputs "Payment Info" do %>
     <%= f.input :adjustment,
       placeholder: '+20.0, -30.0, x1.1, *0.9 etc.',
+      input_html: { readonly: !['generated', 'wait_check', 'wait_make'].include?(@order.record.state) },
       hint: 'support multiple calculation(+,-,*,x,%,/), validate format includes "-20.0", "x1.1", "%2" etc.' %>
   <% end %>
 
@@ -49,20 +50,22 @@
     <%= f.input :memo, as: :text %>
   <% end %>
 
-  <%= f.inputs "Line Items" do %>
-    <%= formtastic_error_messages_for(@order.line_items) %>
-    <%= render partial: 'line_item_fields',
-               collection: @order.line_items,
-               locals: {
-                  f: f,
-                  all_line_items: @collection_data[:line_items]
-                }
-    %>
-    <li class="input">
-      <label class="label"><%= t('views.admin.order.add_product') %></label>
-      <%= link_to_add_line_items t('views.admin.order.add_product'), f, @collection_data[:line_items] %>
-    </li>
-    <%= f.input :bypass_product_validation, as: :boolean %>
+  <% if ['generated', 'wait_check', 'wait_make'].include?(@order.record.state) %>
+    <%= f.inputs "Line Items" do %>
+      <%= formtastic_error_messages_for(@order.line_items) %>
+      <%= render partial: 'line_item_fields',
+                 collection: @order.line_items,
+                 locals: {
+                    f: f,
+                    all_line_items: @collection_data[:line_items]
+                  }
+      %>
+      <li class="input">
+        <label class="label"><%= t('views.admin.order.add_product') %></label>
+        <%= link_to_add_line_items t('views.admin.order.add_product'), f, @collection_data[:line_items] %>
+      </li>
+      <%= f.input :bypass_product_validation, as: :boolean %>
+    <% end %>
   <% end %>
 
   <%= f.actions %>

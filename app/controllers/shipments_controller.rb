@@ -16,7 +16,7 @@ class ShipmentsController < ApplicationController
     notifier = ShipmentNotifier.new(params['param'])
 
     if notifier.status == "abort"
-      render status: :not_acceptable and return
+      head :not_acceptable and return
     end
 
     if shipment.older_than_kuaidi100_notifier(notifier)

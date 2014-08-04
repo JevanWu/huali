@@ -24,7 +24,7 @@ module Extension
                                    phone: user.phone,
                                    created_at: user.created_at },
                          context: {
-                           'Google Analytics' => { clientId: user.tracking_cookie.ga_client_id }
+                           'Google Analytics' => { clientId: user.ga_client_id }
                          })
 
       if user.created_at > 10.seconds.ago # new user
@@ -35,14 +35,14 @@ module Extension
                           category: 'User'
                         },
                         context: {
-                          'Google Analytics' => { clientId: user.tracking_cookie.ga_client_id }
+                          'Google Analytics' => { clientId: user.ga_client_id }
                         })
       else
         Analytics.track(user_id: user.id,
                         event: 'Signed In',
                         properties: { category: 'User', label: user.email },
                         context: {
-                          'Google Analytics' => { clientId: user.tracking_cookie.ga_client_id }
+                          'Google Analytics' => { clientId: user.ga_client_id }
                         })
       end
     end

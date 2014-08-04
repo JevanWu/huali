@@ -20,6 +20,8 @@ li.row.order
       td.col5
         - if order.state == 'generated'
           = link_to '去付款', checkout_order_path(order), class: 'btn-post'
+        - elsif %w(wait_check wait_make).include? order.state 
+          = link_to "制作电子贺卡", new_postcard_path(order_id: order.id), class: 'huali-btn btn'
         - elsif order.state == 'wait_confirm'
           = button_to t('models.order.state.confirm_received'), confirm_shipment_path(order.shipment), data: { confirm: t('views.order.confirm_accept') }, class: 'btn-completePay'
         - else
