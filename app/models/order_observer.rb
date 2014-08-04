@@ -77,4 +77,8 @@ class OrderObserver < ActiveRecord::Observer
   def after_confirm(order, transition)
     Sms.delay.confirm_order_user_sms(order.id)
   end
+
+  def after_refund(order, transition)
+    ErpWorker::ImportOrder.perform_async(order.id)
+  end
 end
