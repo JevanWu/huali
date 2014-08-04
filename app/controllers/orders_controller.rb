@@ -6,7 +6,7 @@ class OrdersController < ApplicationController
   before_action :signin_with_openid, only: [:new]
   before_action :authenticate_user!, only: [:new, :index, :show, :create, :checkout, :cancel, :edit_gift_card, :update_gift_card]
   before_action :authenticate_administrator!, only: [:back_order_new, :back_order_create, :channel_order_new, :channel_order_create]
-  before_action :fetch_transaction, only: [:return, :notify]
+  #before_action :fetch_transaction, only: [:return, :notify]
   skip_before_action :verify_authenticity_token, only: [:notify]
   before_action :authorize_to_record_back_order, only: [:back_order_new, :channel_order_new, :back_order_create, :channel_order_create]
   before_action :validate_cart, only: [:new, :channel_order_new, :back_order_new, :create, :back_order_create, :channel_order_create]
@@ -192,6 +192,7 @@ class OrdersController < ApplicationController
   private :fetch_transaction
 
   def return
+    fetch_transaction
     user = @transaction.order.user
     if @transaction.return(request.query_string)
       HualiPointService.minus_expense_point(user, @transaction)
@@ -203,6 +204,7 @@ class OrdersController < ApplicationController
 
   def notify
     if params[:pay_info] || params[:sign_key_index]
+      fetch_transaction
       query = request.raw_post.present? ? request.raw_post : request.query_string # wechat use method 'get' to send notify request
       user = @transaction.order.user
       if @transaction.notify(query)
