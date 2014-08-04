@@ -13,7 +13,7 @@ module Wechat
       body = order.products.first.name_zh 
       fee_type = "1"
       input_charset = "GBK"
-      notify_url = "http://staging_huali.zenhacks.org/orders/notify"
+      notify_url = "http://hua.li/orders/notify"
       out_trade_no = order.identifier
       partner = ENV["WECHAT_PARTNERID"]
       spbill_create_ip = client_ip.to_s
