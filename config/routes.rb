@@ -35,6 +35,10 @@ Huali::Application.routes.draw do
   end
 
   resources :surveys, only: [:new, :create]
+  resources :postcards, only: [:new, :create, :show]
+
+  get 'postcards/:id/question', to: 'postcards#question', as: :postcards_question
+  post 'postcards/:id', to: 'postcards#show', as: :postcard_answer
 
   # FIXME refactor this routes to be more elegant
   get 'orders/current(/:coupon_code/products/:product_ids)', to: 'orders#current', as: :current_order

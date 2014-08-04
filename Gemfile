@@ -106,6 +106,7 @@ gem "highcharts-rails", "~> 3.0.0"
 
 gem 'i18n', github: 'svenfuchs/i18n', tag: 'v0.6.10'
 
+gem 'rqrcode'
 gem 'chosen-rails'
 
 group :development, :test do

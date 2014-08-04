@@ -1,0 +1,10 @@
+.account-info-container
+  .postcard-container
+    - @postcard.assets.each do |asset|
+      .postcard-images
+        = image_tag asset.image.url
+      br
+    .content
+      = @postcard.content
+
+  .account-info-line
