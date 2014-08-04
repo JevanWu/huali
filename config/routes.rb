@@ -44,6 +44,7 @@ Huali::Application.routes.draw do
   get 'orders/current(/:coupon_code/products/:product_ids)', to: 'orders#current', as: :current_order
   post 'orders/apply_coupon'
   get 'orders/checkout(/:id)', to: 'orders#checkout', as: :checkout_order
+  get 'wechat/pay', to: 'orders#checkout', as: :wechat_payment
   post 'orders/gateway(/:id)', to: 'orders#gateway', as: :gateway_order
   patch 'orders/cancel/:id', to: 'orders#cancel', as: :cancel_order
   get 'orders/return', as: :return_order

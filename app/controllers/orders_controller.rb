@@ -113,7 +113,7 @@ class OrdersController < ApplicationController
           flash[:notice] = t('controllers.order.order_success')
         end
         if request.env["HTTP_USER_AGENT"].include? "MicroMessenger"
-          redirect_to checkout_order_path(@order_form.record, showwxpaytitle: 1)
+          redirect_to wechat_payment_path(@order_form.record, showwxpaytitle: 1)
         else
           redirect_to checkout_order_path(@order_form.record)
         end
