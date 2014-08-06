@@ -112,6 +112,7 @@ Huali::Application.routes.draw do
 
   API::API.logger Rails.logger
   mount API::API => '/api'
+  mount MobileAPI::API => '/mobile_api'
 
   ActiveAdmin.routes(self)
 
