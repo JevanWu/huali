@@ -12,5 +12,6 @@ module MobileAPI
     mount Products
     mount Phrases
     mount Pages
+    mount Collections
   end
 end

@@ -16,12 +16,12 @@ module MobileAPI
     resource :collections do
 
       desc "Return all collections of products"
-      get :collection do
+      get do
         top_collections = Collection.available.where(parent_id: nil)
-        error!('no available collection exists for now!', 500) if collections.nil?
+        error!('no available collection exists for now!', 500) if top_collections.nil?
         res = Array.new
-        collections.each do |collection|
-          collection_info = { id: child.id, name_zh: child.name_zh, name_en: child.name_en, description: child.description, priority: child.priority, children_collections: children_collections(child) } 
+        top_collections.each do |collection|
+          collection_info = { id: collection.id, name_zh: collection.name_zh, name_en: collection.name_en, description: collection.description, priority: collection.priority, children_collections: children_collections(collection) } 
           res << collection_info
         end
         res
