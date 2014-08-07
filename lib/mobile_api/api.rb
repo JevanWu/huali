@@ -11,5 +11,6 @@ module MobileAPI
     mount Slides
     mount Products
     mount Phrases
+    mount Pages
   end
 end
