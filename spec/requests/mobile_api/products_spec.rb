@@ -8,7 +8,7 @@ describe MobileAPI::API do
 
   let(:required_product){ create(:product, name_en:"required product") }
 
-  describe "GET /mobile_api/v1//products" do
+  describe "GET /mobile_api/v1/products" do
     it "return all published products" do
       get "/mobile_api/v1/products"
       response.status.should == 200
