@@ -17,5 +17,5 @@
     = link_to "400~499", collection_products_path(@collection, flower_type: params[:flower_type], color: params[:color], price_span: '400,499'), class: params[:price_span] == '400,499' ? 'active' : ''
     = link_to "500~899", collection_products_path(@collection, flower_type: params[:flower_type], color: params[:color], price_span: '500,899'), class: params[:price_span] == '500,899' ? 'active' : ''
     = link_to "900~1999", collection_products_path(@collection, flower_type: params[:flower_type], color: params[:color], price_span: '900,1999'), class: params[:price_span] == '900,1999' ? 'active' : ''
-    = link_to "2000以上", collection_products_path(@collection, flower_type: params[:flower_type], color: params[:color], price_span: '2000,99999999'), class: params[:price_span] == '2000,99999999' ? 'active' : ''
+    = link_to "我是土豪", collection_products_path(@collection, flower_type: params[:flower_type], color: params[:color], price_span: '2000,99999999'), class: params[:price_span] == '2000,99999999' ? 'active' : ''
 
