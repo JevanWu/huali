@@ -19,45 +19,8 @@
       = render 'tag_filter'
       .panel
         = render "product_order"
-        .tabs
-          span
-          a.square-view.active
-          a.row-view
   dd
     .best-products.row
       = render partial: 'product', collection: @products
-.cate-list-style2.is-hidden
-  dl
-    dt.cate-list-title
-      strong
-        i
-        = @collection.display_name
-        b
-      p
-        = @collection.description
-      = render 'tag_filter'
-      .panel
-        = render "product_order"
-        .tabs
-          span
-          a.square-view
-          a.row-view
-  dd
-    ul.row
-      - @products.each do |product|
-        li
-          = image_tag(product.img(:thumb))
-          .des
-            .info
-              .name
-                h3.product-name
-                  = link_to product.name, product_path(product), title: product.name
-                h4.product-name-en
-                  = product.name_en
-              .price
-                span ￥#{product.price}
-            .share
-              span =t(:sharing)
-              = render 'shared/product_share_links', product: product
 .pager
   == paginate @products

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140630033026) do
+ActiveRecord::Schema.define(version: 20140808060454) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -243,11 +243,6 @@ ActiveRecord::Schema.define(version: 20140630033026) do
 
   add_index "didi_passengers", ["coupon_code_id"], name: "index_didi_passengers_on_coupon_code_id", using: :btree
 
-  create_table "image_text_collections", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "limited_promotions", force: true do |t|
     t.string   "name"
     t.datetime "start_at"
@@ -440,6 +435,7 @@ ActiveRecord::Schema.define(version: 20140630033026) do
     t.string   "product_type"
     t.boolean  "discountable",                                         default: true
     t.string   "promo_tag"
+    t.string   "flower_type"
   end
 
   add_index "products", ["default_date_rule_id"], name: "index_products_on_default_date_rule_id", using: :btree

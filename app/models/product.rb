@@ -86,6 +86,7 @@ class Product < ActiveRecord::Base
   validates_presence_of :name_en, :name_zh, :count_on_hand, :assets, :collections, :price
   enumerize :product_type, in: [:fresh_flower, :preserved_flower, :others, :fake_flower], default: :others
   enumerize :promo_tag, in: [:limit]
+  enumerize :flower_type, in: [:flower_box, :holding_flower, :photo_frame_flower, :bonsai, :others], default: :flower_box
 
   # scopes
   scope :order_by_priority, -> { order('priority DESC') }
@@ -99,6 +100,7 @@ class Product < ActiveRecord::Base
 
   acts_as_taggable
   acts_as_taggable_on :traits
+  acts_as_taggable_on :colors
 
   before_save do |product|
     product.name_en.downcase!
@@ -111,6 +113,7 @@ class Product < ActiveRecord::Base
   searchable do
     text :name_en, :name_zh, boost: 5.0
     text :product_type_text, boost: 3.0
+    text :flower_type_text, boost: 3.0
     text :price, boost: 2.0 do
       price.to_i
     end
@@ -123,6 +126,8 @@ class Product < ActiveRecord::Base
     integer :sold_total
     double :price
     boolean :published
+
+    string :flower_type
   end
 
   class << self

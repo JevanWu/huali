@@ -59,6 +59,8 @@ ActiveAdmin.register Product do
         :rectangle_image,
         :discountable,
         :promo_tag,
+        :flower_type,
+        :color_list,
         :assets_attributes => [ :id, :image, :_destroy ],
         :collection_ids => [],
         :recommendation_ids => [],
@@ -125,10 +127,14 @@ ActiveAdmin.register Product do
       row :product_type do
         product.product_type_text
       end
+      row :flower_type do
+        product.flower_type_text
+      end
       row :priority
 
       row :tag_list
       row :trait_list
+      row :color_list
 
       row :sold_total
 
