@@ -6,6 +6,14 @@ module MobileAPI
     format :json
 
     helpers do
+      def authenticate_user!
+        user_email = params[:user_email].presence
+        user = user_email && User.find_by(email: user_email)
+
+        if user && Devise.secure_compare(user.authentication_token, params[:user_token])
+          sign_in user, store: false
+        end
+      end
     end
 
     mount Slides

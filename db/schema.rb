@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140630033026) do
+ActiveRecord::Schema.define(version: 20140808094453) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -242,11 +242,6 @@ ActiveRecord::Schema.define(version: 20140630033026) do
   end
 
   add_index "didi_passengers", ["coupon_code_id"], name: "index_didi_passengers_on_coupon_code_id", using: :btree
-
-  create_table "image_text_collections", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "limited_promotions", force: true do |t|
     t.string   "name"
@@ -658,6 +653,7 @@ ActiveRecord::Schema.define(version: 20140630033026) do
     t.integer  "invited_and_paid_counter",                         default: 0
     t.boolean  "invitation_rewarded",                              default: false
     t.decimal  "huali_point",              precision: 8, scale: 2, default: 0.0
+    t.string   "authentication_token"
   end
 
   add_index "users", ["anonymous_token"], name: "index_users_on_anonymous_token", unique: true, using: :btree
