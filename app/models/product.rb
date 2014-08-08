@@ -91,6 +91,7 @@ class Product < ActiveRecord::Base
   # scopes
   scope :order_by_priority, -> { order('priority DESC') }
   scope :published, -> { where(published: true) }
+  scope :unpublished, -> { where(published: false) }
   scope :in_collections, ->(collection_ids) do
     joins(:collections).where("collections_products.collection_id in (?)", collection_ids)
   end

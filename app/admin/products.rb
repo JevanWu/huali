@@ -13,6 +13,9 @@ ActiveAdmin.register Product do
   end
   batch_action :destroy, false
 
+  scope :published, default: true
+  scope :unpublished
+
   controller do
     helper :products
     before_action :authorize_seo_permission, only: [:create, :update]
