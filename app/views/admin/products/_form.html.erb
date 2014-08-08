@@ -6,11 +6,13 @@
     <%= f.input :name_zh, required: true %>
     <%= f.input :name_en, required: true %>
     <%= f.input :product_type, include_blank: false %>
+    <%= f.input :flower_type, include_blank: false %>
     <%= f.input :priority %>
     <%= f.input :promo_tag %>
 
     <%= f.input :tag_list, input_html: { class: 'tag-list' } %>
     <%= f.input :trait_list, input_html: { class: 'tag-list' }, hint: render("trait_tags") %>
+    <%= f.input :color_list, input_html: { class: 'tag-list' } %>
 
     <%= collection_checkboxes(@product) %>
 

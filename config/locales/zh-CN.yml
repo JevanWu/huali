@@ -326,6 +326,8 @@ zh-CN:
         tag_list: 标签
         traits: 特征
         trait_list: 特征
+        colors: 颜色
+        color_list: 颜色
         collections: 品类
         published: 是否发布
         inspiration: 产品灵感
@@ -350,6 +352,7 @@ zh-CN:
         default_date_rule: 默认递送时间规则
         default_region_rule: 默认递送地域规则
         product_type: 产品类型
+        flower_type: 花型
         discountable: 是否参与打折
         promo_tag: 推广标签
 
