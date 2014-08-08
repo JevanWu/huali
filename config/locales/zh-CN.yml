@@ -251,11 +251,11 @@ zh-CN:
         validation_code: 正品序列号
         coupon_code_record_code: 优惠劵
 
-      postcard: 
+      postcard:
         content: 内容
         question: 查看贺卡问题
         answer: 查看贺卡答案
-        
+
       period_region_policy:
         start_date: 起始日期
         end_date: 失效日期
@@ -587,6 +587,12 @@ zh-CN:
         preserved_flower: 永生花
         fresh_flower: 鲜花
         fake_flower: 仿真花
+      flower_type:
+        flower_box: 花盒
+        holding_flower: 手捧花
+        photo_frame_flower: 相框花
+        bonsai: 盆栽
+        others: 其他
       promo_tag:
         limit: 限量
     administrator:
