@@ -22,5 +22,6 @@ module MobileAPI
     mount Phrases
     mount Pages
     mount Collections
+    mount Orders
   end
 end
