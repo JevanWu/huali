@@ -11,13 +11,30 @@
   dl
     dt.cate-list-title
       strong
-        i
         = @collection.display_name
-        b
       p
         = @collection.description.html_safe
-      .panel
-        = render "product_order"
+      .products-filter
+        div.filter
+          span 类型：
+          = link_to "所有", collection_products_path(@collection, color: params[:color], price_span: params[:price_span])
+          - Product.flower_type.options.each do |text, value|
+            = link_to text, collection_products_path(@collection, flower_type: value, color: params[:color], price_span: params[:price_span]), class: params[:flower_type] == value ? 'active' : ''
+        div.filter
+          span 颜色：
+          = link_to "所有", collection_products_path(@collection, flower_type: params[:flower_type], price_span: params[:price_span])
+          - Product.published.reorder('').tag_counts_on(:colors).each do |tag|
+            = link_to tag.name, collection_products_path(@collection, flower_type: params[:flower_type], color: tag.name, price_span: params[:price_span]), class: params[:color] == tag.name ? 'active' : ''
+        div.filter
+          span 价格：
+          = link_to "所有", collection_products_path(@collection, flower_type: params[:flower_type], color: params[:color])
+          = link_to "0~299", collection_products_path(@collection, flower_type: params[:flower_type], color: params[:color], price_span: '0,299'), class: params[:price_span] == '0,299' ? 'active' : ''
+          = link_to "300~399", collection_products_path(@collection, flower_type: params[:flower_type], color: params[:color], price_span: '300,399'), class: params[:price_span] == '300,399' ? 'active' : ''
+          = link_to "400~499", collection_products_path(@collection, flower_type: params[:flower_type], color: params[:color], price_span: '400,499'), class: params[:price_span] == '400,499' ? 'active' : ''
+          = link_to "500~899", collection_products_path(@collection, flower_type: params[:flower_type], color: params[:color], price_span: '500,899'), class: params[:price_span] == '500,899' ? 'active' : ''
+          = link_to "900~1999", collection_products_path(@collection, flower_type: params[:flower_type], color: params[:color], price_span: '900,1999'), class: params[:price_span] == '900,1999' ? 'active' : ''
+          = link_to "2000以上", collection_products_path(@collection, flower_type: params[:flower_type], color: params[:color], price_span: '2000,99999999'), class: params[:price_span] == '2000,99999999' ? 'active' : ''
+
   dd.main
     .best-products.row
       = render partial: 'product', collection: @products

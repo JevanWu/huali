@@ -127,7 +127,6 @@ class Product < ActiveRecord::Base
     double :price
     boolean :published
 
-    integer :collection_ids, multiple: true
     string :flower_type
   end
 
