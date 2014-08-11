@@ -1,20 +1,20 @@
 module MobileAPI
-  class User < Grape::API
+  class Users < Grape::API
 
     helpers do
     end
 
-    resource :user do
+    resource :users do
 
       desc "Return authentication token for identifying current user." 
       params do
-        requires :user_email, type: String, desc: "User email."
-        requires :user_password, type: String, desc: "User password."
+        requires :email, type: String, desc: "User email."
+        requires :password, type: String, desc: "User password."
       end
       post :sign_in do
-        user = params[:user_email] && User.find_by email: params[:user_email]
-        token = user.authentication_token if user.valid_password?(params[:user_password])
-        token
+        user = User.find_by(email: params[:email])
+        token = user.authentication_token if user.valid_password?(params[:password])
+        { authentication_token: token}
       end
 
       desc "User sign up and return authentication token for identifying current user." 
@@ -31,7 +31,7 @@ module MobileAPI
                              phone: params[:phone]) 
           token = user.authentication_token
         end
-        token
+        { authentication_token: token }
       end
     end
   end

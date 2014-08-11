@@ -16,7 +16,7 @@ module MobileAPI
       end
     end
 
-    mount User
+    mount Users
     mount Slides
     mount Products
     mount Phrases
