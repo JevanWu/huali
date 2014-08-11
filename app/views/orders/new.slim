@@ -1,9 +1,8 @@
-- content_for(:css) do
-  = stylesheet_link_tag "jquery.ui.datepicker"
+= stylesheet_link_tag "jquery.ui.datepicker"
 
-- content_for(:js) do
-  = javascript_include_tag "datepicker-settings"
-  = javascript_include_tag "prov_city_area_update"
+- content_for(:body_js) do
+  = javascript_include_tag "datepicker-settings", "data-turbolinks-eval" => false
+  = javascript_include_tag "prov_city_area_update", "data-turbolinks-eval" => false
 
 .buy
   .buy-inner
