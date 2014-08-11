@@ -8,7 +8,7 @@ html
     meta name="Keywords" content="#{yield :keywords}"
     meta name="Description" content="#{yield :description}"
     meta content="on" http-equiv="cleartype"
-    = stylesheet_link_tag 'pc'
+    = stylesheet_link_tag 'pc', "data-turbolinks-track" => ''
     /[if IE 8]
       = stylesheet_link_tag 'ie8'
     /[if IE 7]
