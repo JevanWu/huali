@@ -45,6 +45,9 @@ FactoryGirl.define do
     email { Forgery(:internet).email_address }
     password { Forgery(:basic).password }
     password_confirmation { password }
+    name { Forgery(:name).full_name }
+    phone { "18758161801" }
+    authentication_token { Devise.friendly_token }
     bypass_humanizer true
     # confirmed_at Time.now
   end
