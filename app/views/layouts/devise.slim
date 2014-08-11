@@ -11,6 +11,9 @@ html
     /[if IE 7]
       = stylesheet_link_tag 'ie7'
 
+    = javascript_include_tag 'application'
+    = yield(:js)
+
   body
     == render 'layouts/messages'
     #passport
@@ -20,6 +23,3 @@ html
             =image_tag('logo.png')
         .passport-main
           == yield
-
-  = javascript_include_tag 'application'
-  = yield(:js)
