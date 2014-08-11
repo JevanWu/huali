@@ -16,6 +16,10 @@ html
 
     = yield(:css)
 
+    = javascript_include_tag 'application'
+    = render 'layouts/segmentio'
+    = yield(:js)
+
   body
     == render 'layouts/header'
     == render 'layouts/nav'
@@ -27,7 +31,3 @@ html
       a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=2874898695&site=qq&menu=yes"
         = image_tag("online-service.png", border: 0, alt: "点击这里即可在线询问", title: "点击这里即可在线询问")
     == render 'layouts/footer'
-
-  = javascript_include_tag 'application'
-  = render 'layouts/segmentio'
-  = yield(:js)
