@@ -67,7 +67,11 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails', '>= 4.0.0'
 gem 'uglifier', '>= 1.0.3'
 gem 'bootstrap-sass', '~> 2.2.1.1'
-# gem 'turbo-sprockets-rails3'
+
+# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
+gem 'turbolinks'
+gem 'jquery-turbolinks'
+gem 'nprogress-rails'
 
 gem 'closure_tree', github: 'ryancheung/closure_tree'
 
