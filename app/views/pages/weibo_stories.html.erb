@@ -10,8 +10,8 @@
   <%= "每一位姑娘都有美妙的人生篇章，HualiGirls - 花里因你而精彩。" %>
 <% end %>
 
-<% content_for :js do %>
-  <%= javascript_include_tag 'jquery.imagesloaded' %>
+<% content_for :body_js do %>
+  <%= javascript_include_tag 'jquery.imagesloaded', "data-turbolinks-eval" => false %>
   <%= javascript_include_tag 'weibo-stories' %>
 <% end %>
 
