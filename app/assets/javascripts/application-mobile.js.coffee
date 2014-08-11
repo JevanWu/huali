@@ -1,4 +1,5 @@
 #= require jquery
+#= require jquery.turbolinks
 #= require jquery_ujs
 #= require jquery.cookie
 #= require underscore
@@ -17,3 +18,9 @@
 #= require 'orders'
 #= require 'component/swipe'
 #= require 'segmentio'
+#= require turbolinks
+#= require nprogress
+#= require nprogress-turbolinks
+
+NProgress.configure({ showSpinner: false, ease: 'ease', speed: 500 })
+Turbolinks.enableTransitionCache()
