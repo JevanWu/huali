@@ -3,17 +3,18 @@ module MobileAPI
 
     helpers do
       def product_images(product)
-        full = []
-        medium = []
-        small = []
-        thumb = []
+        res = []
         product.assets.each do |asset|
-          full << asset.image.url
-          medium << asset.image.url(:medium)
-          small << asset.image.url(:small)
-          thumb << asset.image.url(:thumb)
+          asset_info = {
+            image_file_name: asset.image_file_name,
+            full: asset.image.url,
+            medium: asset.image.url(:medium),
+            small: asset.image.url(:small),
+            thumb: asset.image.url(:thumb)
+          }
+          res << asset_info
         end
-        { full: full, medium: medium, small: small, thumb: thumb }
+        res
       end
     end
 
@@ -24,7 +25,20 @@ module MobileAPI
         error!('There is no published products!', 400) if products.nil?
         res = Array.new
         products.each do |product|
-          product_info  = { id: product.id, name_zh: product.name_zh, name_en: product.name_en, description: product.description, count_on_hand: product.count_on_hand, price: product.price, height: product.height, width: product.width, depth: product.depth, priority: product.priority, product_type: product.product_type, images: product_images(product) }
+          product_info  = { 
+            id: product.id, 
+            name_zh: product.name_zh, 
+            name_en: product.name_en, 
+            description: product.description, 
+            count_on_hand: product.count_on_hand, 
+            price: product.price, 
+            height: product.height, 
+            width: product.width, 
+            depth: product.depth, 
+            priority: product.priority, 
+            product_type: product.product_type, 
+            images: product_images(product) 
+          }
           res << product_info
         end
         res
@@ -37,7 +51,20 @@ module MobileAPI
       get ':id' do
         product = Product.find(params[:id])
         error!('There is no such product!', 400) if product.nil?
-        res = { id: product.id, name_zh: product.name_zh, name_en: product.name_en, description: product.description, count_on_hand: product.count_on_hand, price: product.price, height: product.height, width: product.width, depth: product.depth, priority: product.priority, product_type: product.product_type, images: product_images(product) }
+        res = { 
+            id: product.id, 
+            name_zh: product.name_zh, 
+            name_en: product.name_en, 
+            description: product.description, 
+            count_on_hand: product.count_on_hand, 
+            price: product.price, 
+            height: product.height, 
+            width: product.width, 
+            depth: product.depth, 
+            priority: product.priority, 
+            product_type: product.product_type, 
+            images: product_images(product) 
+        }
       end
     end
   end
