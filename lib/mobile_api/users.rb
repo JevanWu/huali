@@ -14,15 +14,14 @@ module MobileAPI
       post :sign_in do
         user = User.find_by(email: params[:email])
         token = user.authentication_token if user.valid_password?(params[:password])
-        { authentication_token: token}
+        status 200 and return { authentication_token: token }
       end
 
       desc "User sign up and return authentication token for identifying current user." 
       params do
-        requires :user_email, type: String, desc: "User email."
-        requires :user_password, type: String, desc: "User password."
-        requires :user_password_confirmation, type: String, desc: "Password confirmation."
-        requires :user_name, type: String, desc: "User's name."
+        requires :email, type: String, desc: "User email."
+        requires :password, type: String, desc: "User password."
+        requires :name, type: String, desc: "User's name."
         requires :phone, type: String, desc: "User's phone number."
       end
       post :sign_up do
