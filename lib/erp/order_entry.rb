@@ -5,7 +5,7 @@ module Erp
 
     coerce_sqlserver_date :FExpectedDate
 
-    validates :FNumber, :FQty, :FTaxPrice, :FTaxAmount, :FTaxRate, :FExpectedDate,
+    validates :FNumber, :FQty, :FTaxPrice, :FTaxAmount, :FTaxRate,
       :FDiscount, presence: true
 
     validates :FQty, numericality: { only_integer: true, greater_than: 0 }

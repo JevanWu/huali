@@ -1,7 +1,7 @@
 zh-CN:
   humanizer:
     validation:
-      error: '你要确定你是可以欣赏花的人类唷'
+      error: '回答错误'
     questions:
       - question: 二加二等于几?
         answers: ["4", "four", "四"]

@@ -251,11 +251,11 @@ zh-CN:
         validation_code: 正品序列号
         coupon_code_record_code: 优惠劵
 
-      postcard: 
+      postcard:
         content: 内容
         question: 查看贺卡问题
         answer: 查看贺卡答案
-        
+
       period_region_policy:
         start_date: 起始日期
         end_date: 失效日期
@@ -326,6 +326,8 @@ zh-CN:
         tag_list: 标签
         traits: 特征
         trait_list: 特征
+        colors: 颜色
+        color_list: 颜色
         collections: 品类
         published: 是否发布
         inspiration: 产品灵感
@@ -350,6 +352,7 @@ zh-CN:
         default_date_rule: 默认递送时间规则
         default_region_rule: 默认递送地域规则
         product_type: 产品类型
+        flower_type: 花型
         discountable: 是否参与打折
         promo_tag: 推广标签
 
@@ -587,6 +590,12 @@ zh-CN:
         preserved_flower: 永生花
         fresh_flower: 鲜花
         fake_flower: 仿真花
+      flower_type:
+        flower_box: 花盒
+        holding_flower: 手捧花
+        photo_frame_flower: 相框花
+        bonsai: 盆栽
+        others: 其他
       promo_tag:
         limit: 限量
     administrator:
