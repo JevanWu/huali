@@ -4,7 +4,7 @@ class Notify < ActionMailer::Base
   add_template_helper ApplicationHelper
   after_action :set_emailcar_header
 
-  default from: 'support@postmaster.hua.li', content_type: 'text/html', css: 'email'
+  default from: '"花里花店" <support@postmaster.hua.li>', content_type: 'text/html', css: 'email'
 
   # For User
   def new_order_user_email(order_id)
