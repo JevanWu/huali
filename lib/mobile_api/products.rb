@@ -22,7 +22,7 @@ module MobileAPI
       desc "Return all published products." 
       get do
         products = Product.where(published: true)
-        error!('There is no published products!', 404) if products.nil?
+        error!('There is no published products!', 404) if !products.present?
         res = Array.new
         products.each do |product|
           product_info  = { 
@@ -50,7 +50,7 @@ module MobileAPI
       end
       get ':id' do
         product = Product.find(params[:id])
-        error!('There is no such product!', 404) if product.nil?
+        error!('There is no such product!', 404) if !product.present?
         res = { 
             id: product.id, 
             name_zh: product.name_zh, 
