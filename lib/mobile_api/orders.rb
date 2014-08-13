@@ -8,7 +8,7 @@ module MobileAPI
       desc "Return all of the current user's orders." 
       get do
         orders = current_user.orders
-        error!('The user has no order now!', 400) if orders.nil?
+        error!('The user has no order now!', 404) if orders.nil?
         res = Array.new
         orders.each do |order|
           order_info  = { 
@@ -41,8 +41,8 @@ module MobileAPI
       end
       get ':id' do
         order = Order.find(params[:id])
-        error!('There is no such product!', 400) if order.nil?
-        error!('This order does not belong to current user!', 400) unless current_user.orders.include? order
+        error!('There is no such product!', 404) if order.nil?
+        error!('This order does not belong to current user!', 403) unless current_user.orders.include? order
         res = { 
             id: order.id, 
             identifier: order.identifier, 
