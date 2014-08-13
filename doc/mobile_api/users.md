@@ -1,7 +1,7 @@
 ## user sign in 
 
 ```
-post /users/sign_in
+POST /users/sign_in
 ```
 parameters:
 
@@ -20,7 +20,7 @@ response example:
 ## user sign up
 
 ```
-post /users/sign_up
+POST /users
 ```
 
 parameters:
@@ -32,4 +32,52 @@ parameters:
 
 ```
 status: 201 Created
+```
+
+## change password
+
+```
+PUT /users/chage_password
+```
+
+parameters:
+
++ `password` (required)                - current password
++ `new_password` (required)            - new password
+
+```
+status: 200 OK
+```
+
+## change user infomation
+
+```
+PUT /users
+```
+
+parameters:
+
++ `name` (required)                   - name of the user
++ `phone` (required)                  - phone number of the user
+
+```
+status: 200 OK
+```
+
+## Query huali points of the user
+
+```
+GET /users/huali_points
+```
+
+parameters:
+
++ `id` (required)                   - Id of the user
+
+```
+status: 200 OK
+
+{
+  huali_points: 400.0
+}
 ```

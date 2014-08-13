@@ -69,3 +69,88 @@ Status: 200 OK
   "subject_text": "亲密关系(永生花) x 1"
 }
 ```
+
+## Create an order
+
+```
+POST /orders
+```
+
+Parameters:
+
++ `sender_name` (optional)          - Sender name
++ `sender_email` (optional)         - Sender email
++ `sender_phone` (optional)         - Sender phone
++ `coupon_code` (optional)          - Coupon code
++ `gift_card_text` (optional)       - Gift card text
++ `special_instructions` (optional) - Customer memo
++ `memo` (optional)                 - Customer service memo
++ `kind` (required)                 - Order kind, options are normal, taobao and tmall
++ `merchant_order_no` (required)    - Merchant order No.
++ `ship_method_id` (optional)       - EMS: 4, 人工: 3, 顺风: 2, 联邦: 1, 申通: 5
++ `expected_date` (optional)        - Expected arrival date
++ `delivery_date` (optional)        - Delivery date
++ `address_fullname` (required)     - Receiver fullname
++ `address_phone` (required)        - Receiver phone
++ `address_province_id` (required)  - Receiver province id
++ `address_city_id` (required)      - Receiver city id
++ `address_area_id` (optional)      - Receiver area(district) id
++ `address_post_code` (required)    - Receiver post code
++ `address_address` (required)      - Receiver address
+
+```
+Status: 201 Created
+```
+
+## Create line items for an order
+
+```
+POST /orders/:id/line_items
+```
+
+Parameters:
+
++ `id` (required)                   - Either ID, identifier, or merchant_order_no of the order
++ `product_id` (required)           - Order line item product id
++ `price` (optional)                - Order line item product price, it use the local product price if not provinded
++ `quantity` (required)             - Order line item product quantity
+
+```
+Status: 201 Created
+
+{
+  "id": 1,
+  "order_id": 9,
+  "product_id": 22,
+  "quantity": 2,
+  "price": 299.0
+}
+```
+
+## Cancel an order
+
+```
+PUT /orders/:id/cancel
+```
+
+Parameters:
+
++ `id` (required)                    - Id of the order
+
+```
+Status: 200 OK
+```
+
+## Refund an order
+
+```
+PUT /orders/:id/refund
+```
+
+Parameters:
+
++ `id` (required)                    - Id of the order
+
+```
+Status: 200 OK
+```
