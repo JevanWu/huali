@@ -41,7 +41,7 @@ Status: 200 OK
 ## Query a published product by the id
 
 ```
-POST /products/:id
+GET /products/:id
 ```
 
 Parameters:
