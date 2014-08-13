@@ -26,7 +26,7 @@ feature 'Place order' do
 
   scenario "Validation errors", js: true do
     visit "/products/#{product.slug}"
-    click_link('放入购花篮')
+    click_link('放入购物车')
 
     within(".cart-checkout .checkout") do
       click_link('特殊订单')
@@ -55,7 +55,7 @@ feature 'Place order' do
 
   scenario "Placed successfully", js: true do
     visit "/products/#{product.slug}"
-    click_link('放入购花篮')
+    click_link('放入购物车')
 
     within(".cart-checkout .checkout") do
       click_link('特殊订单')
@@ -84,7 +84,7 @@ feature 'Place order' do
 
   scenario "Bypass delivery date validation", js: true do
     visit "/products/#{product.slug}"
-    click_link('放入购花篮')
+    click_link('放入购物车')
 
     within(".cart-checkout .checkout") do
       click_link('特殊订单')

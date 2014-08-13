@@ -24,7 +24,7 @@ feature "Add local region rule to product" do
     login_as(user, scope: :user)
 
     visit "/products/#{product.slug}"
-    click_link('放入购花篮')
+    click_link('放入购物车')
 
     within(".cart-checkout .checkout") do
       click_link('确定')

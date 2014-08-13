@@ -44,7 +44,7 @@ feature "Date rule start_date setting" do
     Setting.date_rule_start_date = 5.days.since.to_date
 
     visit "/products/#{product.slug}"
-    click_link('放入购花篮')
+    click_link('放入购物车')
 
     within(".cart-checkout .checkout") do
       click_link('确定')
@@ -69,7 +69,7 @@ feature "Date rule start_date setting" do
     Setting.date_rule_start_date = ""
 
     visit "/products/#{product.slug}"
-    click_link('放入购花篮')
+    click_link('放入购物车')
 
     within(".cart-checkout .checkout") do
       click_link('确定')

@@ -16,7 +16,7 @@ feature 'Permission to record back order' do
 
     visit "/products/#{product.slug}"
 
-    click_link '放入购花篮'
+    click_link('放入购物车')
 
     page.should have_link('特殊订单')
     page.should have_link('渠道订单')
@@ -33,7 +33,7 @@ feature 'Permission to record back order' do
 
     visit "/products/#{product.slug}"
 
-    click_link '放入购花篮'
+    click_link('放入购物车')
 
     page.should_not have_link('特殊订单')
     page.should_not have_link('渠道订单')
@@ -52,7 +52,7 @@ feature 'Permission to record back order' do
 
     visit "/products/#{product.slug}"
 
-    click_link '放入购花篮'
+    click_link('放入购物车')
 
     page.should have_link('特殊订单')
     page.should have_link('渠道订单')
