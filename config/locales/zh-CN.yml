@@ -727,7 +727,7 @@ zh-CN:
     order:
       # checkout
       ta_address: TA的地址是
-      checkout: 确定
+      checkout: 去结算
       back_checkout: 特殊订单
       channel_checkout: 渠道订单
       basket: 购物车 
