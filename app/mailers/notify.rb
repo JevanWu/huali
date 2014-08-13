@@ -126,7 +126,7 @@ class Notify < ActionMailer::Base
   end
 
   def date_wait_make_order_email(date, *emails)
-    orders = Order.by_state('wait_make').where('delivery_date = ?', date)
+    orders = Order.by_state('wait_make').where('delivery_date = ?', date).to_a
 
     order_subject_text = orders.group_by { |o| [o.subject_text, o.ship_method.to_s] }.sort_by { |o| o.first }.map do |k, v|
       "#{k.last.slice(0, 2)}-#{k.first.sub(/\d+/, v.size.to_s)}"
