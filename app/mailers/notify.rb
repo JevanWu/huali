@@ -2,9 +2,9 @@
 
 class Notify < ActionMailer::Base
   add_template_helper ApplicationHelper
-  #after_action :set_emailcar_header
+  after_action :set_emailcar_header
 
-  default from: 'support@hua.li', content_type: 'text/html', css: 'email'
+  default from: '"花里花店" <support@postmaster.hua.li>', content_type: 'text/html', css: 'email'
 
   # For User
   def new_order_user_email(order_id)
@@ -126,7 +126,7 @@ class Notify < ActionMailer::Base
   end
 
   def date_wait_make_order_email(date, *emails)
-    orders = Order.by_state('wait_make').where('delivery_date = ?', date)
+    orders = Order.where(state: ['wait_make', 'wait_ship']).where('delivery_date = ?', date).to_a
 
     order_subject_text = orders.group_by { |o| [o.subject_text, o.ship_method.to_s] }.sort_by { |o| o.first }.map do |k, v|
       "#{k.last.slice(0, 2)}-#{k.first.sub(/\d+/, v.size.to_s)}"
@@ -186,6 +186,7 @@ private
 
   def set_emailcar_header
     headers["X-Scedm-Tid"] = "#{ENV["EMAILCAR_SMTP_USERNAME"]}.#{Time.current.to_i}"
+    headers["Reply-To"] = "support@hua.li"
   end
 
   # Examples

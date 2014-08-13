@@ -18,9 +18,9 @@ zh-CN:
       - question: 星期一过完是星期几?
         answer: ["tuesday","周二", "二", "2", "星期二", "週二"]
       - question: 一年的最后一个月是几月?
-        answer: ["december","十二月","十二", "12"]
+        answer: ["december","十二月","十二", "12", "12月"]
       - question: 一小时有多少分钟?
-        answers: ["60", "sixty", "六十"]
+        answers: ["60", "sixty", "六十", "60分钟"]
       - question: 下的反义词是什么?
         answer: ["up","上"]
       - question: 北的反义词是什么?
@@ -32,7 +32,7 @@ zh-CN:
       - question: 20后面的数字是?
         answers: ["21", "twenty-one", "二十一"]
       - question: 七月前面是几月?
-        answer: ["june","六月", '6']
+        answer: ["june","六月", '6', "6月"]
       - question: 十五除以三是多少?
         answer: ["five", "5", "五"]
       - question: 十四减四等于多少?
