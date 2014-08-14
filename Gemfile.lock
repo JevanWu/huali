@@ -282,6 +282,8 @@ GEM
     figaro (0.7.0)
       bundler (~> 1.0)
       rails (>= 3, < 5)
+    font-awesome-rails (4.1.0.0)
+      railties (>= 3.2, < 5.0)
     formatador (0.2.4)
     formtastic (2.3.0.rc2)
       actionpack (>= 3.0)
@@ -726,6 +728,7 @@ DEPENDENCIES
   faraday
   figaro
   flowplayer-rails!
+  font-awesome-rails
   forgery!
   formtastic
   friendly_id
