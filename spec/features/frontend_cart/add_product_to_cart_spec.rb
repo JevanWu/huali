@@ -10,7 +10,7 @@ feature 'Add product to cart' do
   scenario 'Added successfully', js: true do
     visit "/products/#{product.slug}"
 
-    click_link '放入购花篮'
+    click_link '放入购物车'
 
     page.should have_link('红宝石')
     page.should have_content(/¥\s*#{product.price}/)

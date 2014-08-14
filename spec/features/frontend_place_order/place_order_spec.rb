@@ -25,7 +25,7 @@ feature 'Place order' do
 
   scenario "Validation errors", js: true do
     visit "/products/#{product.slug}"
-    click_link('放入购花篮')
+    click_link('放入购物车')
 
     within(".cart-checkout .checkout") do
       click_link('确定')
@@ -55,7 +55,7 @@ feature 'Place order' do
 
   scenario "Placed successfully", js: true do
     visit "/products/#{product.slug}"
-    click_link('放入购花篮')
+    click_link('放入购物车')
 
     within(".cart-checkout .checkout") do
       click_link('确定')
@@ -85,7 +85,7 @@ feature 'Place order' do
 
   scenario "Out of stock after put into cart", js: true do
     visit "/products/#{product.slug}"
-    click_link('放入购花篮')
+    click_link('放入购物车')
 
     product.update_attribute(:count_on_hand, 0)
 
@@ -119,7 +119,7 @@ feature 'Place order' do
 
   scenario "Order has a total price of 0", js: true do
     visit "/products/#{product.slug}"
-    click_link('放入购花篮')
+    click_link('放入购物车')
 
 
     find("input[name='coupon_code']").set(coupon_code_record.code)

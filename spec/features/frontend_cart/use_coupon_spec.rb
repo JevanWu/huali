@@ -13,7 +13,7 @@ feature 'Use coupon' do
   scenario 'Invalid coupon code', js: true do
     visit "/products/#{product.slug}"
 
-    click_link '放入购花篮'
+    click_link '放入购物车'
 
     find("input[name='coupon_code']").set('00000000')
     within(".discount") do
@@ -26,7 +26,7 @@ feature 'Use coupon' do
   scenario 'Use successfully', js: true do
     visit "/products/#{product.slug}"
 
-    click_link '放入购花篮'
+    click_link '放入购物车'
 
     find("input[name='coupon_code']").set(coupon_code_record.code)
     within(".discount") do
@@ -48,7 +48,7 @@ feature 'Use coupon' do
 
     visit "/products/#{product.slug}"
 
-    click_link '放入购花篮'
+    click_link '放入购物车'
 
     find("input[name='coupon_code']").set(coupon_code_record.code)
     within(".discount") do
@@ -63,7 +63,7 @@ feature 'Use coupon' do
 
     visit "/products/#{product.slug}"
 
-    click_link '放入购花篮'
+    click_link '放入购物车'
 
     find("input[name='coupon_code']").set(coupon_code_record.code)
     within(".discount") do

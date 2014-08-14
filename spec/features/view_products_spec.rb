@@ -30,7 +30,7 @@ feature 'View product detail' do
     [:name, :original_price, :price, :description].each do |attr|
       page.should have_content(product.send(attr))
     end
-    page.should have_content('放入购花篮')
+    page.should have_content('放入购物车')
   end
 
   scenario "out of stock" do
