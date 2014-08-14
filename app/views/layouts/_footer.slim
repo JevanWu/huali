@@ -5,7 +5,9 @@
   .footer-inner
     .contact
       .contact-feed
-        p HUALINEWS
+        p
+          = fa_icon 'envelope'
+          | HUALINEWS
         .placeholder
           label for="customer-email" 输入您的电子邮件
           = form_tag users_subscribe_email_path, method: :post do
