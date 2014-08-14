@@ -338,7 +338,7 @@ zh-CN:
         assets: 图片
         height: 高度
         width: 宽度
-        depth: 深度
+        depth: 长度
         created_at: 创建于
         updated_at: 更新于
         cost_price: 成本价
@@ -730,7 +730,7 @@ zh-CN:
       checkout: 去结算
       back_checkout: 特殊订单
       channel_checkout: 渠道订单
-      basket: 购物车 
+      basket: 购物车
       order_list: 订单中心
       in_total: 总计
       confirm_accept: 您确认您已收到我们的货物了吗？
