@@ -2,26 +2,33 @@ require 'spec_helper'
 
 describe MobileAPI::API do
 
-  before do
-    FactoryGirl.create_list(:slide_panel, 3, visible: true, priority: 5)
-  end
-
-  let(:required_slide){ create(:slide_panel, name: "required slide") }
-
   describe "GET /mobile_api/v1//slides" do
-    it "return all visible slides" do
+    it "returns all visible slides" do
+      FactoryGirl.create_list(:slide_panel, 3, visible: true, priority: 5)
       get "/mobile_api/v1/slides"
       response.status.should == 200
-      res_arr = JSON.parse response.body
-      res_arr.count.should == 3
+      res = JSON.parse response.body
+      res.count.should == 3
+    end
+
+    it "returns 404 status if there is no available silde" do
+      get "/mobile_api/v1/slides"
+      response.status.should == 404
     end
   end
 
+  let(:qixijie){ create(:slide_panel, name: "qixijie") }
+
   describe "GET /mobile_api/slides/:id" do
     it "return a slide depends on the :id" do
-      get "/mobile_api/v1/slides/#{required_slide.id}"
+      get "/mobile_api/v1/slides/#{qixijie.id}"
       response.status.should == 200
-      response.body.should match("required slide")
+      response.body.should match("qixijie")
+    end
+
+    it "return 404 status if the slide does not exist" do
+      get "/mobile_api/v1/slides/1"
+      response.status.should == 404
     end
   end
 end
