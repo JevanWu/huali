@@ -32,6 +32,11 @@ parameters:
 
 ```
 status: 201 Created
+
+response example:
+{
+  authentication_token: "q57hCvkYbNZbWQVLHy6e"
+}
 ```
 
 ## change password
@@ -44,6 +49,8 @@ parameters:
 
 + `password` (required)                - current password
 + `new_password` (required)            - new password
++ `email` (required)                   - Email of the user
++ `token` (required)                   - Authentication token of the user
 
 ```
 status: 200 OK
@@ -59,6 +66,8 @@ parameters:
 
 + `name` (required)                   - name of the user
 + `phone` (required)                  - phone number of the user
++ `email` (required)                   - Email of the user
++ `token` (required)                   - Authentication token of the user
 
 ```
 status: 200 OK
@@ -72,7 +81,8 @@ GET /users/huali_points
 
 parameters:
 
-+ `id` (required)                   - Id of the user
++ `email` (required)                   - Email of the user
++ `token` (required)                   - Authentication token of the user
 
 ```
 status: 200 OK
