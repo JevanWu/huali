@@ -40,9 +40,8 @@ module MobileAPI
         requires :token, type: String, desc: "Authentication token of the user"
       end
       put :change_password do
-        binding.pry
         authenticate_user!
-        error!("Invalid password", 400) if current_user.valid_password?(params[:password])
+        error!("Invalid password", 400) unless current_user.valid_password?(params[:password])
         current_user.password = params[:new_password]
         current_user.save
         error!(current_user.errors.messages, 500) if current_user.errors.messages.present?

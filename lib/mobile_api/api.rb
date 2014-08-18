@@ -13,7 +13,7 @@ module MobileAPI
         user = user_email && User.find_by(email: user_email)
 
         if user && Devise.secure_compare(user.authentication_token, params[:token])
-          current_user = user
+          self.current_user = user
         end
       end
 
