@@ -10,4 +10,6 @@
           = submit_tag '搜索', class: 'submit', name: nil, onClick: "analytics.track('Search', { category: 'Header', label: $('#q').val() });"
 	  a#logo href="/"
 	    =image_tag('logo.png', alt: "花里logo")
-	  strong.tel 400-087-8899
+      strong.tel
+        = fa_icon 'phone'
+        | 400-087-8899

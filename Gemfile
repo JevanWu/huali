@@ -112,6 +112,7 @@ gem 'i18n', github: 'svenfuchs/i18n', tag: 'v0.6.10'
 
 gem 'rqrcode'
 gem 'chosen-rails'
+gem "font-awesome-rails"
 
 group :development, :test do
   gem 'rspec-rails', '>= 2.11.0'

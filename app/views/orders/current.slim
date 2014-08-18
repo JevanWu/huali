@@ -2,15 +2,15 @@
   .cart-inner
     - if @cart.blank?
       .empty
-        i
         p.tips
+          = fa_icon 'shopping-cart'
           == "您的购物车还是空的，赶快去 #{link_to '花市', root_path} 开始采购吧!"
     - else
       .not-empty.row
         .cart-list.span9
           .cart-title
-            i
-            | 购物车 
+            = fa_icon "shopping-cart"
+            | 购物车
           .cart-captain
             .col-1
               | 购物车商品-现在购买
