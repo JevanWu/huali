@@ -52,7 +52,7 @@ describe MobileAPI::API do
     it "returns huali points of the user" do
       get "/mobile_api/v1/users/huali_points", email: user.email, token: user.authentication_token
       response.status.should == 200
-      response.body.should match(user.huali_point)
+      response.body.should match(user.huali_point.to_s)
     end
   end
 end
