@@ -20,7 +20,7 @@ describe MobileAPI::API do
   end
 
   describe "GET /mobile_api/products/:id" do
-    it "return a products depends on the params[:id]" do
+    it "queries a products by the params[:id]" do
       get "/mobile_api/v1/products/#{spring.id}"
       response.status.should == 200
       response.body.should match("spring")

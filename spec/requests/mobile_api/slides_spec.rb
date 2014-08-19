@@ -20,7 +20,7 @@ describe MobileAPI::API do
   let(:qixijie){ create(:slide_panel, name: "qixijie") }
 
   describe "GET /mobile_api/slides/:id" do
-    it "return a slide depends on the :id" do
+    it "queries a slide by the :id" do
       get "/mobile_api/v1/slides/#{qixijie.id}"
       response.status.should == 200
       response.body.should match("qixijie")
