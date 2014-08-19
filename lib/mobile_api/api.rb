@@ -6,17 +6,22 @@ module MobileAPI
     format :json
 
     helpers do
-      attr_accessor :current_user
 
-      def authenticate_user!
-        user_email = params[:email].presence
-        user = user_email && User.find_by(email: user_email)
-
-        if user && Devise.secure_compare(user.authentication_token, params[:token])
-          self.current_user = user
-        end
+      def current_user
+        user ||= sign_in_user
       end
 
+      def sign_in_user
+        user_email = params[:email].presence
+        return unless user_email.present?
+        user = user_email && User.find_by(email: user_email)
+        return unless user && Devise.secure_compare(user.authentication_token, params[:token])
+        user
+      end
+
+      def authenticate_user!
+        error!('Sorry! This operation needs you to sign in first!', 500) unless current_user
+      end
     end
 
     mount Users
