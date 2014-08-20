@@ -122,7 +122,7 @@ Parameters:
 
 + `id` (required)                     - Either ID, identifier, or merchant_order_no of the order
 + `product_id` (required)             - Order line item product id
-+ `price` (optional)                  - Order line item product price, it use the local product price if not provinded
++ `price` (required)                  - product price
 + `quantity` (required)               - Order line item product quantity
 
 + `email` (required)                  - Email of the user
@@ -143,23 +143,6 @@ Status: 201 Created
 
 ```
 PUT /orders/:id/cancel
-```
-
-Parameters:
-
-+ `id` (required)                     - Id of the order
-
-+ `email` (required)                  - Email of the user
-+ `token` (required)                  - Authentication token of the user
-
-```
-Status: 200 OK
-```
-
-## Refund an order
-
-```
-PUT /orders/:id/refund
 ```
 
 Parameters:
