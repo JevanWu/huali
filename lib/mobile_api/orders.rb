@@ -74,15 +74,13 @@ module MobileAPI
 
       desc "Creates an order"
       params do
-
         optional :sender_name, type: String, desc: "Sender name"
         optional :sender_email, type: String, desc: "Sender email"
         optional :sender_phone, type: String, desc: "Sender phone"
         optional :coupon_code, type: String, desc: "Coupon code"
-        optional :gift_card_text, type: Text, desc: "Gift card text"
-        optional :special_instructions, type: Text, desc: "Customer memo"
-        optional :memo, type: Text, desc: "Customer service memo"
-        requires :kind, type: String, desc: "Order kind, options are normal, taobao and tmall"
+        optional :gift_card_text, type: String, desc: "Gift card text"
+        optional :special_instructions, type: String, desc: "Customer memo"
+        optional :memo, type: String, desc: "Customer service memo"
         requires :merchant_order_no, type: String, desc: "Merchant order No."
         optional :ship_method_id, type: Integer, desc: "EMS: 4, 人工: 3, 顺风: 2, 联邦: 1, 申通: 5"
         optional :expected_date, type: Date, desc: "Expected arrival date"
@@ -90,7 +88,7 @@ module MobileAPI
         requires :receiver_fullname, type: String, desc: "Receiver fullname"
         requires :receiver_phone, type: String, desc: "Receiver phone"
         requires :receiver_province_id, type: Integer, desc: "Receiver province id"
-        reuqires :receiver_city_id, type: Integer, desc: "Receiver city id"
+        requires :receiver_city_id, type: Integer, desc: "Receiver city id"
         optional :receiver_area_id, type: Integer, desc: "Receiver area(district) id"
         optional :receiver_post_code, type: String, desc: "Receiver post code"
         requires :receiver_address, type: String, desc: "Receiver address"
@@ -98,9 +96,9 @@ module MobileAPI
         requires :email, type: String, desc: "Email of the user."
         requires :token, type: String, desc: "Authentication token of the user."
       end
-      get ':id' do
+      post do
         authenticate_user!
-        order = current_user.orders.create{ 
+        order = current_user.orders.new(
           sender_name: params[:sender_name],
           sender_email: params[:sender_email],
           sender_phone: params[:sender_phone],
@@ -108,21 +106,71 @@ module MobileAPI
           gift_card_text: params[:gift_card_text],
           special_instructions: params[:special_instructions],
           memo: params[:memo],
-          kind: params[:kind],
+          kind: "normal",
           merchant_order_no: params[:merchant_order_no],
-          ship_method_id: params[:ship_method_id]
+          ship_method_id: params[:ship_method_id],
           expected_date: params[:expected_date],
           delivery_date: params[:delivery_date],
-          receiver_fullname: params[:receiver_fullname]
-          receiver_phone: params[:receiver_phone],
-          receiver_province_id: params[:receiver_province_id],
-          receiver_city_id: params[:receiver_city_id],
-          receiver_area_id: params[:receiver_area_id],
-          receiver_post_code: params[:receiver_post_code],
-          receiver_address: params[:receiver_address]
-        }
-        error!(order.errors.messages, 500) if order.errors.messages
-        status 201
+        )
+
+        address = Address.new(fullname: params[:receiver_fullname],
+                              phone: params[:receiver_phone],
+                              province_id: params[:receiver_province_id],
+                              city_id: params[:receiver_city_id],
+                              area_id: params[:receiver_area_id],
+                              address: params[:receiver_address],
+                              post_code: params[:receiver_post_code])
+
+        order.address = address
+
+        if order.save
+          status 201
+        else
+          error!(order.errors.messages, 500)
+        end
+      end
+
+      desc "Creates line items for order"
+      params do
+        requires :id, type: Integer, desc: "Id of the order"
+        requires :product_id, type: Integer, desc: "Id of the product"
+        requires :price, type: Float, desc: "price of each product"
+        requires :quantity, type: Integer, desc: "quantity of the product"
+
+        requires :email, type: String, desc: "Email of the user."
+        requires :token, type: String, desc: "Authentication token of the user."
+      end
+
+      post ":id/line_items" do
+        authenticate_user!
+        order = current_user.orders.find params[:id]
+        error!("Order not found", 404) if order.nil? 
+        line_item = order.line_items.new( product_id: params[:product_id],
+                                quantity: params[:quantity],
+                                price: params[:price]*params[:quantity] )
+        if line_item.save
+          status(201)
+        else
+          error!(line_item.errors.messages, 500)
+        end
+      end
+
+      desc "Cancels the order"
+      params do
+        requires :id, type: Integer, desc: "Id of the order"
+        
+        requires :email, type: String, desc: "Email of the user."
+        requires :token, type: String, desc: "Authentication token of the user."
+      end
+      put ':id/cancel' do
+        authenticate_user!
+        order = current_user.orders.find params[:id]
+        error!("Cannot find your order", 404) unless order
+        if order.cancel
+          status 200
+        else
+          error!("Order cancellation failed", 500)
+        end
       end
     end
   end
