@@ -12,6 +12,7 @@ describe MobileAPI::API do
   let(:city) { province.cities.first }
   let(:area) { city.areas.first }
   let(:product) { create(:product) }
+  let(:order) { create(:order, user: current_user) }
 
   let!(:valid_order) do
     {
@@ -21,18 +22,17 @@ describe MobileAPI::API do
       coupon_code: nil,
       gift_card_text: nil,
       special_instructions: nil,
-      kind: 'taobao',
       merchant_order_no: '499769390881821',
       ship_method_id: nil,
       expected_date: nil,
       delivery_date: nil,
-      address_fullname: 'Jen Barbar',
-      address_phone: '18622223333',
-      address_province_id: province.id,
-      address_city_id: city.id,
-      address_area_id: area.id,
-      address_post_code: area.post_code,
-      address_address: 'some address'
+      receiver_fullname: 'Jen Barbar',
+      receiver_phone: '18622223333',
+      receiver_province_id: province.id,
+      receiver_city_id: city.id,
+      receiver_area_id: area.id,
+      receiver_post_code: area.post_code,
+      receiver_address: 'some address'
     }
   end
 
@@ -48,13 +48,13 @@ describe MobileAPI::API do
       ship_method_id: nil,
       expected_date: nil,
       delivery_date: nil,
-      address_fullname: 'Jen Barbar',
-      address_phone: '18622223333',
-      address_province_id: province.id,
-      address_city_id: city.id,
-      address_area_id: area.id,
-      address_post_code: area.post_code,
-      address_address: 'some address'
+      receiver_fullname: 'Jen Barbar',
+      receiver_phone: '18622223333',
+      receiver_province_id: province.id,
+      receiver_city_id: city.id,
+      receiver_area_id: area.id,
+      receiver_post_code: area.post_code,
+      receiver_address: 'some address'
     }
   end
 
@@ -68,11 +68,9 @@ describe MobileAPI::API do
     end
   end
 
-  let(:order) { create(:order, user: current_user) }
   describe "GET /mobile_api/v1/orders/:id" do
     it "queries the order by the :id" do
       get "/mobile_api/v1/orders/#{order.id}", email: current_user.email, token: current_user.authentication_token
-
       response.status.should == 200 
       response.body.should match(order.identifier)
     end
@@ -80,37 +78,28 @@ describe MobileAPI::API do
 
   describe "POST /mobile_api/v1/orders" do
     it "creates a order" do
-      post "/orders", valid_order
+      post "/mobile_api/v1/orders", valid_order.merge( email: current_user.email, token: current_user.authentication_token )
       response.status.should == 201
       Order.count.should == 1
     end
   end
 
   describe "POST /mobile_api/v1/orders/:id/line_items" do
-    let(:order) { create(:order, :without_line_items) }
+    let(:no_line_items_order) { create(:order, :without_line_items, user: current_user) }
     let(:product) { create(:product) }
+
     it "creates line items for the order" do
-      post "/mobile_api/v1/orders/#{order.id}/line_items", product_id: product.id, price: product.price, quantity: product.quantity
+      post "/mobile_api/v1/orders/#{order.id}/line_items", product_id: product.id, price: product.price, quantity: 2, email: current_user.email, token: current_user.authentication_token
       response.status.should == 201
-      response.body.should match(order.line_items.first.id)
     end
   end
 
   describe "PUT /mobile_api/v1/orders/:id/cancel" do
-    let(:order) { create(:order, :generated) }
-    it "cancels the order" do
-      put "/mobile_api/v1/orders/#{order.id}/cancel" 
-      response.status.should == 200
-      order.state.should == "void"
-    end
-  end
+    let(:generated_order) { create(:order, :generated, user: current_user) }
 
-  describe "PUT /mobile_api/v1/orders/:id/refund" do
-    let(:order) { create(:order, :wait_confirm) }
-    it "change the state of the order to 'wait refund'" do
-      put "/mobile_api/v1/orders/#{order.id}/refund"
+    it "cancels the order" do
+      put "/mobile_api/v1/orders/#{generated_order.id}/cancel", email: current_user.email, token: current_user.authentication_token
       response.status.should == 200
-      order.state.should == "wait_refund"
     end
   end
 end
