@@ -239,7 +239,7 @@ class OrdersController < ApplicationController
 
       load_cart
     end
-    @wechat_oauth_url = Wechat::ParamsGenerator.wechat_oauth_url(:code, new_order_url) 
+    @wechat_oauth_url = Wechat::WechatHelper.wechat_oauth_url(:code, new_order_url) 
   end
 
   def apply_coupon
@@ -365,7 +365,7 @@ class OrdersController < ApplicationController
         state = params[:state]
         # params: target, redirect_url
         return if code.nil?
-        request_url = Wechat::ParamsGenerator.wechat_oauth_url(:access_token, new_order_url, code) 
+        request_url = Wechat::WechatHelper.wechat_oauth_url(:access_token, new_order_url, code) 
         wechat_response = RestClient.get request_url 
         wechat_responses = JSON.parse wechat_response
         if !wechat_responses["errmsg"]
