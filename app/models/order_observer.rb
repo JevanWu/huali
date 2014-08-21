@@ -71,6 +71,8 @@ class OrderObserver < ActiveRecord::Observer
     Sms.delay.ship_order_user_sms(order.id)
     Sms.delay.ship_order_receiver_sms(order.id)
 
+    Wechat::WechatHelper.delay.deliver_notify
+
     ApiAgentService.ship_order(order)
   end
 
