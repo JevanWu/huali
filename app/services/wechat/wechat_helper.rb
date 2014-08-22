@@ -16,18 +16,45 @@ module Wechat
       access_token = res["access_token"] || ""
     end
 
-    def self.deliver_notify
+    def self.deliver_notify(order_id)
+      order = Order.find order_id
+      return unless order.transaction
+      return if order.transaction.paymethod != "wechat_mobile"
       url = "https://api.weixin.qq.com/pay/delivernotify?access_token=" + self.get_access_token
-      parameter = {
+      user_oauth = order.user.oauth_providers.where(provider: "wechat")
+      parameters = {
         "appid" : ENV["WECHAT_APPID"],
-        "openid" : "oX99MDgNcgwnz3zFN3DNmo8uwa-w",
-        "transid" : "111112222233333",
-        "out_trade_no" : "555666uuu",
-        "deliver_timestamp" : "1369745073",
+        "openid" : user_oauth.identifier,
+        "transid" : order.transaction.merchant_trade_no,
+        "out_trade_no" : order.identifier,
+        "deliver_timestamp" : Time.now.to_s,
         "deliver_status" : "1",
         "deliver_msg" : "ok",
-        "app_signature" : "53cca9d47b883bd4a5c85a9300df3da0cb48565c", "sign_method" : "sha1"
+        "app_signature" : sign(user_oauth.identifier, order.identifier, order.transaction.merchant_trade_no) 
+        "sign_method" : "sha1"
       }
+
+      res = JSON.parse(RestClient.post(url, parameters))
+      if res["errcode"] != 0
+        raise ArgumentError, res["errmsg"]
+      end
     end
+
+    private
+      
+      def sign(openid, out_trade_no, transid)
+        app_id = ENV["WECHAT_APPID"]
+        app_key = ENV["WECHAT_APPKEY"] 
+        deliver_msg = "ok"
+        deliver_status = "1"
+        deliver_timestamp = Time.now.to_s
+        openid = openid
+        out_trade_no = out_trade_no
+        transid = transid
+
+        keyvaluestring = "appid="+app_id+"&appkey="+app_key+"&deliver_msg="+deliver_msg+"&deliver_status="+deliver_status+"&deliver_timestamp="+deliver_timestamp+"&openid="+openid+"&out_trade_no="+out_trade_no+"&transid="+transid
+        sign = Digest::SHA1.hexdigest(keyvaluestring).to_s
+        return sign
+      end
   end
 end
