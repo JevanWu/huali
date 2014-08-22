@@ -109,6 +109,9 @@ gem 'i18n', github: 'svenfuchs/i18n', tag: 'v0.6.10'
 gem 'rqrcode'
 gem 'chosen-rails'
 
+#xml parser
+gem 'actionpack-xml_parser'
+
 group :development, :test do
   gem 'rspec-rails', '>= 2.11.0'
   gem 'rspec-instafail'
