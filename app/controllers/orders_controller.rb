@@ -282,6 +282,10 @@ class OrdersController < ApplicationController
     end
   end
 
+  def wechat_feedback
+    render text: "success"
+  end
+
   private
 
     def authorize_to_record_back_order
