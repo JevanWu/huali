@@ -12,21 +12,21 @@ module Billing
       if @transaction.nil?
         Billing.const_get(@type.capitalize).const_get(:WechatMobile).new(@query)
       else
-        if @type.in? [:link]
-          validate_merchant_trade_no
-        end
-
-        validate_transaction(@transaction)
-
         # make the internal shared data structure explicit
         @opts = Hash.new
         [:paymethod, :identifier, :amount, :subject, :body, :merchant_name, :merchant_trade_no, :client_ip].each do |attr|
           @opts[attr] = @transaction[attr]
         end
 
+        if @type.in? [:link]
+          validate_merchant_trade_no
+        end
+
         if @type.in? [:return, :notify]
           validate_query; identify_transaction
         end
+
+        validate_transaction(@transaction)
 
         # create instance dynamically
         # Billing::Gateway::Alipay
