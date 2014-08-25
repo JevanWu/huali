@@ -1,7 +1,7 @@
 require 'digest/md5'
 
 module Billing
-  class Gateway
+  module Gateway
     class Alipay < Gateway::Base
 
       SERVICE_URL = "https://www.alipay.com/cooperate/gateway.do?"

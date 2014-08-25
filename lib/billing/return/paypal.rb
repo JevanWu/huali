@@ -1,5 +1,5 @@
 module Billing
-  class Return
+  module Return
     class Paypal < Base
       include Billing::Helper::Paypal
       

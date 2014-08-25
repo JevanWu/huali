@@ -1,5 +1,5 @@
 module Billing
-  class Gateway
+  module Gateway
     class Paypal < Gateway::Base
       include Billing::Helper::Paypal
 

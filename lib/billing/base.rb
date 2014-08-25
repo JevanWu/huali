@@ -1,12 +1,3 @@
-require 'billing/gateway/alipay.rb'
-require 'billing/gateway/paypal.rb'
-require 'billing/return/alipay.rb'
-require 'billing/return/paypal.rb'
-require 'billing/notify/alipay.rb'
-require 'billing/notify/paypal.rb'
-require 'billing/link/alipay.rb'
-require 'billing/link/paypal.rb'
-
 module Billing
   class Base
     def self.new(type, transaction, query = nil)
@@ -18,31 +9,35 @@ module Billing
         raise ArgumentError, "invalid types for Billing"
       end
 
-      validate_transaction(@transaction)
+      if @transaction.nil?
+        Billing.const_get(@type.capitalize).const_get(:WechatMobile).new(@query)
+      else
+        if @type.in? [:link]
+          validate_merchant_trade_no
+        end
 
-      # make the internal shared data structure explicit
-      @opts = Hash.new
-      [:paymethod, :identifier, :amount, :subject, :body, :merchant_name, :merchant_trade_no, :client_ip].each do |attr|
-        @opts[attr] = @transaction[attr]
-      end
+        validate_transaction(@transaction)
 
-      if @type.in? [:return, :notify]
-        validate_query; identify_transaction
-      end
+        # make the internal shared data structure explicit
+        @opts = Hash.new
+        [:paymethod, :identifier, :amount, :subject, :body, :merchant_name, :merchant_trade_no, :client_ip].each do |attr|
+          @opts[attr] = @transaction[attr]
+        end
 
-      if @type.in? [:link]
-        validate_merchant_trade_no
-      end
+        if @type.in? [:return, :notify]
+          validate_query; identify_transaction
+        end
 
-      # create instance dynamically
-      # Billing::Gateway::Alipay
-      case @opts[:paymethod]
-      when "directPay", "bankPay"
-        Billing.const_get(@type.capitalize).const_get(:Alipay).new(@opts, @query)
-      when "paypal"
-        Billing.const_get(@type.capitalize).const_get(:Paypal).new(@opts, @query)
-      when "wechat"
-        Billing.const_get(@type.capitalize).const_get(:Wechat).new(@opts, @query)
+        # create instance dynamically
+        # Billing::Gateway::Alipay
+        case @opts[:paymethod]
+        when "directPay", "bankPay"
+          Billing.const_get(@type.capitalize).const_get(:Alipay).new(@opts, @query)
+        when "paypal"
+          Billing.const_get(@type.capitalize).const_get(:Paypal).new(@opts, @query)
+        when "wechat"
+          Billing.const_get(@type.capitalize).const_get(:Wechat).new(@opts, @query)
+        end
       end
     end
 

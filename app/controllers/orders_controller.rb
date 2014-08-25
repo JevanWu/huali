@@ -1,9 +1,12 @@
 # encoding: utf-8
+require 'json'
 class OrdersController < ApplicationController
+  before_action :justify_wechat_agent, only: [:current, :checkout, :gateway, :new]
   before_action :fetch_related_products, only: [:back_order_create, :channel_order_create, :current, :apply_coupon]
+  before_action :signin_with_openid, only: [:new]
   before_action :authenticate_user!, only: [:new, :index, :show, :create, :checkout, :cancel, :edit_gift_card, :update_gift_card]
   before_action :authenticate_administrator!, only: [:back_order_new, :back_order_create, :channel_order_new, :channel_order_create]
-  before_action :fetch_transaction, only: [:return, :notify]
+  #before_action :fetch_transaction, only: [:return, :notify]
   skip_before_action :verify_authenticity_token, only: [:notify]
   before_action :authorize_to_record_back_order, only: [:back_order_new, :channel_order_new, :back_order_create, :channel_order_create]
   before_action :validate_cart, only: [:new, :channel_order_new, :back_order_new, :create, :back_order_create, :channel_order_create]
@@ -80,8 +83,7 @@ class OrdersController < ApplicationController
     end
 
     if !@order_form.user.name.present?
-      redirect_to settings_profile_path, flash: {success: "请填写您的姓名"}
-      return
+      redirect_to settings_profile_path, flash: {success: "请填写您的姓名"} and return
     end
 
     if @order_form.save
@@ -110,7 +112,11 @@ class OrdersController < ApplicationController
         else
           flash[:notice] = t('controllers.order.order_success')
         end
-        redirect_to checkout_order_path(@order_form.record)
+        if request.env["HTTP_USER_AGENT"].include? "MicroMessenger"
+          redirect_to wechat_payment_path(@order_form.record, showwxpaytitle: 1)
+        else
+          redirect_to checkout_order_path(@order_form.record)
+        end
       end
     else
       set_address_select_cookies
@@ -141,20 +147,14 @@ class OrdersController < ApplicationController
   def checkout
     @banks = ['ICBCB2C', 'CMB', 'CCB', 'BOCB2C', 'ABC', 'COMM', 'CMBC']
 
-    if params[:id]
-      @order = current_or_guest_user.orders.find_by_id(params[:id])
+    @order = current_or_guest_user.orders.find_by_id(params[:id]) if params[:id]
+    @order ||= Order.find_by_id(session[:order_id])
 
-      if @order.blank?
-        flash[:alert] = t('controllers.order.order_not_exist')
-        redirect_to :root and return
-      end
+    if @order.blank?
+      flash[:alert] = t('controllers.order.order_not_exist')
+      redirect_to :root and return
     else
-      @order = Order.find_by_id(session[:order_id])
-
-      if @order.blank?
-        flash[:alert] = t('controllers.order.no_items')
-        redirect_to :root and return
-      end
+      set_wechat_pay_params(@order, request.remote_ip) if @use_wechat_agent
     end
 
     @cart = Cart.new(@order.line_items,
@@ -192,6 +192,7 @@ class OrdersController < ApplicationController
   private :fetch_transaction
 
   def return
+    fetch_transaction
     user = @transaction.order.user
     if @transaction.return(request.query_string)
       HualiPointService.minus_expense_point(user, @transaction)
@@ -202,13 +203,23 @@ class OrdersController < ApplicationController
   end
 
   def notify
-    query = request.raw_post.present? ? request.raw_post : request.query_string # wechat use method 'get' to send notify request
-    user = @transaction.order.user
-    if @transaction.notify(query)
-      HualiPointService.minus_expense_point(user, @transaction)
-      render text: "success"
+    if params[:pay_info] || params[:sign_key_index]
+      fetch_transaction
+      query = request.raw_post.present? ? request.raw_post : request.query_string # wechat use method 'get' to send notify request
+      user = @transaction.order.user
+      if @transaction.notify(query)
+        HualiPointService.minus_expense_point(user, @transaction)
+        render text: "success"
+      else
+        render text: "failed", status: 400
+      end
     else
-      render text: "failed", status: 400
+      bill = Billing::Base.new(:notify, nil, params.merge(client_ip: request.remote_ip))
+      if bill.success?
+        render text: "success"
+      else
+        render text: "fail"
+      end
     end
   end
 
@@ -225,8 +236,10 @@ class OrdersController < ApplicationController
       cookies[:coupon_code] = coupon_code.to_s
       cookies['cart'] = products.reduce({}) { |memo, p| memo[p.id] = 1; memo }.to_json
 
+
       load_cart
     end
+    @wechat_oauth_url = Wechat::ParamsGenerator.wechat_oauth_url(:code, new_order_url) 
   end
 
   def apply_coupon
@@ -334,6 +347,38 @@ class OrdersController < ApplicationController
         { paymethod: 'wechat', merchant_name: 'Tenpay' }
       else
         { paymethod: 'bankPay', merchant_name: pay_info }
+      end
+    end
+
+    def set_wechat_pay_params(order, client_ip)
+      @appid = Wechat::ParamsGenerator.get_appid
+      @timestamp = Wechat::ParamsGenerator.get_timestamp
+      @nonce_str = Wechat::ParamsGenerator.get_nonce_str
+      @package = Wechat::ParamsGenerator.get_package(order, client_ip)
+      @sign_type = Wechat::ParamsGenerator.get_signtype
+      @sign = Wechat::ParamsGenerator.get_sign(@nonce_str, @package, @timestamp)
+    end
+
+    def signin_with_openid
+      if @use_wechat_agent
+        code = params[:code]
+        state = params[:state]
+        # params: target, redirect_url
+        return if code.nil?
+        request_url = Wechat::ParamsGenerator.wechat_oauth_url(:access_token, new_order_url, code) 
+        wechat_response = RestClient.get request_url 
+        wechat_responses = JSON.parse wechat_response
+        if !wechat_responses["errmsg"]
+          access_token = wechat_responses["access_token"]
+          expires_in = wechat_responses["expires_in"]
+          refresh_token = wechat_responses["refresh_token"]
+          openid = wechat_responses["openid"]
+          #sign in user
+          user = User.find_by_openid(openid)
+          sign_in user
+        else
+          raise ArgumentError, wechat_responses["errmsg"]
+        end
       end
     end
 

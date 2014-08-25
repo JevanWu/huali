@@ -6,7 +6,7 @@
 #  created_at               :datetime         not null
 #  current_sign_in_at       :datetime
 #  current_sign_in_ip       :string(255)
-#  email                    :string(255)      default(""), not null
+#  email                    :string(255)
 #  encrypted_password       :string(255)      default("")
 #  huali_point              :decimal(8, 2)    default(0.0)
 #  id                       :integer          not null, primary key
@@ -53,6 +53,7 @@ class User < ActiveRecord::Base
 
   has_many :addresses
   has_many :orders
+  has_many :oauth_providers, dependent: :destroy
   has_many :transactions, through: :orders
   has_many :shipments, through: :orders
   has_many :oauth_services, dependent: :destroy
@@ -121,6 +122,16 @@ class User < ActiveRecord::Base
   def create_expense_point_transaction(point, description=nil, transaction_id=nil)
     self.point_transactions.create(point: point, transaction_type: "expense",
                                    description: description, expires_on: Date.current.end_of_year.advance(years: 1), transaction_id: transaction_id)
+  end
+
+  def self.find_by_openid(openid)
+    oauth_provider = OauthProvider.find_by identifier: openid
+    if oauth_provider.nil?
+      user = User.new(name: "匿名", role: "customer")
+      user.save(validate: false)
+      oauth_provider = user.oauth_providers.create(identifier: openid, provider: "wechat")
+    end
+    oauth_provider.user
   end
 
   private

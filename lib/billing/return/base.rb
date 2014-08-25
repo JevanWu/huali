@@ -2,7 +2,7 @@ require 'uri'
 require 'ostruct'
 
 module Billing
-  class Return
+  module Return
     class Base < OpenStruct
 
       def initialize(opts, query_string)

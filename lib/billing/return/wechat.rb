@@ -1,5 +1,5 @@
 module Billing
-  class Return
+  module Return
     class Wechat < Base
       include Billing::Helper::Wechat
 
