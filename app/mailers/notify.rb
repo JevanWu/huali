@@ -180,6 +180,10 @@ STR
     mail(to: emails, subject: subject("Sales Report - #{Date.current}"))
   end
 
+  def wechat_warning(@warning, *emails)
+    mail(to: emails, subject: subject("Wechat Order Warning"))
+  end
+
   helper MailerHelper
 
 private

@@ -114,6 +114,9 @@ gem 'rqrcode'
 gem 'chosen-rails'
 gem "font-awesome-rails"
 
+#xml parser
+gem 'actionpack-xml_parser'
+
 group :development, :test do
   gem 'rspec-rails', '>= 2.11.0'
   gem 'rspec-instafail'

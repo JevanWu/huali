@@ -1,5 +1,6 @@
 # encoding: utf-8
 require 'json'
+require 'digest'
 class OrdersController < ApplicationController
   before_action :justify_wechat_agent, only: [:current, :checkout, :gateway, :new]
   before_action :fetch_related_products, only: [:back_order_create, :channel_order_create, :current, :apply_coupon]
@@ -218,7 +219,7 @@ class OrdersController < ApplicationController
       if bill.success?
         render text: "success"
       else
-        render text: "fail"
+        render text: "failed"
       end
     end
   end
@@ -262,6 +263,27 @@ class OrdersController < ApplicationController
 
   def logistics
     @order = current_or_guest_user.orders.find_by_id(params[:id])
+  end
+
+  def wechat_warning
+    parameters = params[:xml]
+    key_values = "alarmcontent=" + parameters[:AlarmContent] + "&appid=" + ENV["WECHAT_APPID"] + 
+      "&appkey=" + ENV["WECHAT_APPKEY"] + "&description=" + parameter[:Description] + "&errortype=" + 
+      parameters[:ErrorType] + "&timestamp=" + parameters[:TimeStamp]
+
+    sign = Digest::SHA1.hexdigest(key_values).to_s
+
+    if sign == parameters[:appsignature]
+      warning = { error_type: parameters[:ErrorType], description: parameters[:Description], alarm_content: parameters[:AlarmContent]}
+      Notify.delay.wechat_warning(warning, "jevan@hua.li", "ryan@hua.li", "ella@hua.li")
+      render text: "success"
+    else
+      render text: "failed"
+    end
+  end
+
+  def wechat_feedback
+    render text: "success"
   end
 
   private
