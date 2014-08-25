@@ -34,7 +34,7 @@ module Billing
         return if @order.paid?
 
         payment_opts = { paymethod: 'wechat', merchant_name: 'Tenpay' }
-        transaction = @order.generate_transaction payment_opts.merge(client_ip: client_ip) #TODO: add params[:use_huali_point]
+        transaction = @order.generate_transaction payment_opts.merge(client_ip: client_ip, paymethod: 'wechat_mobile', merchant_name: 'Wechat') #TODO: add params[:use_huali_point]
         transaction.update_columns(merchant_trade_no: transaction_id, processed_at: Time.current)
         transaction.start
         transaction.complete 

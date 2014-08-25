@@ -13,7 +13,7 @@ module Wechat
       body = order.products.first.name_zh 
       fee_type = "1"
       input_charset = "GBK"
-      notify_url = "http://hua.li/orders/notify"
+      notify_url = "http://www.hua.li/orders/notify"
       out_trade_no = order.identifier
       partner = ENV["WECHAT_PARTNERID"]
       spbill_create_ip = client_ip.to_s
@@ -67,14 +67,6 @@ module Wechat
       keyvaluestring = "appid="+app_id+"&appkey="+app_key+"&noncestr="+nonce_str+"&package="+package_string+"&timestamp="+time_stamp
       sign = Digest::SHA1.hexdigest(keyvaluestring).to_s
       return sign
-    end
-
-    def self.wechat_oauth_url(target, redirect_url, code = "")
-      if target == :code
-        return "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + ENV["WECHAT_APPID"] + "&redirect_uri="+ CGI.escape(redirect_url) + "&response_type=code&scope=" + "snsapi_base" + "&state=123#wechat_redirect"
-      elsif target == :access_token
-        return "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + ENV["WECHAT_APPID"] + "&secret=" + ENV["WECHAT_APPSECRET"] + "&code=" + code + "&grant_type=authorization_code"
-      end
     end
   end
 end
