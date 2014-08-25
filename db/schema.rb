@@ -290,6 +290,7 @@ ActiveRecord::Schema.define(version: 20140808060454) do
     t.datetime "updated_at"
   end
 
+  add_index "oauth_providers", ["identifier", "provider"], name: "index_oauth_providers_on_identifier_and_provider", unique: true, using: :btree
   add_index "oauth_providers", ["user_id"], name: "index_oauth_providers_on_user_id", using: :btree
 
   create_table "oauth_services", force: true do |t|

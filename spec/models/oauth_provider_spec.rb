@@ -11,7 +11,8 @@
 #
 # Indexes
 #
-#  index_oauth_providers_on_user_id  (user_id)
+#  index_oauth_providers_on_identifier_and_provider  (identifier,provider) UNIQUE
+#  index_oauth_providers_on_user_id                  (user_id)
 #
 
 require 'spec_helper'
