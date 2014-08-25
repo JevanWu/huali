@@ -23,18 +23,18 @@ module Wechat
       url = "https://api.weixin.qq.com/pay/delivernotify?access_token=" + self.get_access_token
       user_oauth = order.user.oauth_providers.where(provider: "wechat")
       parameters = {
-        "appid" : ENV["WECHAT_APPID"],
-        "openid" : user_oauth.identifier,
-        "transid" : order.transaction.merchant_trade_no,
-        "out_trade_no" : order.identifier,
-        "deliver_timestamp" : Time.now.to_s,
-        "deliver_status" : "1",
-        "deliver_msg" : "ok",
-        "app_signature" : sign(user_oauth.identifier, order.identifier, order.transaction.merchant_trade_no) 
-        "sign_method" : "sha1"
+        appid: ENV["WECHAT_APPID"],
+        openid: user_oauth.identifier,
+        transid: order.transaction.merchant_trade_no,
+        out_trade_no: order.identifier,
+        deliver_timestamp: Time.now.to_s,
+        deliver_status: "1",
+        deliver_msg: "ok",
+        app_signature: sign(user_oauth.identifier, order.identifier, order.transaction.merchant_trade_no),
+        sign_method: "sha1"
       }
 
-      res = JSON.parse(RestClient.post(url, parameters))
+      res = JSON.parse(RestClient.post(url, parameters.to_json))
       if res["errcode"] != 0
         raise ArgumentError, res["errmsg"]
       end
