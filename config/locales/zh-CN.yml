@@ -251,11 +251,11 @@ zh-CN:
         validation_code: 正品序列号
         coupon_code_record_code: 优惠劵
 
-      postcard: 
+      postcard:
         content: 内容
         question: 查看贺卡问题
         answer: 查看贺卡答案
-        
+
       period_region_policy:
         start_date: 起始日期
         end_date: 失效日期
@@ -326,6 +326,8 @@ zh-CN:
         tag_list: 标签
         traits: 特征
         trait_list: 特征
+        colors: 颜色
+        color_list: 颜色
         collections: 品类
         published: 是否发布
         inspiration: 产品灵感
@@ -336,7 +338,7 @@ zh-CN:
         assets: 图片
         height: 高度
         width: 宽度
-        depth: 深度
+        depth: 长度
         created_at: 创建于
         updated_at: 更新于
         cost_price: 成本价
@@ -350,6 +352,7 @@ zh-CN:
         default_date_rule: 默认递送时间规则
         default_region_rule: 默认递送地域规则
         product_type: 产品类型
+        flower_type: 花型
         discountable: 是否参与打折
         promo_tag: 推广标签
 
@@ -587,6 +590,12 @@ zh-CN:
         preserved_flower: 永生花
         fresh_flower: 鲜花
         fake_flower: 仿真花
+      flower_type:
+        flower_box: 花盒
+        holding_flower: 手捧花
+        photo_frame_flower: 相框花
+        bonsai: 盆栽
+        others: 其他
       promo_tag:
         limit: 限量
     administrator:
@@ -652,7 +661,7 @@ zh-CN:
     order:
       order_success: 您已经成功创建订单和地址信息
       order_not_exist: 此订单不存在
-      no_items: 还没有花在购花篮, 请先选购
+      no_items: 还没有花在购物车, 请先选购
       cancel_success: 订单取消成功
       cancel_failed: 订单取消失败, 请联系客服人员
       no_orders_for_you: 目前您还没有订单哦, 请去花市采购吧
@@ -718,10 +727,10 @@ zh-CN:
     order:
       # checkout
       ta_address: TA的地址是
-      checkout: 确定
+      checkout: 去结算
       back_checkout: 特殊订单
       channel_checkout: 渠道订单
-      basket: 购花篮
+      basket: 购物车
       order_list: 订单中心
       in_total: 总计
       confirm_accept: 您确认您已收到我们的货物了吗？
@@ -741,7 +750,7 @@ zh-CN:
 
       # suggestion
       other_customer_bought: 其他客户购买了
-      click_to_cart: 加入购花篮
+      click_to_cart: 加入购物车
 
       #gift card
       gift_card:
@@ -763,7 +772,7 @@ zh-CN:
 
     product:
       soldout: 已经售罄
-      flower_basket: 放入购花篮
+      flower_basket: 放入购物车
       delivery_charge: 免运费
       product_info: 产品信息
       join_queue: 如需加入订购队列，请联系客服

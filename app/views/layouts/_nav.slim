@@ -3,19 +3,19 @@
     ul.nav-item.is-mouseleave.row
       - menu_nav_type = @menu_nav_type || 'other'
       - menu_list.each_with_index do |root, i|
-        li: a href="#{root.url}" rel="#{'nofollow' if %w(花里首页 花里精选 定制惊喜 花里花外).include?(root.name)}" onClick="analytics.track('Click Menu', { label: '#{menu_nav_type}_#{root.name}', category: 'Main Navigator' });"
+        li: a href="#{root.url}" rel="#{'nofollow' if %w(花里首页 花里精选 定制惊喜 花里花外 HualiGirls).include?(root.name)}" onClick="analytics.track('Click Menu', { label: '#{menu_nav_type}_#{root.name}', category: 'Main Navigator' });"
           = root.name
           i.l-stack
 
     ul.operate
       li.cart-li-preview
+        = fa_icon 'shopping-cart'
         a.cart href="#{current_order_path}"
           = "(#{@cart ? @cart.item_count : 0})"
-          i
         .cart-preview-container
           .cart-preview
             - if @cart.nil?
-              p.cart-preview-empty 您的购花篮还是空的
+              p.cart-preview-empty 您的购物车还是空的
             - else
               h3
                 span 我的购物车
@@ -39,7 +39,7 @@
 
       - if user_signed_in?
         li.personal-account.last
-          = link_to '设置', { controller: 'users', action: 'edit_profile' }, rel: "nofollow"
+          = link_to '我的账户', { controller: 'users', action: 'edit_profile' }, rel: "nofollow"
           span
           = link_to '登出', destroy_user_session_path, rel: "nofollow"
       - else

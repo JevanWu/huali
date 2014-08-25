@@ -20,6 +20,7 @@
 
 class Postcard < ActiveRecord::Base
   validates :identifier, uniqueness: true
+  validates :content, presence: true
   has_many :assets, as: :viewable, dependent: :destroy
   belongs_to :order
   accepts_nested_attributes_for :assets, reject_if: lambda { |a| a[:image].blank? }, allow_destroy: true

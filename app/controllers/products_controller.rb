@@ -45,7 +45,11 @@ class ProductsController < ApplicationController
   end
 
   def index
-    @products = Product.published.in_collections(@collection_ids).uniq.page(params[:page]).order_by_priority
+    @products = Product.published.in_collections(@collection_ids)
+    @products = @products.where(flower_type: params[:flower_type]) if params[:flower_type].present?
+    @products = @products.tagged_with(params[:color], on: :colors) if params[:color].present?
+    @products = @products.where(price: Range.new(*params[:price_span].split(',').map(&:to_i))) if params[:price_span].present?
+    @products = @products.uniq.page(params[:page]).order_by_priority
 
     prepare_tag_filter
     fetch_order_by
@@ -114,7 +118,7 @@ class ProductsController < ApplicationController
   end
 
   def prepare_tag_filter
-    @tag_clouds = Product.published.in_collections(@collection_ids).
-      reorder('').tag_counts_on(:tags)
+    @color_tag_clouds = Product.published.in_collections(@collection_ids).
+      reorder('').tag_counts_on(:colors)
   end
 end
