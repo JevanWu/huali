@@ -43,7 +43,7 @@ Huali::Application.routes.draw do
   # FIXME refactor this routes to be more elegant
   get 'orders/current(/:coupon_code/products/:product_ids)', to: 'orders#current', as: :current_order
   post 'orders/wechat_warning', to: 'orders#wechat_warning'
-  post 'orders/wechat_feedback', to: 'orders#wechat_feddback'
+  post 'orders/wechat_feedback', to: 'orders#wechat_feedback'
   post 'orders/apply_coupon'
   get 'orders/checkout(/:id)', to: 'orders#checkout', as: :checkout_order
   get 'wechat/pay', to: 'orders#checkout', as: :wechat_payment
