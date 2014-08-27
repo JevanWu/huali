@@ -266,20 +266,9 @@ class OrdersController < ApplicationController
   end
 
   def wechat_warning
-    parameters = params[:xml]
-    key_values = "alarmcontent=" + parameters[:AlarmContent] + "&appid=" + ENV["WECHAT_APPID"] + 
-      "&appkey=" + ENV["WECHAT_APPKEY"] + "&description=" + parameter[:Description] + "&errortype=" + 
-      parameters[:ErrorType] + "&timestamp=" + parameters[:TimeStamp]
-
-    sign = Digest::SHA1.hexdigest(key_values).to_s
-
-    if sign == parameters[:appsignature]
-      warning = { error_type: parameters[:ErrorType], description: parameters[:Description], alarm_content: parameters[:AlarmContent]}
-      Notify.delay.wechat_warning(warning, "jevan@hua.li", "ryan@hua.li", "ella@hua.li")
-      render text: "success"
-    else
-      render text: "failed"
-    end
+    warning = { error_type: params[:xml][:ErrorType] || "", description: parameters[:Description] || "", alarm_content: parameters[:AlarmContent] || "" }
+    Notify.delay.wechat_warning(warning, "jevan@hua.li", "ryan@hua.li", "ella@hua.li")
+    render text: "success"
   end
 
   def wechat_feedback
