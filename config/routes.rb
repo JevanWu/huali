@@ -51,6 +51,7 @@ Huali::Application.routes.draw do
   patch 'orders/cancel/:id', to: 'orders#cancel', as: :cancel_order
   get 'orders/return', as: :return_order
   match 'orders/notify', as: :notify_order, via: [:get, :post]
+  post 'orders/wechat_notify'
   get 'orders/:id/gift_card/edit', to: 'orders#edit_gift_card', as: :edit_gift_card
   match 'orders/:id/gift_card/update', to: 'orders#update_gift_card', as: :update_gift_card, via: [:put, :patch]
 

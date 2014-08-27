@@ -204,23 +204,23 @@ class OrdersController < ApplicationController
   end
 
   def notify
-    if params[:pay_info] || params[:sign_key_index]
-      fetch_transaction
-      query = request.raw_post.present? ? request.raw_post : request.query_string # wechat use method 'get' to send notify request
-      user = @transaction.order.user
-      if @transaction.notify(query)
-        HualiPointService.minus_expense_point(user, @transaction)
-        render text: "success"
-      else
-        render text: "failed", status: 400
-      end
+    fetch_transaction
+    query = request.raw_post.present? ? request.raw_post : request.query_string # wechat use method 'get' to send notify request
+    user = @transaction.order.user
+    if @transaction.notify(query)
+      HualiPointService.minus_expense_point(user, @transaction)
+      render text: "success"
     else
-      bill = Billing::Base.new(:notify, nil, params.merge(client_ip: request.remote_ip))
-      if bill.success?
-        render text: "success"
-      else
-        render text: "failed"
-      end
+      render text: "failed", status: 400
+    end
+  end
+
+  def wechat_notify
+    bill = Billing::Base.new(:notify, nil, params.merge(client_ip: request.remote_ip))
+    if bill.success?
+      render text: "success"
+    else
+      render text: "failed"
     end
   end
 
