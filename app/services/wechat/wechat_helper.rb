@@ -35,7 +35,6 @@ module Wechat
         app_signature: sign(user_oauth.identifier, order.identifier, order.transaction.merchant_trade_no, timestamp),
         sign_method: "sha1"
       }
-      binding.pry
 
       res = JSON.parse(RestClient.post(url, parameters.to_json))
       if res["errcode"] != 0
