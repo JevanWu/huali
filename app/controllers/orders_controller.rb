@@ -113,17 +113,11 @@ class OrdersController < ApplicationController
         else
           flash[:notice] = t('controllers.order.order_success')
         end
-<<<<<<< HEAD
-        if @use_wechat_agent
-=======
 
         if @use_wechat_agent
           redirect_to checkout_order_path(@order_form.record, showwxpaytitle: 1)
         else
->>>>>>> master
           redirect_to checkout_order_path(@order_form.record)
-        else
-          redirect_to wechat_payment_path(@order_form.record, showwxpaytitle: 1)
         end
       end
     else
