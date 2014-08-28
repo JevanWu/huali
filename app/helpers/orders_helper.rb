@@ -137,6 +137,6 @@ module OrdersHelper
   end
 
   def checkout_path(order)
-    @use_wechat_agent ? checkout_order_path : checkout_order_path(order)
+    @use_wechat_agent ? wechat_payment_path(order, showwxpaytitle: 1) : checkout_order_path(order)
   end
 end
