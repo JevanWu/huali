@@ -41,7 +41,7 @@ module Wechat
     end
 
     def self.get_timestamp
-      timestampstring = Time.now.to_s
+      timestampstring = Time.now.to_i.to_s
     end
 
     def self.get_nonce_str
