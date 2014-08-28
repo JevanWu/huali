@@ -21,18 +21,21 @@ module Wechat
       return unless order.transaction
       return if order.transaction.paymethod != "wechat_mobile"
       url = "https://api.weixin.qq.com/pay/delivernotify?access_token=" + self.get_access_token
-      user_oauth = order.user.oauth_providers.where(provider: "wechat")
+      user_oauth = order.user.oauth_providers.where(provider: "wechat").take
+      return unless user_oauth
+      timestamp = Time.now.to_i.to_s
       parameters = {
         appid: ENV["WECHAT_APPID"],
         openid: user_oauth.identifier,
         transid: order.transaction.merchant_trade_no,
         out_trade_no: order.identifier,
-        deliver_timestamp: Time.now.to_s,
+        deliver_timestamp: timestamp,
         deliver_status: "1",
         deliver_msg: "ok",
-        app_signature: sign(user_oauth.identifier, order.identifier, order.transaction.merchant_trade_no),
+        app_signature: sign(user_oauth.identifier, order.identifier, order.transaction.merchant_trade_no, timestamp),
         sign_method: "sha1"
       }
+      binding.pry
 
       res = JSON.parse(RestClient.post(url, parameters.to_json))
       if res["errcode"] != 0
@@ -40,14 +43,13 @@ module Wechat
       end
     end
 
-    private
-      
-      def sign(openid, out_trade_no, transid)
+    private 
+      def self.sign(openid, out_trade_no, transid, timestamp)
         app_id = ENV["WECHAT_APPID"]
         app_key = ENV["WECHAT_APPKEY"] 
         deliver_msg = "ok"
         deliver_status = "1"
-        deliver_timestamp = Time.now.to_s
+        deliver_timestamp = timestamp
         openid = openid
         out_trade_no = out_trade_no
         transid = transid
