@@ -136,7 +136,11 @@ module OrdersHelper
     original_price - real_pay
   end
 
-  def checkout_path(order)
-    @use_wechat_agent ? wechat_payment_path(order, showwxpaytitle: 1) : checkout_order_path(order)
+  def checkout_path(use_wechat_agent, order)
+    if use_wechat_agent
+      wechat_payment_path(showwxpaytitle: 1)
+    else
+      checkout_order_path(order)
+    end
   end
 end
