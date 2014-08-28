@@ -138,9 +138,9 @@ module OrdersHelper
 
   def checkout_path(use_wechat_agent, order)
     if use_wechat_agent
-      wechat_payment_path(order, showwxpaytitle: 1)
-    else
       checkout_order_path(order)
+    else
+      wechat_payment_path(order, showwxpaytitle: 1)
     end
   end
 end
