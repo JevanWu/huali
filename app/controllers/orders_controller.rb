@@ -2,7 +2,7 @@
 require 'json'
 require 'digest'
 class OrdersController < ApplicationController
-  before_action :justify_wechat_agent, only: [:index, :current, :checkout, :gateway, :new]
+  before_action :justify_wechat_agent, only: [:index, :current, :checkout, :gateway, :new, :create]
   before_action :fetch_related_products, only: [:back_order_create, :channel_order_create, :current, :apply_coupon]
   before_action :signin_with_openid, only: [:new]
   before_action :authenticate_user!, only: [:new, :index, :show, :create, :checkout, :cancel, :edit_gift_card, :update_gift_card]
@@ -113,8 +113,9 @@ class OrdersController < ApplicationController
         else
           flash[:notice] = t('controllers.order.order_success')
         end
-        if request.env["HTTP_USER_AGENT"].include? "MicroMessenger"
-          redirect_to wechat_payment_path(@order_form.record, showwxpaytitle: 1)
+
+        if @use_wechat_agent
+          redirect_to checkout_order_path(@order_form.record, showwxpaytitle: 1)
         else
           redirect_to checkout_order_path(@order_form.record)
         end

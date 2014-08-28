@@ -22,5 +22,9 @@
             = t('models.order.state.' + order.state)
           .op
             - if order.state == 'generated'
-              = link_to t('models.order.state.pay'), checkout_path(order), class: 'btn-m-pay'
+              - if @use_wechat_agent
+                = link_to t('models.order.state.pay'), checkout_path(order, showwxpaytitle: 1), class: 'btn-m-pay'
+              - else
+                = link_to t('models.order.state.pay'), checkout_path(order), class: 'btn-m-pay'
+
           = link_to '', order_path(order), class: 'arrow'
