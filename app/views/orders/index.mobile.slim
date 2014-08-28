@@ -22,5 +22,5 @@
             = t('models.order.state.' + order.state)
           .op
             - if order.state == 'generated'
-              = link_to t('models.order.state.pay'), checkout_order_path(order), class: 'btn-m-pay'
+              = link_to t('models.order.state.pay'), checkout_path(order), class: 'btn-m-pay'
           = link_to '', order_path(order), class: 'arrow'
