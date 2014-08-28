@@ -135,12 +135,4 @@ module OrdersHelper
     real_pay = order.transaction.try(:amount) || 0
     original_price - real_pay
   end
-
-  def checkout_path(use_wechat_agent, order)
-    if use_wechat_agent
-      checkout_order_path(order)
-    else
-      wechat_payment_path(order, showwxpaytitle: 1)
-    end
-  end
 end
