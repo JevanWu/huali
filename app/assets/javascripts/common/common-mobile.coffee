@@ -8,4 +8,6 @@
     $(this).parent().remove()
     return
 
+  $(document).ready ->
+    $(document).addEventListener('WeixinJSBridgeReady', onBridgeReady(), false)
   return

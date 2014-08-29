@@ -1,7 +1,8 @@
 javascript: 
-  alert("yes");
-  document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+  alert("init");
+  function onBridgeReady() {
     $('#getBrandWCPayRequest').click(function(e){
+      alert("yes");
       WeixinJSBridge.invoke('getBrandWCPayRequest',{
         "appId" : "#{j(appid)}", 
         "timeStamp" : "#{j(sanitize timestamp)}", 
@@ -18,4 +19,4 @@ javascript:
         }
       }); 
     });
-  }, false)
+  }
