@@ -64,6 +64,7 @@ class ApplicationController < ActionController::Base
   end
 
   def justify_wechat_agent
+    return if request.env["HTTP_USER_AGENT"].nil?
     if request.env["HTTP_USER_AGENT"].include? "MicroMessenger"
       @use_wechat_agent = true
     else
