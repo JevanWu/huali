@@ -125,7 +125,7 @@ class UsersController < ApplicationController
     anon_user = current_user
     if user.valid_password?(password)
       %w(addresses orders oauth_providers oauth_services tracking_cookie point_transactions coupon_codes).each do |vars|
-        anon_user.send(vars).each{ |var| var.update_column(:user_id, user.id) } unless current_user.send("vars").nil? 
+        anon_user.send(vars).each{ |var| var.update_column(:user_id, user.id) } unless current_user.send(vars).nil? 
       end
       user.update_column(:huali_point, user.huali_point + anon_user.huali_point)
       sign_in user
