@@ -116,7 +116,7 @@ class UsersController < ApplicationController
   end
 
   def new_binding_account
-    redirect_to profile_path(user), flash: {success: "您已经绑定过账号了"} if !current_user.email.nil?
+    redirect_to profile_path(current_user), flash: {success: "您已经绑定过账号了"} if !current_user.email.nil?
   end
 
   def binding_account
