@@ -111,6 +111,10 @@ class UsersController < ApplicationController
     @error_message = t("controllers.user.omnicontacts.#{params[:error_message]}")
   end
 
+  def profile
+    @user = User.find params[:id]
+  end
+
   private
 
   def check_user_params

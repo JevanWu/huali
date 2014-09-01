@@ -1,0 +1,35 @@
+.mobile-profile
+  table
+    tr
+      td
+        h2 
+          | 姓名
+      td
+        h2
+          = @user.name || ""
+    tr
+      td
+        h2
+          | 电话
+      td
+        h2
+          = @user.phone || ""
+    tr
+      td
+        h2
+          | 邮箱
+      td
+        h2
+          = @user.email || ""
+    tr
+      td
+        h2
+          | 花点
+      td
+        h2
+          = @user.huali_point || ""
+
+  .binding-account
+    = link_to "绑定账号", "#", class: "huali-btn"
+  .my-orders
+    = link_to "我的订单", "#", class: "huali-btn"

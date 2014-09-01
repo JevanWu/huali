@@ -81,6 +81,7 @@ Huali::Application.routes.draw do
 
   get 'users/check_user_exist', to: 'users#check_user_exist'
   post 'users/subscribe_email', to: 'users#subscribe_email'
+  get 'users/:id/profile', to: 'users#profile'
 
   get 'settings/profile', to: 'users#edit_profile'
   patch 'settings/profile', to: 'users#update_profile'
