@@ -29,7 +29,7 @@
         h2
           = @user.huali_point || ""
 
-  .binding-account
-    = link_to "绑定账号", "#", class: "huali-btn"
-  .my-orders
-    = link_to "我的订单", "#", class: "huali-btn"
+  .binding-account-btn
+    = link_to "绑定账号", users_new_binding_account_path, class: "huali-btn"
+  .my-orders-btn
+    = link_to "我的订单", orders_path, class: "huali-btn"

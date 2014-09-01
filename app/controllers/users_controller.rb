@@ -112,7 +112,28 @@ class UsersController < ApplicationController
   end
 
   def profile
-    @user = User.find params[:id]
+    @user = current_user
+  end
+
+  def new_binding_account
+    redirect_to profile_path(user), flash: {success: "您已经绑定过账号了"} if !current_user.email.nil?
+  end
+
+  def binding_account
+    user = User.find_by email: params[:user][:email]
+    password = params[:user][:password]
+    anon_user = current_user
+    if user.valid_password?(password)
+      %w(addresses orders oauth_providers oauth_services tracking_cookie point_transactions coupon_codes).each do |vars|
+        anon_user.send("vars").each{ |var| var.update_column(:user_id, user.id) } unless current_user.send("vars").nil? 
+      end
+      user.update_column(:huali_point, user.huali_point + anon_user.huali_point)
+      sign_in user
+      anon_user.delete
+      redirect_to profile_path(user), flash: {success: "绑定成功"}
+    else
+      redirect_to users_new_binding_account_path, flash: {error: "账户密码不匹配"}
+    end
   end
 
   private
