@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :justify_wechat_agent, only: [:profile]
   before_action :signin_with_openid, only: [:profile]
   before_action :authenticate_user!,
     except: [:check_user_exist, :subscribe_email, :omnicontacts_callback, :omnicontacts_failure, :profile]
