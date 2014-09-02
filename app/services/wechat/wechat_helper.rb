@@ -9,11 +9,21 @@ module Wechat
       end
     end
 
+    # Access Token Response:
+    # {"access_token":"ACCESS_TOKEN","expires_in":7200}
     def self.get_access_token
+      redis = Redis.new
+      got_time = redis.get("access_token_got_time")
+      return redis.get("access_token") if got_time.present? && (Time.now - got_time).to_i < redis.get("access_token_expires_in")
+
       url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" + ENV["WECHAT_APPID"] + "&secret=" + ENV["WECHAT_APPSECRET"]
       raw_res = RestClient.get url
       res = JSON.parse raw_res
-      access_token = res["access_token"] || ""
+      redis.set("access_token_got_time", Time.now)
+      redis.set("access_token_expires_in", res["expires_in"])
+      access_token = res["access_token"]
+      redis.set("access_token", access_token)
+      return access_token
     end
 
     def self.deliver_notify(order_id)
