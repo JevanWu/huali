@@ -71,6 +71,29 @@ class ApplicationController < ActionController::Base
       @use_wechat_agent = false
     end
   end
+
+  def signin_with_openid
+    if @use_wechat_agent
+      code = params[:code]
+      state = params[:state]
+      # params: target, redirect_url
+      return if code.nil?
+      request_url = Wechat::WechatHelper.wechat_oauth_url(:access_token, new_order_url, code) 
+      wechat_response = RestClient.get request_url 
+      wechat_responses = JSON.parse wechat_response
+      if !wechat_responses["errmsg"]
+        access_token = wechat_responses["access_token"]
+        expires_in = wechat_responses["expires_in"]
+        refresh_token = wechat_responses["refresh_token"]
+        openid = wechat_responses["openid"]
+        #sign in user
+        user = User.find_by_openid(openid)
+        sign_in user
+      else
+        raise ArgumentError, wechat_responses["errmsg"]
+      end
+    end
+  end
 end
 
 class User::ParameterSanitizer < Devise::ParameterSanitizer
