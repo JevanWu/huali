@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :signin_with_openid, only: [:profile]
   before_action :authenticate_user!,
-    except: [:check_user_exist, :subscribe_email, :omnicontacts_callback, :omnicontacts_failure]
+    except: [:check_user_exist, :subscribe_email, :omnicontacts_callback, :omnicontacts_failure, :profile]
   respond_to :json, :html
 
   def edit_profile
