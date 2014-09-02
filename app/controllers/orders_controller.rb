@@ -241,7 +241,7 @@ class OrdersController < ApplicationController
 
       load_cart
     end
-    @wechat_oauth_url = @use_wechat_agent ? Wechat::WechatHelper.wechat_oauth_url(:code, new_order_url) : new_order_url
+    @wechat_oauth_url = (@use_wechat_agent && current_user.nil?) ? Wechat::WechatHelper.wechat_oauth_url(:code, new_order_url) : new_order_url
   end
 
   def apply_coupon
