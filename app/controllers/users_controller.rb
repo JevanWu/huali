@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
+  before_action :signin_with_openid, only: [:profile]
   before_action :authenticate_user!,
     except: [:check_user_exist, :subscribe_email, :omnicontacts_callback, :omnicontacts_failure]
-  before_action :signin_with_openid, only: [:profile]
   respond_to :json, :html
 
   def edit_profile
@@ -113,7 +113,7 @@ class UsersController < ApplicationController
   end
 
   def profile
-    if current_user.nil?
+    if current_user.nil? && params[:code].nil?
       redirect_to Wechat::WechatHelper.wechat_oauth_url(:code, profile_url)
     end
     @user = current_user
