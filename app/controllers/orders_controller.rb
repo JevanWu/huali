@@ -2,7 +2,7 @@
 require 'json'
 require 'digest'
 class OrdersController < ApplicationController
-  before_action :justify_wechat_agent, only: [:current, :checkout, :gateway, :new]
+  before_action :justify_wechat_agent, only: [:index, :current, :checkout, :gateway, :new, :create]
   before_action :fetch_related_products, only: [:back_order_create, :channel_order_create, :current, :apply_coupon]
   before_action :signin_with_openid, only: [:new]
   before_action :authenticate_user!, only: [:new, :index, :show, :create, :checkout, :cancel, :edit_gift_card, :update_gift_card]
@@ -113,8 +113,9 @@ class OrdersController < ApplicationController
         else
           flash[:notice] = t('controllers.order.order_success')
         end
-        if request.env["HTTP_USER_AGENT"].include? "MicroMessenger"
-          redirect_to wechat_payment_path(@order_form.record, showwxpaytitle: 1)
+
+        if @use_wechat_agent
+          redirect_to checkout_order_path(@order_form.record, showwxpaytitle: 1)
         else
           redirect_to checkout_order_path(@order_form.record)
         end
@@ -204,23 +205,23 @@ class OrdersController < ApplicationController
   end
 
   def notify
-    if params[:pay_info] || params[:sign_key_index]
-      fetch_transaction
-      query = request.raw_post.present? ? request.raw_post : request.query_string # wechat use method 'get' to send notify request
-      user = @transaction.order.user
-      if @transaction.notify(query)
-        HualiPointService.minus_expense_point(user, @transaction)
-        render text: "success"
-      else
-        render text: "failed", status: 400
-      end
+    fetch_transaction
+    query = request.raw_post.present? ? request.raw_post : request.query_string # wechat use method 'get' to send notify request
+    user = @transaction.order.user
+    if @transaction.notify(query)
+      HualiPointService.minus_expense_point(user, @transaction)
+      render text: "success"
     else
-      bill = Billing::Base.new(:notify, nil, params.merge(client_ip: request.remote_ip))
-      if bill.success?
-        render text: "success"
-      else
-        render text: "failed"
-      end
+      render text: "failed", status: 400
+    end
+  end
+
+  def wechat_notify
+    bill = Billing::Base.new(:notify, nil, params.merge(client_ip: request.remote_ip))
+    if bill.success?
+      render text: "success"
+    else
+      render text: "failed"
     end
   end
 
@@ -240,7 +241,7 @@ class OrdersController < ApplicationController
 
       load_cart
     end
-    @wechat_oauth_url = Wechat::WechatHelper.wechat_oauth_url(:code, new_order_url) 
+    @wechat_oauth_url = (@use_wechat_agent && current_user.nil?) ? Wechat::WechatHelper.wechat_oauth_url(:code, new_order_url) : new_order_url
   end
 
   def apply_coupon
@@ -266,20 +267,9 @@ class OrdersController < ApplicationController
   end
 
   def wechat_warning
-    parameters = params[:xml]
-    key_values = "alarmcontent=" + parameters[:AlarmContent] + "&appid=" + ENV["WECHAT_APPID"] + 
-      "&appkey=" + ENV["WECHAT_APPKEY"] + "&description=" + parameter[:Description] + "&errortype=" + 
-      parameters[:ErrorType] + "&timestamp=" + parameters[:TimeStamp]
-
-    sign = Digest::SHA1.hexdigest(key_values).to_s
-
-    if sign == parameters[:appsignature]
-      warning = { error_type: parameters[:ErrorType], description: parameters[:Description], alarm_content: parameters[:AlarmContent]}
-      Notify.delay.wechat_warning(warning, "jevan@hua.li", "ryan@hua.li", "ella@hua.li")
-      render text: "success"
-    else
-      render text: "failed"
-    end
+    warning = { error_type: params[:xml][:ErrorType] || "", description: parameters[:Description] || "", alarm_content: parameters[:AlarmContent] || "" }
+    Notify.delay.wechat_warning(warning, "jevan@hua.li", "ryan@hua.li", "ella@hua.li")
+    render text: "success"
   end
 
   def wechat_feedback
@@ -379,29 +369,6 @@ class OrdersController < ApplicationController
       @package = Wechat::ParamsGenerator.get_package(order, client_ip)
       @sign_type = Wechat::ParamsGenerator.get_signtype
       @sign = Wechat::ParamsGenerator.get_sign(@nonce_str, @package, @timestamp)
-    end
-
-    def signin_with_openid
-      if @use_wechat_agent
-        code = params[:code]
-        state = params[:state]
-        # params: target, redirect_url
-        return if code.nil?
-        request_url = Wechat::WechatHelper.wechat_oauth_url(:access_token, new_order_url, code) 
-        wechat_response = RestClient.get request_url 
-        wechat_responses = JSON.parse wechat_response
-        if !wechat_responses["errmsg"]
-          access_token = wechat_responses["access_token"]
-          expires_in = wechat_responses["expires_in"]
-          refresh_token = wechat_responses["refresh_token"]
-          openid = wechat_responses["openid"]
-          #sign in user
-          user = User.find_by_openid(openid)
-          sign_in user
-        else
-          raise ArgumentError, wechat_responses["errmsg"]
-        end
-      end
     end
 
     def gift_card_params

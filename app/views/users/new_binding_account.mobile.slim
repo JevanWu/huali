@@ -1,0 +1,5 @@
+.binding-account
+  = simple_form_for :user, url: users_binding_account_path do |f| 
+    = f.input :email, required: true
+    = f.input :password, required: true
+    = f.button :submit, value: "绑定账户", class: "huali-btn"

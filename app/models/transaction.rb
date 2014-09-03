@@ -35,7 +35,7 @@ class Transaction < ActiveRecord::Base
   validates :identifier, uniqueness: true
   validates :amount, numericality: true
   validates :paymethod, inclusion: {
-    in: %w(paypal directPay bankPay wechat),
+    in: %w(paypal directPay bankPay wechat wechat_mobile),
     message: "%{value} is not a valid paymethod."
   }
 

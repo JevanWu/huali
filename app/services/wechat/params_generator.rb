@@ -13,7 +13,7 @@ module Wechat
       body = order.products.first.name_zh 
       fee_type = "1"
       input_charset = "GBK"
-      notify_url = "http://www.hua.li/orders/notify"
+      notify_url = "http://www.hua.li/orders/wechat_notify"
       out_trade_no = order.identifier
       partner = ENV["WECHAT_PARTNERID"]
       spbill_create_ip = client_ip.to_s
@@ -41,7 +41,7 @@ module Wechat
     end
 
     def self.get_timestamp
-      timestampstring = Time.now.to_s
+      timestampstring = Time.now.to_i.to_s
     end
 
     def self.get_nonce_str

@@ -9,11 +9,21 @@ module Wechat
       end
     end
 
+    # Access Token Response:
+    # {"access_token":"ACCESS_TOKEN","expires_in":7200}
     def self.get_access_token
+      redis = Redis.new
+      got_time = redis.get("access_token_got_time")
+      return redis.get("access_token") if got_time.present? && (Time.now - got_time).to_i < redis.get("access_token_expires_in")
+
       url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" + ENV["WECHAT_APPID"] + "&secret=" + ENV["WECHAT_APPSECRET"]
       raw_res = RestClient.get url
       res = JSON.parse raw_res
-      access_token = res["access_token"] || ""
+      redis.set("access_token_got_time", Time.now)
+      redis.set("access_token_expires_in", res["expires_in"])
+      access_token = res["access_token"]
+      redis.set("access_token", access_token)
+      return access_token
     end
 
     def self.deliver_notify(order_id)
@@ -21,16 +31,18 @@ module Wechat
       return unless order.transaction
       return if order.transaction.paymethod != "wechat_mobile"
       url = "https://api.weixin.qq.com/pay/delivernotify?access_token=" + self.get_access_token
-      user_oauth = order.user.oauth_providers.where(provider: "wechat")
+      user_oauth = order.user.oauth_providers.where(provider: "wechat").take
+      return unless user_oauth
+      timestamp = Time.now.to_i.to_s
       parameters = {
         appid: ENV["WECHAT_APPID"],
         openid: user_oauth.identifier,
         transid: order.transaction.merchant_trade_no,
         out_trade_no: order.identifier,
-        deliver_timestamp: Time.now.to_s,
+        deliver_timestamp: timestamp,
         deliver_status: "1",
         deliver_msg: "ok",
-        app_signature: sign(user_oauth.identifier, order.identifier, order.transaction.merchant_trade_no),
+        app_signature: sign(user_oauth.identifier, order.identifier, order.transaction.merchant_trade_no, timestamp),
         sign_method: "sha1"
       }
 
@@ -40,14 +52,13 @@ module Wechat
       end
     end
 
-    private
-      
-      def sign(openid, out_trade_no, transid)
+    private 
+      def self.sign(openid, out_trade_no, transid, timestamp)
         app_id = ENV["WECHAT_APPID"]
         app_key = ENV["WECHAT_APPKEY"] 
         deliver_msg = "ok"
         deliver_status = "1"
-        deliver_timestamp = Time.now.to_s
+        deliver_timestamp = timestamp
         openid = openid
         out_trade_no = out_trade_no
         transid = transid
