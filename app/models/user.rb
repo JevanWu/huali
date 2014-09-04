@@ -135,6 +135,7 @@ class User < ActiveRecord::Base
       oauth_provider = user.oauth_providers.create(identifier: openid, provider: "wechat")
     end
     oauth_provider.user
+  end
 
   def ensure_authentication_token
     self.authentication_token = generate_authentication_token if authentication_token.blank?
