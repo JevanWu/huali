@@ -3,6 +3,7 @@
 # Table name: users
 #
 #  anonymous_token          :string(255)
+#  authentication_token     :string(255)
 #  created_at               :datetime         not null
 #  current_sign_in_at       :datetime
 #  current_sign_in_ip       :string(255)
@@ -41,6 +42,8 @@
 
 class User < ActiveRecord::Base
   include Phonelib::Extension
+
+  before_save :ensure_authentication_token
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -132,9 +135,19 @@ class User < ActiveRecord::Base
       oauth_provider = user.oauth_providers.create(identifier: openid, provider: "wechat")
     end
     oauth_provider.user
+
+  def ensure_authentication_token
+    self.authentication_token = generate_authentication_token if authentication_token.blank?
   end
 
   private
+
+    def generate_authentication_token
+      loop do
+        token = Devise.friendly_token
+        break token unless User.where(authentication_token: token).first
+      end
+    end
 
     # Generate a friendly string randomically to be used as token.
     def self.random_token

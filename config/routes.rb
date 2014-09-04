@@ -119,6 +119,7 @@ Huali::Application.routes.draw do
   get 'wechats/pay', to: 'wechats#pay', as: :wechats_pay
   API::API.logger Rails.logger
   mount API::API => '/api'
+  mount MobileAPI::API => '/mobile_api'
 
   ActiveAdmin.routes(self)
 

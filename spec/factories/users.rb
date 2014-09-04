@@ -3,6 +3,7 @@
 # Table name: users
 #
 #  anonymous_token          :string(255)
+#  authentication_token     :string(255)
 #  created_at               :datetime         not null
 #  current_sign_in_at       :datetime
 #  current_sign_in_ip       :string(255)
@@ -44,6 +45,9 @@ FactoryGirl.define do
     email { Forgery(:internet).email_address }
     password { Forgery(:basic).password }
     password_confirmation { password }
+    name { Forgery(:name).full_name }
+    phone { "18758161801" }
+    authentication_token { Devise.friendly_token }
     bypass_humanizer true
     # confirmed_at Time.now
   end

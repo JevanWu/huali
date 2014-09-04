@@ -665,6 +665,7 @@ ActiveRecord::Schema.define(version: 20140808060454) do
     t.integer  "invited_and_paid_counter",                         default: 0
     t.boolean  "invitation_rewarded",                              default: false
     t.decimal  "huali_point",              precision: 8, scale: 2, default: 0.0
+    t.string   "authentication_token"
   end
 
   add_index "users", ["anonymous_token"], name: "index_users_on_anonymous_token", unique: true, using: :btree
