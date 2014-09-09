@@ -2,7 +2,7 @@
 lock '3.2.1'
 
 set :application, 'huali'
-set :repo_url, 'git@git.zenhacks.org:yangchenyun/huali.git'
+set :repo_url, 'git@bitbucket.org:huali-store/huali.git'
 
 set :rails_env, fetch(:stage) == :staging ? 'staging' : 'production'
 
