@@ -46,11 +46,11 @@ Huali::Application.routes.draw do
   post 'orders/wechat_feedback', to: 'orders#wechat_feedback'
   post 'orders/apply_coupon'
   get 'orders/checkout(/:id)', to: 'orders#checkout', as: :checkout_order
-  get 'wechat/pay', to: 'orders#checkout', as: :wechat_payment
   post 'orders/gateway(/:id)', to: 'orders#gateway', as: :gateway_order
   patch 'orders/cancel/:id', to: 'orders#cancel', as: :cancel_order
   get 'orders/return', as: :return_order
   match 'orders/notify', as: :notify_order, via: [:get, :post]
+  post 'orders/wechat_notify'
   get 'orders/:id/gift_card/edit', to: 'orders#edit_gift_card', as: :edit_gift_card
   match 'orders/:id/gift_card/update', to: 'orders#update_gift_card', as: :update_gift_card, via: [:put, :patch]
 
@@ -81,6 +81,9 @@ Huali::Application.routes.draw do
 
   get 'users/check_user_exist', to: 'users#check_user_exist'
   post 'users/subscribe_email', to: 'users#subscribe_email'
+  get 'users/profile', to: 'users#profile', as: :profile
+  get 'users/new_binding_account', to: 'users#new_binding_account'
+  post 'users/binding_account', to: 'users#binding_account'
 
   get 'settings/profile', to: 'users#edit_profile'
   patch 'settings/profile', to: 'users#update_profile'

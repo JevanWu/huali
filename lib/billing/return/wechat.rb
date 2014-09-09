@@ -1,6 +1,6 @@
 module Billing
   module Return
-    class Wechat < Base
+    class Wechat < Return::Base
       include Billing::Helper::Wechat
 
       private

@@ -1,7 +1,7 @@
 class ApiAgentService
   class << self
     def update_receiver_address(order)
-      if ["taobao", "tmall"].include?(order.kind)
+      if b2c_order?(order.kind)
         if ["wait_check", "wait_make", "wait_ship"].include?(order.state)
           if address_just_modified?(order)
             options = {
@@ -20,13 +20,13 @@ class ApiAgentService
     end
 
     def cancel_order(order)
-      if ["taobao", "tmall"].include?(order.kind)
+      if b2c_order?(order.kind)
         ApiAgentWorker.delay.cancel_order(order.kind.to_s, order.merchant_order_no)
       end
     end
 
     def ship_order(order)
-      if ["taobao", "tmall"].include?(order.kind)
+      if b2c_order?(order.kind)
         shipment = order.shipment
         ApiAgentWorker.delay.ship_order(order.kind.to_s,
                                         order.merchant_order_no,
@@ -36,7 +36,7 @@ class ApiAgentService
     end
 
     def check_order(order)
-      if ["taobao", "tmall"].include?(order.kind)
+      if b2c_order?(order.kind)
         ApiAgentWorker.delay.check_order(order.kind.to_s, order.merchant_order_no)
       end
     end
@@ -45,6 +45,10 @@ class ApiAgentService
 
     def address_just_modified?(order)
       (Time.now - order.address.updated_at) < 10
+    end
+
+    def b2c_order?(kind)
+      ["taobao", "tmall", 'jd', 'yhd'].include?(kind)
     end
   end
 end

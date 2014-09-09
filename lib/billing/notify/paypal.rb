@@ -2,7 +2,7 @@ require 'uri'
 
 module Billing
   module Notify
-    class Paypal < Base
+    class Paypal < Notify::Base
       include Billing::Helper::Paypal
 
       def success?

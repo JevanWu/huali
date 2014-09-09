@@ -1,6 +1,6 @@
 module Billing
   module Return
-    class Paypal < Base
+    class Paypal < Return::Base
       include Billing::Helper::Paypal
       
       private

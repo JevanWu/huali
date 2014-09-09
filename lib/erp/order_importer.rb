@@ -41,18 +41,6 @@ module Erp
     end
 
     def destroy_erp_order
-      retry_count = 0
-
-      begin
-        @erp_order.destroy
-      rescue
-        retry_count < 3 and retry_count += 1 and retry
-      end
-    end
-
-    alias_method :old_destroy_erp_order, :destroy_erp_order
-
-    def destroy_erp_order
       Erp::Order.delay.destroy(@erp_order.id)
     end
   end

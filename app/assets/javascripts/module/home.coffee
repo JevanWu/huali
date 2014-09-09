@@ -1,4 +1,7 @@
 ﻿$ ->
+  $(".aston-martin").click ->
+    $("li.active").removeClass("active")
+    $(".aston-martin-video").parent().addClass("active")
 
   $("#slide .container").width($(window).width()*$("#slide img").length)
   $("#slide").find("img").each (i,el) ->

@@ -91,7 +91,7 @@ gem 'grape'
 gem 'api-auth', github: 'ryancheung/api_auth'
 gem 'rest-client'
 
-gem 'huali_api', git: 'git@git.zenhacks.org:ryan/huali_api.git', tag: 'v0.1.0', require: 'huali_agent_api'
+gem 'huali_api', git: 'git@bitbucket.org:huali-store/huali_api.git', tag: 'v0.1.0', require: 'huali_agent_api'
 
 gem 'flowplayer-rails', github: 'ryancheung/flowplayer-rails'
 
@@ -148,8 +148,8 @@ group :development do
   gem 'pry-docmore'
   gem 'pry-remote'
   gem 'pry-rescue'
-  gem 'pry-stack_explorer'
-  gem 'pry-debugger'
+  gem 'pry-byebug'
+  gem 'pry-coolline'
   gem 'pry-rails'
   gem 'better_errors'
   gem 'binding_of_caller'

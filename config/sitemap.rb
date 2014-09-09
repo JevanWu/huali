@@ -39,7 +39,7 @@ SitemapGenerator::Sitemap.create do
 
   I18n.locale = :'zh-CN'
 
-  promotion_collections = %w(acqua-di-parma givenchy davidoff chloe sally-hansen marc-jacobs swarovski-elements ermenegildo-zegna helena-rubinstein).map { |slug| Collection.friendly.find(slug) }
+  promotion_collections = %w(haagen-dazs philips acqua-di-parma givenchy davidoff chloe sally-hansen marc-jacobs swarovski-elements ermenegildo-zegna helena-rubinstein).map { |slug| Collection.friendly.find(slug) }
   promotion_collections.each do |collection|
     add collection_products_path(collection), lastmod: collection.updated_at, priority: 0.8
   end

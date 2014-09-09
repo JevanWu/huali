@@ -496,7 +496,7 @@ ActiveAdmin.register Order do
     end_date = "#{params[:end_date][:year]}-#{params[:end_date][:month]}-#{params[:end_date][:day]}".to_date
 
     orders = Order.includes({ line_items: :product }, :transactions, :shipments, { address: [:province, :city, :area] }, :ship_method).
-      where(delivery_date: start_date..end_date).where(state: ["wait_confirm", "completed"]).to_a
+      where(delivery_date: start_date..end_date).where(state: ["wait_make", "wait_ship", "wait_confirm", "completed"]).to_a
 
     filename = "/tmp/orders-#{start_date}-#{end_date}-#{Time.current.to_i}.xlsx"
     Axlsx::Package.new do |p|
