@@ -1,5 +1,5 @@
 .cart-product-item.item-table data-total = "#{product_in_cart.total}"
-  = image_tag product_in_cart.img(:medium), width: '140', height: '134'
+  = link_to image_tag(product_in_cart.img(:medium), width: '140', height: '134'), product_path(product_in_cart.product)
   .product-info-main
     h3.product-name
       = link_to product_in_cart.name, product_path(product_in_cart.product)
