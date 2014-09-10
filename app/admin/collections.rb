@@ -52,6 +52,7 @@ ActiveAdmin.register Collection do
       row :primary_category
       row :description
       row :priority
+      row :display_on_breadcrumb
 
       row :product do
         collection.products.map do |product|
