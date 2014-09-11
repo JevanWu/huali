@@ -12,8 +12,9 @@
         =t 'views.product.soldout'
     p
       | 免费配送
-    p.add-to-share
-      a href="#" data-action='share-product' data-product="#{product_in_cart.product_id}" 加入分享
+    .share
+      span = t(:sharing)
+      = render 'shared/product_share_links', product: product_in_cart.product
   .price data-price = "#{product_in_cart.price}"
     = number_to_currency product_in_cart.price
   .op.quantity
