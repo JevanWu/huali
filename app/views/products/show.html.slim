@@ -14,9 +14,8 @@
 #l-show
   .container
     .title
-      i
-      span.cur = @product.name
-      b
+      .cur 
+        h1 = @product.name
     .main.row
       ul.thumb.span1
         - @asset_urls.each_with_index do |asset_url, index|
