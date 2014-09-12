@@ -1,6 +1,6 @@
 module BreadcrumbHelper
   def breadcrumb_generator(item)
-    link = link_to "花里首页", root_path
+    link = link_to "花里花店", root_path
     lies = content_tag(:li, link)
     if item.is_a? Product
       collections = item.collections.display_on_breadcrumb
