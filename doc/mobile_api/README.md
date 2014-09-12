@@ -14,11 +14,9 @@ All unsuccessfull API requests would return error message as json with following
 
 ## HTTP Authentication
 
-All API requests require shared key signature. At the moment request signing was implemented by using
-the `gem 'api-auth'` designed to be used both in the client side and server side.
-See [How it works](https://github.com/mgomes/api_auth#how-it-works) to know how the request signing works.
+All API requests require shared key signature. 
 
-If a request with no, or an invalid signing is provided then an error message will be returned with status code 401:
+If a request with no, or an invalid signature, an error message will be returned with status code 401:
 
 ```json
 {
@@ -26,22 +24,18 @@ If a request with no, or an invalid signing is provided then an error message wi
 }
 ```
 
-API requests should be prefixed with `api` and the API version. The API version is defined in `lib/api/api.rb`.
+The 'Content', 'ContentType', 'TimeStamp' and 'Signature' need to be put in the request header
+
+The 'Content' is an md5-encrypted code of request body, e.g. "1a79a4d60de6718e8e5b326e338ae533"
+The 'ContentType' represents the type of the request content, e.g. "text/html"
+The 'TimeStamp' represents what time the request was sent, e.g. "1410509258"
+The 'Signature' is an HMAC-SHA1-encrypted code with our private key, the example of encrypted content is "content=CONTENT&content_type=CONTENT_TYPE&time_stamp=TIMESTAMP"
 
 Example of a valid API request:
 
 ```
-GET http://example.com/api/v1/orders/1?sign=QVy1PB7sTxfy4pqfZM1U
+GET http://example.com/mobile_api/v1/orders/1
 ```
-
-Example for a valid API request using curl and authentication via header:
-
-```
-curl --header "SIGN: QVy1PB7sTxfy4pqfZM1U" "http://example.com/api/v1/orders/1"
-```
-
-
-The API uses JSON to serialize data. You don't need to specify `.json` at the end of API URL.
 
 
 
