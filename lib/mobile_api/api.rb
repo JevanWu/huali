@@ -33,11 +33,11 @@ module MobileAPI
       end
 
       def valid_signature?
-        return false if Time.now.to_i - request.headers["TimeStamp"].to_i > 300
+        return false if Time.now.to_i - request.headers["Timestamp"].to_i > 300
         body = request.body
         md5_body = Digest::MD5.hexdigest(body)
         digest = OpenSSL::Digest.new('sha1')
-        data = "content=#{md5_body}&content_type=#{request.headers["ContentType"]}&timesamp=#{request.headers["TimeStamp"]}"
+        data = "content=#{md5_body}&content_type=#{request.headers["ContentType"]}&path=#{request.env["REQUEST_PATH"]}&timesamp=#{request.headers["TimeStamp"]}"
         hmac = OpenSSL::HMAC.hexdigest(digest, ENV['MOBILE_API_KEY'], data)
         return false if hmac != request.headers["Signature"]
         return true
