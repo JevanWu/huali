@@ -5,7 +5,7 @@ module MobileAPI
     version 'v1', using: :path
     format :json
 
-    before { verify_signature! }
+    #before { verify_signature! }
 
     helpers do
       def current_user
