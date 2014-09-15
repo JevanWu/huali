@@ -166,7 +166,6 @@ class OrdersController < ApplicationController
 
   def gateway
     @order = Order.find_by_id(params[:id] || session[:order_id])
-
     # params[:pay_info] is mixed with two kinds of info - pay method and merchant_name
     # these two are closed bound together
     payment_opts = process_pay_info(params[:pay_info])

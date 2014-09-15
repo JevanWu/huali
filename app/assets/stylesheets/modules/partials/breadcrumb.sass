@@ -1,16 +1,19 @@
-.breadcrumb-wrap
-  +clearfix
-  padding-left: 30px
-  padding-right: 5px
-  height: 50px
-  line-height: 50px
-  .breadcrumb
-    float: left
+.breadcrumb
+  li
+    font-size: 12px
     a
+      padding: 10px 0px
       color: $strong-color
-      &.cur
-        color: $content-normal-color
-  .service-num
-    float: right
-    font-size: $content-font
-    color: $price-color
+  li:last-child
+    a
+      color: $price-color
+  li:before
+    padding: 0px 5px
+    content: ">"
+    color: $strong-color
+  li:first-child:before
+    content: ""
+  // .service-num
+  //   float: right
+  //   font-size: $content-font
+  //   color: $price-color

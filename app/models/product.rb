@@ -84,7 +84,7 @@ class Product < ActiveRecord::Base
 
   # validations
   validates_presence_of :name_en, :name_zh, :count_on_hand, :assets, :collections, :price
-  enumerize :product_type, in: [:fresh_flower, :preserved_flower, :others, :fake_flower], default: :others
+  enumerize :product_type, in: [:fresh_flower, :preserved_flower, :others, :fake_flower, :perfume], default: :others
   enumerize :promo_tag, in: [:limit]
   enumerize :flower_type, in: [:flower_box, :holding_flower, :photo_frame_flower, :bonsai, :others], default: :flower_box
 
