@@ -153,6 +153,8 @@ module API
         transaction.start if transaction.state == 'generated'
         transaction.complete_deal
 
+        forbidden! and return unless transaction.persisted? && transaction.state == 'completed'
+
         status(205)
       end
 
