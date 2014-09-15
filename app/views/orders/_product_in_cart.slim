@@ -1,5 +1,5 @@
 .cart-product-item.item-table data-total = "#{product_in_cart.total}"
-  = image_tag product_in_cart.img(:medium), width: '140', height: '134'
+  = link_to image_tag(product_in_cart.img(:medium), width: '140', height: '134'), product_path(product_in_cart.product)
   .product-info-main
     h3.product-name
       = link_to product_in_cart.name, product_path(product_in_cart.product)
@@ -12,8 +12,9 @@
         =t 'views.product.soldout'
     p
       | 免费配送
-    p.add-to-share
-      a href="#" data-action='share-product' data-product="#{product_in_cart.product_id}" 加入分享
+    .share
+      span = t(:sharing)
+      = render 'shared/product_share_links', product: product_in_cart.product
   .price data-price = "#{product_in_cart.price}"
     = number_to_currency product_in_cart.price
   .op.quantity

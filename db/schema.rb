@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140808060454) do
+ActiveRecord::Schema.define(version: 20140910095606) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -162,20 +162,21 @@ ActiveRecord::Schema.define(version: 20140808060454) do
   add_index "collection_hierarchies", ["descendant_id"], name: "collection_desc_idx", using: :btree
 
   create_table "collections", force: true do |t|
-    t.string   "name_zh",                          null: false
+    t.string   "name_zh",                               null: false
     t.string   "description"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
-    t.string   "name_en",                          null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.string   "name_en",                               null: false
     t.string   "slug"
-    t.boolean  "available",        default: false
+    t.boolean  "available",             default: false
     t.string   "display_name"
     t.string   "meta_keywords"
     t.string   "meta_description"
-    t.boolean  "primary_category", default: false, null: false
+    t.boolean  "primary_category",      default: false, null: false
     t.string   "meta_title"
-    t.integer  "priority",         default: 5
+    t.integer  "priority",              default: 5
     t.integer  "parent_id"
+    t.boolean  "display_on_breadcrumb", default: false
   end
 
   add_index "collections", ["slug"], name: "index_collections_on_slug", unique: true, using: :btree

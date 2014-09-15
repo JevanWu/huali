@@ -36,6 +36,7 @@ class Collection < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name_en, use: :slugged
 
+  scope :display_on_breadcrumb, -> { where(display_on_breadcrumb: true).order(:priority) }
   scope :available, -> { where(available: true) }
   scope :primary, -> { where(primary_category: true) }
 
