@@ -590,6 +590,7 @@ zh-CN:
         preserved_flower: 永生花
         fresh_flower: 鲜花
         fake_flower: 仿真花
+        perfume: 香水
       flower_type:
         flower_box: 花盒
         holding_flower: 手捧花
@@ -620,6 +621,7 @@ zh-CN:
         b2b: B2B订单
         fieldschina: 甫田
         self_pickup: 自提订单
+        yhd: 一号店
 
     survey:
       gender:

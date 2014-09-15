@@ -64,7 +64,7 @@ module API
                           ship_method_id: params[:ship_method_id],
                           expected_date: params[:expected_date],
                           delivery_date: params[:delivery_date])
-        order.source = ['taobao', 'tmall'].include?(params[:kind]) ? '淘宝' : nil
+        order.source = ['taobao', 'tmall'].include?(params[:kind]) ? '淘宝' : '其他'
 
         address = Address.new(fullname: params[:address_fullname],
                               phone: params[:address_phone],
@@ -152,6 +152,8 @@ module API
 
         transaction.start if transaction.state == 'generated'
         transaction.complete_deal
+
+        forbidden! and return unless transaction.persisted? && transaction.state == 'completed'
 
         status(205)
       end

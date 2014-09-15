@@ -7,6 +7,7 @@
     <%= f.input :description %>
     <%= f.input :parent, required: true, collection: Collection.parents_options(@collection.id) %>
     <%= f.input :available, as: :boolean, hint: '有效分类才能被访问' %>
+    <%= f.input :display_on_breadcrumb, as: :boolean, label: "是否显示", hint: '是否在面包削导航上显示' %>
   <% end %>
 
   <% unless current_admin_ability.cannot? :update_seo, @collection %>

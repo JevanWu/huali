@@ -40,7 +40,7 @@ class Transaction < ActiveRecord::Base
   }
 
   validates :merchant_name, inclusion: {
-    in: %w(Alipay Paypal Tenpay ICBCB2C CMB CCB BOCB2C ABC COMM CMBC),
+    in: %w(JD YHD Alipay Paypal Tenpay ICBCB2C CMB CCB BOCB2C ABC COMM CMBC),
     message: "%{value} is not a valid merchant name."
   }
 
