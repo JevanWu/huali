@@ -20,8 +20,17 @@ module MobileAPI
 
     resource :products do
       desc "Return all published products." 
+      params do
+        optional :per_page, type: Integer, desc: "The number of products presented on each page"
+        optional :page, type: Integer, desc: "The number of page queried"
+      end
       get do
-        products = Product.where(published: true)
+        if params[:per_page]&&params[:page]
+          products = Product.where(published: true).limit(params[:per_page]).offset(params[:per_page]*params[:page])
+        else
+          products = Product.where(published: true)
+        end
+
         error!('There is no published products!', 404) if !products.present?
         res = Array.new
         products.each do |product|
