@@ -4,7 +4,7 @@ require 'digest'
 class OrdersController < ApplicationController
   before_action :justify_wechat_agent, only: [:index, :current, :checkout, :gateway, :new, :create]
   before_action :fetch_related_products, only: [:back_order_create, :channel_order_create, :current, :apply_coupon]
-  before_action :signin_with_openid, only: [:new]
+  before_action :signin_with_openid, only: [:new, :index]
   before_action :authenticate_user!, only: [:new, :index, :show, :create, :checkout, :cancel, :edit_gift_card, :update_gift_card]
   before_action :authenticate_administrator!, only: [:back_order_new, :back_order_create, :channel_order_new, :channel_order_create]
   #before_action :fetch_transaction, only: [:return, :notify]
