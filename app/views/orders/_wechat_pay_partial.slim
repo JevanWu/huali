@@ -13,9 +13,6 @@ javascript:
         if(res.err_msg == "get_brand_wcpay_request:ok") {
           window.location = "#{j(orders_path)}"
         }
-        else {
-          alert("Sorry! The payment is failed")
-        }
       }); 
     });
   }, false)
