@@ -518,6 +518,7 @@ GEM
       ffi (>= 0.5.0)
     rb-kqueue (0.2.0)
       ffi (>= 0.5.0)
+    rb-readline (0.5.1)
     redis (3.1.0)
     redis-actionpack (4.0.0)
       actionpack (~> 4)
@@ -783,6 +784,7 @@ DEPENDENCIES
   rails-settings-cached (~> 0.4.0)
   ransack
   rb-fsevent
+  rb-readline
   redis-rails
   rest-client
   roadie
