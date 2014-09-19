@@ -9,10 +9,13 @@
 
 = render 'view_product_tracking'
 
+= breadcrumb_generator(@product)
+
 #l-show
   .container
     .title
-      span.cur = @product.name
+      .cur
+        h1 = @product.name
     .main.row
       ul.thumb.span1
         - @asset_urls.each_with_index do |asset_url, index|

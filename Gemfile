@@ -131,6 +131,7 @@ group :production, :staging do
 end
 
 group :development do
+  gem 'rb-readline'
   gem 'thin', '>= 1.4.1'
   gem 'rb-fsevent', require: false
   gem 'growl'
