@@ -147,8 +147,6 @@ class OrdersController < ApplicationController
   end
 
   def checkout
-    @banks = ['ICBCB2C', 'CMB', 'CCB', 'BOCB2C', 'ABC', 'COMM', 'CMBC']
-
     @order = current_or_guest_user.orders.find_by_id(params[:id]) if params[:id]
     @order ||= Order.find_by_id(session[:order_id])
 
