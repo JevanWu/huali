@@ -29,8 +29,8 @@ module Billing
           charset: "utf-8",
           business: PAYPAL_EMAIL,
           currency_code: "USD",
-          return: return_order_url(host: $host || 'localhost') + custom_data,
-          notify_url: notify_order_url(host: $host || 'localhost') + custom_data
+          return: return_order_url(host: $host || 'localhost'),
+          notify_url: notify_order_url(host: $host || 'localhost')
         }
       end
 

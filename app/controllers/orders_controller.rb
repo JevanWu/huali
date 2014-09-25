@@ -181,10 +181,10 @@ class OrdersController < ApplicationController
 
   def fetch_transaction
     begin
-      @transaction = Transaction.find_by_identifier!(params["custom_id"])
+      @transaction = Transaction.find_by_identifier!(params["out_trade_no"])
       @order = @transaction.order
     rescue ActiveRecord::RecordNotFound
-      raise ArgumentError, "custom_id in parameters is not right"
+      raise ArgumentError, "Parameter out_trade_no is not right"
     end
   end
 

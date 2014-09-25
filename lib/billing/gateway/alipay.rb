@@ -42,8 +42,8 @@ module Billing
           # default options
           payment_type: "1",
           paymethod: "directPay",
-          return_url: return_order_url(host: $host || 'localhost') + custom_data,
-          notify_url: notify_order_url(host: $host || 'localhost') + custom_data,
+          return_url: return_order_url(host: $host || 'localhost'),
+          notify_url: notify_order_url(host: $host || 'localhost'),
 
           # shared options
           subject: @opts[:subject],
