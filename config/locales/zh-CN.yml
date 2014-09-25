@@ -627,7 +627,7 @@ zh-CN:
         paypal: Paypay
         alipay: 支付宝
         bankPay: 网银支付
-        wechat: 微信支付
+        wechat: 微信扫码支付
         wechat_mobile: 微信支付
       merchant_name:
         JD: 京东
