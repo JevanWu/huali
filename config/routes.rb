@@ -49,6 +49,7 @@ Huali::Application.routes.draw do
   post 'orders/gateway(/:id)', to: 'orders#gateway', as: :gateway_order
   patch 'orders/cancel/:id', to: 'orders#cancel', as: :cancel_order
   get 'orders/return', as: :return_order
+  post 'orders/paypal_return', as: :return_order_paypal
   match 'orders/notify', as: :notify_order, via: [:get, :post]
   post 'orders/wechat_notify'
   get 'orders/:id/gift_card/edit', to: 'orders#edit_gift_card', as: :edit_gift_card

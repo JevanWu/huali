@@ -29,7 +29,7 @@ module Billing
           charset: "utf-8",
           business: PAYPAL_EMAIL,
           currency_code: "USD",
-          return: return_order_url(host: $host || 'localhost'),
+          return: return_order_paypal_url(host: $host || 'localhost'),
           notify_url: notify_order_url(host: $host || 'localhost'),
           custom: @opts[:identifier]
         }

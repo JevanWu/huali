@@ -203,6 +203,10 @@ class OrdersController < ApplicationController
     end
   end
 
+  def paypal_return
+    render 'success_paypal'
+  end
+
   def notify
     fetch_transaction
     query = request.raw_post.present? ? request.raw_post : request.query_string # wechat use method 'get' to send notify request
