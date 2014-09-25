@@ -181,7 +181,8 @@ class OrdersController < ApplicationController
 
   def fetch_transaction
     begin
-      @transaction = Transaction.find_by_identifier!(params["out_trade_no"])
+      # Alipay and wechat pay use parameter "out_trade_no" to store transaction_id, while paypay use parameter "custom"
+      @transaction = Transaction.find_by_identifier!(params["out_trade_no"] || params["custom"])
       @order = @transaction.order
     rescue ActiveRecord::RecordNotFound
       raise ArgumentError, "Parameter out_trade_no is not right"

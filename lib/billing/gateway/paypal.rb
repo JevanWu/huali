@@ -20,7 +20,7 @@ module Billing
       private
 
       # Check the Documentation
-      # https://www.x.com/developers/paypal/documentation-tools/paypal-payments-standard/integration-guide/Appx_websitestandard_htmlvariables
+      # https://developer.paypal.com/docs/classic/paypal-payments-standard/integration-guide/Appx_websitestandard_htmlvariables/
 
       def default_opts
         {
@@ -30,7 +30,8 @@ module Billing
           business: PAYPAL_EMAIL,
           currency_code: "USD",
           return: return_order_url(host: $host || 'localhost'),
-          notify_url: notify_order_url(host: $host || 'localhost')
+          notify_url: notify_order_url(host: $host || 'localhost'),
+          custom: @opts[:identifier]
         }
       end
 
