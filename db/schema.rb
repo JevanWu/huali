@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140910095606) do
+ActiveRecord::Schema.define(version: 20140925033751) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -666,9 +666,13 @@ ActiveRecord::Schema.define(version: 20140910095606) do
     t.integer  "invited_and_paid_counter",                         default: 0
     t.boolean  "invitation_rewarded",                              default: false
     t.decimal  "huali_point",              precision: 8, scale: 2, default: 0.0
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
   end
 
   add_index "users", ["anonymous_token"], name: "index_users_on_anonymous_token", unique: true, using: :btree
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
   add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree

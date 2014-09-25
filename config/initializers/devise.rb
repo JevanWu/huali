@@ -4,13 +4,13 @@ Devise.setup do |config|
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class with default "from" parameter.
-  config.mailer_sender = "noreply@hua.li"
+  config.mailer_sender = "support@postmaster.hua.li"
 
   # Secret key
   config.secret_key = '31d7c5c1711a20755bd18ccb9d421564588f2075e84a479e8fea2c82e7139ef6c288d098c2fbca437b42e55874951dfcdbec60c32ee3d9b2a24287dbaebc983c'
 
   # Configure the class responsible to send e-mails.
-  # config.mailer = "Devise::Mailer"
+  config.mailer = "Devise::Mailer"
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
@@ -124,7 +124,7 @@ Devise.setup do |config|
   # initial account confirmation) to be applied. Requires additional unconfirmed_email
   # db field (see migrations). Until confirmed new email is stored in
   # unconfirmed email column, and copied to email column on successful confirmation.
-  config.reconfirmable = true
+  config.reconfirmable = false
 
   # Defines which key will be used when confirming an account
   # config.confirmation_keys = [ :email ]
