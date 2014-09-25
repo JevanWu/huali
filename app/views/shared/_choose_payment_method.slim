@@ -8,30 +8,20 @@
       = "是否使用您的 #{current_user.huali_point} 点花点"
   .alipay
     label
-      = radio_button_tag(:pay_info, "directPay", checked: "checked")
+      = radio_button_tag(:paymethod, "alipay", checked: "checked")
       = image_tag('pay/alipay.jpg')
 
   .wechat
     label
-      = radio_button_tag(:pay_info, "wechat")
+      = radio_button_tag(:paymethod, "wechat")
       = image_tag('pay/wechat.jpeg', width: '200px')
 
-  .web-bank
-    .web-bank-title
-      | 网上银行
-    - while (bank_row = banks.shift(2)).present?
-      .web-bank-row
-        - bank_row.each do |bank|
-            .web-bank-item
-              label
-                = radio_button_tag(:pay_info, bank)
-                = image_tag("pay/#{bank}.jpg")
   .credit-card
     .credit-card-title
       | 信用卡
     .paypal
       label
-        = radio_button_tag(:pay_info, "paypal")
+        = radio_button_tag(:paymethod, "paypal")
         = image_tag("pay/credit.jpg")
 
   .next-step

@@ -27,8 +27,8 @@ ActiveAdmin.register Transaction do
 
   filter :identifier
   filter :merchant_trade_no
-  filter :paymethod, as: :select, collection: { Paypal: "paypal",  支付宝: "directPay", 网上银行: "bankPay", 微信支付: "wechat" }
-  filter :state, as: :select, collection: { 新建: "generated", 完成: "completed", 处理中: "processing", 失败: "failed" }
+  filter :paymethod, as: :select, collection: Transaction.paymethod.options
+  filter :state, as: :select, collection: { 等待付款: "generated", 完成: "completed", 处理中: "processing", 失败: "failed", 无效: "invalid" }
   filter :amount
 
   member_action :start do

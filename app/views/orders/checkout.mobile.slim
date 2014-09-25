@@ -30,18 +30,11 @@
     = render "wechat_pay_partial", appid: @appid, timestamp: @timestamp, nonce_str: @nonce_str, package: @package, sign_type: @sign_type, sign: @sign
   - else
     = form_tag(gateway_order_path(@order), method: "post") do
-      select.pay-ways name="pay_info"
+      select.pay-ways name="paymethod"
         option[value="" disabled="true"]
           | 请选择支付方式
-        option[value="directPay" checked="checked"]
+        option[value="alipay" checked="checked"]
           | 支付宝
-        option[value="wechat" checked="checked"]
-          | 微信支付
-        - @banks.each do |bank|
-          option[value="#{bank}"]
-            = I18n.t "views.order.bank.#{bank}"
-
         option[value="paypal"]
           | Paypal
       = submit_tag "确认支付", class: 'btn-m-confirmPay button'
-
