@@ -198,6 +198,7 @@ class OrdersController < ApplicationController
       HualiPointService.minus_expense_point(user, @transaction)
       render 'success'
     else
+      @transaction.failure if @transaction.state == "processing"
       render 'failed', status: 400
     end
   end
@@ -210,6 +211,7 @@ class OrdersController < ApplicationController
       HualiPointService.minus_expense_point(user, @transaction)
       render text: "success"
     else
+      @transaction.failure if @transaction.state == "processing"
       render text: "failed", status: 400
     end
   end
