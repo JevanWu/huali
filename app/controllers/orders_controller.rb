@@ -57,7 +57,7 @@ class OrdersController < ApplicationController
   end
 
   def channel_order_create
-    opts = { paymethod: 'directPay',
+    opts = { paymethod: 'alipay',
              merchant_name: 'Alipay',
              merchant_trade_no: params[:merchant_trade_no]}
 
@@ -168,7 +168,7 @@ class OrdersController < ApplicationController
     @order = Order.find_by_id(params[:id] || session[:order_id])
     # params[:pay_info] is mixed with two kinds of info - pay method and merchant_name
     # these two are closed bound together
-    payment_opts = process_pay_info(params[:pay_info])
+    payment_opts = process_paymethod(params[:paymethod])
     transaction = @order.generate_transaction payment_opts.merge(client_ip: request.remote_ip), params[:use_huali_point]
     transaction.start
     if transaction.amount == 0
@@ -348,16 +348,14 @@ class OrdersController < ApplicationController
       end
     end
 
-    def process_pay_info(pay_info)
-      case pay_info
-      when 'directPay'
-        { paymethod: 'directPay', merchant_name: 'Alipay' }
+    def process_paymethod(paymethod)
+      case paymethod
+      when 'alipay'
+        { paymethod: 'alipay', merchant_name: 'Alipay' }
       when 'paypal'
         { paymethod: 'paypal', merchant_name: 'Paypal' }
       when 'wechat'
         { paymethod: 'wechat', merchant_name: 'Tenpay' }
-      else
-        { paymethod: 'bankPay', merchant_name: pay_info }
       end
     end
 

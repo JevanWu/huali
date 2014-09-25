@@ -54,11 +54,8 @@ module Billing
       end
 
       def to_options(opts)
-        if opts[:paymethod] == "directPay"
-          # directPay requires the defaultbank to be blank
+        if opts[:paymethod] == "alipay"
           { pay_bank: 'directPay', defaultbank: '' }
-        else
-          { pay_bank: 'bankPay', defaultbank: opts[:merchant_name] }
         end
       end
 
