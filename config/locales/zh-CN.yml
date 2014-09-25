@@ -554,6 +554,7 @@ zh-CN:
         processing: 处理中
         failed: 失败
         completed: 成功
+        invalid: 无效
 
         complete: 完成
         failure: 失败

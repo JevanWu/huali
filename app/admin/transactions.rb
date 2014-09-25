@@ -28,7 +28,7 @@ ActiveAdmin.register Transaction do
   filter :identifier
   filter :merchant_trade_no
   filter :paymethod, as: :select, collection: Transaction.paymethod.options
-  filter :state, as: :select, collection: { 新建: "generated", 完成: "completed", 处理中: "processing", 失败: "failed" }
+  filter :state, as: :select, collection: { 等待付款: "generated", 完成: "completed", 处理中: "processing", 失败: "failed", 无效: "invalid" }
   filter :amount
 
   member_action :start do
