@@ -9,6 +9,7 @@
 #  depth                        :decimal(8, 2)
 #  description                  :text
 #  discountable                 :boolean          default(TRUE)
+#  flower_type                  :string(255)
 #  height                       :decimal(8, 2)
 #  id                           :integer          not null, primary key
 #  inspiration                  :text

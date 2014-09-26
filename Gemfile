@@ -6,7 +6,7 @@ gem 'rails', '~> 4.0.5'
 gem 'pg', '>= 0.14.1'
 gem 'devise', '~> 3.2.0'
 gem 'devise_invitable', '~> 1.3.0'
-gem 'devise-i18n'
+gem 'devise-i18n', github: 'JevanWu/devise-i18n'
 gem 'devise-async'
 gem 'cancan', '~> 1.0'
 gem 'rails-i18n'
@@ -163,6 +163,7 @@ group :development do
   gem 'capistrano-rbenv', '~> 2.0', require: false
   gem 'capistrano-sidekiq'
   gem "capistrano-db-tasks", github: 'ryancheung/capistrano-db-tasks', branch: 'postgresql-9.2', require: false
+  gem "capistrano3-puma"
 
   gem 'railroady'
   gem "rails-erd"
