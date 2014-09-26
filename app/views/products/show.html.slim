@@ -46,3 +46,4 @@
           span = t(:sharing)
           = render 'shared/product_share_links', product: @product
         = product_buy_link(@product, class: 'add-btn button', data: { product: @product.id }, onClick: "analytics.track('Added Product', { id: '#{@product.id}', name: '#{@product.name}', category: '#{@product.product_type_text}', price: #{@product.price}, currency: 'CNY', label: '#{@product.name}', quantity: 1 });")
+        = render "product_appointment"

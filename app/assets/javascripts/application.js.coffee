@@ -24,6 +24,7 @@
 #= require 'orders'
 #= require 'bootstrap-tab'
 #= require 'segmentio'
+#= require 'module/popup-dialog'
 #= require turbolinks
 #= require nprogress
 #= require nprogress-turbolinks
