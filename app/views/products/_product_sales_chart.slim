@@ -10,7 +10,7 @@
           li
             .media
               - if sales_chart.product
-                a.pull-left[href="#{product_path(sales_chart)}"]
+                a.pull-left[href="#{product_path(sales_chart.product)}"]
                   =image_tag sales_chart.product.assets[0].image.url(:thumb), class: 'media-object', src: '#'
                 .media-body
                   =SalesChart.all.order(:position).index(sales_chart) + 1
