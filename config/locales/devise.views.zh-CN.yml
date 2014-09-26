@@ -5,11 +5,14 @@ zh-CN:
         not_found_in_database: 此用户不存在
       user:
         not_found_in_database: 此用户不存在
+      unconfirmed: 继续操作前请先去您的邮箱激活您的帐号
     confirmations:
+      confirmed: 您的账号已经激活，您现在可以进行登录了
       new:
         resend_confirmation_instructions: 重新发送确认指示
     mailer:
       confirmation_instructions:
+        subject: 账户激活
         action: 确认我的帐户
         greeting: 欢迎 %{recipient}!
         instruction: ! '您可以通过下面的链接确认您的帐户的电子邮件:'
