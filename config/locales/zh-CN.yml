@@ -63,6 +63,7 @@ zh-CN:
       other: 厘米
 
   sharing: 分享到
+  sales_chart: 本周热销榜榜
 
   activemodel:
     format: ! '%{attribute} %{message}'
@@ -193,6 +194,7 @@ zh-CN:
       refund: 退款记录
       print_group: 打印组
       print_order: 打印队列
+      sales_chart: 销量排行榜
 
     attributes:
       order: &order
@@ -516,6 +518,10 @@ zh-CN:
         shipment_printed: 快递单已打印
         created_at: 创建于
         updated_at: 更新于
+
+      sales_chart:
+        product: 中文名
+        position: 名次
 
   models:
     user:
