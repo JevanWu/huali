@@ -29,10 +29,6 @@ module Billing
           not value.blank?
         end
       end
-
-      def custom_data
-        '?' + URI.encode_www_form(custom_id: @opts[:identifier])
-      end
     end
   end
 end

@@ -292,7 +292,7 @@ h4, .h4{
  * @tip Set the styling for your email's button. Choose a style that draws attention.
  */
 .templateButton{
-  @include border-radius(3px);
+  @include border-radius(0px);
   background-color: #000000;
   border:0;
   border-collapse:separate !important;

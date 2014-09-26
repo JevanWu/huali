@@ -2,21 +2,22 @@
 #
 # Table name: collections
 #
-#  available        :boolean          default(FALSE)
-#  created_at       :datetime         not null
-#  description      :string(255)
-#  display_name     :string(255)
-#  id               :integer          not null, primary key
-#  meta_description :string(255)
-#  meta_keywords    :string(255)
-#  meta_title       :string(255)
-#  name_en          :string(255)      not null
-#  name_zh          :string(255)      not null
-#  parent_id        :integer
-#  primary_category :boolean          default(FALSE), not null
-#  priority         :integer          default(5)
-#  slug             :string(255)
-#  updated_at       :datetime         not null
+#  available             :boolean          default(FALSE)
+#  created_at            :datetime         not null
+#  description           :string(255)
+#  display_name          :string(255)
+#  display_on_breadcrumb :boolean          default(FALSE)
+#  id                    :integer          not null, primary key
+#  meta_description      :string(255)
+#  meta_keywords         :string(255)
+#  meta_title            :string(255)
+#  name_en               :string(255)      not null
+#  name_zh               :string(255)      not null
+#  parent_id             :integer
+#  primary_category      :boolean          default(FALSE), not null
+#  priority              :integer          default(5)
+#  slug                  :string(255)
+#  updated_at            :datetime         not null
 #
 # Indexes
 #

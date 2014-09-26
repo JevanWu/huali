@@ -4,7 +4,7 @@ require 'digest'
 class OrdersController < ApplicationController
   before_action :justify_wechat_agent, only: [:index, :current, :checkout, :gateway, :new, :create]
   before_action :fetch_related_products, only: [:back_order_create, :channel_order_create, :current, :apply_coupon]
-  before_action :signin_with_openid, only: [:new]
+  before_action :signin_with_openid, only: [:new, :index]
   before_action :authenticate_user!, only: [:new, :index, :show, :create, :checkout, :cancel, :edit_gift_card, :update_gift_card]
   before_action :authenticate_administrator!, only: [:back_order_new, :back_order_create, :channel_order_new, :channel_order_create]
   #before_action :fetch_transaction, only: [:return, :notify]
@@ -57,7 +57,7 @@ class OrdersController < ApplicationController
   end
 
   def channel_order_create
-    opts = { paymethod: 'directPay',
+    opts = { paymethod: 'alipay',
              merchant_name: 'Alipay',
              merchant_trade_no: params[:merchant_trade_no]}
 
@@ -147,8 +147,6 @@ class OrdersController < ApplicationController
   end
 
   def checkout
-    @banks = ['ICBCB2C', 'CMB', 'CCB', 'BOCB2C', 'ABC', 'COMM', 'CMBC']
-
     @order = current_or_guest_user.orders.find_by_id(params[:id]) if params[:id]
     @order ||= Order.find_by_id(session[:order_id])
 
@@ -168,7 +166,7 @@ class OrdersController < ApplicationController
     @order = Order.find_by_id(params[:id] || session[:order_id])
     # params[:pay_info] is mixed with two kinds of info - pay method and merchant_name
     # these two are closed bound together
-    payment_opts = process_pay_info(params[:pay_info])
+    payment_opts = process_paymethod(params[:paymethod])
     transaction = @order.generate_transaction payment_opts.merge(client_ip: request.remote_ip), params[:use_huali_point]
     transaction.start
     if transaction.amount == 0
@@ -183,10 +181,11 @@ class OrdersController < ApplicationController
 
   def fetch_transaction
     begin
-      @transaction = Transaction.find_by_identifier!(params["custom_id"])
+      # Alipay and wechat pay use parameter "out_trade_no" to store transaction_id, while paypay use parameter "custom"
+      @transaction = Transaction.find_by_identifier!(params["out_trade_no"] || params["custom"])
       @order = @transaction.order
     rescue ActiveRecord::RecordNotFound
-      raise ArgumentError, "custom_id in parameters is not right"
+      raise ArgumentError, "Parameter out_trade_no is not right"
     end
   end
 
@@ -199,8 +198,13 @@ class OrdersController < ApplicationController
       HualiPointService.minus_expense_point(user, @transaction)
       render 'success'
     else
+      @transaction.failure if @transaction.state == "processing"
       render 'failed', status: 400
     end
+  end
+
+  def paypal_return
+    render 'success_paypal'
   end
 
   def notify
@@ -211,6 +215,7 @@ class OrdersController < ApplicationController
       HualiPointService.minus_expense_point(user, @transaction)
       render text: "success"
     else
+      @transaction.failure if @transaction.state == "processing"
       render text: "failed", status: 400
     end
   end
@@ -348,16 +353,14 @@ class OrdersController < ApplicationController
       end
     end
 
-    def process_pay_info(pay_info)
-      case pay_info
-      when 'directPay'
-        { paymethod: 'directPay', merchant_name: 'Alipay' }
+    def process_paymethod(paymethod)
+      case paymethod
+      when 'alipay'
+        { paymethod: 'alipay', merchant_name: 'Alipay' }
       when 'paypal'
         { paymethod: 'paypal', merchant_name: 'Paypal' }
       when 'wechat'
         { paymethod: 'wechat', merchant_name: 'Tenpay' }
-      else
-        { paymethod: 'bankPay', merchant_name: pay_info }
       end
     end
 

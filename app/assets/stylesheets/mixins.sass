@@ -30,7 +30,7 @@
   border: none
   color: $masthead-color
   background-color: $buttonBgColor
-  +border-radius(3px)
+  +border-radius(0px)
   font-size: $buttonFontSize
 
 =error($errorWidth,$errorHeight: 30px)
@@ -41,7 +41,7 @@
   padding-left: 0
   color: $errorColor
   background-color: $errorBgColor
-  +border-radius(3px)
+  +border-radius(0px)
 
 /*button*/
 /*pc*/
@@ -59,10 +59,11 @@
   opacity: 0.65
 
 .btn-post
-  +button(48px,24px)
+  +button(48px,24.3px)
   color: white !important
   margin-top: -10px
   margin-left: 5px
+  border-radius: 0px
 
 .btn-logistics
   @extend .btn-next
@@ -84,6 +85,8 @@
 .btn-checkout
   @extend .btn-next
   margin-top: 50px
+  line-height: 32px
+
 
 /*这个PC和MOBILE相同*/
 .btn-addToCart
@@ -145,7 +148,7 @@
   border: none
   color: $masthead-color
   background-color: $buttonBgColor
-  +border-radius(3px)
+  +border-radius(0px)
   font-size: 12px
 
 .btn80

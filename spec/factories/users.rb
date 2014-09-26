@@ -4,6 +4,9 @@
 #
 #  anonymous_token          :string(255)
 #  authentication_token     :string(255)
+#  confirmation_sent_at     :datetime
+#  confirmation_token       :string(255)
+#  confirmed_at             :datetime
 #  created_at               :datetime         not null
 #  current_sign_in_at       :datetime
 #  current_sign_in_ip       :string(255)
@@ -34,6 +37,7 @@
 # Indexes
 #
 #  index_users_on_anonymous_token       (anonymous_token) UNIQUE
+#  index_users_on_confirmation_token    (confirmation_token) UNIQUE
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_invitation_token      (invitation_token) UNIQUE
 #  index_users_on_invited_by_id         (invited_by_id)
