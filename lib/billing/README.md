@@ -17,11 +17,11 @@ The transaction object used to communicate with the library should contain at le
 
 ```ruby
 {
-  paymethod: "[paypal directPay bankPay wechat]"
+  paymethod: "[paypal alipay bankPay wechat wechat_mobile]"
   identifier: 'used to identifier the transaction' # required
   amount: 'amount to be paid in RMB' # required
   subject: 'the summary about the products' # required
   body: 'the full description about the products'
-  merchant_name: 'to determine the bank used in Alipay bankpay method'
+  merchant_name: 'to determine the bank used in bankPay method'
 }
 ```

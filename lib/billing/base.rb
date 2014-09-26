@@ -31,7 +31,7 @@ module Billing
         # create instance dynamically
         # Billing::Gateway::Alipay
         case @opts[:paymethod]
-        when "directPay", "bankPay"
+        when "alipay"
           Billing.const_get(@type.capitalize).const_get(:Alipay).new(@opts, @query)
         when "paypal"
           Billing.const_get(@type.capitalize).const_get(:Paypal).new(@opts, @query)

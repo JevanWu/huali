@@ -31,7 +31,7 @@ set :linked_files, %w{config/database.yml config/application.yml config/unicorn.
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
 # rbenv configuration
-set :rbenv_type, fetch(:rails_env) == 'staging' ? :system : :user # staing server use system rbenv setup
+set :rbenv_type, :user
 set :rbenv_ruby, '2.0.0-p247'
 set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
 set :rbenv_map_bins, %w{rake gem bundle ruby rails}

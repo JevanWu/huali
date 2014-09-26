@@ -3,7 +3,9 @@ module Erp
     normal: '01.01.0001',
     tmall: '01.01.0002',
     taobao: '01.01.0003',
-    ctrip: '01.02.0031'
+    ctrip: '01.02.0031',
+    jd: '01.01.0014',
+    yhd: '01.01.0006'
   }
 
   CTRIP_COUPON_CHARGES = {

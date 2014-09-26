@@ -9,6 +9,7 @@
 #  depth                        :decimal(8, 2)
 #  description                  :text
 #  discountable                 :boolean          default(TRUE)
+#  flower_type                  :string(255)
 #  height                       :decimal(8, 2)
 #  id                           :integer          not null, primary key
 #  inspiration                  :text
@@ -86,7 +87,7 @@ class Product < ActiveRecord::Base
   validates_presence_of :name_en, :name_zh, :count_on_hand, :assets, :collections, :price
   enumerize :product_type, in: [:fresh_flower, :preserved_flower, :others, :fake_flower, :perfume], default: :others
   enumerize :promo_tag, in: [:limit]
-  enumerize :flower_type, in: [:flower_box, :holding_flower, :photo_frame_flower, :bonsai, :others], default: :flower_box
+  enumerize :flower_type, in: [:flower_box, :bouquet, :holding_flower, :photo_frame_flower, :bonsai, :others], default: :flower_box
 
   # scopes
   scope :order_by_priority, -> { order('priority DESC') }

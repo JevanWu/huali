@@ -131,6 +131,7 @@ group :production, :staging do
 end
 
 group :development do
+  gem 'rb-readline'
   gem 'thin', '>= 1.4.1'
   gem 'rb-fsevent', require: false
   gem 'growl'
@@ -162,6 +163,7 @@ group :development do
   gem 'capistrano-rbenv', '~> 2.0', require: false
   gem 'capistrano-sidekiq'
   gem "capistrano-db-tasks", github: 'ryancheung/capistrano-db-tasks', branch: 'postgresql-9.2', require: false
+  gem "capistrano3-puma"
 
   gem 'railroady'
   gem "rails-erd"
