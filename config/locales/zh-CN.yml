@@ -356,6 +356,10 @@ zh-CN:
         discountable: 是否参与打折
         promo_tag: 推广标签
 
+      appointment:
+        phone: 电话
+        email: 邮箱
+
       collection:
         name_zh: 中文名
         name_en: 英文名

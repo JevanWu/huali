@@ -11,6 +11,7 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.published.find(params[:id])
+    @appointment = Appointment.new(product: @product)
 
     # FIXME products always have assets now
     assets  = @product.assets || []
@@ -120,5 +121,9 @@ class ProductsController < ApplicationController
   def prepare_tag_filter
     @color_tag_clouds = Product.published.in_collections(@collection_ids).
       reorder('').tag_counts_on(:colors)
+  end
+
+  def appointment
+    
   end
 end
