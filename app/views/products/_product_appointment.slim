@@ -1,6 +1,6 @@
-h1
-  button.huali-btn#popup-dialog
-    | 提醒我
+- content_for :css do
+  = stylesheet_link_tag "modules/appointment-dialog", media: "all"
+
 
 #dialog-overlay
 #dialog-box
@@ -10,6 +10,6 @@ h1
     .dialog-message
       | 该产品有货后，我们将在第一时间以邮件或短信的形式通知您。感谢您选择花里，我们将为您定制特别的惊喜。
       = simple_form_for @appointment, url: appointment_path, html: {class: "form-horizontal"} do |f|
-        = f.input :phone
-        = f.input :email
-        = f.submit "提醒我", class: "huali-btn", id: "appointment-btn"
+        = f.input :customer_phone, label: "电话"
+        = f.input :customer_email, label: "邮箱"
+        = f.submit "到货提醒我", class: "huali-btn", id: "appointment-btn"
