@@ -22,4 +22,7 @@ class Appointment < ActiveRecord::Base
   belongs_to :product
 
   validates :customer_phone, presence: true, if: Proc.new { |a| a.customer_email.nil? }
+
+  scope :unnotified, -> { where(notify_at: nil) }
+
 end
