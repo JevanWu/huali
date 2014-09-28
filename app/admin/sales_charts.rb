@@ -12,10 +12,13 @@ ActiveAdmin.register SalesChart do
   end
 
   controller do
+    private
     def permitted_params
       params.permit(sales_chart: [:position, :product_id])
     end
   end
+
+  form partial: "form"
 
   index as: :sortable do
     label :product
