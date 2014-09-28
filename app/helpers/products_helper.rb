@@ -23,7 +23,7 @@ module ProductsHelper
       if product.count_on_hand > 0
         link = buy_button_or_link(t('views.product.flower_basket'), current_order_path, options, is_mobile)
       else
-        button.add-btn.button#popup-dialog = "到货预约提醒"
+        button.button#popup-dialog = "到货预约提醒"
         #sold_out_text = t('views.product.soldout')
       end
     end
