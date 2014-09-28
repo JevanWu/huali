@@ -63,7 +63,7 @@ zh-CN:
       other: 厘米
 
   sharing: 分享到
-  sales_chart: 本周热销榜榜
+  sales_chart: 本周热销榜
 
   activemodel:
     format: ! '%{attribute} %{message}'
