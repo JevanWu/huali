@@ -4,25 +4,14 @@ ActiveAdmin.register SalesChart do
            protect_root: false,
            sorting_attribute: :position
 
-  controller do
-    def create
-      @sales_chart = SalesChart.new(permitted_params[:sales_chart])
-      if @sales_chart.save
-        redirect_to admin_sales_charts_path
-      else
-        render 'new'
-      end
-    end
-    def update
-      @sales_chart = SalesChart.find(params[:id])
-      if @sales_chart.update_attributes(permitted_params[:sales_chart])
-        redirect_to admin_sales_charts_path
-      else
-        render 'new'
-      end
-    end
+  collection_action :create, :method => :post do
+    redirect_to({action: :index}, {notice: "created_done"})
+  end
+  collection_action :update, :method => :put do
+    redirect_to({action: :index}, {notice: "updated_done"})
+  end
 
-    private
+  controller do
     def permitted_params
       params.permit(sales_chart: [:position, :product_id])
     end
