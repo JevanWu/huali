@@ -53,8 +53,8 @@ ActiveRecord::Schema.define(version: 20140926103931) do
   create_table "appointments", force: true do |t|
     t.integer  "user_id"
     t.integer  "product_id"
-    t.string   "phone"
-    t.string   "email"
+    t.string   "customer_phone"
+    t.string   "customer_email"
     t.datetime "notify_at"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -523,6 +523,15 @@ ActiveRecord::Schema.define(version: 20140926103931) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "sales_charts", force: true do |t|
+    t.integer  "product_id"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sales_charts", ["product_id"], name: "index_sales_charts_on_product_id", using: :btree
 
   create_table "settings", force: true do |t|
     t.string   "var",                   null: false

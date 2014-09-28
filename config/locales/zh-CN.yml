@@ -193,6 +193,7 @@ zh-CN:
       refund: 退款记录
       print_group: 打印组
       print_order: 打印队列
+      appointment: 预约
 
     attributes:
       order: &order
@@ -518,6 +519,15 @@ zh-CN:
         order_printed: 出库单已打印
         card_printed: 贺卡已打印
         shipment_printed: 快递单已打印
+        created_at: 创建于
+        updated_at: 更新于
+
+      appointment:
+        user: 客户
+        product: 产品
+        customer_phone: 客户电话
+        customer_email: 客户邮箱
+        notify_at: 通知于
         created_at: 创建于
         updated_at: 更新于
 

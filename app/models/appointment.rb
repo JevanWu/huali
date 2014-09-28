@@ -2,14 +2,14 @@
 #
 # Table name: appointments
 #
-#  created_at :datetime
-#  email      :string(255)
-#  id         :integer          not null, primary key
-#  notify_at  :datetime
-#  phone      :string(255)
-#  product_id :integer
-#  updated_at :datetime
-#  user_id    :integer
+#  created_at     :datetime
+#  customer_email :string(255)
+#  customer_phone :string(255)
+#  id             :integer          not null, primary key
+#  notify_at      :datetime
+#  product_id     :integer
+#  updated_at     :datetime
+#  user_id        :integer
 #
 # Indexes
 #
