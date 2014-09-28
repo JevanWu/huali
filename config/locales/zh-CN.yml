@@ -63,7 +63,7 @@ zh-CN:
       other: 厘米
 
   sharing: 分享到
-  sales_chart: 本周热销榜
+  sales_chart: 本周人气花盒
 
   activemodel:
     format: ! '%{attribute} %{message}'
@@ -779,7 +779,7 @@ zh-CN:
       pay_and_ship_method: 支付和配送方式
 
       # suggestion
-      other_customer_bought: 其他客户购买了
+      other_customer_bought: 其他客户关注了
       click_to_cart: 加入购物车
 
       #gift card
