@@ -1,4 +1,4 @@
-﻿css = 
+﻿css =
   btnL: ".btn-left"
   btnR: ".btn-right"
   imgs: ".container"
@@ -39,7 +39,7 @@ class Slide
       @move(@currentPage-par-1)
     return
   move: (change) =>
-    @imgs.stop(false,true).animate({"margin-left": parseInt(@imgs.css("margin-left")) + change*@itemWidth + "px"},"fast")
+    @imgs.stop(false,true).animate({"margin-left": parseInt(@imgs.css("margin-left")) + change*@itemWidth + "px"},"fast", "swing")
     @currentPage -= change
     @dots.find("a").removeClass("cur").eq(@currentPage-1).addClass("cur")
     return
