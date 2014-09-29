@@ -185,6 +185,13 @@ STR
     mail(to: emails, subject: subject("Wechat Order Warning"))
   end
 
+  def notify_appointment(product)
+    @product = product
+    appointments = @product.appointments.unnotified
+    emails = appointments.map { |a| a.customer_email if a.customer_email.present?  }
+    mail(to: emails, subject: subject("产品到货通知"))
+  end
+
   helper MailerHelper
 
 private

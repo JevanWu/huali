@@ -52,6 +52,9 @@ class Product < ActiveRecord::Base
   has_and_belongs_to_many :collections
   accepts_nested_attributes_for :collections
 
+  # appointment
+  has_many :appointments, dependent: :destroy
+  
   # asset
   has_many :assets, as: :viewable, dependent: :destroy
   accepts_nested_attributes_for :assets, reject_if: lambda { |a| a[:image].blank? }, allow_destroy: true
@@ -107,6 +110,8 @@ class Product < ActiveRecord::Base
   before_save do |product|
     product.name_en.downcase!
   end
+
+  before_save :notify_customers
 
   after_initialize do |product|
     product.discountable = true if product.discountable.nil?
@@ -243,4 +248,12 @@ class Product < ActiveRecord::Base
   def update_stock(sold_count)
     update_column(:count_on_hand, [count_on_hand - sold_count, 0].max)
   end
+
+  private
+
+    def notify_customers
+      if self.changed.include?("count_on_hand") && self.count_on_hand > 0
+        Notify.delay.notify_appointment(self)
+      end
+    end
 end
