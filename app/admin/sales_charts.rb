@@ -4,11 +4,11 @@ ActiveAdmin.register SalesChart do
            protect_root: false,
            sorting_attribute: :position
 
-  collection_action :create, :method => :post do
-    redirect_to({action: :index}, {notice: "created_done"})
+  collection_action :create, method: :post do
+    redirect_to({action: :index}, {notice: t('active_admin.notice.created')})
   end
-  collection_action :update, :method => :put do
-    redirect_to({action: :index}, {notice: "updated_done"})
+  collection_action :update, method: :put do
+    redirect_to({action: :index}, {notice: t('active_admin.notice.updated')})
   end
 
   controller do
