@@ -254,6 +254,7 @@ class Product < ActiveRecord::Base
     def notify_customers
       if self.changed.include?("count_on_hand") && self.count_on_hand > 0
         Notify.delay.notify_appointment(self)
+        Notify.deplay.product_appointment_email(self.id)
       end
     end
 end

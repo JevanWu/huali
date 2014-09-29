@@ -187,6 +187,8 @@ STR
 
   def notify_appointment(product)
     @product = product
+  def product_appointment_email(product_id)
+    @product = Product.find product_id
     appointments = @product.appointments.unnotified
     emails = appointments.map { |a| a.customer_email if a.customer_email.present?  }
     mail(to: emails, subject: subject("产品到货通知"))
