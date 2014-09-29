@@ -191,6 +191,7 @@ STR
     appointments = @product.appointments.unnotified
     return if appointments.nil?
     emails = appointments.map { |a| a.customer_email if a.customer_email.present?  }
+    appointments.each { |a| a.update_column(:notify_at, Time.now) }
     mail(to: emails, subject: subject("产品到货通知"))
   end
 
