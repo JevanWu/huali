@@ -114,6 +114,7 @@ Huali::Application.routes.draw do
   get 'muqinjie', to: 'pages#mother_day', as: :muqinjie
   get 'qixijie', to: 'pages#qixijie', as: :qixijie
   get 'join_us', to: 'pages#join_us'
+  get 'yujianli', to: 'pages#yujianli'
 
   get 'banners/:date', to: 'banners#index', as: :banners
   get 'stories', to: 'stories#index'

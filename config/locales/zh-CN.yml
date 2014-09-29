@@ -63,6 +63,7 @@ zh-CN:
       other: 厘米
 
   sharing: 分享到
+  sales_chart: 本周人气花盒
 
   activemodel:
     format: ! '%{attribute} %{message}'
@@ -194,6 +195,7 @@ zh-CN:
       print_group: 打印组
       print_order: 打印队列
       appointment: 预约
+      sales_chart: 销量排行榜
 
     attributes:
       order: &order
@@ -530,6 +532,10 @@ zh-CN:
         notify_at: 通知于
         created_at: 创建于
         updated_at: 更新于
+       
+      sales_chart:
+        product: 中文名
+        position: 名次
 
   models:
     user:
@@ -612,6 +618,7 @@ zh-CN:
         photo_frame_flower: 相框花
         bonsai: 盆栽
         others: 其他
+        bouquet: 花束
       promo_tag:
         limit: 限量
     administrator:
@@ -786,7 +793,7 @@ zh-CN:
       pay_and_ship_method: 支付和配送方式
 
       # suggestion
-      other_customer_bought: 其他客户购买了
+      other_customer_bought: 其他客户关注了
       click_to_cart: 加入购物车
 
       #gift card
