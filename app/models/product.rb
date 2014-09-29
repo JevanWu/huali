@@ -111,7 +111,7 @@ class Product < ActiveRecord::Base
     product.name_en.downcase!
   end
 
-  before_save :notify_customers
+  after_save :notify_customers
 
   after_initialize do |product|
     product.discountable = true if product.discountable.nil?
@@ -252,10 +252,13 @@ class Product < ActiveRecord::Base
   private
 
     def notify_customers
-      if self.changed.include?("count_on_hand") && self.count_on_hand > 0
-        Notify.delay.notify_appointment(self)
+      if self.changed.include?("count_on_hand") && restock?
         Notify.deplay.product_appointment_email(self.id)
         Sms.delay.product_appointment_sms(self.id)
       end
+    end
+
+    def restock?
+      self.changes["count_on_hand"][0] == 0 && self.changes["count_on_hand"][1] > 0
     end
 end
