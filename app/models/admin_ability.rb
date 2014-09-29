@@ -9,6 +9,7 @@ class AdminAbility
       can :manage, :all
     when "admin"
       can :manage, :all
+      can :read, Appointment
       cannot :manage, Administrator, role: 'super'
       cannot :manage, Sidekiq
       cannot :manage_super, Administrator # For use in view
@@ -16,25 +17,27 @@ class AdminAbility
       can :manage, [Product, Collection, Order, Transaction, Refund, Shipment, Coupon, DefaultRegionRule, DefaultDateRule, PeriodRegionPolicy, SlidePanel, Setting, SalesChart]
       cannot :update_seo, [Product, Collection]
       can :record_back_order, Order
-      can :read, [PrintGroup, PrintOrder]
+      can :read, [PrintGroup, PrintOrder, Appointment]
     when "product_manager"
       can :manage, [Product, Collection, Asset, SalesChart]
+      can :read, [Appointment]
       cannot :update_seo, [Product, Collection]
     when "web_operation_manager"
       can :manage, [Page, Product, Collection, Coupon, Asset, Setting, Story, Banner, SlidePanel, SalesChart]
+      can :read, [Appointment]
       can :update_seo, [Product, Collection]
       manage_blog
     when "marketing_manager"
       can :manage, [Coupon, Story, SlidePanel]
       can :record_back_order, Order
       can :update, [Order], kind: 'marketing'
-      can :read, [Product]
+      can :read, [Product, Appointment]
       manage_blog
     when "customer_service"
       can :read, [Coupon]
       can :manage, [Product, Collection, Order, Transaction, Refund, Shipment]
       can :manage, [DefaultRegionRule, DefaultDateRule, PeriodRegionPolicy]
-      can :read, [PrintGroup, PrintOrder]
+      can :read, [PrintGroup, PrintOrder, Appointment]
     end
 
     if user.persisted?
