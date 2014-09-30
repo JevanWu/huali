@@ -40,3 +40,7 @@ zh-CN:
       invisible: 官网不可见
       published: 已发布
       unpublished: 未发布
+
+    notice:
+      created: 创建完成
+      updated: 更新完成
