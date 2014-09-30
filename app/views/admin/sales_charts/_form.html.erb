@@ -1,7 +1,7 @@
 <%= semantic_form_for [:admin, @sales_chart] do |f| %>
   <%= f.inputs do %>
     <%= f.input :position %>
-    <%= f.input :product, input_html: { :"data-placeholder" => '请选择', class: 'chosen' } %>
+    <%= f.input :product, collection: Product.published, input_html: { :"data-placeholder" => '请选择', class: 'chosen' } %>
   <% end %>
   <%= f.submit %>
 <% end %>
