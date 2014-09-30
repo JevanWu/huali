@@ -36,3 +36,4 @@
         = render 'shared/product_share_links', product: @product
     .detail
       == render 'product_intro'
+  = render "product_appointment" if @product.count_on_hand == 0
