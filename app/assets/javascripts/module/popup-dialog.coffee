@@ -12,6 +12,10 @@ $ ->
     $('#dialog-overlay, #dialog-box').hide()
     return false
 
+  $('.close-dialog').click ->
+    $('#dialog-overlay, #dialog-box').hide()
+    return false
+
   $('#popup-dialog').click ->
     popup()
     return false
