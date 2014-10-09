@@ -163,6 +163,7 @@ group :development do
   gem 'capistrano-rbenv', '~> 2.0', require: false
   gem 'capistrano-sidekiq'
   gem "capistrano-db-tasks", github: 'ryancheung/capistrano-db-tasks', branch: 'postgresql-9.2', require: false
+  gem "capistrano3-puma"
 
   gem 'railroady'
   gem "rails-erd"

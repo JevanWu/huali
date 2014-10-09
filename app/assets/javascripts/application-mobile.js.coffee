@@ -23,6 +23,7 @@
 #= require nprogress-turbolinks
 #= require chosen-jquery
 #= require 'module/chosen-select'
+#= require 'module/popup-dialog'
 
 NProgress.configure({ showSpinner: false, ease: 'ease', speed: 500 })
 Turbolinks.enableTransitionCache()

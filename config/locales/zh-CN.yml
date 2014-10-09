@@ -63,6 +63,7 @@ zh-CN:
       other: 厘米
 
   sharing: 分享到
+  sales_chart: 本周人气花盒
 
   activemodel:
     format: ! '%{attribute} %{message}'
@@ -193,6 +194,8 @@ zh-CN:
       refund: 退款记录
       print_group: 打印组
       print_order: 打印队列
+      appointment: 预约
+      sales_chart: 销量排行榜
 
     attributes:
       order: &order
@@ -356,6 +359,10 @@ zh-CN:
         discountable: 是否参与打折
         promo_tag: 推广标签
 
+      appointment:
+        phone: 电话
+        email: 邮箱
+
       collection:
         name_zh: 中文名
         name_en: 英文名
@@ -517,6 +524,19 @@ zh-CN:
         created_at: 创建于
         updated_at: 更新于
 
+      appointment:
+        user: 客户
+        product: 产品
+        customer_phone: 客户电话
+        customer_email: 客户邮箱
+        notify_at: 通知于
+        created_at: 创建于
+        updated_at: 更新于
+       
+      sales_chart:
+        product: 中文名
+        position: 名次
+
   models:
     user:
       binding_coupon_code: 绑定优惠码
@@ -554,6 +574,7 @@ zh-CN:
         processing: 处理中
         failed: 失败
         completed: 成功
+        invalid: 无效
 
         complete: 完成
         failure: 失败
@@ -597,6 +618,7 @@ zh-CN:
         photo_frame_flower: 相框花
         bonsai: 盆栽
         others: 其他
+        bouquet: 花束
       promo_tag:
         limit: 限量
     administrator:
@@ -622,6 +644,26 @@ zh-CN:
         fieldschina: 甫田
         self_pickup: 自提订单
         yhd: 一号店
+    transaction:
+      paymethod:
+        paypal: Paypay
+        alipay: 支付宝
+        bankPay: 网银支付
+        wechat: 微信扫码支付
+        wechat_mobile: 微信支付
+      merchant_name:
+        JD: 京东
+        YHD: 一号店
+        Alipay: 支付宝
+        Paypal: Paypay
+        Tenpay: 财付通
+        ICBCB2C: 工商银行
+        CMB: 招商银行
+        CCB: 建设银行
+        BOCB2C: 中国银行
+        ABC: 农业银行
+        COMM: 交通银行
+        CMBC: 民生银行
 
     survey:
       gender:
@@ -751,7 +793,7 @@ zh-CN:
       pay_and_ship_method: 支付和配送方式
 
       # suggestion
-      other_customer_bought: 其他客户购买了
+      other_customer_bought: 其他客户关注了
       click_to_cart: 加入购物车
 
       #gift card
@@ -762,7 +804,7 @@ zh-CN:
 
       # banks
       bank:
-        directPay: 支付宝
+        alipay: 支付宝
         ICBCB2C: 中国工商银行
         CMB: 招商银行
         CCB: 中国建设银行
@@ -795,6 +837,10 @@ zh-CN:
         user_email: 用户邮箱
         user_name: 用户姓名
         coupon_code: 对应优惠码
+
+    appointment: 
+      successful_appointment: 您已经预定成功！到货后，我们会及时提醒您！
+      failed_appointment: 对不起！预定失败！您可以联系客服处理！
 
   number:
     currency:

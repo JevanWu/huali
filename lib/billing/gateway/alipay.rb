@@ -42,8 +42,8 @@ module Billing
           # default options
           payment_type: "1",
           paymethod: "directPay",
-          return_url: return_order_url(host: $host || 'localhost') + custom_data,
-          notify_url: notify_order_url(host: $host || 'localhost') + custom_data,
+          return_url: return_order_url(host: $host || 'localhost'),
+          notify_url: notify_order_url(host: $host || 'localhost'),
 
           # shared options
           subject: @opts[:subject],
@@ -54,11 +54,8 @@ module Billing
       end
 
       def to_options(opts)
-        if opts[:paymethod] == "directPay"
-          # directPay requires the defaultbank to be blank
+        if opts[:paymethod] == "alipay"
           { pay_bank: 'directPay', defaultbank: '' }
-        else
-          { pay_bank: 'bankPay', defaultbank: opts[:merchant_name] }
         end
       end
 

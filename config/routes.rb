@@ -21,6 +21,8 @@ Huali::Application.routes.draw do
   get "provinces/available_for_products", to: 'provinces#available_for_products'
   get "provinces/:prov_id", to: 'provinces#show'
 
+  post "products/appointment", to: 'products#appointment', as: :appointment
+
   get 'search', to: 'products#search'
   resources :products, only: [:show] do
     collection do
@@ -49,6 +51,7 @@ Huali::Application.routes.draw do
   post 'orders/gateway(/:id)', to: 'orders#gateway', as: :gateway_order
   patch 'orders/cancel/:id', to: 'orders#cancel', as: :cancel_order
   get 'orders/return', as: :return_order
+  post 'orders/paypal_return', as: :return_order_paypal
   match 'orders/notify', as: :notify_order, via: [:get, :post]
   post 'orders/wechat_notify'
   get 'orders/:id/gift_card/edit', to: 'orders#edit_gift_card', as: :edit_gift_card
@@ -111,6 +114,7 @@ Huali::Application.routes.draw do
   get 'muqinjie', to: 'pages#mother_day', as: :muqinjie
   get 'qixijie', to: 'pages#qixijie', as: :qixijie
   get 'join_us', to: 'pages#join_us'
+  get 'yujianli', to: 'pages#yujianli'
 
   get 'banners/:date', to: 'banners#index', as: :banners
   get 'stories', to: 'stories#index'
