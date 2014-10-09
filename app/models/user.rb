@@ -51,9 +51,9 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
-  devise :invitable, :async, :database_authenticatable, :registerable,
+  devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable,
-         :omniauthable, :omniauth_providers => [:douban, :weibo, :qq_connect]
+         :omniauthable, :async, :omniauth_providers => [:douban, :weibo, :qq_connect]
 
   has_many :invitees, class_name: "User", foreign_key: "invited_by_id"
   belongs_to :inviter, class_name: "User", foreign_key: "invited_by_id"
