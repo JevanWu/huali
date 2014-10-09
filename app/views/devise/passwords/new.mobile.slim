@@ -1,0 +1,13 @@
+- content_for :sub_title do
+  | 忘记密码
+.forgot-mobile
+  = simple_form_for resource,
+    as: resource_name,
+    url: password_path(resource_name),
+    html: { class: 'form-horizontal', method: :post } do |f|
+    = devise_error_messages!
+
+    = f.input :email, required: true
+
+    .form-actions
+      = f.button :submit, t('.send_me_reset_password_instructions'), class: 'btn-passport'
