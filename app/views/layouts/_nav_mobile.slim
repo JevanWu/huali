@@ -1,7 +1,4 @@
 nav
-  - if user_signed_in?
-    .orders
-      = link_to '我的订单', orders_path
   - menu_list.each do |root|
     = link_to "#{root.name}", root.url
   - if user_signed_in?
