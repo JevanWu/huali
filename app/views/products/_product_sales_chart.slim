@@ -8,10 +8,11 @@
         li
           .media
             - if sales_chart.product
-              a.pull-left[href="#{product_path(sales_chart.product)}"]
+              a.pull-left[href="#{product_path(sales_chart.product)}" title="#{sales_chart.product.name_zh}"]
                 =image_tag sales_chart.product.assets[0].image.url(:thumb), class: 'media-object', src: '#'
               .media-body
                 h5 
                   =sales_chart.product.name_zh
                 br
                 =number_to_currency sales_chart.product.price
+
