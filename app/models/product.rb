@@ -253,7 +253,7 @@ class Product < ActiveRecord::Base
 
     def notify_customers
       if self.changed.include?("count_on_hand") && restock?
-        Notify.deplay.product_appointment_email(self.id)
+        Notify.delay.product_appointment_email(self.id)
         Sms.delay.product_appointment_sms(self.id)
       end
     end
