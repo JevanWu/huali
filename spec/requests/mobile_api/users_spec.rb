@@ -69,4 +69,12 @@ describe MobileAPI::API do
       response.body.should == "false"
     end
   end
+
+  describe "POST /mobile_api/v1/users/password_reset_sms" do
+    it "sends the password-reset code to user" do
+      post "/mobile_api/v1/users/password_reset_sms", email: user.email, phone: user.phone
+      response.status.should == 200
+    end
+  end
+
 end

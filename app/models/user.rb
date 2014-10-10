@@ -130,6 +130,12 @@ class User < ActiveRecord::Base
     self.authentication_token = generate_authentication_token if authentication_token.blank?
   end
 
+  def generate_reset_password_token
+    reset_token = rand(999999)
+    self.update_columns(reset_password_token: reset_token, reset_password_sent_at: Time.current)
+    return reset_token
+  end
+
   private
 
     def generate_authentication_token

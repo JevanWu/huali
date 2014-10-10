@@ -84,6 +84,19 @@ module MobileAPI
         user = User.find_by email: params[:email]
         user.present?
       end
+
+      desc "reseting password sms" 
+      params do
+        requires :email, type: String, desc: "email of the user"
+        requires :phone, type: String, desc: "phone number which the message will be sent to"
+      end
+      post :password_reset_sms do
+        user = User.find_by email: params[:email]
+        error!("the user does not exist", 404) if !user.present?
+        token = user.generate_reset_password_token
+        Sms.delay.normal_sms(params[:phone], token)
+        status 200
+      end
     end
   end
 end
