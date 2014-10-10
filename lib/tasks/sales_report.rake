@@ -140,6 +140,7 @@ namespace :notice do
                               'ryan@hua.li',
                               'lin@hua.li',
                               'tyler@hua.li',
-                              'ella@hua.li')
+                              'ella@hua.li',
+                              'jeffery@hua.li')
   end
 end
