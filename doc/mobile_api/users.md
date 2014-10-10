@@ -121,3 +121,18 @@ parameters:
 status: 200 OK
 ```
 
+
+## reset the password for user
+```
+POST /users/reset_password
+```
+
+parameters:
+
++ `email` (required)                   - Email of the user
++ `password` (required)                - the new password of the user
++ `reset_token` (required)             - the reset token generated for the user
+
+```
+status: 200 OK
+```

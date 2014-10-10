@@ -97,6 +97,22 @@ module MobileAPI
         Sms.delay.normal_sms(params[:phone], token)
         status 200
       end
+
+      desc "reset password for user" 
+      params do
+        requires :email, type: String, desc: "email of the user"
+        requires :password, type: String, desc: "the new password submited by the user"
+        requires :reset_token, type: String, desc: "the reset token sent to user"
+      end
+      post :reset_password do
+        user = User.find_by email: params[:email]
+        error!("the user does not exist", 404) if !user.present?
+        error!("the reset tokens mismatch", 500) if user.reset_password_token != params[:reset_token]
+        error!("the reset token expires", 500) if (Time.current - user.reset_password_sent_at) > 15.minutes
+        user.password = params[:password]
+        user.save
+        status 200
+      end
     end
   end
 end
