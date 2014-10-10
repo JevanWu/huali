@@ -168,5 +168,9 @@ STR
       new(phone_number: order.sender_phone, body: content).deliver
     end
 
+    def normal_sms(phone, content)
+      new(phone_number: phone, body: content).deliver
+    end
+
   end
 end

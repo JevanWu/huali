@@ -91,3 +91,48 @@ status: 200 OK
   huali_points: 400.0
 }
 ```
+
+## Check the user already exists or not
+```
+GET /users/exist
+```
+
+parameters:
+
++ `email` (required)                   - Email of the user
+
+```
+status: 200 OK
+
+"true"
+```
+
+## Send password-reset sms
+```
+POST /users/password_reset_sms
+```
+
+parameters:
+
++ `email` (required)                   - Email of the user
++ `phone` (required)                   - The phone number which message will be sent to 
+
+```
+status: 200 OK
+```
+
+
+## reset the password for user
+```
+POST /users/reset_password
+```
+
+parameters:
+
++ `email` (required)                   - Email of the user
++ `password` (required)                - the new password of the user
++ `reset_token` (required)             - the reset token generated for the user
+
+```
+status: 200 OK
+```

@@ -55,4 +55,40 @@ describe MobileAPI::API do
       response.body.should match(user.huali_point.to_s)
     end
   end
+
+  describe "GET /mobile_api/v1/users/exist" do
+    it "returns true if the user exists" do
+      get "/mobile_api/v1/users/exist", email: user.email
+      response.status.should == 200
+      response.body.should == "true"
+    end
+
+    it "returns false if the user does not exist yet" do
+      get "/mobile_api/v1/users/exist", email: "new_user@hua.li"
+      response.status.should == 200
+      response.body.should == "false"
+    end
+  end
+
+  describe "POST /mobile_api/v1/users/password_reset_sms" do
+    it "sends the password-reset code to user" do
+      post "/mobile_api/v1/users/password_reset_sms", email: user.email, phone: user.phone
+      response.status.should == 200
+    end
+  end
+
+  describe "POST /mobile_api/v1/users/reset_password" do
+    it "sets the new password for user" do
+      reset_token = rand(999999)
+      user.update_columns(reset_password_token: reset_token, reset_password_sent_at: Time.now)
+      post "/mobile_api/v1/users/reset_password", email: user.email, password: rand(99999999), reset_token: reset_token
+      response.status.should == 200
+    end
+
+    it "returns 500 if the reset tokens mismatch" do
+      post "/mobile_api/v1/users/reset_password", email: user.email, password: rand(99999999), reset_token: rand(999999)
+      response.status.should == 500
+      response.body.should match("mismatch")
+    end
+  end
 end
