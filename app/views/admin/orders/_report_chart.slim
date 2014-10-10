@@ -51,6 +51,12 @@ javascript:
           }, {
               name: '天猫',
               data: [#{@daily_order_report.order_amounts_by_date('tmall').join(',').html_safe}]
+          }, {
+              name: '京东',
+              data: [#{@daily_order_report.order_amounts_by_date('jd').join(',').html_safe}]
+          }, {
+              name: '一号店',
+              data: [#{@daily_order_report.order_amounts_by_date('yhd').join(',').html_safe}]
           }]
       });
 
@@ -105,6 +111,12 @@ javascript:
           }, {
               name: '天猫',
               data: [#{@daily_order_report.order_counts_by_date('tmall').join(',').html_safe}]
+          }, {
+              name: '京东',
+              data: [#{@daily_order_report.order_counts_by_date('jd').join(',').html_safe}]
+          }, {
+              name: '一号店',
+              data: [#{@daily_order_report.order_counts_by_date('yhd').join(',').html_safe}]
           }]
       });
   });
