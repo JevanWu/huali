@@ -55,4 +55,18 @@ describe MobileAPI::API do
       response.body.should match(user.huali_point.to_s)
     end
   end
+
+  describe "GET /mobile_api/v1/users/exist" do
+    it "returns true if the user exists" do
+      get "/mobile_api/v1/users/exist", email: user.email
+      response.status.should == 200
+      response.body.should == "true"
+    end
+
+    it "returns false if the user does not exist yet" do
+      get "/mobile_api/v1/users/exist", email: "new_user@hua.li"
+      response.status.should == 200
+      response.body.should == "false"
+    end
+  end
 end

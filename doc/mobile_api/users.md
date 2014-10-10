@@ -91,3 +91,18 @@ status: 200 OK
   huali_points: 400.0
 }
 ```
+
+## Check the user already exists or not
+```
+GET /users/exist
+```
+
+parameters:
+
++ `email` (required)                   - Email of the user
+
+```
+status: 200 OK
+
+"true"
+```

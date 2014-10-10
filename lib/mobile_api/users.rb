@@ -75,6 +75,15 @@ module MobileAPI
         error!("No user signed in", 500) unless current_user
         { huali_points: current_user.huali_point }
       end
+
+      desc "Check the user already exists or not" 
+      params do
+        requires :email, type: String, desc: "email of the user"
+      end
+      get :exist do
+        user = User.find_by email: params[:email]
+        user.present?
+      end
     end
   end
 end
