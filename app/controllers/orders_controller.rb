@@ -323,6 +323,10 @@ class OrdersController < ApplicationController
         transaction = @offline_order_form.record.reload.generate_transaction(opts)
         transaction.update_column(:state, 'completed')
 
+        if @offline_order_form.record.state == 'completed'
+          ErpWorker::ImportOrder.perform_async(@offline_order_form.record.id)
+        end
+
         flash[:notice] = t('controllers.order.order_success')
         redirect_to root_path
       else
