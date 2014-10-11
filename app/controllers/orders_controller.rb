@@ -66,12 +66,8 @@ class OrdersController < ApplicationController
   end
 
   def back_order_create # 线下店订单录入
-    opts = { paymethod: params[:offline_order_form][:paymethod],
-             merchant_name: 'Alipay' }
-
     process_admin_order('back_order_new') do |record|
       record.state = record.ship_method_id? ? 'wait_make' : 'completed'
-      record.complete_transaction(opts)
     end
   end
 
@@ -321,6 +317,11 @@ class OrdersController < ApplicationController
 
         OrderDiscountPolicy.new(@offline_order_form.record).apply
         store_order_id(@offline_order_form.record)
+
+        opts = { paymethod: params[:offline_order_form][:paymethod],
+                 merchant_name: 'Alipay' }
+        transaction = @offline_order_form.record.reload.generate_transaction(opts)
+        transaction.update_column(:state, 'completed')
 
         flash[:notice] = t('controllers.order.order_success')
         redirect_to root_path
