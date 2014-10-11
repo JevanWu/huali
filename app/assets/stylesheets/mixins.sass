@@ -46,11 +46,14 @@
 /*button*/
 /*pc*/
 .btn-next
-  +button(80px)
+  +button(50%)
 
 .btn-passport
   @extend .btn-next
+  margin-left: 0px
+  height: 40px
   text-decoration: none !important
+  font-size: 20px
   cursor: pointer
 
 .btn-passport[disabled]
@@ -100,7 +103,8 @@
 
 /*moble*/
 .btn-m-passport
-  +button(140px)
+  +button(140px,40px)
+  font-size: 20px
 
 .btn-m-confirm
   +button(100%)

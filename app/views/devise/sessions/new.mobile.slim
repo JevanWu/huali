@@ -7,19 +7,21 @@
       = simple_form_for resource,
         as: resource_name,
         url: session_path(resource_name),
+        defaults: { wrapper_html: { class: 'input-item' } },
         html: { class: 'form-horizontal' } do |f|
         = devise_error_messages!
 
-        = f.input :email, required: true
-        = f.input :password, required: true
+        = f.input :email, required: true ,label:false ,placeholder:'请输入您的登录邮箱'
+        = f.input :password, required: true ,label:false ,placeholder:'请输入您的密码'
 
         - if devise_mapping.rememberable?
           = f.input :remember_me, as: :boolean, input_html: { class: 'auto-login' }
 
         .form-actions
           = f.button :submit,  t('.sign_in'), class: 'btn-passport'
-          - if resource_name == :user
-            = link_to t(".sign_up"), new_registration_path(resource_name), class: 'btn-login'
-          - if resource_name == :user
-            = link_to t(".forgot_your_password"), new_password_path(resource_name), class:'forget-psw'
-      = render 'devise/shared/login_use_oauth'
+        - if resource_name == :user
+          = link_to t(".sign_up"), new_registration_path(resource_name), class: 'btn-login'
+        - if resource_name == :user
+          = link_to t(".forgot_your_password"), new_password_path(resource_name), class:'forget-psw'
+         
+      /* = render 'devise/shared/login_use_oauth'
