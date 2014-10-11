@@ -218,6 +218,17 @@ ActiveRecord::Schema.define(version: 20140808094453) do
 
   add_index "coupons_products", ["coupon_id", "product_id"], name: "index_coupons_products_on_coupon_id_and_product_id", unique: true, using: :btree
 
+  create_table "daily_phrases", force: true do |t|
+    t.string   "title"
+    t.text     "phrase"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "date_rules", force: true do |t|
     t.integer  "product_id"
     t.date     "start_date"
