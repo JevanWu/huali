@@ -1,4 +1,5 @@
 ActiveAdmin.register DailyPhrase do
+  menu parent: '设置', if: proc { authorized? :read, DailyPhrase }
 
   controller do
     def permitted_params
