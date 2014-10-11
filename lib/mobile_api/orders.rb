@@ -42,13 +42,20 @@ module MobileAPI
 
       desc "Query an order by the id"
       params do
-        requires :id, type: Integer, desc: "Order id."
+        optional :id, type: Integer, desc: "Order id."
+        optional :identifier, type: String, desc: "Order identifier."
         requires :email, type: String, desc: "Email of the user."
         requires :token, type: String, desc: "Authentication token of the user."
       end
-      get ':id' do
+      get :query do
         authenticate_user!
-        order = current_user.orders.find(params[:id])
+        if params[:id]
+          order = current_user.orders.find(params[:id])
+        elsif params[:identifier]
+          order = current_user.orders.find_by(identifier: params[:identifier]) 
+        else
+          return
+        end
         error!('There is no such product!', 404) if order.nil?
         error!('This order does not belong to current user!', 403) unless current_user.orders.include? order
         res = { 

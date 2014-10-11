@@ -51,5 +51,6 @@ module MobileAPI
     mount Pages
     mount Collections
     mount Orders
+    mount DailyPhrases
   end
 end

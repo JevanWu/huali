@@ -219,6 +219,17 @@ ActiveRecord::Schema.define(version: 20140925033751) do
 
   add_index "coupons_products", ["coupon_id", "product_id"], name: "index_coupons_products_on_coupon_id_and_product_id", unique: true, using: :btree
 
+  create_table "daily_phrases", force: true do |t|
+    t.string   "title"
+    t.text     "phrase"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "date_rules", force: true do |t|
     t.integer  "product_id"
     t.date     "start_date"
@@ -270,6 +281,19 @@ ActiveRecord::Schema.define(version: 20140925033751) do
 
   add_index "line_items", ["order_id"], name: "index_line_items_on_order_id", using: :btree
   add_index "line_items", ["product_id"], name: "index_line_items_on_product_id", using: :btree
+
+  create_table "mobile_menus", force: true do |t|
+    t.string   "name"
+    t.string   "href"
+    t.text     "description"
+    t.integer  "priority"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "monthly_solds", force: true do |t|
     t.integer  "sold_year"

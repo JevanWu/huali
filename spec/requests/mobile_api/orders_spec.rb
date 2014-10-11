@@ -68,11 +68,11 @@ describe MobileAPI::API do
     end
   end
 
-  describe "GET /mobile_api/v1/orders/:id" do
-    it "queries the order by the :id" do
-      get "/mobile_api/v1/orders/#{order.id}", email: current_user.email, token: current_user.authentication_token
+  describe "GET /mobile_api/v1/orders/query" do
+    it "queries the order by the :id or :identifier" do
+      get "/mobile_api/v1/orders/query", email: current_user.email, token: current_user.authentication_token, identifier: order.identifier
       response.status.should == 200 
-      response.body.should match(order.identifier)
+      response.body.should match(order.id.to_s)
     end
   end
 
