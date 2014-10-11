@@ -18,4 +18,9 @@
 #
 
 class GreetingCard < ActiveRecord::Base
+  belongs_to :user
+  belongs_to :product
+
+  validates :sender_email, :recipient_email, presence: true
+  validates :sentiments, presence: true, length: { minimum: 5 }
 end
