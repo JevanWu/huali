@@ -532,7 +532,7 @@ zh-CN:
         notify_at: 通知于
         created_at: 创建于
         updated_at: 更新于
-       
+
       sales_chart:
         product: 中文名
         position: 名次
@@ -642,7 +642,7 @@ zh-CN:
         normal: 普通订单
         b2b: B2B订单
         fieldschina: 甫田
-        self_pickup: 自提订单
+        offline: 线下店
         yhd: 一号店
     transaction:
       paymethod:
@@ -838,7 +838,7 @@ zh-CN:
         user_name: 用户姓名
         coupon_code: 对应优惠码
 
-    appointment: 
+    appointment:
       successful_appointment: 您已经预定成功！到货后，我们会及时提醒您！
       failed_appointment: 对不起！预定失败！您可以联系客服处理！
 
