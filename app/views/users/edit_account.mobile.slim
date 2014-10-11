@@ -1,0 +1,19 @@
+.account-info-container
+  .profile
+    .profile-edit
+      = simple_form_for @user, url: { action: 'update_password' },
+        html: { class: 'form-horizontal', method: :patch } do |f|
+
+        = f.input :current_password
+        = f.input :password
+        = f.input :password_confirmation
+
+        .form-actions
+          = f.button :submit, t("devise.registrations.edit.update"), class: 'button btn-m-discount'
+      .delete-info
+        p
+          = t("devise.registrations.edit.unhappy")
+          = "&nbsp; &nbsp;".html_safe
+          = link_to t("devise.registrations.edit.cancel_my_account"), registration_path(:user), data: { confirm: t("devise.registrations.edit.are_you_sure") }, method: :delete
+      .clearfix
+

@@ -55,6 +55,12 @@ namespace :notice do
         }, {
             name: '天猫',
             data: [#{@daily_order_report.order_amounts_by_date('tmall').join(',')}]
+        }, {
+            name: '京东',
+            data: [#{@daily_order_report.order_amounts_by_date('jd').join(',')}]
+        }, {
+            name: '一号店',
+            data: [#{@daily_order_report.order_amounts_by_date('yhd').join(',')}]
         }]
     }
     OPTIONS
@@ -113,6 +119,12 @@ namespace :notice do
         }, {
             name: '天猫',
             data: [#{@daily_order_report.order_counts_by_date('tmall').join(',')}]
+        }, {
+            name: '京东',
+            data: [#{@daily_order_report.order_counts_by_date('jd').join(',')}]
+        }, {
+            name: '一号店',
+            data: [#{@daily_order_report.order_counts_by_date('yhd').join(',')}]
         }]
     }
     OPTIONS
@@ -128,6 +140,7 @@ namespace :notice do
                               'ryan@hua.li',
                               'lin@hua.li',
                               'tyler@hua.li',
-                              'ella@hua.li')
+                              'ella@hua.li',
+                              'jeffery@hua.li')
   end
 end

@@ -1,0 +1,30 @@
+.account-info-container
+  .invitation-main
+    h2
+      = t "devise.invitations.new.header"
+
+    = simple_form_for @user, :url => invitation_path(@user), :html => {:method => :post} do |f|
+      p
+        = f.input :email, label: false
+
+      p
+        = f.submit t("devise.invitations.new.submit"), class: "btn-passport"
+
+    br
+  .account-info-line
+  .invitation-main
+    h2
+      |导入联系人
+    - if !@contacts.nil?
+      .list
+        = form_tag(invitation_path(@user))
+          - @contacts.each do |contact|
+            p
+              = check_box_tag "emails[]", "#{contact.email}", true, class: "item"
+              = contact.name
+          = submit_tag "邀请所勾选者", class: "btn-passport"
+    - else
+      .mail-providers
+        = link_to image_tag("mail-logo/gmail_logo.png"), '/contacts/gmail'
+        = link_to image_tag("mail-logo/163_logo.png"), email_signin_path(:provider => '163')
+        = link_to image_tag("mail-logo/126_logo.png"), email_signin_path(:provider => '126')
