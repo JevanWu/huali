@@ -135,6 +135,7 @@ zh-CN:
         bypass_product_validation: 跳过产品验证
         last_order: 关联订单号
         memo: 客服备注
+        paymethod: 支付方式
 
       item_info:
         quantity: 产品数量
@@ -651,6 +652,8 @@ zh-CN:
         bankPay: 网银支付
         wechat: 微信扫码支付
         wechat_mobile: 微信支付
+        cash: 现金支付
+        pos: POS机刷卡支付
       merchant_name:
         JD: 京东
         YHD: 一号店
@@ -772,7 +775,7 @@ zh-CN:
       # checkout
       ta_address: TA的地址是
       checkout: 去结算
-      back_checkout: 特殊订单
+      back_checkout: 线下店订单
       channel_checkout: 渠道订单
       basket: 购物车
       order_list: 订单中心

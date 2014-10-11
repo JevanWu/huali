@@ -54,7 +54,7 @@ class Product < ActiveRecord::Base
 
   # appointment
   has_many :appointments, dependent: :destroy
-  
+
   # asset
   has_many :assets, as: :viewable, dependent: :destroy
   accepts_nested_attributes_for :assets, reject_if: lambda { |a| a[:image].blank? }, allow_destroy: true
