@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe MobileAPI::API do
 
-  describe "GET /mobile_api/v1//slides" do
+  describe "GET /mobile_api/v1/slides" do
     it "returns all visible slides" do
       FactoryGirl.create_list(:slide_panel, 3, visible: true, priority: 5)
       get "/mobile_api/v1/slides"
