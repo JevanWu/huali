@@ -193,6 +193,7 @@ zh-CN:
       refund: 退款记录
       print_group: 打印组
       print_order: 打印队列
+      daily_phrase: 每日花语
 
     attributes:
       order: &order
@@ -511,6 +512,13 @@ zh-CN:
         order_printed: 出库单已打印
         card_printed: 贺卡已打印
         shipment_printed: 快递单已打印
+        created_at: 创建于
+        updated_at: 更新于
+
+      daily_phrase:
+        title: 标题
+        phrase: 短语
+        image: 图片
         created_at: 创建于
         updated_at: 更新于
 
