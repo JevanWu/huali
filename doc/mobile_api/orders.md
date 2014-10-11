@@ -39,15 +39,16 @@ Response example:
  
 ```
 
-## Query an order by the :id
+## Query an order by the :id or :identifier
 
 ```
-GET /orders/:id
+GET /orders/query
 ```
 
 Parameters:
 
-+ `id` (required)                     - Id of the order 
++ `id` (optional)                     - The id of the order 
++ `identifier` (optional)             - The identifier of the order 
 + `email` (required)                  - Email of the user
 + `token` (required)                  - Authentication token of the user
 
