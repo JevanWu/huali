@@ -20,7 +20,7 @@
 FactoryGirl.define do
   factory :mobile_menu do
     name { Forgery(:lorem_ipsum).word }
-    priority rand(100)
+    priority { Forgery(:basic).number(at_least: 0, at_most: 100) }
     description { Forgery(:lorem_ipsum).words(10) }
     image_file_name { 'sample.jpg' }
     image_content_type 'image/jpeg'

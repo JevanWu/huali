@@ -4,8 +4,8 @@ describe MobileAPI::API do
 
   describe "GET /mobile_api/v1/mobile_menus" do
     it "returns all mobile menus" do
-      FactoryGirl.create_list(:slide_panel, 3, visible: true, priority: 5)
-      get "/mobile_api/v1/slides"
+      FactoryGirl.create_list(:mobile_menu, 3)
+      get "/mobile_api/v1/mobile_menus"
       response.status.should == 200
       res = JSON.parse response.body
       res.count.should == 3
