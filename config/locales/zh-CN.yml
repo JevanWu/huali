@@ -194,6 +194,7 @@ zh-CN:
       print_group: 打印组
       print_order: 打印队列
       daily_phrase: 每日花语
+      mobile_menu: 移动端菜单
 
     attributes:
       order: &order
@@ -518,6 +519,14 @@ zh-CN:
       daily_phrase:
         title: 标题
         phrase: 短语
+        image: 图片
+        created_at: 创建于
+        updated_at: 更新于
+
+      mobile_menu: 
+        name: 名字
+        priority: 优先级
+        description: 描述
         image: 图片
         created_at: 创建于
         updated_at: 更新于
