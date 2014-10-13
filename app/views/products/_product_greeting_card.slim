@@ -1,0 +1,20 @@
+- content_for :css do
+  = stylesheet_link_tag "modules/greeting-card-dialog", media: "all"
+
+#greeting-card-dialog-overlay
+#greeting-card-dialog-box
+  .dialog-header
+    | 虚拟送花
+    .close-dialog
+      | x
+  .dialog-content
+    .dialog-message
+      | 发送贺卡：#{@product.name}
+    == image_tag(@product.img(:medium))
+    = simple_form_for @greeting_card, url: product_path, html: {class: "form-horizontal"} do |f|
+      = f.input :recipient_email, label: "收件人邮箱"
+      = f.input :sender_email, label: "发件人邮箱", input_html: { value: current_user.try(:email) }
+      = f.input :sentiments, label: "祝福语", input_html: { value: "花艺师手记：" }
+      = f.input :product_id, as: :hidden, input_html: { value: @greeting_card.product.id }
+      = f.input :user_id, as: :hidden, input_html: { value: current_user.try(:id) }
+      = f.submit "发送", class: "huali-btn", id: "greeting-card-btn"
