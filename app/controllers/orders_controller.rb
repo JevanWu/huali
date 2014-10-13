@@ -48,12 +48,11 @@ class OrdersController < ApplicationController
 
   # backorder
   # - used for internal usage
-  # - no transaction is issued
+  # - transaction is issued for tracking paymenthod
   # - tracking is skipped
   def back_order_new
-    @order_admin_form = OrderAdminForm.new(kind: 'marketing',
-                                           coupon_code: cookies[:coupon_code])
-    @order_admin_form.address = ReceiverInfo.new
+    @offline_order_form = OfflineOrderForm.new(kind: 'offline', coupon_code: cookies[:coupon_code])
+    @offline_order_form.address = ReceiverInfo.new
   end
 
   def channel_order_create
@@ -66,9 +65,9 @@ class OrdersController < ApplicationController
     end
   end
 
-  def back_order_create
+  def back_order_create # 线下店订单录入
     process_admin_order('back_order_new') do |record|
-      record.state = 'wait_make'
+      record.state = record.ship_method_id? ? 'wait_make' : 'completed'
     end
   end
 
@@ -287,46 +286,52 @@ class OrdersController < ApplicationController
     end
 
     def process_admin_order(template)
-      @order_admin_form = OrderAdminForm.new(params[:order_admin_form])
+      if params[:offline_order_form][:ship_method_id].blank?
+        params[:offline_order_form][:bypass_date_validation] = true
+        params[:offline_order_form][:bypass_region_validation] = true
+        params[:offline_order_form][:bypass_product_validation] = true
 
-      update_coupon_code(@order_admin_form.coupon_code)
-
-      @order_admin_form.sender ||= SenderInfo.new({
-                                                  name: 'Huali',
-                                                  email: 'support@hua.li',
-                                                  phone: '400-087-8899'
-                                                })
-      @order_admin_form.user = current_or_guest_user
-
-      if @order_admin_form.kind == :taobao && !validate_merchant_trade_no(params[:merchant_trade_no])
-        @order_admin_form.errors.add(:kind, '无效的淘宝交易号码')
-        render template and return
+        params[:offline_order_form][:expected_date] = Date.current.to_s
+        params[:offline_order_form][:delivery_date] = Date.current.to_s
+        params[:offline_order_form][:address] = { fullname: 'Huali', phone: '400-087-8899', address: '线下店自提', province_id: 33, city_id: 347 }
       end
+
+      @offline_order_form = OfflineOrderForm.new(params[:offline_order_form])
+
+      update_coupon_code(@offline_order_form.coupon_code)
+
+      @offline_order_form.sender ||= SenderInfo.new({ name: 'Huali', email: 'support@hua.li', phone: '400-087-8899' })
+      @offline_order_form.user = current_or_guest_user
 
       # create line items
       @cart.items.each do |item|
-        @order_admin_form.add_line_item(item.product_id, item.quantity)
+        @offline_order_form.add_line_item(item.product_id, item.quantity)
       end
 
-      success = @order_admin_form.save do |record|
+      success = @offline_order_form.save do |record|
         yield(record) if block_given?
       end
 
       if success
         empty_cart
 
-        OrderDiscountPolicy.new(@order_admin_form.record).apply
-        store_order_id(@order_admin_form.record)
+        OrderDiscountPolicy.new(@offline_order_form.record).apply
+        store_order_id(@offline_order_form.record)
+
+        opts = { paymethod: params[:offline_order_form][:paymethod],
+                 merchant_name: 'Alipay' }
+        transaction = @offline_order_form.record.reload.generate_transaction(opts)
+        transaction.update_column(:state, 'completed')
+
+        if @offline_order_form.record.state == 'completed'
+          ErpWorker::ImportOrder.perform_async(@offline_order_form.record.id)
+        end
 
         flash[:notice] = t('controllers.order.order_success')
         redirect_to root_path
       else
         render template
       end
-    end
-
-    def validate_merchant_trade_no(merchant_trade_no)
-      merchant_trade_no && merchant_trade_no =~ /^\d{28}$/
     end
 
     def store_order_id(record)

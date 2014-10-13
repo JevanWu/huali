@@ -61,6 +61,9 @@ namespace :notice do
         }, {
             name: '一号店',
             data: [#{@daily_order_report.order_amounts_by_date('yhd').join(',')}]
+        }, {
+            name: '线下店',
+            data: [#{@daily_order_report.order_amounts_by_date('offline').join(',')}]
         }]
     }
     OPTIONS
@@ -125,6 +128,9 @@ namespace :notice do
         }, {
             name: '一号店',
             data: [#{@daily_order_report.order_counts_by_date('yhd').join(',')}]
+        }, {
+            name: '线下店',
+            data: [#{@daily_order_report.order_counts_by_date('offline').join(',')}]
         }]
     }
     OPTIONS

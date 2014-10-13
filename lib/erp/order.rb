@@ -75,6 +75,10 @@ module Erp
         return '*' if transaction.nil?
 
         case transaction.paymethod
+        when 'pos'
+          '05'
+        when 'cash'
+          '04'
         when 'paypal'
           '03'
         when 'wechat'
