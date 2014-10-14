@@ -5,7 +5,8 @@ module Erp
     taobao: '01.01.0003',
     ctrip: '01.02.0031',
     jd: '01.01.0014',
-    yhd: '01.01.0006'
+    yhd: '01.01.0006',
+    offline: '01.03'
   }
 
   CTRIP_COUPON_CHARGES = {
