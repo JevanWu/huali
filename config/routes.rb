@@ -22,6 +22,7 @@ Huali::Application.routes.draw do
   get "provinces/:prov_id", to: 'provinces#show'
 
   post "products/appointment", to: 'products#appointment', as: :appointment
+  post "products/greeting_card", to: 'products#greeting_card', as: :greeting_card
 
   get 'search', to: 'products#search'
   resources :products, only: [:show] do
