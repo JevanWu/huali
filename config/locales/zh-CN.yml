@@ -196,6 +196,7 @@ zh-CN:
       print_order: 打印队列
       appointment: 预约
       sales_chart: 销量排行榜
+      greeting_card: 虚拟送花
 
     attributes:
       order: &order
@@ -362,6 +363,11 @@ zh-CN:
       appointment:
         phone: 电话
         email: 邮箱
+
+      greeting_card:
+        sender_email: 发件人邮箱
+        recipent_email: 收件人邮箱
+        sentiment: 祝福语
 
       collection:
         name_zh: 中文名
@@ -841,6 +847,10 @@ zh-CN:
     appointment: 
       successful_appointment: 您已经预定成功！到货后，我们会及时提醒您！
       failed_appointment: 对不起！预定失败！您可以联系客服处理！
+
+    greeting_card:
+      succeeded: 您的贺卡已经发送成功！
+      failed: 很抱歉！贺卡发送失败！您可以联系客服处理！
 
   number:
     currency:
