@@ -195,6 +195,11 @@ STR
     mail(to: emails, subject: subject("产品到货通知"))
   end
 
+  def product_greeting_card_email(greeting_card)
+    @greeting_card = greeting_card
+    mail(to: @greeting_card.recipient_email, subject: "收到一张新贺卡")
+  end
+
   helper MailerHelper
 
 private
