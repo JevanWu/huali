@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141011071600) do
+ActiveRecord::Schema.define(version: 20141014061341) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -536,6 +536,15 @@ ActiveRecord::Schema.define(version: 20141011071600) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "reply_greeting_cards", force: true do |t|
+    t.integer  "greeting_card_id"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "reply_greeting_cards", ["greeting_card_id"], name: "index_reply_greeting_cards_on_greeting_card_id", using: :btree
 
   create_table "sales_charts", force: true do |t|
     t.integer  "product_id"
