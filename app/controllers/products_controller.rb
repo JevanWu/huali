@@ -12,6 +12,7 @@ class ProductsController < ApplicationController
   def show
     @product = Product.published.find(params[:id])
     @appointment = Appointment.new(product: @product)
+    @greeting_card = GreetingCard.new(product: @product)
 
     # FIXME products always have assets now
     assets  = @product.assets || []
@@ -106,10 +107,23 @@ class ProductsController < ApplicationController
     end
   end
 
+  def greeting_card
+    @greeting_card = GreetingCard.new(greeting_card_params) 
+    if @greeting_card.save and Notify.product_greeting_card_email(@greeting_card).deliver
+      redirect_to product_path(@greeting_card.product), flash: { success: t("views.greeting_card.succeeded") }
+    else
+      redirect_to product_path(@greeting_card.product), flash: { fail: t("views.greeting_card.failed") }
+    end
+  end
+
   private
 
     def appointment_params
       params.require(:appointment).permit(:customer_phone, :customer_email, :user_id, :product_id)
+    end
+
+    def greeting_card_params
+      params.require(:greeting_card).permit(:sender_email, :recipient_email, :sentiments, :user_id, :product_id)
     end
 
     def fetch_order_by
