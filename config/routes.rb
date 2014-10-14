@@ -74,7 +74,7 @@ Huali::Application.routes.draw do
   devise_for :administrators
 
   # FIXME need to know exact behaviors of controllers params
-  devise_for :users, controllers: { invitations: 'invitations', omniauth_callbacks: 'oauth_services' }
+  devise_for :users, controllers: { confirmations: 'confirmable', invitations: 'invitations', omniauth_callbacks: 'oauth_services' }
 
   devise_scope :user do
     get '/users/bind_with_oauth', to: 'oauth_registrations#new_from_oauth', as: :new_oauth_user_registration

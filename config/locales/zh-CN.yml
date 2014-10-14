@@ -26,6 +26,9 @@ zh-CN:
       edit:
         header: 请设置密码
         submit_button: 提交
+    confirmable:
+      user:
+        confirmed: 您的邮箱已激活！
 
   point_transaction:
     refer_description: 邀请好友获得
