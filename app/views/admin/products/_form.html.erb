@@ -45,7 +45,7 @@
   <% end %>
 
   <%= f.inputs "SKU Info" do %>
-    <%= f.input :sku_id %>
+    <%= f.input :sku_id, required: true %>
     <%= f.input :count_on_hand, required: true %>
     <%= f.input :price %>
     <%= f.input :original_price %>
