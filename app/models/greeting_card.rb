@@ -20,6 +20,7 @@
 class GreetingCard < ActiveRecord::Base
   belongs_to :user
   belongs_to :product
+  has_many :reply_greeting_cards
 
   validates :sender_email, :recipient_email, presence: true, format: { with: /\A.*@.*\z/, message: "email format error" }
   validates :sentiments, presence: true, length: { minimum: 5 }
