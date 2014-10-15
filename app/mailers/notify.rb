@@ -200,6 +200,11 @@ STR
     mail(to: @greeting_card.recipient_email, subject: "收到一张新贺卡")
   end
 
+  def product_reply_greeting_card_email(reply_greeting_card)
+    @reply_greeting_card = reply_greeting_card
+    mail(to: @reply_greeting_card.greeting_card.sender_email, subject: "已经发送新贺卡的回复")
+  end
+
   helper MailerHelper
 
 private
