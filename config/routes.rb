@@ -23,6 +23,7 @@ Huali::Application.routes.draw do
 
   post "products/appointment", to: 'products#appointment', as: :appointment
   post "products/greeting_card", to: 'products#greeting_card', as: :greeting_card
+  post "products/reply_greeting_card", to: 'products#reply_greeting_card', as: :reply_greeting_card
 
   get 'search', to: 'products#search'
   resources :products, only: [:show] do
