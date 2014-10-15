@@ -13,6 +13,7 @@ class ProductsController < ApplicationController
     @product = Product.published.find(params[:id])
     @appointment = Appointment.new(product: @product)
     @greeting_card = GreetingCard.new(product: @product)
+    @reply_greeting_card = ReplyGreetingCard.new
 
     # FIXME products always have assets now
     assets  = @product.assets || []
@@ -116,6 +117,15 @@ class ProductsController < ApplicationController
     end
   end
 
+  def reply_greeting_card
+    @reply_greeting_card = ReplyGreetingCard.new(reply_greeting_card_params)
+    if @reply_greeting_card.save and Notify.product_reply_greeting_card_email(@reply_greeting_card).deliver
+      redirect_to product_path(@reply_greeting_card.greeting_card.product), flash: { success: t("views.reply_greeting_card.succeeded") }
+    else
+      redirect_to product_path(@reply_greeting_card.greeting_card.product), flash: { fail: t("views.reply_greeting_card.failed") }
+    end
+  end
+
   private
 
     def appointment_params
@@ -124,6 +134,10 @@ class ProductsController < ApplicationController
 
     def greeting_card_params
       params.require(:greeting_card).permit(:sender_email, :recipient_email, :sentiments, :user_id, :product_id)
+    end
+
+    def reply_greeting_card_params
+      params.require(:reply_greeting_card).permit(:response, :greeting_card_id)
     end
 
     def fetch_order_by
