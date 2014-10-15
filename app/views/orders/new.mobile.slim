@@ -17,11 +17,11 @@
         | 共计#{@cart.item_count}件商品
       - if @cart.discounted?
         p.discount
-          | 促销优惠：-
+          | 促销优惠：- 
           = number_to_currency @cart.discount_money
       p.total-price
         | 总计：
         span
           = number_to_currency @cart.total
 
-  = render 'form'
+  = render 'form.mobile'
