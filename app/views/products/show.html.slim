@@ -51,6 +51,12 @@
         button.button#greeting-card-dialog
           | 虚拟送花
         == render 'product_greeting_card'
+
+        = if params[:idfromemail]
+          button.button#reply-greeting-card-dialog
+            | 撒娇索要
+
+        == render 'product_reply_greeting_card' 
         == render 'product_sales_chart' unless SalesChart.all.all.empty?
         = render "product_appointment" if @product.count_on_hand == 0
 
