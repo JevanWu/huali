@@ -2,10 +2,10 @@
 #
 # Table name: reply_greeting_cards
 #
-#  content          :text
 #  created_at       :datetime
 #  greeting_card_id :integer
 #  id               :integer          not null, primary key
+#  response         :text
 #  updated_at       :datetime
 #
 # Indexes

@@ -539,7 +539,7 @@ ActiveRecord::Schema.define(version: 20141014061341) do
 
   create_table "reply_greeting_cards", force: true do |t|
     t.integer  "greeting_card_id"
-    t.text     "content"
+    t.text     "response"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
