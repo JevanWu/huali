@@ -197,6 +197,7 @@ zh-CN:
       appointment: 预约
       sales_chart: 销量排行榜
       greeting_card: 虚拟送花
+      reply_greeting_card: 撒娇回复
 
     attributes:
       order: &order
@@ -368,6 +369,9 @@ zh-CN:
         sender_email: 发件人邮箱
         recipent_email: 收件人邮箱
         sentiment: 祝福语
+
+      reply_greeting_card:
+        response: 撒娇语
 
       collection:
         name_zh: 中文名
@@ -852,6 +856,9 @@ zh-CN:
       succeeded: 您的贺卡已经发送成功！
       failed: 很抱歉！贺卡发送失败！您可以联系客服处理！
 
+    reply_greeting_card:
+      succeeded: 邮件回复成功！
+      failed: 很抱歉！邮件回复失败！您可以联系客服处理！
   number:
     currency:
       format:
