@@ -15,5 +15,5 @@
 
 class ReplyGreetingCard < ActiveRecord::Base
   belongs_to :greeting_card
-  validates :sentiments, presence: true
+  validates :response, presence: true
 end
