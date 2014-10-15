@@ -45,6 +45,9 @@ ActiveAdmin.register Product do
         :tag_list,
         :trait_list,
         :inspiration,
+        :material,
+        :maintenance,
+        :delivery,
         :product_type,
         :description,
         :count_on_hand,
@@ -141,8 +144,20 @@ ActiveAdmin.register Product do
 
       row :sold_total
 
+      row :material do
+        markdown(product.material)
+      end
+
       row :inspiration do
         markdown(product.inspiration)
+      end
+
+      row :maintenance do
+        markdown(product.maintenance)
+      end
+
+      row :delivery do
+        markdown(product.delivery)
       end
 
       row :description do
