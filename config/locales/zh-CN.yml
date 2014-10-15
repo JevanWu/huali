@@ -337,7 +337,10 @@ zh-CN:
         color_list: 颜色
         collections: 品类
         published: 是否发布
-        inspiration: 产品灵感
+        material: 用材介绍
+        inspiration: 花艺师手记
+        maintenance: 养护说明
+        delivery: 运输说明
         description: 产品描述
         count_on_hand: 库存
         price: 现价

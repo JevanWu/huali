@@ -17,8 +17,14 @@
     <%= collection_checkboxes(@product) %>
 
     <%= f.input :recommendations, as: :check_boxes, :collection => Product.sort_by_collection %>
+    
+    <%= f.input :material,  input_html: {rows: 10} %>
 
-    <%= f.input :inspiration, hint: "Use Markdown to write the content" , input_html: {rows: 10} %>
+    <%= f.input :inspiration,  input_html: {rows: 10} %>
+    
+    <%= f.input :maintenance,  input_html: {rows: 10} %>
+
+    <%= f.input :delivery,  input_html: {rows: 10} %>
 
     <%= f.input :description, hint: "Use Markdown to write the content" , input_html: {rows: 10} %>
 
