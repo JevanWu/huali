@@ -27,7 +27,10 @@ $ ->
     $('#reply-greeting-card-dialog-overlay, #reply-greeting-card-dialog-box').hide()
     return false
 
-  #$('#reply-greeting-card-dialog').click ->
+  $('#reply-greeting-card-dialog').click ->
+    popup()
+    return false
+
   if getParams().idfromemail?
     popup()
     return false
