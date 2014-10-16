@@ -10,17 +10,19 @@
         defaults: { wrapper_html: { class: 'input-item' } },
         html: { class: 'form-horizontal' } do |f|
 
-        = f.input :email, required: true
-        = f.input :password, required: true
-        = f.input :password_confirmation, required: true
-        = f.input :name, placeholder: '您的称呼, 以便我们和您联系'
-        = f.input :phone, as: :simple_form_phone, placeholder: '以便我们和您核对信息'
-        = f.input :humanizer_answer, label: resource.humanizer_question, required: true
-        = f.hidden_field :humanizer_question_id
+        = f.input :email, required: true, placeholder: '请输入您的登录邮箱', label: false
+        = f.input :password, required: true, label: false, placeholder: '请输入您的密码'
+        = f.input :password_confirmation, required: true, label: false, placeholder: '请确认您的密码'
+        = f.input :name, placeholder: '请输入您的称呼, 以便我们和您联系', label: false
+        = f.input :phone, as: :simple_form_phone, placeholder: '请输入您的电话号码，以便我们和您核对信息', label: false
+        = f.input :humanizer_answer, placeholder: resource.humanizer_question, required: true, label: false
+        = f.hidden_field :humanizer_question_id, label: false
 
         = f.button :submit, t('.sign_up'), class: 'btn-m-passport btn-m-signup'
         .input-footer
           p.signup
-            | 已有帐号请
-            = link_to t(".sign_in"), new_session_path(resource_name)
+            | 已有帐号?
+            br
+            | 请&nbsp
+            = link_to t(".sign_in"), new_session_path(resource_name), class: 'login-sign'
 
