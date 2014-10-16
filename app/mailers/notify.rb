@@ -202,7 +202,7 @@ STR
                             else
                               @greeting_card.sender_email
                             end
-    mail(to: @greeting_card.recipient_email, subject: "收到一张新贺卡")
+    @greeting_card.recipient_email.split(",").each { |recipient_email| mail(to: recipient_email, subject: "收到一张新贺卡") }
   end
 
   def product_reply_greeting_card_email(reply_greeting_card)
