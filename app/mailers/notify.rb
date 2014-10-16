@@ -195,8 +195,13 @@ STR
     mail(to: emails, subject: subject("产品到货通知"))
   end
 
-  def product_greeting_card_email(greeting_card)
+  def product_greeting_card_email(greeting_card, username = nil)
     @greeting_card = greeting_card
+    @greeting_card_sender = if @greeting_card.user
+                              @greeting_card.user.name
+                            else
+                              @greeting_card.sender_email
+                            end
     mail(to: @greeting_card.recipient_email, subject: "收到一张新贺卡")
   end
 
