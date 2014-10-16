@@ -46,4 +46,7 @@ class PagesController < ApplicationController
 
   def qixijie
   end
+
+  def yujianli
+  end
 end

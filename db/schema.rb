@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140925033751) do
+ActiveRecord::Schema.define(version: 20141015040130) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,19 @@ ActiveRecord::Schema.define(version: 20140925033751) do
 
   add_index "administrators", ["email"], name: "index_administrators_on_email", unique: true, using: :btree
   add_index "administrators", ["reset_password_token"], name: "index_administrators_on_reset_password_token", unique: true, using: :btree
+
+  create_table "appointments", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "product_id"
+    t.string   "customer_phone"
+    t.string   "customer_email"
+    t.datetime "notify_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "appointments", ["product_id"], name: "index_appointments_on_product_id", using: :btree
+  add_index "appointments", ["user_id"], name: "index_appointments_on_user_id", using: :btree
 
   create_table "areas", force: true do |t|
     t.string  "name"
@@ -122,6 +135,10 @@ ActiveRecord::Schema.define(version: 20140925033751) do
     t.datetime "published_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "cover_file_name"
+    t.string   "cover_content_type"
+    t.integer  "cover_file_size"
+    t.datetime "cover_updated_at"
   end
 
   add_index "blog_posts", ["published"], name: "index_blog_posts_on_published", using: :btree
@@ -472,6 +489,9 @@ ActiveRecord::Schema.define(version: 20140925033751) do
     t.boolean  "discountable",                                         default: true
     t.string   "promo_tag"
     t.string   "flower_type"
+    t.text     "material"
+    t.text     "maintenance"
+    t.text     "delivery"
   end
 
   add_index "products", ["default_date_rule_id"], name: "index_products_on_default_date_rule_id", using: :btree
@@ -534,6 +554,15 @@ ActiveRecord::Schema.define(version: 20140925033751) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "sales_charts", force: true do |t|
+    t.integer  "product_id"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sales_charts", ["product_id"], name: "index_sales_charts_on_product_id", using: :btree
 
   create_table "settings", force: true do |t|
     t.string   "var",                   null: false

@@ -11,6 +11,7 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.published.find(params[:id])
+    @appointment = Appointment.new(product: @product)
 
     # FIXME products always have assets now
     assets  = @product.assets || []
@@ -96,29 +97,43 @@ class ProductsController < ApplicationController
     end
   end
 
-  private
-
-  def fetch_order_by
-    if params[:order].present?
-      field, direction = params[:order].scan(/^(.*)_(desc|asc)?$/).first
-
-      if field.blank?
-        order_by = "sold_total desc"
-      else
-        order_by = "#{field} #{direction}"
-      end
-
-      @products = @products.reorder(order_by)
+  def appointment
+    http_referer = request.env["HTTP_REFERER"]
+    if appointment = Appointment.create(appointment_params) 
+      redirect_to product_path(appointment.product), flash: { success: t("views.appointment.successful_appointment") }
+    else
+      redirect_to http_referer, flash: { fail: t("views.appointment.failed_appointment") }
     end
   end
 
-  def fetch_collection
-    @collection = Collection.available.find(params[:collection_id])
-    @collection_ids = @collection.self_and_descendants.map(&:id)
-  end
+  private
 
-  def prepare_tag_filter
-    @color_tag_clouds = Product.published.in_collections(@collection_ids).
-      reorder('').tag_counts_on(:colors)
-  end
+    def appointment_params
+      params.require(:appointment).permit(:customer_phone, :customer_email, :user_id, :product_id)
+    end
+
+    def fetch_order_by
+      if params[:order].present?
+        field, direction = params[:order].scan(/^(.*)_(desc|asc)?$/).first
+
+        if field.blank?
+          order_by = "sold_total desc"
+        else
+          order_by = "#{field} #{direction}"
+        end
+
+        @products = @products.reorder(order_by)
+      end
+    end
+
+    def fetch_collection
+      @collection = Collection.available.find(params[:collection_id])
+      @collection_ids = @collection.self_and_descendants.map(&:id)
+    end
+
+    def prepare_tag_filter
+      @color_tag_clouds = Product.published.in_collections(@collection_ids).
+        reorder('').tag_counts_on(:colors)
+    end
+
 end

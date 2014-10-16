@@ -172,5 +172,14 @@ STR
       new(phone_number: phone, body: content).deliver
     end
 
+    #TODO: Refactor with email notification
+    def product_appointment_sms(product_id)
+      product = Product.find product_id
+      appointments = product.appointments.unnotified
+      return if appointments.nil?
+      phone_nums = appointments.map { |a| a.customer_phone if a.customer_phone.present?  }
+      appointments.each { |a| a.update_column(:notify_at, Time.now) }
+      phone_nums.each { |num| new(phone_number: num, body: "您之前关注过的#{product.product_type_text}#{product.name_zh}已经新到货啦！您现在可以在我们的官网上进行选购了.「花里花店」") }
+    end
   end
 end

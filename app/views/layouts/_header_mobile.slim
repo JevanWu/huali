@@ -1,5 +1,9 @@
 == render 'layouts/messages'
 header
   a.logo href="#{root_path}"
-  = link_to '', current_order_path, class: 'cart'
+  span.nav-icon
+    = fa_icon 'bars'
   a.nav
+  span.cart-icon
+    = fa_icon 'shopping-cart'
+  = link_to '', current_order_path, class: 'cart'

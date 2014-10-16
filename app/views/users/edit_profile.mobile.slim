@@ -1,0 +1,13 @@
+.account-info-container
+  .profile
+    .profile-edit
+      = simple_form_for @user, url: { action: 'update_profile' },
+        html: { class: 'form-horizontal', method: :patch } do |f|
+
+        = f.input :email, placeholder: '您的邮箱地址' ,label: false ,hint: '您的邮箱地址'
+        = f.input :name, placeholder: '您的称呼, 以便我们和您联系' ,label: false ,hint: '您的姓名'
+        = f.input :phone, placeholder: '您的手机号码，以便我们和您核对信息' ,label: false ,hint: '您的手机号码'
+
+        .form-actions
+          = f.button :submit, t("devise.registrations.edit.update"), class: 'button btn-m-discount'
+      .clearfix

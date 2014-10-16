@@ -52,8 +52,11 @@ class Product < ActiveRecord::Base
   has_and_belongs_to_many :collections
   accepts_nested_attributes_for :collections
 
+  # appointment
+  has_many :appointments, dependent: :destroy
+
   # asset
-  has_many :assets, as: :viewable, dependent: :destroy
+  has_many :assets, as: :viewable, dependent: :destroy, order: "created_at asc"
   accepts_nested_attributes_for :assets, reject_if: lambda { |a| a[:image].blank? }, allow_destroy: true
 
   has_attached_file :rectangle_image, styles: { medium: "220x328>" }
@@ -84,10 +87,10 @@ class Product < ActiveRecord::Base
   translate :name
 
   # validations
-  validates_presence_of :name_en, :name_zh, :count_on_hand, :assets, :collections, :price
+  validates_presence_of :name_en, :name_zh, :count_on_hand, :assets, :collections, :price, :sku_id
   enumerize :product_type, in: [:fresh_flower, :preserved_flower, :others, :fake_flower, :perfume], default: :others
   enumerize :promo_tag, in: [:limit]
-  enumerize :flower_type, in: [:flower_box, :holding_flower, :photo_frame_flower, :bonsai, :others], default: :flower_box
+  enumerize :flower_type, in: [:flower_box, :bouquet, :holding_flower, :photo_frame_flower, :bonsai, :others], default: :flower_box
 
   # scopes
   scope :order_by_priority, -> { order('priority DESC') }
@@ -107,6 +110,8 @@ class Product < ActiveRecord::Base
   before_save do |product|
     product.name_en.downcase!
   end
+
+  after_save :notify_customers
 
   after_initialize do |product|
     product.discountable = true if product.discountable.nil?
@@ -243,4 +248,17 @@ class Product < ActiveRecord::Base
   def update_stock(sold_count)
     update_column(:count_on_hand, [count_on_hand - sold_count, 0].max)
   end
+
+  private
+
+    def notify_customers
+      if self.changed.include?("count_on_hand") && restock?
+        Notify.delay.product_appointment_email(self.id)
+        Sms.delay.product_appointment_sms(self.id)
+      end
+    end
+
+    def restock?
+      self.changes["count_on_hand"][0] == 0 && self.changes["count_on_hand"][1] > 0
+    end
 end
