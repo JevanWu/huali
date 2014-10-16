@@ -12,7 +12,7 @@
       | 发送贺卡：#{@product.name}
     == image_tag(@product.img(:medium))
     = simple_form_for @greeting_card, url: greeting_card_path, html: {class: "form-horizontal"} do |f|
-      = f.input :recipient_email, label: "收件人邮箱"
+      = f.input :recipient_email, label: "收件人邮箱，多个收件人请用逗号分割"
       = f.input :sender_email, label: "发件人邮箱", input_html: { value: current_user.try(:email) }
       = f.input :sentiments, label: "祝福语", input_html: { value: "花艺师手记" }
       = f.input :product_id, as: :hidden, input_html: { value: @greeting_card.product.id }
