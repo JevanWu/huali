@@ -13,6 +13,9 @@ ActiveAdmin.register Product do
   end
   batch_action :destroy, false
 
+  scope :published, default: true
+  scope :unpublished
+
   controller do
     helper :products
     before_action :authorize_seo_permission, only: [:create, :update]
@@ -42,6 +45,9 @@ ActiveAdmin.register Product do
         :tag_list,
         :trait_list,
         :inspiration,
+        :material,
+        :maintenance,
+        :delivery,
         :product_type,
         :description,
         :count_on_hand,
@@ -59,6 +65,8 @@ ActiveAdmin.register Product do
         :rectangle_image,
         :discountable,
         :promo_tag,
+        :flower_type,
+        :color_list,
         :assets_attributes => [ :id, :image, :_destroy ],
         :collection_ids => [],
         :recommendation_ids => [],
@@ -125,15 +133,31 @@ ActiveAdmin.register Product do
       row :product_type do
         product.product_type_text
       end
+      row :flower_type do
+        product.flower_type_text
+      end
       row :priority
 
       row :tag_list
       row :trait_list
+      row :color_list
 
       row :sold_total
 
+      row :material do
+        markdown(product.material)
+      end
+
       row :inspiration do
         markdown(product.inspiration)
+      end
+
+      row :maintenance do
+        markdown(product.maintenance)
+      end
+
+      row :delivery do
+        markdown(product.delivery)
       end
 
       row :description do

@@ -30,7 +30,7 @@
   border: none
   color: $masthead-color
   background-color: $buttonBgColor
-  +border-radius(3px)
+  +border-radius(0px)
   font-size: $buttonFontSize
 
 =error($errorWidth,$errorHeight: 30px)
@@ -41,16 +41,19 @@
   padding-left: 0
   color: $errorColor
   background-color: $errorBgColor
-  +border-radius(3px)
+  +border-radius(0px)
 
 /*button*/
 /*pc*/
 .btn-next
-  +button(80px)
+  +button(30%)
 
 .btn-passport
   @extend .btn-next
+  margin-left: 0px
+  height: 30px
   text-decoration: none !important
+  font-size: 14px
   cursor: pointer
 
 .btn-passport[disabled]
@@ -59,10 +62,11 @@
   opacity: 0.65
 
 .btn-post
-  +button(48px,24px)
+  +button(48px,24.3px)
   color: white !important
   margin-top: -10px
   margin-left: 5px
+  border-radius: 0px
 
 .btn-logistics
   @extend .btn-next
@@ -84,6 +88,8 @@
 .btn-checkout
   @extend .btn-next
   margin-top: 50px
+  line-height: 32px
+
 
 /*这个PC和MOBILE相同*/
 .btn-addToCart
@@ -97,10 +103,12 @@
 
 /*moble*/
 .btn-m-passport
-  +button(140px)
+  +button(140px,40px)
+  font-size: 17px
 
 .btn-m-confirm
   +button(100%)
+  font-size: 17px
 
 .btn-m-confirmPay
   @extend .btn-m-confirm
@@ -127,7 +135,8 @@
   @extend .btn-m-cancel
 
 .btn-m-discount
-  +button(139px,30px,14px)
+  +button(150px,30px,14px)
+  font-size: 17px
 
 .btn-m-confirmBuy
   @extend .btn-m-confirm
@@ -145,11 +154,11 @@
   border: none
   color: $masthead-color
   background-color: $buttonBgColor
-  +border-radius(3px)
+  +border-radius(0px)
   font-size: 12px
 
 .btn80
-  width: 80px !important
+  width: 140px !important
 
 .form-actions
   background-color: transparent
@@ -157,4 +166,4 @@
   padding: 0 20px 0
 
 =global-box-shadow
-  +box-shadow(-1px 1px 5px rgba(214, 214, 215, 0.9))
+  +box-shadow(-1px 1px 1px rgba(214, 214, 215, 0.6))

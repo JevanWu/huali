@@ -8,19 +8,25 @@
       padding-left: 235px
       padding-top: 75px
       padding-bottom: 115px
-      i
-        position: absolute
-        width: 51px
-        height: 44px
-        left: 170px
-        top: 55px
-        background: image-url("bg/cart.png") no-repeat
+      i.fa-shopping-cart
+        font-size: 40px
+        margin-right: 5px
       .tips
         font-size: $title-font
         a
           color: #a9643c
       a
         color: $link-blue-color
+    .share
+      +clearfix
+      .share-to
+        +clearfix
+        float: left
+        margin-left: 15px
+        li
+        margin-right: 7px
+        &.last
+        margin-right: 0
     .not-empty
       +clearfix
       margin-left: 0
@@ -31,18 +37,13 @@
         .cart-title
           position: relative
           height: 30px
-          padding-left: 30px
           padding-top: 25px
           color: $strong-color
           font-size: $title-font-large
           font-weight: bold
           i
-            position: absolute
-            width: 30px
-            height: 24px
-            left: 0
-            top: 28px
-            background: image-url("bg/gouhualan.png") no-repeat
+            font-size: 20px
+            margin-right: 10px
         .cart-captain
           +clearfix
           border-bottom: 1px solid #1a1a1a
@@ -94,28 +95,20 @@
             a,input
               float: left
             .add_quantity,.reduce_quantity
-              width: 8px
-              height: 8px
-              margin-top: 6px
-              text-align: center
-              line-height: 8px
               color: $link-lighter-color
-              border: 1px solid $border-lighter-color
+              font-size: 16px
             input
               width: 21px
-              height: 21px
+              height: 18px
               margin: 0 2px
               text-align: center
-              border: 1px solid $border-lighter-color
               color: $link-lighter-color
               padding: 0
               margin-bottom: 0
             .empty_quantity
-              width: 14px
-              height: 16px
-              margin-left: 9px
-              margin-top: 3px
-              background: image-url("bg/dustbin.png") no-repeat
+              color: black
+              font-size: 16px
+              margin-left: 4px
       .cart-checkout
         float: right
         width: 230px
@@ -134,12 +127,13 @@
             input
               width: 124px
               height: 28px
-              border: 1px solid $border-lighter-color
-              +border-radius(3px)
+              +border-radius(0px)
               margin-bottom: 0
               padding: 0
             button
               +button(60px)
+              +border-radius(0px)
+              line-height: 28px !important
             .error
               +error(170px)
               margin-top: 6px
@@ -159,9 +153,9 @@
             color: #cc6633
           button
             margin-top: 50px
-
 .admin-btn-area
   margin-left: 0
+  +border-radius(0px)
   .btn-checkout
     margin-top: 30px
     margin-right: 5px

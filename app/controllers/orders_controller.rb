@@ -1,9 +1,13 @@
 # encoding: utf-8
+require 'json'
+require 'digest'
 class OrdersController < ApplicationController
+  before_action :justify_wechat_agent, only: [:index, :current, :checkout, :gateway, :new, :create]
   before_action :fetch_related_products, only: [:back_order_create, :channel_order_create, :current, :apply_coupon]
+  before_action :signin_with_openid, only: [:new, :index]
   before_action :authenticate_user!, only: [:new, :index, :show, :create, :checkout, :cancel, :edit_gift_card, :update_gift_card]
   before_action :authenticate_administrator!, only: [:back_order_new, :back_order_create, :channel_order_new, :channel_order_create]
-  before_action :fetch_transaction, only: [:return, :notify]
+  #before_action :fetch_transaction, only: [:return, :notify]
   skip_before_action :verify_authenticity_token, only: [:notify]
   before_action :authorize_to_record_back_order, only: [:back_order_new, :channel_order_new, :back_order_create, :channel_order_create]
   before_action :validate_cart, only: [:new, :channel_order_new, :back_order_new, :create, :back_order_create, :channel_order_create]
@@ -44,16 +48,15 @@ class OrdersController < ApplicationController
 
   # backorder
   # - used for internal usage
-  # - no transaction is issued
+  # - transaction is issued for tracking paymenthod
   # - tracking is skipped
   def back_order_new
-    @order_admin_form = OrderAdminForm.new(kind: 'marketing',
-                                           coupon_code: cookies[:coupon_code])
-    @order_admin_form.address = ReceiverInfo.new
+    @offline_order_form = OfflineOrderForm.new(kind: 'offline', coupon_code: cookies[:coupon_code])
+    @offline_order_form.address = ReceiverInfo.new
   end
 
   def channel_order_create
-    opts = { paymethod: 'directPay',
+    opts = { paymethod: 'alipay',
              merchant_name: 'Alipay',
              merchant_trade_no: params[:merchant_trade_no]}
 
@@ -62,9 +65,9 @@ class OrdersController < ApplicationController
     end
   end
 
-  def back_order_create
+  def back_order_create # 线下店订单录入
     process_admin_order('back_order_new') do |record|
-      record.state = 'wait_make'
+      record.state = record.ship_method_id? ? 'wait_make' : 'completed'
     end
   end
 
@@ -80,8 +83,7 @@ class OrdersController < ApplicationController
     end
 
     if !@order_form.user.name.present?
-      redirect_to settings_profile_path, flash: {success: "请填写您的姓名"}
-      return
+      redirect_to settings_profile_path, flash: {success: "请填写您的姓名"} and return
     end
 
     if @order_form.save
@@ -110,7 +112,12 @@ class OrdersController < ApplicationController
         else
           flash[:notice] = t('controllers.order.order_success')
         end
-        redirect_to checkout_order_path(@order_form.record)
+
+        if @use_wechat_agent
+          redirect_to checkout_order_path(@order_form.record, showwxpaytitle: 1)
+        else
+          redirect_to checkout_order_path(@order_form.record)
+        end
       end
     else
       set_address_select_cookies
@@ -139,22 +146,14 @@ class OrdersController < ApplicationController
   end
 
   def checkout
-    @banks = ['ICBCB2C', 'CMB', 'CCB', 'BOCB2C', 'ABC', 'COMM', 'CMBC']
+    @order = current_or_guest_user.orders.find_by_id(params[:id]) if params[:id]
+    @order ||= Order.find_by_id(session[:order_id])
 
-    if params[:id]
-      @order = current_or_guest_user.orders.find_by_id(params[:id])
-
-      if @order.blank?
-        flash[:alert] = t('controllers.order.order_not_exist')
-        redirect_to :root and return
-      end
+    if @order.blank?
+      flash[:alert] = t('controllers.order.order_not_exist')
+      redirect_to :root and return
     else
-      @order = Order.find_by_id(session[:order_id])
-
-      if @order.blank?
-        flash[:alert] = t('controllers.order.no_items')
-        redirect_to :root and return
-      end
+      set_wechat_pay_params(@order, request.remote_ip) if @use_wechat_agent
     end
 
     @cart = Cart.new(@order.line_items,
@@ -164,10 +163,9 @@ class OrdersController < ApplicationController
 
   def gateway
     @order = Order.find_by_id(params[:id] || session[:order_id])
-
     # params[:pay_info] is mixed with two kinds of info - pay method and merchant_name
     # these two are closed bound together
-    payment_opts = process_pay_info(params[:pay_info])
+    payment_opts = process_paymethod(params[:paymethod])
     transaction = @order.generate_transaction payment_opts.merge(client_ip: request.remote_ip), params[:use_huali_point]
     transaction.start
     if transaction.amount == 0
@@ -182,33 +180,51 @@ class OrdersController < ApplicationController
 
   def fetch_transaction
     begin
-      @transaction = Transaction.find_by_identifier!(params["custom_id"])
+      # Alipay and wechat pay use parameter "out_trade_no" to store transaction_id, while paypay use parameter "custom"
+      @transaction = Transaction.find_by_identifier!(params["out_trade_no"] || params["custom"])
       @order = @transaction.order
     rescue ActiveRecord::RecordNotFound
-      raise ArgumentError, "custom_id in parameters is not right"
+      raise ArgumentError, "Parameter out_trade_no is not right"
     end
   end
 
   private :fetch_transaction
 
   def return
+    fetch_transaction
     user = @transaction.order.user
     if @transaction.return(request.query_string)
       HualiPointService.minus_expense_point(user, @transaction)
       render 'success'
     else
+      @transaction.failure if @transaction.state == "processing"
       render 'failed', status: 400
     end
   end
 
+  def paypal_return
+    render 'success_paypal'
+  end
+
   def notify
+    fetch_transaction
     query = request.raw_post.present? ? request.raw_post : request.query_string # wechat use method 'get' to send notify request
     user = @transaction.order.user
     if @transaction.notify(query)
       HualiPointService.minus_expense_point(user, @transaction)
       render text: "success"
     else
+      @transaction.failure if @transaction.state == "processing"
       render text: "failed", status: 400
+    end
+  end
+
+  def wechat_notify
+    bill = Billing::Base.new(:notify, nil, params.merge(client_ip: request.remote_ip))
+    if bill.success?
+      render text: "success"
+    else
+      render text: "failed"
     end
   end
 
@@ -225,8 +241,10 @@ class OrdersController < ApplicationController
       cookies[:coupon_code] = coupon_code.to_s
       cookies['cart'] = products.reduce({}) { |memo, p| memo[p.id] = 1; memo }.to_json
 
+
       load_cart
     end
+    @wechat_oauth_url = (@use_wechat_agent && current_user.nil?) ? Wechat::WechatHelper.wechat_oauth_url(:code, new_order_url) : new_order_url
   end
 
   def apply_coupon
@@ -251,6 +269,16 @@ class OrdersController < ApplicationController
     @order = current_or_guest_user.orders.find_by_id(params[:id])
   end
 
+  def wechat_warning
+    warning = { error_type: params[:xml][:ErrorType] || "", description: parameters[:Description] || "", alarm_content: parameters[:AlarmContent] || "" }
+    Notify.delay.wechat_warning(warning, "jevan@hua.li", "ryan@hua.li", "ella@hua.li")
+    render text: "success"
+  end
+
+  def wechat_feedback
+    render text: "success"
+  end
+
   private
 
     def authorize_to_record_back_order
@@ -258,46 +286,52 @@ class OrdersController < ApplicationController
     end
 
     def process_admin_order(template)
-      @order_admin_form = OrderAdminForm.new(params[:order_admin_form])
+      if params[:offline_order_form][:ship_method_id].blank?
+        params[:offline_order_form][:bypass_date_validation] = true
+        params[:offline_order_form][:bypass_region_validation] = true
+        params[:offline_order_form][:bypass_product_validation] = true
 
-      update_coupon_code(@order_admin_form.coupon_code)
-
-      @order_admin_form.sender ||= SenderInfo.new({
-                                                  name: 'Huali',
-                                                  email: 'support@hua.li',
-                                                  phone: '400-087-8899'
-                                                })
-      @order_admin_form.user = current_or_guest_user
-
-      if @order_admin_form.kind == :taobao && !validate_merchant_trade_no(params[:merchant_trade_no])
-        @order_admin_form.errors.add(:kind, '无效的淘宝交易号码')
-        render template and return
+        params[:offline_order_form][:expected_date] = Date.current.to_s
+        params[:offline_order_form][:delivery_date] = Date.current.to_s
+        params[:offline_order_form][:address] = { fullname: 'Huali', phone: '400-087-8899', address: '线下店自提', province_id: 33, city_id: 347 }
       end
+
+      @offline_order_form = OfflineOrderForm.new(params[:offline_order_form])
+
+      update_coupon_code(@offline_order_form.coupon_code)
+
+      @offline_order_form.sender ||= SenderInfo.new({ name: 'Huali', email: 'support@hua.li', phone: '400-087-8899' })
+      @offline_order_form.user = current_or_guest_user
 
       # create line items
       @cart.items.each do |item|
-        @order_admin_form.add_line_item(item.product_id, item.quantity)
+        @offline_order_form.add_line_item(item.product_id, item.quantity)
       end
 
-      success = @order_admin_form.save do |record|
+      success = @offline_order_form.save do |record|
         yield(record) if block_given?
       end
 
       if success
         empty_cart
 
-        OrderDiscountPolicy.new(@order_admin_form.record).apply
-        store_order_id(@order_admin_form.record)
+        OrderDiscountPolicy.new(@offline_order_form.record).apply
+        store_order_id(@offline_order_form.record)
+
+        opts = { paymethod: params[:offline_order_form][:paymethod],
+                 merchant_name: 'Alipay' }
+        transaction = @offline_order_form.record.reload.generate_transaction(opts)
+        transaction.update_column(:state, 'completed')
+
+        if @offline_order_form.record.state == 'completed'
+          ErpWorker::ImportOrder.perform_async(@offline_order_form.record.id)
+        end
 
         flash[:notice] = t('controllers.order.order_success')
         redirect_to root_path
       else
         render template
       end
-    end
-
-    def validate_merchant_trade_no(merchant_trade_no)
-      merchant_trade_no && merchant_trade_no =~ /^\d{28}$/
     end
 
     def store_order_id(record)
@@ -324,17 +358,24 @@ class OrdersController < ApplicationController
       end
     end
 
-    def process_pay_info(pay_info)
-      case pay_info
-      when 'directPay'
-        { paymethod: 'directPay', merchant_name: 'Alipay' }
+    def process_paymethod(paymethod)
+      case paymethod
+      when 'alipay'
+        { paymethod: 'alipay', merchant_name: 'Alipay' }
       when 'paypal'
         { paymethod: 'paypal', merchant_name: 'Paypal' }
       when 'wechat'
         { paymethod: 'wechat', merchant_name: 'Tenpay' }
-      else
-        { paymethod: 'bankPay', merchant_name: pay_info }
       end
+    end
+
+    def set_wechat_pay_params(order, client_ip)
+      @appid = Wechat::ParamsGenerator.get_appid
+      @timestamp = Wechat::ParamsGenerator.get_timestamp
+      @nonce_str = Wechat::ParamsGenerator.get_nonce_str
+      @package = Wechat::ParamsGenerator.get_package(order, client_ip)
+      @sign_type = Wechat::ParamsGenerator.get_signtype
+      @sign = Wechat::ParamsGenerator.get_sign(@nonce_str, @package, @timestamp)
     end
 
     def gift_card_params

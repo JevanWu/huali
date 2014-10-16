@@ -1,8 +1,8 @@
 require 'uri'
 
 module Billing
-  class Notify
-    class Alipay < Base
+  module Notify
+    class Alipay < Notify::Base
       include Billing::Helper::Alipay
     end
   end

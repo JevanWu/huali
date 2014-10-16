@@ -1,7 +1,6 @@
-- content_for(:css) do
-  = stylesheet_link_tag "jquery.ui.datepicker"
+= stylesheet_link_tag "jquery.ui.datepicker"
 
-- content_for(:js) do
+- content_for(:body_js) do
   = javascript_include_tag "datepicker-settings"
   = javascript_include_tag "prov_city_area_update"
 
@@ -18,11 +17,11 @@
         | 共计#{@cart.item_count}件商品
       - if @cart.discounted?
         p.discount
-          | 促销优惠：-
+          | 促销优惠：- 
           = number_to_currency @cart.discount_money
       p.total-price
         | 总计：
         span
           = number_to_currency @cart.total
 
-  = render 'form'
+  = render 'form.mobile'

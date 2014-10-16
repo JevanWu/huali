@@ -1,7 +1,7 @@
 require 'ostruct'
 
 module Billing
-  class Notify
+  module Notify
     class Base < OpenStruct
       attr_accessor :raw
        

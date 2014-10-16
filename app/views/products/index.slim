@@ -7,42 +7,18 @@
 - content_for :description do
   = @collection.meta_description
 
+= breadcrumb_generator(@collection)
+
 .cate-list
   dl
     dt.cate-list-title
-      strong
-        i
+      h1
         = @collection.display_name
-        b
       p
         = @collection.description.html_safe
-      .panel
-        = render "product_order"
-        .tabs
-          span
-            | 显示：
-          a.row-view[href="javascript:;"]
-          a.square-view[href="javascript:;"]
+      = render 'products_filter'
   dd.main
     .best-products.row
       = render partial: 'product', collection: @products
-    ul.row-item.is-hidden
-      - @products.each do |product|
-        li.row
-          - product.assets.take(3).each do |asset|
-            a.img-wrap.span2 href="#{product_path(product)}"
-              = image_tag asset.image.url(:medium), alt: "#{product.name} thumbnail images", width: '140'
-          .des.span5
-            div
-              .name
-                h3.product-name
-                  = link_to product.name, product_path(product), title: product.name
-                h4.product-name-en
-                  = product.name_en
-                .price
-                  span ￥#{product.price}
-            .share
-              span = t(:sharing)
-              = render 'shared/product_share_links', product: product
     .pager
       == paginate @products

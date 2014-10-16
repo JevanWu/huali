@@ -84,7 +84,7 @@ class SenderInfo
   phoneize :phone
   validates :phone, phone: { allow_blank: true }
 
-  validates_presence_of :email, :phone, :name
+  validates_presence_of :phone, :name
 end
 
 # The Role of OrderForm

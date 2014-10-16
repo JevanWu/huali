@@ -64,7 +64,7 @@ module API
                           ship_method_id: params[:ship_method_id],
                           expected_date: params[:expected_date],
                           delivery_date: params[:delivery_date])
-        order.source = ['taobao', 'tmall'].include?(params[:kind]) ? '淘宝' : nil
+        order.source = ['taobao', 'tmall'].include?(params[:kind]) ? '淘宝' : '其他'
 
         address = Address.new(fullname: params[:address_fullname],
                               phone: params[:address_phone],
@@ -121,7 +121,7 @@ module API
       #   merchant_name (optional)        - Merchant name, available names: Alipay, Paypal and Tenpay, default: Alipay.
       #   payment (required)              - The amount of the payment by customer
       #   subject_text (optional)         - The subject text of the payment
-      #   method (optional)               - Available methods: paypal, directPay, wechat, default: directPay
+      #   method (optional)               - Available methods: paypal, alipay, bankPay, wechat, wechat_mobile default: alipay
 
       # Example Request:
       #   PUT /orders/:kind/:id/transactions/completed/:merchant_trade_no
@@ -129,7 +129,7 @@ module API
         optional :merchant_name, type: String, default: 'Alipay'
         requires :payment, type: Float
         optional :subject_text, type: String
-        optional :method, type: String, default: 'directPay'
+        optional :method, type: String, default: 'alipay'
       end
 
       put ":kind/:id/transactions/completed/:merchant_trade_no" do
@@ -152,6 +152,8 @@ module API
 
         transaction.start if transaction.state == 'generated'
         transaction.complete_deal
+
+        forbidden! and return unless transaction.persisted? && transaction.state == 'completed'
 
         status(205)
       end

@@ -65,10 +65,10 @@ module Huali
     config.action_mailer.default charset: "utf-8"
 
     config.action_mailer.smtp_settings = {
-      address: "smtp.mandrillapp.com",
-      port: 587,
-      user_name: ENV["MANDRILL_USERNAME"],
-      password: ENV["MANDRILL_API_KEY"]
+      address: ENV["EMAILCAR_SMTP_SERVER"],
+      port: 25,
+      user_name: ENV["EMAILCAR_SMTP_USERNAME"],
+      password: ENV["EMAILCAR_SMTP_PASSWORD"]
     }
 
     # Use SQL instead of Active Record's schema dumper when creating the database.

@@ -1,4 +1,5 @@
 #= require jquery
+#= require jquery.turbolinks
 #= require jquery_ujs
 #= require jquery.cookie
 #= require 'scrollTo'
@@ -23,3 +24,10 @@
 #= require 'orders'
 #= require 'bootstrap-tab'
 #= require 'segmentio'
+#= require 'module/popup-dialog'
+#= require turbolinks
+#= require nprogress
+#= require nprogress-turbolinks
+
+NProgress.configure({ showSpinner: false, ease: 'ease', speed: 500 })
+Turbolinks.enableTransitionCache()

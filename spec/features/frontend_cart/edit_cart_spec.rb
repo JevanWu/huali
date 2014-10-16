@@ -11,7 +11,7 @@ feature 'Edit cart' do
     visit "/products/#{product.slug}"
     page.execute_script("$.removeCookie('cart');") # Ensure cart is empty before run spec
 
-    click_link '放入购花篮'
+    click_link '放入购物车'
 
     find(".add_quantity").click
 

@@ -31,7 +31,7 @@ ActiveAdmin.register Collection do
     end
 
     def permitted_params
-      params.permit collection: [:name_en, :name_zh, :display_name, :description, :priority, :available, :primary_category, :meta_title, :meta_description, :meta_keywords, :parent_id]
+      params.permit collection: [:name_en, :name_zh, :display_name, :description, :priority, :available, :primary_category, :meta_title, :meta_description, :meta_keywords, :parent_id, :display_on_breadcrumb]
     end
   end
 
@@ -52,6 +52,7 @@ ActiveAdmin.register Collection do
       row :primary_category
       row :description
       row :priority
+      row :display_on_breadcrumb
 
       row :product do
         collection.products.map do |product|

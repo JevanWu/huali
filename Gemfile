@@ -67,7 +67,11 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails', '>= 4.0.0'
 gem 'uglifier', '>= 1.0.3'
 gem 'bootstrap-sass', '~> 2.2.1.1'
-# gem 'turbo-sprockets-rails3'
+
+# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
+gem 'turbolinks'
+gem 'jquery-turbolinks'
+gem 'nprogress-rails'
 
 gem 'closure_tree', github: 'ryancheung/closure_tree'
 
@@ -87,7 +91,7 @@ gem 'grape'
 gem 'api-auth', github: 'ryancheung/api_auth'
 gem 'rest-client'
 
-gem 'huali_api', git: 'git@git.zenhacks.org:ryan/huali_api.git', tag: 'v0.1.0', require: 'huali_agent_api'
+gem 'huali_api', git: 'git@bitbucket.org:huali-store/huali_api.git', tag: 'v0.1.0', require: 'huali_agent_api'
 
 gem 'flowplayer-rails', github: 'ryancheung/flowplayer-rails'
 
@@ -108,6 +112,10 @@ gem 'i18n', github: 'svenfuchs/i18n', tag: 'v0.6.10'
 
 gem 'rqrcode'
 gem 'chosen-rails'
+gem "font-awesome-rails"
+
+#xml parser
+gem 'actionpack-xml_parser'
 
 group :development, :test do
   gem 'rspec-rails', '>= 2.11.0'
@@ -123,6 +131,7 @@ group :production, :staging do
 end
 
 group :development do
+  gem 'rb-readline'
   gem 'thin', '>= 1.4.1'
   gem 'rb-fsevent', require: false
   gem 'growl'
@@ -140,8 +149,8 @@ group :development do
   gem 'pry-docmore'
   gem 'pry-remote'
   gem 'pry-rescue'
-  gem 'pry-stack_explorer'
-  gem 'pry-debugger'
+  gem 'pry-byebug'
+  gem 'pry-coolline'
   gem 'pry-rails'
   gem 'better_errors'
   gem 'binding_of_caller'
@@ -154,6 +163,7 @@ group :development do
   gem 'capistrano-rbenv', '~> 2.0', require: false
   gem 'capistrano-sidekiq'
   gem "capistrano-db-tasks", github: 'ryancheung/capistrano-db-tasks', branch: 'postgresql-9.2', require: false
+  gem "capistrano3-puma"
 
   gem 'railroady'
   gem "rails-erd"

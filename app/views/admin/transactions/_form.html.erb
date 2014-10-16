@@ -3,8 +3,8 @@
   <%= f.inputs "Main Info" do %>
     <%= f.input :order_id, wrapper_html: { style: "display:none;" } %>
     <%= f.input :amount, required: true %>
-    <%= f.input :paymethod, required: true, collection: {支付宝: "directPay", 网银支付: "bankPay", Paypal: "paypal", 微信支付: "wechat" } %>
-    <%= f.input :merchant_name, required: true, collection: {支付宝: "Alipay", Paypal: "Paypal", 财付通: "Tenpay", 中国工商银行: "ICBCB2C", 招商银行: "CMB", 建设银行: "CCB", 中国银行: "BOCB2C", 中国农业银行: "ABC", 交通银行: "COMM", 中国民生银行: "CMBC" } %>
+    <%= f.input :paymethod, required: true, collection: Transaction.paymethod.options %>
+    <%= f.input :merchant_name, required: true, collection: Transaction.merchant_name.options %>
     <%= f.input :merchant_trade_no %>
     <%= f.input :subject %>
     <%= f.input :body %>

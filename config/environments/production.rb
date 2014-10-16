@@ -17,7 +17,7 @@ Huali::Application.configure do
   config.assets.compress = true
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = false
+  config.assets.compile = true
 
   # Generate digests for assets URLs
   config.assets.digest = true
@@ -48,8 +48,8 @@ Huali::Application.configure do
   # config.action_controller.asset_host = "http://assets.example.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w( application-mobile.js admin_shipment_print.css email.css mobile.css pc.css ie7.css ie8.css active_admin_print.css jquery.ui.datepicker.css home.js collections.js products.js pages.js ga.js html5shiv.js datepicker-settings.js jquery.imagesloaded.js weibo-stories.js)
-  config.assets.precompile += %w( oauth.js segmentio.js admin_order_print.css admin_order_print.js admin_card_print.css admin_card_print.js bootstrap-slider.js bootstrap-slider.css prov_city_area_update.js json3.js active_admin/sortable.js active_admin/sortable.css)
+  config.assets.precompile += %w( application-mobile.js admin_shipment_print.css email.css mobile.css pc.css ie7.css ie8.css active_admin_print.css modules/qrcode.css jquery.ui.datepicker.css home.js collections.js products.js pages.js ga.js html5shiv.js datepicker-settings.js jquery.imagesloaded.js weibo-stories.js)
+  config.assets.precompile += %w( oauth.js segmentio.js admin_order_print.css admin_order_print.js admin_card_print.css admin_card_print.js bootstrap-slider.js bootstrap-slider.css prov_city_area_update.js json3.js active_admin/sortable.js active_admin/sortable.css modules/appointment-dialog.css)
   config.assets.precompile += %w( *.png *.jpg *.jpeg *.gif *.ico )
 
   # Disable delivery errors, bad email addresses will be ignored

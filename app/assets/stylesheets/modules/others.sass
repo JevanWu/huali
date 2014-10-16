@@ -3,15 +3,11 @@
     width: $global-width
   .title
     position: relative
-    height: 60px
-    line-height: 60px
-    padding-left: 15px
+    height: 36px
+    line-height: 32px
     +rhombus_1
-    span,a
-      margin: 0 3px
-      color: $normal-text-color
-      &.cur
-        color: $content-normal-color
+    h1
+      font-size: 16px
   .main
     +clearfix
     .thumb
@@ -61,8 +57,9 @@
       .cant-add
         margin-top: 5px
         +error(100%)
-      h4
-        margin-bottom: 40px
+      .sold-out
+        color: red
+        font-size: 16px
       del
         display: inline-block
         margin-bottom: 5px
@@ -77,6 +74,7 @@
           &.price
             font-size: $title-font
             color: $strong-color
+            margin-top: 40px
           &.size
             margin-top: 20px
             font-size: 14px
@@ -95,7 +93,7 @@
             margin-right: 7px
             &.last
               margin-right: 0
-      .add-btn
+      .button
         display: block
         margin-top: 10px
         width: 100%
@@ -143,15 +141,17 @@
   .cate-list-title
     position: relative
     height: auto
-    padding: 20px 0 0px 23px
-    border-bottom: 6px solid $global-border-color
+    padding: 0px 0px 10px 0px
+    margin-top: 20px
+    //+global-box-shadow
+    border-bottom: 3px solid $global-border-color
     .label
       padding: 4px
       -webkit-border-radius: 0
       border-radius: 0
-    strong
+    h1
       position: relative
-      padding: 0 20px
+      //padding: 0 20px
       font-weight: bold
       font-size: $title-font-large
       +rhombus_1
@@ -160,52 +160,57 @@
       b
         left: 105px
     p
-      width: 70%
-      padding-left: 20px
+      margin-top: 4px
       color: $content-normal-color
-    .panel
-      margin: 5px 0
-      padding-left: 20px
-      padding-right: 15px
-      height: 22px
-      .tabs
-        float: right
+    .products-filter
+      margin-top: 14px
+      .filter
+        span
+          font-weight: bold
+        margin-bottom: 5px
         a
           display: inline-block
-          vertical-align: middle
-          width: 22px
-          height: 22px
-          &.row-view
-            background-image: image-url("bg/icon3.png")
-          &.square-view
-            margin-left: 5px
-            background-image: image-url("bg/icon4.png")
-      .order
-        float: left
-        .by_sold_total, .by_price
-          display: inline-block
-          border: 1px solid #CECBCE
+          padding: 2px 10px
+          border: 1px solid #cecbce
+          color: black
           margin-right: 5px
-          a
-            display: inline-block
-            color: $normal-text-color
-            padding: 2px 10px
-        .current
-          border: 1px solid #1a1a1a
-          background-color: #1a1a1a
-          a
-            color: white
-        .arrow-up, .arrow-down
+          text-decoration: none
+        a.active
+          background-color: black
+          color: #fff
+
+      .sort-order
+        span
+          font-weight: bold
+        margin: 5px 0
+        padding-right: 15px
+        height: 22px
+        .order
           display: inline-block
-          width: 9px
-          height: 13px
-          vertical-align: middle
-          padding-right: 2px
-          font-size: 0
-        .arrow-up
-          background-image: image-url("bg/arrow_up.png")
-        .arrow-down
-          background-image: image-url("bg/arrow_down.png")
+          .by_sold_total, .by_price
+            display: inline-block
+            border: 1px solid #CECBCE
+            margin-right: 5px
+            a
+              display: inline-block
+              color: $normal-text-color
+              padding: 2px 10px
+          .current
+            border: 1px solid #1a1a1a
+            background-color: #1a1a1a
+            a
+              color: white
+          .arrow-up, .arrow-down
+            display: inline-block
+            width: 9px
+            height: 13px
+            vertical-align: middle
+            padding-right: 2px
+            font-size: 0
+          .arrow-up
+            background-image: image-url("bg/arrow_up.png")
+          .arrow-down
+            background-image: image-url("bg/arrow_down.png")
     #tag_filter
       margin-top: 5px
       a
@@ -214,7 +219,7 @@
   .main
     .best-products
       +clearfix
-      padding-top: 20px
+      padding-top: 10px
       padding-bottom: 0
     .row-item > li
       +clearfix

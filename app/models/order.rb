@@ -60,7 +60,7 @@ class Order < ActiveRecord::Base
 
   extend Enumerize
   enumerize :kind, in: [:normal, :jd, :tencent, :xigua, :marketing, :customer,
-    :taobao, :tmall, :b2b, :fieldschina, :self_pickup], default: :normal
+    :taobao, :tmall, :b2b, :fieldschina, :offline, :yhd], default: :normal
 
   delegate :province_name, :city_name, to: :address, allow_nil: true
   delegate :paymethod, to: :transaction, allow_nil: true
@@ -305,6 +305,10 @@ class Order < ActiveRecord::Base
 
   def has_shipped_shipment?
     shipments.where("tracking_num IS NOT NULL AND tracking_num != ''").exists?
+  end
+
+  def paid?
+    self.state != "generated"
   end
 
 private

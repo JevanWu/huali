@@ -114,7 +114,7 @@ $ ->
 
     return false
 
-  #购花篮的总商品数量
+  #购物车的总商品数量
 
   updateCartQuantityText(Cart.quantityAll())
 

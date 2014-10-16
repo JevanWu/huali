@@ -14,13 +14,16 @@ html
     = stylesheet_link_tag 'mobile'
     = yield(:css)
 
+    = javascript_include_tag 'application-mobile'
+    = render 'layouts/segmentio'
+    = yield(:js)
+
   body
     == render 'layouts/header_mobile'
     == render 'layouts/nav_mobile'
     == render 'layouts/banner'
-    == yield
+    .main-content
+      == yield
     == render 'layouts/footer_mobile'
 
-  = javascript_include_tag 'application-mobile'
-  = render 'layouts/segmentio'
-  = yield(:js)
+    = yield(:body_js)

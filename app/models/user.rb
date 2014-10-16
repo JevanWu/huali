@@ -4,10 +4,13 @@
 #
 #  anonymous_token          :string(255)
 #  authentication_token     :string(255)
+#  confirmation_sent_at     :datetime
+#  confirmation_token       :string(255)
+#  confirmed_at             :datetime
 #  created_at               :datetime         not null
 #  current_sign_in_at       :datetime
 #  current_sign_in_ip       :string(255)
-#  email                    :string(255)      default(""), not null
+#  email                    :string(255)
 #  encrypted_password       :string(255)      default("")
 #  huali_point              :decimal(8, 2)    default(0.0)
 #  id                       :integer          not null, primary key
@@ -34,6 +37,7 @@
 # Indexes
 #
 #  index_users_on_anonymous_token       (anonymous_token) UNIQUE
+#  index_users_on_confirmation_token    (confirmation_token) UNIQUE
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_invitation_token      (invitation_token) UNIQUE
 #  index_users_on_invited_by_id         (invited_by_id)
@@ -48,7 +52,7 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :invitable, :async, :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable,
+         :recoverable, :rememberable, :trackable, :validatable, :confirmable,
          :omniauthable, :omniauth_providers => [:douban, :weibo, :qq_connect]
 
   has_many :invitees, class_name: "User", foreign_key: "invited_by_id"
@@ -56,6 +60,7 @@ class User < ActiveRecord::Base
 
   has_many :addresses
   has_many :orders
+  has_many :oauth_providers, dependent: :destroy
   has_many :transactions, through: :orders
   has_many :shipments, through: :orders
   has_many :oauth_services, dependent: :destroy
@@ -134,6 +139,16 @@ class User < ActiveRecord::Base
     reset_token = rand(999999)
     self.update_columns(reset_password_token: reset_token, reset_password_sent_at: Time.current)
     return reset_token
+  end
+    
+  def self.find_by_openid(openid)
+    oauth_provider = OauthProvider.find_by identifier: openid
+    if oauth_provider.nil?
+      user = User.new(name: "匿名", role: "customer")
+      user.save(validate: false)
+      oauth_provider = user.oauth_providers.create(identifier: openid, provider: "wechat")
+    end
+    oauth_provider.user
   end
 
   private

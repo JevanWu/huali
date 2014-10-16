@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140808094453) do
+ActiveRecord::Schema.define(version: 20141015040130) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,19 @@ ActiveRecord::Schema.define(version: 20140808094453) do
 
   add_index "administrators", ["email"], name: "index_administrators_on_email", unique: true, using: :btree
   add_index "administrators", ["reset_password_token"], name: "index_administrators_on_reset_password_token", unique: true, using: :btree
+
+  create_table "appointments", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "product_id"
+    t.string   "customer_phone"
+    t.string   "customer_email"
+    t.datetime "notify_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "appointments", ["product_id"], name: "index_appointments_on_product_id", using: :btree
+  add_index "appointments", ["user_id"], name: "index_appointments_on_user_id", using: :btree
 
   create_table "areas", force: true do |t|
     t.string  "name"
@@ -122,6 +135,10 @@ ActiveRecord::Schema.define(version: 20140808094453) do
     t.datetime "published_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "cover_file_name"
+    t.string   "cover_content_type"
+    t.integer  "cover_file_size"
+    t.datetime "cover_updated_at"
   end
 
   add_index "blog_posts", ["published"], name: "index_blog_posts_on_published", using: :btree
@@ -162,20 +179,21 @@ ActiveRecord::Schema.define(version: 20140808094453) do
   add_index "collection_hierarchies", ["descendant_id"], name: "collection_desc_idx", using: :btree
 
   create_table "collections", force: true do |t|
-    t.string   "name_zh",                          null: false
+    t.string   "name_zh",                               null: false
     t.string   "description"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
-    t.string   "name_en",                          null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.string   "name_en",                               null: false
     t.string   "slug"
-    t.boolean  "available",        default: false
+    t.boolean  "available",             default: false
     t.string   "display_name"
     t.string   "meta_keywords"
     t.string   "meta_description"
-    t.boolean  "primary_category", default: false, null: false
+    t.boolean  "primary_category",      default: false, null: false
     t.string   "meta_title"
-    t.integer  "priority",         default: 5
+    t.integer  "priority",              default: 5
     t.integer  "parent_id"
+    t.boolean  "display_on_breadcrumb", default: false
   end
 
   add_index "collections", ["slug"], name: "index_collections_on_slug", unique: true, using: :btree
@@ -305,6 +323,17 @@ ActiveRecord::Schema.define(version: 20140808094453) do
 
   add_index "monthly_solds", ["product_id", "sold_year", "sold_month"], name: "index_monthly_solds_on_product_id_and_sold_year_and_sold_month", unique: true, using: :btree
   add_index "monthly_solds", ["product_id"], name: "index_monthly_solds_on_product_id", using: :btree
+
+  create_table "oauth_providers", force: true do |t|
+    t.string   "identifier"
+    t.string   "provider"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "oauth_providers", ["identifier", "provider"], name: "index_oauth_providers_on_identifier_and_provider", unique: true, using: :btree
+  add_index "oauth_providers", ["user_id"], name: "index_oauth_providers_on_user_id", using: :btree
 
   create_table "oauth_services", force: true do |t|
     t.integer  "user_id"
@@ -459,6 +488,10 @@ ActiveRecord::Schema.define(version: 20140808094453) do
     t.string   "product_type"
     t.boolean  "discountable",                                         default: true
     t.string   "promo_tag"
+    t.string   "flower_type"
+    t.text     "material"
+    t.text     "maintenance"
+    t.text     "delivery"
   end
 
   add_index "products", ["default_date_rule_id"], name: "index_products_on_default_date_rule_id", using: :btree
@@ -521,6 +554,15 @@ ActiveRecord::Schema.define(version: 20140808094453) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "sales_charts", force: true do |t|
+    t.integer  "product_id"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sales_charts", ["product_id"], name: "index_sales_charts_on_product_id", using: :btree
 
   create_table "settings", force: true do |t|
     t.string   "var",                   null: false
@@ -651,7 +693,7 @@ ActiveRecord::Schema.define(version: 20140808094453) do
   add_index "transactions", ["order_id"], name: "index_transactions_on_order_id", using: :btree
 
   create_table "users", force: true do |t|
-    t.string   "email",                                            default: "",         null: false
+    t.string   "email"
     t.string   "encrypted_password",                               default: ""
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -678,9 +720,13 @@ ActiveRecord::Schema.define(version: 20140808094453) do
     t.boolean  "invitation_rewarded",                              default: false
     t.decimal  "huali_point",              precision: 8, scale: 2, default: 0.0
     t.string   "authentication_token"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
   end
 
   add_index "users", ["anonymous_token"], name: "index_users_on_anonymous_token", unique: true, using: :btree
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
   add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree

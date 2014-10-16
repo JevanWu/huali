@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   before_action :fetch_collection, only: [:index, :tagged_with]
+  before_action :justify_wechat_agent, only: [:show]
   before_action only: :show do
     @menu_nav_type = 'product'
   end
@@ -10,6 +11,7 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.published.find(params[:id])
+    @appointment = Appointment.new(product: @product)
 
     # FIXME products always have assets now
     assets  = @product.assets || []
@@ -44,7 +46,11 @@ class ProductsController < ApplicationController
   end
 
   def index
-    @products = Product.published.in_collections(@collection_ids).uniq.page(params[:page]).order_by_priority
+    @products = Product.published.in_collections(@collection_ids)
+    @products = @products.where(flower_type: params[:flower_type]) if params[:flower_type].present?
+    @products = @products.tagged_with(params[:color], on: :colors) if params[:color].present?
+    @products = @products.where(price: Range.new(*params[:price_span].split(',').map(&:to_i))) if params[:price_span].present?
+    @products = @products.uniq.page(params[:page]).order_by_priority
 
     prepare_tag_filter
     fetch_order_by
@@ -91,29 +97,43 @@ class ProductsController < ApplicationController
     end
   end
 
-  private
-
-  def fetch_order_by
-    if params[:order].present?
-      field, direction = params[:order].scan(/^(.*)_(desc|asc)?$/).first
-
-      if field.blank?
-        order_by = "sold_total desc"
-      else
-        order_by = "#{field} #{direction}"
-      end
-
-      @products = @products.reorder(order_by)
+  def appointment
+    http_referer = request.env["HTTP_REFERER"]
+    if appointment = Appointment.create(appointment_params) 
+      redirect_to product_path(appointment.product), flash: { success: t("views.appointment.successful_appointment") }
+    else
+      redirect_to http_referer, flash: { fail: t("views.appointment.failed_appointment") }
     end
   end
 
-  def fetch_collection
-    @collection = Collection.available.find(params[:collection_id])
-    @collection_ids = @collection.self_and_descendants.map(&:id)
-  end
+  private
 
-  def prepare_tag_filter
-    @tag_clouds = Product.published.in_collections(@collection_ids).
-      reorder('').tag_counts_on(:tags)
-  end
+    def appointment_params
+      params.require(:appointment).permit(:customer_phone, :customer_email, :user_id, :product_id)
+    end
+
+    def fetch_order_by
+      if params[:order].present?
+        field, direction = params[:order].scan(/^(.*)_(desc|asc)?$/).first
+
+        if field.blank?
+          order_by = "sold_total desc"
+        else
+          order_by = "#{field} #{direction}"
+        end
+
+        @products = @products.reorder(order_by)
+      end
+    end
+
+    def fetch_collection
+      @collection = Collection.available.find(params[:collection_id])
+      @collection_ids = @collection.self_and_descendants.map(&:id)
+    end
+
+    def prepare_tag_filter
+      @color_tag_clouds = Product.published.in_collections(@collection_ids).
+        reorder('').tag_counts_on(:colors)
+    end
+
 end

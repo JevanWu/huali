@@ -1,0 +1,17 @@
+- content_for :sub_title do
+  | 忘记密码
+
+#passport-mobile
+  .passport-mobile-main
+    .forgot-mobile
+      = simple_form_for resource,
+        as: resource_name,
+        url: session_path(resource_name),
+        defaults: { wrapper_html: { class: 'input-item' } },
+        html: { class: 'form-horizontal' } do |f|
+        = devise_error_messages!
+
+        = f.input :email, required: true ,label:false ,placeholder:'请输入您的登录邮箱'
+
+        .form-actions
+          = f.button :submit, t('.send_me_reset_password_instructions'), class: 'btn-passport'

@@ -20,7 +20,7 @@ html
 body
   position: relative
   min-height: 100%
-  font: #{$default-font}/#{$default-lineHeight} "Hiragino Sans GB", "微软雅黑", Arial, sans-serif
+  font: 12px/#{$default-lineHeight} "Hiragino Sans GB", "微软雅黑", Arial, sans-serif
   background: image-url("bg/body.png") repeat
 
 a
@@ -56,11 +56,14 @@ p,strong,i,a,b
   line-height: 30px
   text-align: center
   border: none
-  -webkit-border-radius: 3px
-  -moz-border-radius: 3px
-  border-radius: 3px
+  -webkit-border-radius: 0px
+  -moz-border-radius: 0px
+  border-radius: 0px
   font-size: 12px
   text-decoration: none !important
 
 .text-center
   text-align: center
+
+textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input
+  border-radius: 0px

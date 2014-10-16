@@ -10,7 +10,7 @@
   <%= "每一位姑娘都有美妙的人生篇章，HualiGirls - 花里因你而精彩。" %>
 <% end %>
 
-<% content_for :js do %>
+<% content_for :body_js do %>
   <%= javascript_include_tag 'jquery.imagesloaded' %>
   <%= javascript_include_tag 'weibo-stories' %>
 <% end %>
@@ -20,7 +20,7 @@
     <div id="loaderCircle"><%= image_tag 'loading.gif', class: 'loading' %></div>
   </div>
   <h3 class="title">
-    <i></i>HualiGirls<b></b>
+    HualiGirls
   </h3>
   <div class="weibo-stories">
     <div id="tiles">

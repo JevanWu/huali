@@ -22,7 +22,7 @@ feature "Choose delivery region" do
 
   scenario "Choose sucessfully", js: true do
     visit "/products/#{product.slug}"
-    click_link('放入购花篮')
+    click_link('放入购物车')
 
     within(".cart-checkout .checkout") do
       click_link('确定')
@@ -41,7 +41,7 @@ feature "Choose delivery region" do
 
   scenario 'Query postcode by address', js: true do
     visit "/products/#{product.slug}"
-    click_link('放入购花篮')
+    click_link('放入购物车')
 
     within(".cart-checkout .checkout") do
       click_link('确定')

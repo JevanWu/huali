@@ -3,7 +3,10 @@ module Erp
     normal: '01.01.0001',
     tmall: '01.01.0002',
     taobao: '01.01.0003',
-    ctrip: '01.02.0031'
+    ctrip: '01.02.0031',
+    jd: '01.01.0014',
+    yhd: '01.01.0006',
+    offline: '01.03'
   }
 
   CTRIP_COUPON_CHARGES = {
@@ -11,7 +14,9 @@ module Erp
     89 => 220,
     157 => 220,
     91 => 400,
-    90 => 800
+    90 => 800,
+    178 => 400,
+    186 => 220
   }
 
   TAX_RATE = 0.17
@@ -73,6 +78,10 @@ module Erp
         return '*' if transaction.nil?
 
         case transaction.paymethod
+        when 'pos'
+          '05'
+        when 'cash'
+          '04'
         when 'paypal'
           '03'
         when 'wechat'

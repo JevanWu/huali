@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
+  before_action :justify_wechat_agent, only: [:profile]
+  before_action :signin_with_openid, only: [:profile]
   before_action :authenticate_user!,
-    except: [:check_user_exist, :subscribe_email, :omnicontacts_callback, :omnicontacts_failure]
+    except: [:check_user_exist, :subscribe_email, :omnicontacts_callback, :omnicontacts_failure, :profile]
   respond_to :json, :html
 
   def edit_profile
@@ -109,6 +111,34 @@ class UsersController < ApplicationController
 
   def omnicontacts_failure
     @error_message = t("controllers.user.omnicontacts.#{params[:error_message]}")
+  end
+
+  def profile
+    if current_user.nil? && params[:code].nil?
+      redirect_to Wechat::WechatHelper.wechat_oauth_url(:code, profile_url)
+    end
+    @user = current_user
+  end
+
+  def new_binding_account
+    redirect_to profile_path(current_user), flash: {success: "您已经绑定过账号了"} if !current_user.email.nil?
+  end
+
+  def binding_account
+    user = User.find_by email: params[:user][:email]
+    password = params[:user][:password]
+    anon_user = current_user
+    if user.valid_password?(password)
+      %w(addresses orders oauth_providers oauth_services tracking_cookie point_transactions coupon_codes).each do |vars|
+        anon_user.send(vars).each{ |var| var.update_column(:user_id, user.id) } unless current_user.send(vars).nil? 
+      end
+      user.update_column(:huali_point, user.huali_point + anon_user.huali_point)
+      sign_in user
+      anon_user.delete
+      redirect_to profile_path(user), flash: {success: "绑定成功"}
+    else
+      redirect_to users_new_binding_account_path, flash: {error: "账户密码不匹配"}
+    end
   end
 
   private

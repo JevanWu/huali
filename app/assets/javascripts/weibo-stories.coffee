@@ -1,7 +1,7 @@
 # Local variables
 templateString = """
 <li>
-  <a href="<%= origin_link %>" target="_blank">
+  <a href="<%= origin_link %>" target="_blank" rel="nofollow">
     <img src="<%= picture_url %>" width="<%= width %>" height="<%= height %>" />
   </a>
   <hr />

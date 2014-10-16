@@ -6,17 +6,25 @@
     <%= f.input :name_zh, required: true %>
     <%= f.input :name_en, required: true %>
     <%= f.input :product_type, include_blank: false %>
+    <%= f.input :flower_type, include_blank: false %>
     <%= f.input :priority %>
     <%= f.input :promo_tag %>
 
     <%= f.input :tag_list, input_html: { class: 'tag-list' } %>
     <%= f.input :trait_list, input_html: { class: 'tag-list' }, hint: render("trait_tags") %>
+    <%= f.input :color_list, input_html: { class: 'tag-list' } %>
 
     <%= collection_checkboxes(@product) %>
 
     <%= f.input :recommendations, as: :check_boxes, :collection => Product.sort_by_collection %>
+    
+    <%= f.input :material,  input_html: {rows: 10} %>
 
-    <%= f.input :inspiration, hint: "Use Markdown to write the content" , input_html: {rows: 10} %>
+    <%= f.input :inspiration,  input_html: {rows: 10} %>
+    
+    <%= f.input :maintenance,  input_html: {rows: 10} %>
+
+    <%= f.input :delivery,  input_html: {rows: 10} %>
 
     <%= f.input :description, hint: "Use Markdown to write the content" , input_html: {rows: 10} %>
 
@@ -43,7 +51,7 @@
   <% end %>
 
   <%= f.inputs "SKU Info" do %>
-    <%= f.input :sku_id %>
+    <%= f.input :sku_id, required: true %>
     <%= f.input :count_on_hand, required: true %>
     <%= f.input :price %>
     <%= f.input :original_price %>

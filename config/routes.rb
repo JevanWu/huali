@@ -21,6 +21,8 @@ Huali::Application.routes.draw do
   get "provinces/available_for_products", to: 'provinces#available_for_products'
   get "provinces/:prov_id", to: 'provinces#show'
 
+  post "products/appointment", to: 'products#appointment', as: :appointment
+
   get 'search', to: 'products#search'
   resources :products, only: [:show] do
     collection do
@@ -42,19 +44,22 @@ Huali::Application.routes.draw do
 
   # FIXME refactor this routes to be more elegant
   get 'orders/current(/:coupon_code/products/:product_ids)', to: 'orders#current', as: :current_order
+  post 'orders/wechat_warning', to: 'orders#wechat_warning'
+  post 'orders/wechat_feedback', to: 'orders#wechat_feedback'
   post 'orders/apply_coupon'
   get 'orders/checkout(/:id)', to: 'orders#checkout', as: :checkout_order
   post 'orders/gateway(/:id)', to: 'orders#gateway', as: :gateway_order
   patch 'orders/cancel/:id', to: 'orders#cancel', as: :cancel_order
   get 'orders/return', as: :return_order
+  post 'orders/paypal_return', as: :return_order_paypal
   match 'orders/notify', as: :notify_order, via: [:get, :post]
+  post 'orders/wechat_notify'
   get 'orders/:id/gift_card/edit', to: 'orders#edit_gift_card', as: :edit_gift_card
   match 'orders/:id/gift_card/update', to: 'orders#update_gift_card', as: :update_gift_card, via: [:put, :patch]
 
-  # Disable back order entry
   # back order urls
-  #get 'orders/backorder', to: 'orders#back_order_new', as: :new_back_order
-  #post 'orders/backorder', to: 'orders#back_order_create', as: :create_back_order
+  get 'orders/backorder', to: 'orders#back_order_new', as: :new_back_order
+  post 'orders/backorder', to: 'orders#back_order_create', as: :create_back_order
   # channel order urls
   #get 'orders/channelorder', to: 'orders#channel_order_new', as: :new_channel_order
   #post 'orders/channelorder', to: 'orders#channel_order_create', as: :create_channel_order
@@ -69,7 +74,7 @@ Huali::Application.routes.draw do
   devise_for :administrators
 
   # FIXME need to know exact behaviors of controllers params
-  devise_for :users, controllers: { invitations: 'invitations', omniauth_callbacks: 'oauth_services' }
+  devise_for :users, controllers: { confirmations: 'confirmable', invitations: 'invitations', omniauth_callbacks: 'oauth_services' }
 
   devise_scope :user do
     get '/users/bind_with_oauth', to: 'oauth_registrations#new_from_oauth', as: :new_oauth_user_registration
@@ -78,6 +83,9 @@ Huali::Application.routes.draw do
 
   get 'users/check_user_exist', to: 'users#check_user_exist'
   post 'users/subscribe_email', to: 'users#subscribe_email'
+  get 'users/profile', to: 'users#profile', as: :profile
+  get 'users/new_binding_account', to: 'users#new_binding_account'
+  post 'users/binding_account', to: 'users#binding_account'
 
   get 'settings/profile', to: 'users#edit_profile'
   patch 'settings/profile', to: 'users#update_profile'
@@ -105,11 +113,13 @@ Huali::Application.routes.draw do
   get 'muqinjie', to: 'pages#mother_day', as: :muqinjie
   get 'qixijie', to: 'pages#qixijie', as: :qixijie
   get 'join_us', to: 'pages#join_us'
+  get 'yujianli', to: 'pages#yujianli'
 
   get 'banners/:date', to: 'banners#index', as: :banners
   get 'stories', to: 'stories#index'
   resources :didi_passengers, only: [:new, :create], path: 'diditaxi'
 
+  get 'wechats/pay', to: 'wechats#pay', as: :wechats_pay
   API::API.logger Rails.logger
   mount API::API => '/api'
   mount MobileAPI::API => '/mobile_api'

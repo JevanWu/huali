@@ -1,5 +1,5 @@
 .cart-product-item.item-table data-total = "#{product_in_cart.total}"
-  = image_tag product_in_cart.img(:medium), width: '140', height: '134'
+  = link_to image_tag(product_in_cart.img(:medium), width: '140', height: '134'), product_path(product_in_cart.product)
   .product-info-main
     h3.product-name
       = link_to product_in_cart.name, product_path(product_in_cart.product)
@@ -12,14 +12,15 @@
         =t 'views.product.soldout'
     p
       | 免费配送
-    p.add-to-share
-      a href="#" data-action='share-product' data-product="#{product_in_cart.product_id}" 加入分享
+    .share
+      span = t(:sharing)
+      = render 'shared/product_share_links', product: product_in_cart.product
   .price data-price = "#{product_in_cart.price}"
     = number_to_currency product_in_cart.price
   .op.quantity
-    = link_to '-', current_order_path, data: { product: product_in_cart.product_id }, class: 'reduce_quantity'
+    = link_to fa_icon("minus-square-o"), current_order_path, data: { product: product_in_cart.product_id }, class: 'reduce_quantity'
     input type='text' value="#{product_in_cart.quantity}"
-    = link_to '+', current_order_path, data: { product: product_in_cart.product_id }, class: 'add_quantity'
-    = link_to '', current_order_path, data: { product: product_in_cart.product_id }, class: 'empty_quantity'
+    = link_to fa_icon("plus-square-o"), current_order_path, data: { product: product_in_cart.product_id }, class: 'add_quantity'
+    = link_to fa_icon("trash-o"), current_order_path, data: { product: product_in_cart.product_id }, class: 'empty_quantity'
 
 = render 'shared/product_share_popup', product: product_in_cart.product

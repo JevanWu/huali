@@ -1,9 +1,0 @@
-- content_for :js do
-  javascript:
-    var _mvq = _mvq || [];
-    _mvq.push(['$setAccount', 'm-22600-1']);
-
-    _mvq.push(['$setGeneral', 'cartview', '', /*用户名*/ '#{current_user.try(:username)}', /*用户id*/ '#{current_user.try(:id)}']);
-    _mvq.push(['$logConversion']);
-    _mvq.push(['$addItem', '', /*商品id*/ #{cart.items.map(&:product_id).map { |id| "'#{id}'" }.join(',')}]);
-    _mvq.push(['$logData']);

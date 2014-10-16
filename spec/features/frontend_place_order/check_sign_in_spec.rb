@@ -10,7 +10,7 @@ feature "Check sign-in before placing order" do
   scenario 'Guest user', js: true do
     visit "/products/#{product.slug}"
 
-    click_link '放入购花篮'
+    click_link '放入购物车'
 
     click_link '确定'
 
@@ -24,7 +24,7 @@ feature "Check sign-in before placing order" do
 
     visit "/products/#{product.slug}"
 
-    click_link '放入购花篮'
+    click_link '放入购物车'
 
     click_link '确定'
 

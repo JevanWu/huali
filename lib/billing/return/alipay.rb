@@ -1,6 +1,6 @@
 module Billing
-  class Return
-    class Alipay < Base
+  module Return
+    class Alipay < Return::Base
       include Billing::Helper::Alipay
     end
   end
