@@ -57,10 +57,9 @@ Huali::Application.routes.draw do
   get 'orders/:id/gift_card/edit', to: 'orders#edit_gift_card', as: :edit_gift_card
   match 'orders/:id/gift_card/update', to: 'orders#update_gift_card', as: :update_gift_card, via: [:put, :patch]
 
-  # Disable back order entry
   # back order urls
-  #get 'orders/backorder', to: 'orders#back_order_new', as: :new_back_order
-  #post 'orders/backorder', to: 'orders#back_order_create', as: :create_back_order
+  get 'orders/backorder', to: 'orders#back_order_new', as: :new_back_order
+  post 'orders/backorder', to: 'orders#back_order_create', as: :create_back_order
   # channel order urls
   #get 'orders/channelorder', to: 'orders#channel_order_new', as: :new_channel_order
   #post 'orders/channelorder', to: 'orders#channel_order_create', as: :create_channel_order
@@ -75,7 +74,7 @@ Huali::Application.routes.draw do
   devise_for :administrators
 
   # FIXME need to know exact behaviors of controllers params
-  devise_for :users, controllers: { invitations: 'invitations', omniauth_callbacks: 'oauth_services' }
+  devise_for :users, controllers: { confirmations: 'confirmable', invitations: 'invitations', omniauth_callbacks: 'oauth_services' }
 
   devise_scope :user do
     get '/users/bind_with_oauth', to: 'oauth_registrations#new_from_oauth', as: :new_oauth_user_registration

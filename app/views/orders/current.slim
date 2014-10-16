@@ -54,8 +54,7 @@
                     span
                       = number_to_currency @cart.original_total
             = link_to t('views.order.checkout'), new_order_path, class: 'btn-checkout', onClick: "analytics.track('Placing order', { category: 'Order', label: 'Coupon Code: ' + $('input[name=coupon_code]').val() + '; Items: ' + JSON.stringify($.cookie('cart')) });"
-            /- if current_admin_ability.can? :record_back_order, Order
-              /.admin-btn-area.row
-                /= link_to t('views.order.back_checkout'), new_back_order_path, class: 'btn-checkout'
-                /= link_to t('views.order.channel_checkout'), new_channel_order_path, class: 'btn-checkout'
+            - if current_admin_ability.can? :record_back_order, Order
+              .admin-btn-area.row
+                = link_to t('views.order.back_checkout'), new_back_order_path, class: 'btn-checkout'
       == render 'shared/guess_you_like', related_products: @related_products.take(5)

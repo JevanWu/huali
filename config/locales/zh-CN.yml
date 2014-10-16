@@ -26,6 +26,9 @@ zh-CN:
       edit:
         header: 请设置密码
         submit_button: 提交
+    confirmable:
+      user:
+        confirmed: 您的邮箱已激活！
 
   point_transaction:
     refer_description: 邀请好友获得
@@ -135,6 +138,7 @@ zh-CN:
         bypass_product_validation: 跳过产品验证
         last_order: 关联订单号
         memo: 客服备注
+        paymethod: 支付方式
 
       item_info:
         quantity: 产品数量
@@ -333,7 +337,10 @@ zh-CN:
         color_list: 颜色
         collections: 品类
         published: 是否发布
-        inspiration: 产品灵感
+        material: 用材介绍
+        inspiration: 花艺师手记
+        maintenance: 养护说明
+        delivery: 运输说明
         description: 产品描述
         count_on_hand: 库存
         price: 现价
@@ -532,7 +539,7 @@ zh-CN:
         notify_at: 通知于
         created_at: 创建于
         updated_at: 更新于
-       
+
       sales_chart:
         product: 中文名
         position: 名次
@@ -642,7 +649,7 @@ zh-CN:
         normal: 普通订单
         b2b: B2B订单
         fieldschina: 甫田
-        self_pickup: 自提订单
+        offline: 线下店
         yhd: 一号店
     transaction:
       paymethod:
@@ -651,6 +658,8 @@ zh-CN:
         bankPay: 网银支付
         wechat: 微信扫码支付
         wechat_mobile: 微信支付
+        cash: 现金支付
+        pos: POS机刷卡支付
       merchant_name:
         JD: 京东
         YHD: 一号店
@@ -772,7 +781,7 @@ zh-CN:
       # checkout
       ta_address: TA的地址是
       checkout: 去结算
-      back_checkout: 特殊订单
+      back_checkout: 线下店订单
       channel_checkout: 渠道订单
       basket: 购物车
       order_list: 订单中心
@@ -838,7 +847,7 @@ zh-CN:
         user_name: 用户姓名
         coupon_code: 对应优惠码
 
-    appointment: 
+    appointment:
       successful_appointment: 您已经预定成功！到货后，我们会及时提醒您！
       failed_appointment: 对不起！预定失败！您可以联系客服处理！
 

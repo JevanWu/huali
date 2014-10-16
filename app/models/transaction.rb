@@ -37,7 +37,7 @@ class Transaction < ActiveRecord::Base
   validates :amount, numericality: true
 
   extend Enumerize
-  enumerize :paymethod, in: [:paypal, :alipay, :bankPay, :wechat, :wechat_mobile]
+  enumerize :paymethod, in: [:paypal, :alipay, :bankPay, :wechat, :wechat_mobile, :cash, :pos]
   enumerize :merchant_name, in: [:JD, :YHD, :Alipay, :Paypal, :Tenpay, :ICBCB2C, :CMB, :CCB, :BOCB2C, :ABC, :COMM, :CMBC]
 
   validates :merchant_trade_no, uniqueness: { scope: :order_id }, allow_blank: true
