@@ -138,7 +138,7 @@ class ProductsController < ApplicationController
     end
 
     def greeting_card_params
-      params.require(:greeting_card).permit(:sender_email, :recipient_email, :sentiments, :user_id, :product_id)
+      params.require(:greeting_card).permit(:sender_email, :recipient_email, :sentiments, :user_id, :product_id, :uuid)
     end
 
     def reply_greeting_card_params
