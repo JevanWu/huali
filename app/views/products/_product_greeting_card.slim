@@ -24,6 +24,7 @@
         = f.text_area :sentiments, class: "control-text-area", placeholder: "请填写您的祝福语"
         = f.input :product_id, as: :hidden, input_html: { value: @greeting_card.product.id }
         = f.input :user_id, as: :hidden, input_html: { value: current_user.try(:id) }
+        = f.input :uuid, as: :hidden, input_html: { value: SecureRandom.uuid }
         button.huali-btn.close-dialog#greeting-card-btn-cancle
           | 取消
         = f.submit "发送", class: "huali-btn", id: "greeting-card-btn"
