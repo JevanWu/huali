@@ -855,7 +855,7 @@ zh-CN:
     greeting_card:
       succeeded: 您的贺卡已经发送成功！
       failed: 很抱歉！贺卡发送失败！您可以联系客服处理！
-      email_registered: 发件人的邮件已经被注册！若确认邮箱无误，请先登录！
+      email_registered: 您填写的发件人邮箱%{email}已经被注册！若确认填写无误，则请先登录！
 
     reply_greeting_card:
       succeeded: 邮件回复成功！

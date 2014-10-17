@@ -112,7 +112,7 @@ class ProductsController < ApplicationController
     @greeting_card = GreetingCard.new(greeting_card_params) 
     unless user_signed_in?
       unless User.where(email: @greeting_card.sender_email).empty?
-        redirect_to( { controller: 'devise/sessions', action: 'new' }, alert: t("views.greeting_card.email_registered") ) and return
+        redirect_to( { controller: 'devise/sessions', action: 'new' }, alert: t("views.greeting_card.email_registered", email: @greeting_card.sender_email) ) and return
       end
     end
     if @greeting_card.save and Notify.product_greeting_card_email(@greeting_card).deliver
