@@ -263,6 +263,7 @@ ActiveRecord::Schema.define(version: 20141014061341) do
     t.string   "sender_email"
     t.string   "recipient_email"
     t.text     "sentiments"
+    t.string   "uuid"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -10,6 +10,7 @@
 #  sentiments      :text
 #  updated_at      :datetime
 #  user_id         :integer
+#  uuid            :string(255)
 #
 # Indexes
 #
