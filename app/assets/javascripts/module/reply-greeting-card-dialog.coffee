@@ -31,7 +31,7 @@ $ ->
     popup()
     return false
 
-  if getParams().idfromemail?
+  if getParams().uuid?
     popup()
     return false
 

@@ -52,7 +52,7 @@
           | 虚拟送花
         == render 'product_greeting_card'
 
-        == render 'product_reply_greeting_card' if params[:idfromemail]
+        == render 'product_reply_greeting_card' if params[:uuid]
 
         == render 'product_sales_chart' unless SalesChart.all.all.empty?
         = render "product_appointment" if @product.count_on_hand == 0
