@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141014061341) do
+ActiveRecord::Schema.define(version: 20141015040130) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -135,6 +135,10 @@ ActiveRecord::Schema.define(version: 20141014061341) do
     t.datetime "published_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "cover_file_name"
+    t.string   "cover_content_type"
+    t.integer  "cover_file_size"
+    t.datetime "cover_updated_at"
   end
 
   add_index "blog_posts", ["published"], name: "index_blog_posts_on_published", using: :btree
@@ -475,6 +479,9 @@ ActiveRecord::Schema.define(version: 20141014061341) do
     t.boolean  "discountable",                                         default: true
     t.string   "promo_tag"
     t.string   "flower_type"
+    t.text     "material"
+    t.text     "maintenance"
+    t.text     "delivery"
   end
 
   add_index "products", ["default_date_rule_id"], name: "index_products_on_default_date_rule_id", using: :btree

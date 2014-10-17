@@ -90,7 +90,7 @@ class Product < ActiveRecord::Base
   translate :name
 
   # validations
-  validates_presence_of :name_en, :name_zh, :count_on_hand, :assets, :collections, :price
+  validates_presence_of :name_en, :name_zh, :count_on_hand, :assets, :collections, :price, :sku_id
   enumerize :product_type, in: [:fresh_flower, :preserved_flower, :others, :fake_flower, :perfume], default: :others
   enumerize :promo_tag, in: [:limit]
   enumerize :flower_type, in: [:flower_box, :bouquet, :holding_flower, :photo_frame_flower, :bonsai, :others], default: :flower_box

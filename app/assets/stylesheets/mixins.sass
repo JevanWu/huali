@@ -46,11 +46,14 @@
 /*button*/
 /*pc*/
 .btn-next
-  +button(80px)
+  +button(30%)
 
 .btn-passport
   @extend .btn-next
+  margin-left: 0px
+  height: 30px
   text-decoration: none !important
+  font-size: 14px
   cursor: pointer
 
 .btn-passport[disabled]
@@ -100,10 +103,12 @@
 
 /*moble*/
 .btn-m-passport
-  +button(140px)
+  +button(140px,40px)
+  font-size: 17px
 
 .btn-m-confirm
   +button(100%)
+  font-size: 17px
 
 .btn-m-confirmPay
   @extend .btn-m-confirm
@@ -130,7 +135,8 @@
   @extend .btn-m-cancel
 
 .btn-m-discount
-  +button(139px,30px,14px)
+  +button(150px,30px,14px)
+  font-size: 17px
 
 .btn-m-confirmBuy
   @extend .btn-m-confirm
@@ -152,7 +158,7 @@
   font-size: 12px
 
 .btn80
-  width: 80px !important
+  width: 140px !important
 
 .form-actions
   background-color: transparent
@@ -160,4 +166,4 @@
   padding: 0 20px 0
 
 =global-box-shadow
-  +box-shadow(-1px 1px 5px rgba(214, 214, 215, 0.9))
+  +box-shadow(-1px 1px 1px rgba(214, 214, 215, 0.6))
