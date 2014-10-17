@@ -12,6 +12,8 @@ class ProductsController < ApplicationController
   def show
     @product = Product.published.find(params[:id])
     @appointment = Appointment.new(product: @product)
+    @greeting_card = GreetingCard.new(product: @product)
+    @reply_greeting_card = ReplyGreetingCard.new
 
     # FIXME products always have assets now
     assets  = @product.assets || []
@@ -106,10 +108,41 @@ class ProductsController < ApplicationController
     end
   end
 
+  def greeting_card
+    @greeting_card = GreetingCard.new(greeting_card_params) 
+    unless user_signed_in?
+      unless User.where(email: @greeting_card.sender_email).empty?
+        redirect_to( new_user_session_path, alert: t("views.greeting_card.email_registered", email: @greeting_card.sender_email) ) and return
+      end
+    end
+    if @greeting_card.save and Notify.product_greeting_card_email(@greeting_card).deliver
+      redirect_to product_path(@greeting_card.product), flash: { success: t("views.greeting_card.succeeded") }
+    else
+      redirect_to product_path(@greeting_card.product), flash: { fail: t("views.greeting_card.failed") }
+    end
+  end
+
+  def reply_greeting_card
+    @reply_greeting_card = ReplyGreetingCard.new(reply_greeting_card_params)
+    if @reply_greeting_card.save and Notify.product_reply_greeting_card_email(@reply_greeting_card).deliver
+      redirect_to product_path(@reply_greeting_card.greeting_card.product), flash: { success: t("views.reply_greeting_card.succeeded") }
+    else
+      redirect_to product_path(@reply_greeting_card.greeting_card.product), flash: { fail: t("views.reply_greeting_card.failed") }
+    end
+  end
+
   private
 
     def appointment_params
       params.require(:appointment).permit(:customer_phone, :customer_email, :user_id, :product_id)
+    end
+
+    def greeting_card_params
+      params.require(:greeting_card).permit(:sender_email, :recipient_email, :sentiments, :user_id, :product_id, :uuid)
+    end
+
+    def reply_greeting_card_params
+      params.require(:reply_greeting_card).permit(:response, :greeting_card_id)
     end
 
     def fetch_order_by

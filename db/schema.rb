@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140926103931) do
+ActiveRecord::Schema.define(version: 20141014061341) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -256,6 +256,20 @@ ActiveRecord::Schema.define(version: 20140926103931) do
   end
 
   add_index "didi_passengers", ["coupon_code_id"], name: "index_didi_passengers_on_coupon_code_id", using: :btree
+
+  create_table "greeting_cards", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "product_id"
+    t.string   "sender_email"
+    t.string   "recipient_email"
+    t.text     "sentiments"
+    t.string   "uuid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "greeting_cards", ["product_id"], name: "index_greeting_cards_on_product_id", using: :btree
+  add_index "greeting_cards", ["user_id"], name: "index_greeting_cards_on_user_id", using: :btree
 
   create_table "limited_promotions", force: true do |t|
     t.string   "name"
@@ -523,6 +537,15 @@ ActiveRecord::Schema.define(version: 20140926103931) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "reply_greeting_cards", force: true do |t|
+    t.integer  "greeting_card_id"
+    t.text     "response"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "reply_greeting_cards", ["greeting_card_id"], name: "index_reply_greeting_cards_on_greeting_card_id", using: :btree
 
   create_table "sales_charts", force: true do |t|
     t.integer  "product_id"
