@@ -14,8 +14,6 @@
 
 #greeting-card-dialog-box
   background: #eee
-  // height: 530px
-  width: 450px
   position: absolute
   z-index: 5000
   display: none
@@ -31,22 +29,38 @@
       float: right
       padding-right: 10px
       cursor: pointer
-  .dialog-content
-    text-align: left
-    padding: 7px
-    margin: 13px
-    color: #666
-    .form-horizontal
-      padding-top: 10px
-      .control-label
-        font-size: 12px
-        width: 40px
-      .controls
-        margin-left: 57px
-      .control-group
-        margin-bottom: 10px
-  #greeting-card-btn
-    position: absolute
-    bottom: 20px
-    right: 20px
-
+  .dialog-container
+    position: relative
+    width: 100%
+    .header
+      margin: 30px 10px 10px 10px
+      h4
+        font-size: 15px
+        text-align: center
+    .product
+      margin: 10px 10px 40px 30px
+      padding: 25px 10px 30px 60px
+      float: left
+      width: 200px
+    .form
+      border-left: 1px dotted
+      border-color: #d0d0d0
+      margin: 10px 30px 40px 10px
+      padding: 10px 60px 30px 10px
+      float: right
+      width: 300px
+      .form-horizontal
+        padding-top: 10px
+        .control-text-field
+          margin: 5px 5px 5px 5px
+          padding: 5px 5px 5px 5px
+          width: 300px
+        .control-text-area
+          margin: 15px 15px 15px 5px
+          padding: 5px 5px 5px 5px
+          height: 60px
+          width: 300px
+    #greeting-card-btn
+      float: right
+      margin-right: 5px
+      margin-top: 5px
