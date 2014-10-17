@@ -66,6 +66,7 @@ module MobileAPI
           }
           res << product_info
         end
+        res
       end
     end
   end
