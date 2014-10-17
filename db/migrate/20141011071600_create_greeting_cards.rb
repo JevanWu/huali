@@ -6,7 +6,7 @@ class CreateGreetingCards < ActiveRecord::Migration
       t.string :sender_email
       t.string :recipient_email
       t.text :sentiments
-
+      t.string :uuid
       t.timestamps
     end
   end
