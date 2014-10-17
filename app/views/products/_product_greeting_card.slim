@@ -14,14 +14,16 @@
       == image_tag(@product.img(:medium))
 
     .form
+      .message
+        | 
       = simple_form_for @greeting_card, url: greeting_card_path, html: {class: "form-horizontal"} do |f|
-        = f.text_field :recipient_email, class: "control-text-field", placeholder: "发件人邮箱：多个收件人请用逗号分割开", autofocus: true
+        = f.text_field :recipient_email, class: "control-text-field", placeholder: "收件人邮箱：多个收件人请用逗号分割开", autofocus: true
         br
-        = f.text_field :sender_email, class: "control-text-field", placeholder: "收件人邮箱：收件人回复内容将发送至此邮箱", input_html: { value: current_user.try(:email) }
+        = f.text_field :sender_email, class: "control-text-field", placeholder: "发件人邮箱：收件人回复内容将发送至此邮箱", input_html: { value: current_user.try(:email) }
         br
         = f.text_area :sentiments, class: "control-text-area", placeholder: "请填写您的祝福语"
         = f.input :product_id, as: :hidden, input_html: { value: @greeting_card.product.id }
         = f.input :user_id, as: :hidden, input_html: { value: current_user.try(:id) }
-        button.huali-btn.close-dialog#greeting-card-btn
+        button.huali-btn.close-dialog#greeting-card-btn-cancle
           | 取消
         = f.submit "发送", class: "huali-btn", id: "greeting-card-btn"

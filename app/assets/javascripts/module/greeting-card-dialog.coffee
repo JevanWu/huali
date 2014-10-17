@@ -22,10 +22,23 @@ $ ->
 
   $("#greeting-card-btn").click ->
 
-    phone =  $("#appointment_customer_phone").val()
-    email =  $("#appointment_customer_email").val()
-    if phone == "" && email == ""
-      $(".dialog-message").append("<p style=\"color: red; text-align: center;\">至少需要填写一种联系方式哦<p>")
+    sender_email_pattern = /^\w+@\w+\.[a-zA-Z]{2,6}$/
+    recipient_email_pattern = /^\w+@\w+\.[a-zA-Z]{2,6}(\s*,\s*\w+@\w+\.[a-zA-Z]{2,6})*$/
+
+    recipient_email = $("#greeting_card_recipient_email").val()
+    sender_email = $("#greeting_card_sender_email").val()
+    sentiments = $("#greeting_card_sentiments").val()
+
+    unless recipient_email.match recipient_email_pattern
+      $(".message").append("<p style=\"color: red; text-align: center;\">收件人邮箱格式错误，请重新填写。<p>")
+      return false
+
+    unless sender_email.match sender_email_pattern
+      $(".message").append("<p style=\"color: red; text-align: center;\">发件人邮箱格式错误，请重新填写。<p>")
+      return false
+
+    if sentiments == ""
+      $(".message").append("<p style=\"color: red; text-align: center;\">请填写祝福语<p>")
       return false
 
   $(window).resize ->
