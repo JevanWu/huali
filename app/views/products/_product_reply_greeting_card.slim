@@ -13,6 +13,6 @@ button.button#reply-greeting-card-dialog
     .dialog-message
       | 撒娇对象：#{GreetingCard.where(uuid: params[:uuid]).first.sender_email}
     = simple_form_for @reply_greeting_card, url: reply_greeting_card_path, html: {class: "form-horizontal"} do |f|
-      = f.input :response, label: "撒娇语"
+      = f.text_area :response, placeholder: "请在此输入撒娇语"
       = f.input :greeting_card_id, as: :hidden, input_html: { value: GreetingCard.where(uuid: params[:uuid]).first.id }
       = f.submit "发送", class: "huali-btn", id: "reply-greeting-card-btn"
