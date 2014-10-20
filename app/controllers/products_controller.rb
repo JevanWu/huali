@@ -117,7 +117,7 @@ class ProductsController < ApplicationController
     end
     if @greeting_card.save and 
         @greeting_card.recipient_email.split(',').each do |recipient_email| 
-          Notify.deplay.product_greeting_card_email(@greeting_card, recipient_email)
+          Notify.delay.product_greeting_card_email(@greeting_card, recipient_email)
         end
       redirect_to product_path(@greeting_card.product), flash: { success: t("views.greeting_card.succeeded") }
     else
