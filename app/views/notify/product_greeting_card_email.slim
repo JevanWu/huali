@@ -6,6 +6,8 @@
 
   = link_to image_tag(@greeting_card.product.img(:medium)), product_path(@greeting_card.product, only_path: false), target: "_blank"
 
+  p = "祝福语：#{@greeting_card.sentiments}"
+
   br
   button.btn
     = link_to "撒娇索要", "#{product_path(@greeting_card.product, only_path: false)}?uuid=#{@greeting_card.uuid}", target: "_blank"
@@ -13,5 +15,4 @@
   button.btn
     = link_to "我也要发贺卡", root_path(only_path: false), target: "_blank"
 
-  p = "祝福语：#{@greeting_card.sentiments}"
 
