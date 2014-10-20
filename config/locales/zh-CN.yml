@@ -200,7 +200,7 @@ zh-CN:
       print_order: 打印队列
       appointment: 预约
       sales_chart: 销量排行榜
-      greeting_card: 虚拟送花
+      greeting_card: 发送电子贺卡
       reply_greeting_card: 撒娇回复
 
     attributes:
