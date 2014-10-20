@@ -3,8 +3,8 @@ $ ->
     height = $(window).height()
     docHeight = $(document).height()
     width = $(window).width()
-    dialogTop = (height/0.5) - ($('#greeting-card-dialog-box').height()/0.5)
-    dialogLeft = (width/2.5) - ($('#greeting-card-dialog-box').width()/2.5)
+    dialogTop = (height/2) - ($('#greeting-card-dialog-box').height()/2)
+    dialogLeft = (width/2) - ($('#greeting-card-dialog-box').width()/2)
     $("#greeting-card-dialog-overlay").css({height: docHeight, width: width}).show()
     $("#greeting-card-dialog-box").css({top: dialogTop, left: dialogLeft}).show()
 
