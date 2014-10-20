@@ -115,7 +115,10 @@ class ProductsController < ApplicationController
         redirect_to( new_user_session_path, alert: t("views.greeting_card.email_registered", email: @greeting_card.sender_email) ) and return
       end
     end
-    if @greeting_card.save and Notify.delay.product_greeting_card_email(@greeting_card)
+    if @greeting_card.save and 
+        @greeting_card.recipient_email.split(',').each do |recipient_email| 
+          Notify.deplay.product_greeting_card_email(@greeting_card, recipient_email)
+        end
       redirect_to product_path(@greeting_card.product), flash: { success: t("views.greeting_card.succeeded") }
     else
       redirect_to product_path(@greeting_card.product), flash: { fail: t("views.greeting_card.failed") }
