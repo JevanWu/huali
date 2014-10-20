@@ -1,0 +1,9 @@
+- content_for :css do
+  = stylesheet_link_tag "modules/reply-greeting-card-email", media: "all"
+
+.reply-greeting-card-email
+  h4 = "#{@reply_greeting_card.greeting_card.recipient_email}回复已经寄出的贺卡『#{@reply_greeting_card.greeting_card.product.name}』"
+  p = "撒娇语：#{@reply_greeting_card.response}"
+
+  = link_to image_tag(@reply_greeting_card.greeting_card.product.img(:medium)), product_path(@reply_greeting_card.greeting_card.product, only_path: false), target: "_blank"
+

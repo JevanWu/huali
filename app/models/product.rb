@@ -55,6 +55,9 @@ class Product < ActiveRecord::Base
   # appointment
   has_many :appointments, dependent: :destroy
 
+  # greeting_card
+  has_many :greeting_cards, dependent: :destroy
+
   # asset
   has_many :assets, as: :viewable, dependent: :destroy, order: "created_at asc"
   accepts_nested_attributes_for :assets, reject_if: lambda { |a| a[:image].blank? }, allow_destroy: true
