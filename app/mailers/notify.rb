@@ -197,12 +197,7 @@ STR
 
   def product_greeting_card_email(greeting_card)
     @greeting_card = greeting_card
-    @greeting_card_sender = if @greeting_card.user
-                              @greeting_card.user.name
-                            else
-                              @greeting_card.sender_email
-                            end
-    mail(to: @greeting_card.recipient_email, subject: "收到一张新贺卡")
+    mail(to: @greeting_card.recipient_email, subject: "收到一张#{@greeting_card.sender_nickname}寄来的贺卡『#{@greeting_card.product.name}』")
   end
 
   def product_reply_greeting_card_email(reply_greeting_card)
