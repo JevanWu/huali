@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141021062718) do
+ActiveRecord::Schema.define(version: 20141016060001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -270,8 +270,6 @@ ActiveRecord::Schema.define(version: 20141021062718) do
     t.string   "uuid"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "sender_nickname"
-    t.string   "recipient_nickname"
   end
 
   add_index "greeting_cards", ["product_id"], name: "index_greeting_cards_on_product_id", using: :btree
