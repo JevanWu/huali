@@ -115,10 +115,8 @@ class ProductsController < ApplicationController
         redirect_to( new_user_session_path, alert: t("views.greeting_card.email_registered", email: @greeting_card.sender_email) ) and return
       end
     end
-    if @greeting_card.save and 
-        @greeting_card.recipient_email.split(',').each do |recipient_email| 
-          Notify.delay.product_greeting_card_email(@greeting_card, recipient_email)
-        end
+    #if @greeting_card.save and Notify.delay.product_greeting_card_email(@greeting_card)
+    if @greeting_card.save and Notify.product_greeting_card_email(@greeting_card).deliver
       redirect_to product_path(@greeting_card.product), flash: { success: t("views.greeting_card.succeeded") }
     else
       redirect_to product_path(@greeting_card.product), flash: { fail: t("views.greeting_card.failed") }
@@ -127,7 +125,8 @@ class ProductsController < ApplicationController
 
   def reply_greeting_card
     @reply_greeting_card = ReplyGreetingCard.new(reply_greeting_card_params)
-    if @reply_greeting_card.save and Notify.delay.product_reply_greeting_card_email(@reply_greeting_card)
+    #if @reply_greeting_card.save and Notify.delay.product_reply_greeting_card_email(@reply_greeting_card)
+    if @reply_greeting_card.save and Notify.product_reply_greeting_card_email(@reply_greeting_card).deliver
       redirect_to product_path(@reply_greeting_card.greeting_card.product), flash: { success: t("views.reply_greeting_card.succeeded") }
     else
       redirect_to product_path(@reply_greeting_card.greeting_card.product), flash: { fail: t("views.reply_greeting_card.failed") }
