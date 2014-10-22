@@ -1,17 +1,23 @@
-- content_for :css do
-  = stylesheet_link_tag "modules/greeting-card-email", media: "all"
-
 .greeting-card-email
-  h4 = "#{@greeting_card_sender}寄来的贺卡『#{@greeting_card.product.name}』"
+  p
+    | #{@greeting_card.sender_nickname}给您寄来一张贺卡『#{@greeting_card.product.name}』
+  br
 
   = link_to image_tag(@greeting_card.product.img(:medium)), product_path(@greeting_card.product, only_path: false), target: "_blank"
-
   br
-  button.btn
+
+  p 
+    | 注：点击图片即可下单。
+  br
+
+  p 
+    | #{@greeting_card.sentiments}
+  br
+
+  button.huali-btn
     = link_to "撒娇索要", "#{product_path(@greeting_card.product, only_path: false)}?uuid=#{@greeting_card.uuid}", target: "_blank"
 
-  button.btn
+  button.huali-btn
     = link_to "我也要发贺卡", root_path(only_path: false), target: "_blank"
 
-  p = "祝福语：#{@greeting_card.sentiments}"
 

@@ -3,8 +3,8 @@ $ ->
     height = $(window).height()
     docHeight = $(document).height()
     width = $(window).width()
-    dialogTop = (height/0.5) - ($('#greeting-card-dialog-box').height()/0.5)
-    dialogLeft = (width/2.5) - ($('#greeting-card-dialog-box').width()/2.5)
+    dialogTop = 200
+    dialogLeft = (width/2) - ($('#greeting-card-dialog-box').width()/2)
     $("#greeting-card-dialog-overlay").css({height: docHeight, width: width}).show()
     $("#greeting-card-dialog-box").css({top: dialogTop, left: dialogLeft}).show()
 
@@ -22,18 +22,17 @@ $ ->
 
   $("#greeting-card-btn").click ->
 
-    sender_email_pattern = /^\w+@\w+\.[a-zA-Z]{2,6}$/
-    recipient_email_pattern = /^\w+@\w+\.[a-zA-Z]{2,6}(\s*,\s*\w+@\w+\.[a-zA-Z]{2,6})*$/
+    email_pattern = /^[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}$/
 
     recipient_email = $("#greeting_card_recipient_email").val()
     sender_email = $("#greeting_card_sender_email").val()
     sentiments = $("#greeting_card_sentiments").val()
 
-    unless recipient_email.match recipient_email_pattern
+    unless recipient_email.match email_pattern
       $(".message").append("<p style=\"color: red; text-align: center;\">收件人邮箱格式错误，请重新填写。<p>")
       return false
 
-    unless sender_email.match sender_email_pattern
+    unless sender_email.match email_pattern
       $(".message").append("<p style=\"color: red; text-align: center;\">发件人邮箱格式错误，请重新填写。<p>")
       return false
 
