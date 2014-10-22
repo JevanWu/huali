@@ -195,18 +195,13 @@ STR
     mail(to: emails, subject: subject("产品到货通知"))
   end
 
-  def product_greeting_card_email(greeting_card, username = nil)
-    @greeting_card = greeting_card
-    @greeting_card_sender = if @greeting_card.user
-                              @greeting_card.user.name
-                            else
-                              @greeting_card.sender_email
-                            end
-    @greeting_card.recipient_email.split(",").each { |recipient_email| mail(to: recipient_email, subject: "收到一张新贺卡") }
+  def product_greeting_card_email(id)
+    @greeting_card = GreetingCard.find id
+    mail(to: @greeting_card.recipient_email, subject: "收到一张#{@greeting_card.sender_nickname}寄来的贺卡『#{@greeting_card.product.name}』")
   end
 
-  def product_reply_greeting_card_email(reply_greeting_card)
-    @reply_greeting_card = reply_greeting_card
+  def product_reply_greeting_card_email(id)
+    @reply_greeting_card = ReplyGreetingCard.find id
     mail(to: @reply_greeting_card.greeting_card.sender_email, subject: "已经发送新贺卡的回复")
   end
 

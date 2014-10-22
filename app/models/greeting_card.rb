@@ -2,15 +2,17 @@
 #
 # Table name: greeting_cards
 #
-#  created_at      :datetime
-#  id              :integer          not null, primary key
-#  product_id      :integer
-#  recipient_email :string(255)
-#  sender_email    :string(255)
-#  sentiments      :text
-#  updated_at      :datetime
-#  user_id         :integer
-#  uuid            :string(255)
+#  created_at         :datetime
+#  id                 :integer          not null, primary key
+#  product_id         :integer
+#  recipient_email    :string(255)
+#  recipient_nickname :string(255)      default(""), not null
+#  sender_email       :string(255)
+#  sender_nickname    :string(255)      default(""), not null
+#  sentiments         :text
+#  updated_at         :datetime
+#  user_id            :integer
+#  uuid               :string(255)
 #
 # Indexes
 #
@@ -24,5 +26,5 @@ class GreetingCard < ActiveRecord::Base
   has_many :reply_greeting_cards
 
   validates :sender_email, :recipient_email, presence: true, format: { with: /\A.*@.*\z/, message: "email format error" }
-  validates :sentiments, presence: true, length: { minimum: 5 }
+  validates :sentiments, presence: true
 end
