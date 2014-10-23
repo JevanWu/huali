@@ -9,12 +9,10 @@ class OauthRegistrationsController < Devise::RegistrationsController
   def bind_with_oauth
     begin
       if u = User.find_by_email(params[:user][:email])
-        unless u.valid_password? params[:user][:password]
-          raise ActiveRecord::RecordInvalid.new(u), 'invalid password'
-        end
-      else
-        u = build_resource permitted_params
-      end
+        flash[:alert] = I18n.t 'devise.oauth_services.user.email_has_been_token'
+        redirect_to new_oauth_user_registration_path 
+      end 
+      u = build_resource permitted_params.merge(name: session[:oauth].info.name, password: SecureRandom.hex )
 
       u.bypass_humanizer = true
       u.save!
@@ -34,10 +32,8 @@ class OauthRegistrationsController < Devise::RegistrationsController
 
   def permitted_params
     params.require(:user).permit(:email,
-                                 :password,
-                                 :password_confirmation,
                                  { phone: [] },
-                                 :name)
+                                )
   end
 
   def verify_session
