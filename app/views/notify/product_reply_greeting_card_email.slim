@@ -1,7 +1,7 @@
 .reply-greeting-card-email
   div style="margin-left: 130px; width: 300px"
   	h4 style="text-align: left; font-size: 18px; width: 300px" #{@reply_greeting_card.greeting_card.recipient_nickname}回复了您已经寄出的贺卡『#{@reply_greeting_card.greeting_card.product.name}』
-  p style="margin-left: 140px" 留言：#{@reply_greeting_card.response}
+  p style="margin-left: 140px; font-size: 16px" 留言：#{@reply_greeting_card.response}
 
   = link_to image_tag(@reply_greeting_card.greeting_card.product.img(:medium)), product_path(@reply_greeting_card.greeting_card.product, only_path: false), target: "_blank", style: "margin-left: 140px"
 
