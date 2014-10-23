@@ -1,0 +1,18 @@
+- content_for :css do
+  = stylesheet_link_tag "modules/thx-greeting-card-dialog", media: "all"
+
+button.button#thx-greeting-card-dialog
+  | 答谢好友
+#thx-greeting-card-dialog-overlay
+#thx-greeting-card-dialog-box
+  .dialog-header
+    | 答谢
+    .close-dialog
+      | x
+  .dialog-content
+    .dialog-message
+      | 答谢对象：#{GreetingCard.where(uuid: params[:uuid]).first.sender_email}
+    = simple_form_for @thx_greeting_card, url: thx_greeting_card_path, html: {class: "form-horizontal"} do |f|
+      = f.text_area :response, placeholder: "请在此输入答谢语"
+      = f.input :greeting_card_id, as: :hidden, input_html: { value: GreetingCard.where(uuid: params[:uuid]).first.id }
+      = f.submit "发送", class: "huali-btn", id: "thx-greeting-card-btn"

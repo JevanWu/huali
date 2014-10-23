@@ -27,6 +27,7 @@
 #= require 'module/popup-dialog'
 #= require 'module/greeting-card-dialog'
 #= require 'module/reply-greeting-card-dialog'
+#= require 'module/thx-greeting-card-dialog'
 #= require turbolinks
 #= require nprogress
 #= require nprogress-turbolinks
