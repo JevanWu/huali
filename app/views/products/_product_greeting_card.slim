@@ -23,7 +23,7 @@
         = f.text_field :sender_email, class: "control-text-field-email", placeholder: "*发件人邮箱", value: current_user.try(:email)
         = f.text_field :sender_nickname, class: "control-text-field-nickname", placeholder: "昵称"
         br
-        = f.text_area :sentiments, class: "control-text-area", placeholder: "*祝福语", value: @product.description.match(/INSPIRATION(.*?)#/m)[1].match(/\p{Han}.*/m)[0].gsub(/(\(.*\)|\[|\])/m, "")
+        = f.text_area :sentiments, class: "control-text-area", placeholder: "*祝福语", value: @product.inspiration.gsub(/(.*<\/span>|\(.*\)|\[|\])/, "").strip
         = f.input :product_id, as: :hidden, input_html: { value: @greeting_card.product.id }
         = f.input :user_id, as: :hidden, input_html: { value: current_user.try(:id) }
         = f.input :uuid, as: :hidden, input_html: { value: SecureRandom.uuid }
