@@ -25,6 +25,8 @@
 #= require 'bootstrap-tab'
 #= require 'segmentio'
 #= require 'module/popup-dialog'
+#= require 'module/greeting-card-dialog'
+#= require 'module/reply-greeting-card-dialog'
 #= require turbolinks
 #= require nprogress
 #= require nprogress-turbolinks

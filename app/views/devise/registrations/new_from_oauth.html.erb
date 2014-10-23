@@ -1,6 +1,6 @@
-<% content_for :js do %>
-  <%= javascript_include_tag "oauth" %>
-<% end %>
+<%# <% content_for :js do %>
+<%#   <%= javascript_include_tag "oauth" %>
+<%# <% end %>
 
 <div class='authentication'>
   <div class='row'>
@@ -22,18 +22,18 @@
         <%= f.text_field :email, autocomplete: 'off', class: 'email required' %>
         <%= image_tag 'loading.gif', class: 'loading' %>
       <% end %>
-      <%= f.input :password, required: true %>
+      <%# <%= f.input :password, required: true %>
 
-      <div id="user-exist" style="display: none">
-        <div class="form-actions">
-          <%= f.hint t('.email_already_signed_up'), class: 'hint-user-exist' %>
-          <%= f.button :submit, t('.sign_in_and_bind'), class: 'sign-in button' %>
-        </div>
-      </div>
+      <!-- <div id="user&#45;exist" style="display: none"> -->
+      <!--   <div class="form&#45;actions"> -->
+      <!--     <%= f.hint t('.email_already_signed_up'), class: 'hint&#45;user&#45;exist' %> -->
+      <!--     <%= f.button :submit, t('.sign_in_and_bind'), class: 'sign&#45;in button' %> -->
+      <!--   </div> -->
+      <!-- </div> -->
 
       <div id="user-not-exist">
-        <%= f.input :password_confirmation, required: true %>
-        <%= f.input :name, placeholder: '您的称呼, 以便我们和您联系' %>
+        <%# <%= f.input :password_confirmation, required: true %>
+        <%# <%= f.input :name, placeholder: '您的称呼, 以便我们和您联系' %>
         <%= f.input :phone, as: :simple_form_phone, placeholder: '以便我们和您核对信息'  %>
 
         <div class="form-actions">

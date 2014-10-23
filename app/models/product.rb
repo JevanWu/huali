@@ -6,6 +6,7 @@
 #  created_at                   :datetime         not null
 #  default_date_rule_id         :integer
 #  default_region_rule_id       :integer
+#  delivery                     :text
 #  depth                        :decimal(8, 2)
 #  description                  :text
 #  discountable                 :boolean          default(TRUE)
@@ -13,6 +14,8 @@
 #  height                       :decimal(8, 2)
 #  id                           :integer          not null, primary key
 #  inspiration                  :text
+#  maintenance                  :text
+#  material                     :text
 #  meta_description             :string(255)
 #  meta_keywords                :string(255)
 #  meta_title                   :string(255)
@@ -54,6 +57,9 @@ class Product < ActiveRecord::Base
 
   # appointment
   has_many :appointments, dependent: :destroy
+
+  # greeting_card
+  has_many :greeting_cards, dependent: :destroy
 
   # asset
   has_many :assets, as: :viewable, dependent: :destroy, order: "created_at asc"

@@ -1,0 +1,18 @@
+- content_for :css do
+  = stylesheet_link_tag "modules/reply-greeting-card-dialog", media: "all"
+
+button.button#reply-greeting-card-dialog
+  | 撒娇索要
+#reply-greeting-card-dialog-overlay
+#reply-greeting-card-dialog-box
+  .dialog-header
+    | 撒娇
+    .close-dialog
+      | x
+  .dialog-content
+    .dialog-message
+      | 撒娇对象：#{GreetingCard.where(uuid: params[:uuid]).first.sender_email}
+    = simple_form_for @reply_greeting_card, url: reply_greeting_card_path, html: {class: "form-horizontal"} do |f|
+      = f.text_area :response, placeholder: "请在此输入撒娇语"
+      = f.input :greeting_card_id, as: :hidden, input_html: { value: GreetingCard.where(uuid: params[:uuid]).first.id }
+      = f.submit "发送", class: "huali-btn", id: "reply-greeting-card-btn"
