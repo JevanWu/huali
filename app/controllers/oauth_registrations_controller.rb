@@ -6,6 +6,7 @@ class OauthRegistrationsController < Devise::RegistrationsController
     respond_with resource
   end
 
+  #TODO: the user has no oauth service should be allowed as well
   def bind_with_oauth
     if u = User.find_by_email(params[:user][:email])
       flash[:alert] = I18n.t 'devise.oauth_services.user.email_has_been_token'
