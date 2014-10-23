@@ -2,7 +2,7 @@
   p
   div style="margin-left: 130px; width: 300px"
     h4 style="text-align: left; font-size: 18px; width: 300px" #{@greeting_card.sender_nickname}给您寄来一张贺卡『#{@greeting_card.product.name}』
-    = link_to "答谢好友", "#{product_path(@greeting_card.product, only_path: false)}?ruid=#{@greeting_card.uuid}", target: "_blank", style: "font-size: 14px"
+    = link_to "答谢好友", "#{product_path(@greeting_card.product, only_path: false)}?uuidthx=#{@greeting_card.uuid}", target: "_blank", style: "font-size: 14px"
   br
 
   = link_to image_tag(@greeting_card.product.img(:medium)), product_path(@greeting_card.product, only_path: false ), target: "_blank", style: "margin-left: 140px"
