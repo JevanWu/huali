@@ -633,6 +633,7 @@ ActiveRecord::Schema.define(version: 20141015040130) do
     t.datetime "author_avatar_updated_at"
     t.string   "origin_link"
     t.integer  "priority",                   default: 0
+    t.string   "product_link"
   end
 
   create_table "surveys", force: true do |t|

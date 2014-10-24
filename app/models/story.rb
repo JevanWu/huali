@@ -17,6 +17,7 @@
 #  picture_file_size          :integer
 #  picture_updated_at         :datetime
 #  priority                   :integer          default(0)
+#  product_link               :string(255)
 #  updated_at                 :datetime
 #
 
