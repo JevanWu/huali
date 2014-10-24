@@ -202,6 +202,7 @@ zh-CN:
       mobile_menu: 移动端菜单
       appointment: 预约
       sales_chart: 销量排行榜
+      guide_view: 引导页
 
     attributes:
       order: &order
@@ -502,6 +503,12 @@ zh-CN:
         priority: 优先级
         image: 图片
         visible: 首页是否可见
+
+      guide_view:
+        description: 描述
+        priority: 优先级
+        image: 图片
+        available: 启用
 
       refund:
         order: 订单
