@@ -1,18 +1,24 @@
 # == Schema Information
 #
-# Table name: slide_panels
+# Table name: stories
 #
-#  created_at         :datetime
-#  href               :string(255)
-#  id                 :integer          not null, primary key
-#  image_content_type :string(255)
-#  image_file_name    :string(255)
-#  image_file_size    :integer
-#  image_updated_at   :datetime
-#  name               :string(255)
-#  priority           :integer
-#  updated_at         :datetime
-#  visible            :boolean          default(FALSE)
+#  author_avatar_content_type :string(255)
+#  author_avatar_file_name    :string(255)
+#  author_avatar_file_size    :integer
+#  author_avatar_updated_at   :datetime
+#  available                  :boolean
+#  created_at                 :datetime
+#  description                :string(255)
+#  id                         :integer          not null, primary key
+#  name                       :string(255)
+#  origin_link                :string(255)
+#  picture_content_type       :string(255)
+#  picture_file_name          :string(255)
+#  picture_file_size          :integer
+#  picture_updated_at         :datetime
+#  priority                   :integer          default(0)
+#  product_link               :string(255)
+#  updated_at                 :datetime
 #
 
 # Read about factories at https://github.com/thoughtbot/factory_girl
