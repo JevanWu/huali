@@ -19,5 +19,6 @@ module MobileAPI
     mount DailyPhrases
     mount MobileMenus
     mount Stories
+    mount GuideViews
   end
 end
