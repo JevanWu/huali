@@ -18,5 +18,6 @@ module MobileAPI
     mount Orders
     mount DailyPhrases
     mount MobileMenus
+    mount Stories
   end
 end
