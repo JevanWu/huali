@@ -21,10 +21,12 @@
 #  updated_at                 :datetime
 #
 
-class Story < ActiveRecord::Base
-  scope :available, lambda { where(available: true) }
-  scope :unavailable, lambda { where(available: false) }
-
-  has_attached_file :picture, :styles => { :medium => "200x485>" }
-  has_attached_file :author_avatar, :styles => { :small => "40x40>" }
+# Read about factories at https://github.com/thoughtbot/factory_girl
+FactoryGirl.define do
+  factory :story do
+    name { Forgery(:lorem_ipsum).word }
+    description { Forgery(:lorem_ipsum).words(10) }
+    priority 1
+    available true
+  end
 end

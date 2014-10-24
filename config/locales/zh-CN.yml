@@ -204,6 +204,7 @@ zh-CN:
       sales_chart: 销量排行榜
       greeting_card: 发送电子贺卡
       reply_greeting_card: 撒娇回复
+      guide_view: 引导页
 
     attributes:
       order: &order
@@ -484,6 +485,7 @@ zh-CN:
         picture: 照片
         author_avatar: 头像
         origin_link: 源链接
+        product_link: 产品链接
         priority: 优先级
         available: 是否有效
 
@@ -511,6 +513,12 @@ zh-CN:
         priority: 优先级
         image: 图片
         visible: 首页是否可见
+
+      guide_view:
+        description: 描述
+        priority: 优先级
+        image: 图片
+        available: 启用
 
       refund:
         order: 订单

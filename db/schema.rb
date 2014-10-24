@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141021062718) do
+ActiveRecord::Schema.define(version: 20141024073420) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -287,6 +287,18 @@ ActiveRecord::Schema.define(version: 20141021062718) do
 
   add_index "greeting_cards", ["product_id"], name: "index_greeting_cards_on_product_id", using: :btree
   add_index "greeting_cards", ["user_id"], name: "index_greeting_cards_on_user_id", using: :btree
+
+  create_table "guide_views", force: true do |t|
+    t.text     "description"
+    t.boolean  "available",          default: false
+    t.integer  "priority"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "limited_promotions", force: true do |t|
     t.string   "name"
@@ -658,6 +670,7 @@ ActiveRecord::Schema.define(version: 20141021062718) do
     t.datetime "author_avatar_updated_at"
     t.string   "origin_link"
     t.integer  "priority",                   default: 0
+    t.string   "product_link"
   end
 
   create_table "surveys", force: true do |t|
@@ -744,10 +757,10 @@ ActiveRecord::Schema.define(version: 20141021062718) do
     t.integer  "invited_and_paid_counter",                         default: 0
     t.boolean  "invitation_rewarded",                              default: false
     t.decimal  "huali_point",              precision: 8, scale: 2, default: 0.0
-    t.string   "authentication_token"
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
+    t.string   "authentication_token"
   end
 
   add_index "users", ["anonymous_token"], name: "index_users_on_anonymous_token", unique: true, using: :btree
