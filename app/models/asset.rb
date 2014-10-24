@@ -20,5 +20,5 @@
 class Asset < ActiveRecord::Base
   belongs_to :viewable, polymorphic: true
   validates_presence_of :image
-  has_attached_file :image, styles: { medium: "310x300>", small: "160x153>", thumb: "93x90>" }
+  has_attached_file :image, styles: { medium: "310x300>", small: "160x153>", thumb: "93x90>", mobile: "460x445>" }
 end
