@@ -2,7 +2,7 @@
 #
 # Table name: guide_views
 #
-#  available          :string(255)      default("f")
+#  available          :boolean          default(FALSE)
 #  created_at         :datetime
 #  description        :text
 #  id                 :integer          not null, primary key
@@ -10,7 +10,7 @@
 #  image_file_name    :string(255)
 #  image_file_size    :integer
 #  image_updated_at   :datetime
-#  priority           :string(255)
+#  priority           :integer
 #  updated_at         :datetime
 #
 

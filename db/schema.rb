@@ -290,8 +290,8 @@ ActiveRecord::Schema.define(version: 20141024073420) do
 
   create_table "guide_views", force: true do |t|
     t.text     "description"
-    t.string   "available",          default: "f"
-    t.string   "priority"
+    t.boolean  "available",          default: false
+    t.integer  "priority"
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"

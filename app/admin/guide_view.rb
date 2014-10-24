@@ -16,7 +16,7 @@ ActiveAdmin.register GuideView do
       f.input :description
       f.input :priority
       f.input :image, as: :file
-      f.input :available, as: :boolean
+      f.input :available
       f.actions
     end
   end
