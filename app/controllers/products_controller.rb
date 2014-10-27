@@ -26,7 +26,8 @@ class ProductsController < ApplicationController
         full: asset.image.url,
         medium: asset.image.url(:medium),
         small: asset.image.url(:small),
-        thumb: asset.image.url(:thumb)
+        thumb: asset.image.url(:thumb),
+        mobile: asset.image.url(:mobile)
       }
     end
 
