@@ -6,27 +6,22 @@ class OauthRegistrationsController < Devise::RegistrationsController
     respond_with resource
   end
 
+  #TODO: the user has no oauth service should be allowed as well
   def bind_with_oauth
-    begin
-      if u = User.find_by_email(params[:user][:email])
-        unless u.valid_password? params[:user][:password]
-          raise ActiveRecord::RecordInvalid.new(u), 'invalid password'
-        end
-      else
-        u = build_resource permitted_params
-      end
+    if u = User.find_by_email(params[:user][:email])
+      flash[:alert] = I18n.t 'devise.oauth_services.user.email_has_been_token'
+      redirect_to new_oauth_user_registration_path and return
+    end 
+    u = build_resource permitted_params.merge(name: session[:oauth].info.name, password: SecureRandom.hex )
 
-      u.bypass_humanizer = true
-      u.save!
+    u.bypass_humanizer = true
+    if u.save
       u.apply_oauth session[:oauth]
 
-      flash[:notice] = I18n.t 'devise.sessions.signed_in'
-      sign_in_and_redirect u, :event => :authentication
-    rescue ActiveRecord::RecordInvalid
-      build_resource permitted_params
-
-      flash[:alert] = I18n.t 'devise.failure.invalid'
-      render 'devise/registrations/new_from_oauth'
+      redirect_to root_path
+    else
+      flash[:alert] = I18n.t 'devise.oauth_services.user.failure'
+      redirect_to new_oauth_user_registration_path
     end
   end
 
@@ -34,10 +29,8 @@ class OauthRegistrationsController < Devise::RegistrationsController
 
   def permitted_params
     params.require(:user).permit(:email,
-                                 :password,
-                                 :password_confirmation,
                                  { phone: [] },
-                                 :name)
+                                )
   end
 
   def verify_session
