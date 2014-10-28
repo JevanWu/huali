@@ -134,6 +134,7 @@ module MobileAPI
                               address: params[:receiver_address],
                               post_code: params[:receiver_post_code])
 
+        order.user = current_user
         order.address = address
 
         if order.save

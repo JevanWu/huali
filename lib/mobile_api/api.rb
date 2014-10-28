@@ -20,5 +20,6 @@ module MobileAPI
     mount MobileMenus
     mount Stories
     mount GuideViews
+    mount Addresses
   end
 end
