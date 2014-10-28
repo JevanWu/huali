@@ -19,8 +19,8 @@ module MobileAPI
 
       def rectangle_images(product)
         {
-          medium: product.rectangle_image(:medium)
-          small: product.rectangle_image(:small)
+          medium: product.rectangle_image(:medium),
+          small: product.rectangle_image(:small),
           thumb: product.rectangle_image(:thumb)
         }
       end
