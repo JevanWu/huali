@@ -5,7 +5,7 @@ GET /products
 ```
 Parameters:
 
-+ `per_page` (optional)                   - The number of products presented on each page
++ `per_page` (optional)                   - The amount of products presented on each page
 + `page` (optional)                       - The number of page queried
 
 ```

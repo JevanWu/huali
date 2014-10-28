@@ -13,7 +13,13 @@ module MobileAPI
         error!('The user does not exist!', 404) if !user.present?
         if user.valid_password?(params[:password])
           token = user.authentication_token
-          status 200 and return { authentication_token: token }
+          status 200 
+          { 
+            authentication_token: token,
+            user_email: user.email,
+            user_phone: user.phone,
+            user_name: user.name 
+          }
         else
           error!("The account and password don't match!", 500)
         end
@@ -91,9 +97,9 @@ module MobileAPI
         requires :phone, type: String, desc: "phone number which the message will be sent to"
       end
       post :password_reset_sms do
-        authenticate_user!
         user = User.find_by email: params[:email]
-        error!("the user does not exist", 404) if !user.present?
+        error!("The user does not exist", 404) if !user.present?
+        error!("The phone number mismatchs", 404) if user.phone != phone
         token = user.generate_reset_password_token
         Sms.delay.normal_sms(params[:phone], token)
         status 200
@@ -106,7 +112,6 @@ module MobileAPI
         requires :reset_token, type: String, desc: "the reset token sent to user"
       end
       post :reset_password do
-        authenticate_user!
         user = User.find_by email: params[:email]
         error!("the user does not exist", 404) if !user.present?
         error!("the reset tokens mismatch", 500) if user.reset_password_token != params[:reset_token]
