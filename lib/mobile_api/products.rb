@@ -57,7 +57,7 @@ module MobileAPI
             width: product.width, 
             depth: product.depth, 
             priority: product.priority, 
-            product_type: product.product_type, 
+            product_type: product.product_type_text, 
             images: product_images(product) 
             rectangle_images: rectangle_images(product)
           }
@@ -88,7 +88,7 @@ module MobileAPI
             width: product.width, 
             depth: product.depth, 
             priority: product.priority, 
-            product_type: product.product_type, 
+            product_type: product.product_type_text, 
             images: product_images(product) 
             rectangle_images: rectangle_images(product)
         }
