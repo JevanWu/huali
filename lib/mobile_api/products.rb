@@ -19,8 +19,8 @@ module MobileAPI
 
       def rectangle_images(product)
         {
-          medium: product.rectangle_image(:medium)
-          small: product.rectangle_image(:small)
+          medium: product.rectangle_image(:medium),
+          small: product.rectangle_image(:small),
           thumb: product.rectangle_image(:thumb)
         }
       end
@@ -91,6 +91,30 @@ module MobileAPI
             product_type: product.product_type_text, 
             images: product_images(product) 
             rectangle_images: rectangle_images(product)
+        }
+      end
+
+
+      desc "check if the couponcode is usable for the product"
+      params do
+        requires :products, type: String, desc: "The array of ids  of products in the cart"
+        requires :coupon_code, type: String, desc: "Coupon code" 
+        requires :total_price, type: Float, desc: "Total price of the items in the cart"
+      end
+      get :check_coupon_code do
+        total_price = params[:total_price]
+        products = params[:products]
+        coupon_code = CouponCode.find_by(code: params[:coupon_code])
+        return false if price_condition && total_price < price_condition
+        unless products.blank?
+          return false if coupon_code.products.none? { |product| products.include?(product) }
+        end
+        return false if coupon_code.expired
+        return false if coupon_code.expires_at < Time.current
+        return false if coupon_code.available_count <= 0
+        { 
+          valid: true, 
+          adjustment: coupon_code.coupon.adjustment 
         }
       end
     end
