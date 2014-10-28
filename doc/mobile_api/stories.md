@@ -4,6 +4,10 @@
 get /stories
 ```
 
+Parameters:
++ `per_page` (optional)                   - The number of products presented on each page
++ `page` (optional)                       - The number of page queried
+
 ```
 status: 200 ok
 

@@ -115,7 +115,6 @@ POST /users/password_reset_sms
 parameters:
 
 + `email` (required)                   - Email of the user
-+ `token` (required)                   - Authentication token of the user
 + `phone` (required)                   - The phone number which message will be sent to 
 
 ```
