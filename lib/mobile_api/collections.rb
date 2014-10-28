@@ -26,6 +26,14 @@ module MobileAPI
         end
         res
       end
+
+      def rectangle_images(product)
+        {
+          medium: product.rectangle_image(:medium)
+          small: product.rectangle_image(:small)
+          thumb: product.rectangle_image(:thumb)
+        }
+      end
     end
 
     resource :collections do
@@ -63,6 +71,7 @@ module MobileAPI
             priority: product.priority, 
             product_type: product.product_type, 
             images: product_images(product) 
+            rectangle_images: rectangle_images(product)
           }
           res << product_info
         end
