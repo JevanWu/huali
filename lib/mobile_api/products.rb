@@ -21,12 +21,12 @@ module MobileAPI
     resource :products do
       desc "Return all published products." 
       params do
-        optional :per_page, type: Integer, desc: "The number of products presented on each page"
+        optional :per_page, type: Integer, desc: "The amount of products presented on each page"
         optional :page, type: Integer, desc: "The number of page queried"
       end
       get do
         if params[:per_page]&&params[:page]
-          products = Product.where(published: true).limit(params[:per_page]).offset(params[:per_page]*params[:page])
+          products = Product.where(published: true).limit(params[:per_page]).offset(params[:per_page]*(params[:page] - 1))
         else
           products = Product.where(published: true)
         end
