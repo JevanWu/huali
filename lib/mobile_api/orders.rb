@@ -9,10 +9,16 @@ module MobileAPI
       params do
         requires :email, type: String, desc: "Email of the user."
         requires :token, type: String, desc: "Authentication token of the user."
+        optional :per_page, type: Integer, desc: "The amount of orders presented on each page"
+        optional :page, type: Integer, desc: "The number of page queried"
       end
       get do
         authenticate_user!
-        orders = current_user.orders
+        if params[:per_page]&&params[:page]
+          orders = current_user.orders.limit(params[:per_page]).offset(params[:per_page]*(params[:page] - 1))
+        else
+          orders = current_user.orders
+        end
         error!('The user has no order now!', 404) if orders.nil?
         res = Array.new
         orders.each do |order|

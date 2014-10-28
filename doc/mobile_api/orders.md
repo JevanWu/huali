@@ -8,6 +8,8 @@ Parameters:
 
 + `email` (required)                   - Email of the user
 + `token` (required)                   - Authentication token of the user
++ `per_page` (optional)                   - The amount of orders presented on each page
++ `page` (optional)                       - The number of page queried
 
 ```
 Status: 200 OK
