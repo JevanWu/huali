@@ -1,4 +1,4 @@
-## query the last daily phrase
+## query all of the mobile menus
 
 ```
 get /mobile_menus
