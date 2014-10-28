@@ -58,7 +58,7 @@ module MobileAPI
             depth: product.depth, 
             priority: product.priority, 
             product_type: product.product_type_text, 
-            images: product_images(product) 
+            images: product_images(product), 
             rectangle_images: rectangle_images(product)
           }
           res << product_info
@@ -89,7 +89,7 @@ module MobileAPI
             depth: product.depth, 
             priority: product.priority, 
             product_type: product.product_type_text, 
-            images: product_images(product) 
+            images: product_images(product),
             rectangle_images: rectangle_images(product)
         }
       end
