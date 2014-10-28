@@ -13,7 +13,13 @@ module MobileAPI
         error!('The user does not exist!', 404) if !user.present?
         if user.valid_password?(params[:password])
           token = user.authentication_token
-          status 200 and return { authentication_token: token }
+          status 200 
+          { 
+            authentication_token: token,
+            user_email: user.email,
+            user_phone: user.phone,
+            user_name: user.name 
+          }
         else
           error!("The account and password don't match!", 500)
         end
