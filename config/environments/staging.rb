@@ -3,6 +3,7 @@ Huali::Application.configure do
 
   # Code is not reloaded between requests
   config.cache_classes = true
+
   config.eager_load = true
 
   # Full error reports are disabled and caching is turned on
@@ -13,10 +14,11 @@ Huali::Application.configure do
   config.serve_static_assets = false
 
   # Compress JavaScripts and CSS
-  config.assets.compress = true
+  config.assets.css_compressor = :sass
+  config.assets.js_compressor = :uglifier
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = false
+  config.assets.compile = true
 
   # Generate digests for assets URLs
   config.assets.digest = true
