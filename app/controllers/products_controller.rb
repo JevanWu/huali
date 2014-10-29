@@ -92,6 +92,8 @@ class ProductsController < ApplicationController
       paginate :page => params[:page], :per_page => 12
     end.results
 
+    @products.reject! { |product| product.id == 184 } # 移除携程版海生之恋
+
     prepare_tag_filter
 
     respond_to do |format|
@@ -102,7 +104,7 @@ class ProductsController < ApplicationController
 
   def appointment
     http_referer = request.env["HTTP_REFERER"]
-    if appointment = Appointment.create(appointment_params) 
+    if appointment = Appointment.create(appointment_params)
       redirect_to product_path(appointment.product), flash: { success: t("views.appointment.successful_appointment") }
     else
       redirect_to http_referer, flash: { fail: t("views.appointment.failed_appointment") }
@@ -110,7 +112,7 @@ class ProductsController < ApplicationController
   end
 
   def greeting_card
-    @greeting_card = GreetingCard.new(greeting_card_params) 
+    @greeting_card = GreetingCard.new(greeting_card_params)
     unless user_signed_in?
       unless User.where(email: @greeting_card.sender_email).empty?
         redirect_to( new_user_session_path, alert: t("views.greeting_card.email_registered", email: @greeting_card.sender_email) ) and return

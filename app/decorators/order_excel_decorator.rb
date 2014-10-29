@@ -2,7 +2,8 @@ class OrderExcelDecorator < Draper::Decorator
   include Draper::LazyHelpers
   delegate_all
 
-  COLUMNS = ["下单时间",
+  COLUMNS = ["下单日期",
+             "下单时间",
              "下单星期",
              "订单号",
              "订单类型",
@@ -39,7 +40,8 @@ class OrderExcelDecorator < Draper::Decorator
              "处理意见",
              "问题详情"]
 
-  COLUMN_TYPES = [nil,# 下单时间
+  COLUMN_TYPES = [nil,# 下单日期
+             :string,# 下单时间
              :string, # 下单星期
              :string, # 订单号
              :string, # 订单类型
@@ -161,6 +163,7 @@ class OrderExcelDecorator < Draper::Decorator
 
   def first_row
     [created_on,
+     created_at.strftime("%H:%M"),
      create_week,
      identifier,
      kind_text,
@@ -202,6 +205,7 @@ class OrderExcelDecorator < Draper::Decorator
   def left_rows
     left_items.map do |item|
       ["",
+       "",
        "",
        "",
        "",
