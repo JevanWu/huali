@@ -99,7 +99,7 @@ module MobileAPI
       post :password_reset_sms do
         user = User.find_by email: params[:email]
         error!("The user does not exist", 404) if !user.present?
-        error!("The phone number mismatchs", 404) if user.phone != phone
+        error!("The phone number mismatchs", 404) if user.phone != params[:phone]
         token = user.generate_reset_password_token
         Sms.delay.normal_sms(params[:phone], token)
         status 200
