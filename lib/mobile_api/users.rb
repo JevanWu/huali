@@ -48,8 +48,7 @@ module MobileAPI
       put :change_password do
         authenticate_user!
         error!("Invalid password", 400) unless current_user.valid_password?(params[:password])
-        current_user.password = params[:new_password]
-        current_user.save
+        current_user.update_column(:password, params[:new_password])
         error!(current_user.errors.messages, 500) if current_user.errors.messages.present?
         status 200
       end
@@ -64,9 +63,8 @@ module MobileAPI
       put do
         authenticate_user!
         error!("No user signed in", 500) unless current_user
-        current_user.name = params[:name]
-        current_user.phone = params[:phone]
-        current_user.save
+        current_user.update_column(:name, params[:name])
+        current_user.update_column(:phone, params[:phone])
         error!(current_user.errors.messages, 500) if current_user.errors.messages.present?
         status 200
       end

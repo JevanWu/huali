@@ -43,7 +43,7 @@ describe MobileAPI::API do
 
   describe "PUT /mobile_api/v1/users" do
     it "changes user information" do
-      put "/mobile_api/v1/users", name: user.name, phone: "18758161801", email: user.email, token: user.authentication_token
+      put "/mobile_api/v1/users", name: "Jevan Wu", phone: "18758161801", email: user.email, token: user.authentication_token
       response.status.should == 200
     end
   end
