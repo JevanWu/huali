@@ -173,6 +173,7 @@ module MobileAPI
         order.user = current_user
         order.address = address
 
+
         error!(order.errors.messages, 500) unless order.save
 
         products = order_info[:products]
@@ -182,20 +183,18 @@ module MobileAPI
                                 price: product[:price] )
         end
 
-        status(201)
         { 
           state: order.state,
           total: order.total,
           payment_total: order.payment_total,
           identifier: order.identifier,
           expected_date: order.expected_date,
-          receiver_fullname: order.receiver_fullname,
-          receiver_address: order.receiver_address,
-          receiver_phone: order.receiver_phone,
-          receiver_post_code: order.receiver_post_code,
+          receiver_fullname: order.address.fullname,
+          receiver_address: order.address.address,
+          receiver_phone: order.address.phone,
+          receiver_post_code: order.address.post_code,
           products: products_info(order)        
         }
-
       end
 
       desc "Creates line items for order"
