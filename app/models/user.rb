@@ -146,7 +146,7 @@ class User < ActiveRecord::Base
   end
 
   def generate_reset_password_token
-    reset_token = rand(999999)
+    reset_token = rand(999999).to_s
     self.update_columns(reset_password_token: reset_token, reset_password_sent_at: Time.current)
     return reset_token
   end
