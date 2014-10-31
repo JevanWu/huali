@@ -129,6 +129,8 @@ module MobileAPI
       post do
         authenticate_user!
         order_info = params[:order_info]
+        order_info = JSON.parse(order_info) if order_info.class != Hashie::Mash
+        order_info.symbolize_keys!
         error!("order info is required", 404) if !order_info.present?
         order = current_user.orders.new(
           sender_name: order_info[:sender_name],
