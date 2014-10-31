@@ -122,15 +122,9 @@ module MobileAPI
       # 
       #}
       desc "Creates an order"
-      params do
-        requires :email, type: String, desc: "Email of the user."
-        requires :token, type: String, desc: "Authentication token of the user."
-      end
       post do
         authenticate_user!
         order_info = params[:order_info]
-        order_info = JSON.parse(order_info) if order_info.class != Hashie::Mash
-        order_info.symbolize_keys!
         error!("order info is required", 404) if !order_info.present?
         order = current_user.orders.new(
           sender_name: order_info[:sender_name],
