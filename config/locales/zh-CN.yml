@@ -202,6 +202,7 @@ zh-CN:
       sales_chart: 销量排行榜
       greeting_card: 发送电子贺卡
       reply_greeting_card: 撒娇回复
+      instant_delivery: 快速送达
 
     attributes:
       order: &order
@@ -553,6 +554,13 @@ zh-CN:
       sales_chart:
         product: 中文名
         position: 名次
+
+      instant_delivery:
+        order: 订单
+        order_id: 订单
+        fee: 递送费用
+        delivered_in_minutes: 送达时间(分钟)
+        shipped_at: 递送时间
 
   models:
     user:
