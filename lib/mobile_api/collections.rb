@@ -54,7 +54,7 @@ module MobileAPI
       get ":id/products" do
         collection = Collection.find(params[:id])
         error!('Cannot find the collection', 404) if !collection.present?
-        products = collection.products
+        products = collection.products.published
         error!('The collection has no products!', 404) if !products.present?
         res = []
         products.each do |product|
