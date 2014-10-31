@@ -90,6 +90,7 @@ zh-CN:
         contains_products_not_discountable: "购物车有不参与打折的产品"
         must_be_less_than_expected_date: 必须小于到达日期
         not_able_to_edit_adjustment: 订单已审核，不能更新价格调整
+        instant_delivery_not_available: 快速送达服务当前不可用
 
     models:
       order_form: 订单
@@ -561,6 +562,8 @@ zh-CN:
         fee: 递送费用
         delivered_in_minutes: 送达时间(分钟)
         shipped_at: 递送时间
+        updated_at: 更新时间
+        created_at: 创建时间
 
   models:
     user:

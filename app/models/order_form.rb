@@ -107,6 +107,7 @@ class OrderForm
   attribute :special_instructions, String
   attribute :source, String, default: ''
   attribute :expected_date, Date
+  attribute :instant_delivery, Boolean
 
   attribute :sender, SenderInfo
   attribute :address, ReceiverInfo
@@ -119,6 +120,7 @@ class OrderForm
   validates_with OrderProductAvailabilityValidator, if: :validate_item?
   validates_with OrderCouponValidator, if: :validate_coupon?
   validates_with OrderDiscountableValidator, if: :validate_discountable?
+  validates_with InstantDeliveryValidator
 
   validates :expected_date, presence: true
 
