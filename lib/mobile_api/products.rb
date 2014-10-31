@@ -34,9 +34,9 @@ module MobileAPI
       end
       get do
         if params[:per_page]&&params[:page]
-          products = Product.where(published: true).limit(params[:per_page]).offset(params[:per_page]*(params[:page] - 1))
+          products = Product.published.limit(params[:per_page]).offset(params[:per_page]*(params[:page] - 1))
         else
-          products = Product.where(published: true)
+          products = Product.published
         end
 
         error!('There is no published products!', 404) if !products.present?
