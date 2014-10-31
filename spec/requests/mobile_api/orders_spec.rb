@@ -85,7 +85,6 @@ describe MobileAPI::API do
   describe "POST /mobile_api/v1/orders" do
     it "creates a order" do
       post "/mobile_api/v1/orders", email: current_user.email, token: current_user.authentication_token, order_info: valid_order
-      binding.pry
       response.status.should == 201
       Order.count.should == 1
     end

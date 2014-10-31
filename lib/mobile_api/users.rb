@@ -12,7 +12,7 @@ module MobileAPI
         user = User.find_by(email: params[:email])
         error!('The user does not exist!', 404) if !user.present?
         if user.valid_password?(params[:password])
-          token = user.authentication_token
+          token = user.ensure_authentication_token
           status 200 
           { 
             authentication_token: token,
