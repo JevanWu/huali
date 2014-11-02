@@ -3,6 +3,8 @@ require_relative 'order_product_base_validator'
 
 class OrderProductDateValidator < OrderProductBaseValidator
   def validate(order)
+    return true if order.instant_delivery
+
     super do |line_item, product|
       unless validate_product(product, order.expected_date)
         line_item.errors.add(:base, :product_in_unavailable_date, product_name: product.name)
