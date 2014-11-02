@@ -50,6 +50,9 @@
 <% content_for :body_js do %>
   <script>
     $(function () {
+      if ($("#order_form_instant_delivery").is(":checked"))
+        $(".order_form_instant_delivery").show();
+
       $("#order_form_instant_delivery").change(function() {
         if(this.checked) {
           var myDate = new Date();
