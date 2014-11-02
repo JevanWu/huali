@@ -67,9 +67,10 @@
           return;
 
         $.get('/orders/instant_delivery_status', { city_id: city_id, address: address }, function (data) {
-          if (data.instant_delivery_available) {
+          if (data.instant_delivery_available)
             $(".order_form_instant_delivery").show('slow');
-          }
+          else
+            $(".order_form_instant_delivery").hide('slow');
         });
       });
 
