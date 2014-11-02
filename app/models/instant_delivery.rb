@@ -15,6 +15,6 @@ class InstantDelivery < ActiveRecord::Base
   belongs_to :order
 
   def self.used_count_today
-    where(created_at: Time.current.beginning_of_day .. Time.current.end_of_day).count
+    where(shipped_at: Time.current.beginning_of_day .. Time.current.end_of_day).count
   end
 end
