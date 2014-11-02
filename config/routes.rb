@@ -58,6 +58,7 @@ Huali::Application.routes.draw do
   post 'orders/wechat_notify'
   get 'orders/:id/gift_card/edit', to: 'orders#edit_gift_card', as: :edit_gift_card
   match 'orders/:id/gift_card/update', to: 'orders#update_gift_card', as: :update_gift_card, via: [:put, :patch]
+  get 'orders/instant_delivery_status'
 
   # back order urls
   get 'orders/backorder', to: 'orders#back_order_new', as: :new_back_order

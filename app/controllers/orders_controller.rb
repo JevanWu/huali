@@ -279,6 +279,10 @@ class OrdersController < ApplicationController
     render text: "success"
   end
 
+  def instant_delivery_status
+    render json: { instant_delivery_available: InstantDelivery.used_count_today < 24 }
+  end
+
   private
 
     def authorize_to_record_back_order
