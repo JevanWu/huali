@@ -208,6 +208,7 @@ class OrderForm
     # build line_items
     line_items.map! { |params| LineItem.new(params) }
 
+    order.delete(:instant_delivery)
     # build order
     order = Order.new(order)
     order.address = address

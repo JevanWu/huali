@@ -16,8 +16,6 @@
     <% end %>
     <%= f.input :coupon_code, as: :hidden %>
 
-    <%= f.input :expected_date, as: :string, required:true, input_html: { class: 'datepicker' }, placeholder: '寄给TA的时间', hint: Setting.expected_date_notice || ("0元花盒将在2月8日后发货" if @cart.limited_promotion_today) %>
-
     <%= f.fields_for :address, @order_form.address do |builder|%>
       <%= builder.input :fullname, required: true, placeholder: '收件人姓名' %>
       <%= builder.input :phone, as: :simple_form_phone, required: true, placeholder: '收件人联系方式'  %>
@@ -34,6 +32,8 @@
       <%= f.input :instant_delivery, as: :boolean, hint: '90分钟送达需要收取而外费用' %>
       <%= builder.input :post_code, placeholder: '邮编', hint: %(<a id='query-postcode' href="#" target='_blank'>查询邮编</a>).html_safe %>
     <% end %>
+
+    <%= f.input :expected_date, as: :string, required:true, input_html: { class: 'datepicker' }, placeholder: '寄给TA的时间', hint: Setting.expected_date_notice || ("0元花盒将在2月8日后发货" if @cart.limited_promotion_today) %>
 
     <button id="gift-card-info-trigger" class="button">添加贺卡内容</button>
     <div id="gift-card-info">

@@ -91,6 +91,8 @@ class OrdersController < ApplicationController
       delete_address_select_cookies
 
       OrderDiscountPolicy.new(@order_form.record).apply
+      InstantDeliveryChargePolicy.new(@order_form.record, @order_form.instant_delivery).apply
+
       store_order_id(@order_form.record)
 
       update_guest if current_or_guest_user.guest?
