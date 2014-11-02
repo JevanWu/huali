@@ -17,4 +17,8 @@ class InstantDelivery < ActiveRecord::Base
   def self.used_count_today
     where(shipped_at: Time.current.beginning_of_day .. Time.current.end_of_day).count
   end
+
+  def ship
+    self.update_column(:shipped_at, Time.current)
+  end
 end
