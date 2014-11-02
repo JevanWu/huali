@@ -140,6 +140,7 @@ zh-CN:
         last_order: 关联订单号
         memo: 客服备注
         paymethod: 支付方式
+        instant_delivery: 90分钟送达
 
       item_info:
         quantity: 产品数量
