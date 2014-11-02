@@ -12,6 +12,7 @@ class OrderAdminForm < OrderForm
   attribute :last_order, String
   attribute :prechecked, Virtus::Attribute::Boolean
   attribute :memo, String
+  attribute :enable_instant_delivery, Boolean
 
   # +/-/*/%1234.0
   validates_format_of :adjustment, with: %r{\A[+-x*%/][\s\d.]+\z}, allow_blank: true
@@ -38,6 +39,7 @@ class OrderAdminForm < OrderForm
       order_admin_form.address = extract_address(record)
       order_admin_form.line_items = extract_line_items(record)
       order_admin_form.bind_record(record)
+      order_admin_form.enable_instant_delivery = true if record.instant_delivery
 
       return order_admin_form
     end
@@ -79,6 +81,8 @@ class OrderAdminForm < OrderForm
 
   def update!
     order, address, line_items = dispatch_params(to_hash)
+
+    order.delete(:enable_instant_delivery)
 
     @record.update_attributes(order)
     @record.address.update_attributes(address)
