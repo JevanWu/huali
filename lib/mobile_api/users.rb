@@ -47,10 +47,14 @@ module MobileAPI
       end
       put :change_password do
         authenticate_user!
-        error!("Invalid password", 400) unless current_user.valid_password?(params[:password])
-        current_user.update_column(:password, params[:new_password])
-        error!(current_user.errors.messages, 500) if current_user.errors.messages.present?
-        status 200
+        user = current_user
+        error!("Invalid password", 400) unless user.valid_password?(params[:password])
+        user.password = params[:new_password]
+        if user.save
+          status 200
+        else
+          error!(current_user.errors.messages, 500)
+        end
       end
 
       desc "Edit user information." 
