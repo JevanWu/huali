@@ -90,6 +90,7 @@ zh-CN:
         contains_products_not_discountable: "购物车有不参与打折的产品"
         must_be_less_than_expected_date: 必须小于到达日期
         not_able_to_edit_adjustment: 订单已审核，不能更新价格调整
+        instant_delivery_not_available: 快速送达服务当前不可用
 
     models:
       order_form: 订单
@@ -139,6 +140,7 @@ zh-CN:
         last_order: 关联订单号
         memo: 客服备注
         paymethod: 支付方式
+        instant_delivery: 90分钟送达
 
       item_info:
         quantity: 产品数量
@@ -205,6 +207,7 @@ zh-CN:
       greeting_card: 发送电子贺卡
       reply_greeting_card: 撒娇回复
       guide_view: 引导页
+      instant_delivery: 快速送达
 
     attributes:
       order: &order
@@ -262,6 +265,7 @@ zh-CN:
         memo: 客服备注
         validation_code: 正品序列号
         coupon_code_record_code: 优惠劵
+        instant_delivery: 90分钟送达
 
       postcard:
         content: 内容
@@ -578,6 +582,15 @@ zh-CN:
       sales_chart:
         product: 中文名
         position: 名次
+
+      instant_delivery:
+        order: 订单
+        order_id: 订单
+        fee: 递送费用
+        delivered_in_minutes: 送达时间(分钟)
+        shipped_at: 递送时间
+        updated_at: 更新时间
+        created_at: 创建时间
 
   models:
     user:
