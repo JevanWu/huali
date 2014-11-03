@@ -14,7 +14,7 @@ module Wechat
     def self.get_access_token
       redis = Redis.new
       got_time = redis.get("access_token_got_time")
-      return redis.get("access_token") if got_time.present? && (Time.now - got_time).to_i < redis.get("access_token_expires_in")
+      return redis.get("access_token") if got_time.present? && (Time.now - got_time).to_i < redis.get("access_token_expires_in").to_i
 
       url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" + ENV["WECHAT_APPID"] + "&secret=" + ENV["WECHAT_APPSECRET"]
       raw_res = RestClient.get url
