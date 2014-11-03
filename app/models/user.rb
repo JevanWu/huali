@@ -47,7 +47,7 @@
 class User < ActiveRecord::Base
   include Phonelib::Extension
 
-  before_save :reset_authentication_token, if: Proc.new {|user| !user.authentication_token.present? }
+  after_save :reset_authentication_token, if: Proc.new {|user| !user.authentication_token.present? }
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
