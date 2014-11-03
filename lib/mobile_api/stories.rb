@@ -1,7 +1,7 @@
 module MobileAPI
   class Stories < Grape::API
     resource :stories do
-     desc "Return all visible stories." 
+    desc "Return all visible stories." 
     params do
       optional :per_page, type: Integer, desc: "The amount of stories presented on each page"
       optional :page, type: Integer, desc: "The number of page queried"

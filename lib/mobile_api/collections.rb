@@ -51,10 +51,18 @@ module MobileAPI
       end
 
       desc "Return all products of a collection"
+      params do
+        optional :per_page, type: Integer, desc: "The amount of stories presented on each page"
+        optional :page, type: Integer, desc: "The number of page queried"
+      end
       get ":id/products" do
         collection = Collection.find(params[:id])
         error!('Cannot find the collection', 404) if !collection.present?
-        products = collection.products.published
+        if params[:per_page]&&params[:page]
+          products = collection.products.published.limit(params[:per_page]).offset(params[:per_page]*(params[:page] - 1))
+        else
+          products = collection.products.published
+        end
         error!('The collection has no products!', 404) if !products.present?
         res = []
         products.each do |product|
