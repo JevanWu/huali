@@ -5,23 +5,50 @@ module MobileAPI
 
       desc "Return authentication token for identifying current user." 
       params do
-        requires :email, type: String, desc: "User email."
-        requires :password, type: String, desc: "User password."
+        optional :email, type: String, desc: "User email."
+        optional :password, type: String, desc: "User password."
+        optional :uid, type: Integer, desc: "UID"
+        optional :oauth_provider, type: String, desc: "the name of the oauth provider"
       end
       post :sign_in do
-        user = User.find_by(email: params[:email])
-        error!('The user does not exist!', 404) if !user.present?
-        if user.valid_password?(params[:password])
-          token = user.reset_authentication_token
-          status 200 
-          { 
-            authentication_token: token,
-            user_email: user.email,
-            user_phone: user.phone,
-            user_name: user.name 
-          }
-        else
-          error!("The account and password don't match!", 500)
+        if params[:email] && params[:password]
+          user = User.find_by(email: params[:email])
+          error!('The user does not exist!', 404) if !user.present?
+          if user.valid_password?(params[:password])
+            token = user.ensure_authentication_token
+            { 
+              authentication_token: token,
+              user_email: user.email,
+              user_phone: user.phone,
+              user_name: user.name 
+            }
+          else
+            error!("The account and password don't match!", 500)
+          end
+        elsif params[:uid] && params[:oauth_provider]
+          if user = OauthService.find_user(params[:oauth_provider], params[:uid])
+            token = user.ensure_authentication_token
+            { 
+              authentication_token: token,
+              user_email: user.email,
+              user_phone: user.phone,
+              user_name: user.name 
+            }
+          else
+            if params[:phone] && params[:email] && params[:name]
+              user = User.create(name: params[:name], phone: params[:phone], email: params[:email], password: SecureRandom.base64(10), bypass_humanizer: true)
+              user.oauth_service.create(provider: params[:oauth_provider], uid: params[:uid], oauth_token: params[:access_token])
+              token = user.ensure_authentication_token
+              { 
+                authentication_token: token,
+                user_email: user.email,
+                user_phone: user.phone,
+                user_name: user.name 
+              }
+            else
+              { new_user: "yes" }
+            end
+          end
         end
       end
 
