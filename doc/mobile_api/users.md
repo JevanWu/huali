@@ -5,8 +5,14 @@ POST /users/sign_in
 ```
 parameters:
 
-+ `email` (required)                   - email of the user
-+ `password` (required)                - password of the account
++ `email` (optional)                   - email of the user
++ `password` (optional)                - password of the account
++ `uid`(optional)                      - uid of the oauth provider
++ `oauth_provider`(optional)           - the name of the oauth provider
++ `access_token`(optional)             - the access token of the oauth provider
++ `phone`(optional)                    - the phone number of the new user
++ `email`(optional)                    - the email of the new user
++ `name`(optional)                     - the name of the new user
 
 ```
 status: 200 OK
@@ -14,7 +20,14 @@ status: 200 OK
 response example:
 {
   authentication_token: "q57hCvkYbNZbWQVLHy6e"
+  user_email: user.email,
+  user_phone: user.phone,
+  user_name: user.name 
 }
+
+or
+
+{ new_user: "yes" }
 ```
 
 ## user sign up
