@@ -102,7 +102,7 @@ PATH
       slim
 
 GEM
-  remote: http://ruby.taobao.org/
+  remote: http://rubygems.org/
   specs:
     actionmailer (4.0.5)
       actionpack (= 4.0.5)
