@@ -46,6 +46,13 @@ ActiveAdmin.register Order do
 
       if @order.save
         OrderDiscountPolicy.new(@order.record).apply
+
+        if @order.enable_instant_delivery
+          InstantDeliveryChargePolicy.new(@order.record, @order.enable_instant_delivery).apply
+        elsif @order.instant_delivery
+          @order.instant_delivery.destroy
+        end
+
         ApiAgentService.update_receiver_address(@order.record)
 
         options[:location] ||= resource_url
@@ -337,6 +344,10 @@ ActiveAdmin.register Order do
   show do
     attributes_table do
       row :created_at
+
+      row :instant_delivery do
+        order.instant_delivery ? "是(发货时间：#{order.instant_delivery.shipped_at})" : '否'
+      end
 
       row :state do
         status_tag t('models.order.state.' + order.state), order_state(order)

@@ -66,6 +66,8 @@ class OrderObserver < ActiveRecord::Observer
   end
 
   def after_ship(order, transition)
+    order.instant_delivery.ship if order.instant_delivery
+
     return if order.kind == "marketing"
     Notify.delay.ship_order_user_email(order.id)
     Sms.delay.ship_order_user_sms(order.id)
