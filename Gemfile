@@ -117,6 +117,9 @@ gem "font-awesome-rails"
 #xml parser
 gem 'actionpack-xml_parser'
 
+# Map Region checker
+gem 'border_patrol'
+
 group :development, :test do
   gem 'rspec-rails', '>= 2.11.0'
   gem 'rspec-instafail'
