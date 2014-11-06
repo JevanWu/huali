@@ -228,6 +228,14 @@ class OrdersController < ApplicationController
     end
   end
 
+  def wap_return
+    if params[:result] = "success"
+      render 'success'
+    else
+      render 'failed', status: 400
+    end
+  end
+
   def wap_notify
     notify_params = params.except(*request.path_parameters.keys)
 
