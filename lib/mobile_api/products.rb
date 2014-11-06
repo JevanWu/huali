@@ -66,6 +66,47 @@ module MobileAPI
         res
       end
 
+      desc "Return the products searched"
+      params do
+        requires :key_word, type: String, desc: "Key word for search"
+        optional :per_page, type: Integer, desc: "The amount of products presented on each page"
+        optional :page, type: Integer, desc: "The number of page queried"
+      end
+      get :search do
+        products = Product.solr_search do
+          fulltext params[:key_word]
+          with :published, true
+          paginate :page => params[:page], :per_page => params[:per_page] if params[:page] && params[:per_page]
+
+        end.results
+        
+        res = Array.new
+        products.each do |product|
+          product_info  = { 
+            id: product.id, 
+            name_zh: product.name_zh, 
+            name_en: product.name_en, 
+            inspiration: product.inspiration,
+            maintenance: product.maintenance,
+            delivery: product.delivery,
+            material: product.material,
+            description: product.description, 
+            count_on_hand: product.count_on_hand, 
+            price: product.price, 
+            height: product.height, 
+            width: product.width, 
+            depth: product.depth, 
+            priority: product.priority, 
+            product_type: product.product_type_text, 
+            images: product_images(product), 
+            rectangle_images: rectangle_images(product)
+          }
+          res << product_info
+        end
+        res
+      end
+
+
       desc "Return the required product"
       params do
         requires :id, type: Integer, desc: "Product id."
