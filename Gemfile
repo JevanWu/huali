@@ -114,6 +114,8 @@ gem 'rqrcode'
 gem 'chosen-rails'
 gem "font-awesome-rails"
 
+gem 'alipay', '~> 0.1.0'
+
 #xml parser
 gem 'actionpack-xml_parser'
 

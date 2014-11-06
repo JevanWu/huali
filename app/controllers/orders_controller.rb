@@ -230,6 +230,38 @@ class OrdersController < ApplicationController
     end
   end
 
+  def wap_return
+    if params[:result] = "success"
+      render 'success'
+    else
+      render 'failed', status: 400
+    end
+  end
+
+  def wap_notify
+    notify_params = params.except(*request.path_parameters.keys)
+
+    if Alipay::Notify::Wap.verify?(notify_params)
+      order_identifier = Hash.from_xml(params[:notify_data])['notify']['out_trade_no']
+      order = Order.find_by(identifier: order_identifier)
+      amount = Hash.from_xml(params[:notify_data])['notify']['total_fee']
+      trade_no = Hash.from_xml(params[:notify_data])['notify']['trade_no'] 
+      transaction = order.transaction.create( amount: order.total, use_huali_point: false, subject: order.subject_text,
+                                body: order.body_text, client_ip: order.user.current_sign_in_ip, 
+                                merchant_trade_no: trade_no )
+      transaction.start
+      if amount == transaction.amount
+        transaction.invalidate 
+      else
+        transaction.complete
+      end
+
+      render text: "success"
+    else
+      render text: "error"
+    end
+  end
+
   def current
     if params[:coupon_code].present? && params[:product_ids].present?
       coupon_code = CouponCode.find_by_code!(params[:coupon_code])
