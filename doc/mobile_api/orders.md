@@ -137,6 +137,23 @@ Status: 201 Created
 }
 ```
 
+## Check if the coupon code is available
+
+```
+POST /orders/check_coupon_code
+```
+
++ `code` (required)                   - coupon code
++ `email` (required)                  - Email of the user
++ `token` (required)                  - Authentication token of the user
+
+```
+Status: 200
+
+{ 
+  adjustment: "*0.9"
+}
+```
 
 ## Cancel an order
 

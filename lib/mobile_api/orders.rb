@@ -161,6 +161,8 @@ module MobileAPI
                                 price: product[:price] )
         end
 
+        OrderDiscountPolicy.new(order).apply
+
         { 
           state: order.state,
           total: order.total,
@@ -175,6 +177,24 @@ module MobileAPI
           receiver_post_code: order.address.post_code,
           products: products_info(order)        
         }
+      end
+
+      desc "Check if the coupon code is available"
+      params do
+        requires :code, type: String, desc: "Coupon code"
+
+        requires :email, type: String, desc: "Email of the user."
+        requires :token, type: String, desc: "Authentication token of the user."
+      end
+
+      post ":id/check_coupon_code" do
+        authenticate_user!
+
+        coupon_code = CouponCode.find_by(code: params[:code])
+        error!("The coupon code doesn't exist", 404) unless coupon_code.present?
+        error!("The coupon code has been used out", 404) if coupon_code.available_count <= 0
+
+        { adjustment: coupon_code.coupon.adjustment }
       end
 
       desc "Creates line items for order"
