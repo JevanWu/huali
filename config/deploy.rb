@@ -91,7 +91,7 @@ namespace :deploy do
 
 end
 
-after("deploy:compile_assets", "deploy:build_missing_paperclip_styles")
+after("deploy:restart", "deploy:build_missing_paperclip_styles")
 
 # CKEditor
 desc 'Copy ckeditor nondigest assets'
