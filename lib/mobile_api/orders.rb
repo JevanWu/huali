@@ -174,7 +174,7 @@ module MobileAPI
           if order.line_items.create( product_id: product[:product_id],
                                 quantity: product[:quantity],
                                 price: product[:price] )
-            total += product[:quantity] * product[:price] 
+            total += product[:quantity].to_f * product[:price].to_f
           end
         end
 
