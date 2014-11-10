@@ -16,6 +16,7 @@ module MobileAPI
           error!('The user does not exist!', 404) if !user.present?
           if user.valid_password?(params[:password])
             token = user.reset_authentication_token
+            status 200
             { 
               authentication_token: token,
               user_email: user.email,
@@ -28,6 +29,7 @@ module MobileAPI
         elsif params[:uid] && params[:oauth_provider]
           if user = OauthService.find_user(params[:oauth_provider], params[:uid])
             token = user.reset_authentication_token
+            status 200
             { 
               authentication_token: token,
               user_email: user.email,
@@ -39,6 +41,7 @@ module MobileAPI
               user = User.create(name: params[:name], phone: params[:phone], email: params[:email], password: SecureRandom.base64(10), bypass_humanizer: true)
               user.oauth_service.create(provider: params[:oauth_provider], uid: params[:uid], oauth_token: params[:access_token])
               token = user.reset_authentication_token
+              status 200
               { 
                 authentication_token: token,
                 user_email: user.email,
@@ -46,6 +49,7 @@ module MobileAPI
                 user_name: user.name 
               }
             else
+              status 200
               { new_user: "yes" }
             end
           end
