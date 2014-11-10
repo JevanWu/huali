@@ -169,11 +169,16 @@ module MobileAPI
         error!(order.errors.messages, 500) unless order.save
 
         products = order_info[:products]
+        total = BigDecimal.new(0)
         products.each do |product|
-          order.line_items.create( product_id: product[:product_id],
+          if order.line_items.create( product_id: product[:product_id],
                                 quantity: product[:quantity],
                                 price: product[:price] )
+            total += product[:quantity] * product[:price] 
+          end
         end
+
+        order.update_columns(total: total, item_total: total)
 
         OrderDiscountPolicy.new(order).apply
 
