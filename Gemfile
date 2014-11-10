@@ -91,7 +91,7 @@ gem 'grape'
 gem 'api-auth', github: 'ryancheung/api_auth'
 gem 'rest-client'
 
-gem 'huali_api', git: 'git@bitbucket.org:huali-store/huali_api.git', tag: 'v0.1.0', require: 'huali_agent_api'
+gem 'huali_api', git: 'git@bitbucket.org:huali-store/huali_api.git', tag: 'sync_taobao_order_manually', require: 'huali_agent_api'
 
 gem 'flowplayer-rails', github: 'ryancheung/flowplayer-rails'
 
