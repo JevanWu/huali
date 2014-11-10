@@ -17,4 +17,6 @@
 #
 
 class SyncOrder < ActiveRecord::Base
+  belongs_to :administrator
+  belongs_to :order
 end
