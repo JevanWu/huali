@@ -51,7 +51,14 @@ module MobileAPI
             adjustment: order.adjustment, 
             ship_method: "#{order.ship_method ? order.ship_method.name : "" }" , 
             kind: order.kind, 
-            subject_text: order.subject_text 
+            subject_text: order.subject_text,
+            receiver_fullname: order.address.fullname,
+            receiver_province: order.address.province.name,
+            receiver_city: order.address.city.name,
+            receiver_address: order.address.address,
+            receiver_phone: order.address.phone,
+            receiver_post_code: order.address.post_code,
+            products: products_info(order)        
           }
           res << order_info
         end
@@ -93,7 +100,14 @@ module MobileAPI
             adjustment: order.adjustment, 
             ship_method: "#{order.ship_method ? order.ship_method.name : "" }" , 
             kind: order.kind, 
-            subject_text: order.subject_text 
+            subject_text: order.subject_text,
+            receiver_fullname: order.address.fullname,
+            receiver_province: order.address.province.name,
+            receiver_city: order.address.city.name,
+            receiver_address: order.address.address,
+            receiver_phone: order.address.phone,
+            receiver_post_code: order.address.post_code,
+            products: products_info(order)        
         }
       end
 
