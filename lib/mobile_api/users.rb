@@ -27,7 +27,7 @@ module MobileAPI
           end
         elsif params[:uid] && params[:oauth_provider]
           if user = OauthService.find_user(params[:oauth_provider], params[:uid])
-            token = user.ensure_authentication_token
+            token = user.reset_authentication_token
             { 
               authentication_token: token,
               user_email: user.email,
@@ -38,7 +38,7 @@ module MobileAPI
             if params[:phone].present? && params[:email].present? && params[:name].present?
               user = User.create(name: params[:name], phone: params[:phone], email: params[:email], password: SecureRandom.base64(10), bypass_humanizer: true)
               user.oauth_service.create(provider: params[:oauth_provider], uid: params[:uid], oauth_token: params[:access_token])
-              token = user.ensure_authentication_token
+              token = user.reset_authentication_token
               { 
                 authentication_token: token,
                 user_email: user.email,
