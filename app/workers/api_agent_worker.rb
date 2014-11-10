@@ -18,6 +18,9 @@ class ApiAgentWorker
     def check_order(kind, merchant_order_no)
       api_client.check_order(kind, merchant_order_no)
     end
+    def sync_order(kind, merchant_order_no)
+      api_client.sync_order(kind, merchant_order_no)
+    end
 
   private
     def api_client
