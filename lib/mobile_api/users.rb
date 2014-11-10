@@ -11,11 +11,11 @@ module MobileAPI
         optional :oauth_provider, type: String, desc: "the name of the oauth provider"
       end
       post :sign_in do
-        if params[:email] && params[:password]
+        if params[:email].present? && params[:password].present?
           user = User.find_by(email: params[:email])
           error!('The user does not exist!', 404) if !user.present?
           if user.valid_password?(params[:password])
-            token = user.ensure_authentication_token
+            token = user.reset_authentication_token
             { 
               authentication_token: token,
               user_email: user.email,
@@ -35,7 +35,7 @@ module MobileAPI
               user_name: user.name 
             }
           else
-            if params[:phone] && params[:email] && params[:name]
+            if params[:phone].present? && params[:email].present? && params[:name].present?
               user = User.create(name: params[:name], phone: params[:phone], email: params[:email], password: SecureRandom.base64(10), bypass_humanizer: true)
               user.oauth_service.create(provider: params[:oauth_provider], uid: params[:uid], oauth_token: params[:access_token])
               token = user.ensure_authentication_token

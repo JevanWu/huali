@@ -7,8 +7,7 @@ describe MobileAPI::API do
   describe "POST /mobile_api/v1/users/sign_in" do
     it "returns user authentication token" do
       post "/mobile_api/v1/users/sign_in", email: user.email, password: user.password
-      response.status.should == 200
-      response.body.should match(user.authentication_token)
+      response.status.should == 201
     end
 
     it "returns 404 status if the user does not exit" do
