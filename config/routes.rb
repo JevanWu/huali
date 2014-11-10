@@ -53,6 +53,7 @@ Huali::Application.routes.draw do
   get 'orders/return', as: :return_order
   post 'orders/paypal_return', as: :return_order_paypal
   match 'orders/notify', as: :notify_order, via: [:get, :post]
+  get 'orders/wap_return', as: :wap_return_order
   match 'orders/wap_notify', as: :wap_notify_order, via: [:get, :post]
   post 'orders/wechat_notify'
   get 'orders/:id/gift_card/edit', to: 'orders#edit_gift_card', as: :edit_gift_card
