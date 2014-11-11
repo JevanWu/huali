@@ -23,6 +23,23 @@ ActiveAdmin.register SyncOrder do
     actions
   end
 
-  form partial: "form"
+  controller do
+    def create
+      @sync_order = SyncOrder.new(params[:sync_order])
+      binding.pry and return
+      if @sync_order.already_synced_by_poller?
+        redirect_to sync_order_path, notice: t('active_admin.sync_order.already_synced') and return 
+      end
+      if @sync_order.save and ApiAgentService.sync_order(@sync_order.kind, @sync_order.merchant_order_no)
+        redirect_to sync_order_path, notice: t('active_admin.notice.created')
+      end
+    end
 
+    private
+    def sync_order_params
+      params.require(:sync_order).permit(:administrator_id, :kind, :merchant_order_no)
+    end
+  end
+
+  form partial: "form"
 end
