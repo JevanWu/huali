@@ -25,8 +25,7 @@ ActiveAdmin.register SyncOrder do
 
   controller do
     def create
-      @sync_order = SyncOrder.new(params[:sync_order])
-      binding.pry and return
+      @sync_order = SyncOrder.new(permitted_params)
       if @sync_order.already_synced_by_poller?
         redirect_to sync_order_path, notice: t('active_admin.sync_order.already_synced') and return 
       end
@@ -36,7 +35,7 @@ ActiveAdmin.register SyncOrder do
     end
 
     private
-    def sync_order_params
+    def permitted_params
       params.require(:sync_order).permit(:administrator_id, :kind, :merchant_order_no)
     end
   end
