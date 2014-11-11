@@ -23,4 +23,6 @@ ActiveAdmin.register SyncOrder do
     actions
   end
 
+  form partial: "form"
+
 end
