@@ -6,6 +6,11 @@ ActiveAdmin.register SyncOrder do
   scope :yesterday
   scope :within_this_week
 
+  filter :kind, as: :select
+  filter :merchant_order_no
+  filter :created_at
+  filter :updated_at
+
   index do
     column :administrator
     column :kind
