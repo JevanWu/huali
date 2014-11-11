@@ -15,13 +15,17 @@
 #  index_sync_orders_on_administrator_id  (administrator_id)
 #  index_sync_orders_on_order_id          (order_id)
 #
+require 'enumerize'
 
 class SyncOrder < ActiveRecord::Base
+  extend Enumerize
+  enumerize :kind, in: [:taobao ]
+
   belongs_to :administrator
   belongs_to :order
 
-  validates :kind, presence: true, inclusion: { in: %w[taobao], message: "%{value} is not in the inclusion set defined" }
-  validates :merchant_order_no, presence: true, uniqueness: true
+  validates :kind, presence: true
+  validates :merchant_order_no, presence: true, uniqueness: { scope: :kind }
 
   scope :yesterday, -> { where('created_at >= ? AND created_at < ? ', Date.yesterday, Date.current) }
   scope :current, -> { where('created_at >= ? AND created_at < ? ', Date.current, Date.tomorrow) }
@@ -30,4 +34,5 @@ class SyncOrder < ActiveRecord::Base
   def already_synced_by_poller?(merchant_order_no)
     Order.where(merchant_order_no: merchant_order_no).empty? ? false : true
   end
+
 end
