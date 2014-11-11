@@ -42,7 +42,7 @@ class ApiAgentService
     end
 
     def sync_order(kind, merchant_order_no)
-      if b2c_order?(order.kind)
+      if b2c_order?(kind)
         ApiAgentWorker.delay.sync_order(kind, merchant_order_no)
       end
     end
