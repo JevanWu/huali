@@ -1,6 +1,11 @@
 ActiveAdmin.register SyncOrder do
   menu parent: '订单'
 
+  scope :all, default: true
+  scope :current
+  scope :yesterday
+  scope :within_this_week
+
   index do
     column :administrator
     column :kind

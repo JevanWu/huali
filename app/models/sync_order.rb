@@ -19,4 +19,8 @@
 class SyncOrder < ActiveRecord::Base
   belongs_to :administrator
   belongs_to :order
+
+  scope :yesterday, -> { where('created_at >= ? AND created_at < ? ', Date.yesterday, Date.current) }
+  scope :current, -> { where('created_at >= ? AND created_at < ? ', Date.current, Date.tomorrow) }
+  scope :within_this_week, -> { where('created_at >= ? AND created_at <= ? ', Date.current.beginning_of_week, Date.current.end_of_week) }
 end
