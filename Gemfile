@@ -35,7 +35,7 @@ gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
 # oauth
 gem 'omniauth'
 gem 'omniauth-douban-oauth2'
-gem 'omniauth-weibo-oauth2'
+gem 'omniauth-weibo-oauth2', github: 'JevanWu/omniauth-weibo-oauth2'
 gem 'omniauth-qq-connect'
 
 gem 'enumerize'

@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/JevanWu/omniauth-weibo-oauth2.git
+  revision: d73278d4679c097ad43e6f8c06e9c66af2c67a4c
+  specs:
+    omniauth-weibo-oauth2 (0.3.0)
+      omniauth (~> 1.0)
+      omniauth-oauth2 (~> 1.0)
+
+GIT
   remote: git://github.com/bmabey/database_cleaner.git
   revision: 35bd646903fc56af185a9fa9e360c568bb56756e
   specs:
@@ -431,9 +439,6 @@ GEM
     omniauth-qq-connect (0.2.0)
       omniauth (~> 1.0)
       omniauth-oauth2 (~> 1.0)
-    omniauth-weibo-oauth2 (0.3.0)
-      omniauth (~> 1.0)
-      omniauth-oauth2 (~> 1.0)
     omnicontacts (0.3.4)
       json
       rack
@@ -771,7 +776,7 @@ DEPENDENCIES
   omniauth
   omniauth-douban-oauth2
   omniauth-qq-connect
-  omniauth-weibo-oauth2
+  omniauth-weibo-oauth2!
   omnicontacts
   paperclip (~> 3.0)
   pg (>= 0.14.1)
