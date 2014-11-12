@@ -19,4 +19,8 @@
 
 class DiscountEvent < ActiveRecord::Base
   belongs_to :product
+
+  validates :product_id, :price, :original_price, :discount_date, presence: true
+  validates :discount_date, uniqueness: true
+  validates :price, :original_price, numericality: { greater_than_or_equal_to: 0, allow_blank: true }
 end
