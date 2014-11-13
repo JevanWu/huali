@@ -79,7 +79,7 @@ GIT
 GIT
   remote: git@bitbucket.org:huali-store/huali_api.git
   revision: f85961cea9dd3e49f7a331feab67eacdfb8e1757
-  tag: sync_taobao_order_manually
+  tag: v0.1.1
   specs:
     huali_api (0.1.0)
       activesupport
