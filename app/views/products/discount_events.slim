@@ -26,10 +26,6 @@ div.discount_events
 	  	  | 活动已结束
 	  -else
 	    div.discount-today onclick="window.open('#{product_path(@discount_today.product)}')"
-	      = Date.current.month
- 	   	  | .
- 	 	  = Date.current.day
- 	 	  br
 	      = @discount_today.title if @discount_today
 	  -if @discount_tomorrow.nil?
 	  	div.discount-tomorrownil
@@ -52,9 +48,8 @@ div.discount_events
  		   div class="#{discount_event.discount_date == Date.current ? 'today' : 'day'}" onclick="window.open('#{product_path(discount_event.product)}')"
  	 	    div.prod
  	 	      = discount_event.discount_date.month
- 	 	      | 月
+ 	 	      | .
  	 	      = discount_event.discount_date.day
- 	 	      | 日
  	 	      br
  	 	      = discount_event.title
  	     div.fin
