@@ -29,6 +29,7 @@ Huali::Application.routes.draw do
   resources :products, only: [:show] do
     collection do
       get 'trait/:tags', action: :trait
+      get 'discount_events'
     end
   end
 
