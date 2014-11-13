@@ -1,12 +1,53 @@
-div.discount-event-header
-  div.discount-yesterday
-    = @discount_yesterday.product.name if @discount_yesterday
-  div.discount-today
-    = @discount_today.product.name if @discount_today
-  div.discount-tomorrow
-    = @discount_tomorrow.product.name if @discount_tomorrow
+div.discount_events
+  div.best-products
+  	div.producttoday
+  	  = image_tag @discount_today.product.rectangle_image.url if @discount_today
+	div.pics0
+	div.pics1
+	  -if @discount_yesterday.nil?
+	  	div.discount-yesterday
+	  	  = Date.yesterday.month
+ 	 	  | .
+ 	 	  = Date.yesterday.day
+ 	 	  br
+ 	 	  | 开始
+ 	  -else
+	    div.discount-yesterday onclick="window.open('#{product_path(@discount_yesterday.product)}')"
+	      = Date.yesterday.month
+ 	      | .
+ 	      = Date.yesterday.day
+ 	      br
+	      = @discount_yesterday.product.name if @discount_yesterday
+	  div.discount-today onclick="window.open('#{product_path(@discount_today.product)}')"
+	    = Date.current.month
+ 	 	| .
+ 	 	= Date.current.day
+ 	 	br
+	    = @discount_today.product.name if @discount_today
 
-div.discount-events
-  - @discount_events.each do |discount_event|
-    div
-      = discount_event.product.name
+	  -if @discount_tomorrow.nil?
+	  	div.discount-tomorrow
+	  	  = Date.tomorrow.month
+ 	 	  | .
+ 	 	  = Date.tomorrow.day
+ 	 	  br
+ 	 	  | 结束
+ 	  -else
+	    div.discount-tomorrow onclick="window.open('#{product_path(@discount_tomorrow.product)}')"
+	      = Date.tomorrow.month
+ 	   	  | .
+ 	 	  = Date.tomorrow.day
+ 	   	  br
+	      = @discount_tomorrow.product.name if @discount_tomorrow
+
+	div.pics2 
+	  div.timetable 
+ 		 - @discount_events.each do |discount_event|
+ 		   div class="#{discount_event.discount_date == Date.current ? 'today' : 'day'}" onclick="window.open('#{product_path(discount_event.product)}')"
+ 	 	    div.prod
+ 	 	      = discount_event.discount_date.month
+ 	 	      | 月
+ 	 	      = discount_event.discount_date.day
+ 	 	      | 日
+ 	 	      br
+ 	 	      = discount_event.product.name
