@@ -25,4 +25,5 @@ class DiscountEvent < ActiveRecord::Base
   validates :price, :original_price, numericality: { greater_than_or_equal_to: 0, allow_blank: true }
 
   scope :today, -> { where(discount_date: Date.current) }
+  default_scope -> { order('discount_date') }
 end
