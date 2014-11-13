@@ -1,26 +1,19 @@
-ActiveAdmin.register_page "CancelCouponCode" do
-  # content do 
-  #   para "hello!"
-  #   para "form_tag \"/huali\" do"
-  #   para "text_field_tag \"coupon\""
-  #   para "submit_tag \"submit\""
-  #   para "end"
-  # end
-  
-  content do 
-    semantic_form_for :newest_rooms, :builder => ActiveAdmin::FormBuilder do |f|
-      f.input :coupon_code, as: Text
-      f.submit
-    end
+ActiveAdmin.register_page "Cancel Coupon Code" do
+  menu parent: '设置'
+
+  page_action :operate, method: :get do
   end
 
-  sidebar :help do
-    ul do
-      li "First Line of Help"
+  page_action :cancel, method: :post do
+    code = CouponCode.find_by code: params[:coupon_code]
+    while code.available_count > 0
+      code.use!
     end
+
+    redirect_to admin_root_path, flash: { success: "The coupon code #{params[:coupon_code]} has been cancelled" }
   end
 
   action_item do
-    link_to "Do Stuff", root_path, :method => :get
+    link_to "注销优惠码", admin_cancel_coupon_code_operate_path, :method => :get
   end
 end
