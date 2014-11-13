@@ -29,7 +29,7 @@ ActiveAdmin.register SyncOrder do
       if @sync_order.already_synced_by_poller?
         redirect_to action: :index, notice: t('active_admin.sync_order.already_synced') and return
       end
-      if @sync_order.save and ApiAgentService.sync_order(@sync_order.kind, @sync_order.merchant_order_no)
+      if @sync_order.save and ApiAgentService.sync_order(@sync_order.kind.to_s, @sync_order.merchant_order_no)
         redirect_to action: :index, notice: t('active_admin.notice.created')
       end
     end
