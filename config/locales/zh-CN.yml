@@ -578,6 +578,7 @@ zh-CN:
         created_at: 创建时间
 
       discount_event:
+        title: 标题
         product: 打折产品
         discount_date: 打折日期
         original_price: 原价

@@ -20,7 +20,7 @@ div.discount_events
  	      | .
  	      = Date.yesterday.day
  	      br
-	      = @discount_yesterday.product.name if @discount_yesterday
+	      = @discount_yesterday.title if @discount_yesterday
 	  -if @discount_today.nil?
 	  	div.discount-today
 	  	  | 活动已结束
@@ -30,7 +30,7 @@ div.discount_events
  	   	  | .
  	 	  = Date.current.day
  	 	  br
-	      = @discount_today.product.name if @discount_today	  	  
+	      = @discount_today.title if @discount_today
 	  -if @discount_tomorrow.nil?
 	  	div.discount-tomorrownil
 	  	  = Date.tomorrow.month
@@ -44,10 +44,10 @@ div.discount_events
  	   	  | .
  	 	  = Date.tomorrow.day
  	   	  br
-	      = @discount_tomorrow.product.name if @discount_tomorrow
+	      = @discount_tomorrow.title if @discount_tomorrow
 
-	div.pics2 
-	  div.timetable 
+	div.pics2
+	  div.timetable
  		 - @discount_events.each do |discount_event|
  		   div class="#{discount_event.discount_date == Date.current ? 'today' : 'day'}" onclick="window.open('#{product_path(discount_event.product)}')"
  	 	    div.prod
@@ -56,5 +56,5 @@ div.discount_events
  	 	      = discount_event.discount_date.day
  	 	      | 日
  	 	      br
- 	 	      = discount_event.product.name
+ 	 	      = discount_event.title
  	     div.day
