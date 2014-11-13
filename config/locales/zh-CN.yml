@@ -205,6 +205,7 @@ zh-CN:
       sales_chart: 销量排行榜
       greeting_card: 发送电子贺卡
       reply_greeting_card: 撒娇回复
+      sync_order: 手动同步订单
       instant_delivery: 快速送达
       discount_event: 活动打折
 
@@ -560,6 +561,13 @@ zh-CN:
         product: 中文名
         position: 名次
 
+      sync_order:
+        administrator: 提交人邮箱
+        kind: 订单类型
+        merchant_order_no: 合作方订单编号
+        created_at: 创建于
+        updated_at: 更新于
+
       instant_delivery:
         order: 订单
         order_id: 订单
@@ -743,6 +751,22 @@ zh-CN:
         business: 商务礼仪
         wish: 祝福
         other_purpose: 其他
+
+    sync_order:
+      kind:
+        marketing: 市场订单
+        xigua: 喜瓜网
+        tencent: 腾讯
+        jd: 京东
+        amazon: 亚马逊
+        customer: 顾客补发订单
+        taobao: 淘宝订单
+        tmall: 天猫订单
+        normal: 普通订单
+        b2b: B2B订单
+        fieldschina: 甫田
+        offline: 线下店
+        yhd: 一号店
 
   controllers:
     order:

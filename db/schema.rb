@@ -669,6 +669,18 @@ ActiveRecord::Schema.define(version: 20141112034427) do
     t.string   "relationship"
   end
 
+  create_table "sync_orders", force: true do |t|
+    t.integer  "administrator_id"
+    t.integer  "order_id"
+    t.string   "kind"
+    t.string   "merchant_order_no"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sync_orders", ["administrator_id"], name: "index_sync_orders_on_administrator_id", using: :btree
+  add_index "sync_orders", ["order_id"], name: "index_sync_orders_on_order_id", using: :btree
+
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"

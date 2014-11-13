@@ -41,6 +41,12 @@ class ApiAgentService
       end
     end
 
+    def sync_order(kind, merchant_order_no)
+      if b2c_order?(kind)
+        ApiAgentWorker.delay.sync_order(kind, merchant_order_no)
+      end
+    end
+
   private
 
     def address_just_modified?(order)

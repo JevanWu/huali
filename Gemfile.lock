@@ -86,8 +86,8 @@ GIT
 
 GIT
   remote: git@bitbucket.org:huali-store/huali_api.git
-  revision: 189e9beacb3a5f69d073eb528b8cfff4658abbe6
-  tag: v0.1.0
+  revision: f85961cea9dd3e49f7a331feab67eacdfb8e1757
+  tag: v0.1.1
   specs:
     huali_api (0.1.0)
       activesupport

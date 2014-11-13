@@ -31,4 +31,7 @@ class Administrator < ActiveRecord::Base
 
   extend Enumerize
   enumerize :role, in: %i(super admin operation_manager product_manager web_operation_manager marketing_manager customer_service)
+
+  # sync_orders
+  has_many :sync_orders
 end
