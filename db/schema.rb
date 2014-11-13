@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141024073420) do
+ActiveRecord::Schema.define(version: 20141110091601) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -683,6 +683,18 @@ ActiveRecord::Schema.define(version: 20141024073420) do
     t.string   "receiver_age"
     t.string   "relationship"
   end
+
+  create_table "sync_orders", force: true do |t|
+    t.integer  "administrator_id"
+    t.integer  "order_id"
+    t.string   "kind"
+    t.string   "merchant_order_no"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sync_orders", ["administrator_id"], name: "index_sync_orders_on_administrator_id", using: :btree
+  add_index "sync_orders", ["order_id"], name: "index_sync_orders_on_order_id", using: :btree
 
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"

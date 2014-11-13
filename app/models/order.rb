@@ -56,11 +56,12 @@ class Order < ActiveRecord::Base
   has_many :products, through: :line_items
   belongs_to :coupon_code_record, foreign_key: :coupon_code_id, class_name: 'CouponCode'
   has_many :refunds
+  has_one :sync_orders
 
 
   extend Enumerize
   enumerize :kind, in: [:normal, :jd, :tencent, :xigua, :marketing, :customer,
-    :taobao, :tmall, :b2b, :fieldschina, :offline, :yhd], default: :normal
+    :taobao, :tmall, :b2b, :fieldschina, :offline, :yhd, :amazon], default: :normal
 
   delegate :province_name, :city_name, to: :address, allow_nil: true
   delegate :paymethod, to: :transaction, allow_nil: true
