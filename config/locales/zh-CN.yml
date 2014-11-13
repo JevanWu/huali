@@ -585,7 +585,6 @@ zh-CN:
         product: 中文名
         position: 名次
 
-<<<<<<< HEAD
       sync_order:
         administrator: 提交人邮箱
         kind: 订单类型
@@ -593,7 +592,6 @@ zh-CN:
         created_at: 创建于
         updated_at: 更新于
 
-=======
       instant_delivery:
         order: 订单
         order_id: 订单
@@ -602,7 +600,6 @@ zh-CN:
         shipped_at: 递送时间
         updated_at: 更新时间
         created_at: 创建时间
->>>>>>> 89ef5c6a8d9f0360fbcbdc1177b5d74e06a6b6f8
 
   models:
     user:
