@@ -52,7 +52,7 @@ GET /search
 ```
 Parameters:
 
-+ `key_word` (required)                   - The Key word for search
++ `keyword` (required)                   - The Key word for search
 + `per_page` (optional)                   - The amount of products presented on each page
 + `page` (optional)                       - The number of page queried
 
