@@ -8,6 +8,7 @@
 #  original_price :decimal(8, 2)
 #  price          :decimal(8, 2)
 #  product_id     :integer
+#  title          :string(255)
 #  updated_at     :datetime
 #
 # Indexes

@@ -1,5 +1,6 @@
 = semantic_form_for [:admin, @discount_event] do |f|
   = f.inputs do
+    = f.input :title
     = f.input :discount_date, as: :string, input_html: { class: 'datepicker' }
     = f.input :original_price
     = f.input :price

@@ -3,7 +3,7 @@ ActiveAdmin.register DiscountEvent do
 
   controller do
     def permitted_params
-      params.permit(discount_event: [:discount_date, :product_id, :original_price, :price])
+      params.permit(discount_event: [:discount_date, :product_id, :original_price, :price, :title])
     end
   end
 
@@ -19,6 +19,7 @@ ActiveAdmin.register DiscountEvent do
       discount_event.product.name
     end
 
+    column :title
     column :discount_date
     column :original_price
     column :price
@@ -31,6 +32,7 @@ ActiveAdmin.register DiscountEvent do
       row :product do |discount_event|
         discount_event.product.name
       end
+      row :title
       row :discount_date
       row :original_price
       row :price
