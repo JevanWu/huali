@@ -1,7 +1,10 @@
 div.discount_events
   div.frame
-  	div.producttoday
-  	  = image_tag @discount_today.product.rectangle_image.url if @discount_today
+    -if @discount_today.nil?
+      div.producttoday
+    -else
+  	  div.producttoday
+  	    = image_tag @discount_today.product.rectangle_image.url if @discount_today
 	div.pics0
 	div.pics1
 	  -if @discount_yesterday.nil?
@@ -18,13 +21,16 @@ div.discount_events
  	      = Date.yesterday.day
  	      br
 	      = @discount_yesterday.product.name if @discount_yesterday
-	  div.discount-today onclick="window.open('#{product_path(@discount_today.product)}')"
-	    = Date.current.month
- 	 	| .
- 	 	= Date.current.day
- 	 	br
-	    = @discount_today.product.name if @discount_today
-
+	  -if @discount_today.nil?
+	  	div.discount-today
+	  	  | 活动已结束
+	  -else
+	    div.discount-today onclick="window.open('#{product_path(@discount_today.product)}')"
+	      = Date.current.month
+ 	   	  | .
+ 	 	  = Date.current.day
+ 	 	  br
+	      = @discount_today.product.name if @discount_today	  	  
 	  -if @discount_tomorrow.nil?
 	  	div.discount-tomorrownil
 	  	  = Date.tomorrow.month
