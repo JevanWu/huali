@@ -88,57 +88,70 @@ POST /orders
 
 Parameters:
 
-+ `sender_name` (optional)            - Sender name
-+ `sender_email` (optional)           - Sender email
-+ `sender_phone` (optional)           - Sender phone
-+ `coupon_code` (optional)            - Coupon code
-+ `gift_card_text` (optional)         - Gift card text
-+ `special_instructions` (optional)   - Customer memo
-+ `memo` (optional)                   - Customer service memo
-+ `kind` (required)                   - Order kind, options are normal, taobao and tmall
-+ `merchant_order_no` (required)      - Merchant order No.
-+ `ship_method_id` (optional)         - EMS: 4, 人工: 3, 顺风: 2, 联邦: 1, 申通: 5
-+ `expected_date` (optional)          - Expected arrival date
-+ `delivery_date` (optional)          - Delivery date
-+ `receiver_fullname` (required)      - Receiver fullname
-+ `receiver_phone` (required)         - Receiver phone
-+ `receiver_province_id` (required)   - Receiver province id
-+ `receiver_city_id` (required)       - Receiver city id
-+ `receiver_area_id` (optional)       - Receiver area(district) id
-+ `receiver_post_code` (optional)     - Receiver post code
-+ `receiver_address` (required)       - Receiver address
++ Json:
+      order_info: {
+        sender_name: "...",
+        sender_email: "...",
+        sender_phone: "...",
+        coupon_code: "...",
+        gift_card_text: "...",
+        special_instructions: "...",
+        memo: "...",
+        ship_method_id: "...",
+        expected_date: "...",
+        delivery_date: "...",
+        receiver_fullname: "...",
+        receiver_phone: "...",
+        receiver_province_id: "...",
+        receiver_city_id: "...",
+        receiver_area_id: "...",
+        receiver_post_code: "...",
+        receiver_address: "...",
+        products: [
+                    { product_id: "...", price: "...", quantity: "..." },
+                    ...
+                  ]
+       
+      }
 
 + `email` (required)                  - Email of the user
 + `token` (required)                  - Authentication token of the user
 
 ```
 Status: 201 Created
+
+{ 
+  state: "wait_confirm",
+  total: "499.0",
+  payment_total: "499.0",
+  identifier: "OR1410280001",
+  expected_date: "2014-10-24",
+  receiver_fullname: "...",
+  receiver_address: "...",
+  receiver_phone: "18521302300",
+  receiver_post_code: "200120",
+  products: [ 
+              { name_zh: "...", name_en: "...", quantity: 1 },
+              ...
+            ]        
+}
 ```
 
-## Create line items for an order
+## Check if the coupon code is available
 
 ```
-POST /orders/:id/line_items
+POST /orders/check_coupon_code
 ```
 
-Parameters:
-
-+ `id` (required)                     - Either ID, identifier, or merchant_order_no of the order
-+ `product_id` (required)             - Order line item product id
-+ `price` (required)                  - product price
-+ `quantity` (required)               - Order line item product quantity
-
++ `code` (required)                   - coupon code
 + `email` (required)                  - Email of the user
 + `token` (required)                  - Authentication token of the user
-```
-Status: 201 Created
 
-{
-  "id": 1,
-  "order_id": 9,
-  "product_id": 22,
-  "quantity": 2,
-  "price": 299.0
+```
+Status: 200
+
+{ 
+  adjustment: "*0.9"
 }
 ```
 

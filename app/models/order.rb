@@ -57,6 +57,7 @@ class Order < ActiveRecord::Base
   belongs_to :coupon_code_record, foreign_key: :coupon_code_id, class_name: 'CouponCode'
   has_many :refunds
   has_one :sync_orders
+  has_one :instant_delivery
 
 
   extend Enumerize

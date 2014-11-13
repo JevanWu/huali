@@ -52,6 +52,7 @@ FactoryGirl.define do
     inspiration { Forgery(:lorem_ipsum).sentence }
 
     priority { Forgery(:basic).number }
+    sku_id { Forgery(:basic).number }
     count_on_hand { Forgery(:basic).number + 100 }
     sold_total { Forgery(:basic).number({at_least: 1, at_most: 1000}) }
 

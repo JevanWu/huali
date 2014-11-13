@@ -32,7 +32,7 @@ module MobileAPI
         requires :city_id, type: Integer, desc: "The id of the city"
       end
       get :areas do
-        city = City.find name: params[:city_id]
+        city = City.find params[:city_id]
         areas = city.areas.where(available: true)
         res = Array.new
         areas.each do |area|

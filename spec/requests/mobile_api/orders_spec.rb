@@ -22,7 +22,6 @@ describe MobileAPI::API do
       coupon_code: nil,
       gift_card_text: nil,
       special_instructions: nil,
-      merchant_order_no: '499769390881821',
       ship_method_id: nil,
       expected_date: nil,
       delivery_date: nil,
@@ -32,7 +31,14 @@ describe MobileAPI::API do
       receiver_city_id: city.id,
       receiver_area_id: area.id,
       receiver_post_code: area.post_code,
-      receiver_address: 'some address'
+      receiver_address: 'some address',
+      products: [
+                  { 
+                    product_id: product.id, 
+                    price: product.price, 
+                    quantity: 1 
+                  }
+                ]
     }
   end
 
@@ -78,7 +84,7 @@ describe MobileAPI::API do
 
   describe "POST /mobile_api/v1/orders" do
     it "creates a order" do
-      post "/mobile_api/v1/orders", valid_order.merge( email: current_user.email, token: current_user.authentication_token )
+      post "/mobile_api/v1/orders", email: current_user.email, token: current_user.authentication_token, order_info: valid_order
       response.status.should == 201
       Order.count.should == 1
     end

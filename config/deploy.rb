@@ -85,13 +85,17 @@ namespace :deploy do
   desc "build missing paperclip styles"
   task :build_missing_paperclip_styles do
     on roles(:app) do
-      execute "cd #{current_path}; RAILS_ENV=production $HOME/.rbenv/shims/bundle exec rake paperclip:refresh:missing_styles"
+      within release_path do
+        with rails_env: fetch(:rails_env) do
+          execute :rake, 'paperclip:refresh:missing_styles'
+        end
+      end
     end
   end
 
 end
 
-after("deploy:compile_assets", "deploy:build_missing_paperclip_styles")
+after("deploy:restart", "deploy:build_missing_paperclip_styles")
 
 # CKEditor
 desc 'Copy ckeditor nondigest assets'

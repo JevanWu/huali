@@ -2,6 +2,18 @@ module MobileAPI
   class Orders < Grape::API
 
     helpers do
+
+      def products_info(order)
+        res = Array.new
+        order.line_items.each do |item|
+          res << {
+                   name_zh: item.product.name_zh,
+                   name_en: item.product.name_en,
+                   quantity: item.quantity
+          }
+        end
+        res
+      end
     end
 
     resource :orders do
@@ -39,7 +51,14 @@ module MobileAPI
             adjustment: order.adjustment, 
             ship_method: "#{order.ship_method ? order.ship_method.name : "" }" , 
             kind: order.kind, 
-            subject_text: order.subject_text 
+            subject_text: order.subject_text,
+            receiver_fullname: order.address.fullname,
+            receiver_province: order.address.province.name,
+            receiver_city: order.address.city.name,
+            receiver_address: order.address.address,
+            receiver_phone: order.address.phone,
+            receiver_post_code: order.address.post_code,
+            products: products_info(order)        
           }
           res << order_info
         end
@@ -81,67 +100,120 @@ module MobileAPI
             adjustment: order.adjustment, 
             ship_method: "#{order.ship_method ? order.ship_method.name : "" }" , 
             kind: order.kind, 
-            subject_text: order.subject_text 
+            subject_text: order.subject_text,
+            receiver_fullname: order.address.fullname,
+            receiver_province: order.address.province.name,
+            receiver_city: order.address.city.name,
+            receiver_address: order.address.address,
+            receiver_phone: order.address.phone,
+            receiver_post_code: order.address.post_code,
+            products: products_info(order)        
         }
       end
 
+      #order_info: {
+      #  sender_name: "..."
+      #  sender_email: "..."
+      #  sender_phone: "..."
+      #  coupon_code: "..."
+      #  gift_card_text: "..."
+      #  special_instructions: "..."
+      #  memo: "..."
+      #  ship_method_id: "..."
+      #  expected_date: "..."
+      #  delivery_date: "..."
+      #  receiver_fullname: "..."
+      #  receiver_phone: "..."
+      #  receiver_province_id: "..."
+      #  receiver_city_id: "..."
+      #  receiver_area_id: "..."
+      #  receiver_post_code: "..."
+      #  receiver_address: "..."
+      #  products: [
+      #              { product_id: "...", price: "...", quantity: "..." }
+      #              ...
+      #            ]
+      # 
+      #}
       desc "Creates an order"
-      params do
-        optional :sender_name, type: String, desc: "Sender name"
-        optional :sender_email, type: String, desc: "Sender email"
-        optional :sender_phone, type: String, desc: "Sender phone"
-        optional :coupon_code, type: String, desc: "Coupon code"
-        optional :gift_card_text, type: String, desc: "Gift card text"
-        optional :special_instructions, type: String, desc: "Customer memo"
-        optional :memo, type: String, desc: "Customer service memo"
-        requires :merchant_order_no, type: String, desc: "Merchant order No."
-        optional :ship_method_id, type: Integer, desc: "EMS: 4, 人工: 3, 顺风: 2, 联邦: 1, 申通: 5"
-        optional :expected_date, type: Date, desc: "Expected arrival date"
-        optional :delivery_date, type: Date, desc: "Delivery date"
-        requires :receiver_fullname, type: String, desc: "Receiver fullname"
-        requires :receiver_phone, type: String, desc: "Receiver phone"
-        requires :receiver_province_id, type: Integer, desc: "Receiver province id"
-        requires :receiver_city_id, type: Integer, desc: "Receiver city id"
-        optional :receiver_area_id, type: Integer, desc: "Receiver area(district) id"
-        optional :receiver_post_code, type: String, desc: "Receiver post code"
-        requires :receiver_address, type: String, desc: "Receiver address"
-        
-        requires :email, type: String, desc: "Email of the user."
-        requires :token, type: String, desc: "Authentication token of the user."
-      end
       post do
         authenticate_user!
+        order_info = params[:order_info]
+        error!("order info is required", 404) if !order_info.present?
         order = current_user.orders.new(
-          sender_name: params[:sender_name],
-          sender_email: params[:sender_email],
-          sender_phone: params[:sender_phone],
-          coupon_code: params[:coupon_code],
-          gift_card_text: params[:gift_card_text],
-          special_instructions: params[:special_instructions],
-          memo: params[:memo],
+          sender_name: order_info[:sender_name],
+          sender_email: order_info[:sender_email],
+          sender_phone: order_info[:sender_phone],
+          coupon_code: order_info[:coupon_code],
+          gift_card_text: order_info[:gift_card_text],
+          special_instructions: order_info[:special_instructions],
+          memo: order_info[:memo],
           kind: "normal",
-          merchant_order_no: params[:merchant_order_no],
-          ship_method_id: params[:ship_method_id],
-          expected_date: params[:expected_date],
-          delivery_date: params[:delivery_date],
+          ship_method_id: order_info[:ship_method_id],
+          expected_date: order_info[:expected_date],
+          delivery_date: order_info[:delivery_date],
         )
 
-        address = Address.new(fullname: params[:receiver_fullname],
-                              phone: params[:receiver_phone],
-                              province_id: params[:receiver_province_id],
-                              city_id: params[:receiver_city_id],
-                              area_id: params[:receiver_area_id],
-                              address: params[:receiver_address],
-                              post_code: params[:receiver_post_code])
+        address = Address.new(fullname: order_info[:receiver_fullname],
+                              phone: order_info[:receiver_phone],
+                              province_id: order_info[:receiver_province_id],
+                              city_id: order_info[:receiver_city_id],
+                              area_id: order_info[:receiver_area_id],
+                              address: order_info[:receiver_address],
+                              post_code: order_info[:receiver_post_code])
 
         order.user = current_user
         order.address = address
 
-        if order.save
-          status 201
-        else
-          error!(order.errors.messages, 500)
+
+        error!(order.errors.messages, 500) unless order.save
+
+        products = order_info[:products]
+        total = BigDecimal.new(0)
+        products.each do |product|
+          if order.line_items.create( product_id: product[:product_id],
+                                quantity: product[:quantity],
+                                price: product[:price] )
+            total += product[:quantity].to_f * product[:price].to_f
+          end
         end
+
+        order.update_columns(total: total, item_total: total)
+
+        OrderDiscountPolicy.new(order).apply
+
+        { 
+          state: order.state,
+          total: order.total,
+          payment_total: order.payment_total,
+          identifier: order.identifier,
+          expected_date: order.expected_date,
+          receiver_fullname: order.address.fullname,
+          receiver_province: order.address.province.name,
+          receiver_city: order.address.city.name,
+          receiver_address: order.address.address,
+          receiver_phone: order.address.phone,
+          receiver_post_code: order.address.post_code,
+          products: products_info(order)        
+        }
+      end
+
+      desc "Check if the coupon code is available"
+      params do
+        requires :code, type: String, desc: "Coupon code"
+
+        requires :email, type: String, desc: "Email of the user."
+        requires :token, type: String, desc: "Authentication token of the user."
+      end
+
+      post ":id/check_coupon_code" do
+        authenticate_user!
+
+        coupon_code = CouponCode.find_by(code: params[:code])
+        error!("The coupon code doesn't exist", 404) unless coupon_code.present?
+        error!("The coupon code has been used out", 404) if coupon_code.available_count <= 0
+
+        { adjustment: coupon_code.coupon.adjustment }
       end
 
       desc "Creates line items for order"
@@ -157,11 +229,11 @@ module MobileAPI
 
       post ":id/line_items" do
         authenticate_user!
-        order = current_user.orders.find params[:id]
+        order = current_user.orders.find_by(identifier: params[:id]) || current_user.orders.find(params[:id])
         error!("Order not found", 404) if order.nil? 
         line_item = order.line_items.new( product_id: params[:product_id],
                                 quantity: params[:quantity],
-                                price: params[:price]*params[:quantity] )
+                                price: params[:price] )
         if line_item.save
           status(201)
         else

@@ -5,7 +5,7 @@ class OrdersController < ApplicationController
   before_action :justify_wechat_agent, only: [:index, :current, :checkout, :gateway, :new, :create]
   before_action :fetch_related_products, only: [:back_order_create, :channel_order_create, :current, :apply_coupon]
   before_action :signin_with_openid, only: [:new, :index]
-  before_action :authenticate_user!, only: [:new, :index, :show, :create, :checkout, :cancel, :edit_gift_card, :update_gift_card]
+  before_action :authenticate_user!, only: [:new, :index, :show, :create, :checkout, :cancel, :edit_gift_card, :update_gift_card, :instant_delivery_status]
   before_action :authenticate_administrator!, only: [:back_order_new, :back_order_create, :channel_order_new, :channel_order_create]
   #before_action :fetch_transaction, only: [:return, :notify]
   skip_before_action :verify_authenticity_token, only: [:notify]
@@ -91,6 +91,8 @@ class OrdersController < ApplicationController
       delete_address_select_cookies
 
       OrderDiscountPolicy.new(@order_form.record).apply
+      InstantDeliveryChargePolicy.new(@order_form.record, @order_form.instant_delivery).apply
+
       store_order_id(@order_form.record)
 
       update_guest if current_or_guest_user.guest?
@@ -228,6 +230,38 @@ class OrdersController < ApplicationController
     end
   end
 
+  def wap_return
+    if params[:result] = "success"
+      render 'success'
+    else
+      render 'failed', status: 400
+    end
+  end
+
+  def wap_notify
+    notify_params = params.except(*request.path_parameters.keys)
+
+    if Alipay::Notify::Wap.verify?(notify_params)
+      order_identifier = Hash.from_xml(params[:notify_data])['notify']['out_trade_no']
+      order = Order.find_by(identifier: order_identifier)
+      amount = Hash.from_xml(params[:notify_data])['notify']['total_fee']
+      trade_no = Hash.from_xml(params[:notify_data])['notify']['trade_no'] 
+      transaction = order.transaction.create( amount: order.total, use_huali_point: false, subject: order.subject_text,
+                                body: order.body_text, client_ip: order.user.current_sign_in_ip, 
+                                merchant_trade_no: trade_no )
+      transaction.start
+      if amount == transaction.amount
+        transaction.invalidate 
+      else
+        transaction.complete
+      end
+
+      render text: "success"
+    else
+      render text: "error"
+    end
+  end
+
   def current
     if params[:coupon_code].present? && params[:product_ids].present?
       coupon_code = CouponCode.find_by_code!(params[:coupon_code])
@@ -277,6 +311,14 @@ class OrdersController < ApplicationController
 
   def wechat_feedback
     render text: "success"
+  end
+
+  def instant_delivery_status
+    if InstantDeliveryCheckService.new(params[:city_id], params[:address]).check
+      render json: { instant_delivery_available: true } and return
+    end
+
+    render json: { instant_delivery_available: false }
   end
 
   private

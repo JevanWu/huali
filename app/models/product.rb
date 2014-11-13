@@ -65,7 +65,7 @@ class Product < ActiveRecord::Base
   has_many :assets, as: :viewable, dependent: :destroy, order: "created_at asc"
   accepts_nested_attributes_for :assets, reject_if: lambda { |a| a[:image].blank? }, allow_destroy: true
 
-  has_attached_file :rectangle_image, styles: { medium: "220x328>" }
+  has_attached_file :rectangle_image, styles: { medium: "220x328>" }, :default_url => "/system/assets/images/missing.jpg"
 
   # lineItems
   has_many :line_items

@@ -5,23 +5,54 @@ module MobileAPI
 
       desc "Return authentication token for identifying current user." 
       params do
-        requires :email, type: String, desc: "User email."
-        requires :password, type: String, desc: "User password."
+        optional :email, type: String, desc: "User email."
+        optional :password, type: String, desc: "User password."
+        optional :uid, type: Integer, desc: "UID"
+        optional :oauth_provider, type: String, desc: "the name of the oauth provider"
       end
       post :sign_in do
-        user = User.find_by(email: params[:email])
-        error!('The user does not exist!', 404) if !user.present?
-        if user.valid_password?(params[:password])
-          token = user.authentication_token
-          status 200 
-          { 
-            authentication_token: token,
-            user_email: user.email,
-            user_phone: user.phone,
-            user_name: user.name 
-          }
-        else
-          error!("The account and password don't match!", 500)
+        if params[:email].present? && params[:password].present?
+          user = User.find_by(email: params[:email])
+          error!('The user does not exist!', 404) if !user.present?
+          if user.valid_password?(params[:password])
+            token = user.reset_authentication_token
+            status 200
+            { 
+              authentication_token: token,
+              user_email: user.email,
+              user_phone: user.phone,
+              user_name: user.name 
+            }
+          else
+            error!("The account and password don't match!", 500)
+          end
+        elsif params[:uid] && params[:oauth_provider]
+          if user = OauthService.find_user(params[:oauth_provider], params[:uid])
+            token = user.reset_authentication_token
+            status 200
+            { 
+              authentication_token: token,
+              user_email: user.email,
+              user_phone: user.phone,
+              user_name: user.name 
+            }
+          else
+            if params[:phone].present? && params[:email].present? && params[:name].present?
+              user = User.create(name: params[:name], phone: params[:phone], email: params[:email], password: SecureRandom.base64(10), bypass_humanizer: true)
+              user.oauth_service.create(provider: params[:oauth_provider], uid: params[:uid], oauth_token: params[:access_token])
+              token = user.reset_authentication_token
+              status 200
+              { 
+                authentication_token: token,
+                user_email: user.email,
+                user_phone: user.phone,
+                user_name: user.name 
+              }
+            else
+              status 200
+              { new_user: "yes" }
+            end
+          end
         end
       end
 
@@ -47,11 +78,14 @@ module MobileAPI
       end
       put :change_password do
         authenticate_user!
-        error!("Invalid password", 400) unless current_user.valid_password?(params[:password])
-        current_user.password = params[:new_password]
-        current_user.save
-        error!(current_user.errors.messages, 500) if current_user.errors.messages.present?
-        status 200
+        user = current_user
+        error!("Invalid password", 400) unless user.valid_password?(params[:password])
+        user.password = params[:new_password]
+        if user.save
+          status 200
+        else
+          error!(current_user.errors.messages, 500)
+        end
       end
 
       desc "Edit user information." 
@@ -64,9 +98,8 @@ module MobileAPI
       put do
         authenticate_user!
         error!("No user signed in", 500) unless current_user
-        current_user.name = params[:name]
-        current_user.phone = params[:phone]
-        current_user.save
+        current_user.update_column(:name, params[:name])
+        current_user.update_column(:phone, params[:phone])
         error!(current_user.errors.messages, 500) if current_user.errors.messages.present?
         status 200
       end
@@ -101,7 +134,7 @@ module MobileAPI
         error!("The user does not exist", 404) if !user.present?
         error!("The phone number mismatchs", 404) if user.phone != params[:phone]
         token = user.generate_reset_password_token
-        Sms.delay.normal_sms(params[:phone], token)
+        Sms.normal_sms(params[:phone], token)
         status 200
       end
 

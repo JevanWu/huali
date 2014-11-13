@@ -47,7 +47,7 @@
 class User < ActiveRecord::Base
   include Phonelib::Extension
 
-  before_save :ensure_authentication_token
+  after_save :reset_authentication_token, if: Proc.new {|user| !user.authentication_token.present? }
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -141,12 +141,14 @@ class User < ActiveRecord::Base
     oauth_provider.user
   end
 
-  def ensure_authentication_token
-    self.authentication_token = generate_authentication_token if authentication_token.blank?
+  def reset_authentication_token
+    token = generate_authentication_token
+    self.update_column(:authentication_token, token)
+    token
   end
 
   def generate_reset_password_token
-    reset_token = rand(999999)
+    reset_token = rand(999999).to_s
     self.update_columns(reset_password_token: reset_token, reset_password_sent_at: Time.current)
     return reset_token
   end
@@ -166,7 +168,7 @@ class User < ActiveRecord::Base
     def generate_authentication_token
       loop do
         token = Devise.friendly_token
-        break token unless User.where(authentication_token: token).first
+        break token unless User.where(authentication_token: token).take
       end
     end
 
