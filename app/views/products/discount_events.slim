@@ -5,7 +5,7 @@ div.discount_events
 	div.pics0
 	div.pics1
 	  -if @discount_yesterday.nil?
-	  	div.discount-yesterday
+	  	div.discount-yesterdaynil
 	  	  = Date.yesterday.month
  	 	  | .
  	 	  = Date.yesterday.day
@@ -26,7 +26,7 @@ div.discount_events
 	    = @discount_today.product.name if @discount_today
 
 	  -if @discount_tomorrow.nil?
-	  	div.discount-tomorrow
+	  	div.discount-tomorrownil
 	  	  = Date.tomorrow.month
  	 	  | .
  	 	  = Date.tomorrow.day
