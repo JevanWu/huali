@@ -7,7 +7,7 @@ class OrderDiscountableValidator < ActiveModel::Validator
         end
       end
 
-      if order.line_items.any? { |item| !item.product.discountable }
+      if order.line_items.any? { |item| !item.product.discountable || item.product.discount_event_today }
         order.errors.add(:coupon_code, :contains_products_not_discountable)
       end
     end

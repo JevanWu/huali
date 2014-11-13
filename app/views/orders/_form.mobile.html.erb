@@ -9,12 +9,12 @@
   <fieldset>
     <legend>订单信息</legend>
 
+    <%= f.input :coupon_code, as: (@order_form.errors[:coupon_code].present? ? :string : :hidden) %>
     <%= f.fields_for :sender, @order_form.sender do |builder|%>
       <%= builder.input :name, required:true, placeholder: '您的姓名', as: :hidden %>
       <%= builder.input :email, required:true, placeholder: '以便及时收到订单更新', as: :hidden %>
       <%= builder.input :phone, required:true, placeholder: '请输入您的手机号，以便我们和您核对信息', label:false%>
     <% end %>
-    <%= f.input :coupon_code, as: :hidden %>
 
     <%= f.input :expected_date, as: :string, required:true, input_html: { class: 'datepicker' }, label:false, placeholder: '请选择您希望寄给TA的时间', hint: Setting.expected_date_notice || ("0元花盒将在2月8日后发货" if @cart.limited_promotion_today) %>
     <%= f.fields_for :address, @order_form.address do |builder|%>
