@@ -35,7 +35,7 @@ gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
 # oauth
 gem 'omniauth'
 gem 'omniauth-douban-oauth2'
-gem 'omniauth-weibo-oauth2'
+gem 'omniauth-weibo-oauth2', github: 'JevanWu/omniauth-weibo-oauth2'
 gem 'omniauth-qq-connect'
 
 gem 'enumerize'
@@ -117,6 +117,9 @@ gem "font-awesome-rails"
 #xml parser
 gem 'actionpack-xml_parser'
 
+# Map Region checker
+gem 'border_patrol'
+
 group :development, :test do
   gem 'rspec-rails', '>= 2.11.0'
   gem 'rspec-instafail'
@@ -170,7 +173,6 @@ group :development do
   gem 'ruby-graphviz', require: 'graphviz' # Optional: only required for graphing
   gem 'meta_request', '0.2.1'
   gem "letter_opener"
-  gem 'rack-mini-profiler'
 end
 
 group :test do

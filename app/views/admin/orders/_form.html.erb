@@ -21,6 +21,7 @@
       <%= builder.input :post_code %>
       <%= builder.input :fullname %>
       <%= builder.input :phone, as: :formtastic_phone %>
+      <%= f.input :enable_instant_delivery, as: :boolean, input_html: { readonly: 'generated' != @order.record.state }%>
       <%= f.input :expected_date, as: :string, required: true, input_html: { class: 'datepicker' }%>
       <%= f.input :bypass_date_validation, as: :boolean %>
     <% end %>

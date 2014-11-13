@@ -49,7 +49,7 @@ module Extension
 
     def prepare_menu_list
       @menu_list << Menu.new("花里首页", nil, :link, '/')
-      @menu_list << Menu.new("遇见礼", nil, :link, '/yujianli')
+      # @menu_list << Menu.new("遇见礼", nil, :link, '/yujianli')
       build_collection_menus
       build_custom_link_menus
     end

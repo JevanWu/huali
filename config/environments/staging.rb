@@ -3,10 +3,11 @@ Huali::Application.configure do
 
   # Code is not reloaded between requests
   config.cache_classes = true
+
   config.eager_load = true
 
   # Full error reports are disabled and caching is turned on
-  config.consider_all_requests_local       = true
+  config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
@@ -16,14 +17,14 @@ Huali::Application.configure do
   config.assets.enabled = true
 
   # Version of your assets, change this if you want to expire all your assets
-  config.assets.version = '1.2'
+  config.assets.version = '1.1'
 
   # Compress JavaScripts and CSS
   config.assets.css_compressor = :sass
   config.assets.js_compressor = :uglifier
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = false
+  config.assets.compile = true
 
   # Generate digests for assets URLs
   config.assets.digest = true
@@ -48,7 +49,7 @@ Huali::Application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
   # Use a different cache store in production
-  # config.cache_store = :mem_cache_store
+  config.cache_store = :dalli_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   # config.action_controller.asset_host = "http://assets.example.com"
@@ -67,16 +68,22 @@ Huali::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  # ActionMailer Config for staging, no error raised
+  # Setup for production - deliveries, no errors raised
   config.action_mailer.default_url_options = { host: 'staging.hua.li' }
   config.action_mailer.raise_delivery_errors = false
   # Log mail instead of really sending it
   config.action_mailer.delivery_method = :file
 
+
   # ImageMagick Process path on production server (Ubuntu 12.04 LTS)
   Paperclip.options[:command_path] = "/usr/bin/"
 
-  # Custome configurations
+  Highcharts::Converter.options[:command_path] = "/usr/bin/"
+
+  # Log the query plan for queries taking more than this (works
+  # with SQLite, MySQL, and PostgreSQL)
+  # config.active_record.auto_explain_threshold_in_seconds = 0.5
+
   # Log sms to file(Rails.root/tmp/sms/) instead really sending it
   config.sms_delivery_method = :file
 end

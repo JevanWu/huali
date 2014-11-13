@@ -93,3 +93,5 @@ unicorn.sh
 .lock-closuretree-*
 /db/*.sql
 /db/huali_dev_*
+app/assets/stylesheets/modules/partials/calendar.sass
+app/views/pages/calendar.html.erb

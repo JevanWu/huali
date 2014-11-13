@@ -16,8 +16,15 @@ p.gouhualan-title
         em
           | -&nbsp;
           = number_to_currency cart.discount_money
+    - if @order && @order.instant_delivery
+      .summary-item
+        span
+          | 90分钟送达
+        em
+          | +&nbsp;
+          = number_to_currency @order.instant_delivery.fee
     .summary-item
       span
-        | 折后总计
+        | 总计
       em.special
-        = number_to_currency cart.total
+        = number_to_currency cart.total + (@order && @order.instant_delivery ? @order.instant_delivery.fee : 0)

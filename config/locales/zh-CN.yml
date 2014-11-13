@@ -82,6 +82,7 @@ zh-CN:
         blank_products: 产品不能为空
         service_not_available: 非常抱歉，在本日花店无法进行配送
         product_unavailable: '%{product_name}不可用'
+        product_unavailable_in_instant_delivery: '%{product_name}90分钟送达不可用，只限永生花'
         product_of_invalid_quantity: '%{product_name}数量不能小于等于0'
         product_out_of_stock: '%{product_name}库存不足，可用库存%{count_on_hand}'
         product_in_unavailable_date: '%{product_name}无法在该递送日期配送'
@@ -90,6 +91,7 @@ zh-CN:
         contains_products_not_discountable: "购物车有不参与打折的产品"
         must_be_less_than_expected_date: 必须小于到达日期
         not_able_to_edit_adjustment: 订单已审核，不能更新价格调整
+        instant_delivery_not_available: 快速送达服务当前不可用
 
     models:
       order_form: 订单
@@ -139,6 +141,7 @@ zh-CN:
         last_order: 关联订单号
         memo: 客服备注
         paymethod: 支付方式
+        instant_delivery: 90分钟送达
 
       item_info:
         quantity: 产品数量
@@ -203,6 +206,8 @@ zh-CN:
       greeting_card: 发送电子贺卡
       reply_greeting_card: 撒娇回复
       sync_order: 手动同步订单
+      instant_delivery: 快速送达
+      discount_event: 活动打折
 
     attributes:
       order: &order
@@ -260,6 +265,7 @@ zh-CN:
         memo: 客服备注
         validation_code: 正品序列号
         coupon_code_record_code: 优惠劵
+        instant_delivery: 90分钟送达
 
       postcard:
         content: 内容
@@ -562,6 +568,22 @@ zh-CN:
         created_at: 创建于
         updated_at: 更新于
 
+      instant_delivery:
+        order: 订单
+        order_id: 订单
+        fee: 递送费用
+        delivered_in_minutes: 送达时间(分钟)
+        shipped_at: 递送时间
+        updated_at: 更新时间
+        created_at: 创建时间
+
+      discount_event:
+        product: 打折产品
+        discount_date: 打折日期
+        original_price: 原价
+        price: 现价
+        updated_at: 更新时间
+        created_at: 创建时间
 
   models:
     user:
