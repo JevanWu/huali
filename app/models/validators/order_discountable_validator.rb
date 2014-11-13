@@ -2,7 +2,7 @@ class OrderDiscountableValidator < ActiveModel::Validator
   def validate(order)
     if order.coupon_code.present?
       order.line_items.each do |item|
-        unless item.product.discountable
+        if !item.product.discountable || item.product.discount_event_today
           item.errors.add(:base, :product_not_discountable, product_name: item.product.name)
         end
       end
