@@ -64,6 +64,8 @@ Huali::Application.routes.draw do
   # back order urls
   get 'orders/backorder', to: 'orders#back_order_new', as: :new_back_order
   post 'orders/backorder', to: 'orders#back_order_create', as: :create_back_order
+  get 'orders/b2border', to: 'orders#b2b_order_new', as: :new_b2b_order
+  post 'orders/b2border', to: 'orders#b2b_order_create', as: :create_b2b_order
   # channel order urls
   #get 'orders/channelorder', to: 'orders#channel_order_new', as: :new_channel_order
   #post 'orders/channelorder', to: 'orders#channel_order_create', as: :create_channel_order
