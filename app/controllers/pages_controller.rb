@@ -49,4 +49,7 @@ class PagesController < ApplicationController
 
   def yujianli
   end
+
+  def offline_shop
+  end
 end
