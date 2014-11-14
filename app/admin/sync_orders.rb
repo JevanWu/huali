@@ -1,5 +1,5 @@
 ActiveAdmin.register SyncOrder do
-  menu parent: '订单'
+  menu parent: '订单', if: proc { authorized? :manage, SyncOrder }
 
   scope :all, default: true
   scope :current
