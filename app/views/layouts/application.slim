@@ -25,7 +25,7 @@ html
     == render 'layouts/header'
     == render 'layouts/nav'
     == render 'layouts/banner'
-
+    
     .main-content
       = content_for?(:blog) ? yield(:blog) : yield
     #qq-customer-service.scroll-object
@@ -33,3 +33,5 @@ html
         = image_tag("online-service.png", border: 0, alt: "点击这里即可在线询问", title: "点击这里即可在线询问")
     == render 'layouts/footer'
     = yield(:body_js)
+    script#_mutmzc src="http://public.dmppro.cn/js/i.js?uid=qhv" type="text/javascript" 
+

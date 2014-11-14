@@ -118,6 +118,7 @@ Huali::Application.routes.draw do
   get 'qixijie', to: 'pages#qixijie', as: :qixijie
   get 'join_us', to: 'pages#join_us'
   get 'yujianli', to: 'pages#yujianli'
+  get 'offline_shop', to: 'pages#offline_shop'
 
   get 'banners/:date', to: 'banners#index', as: :banners
   get 'stories', to: 'stories#index'

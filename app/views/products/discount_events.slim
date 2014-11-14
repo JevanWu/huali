@@ -26,6 +26,12 @@ div.discount_events
 	  	  | 活动已结束
 	  -else
 	    div.discount-today onclick="window.open('#{product_path(@discount_today.product)}')"
+	      br
+	      br
+	      br
+	      br
+	      br
+	      br
 	      = @discount_today.title if @discount_today
 	  -if @discount_tomorrow.nil?
 	  	div.discount-tomorrownil
