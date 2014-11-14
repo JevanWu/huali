@@ -9,7 +9,10 @@ module MobileAPI
           res << {
                    name_zh: item.product.name_zh,
                    name_en: item.product.name_en,
-                   quantity: item.quantity
+                   quantity: item.quantity,
+                   price: item.product.price,
+                   image: item.product.rectangle_image.url(:thumb),
+                   product_url: product_url(item.product)
           }
         end
         res
