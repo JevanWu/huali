@@ -5,8 +5,9 @@
 #  created_at :datetime
 #  gender     :string(255)
 #  id         :integer          not null, primary key
-#  mobile     :string(255)
+#  mobile     :integer
 #  name       :string(255)
+#  prize      :string(255)
 #  updated_at :datetime
 #
 
