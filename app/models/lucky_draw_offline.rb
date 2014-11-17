@@ -12,4 +12,8 @@
 #
 
 class LuckyDrawOffline < ActiveRecord::Base
+  validates :mobile, presence: true, numericality: true, length: { is: 11 }
+  validates :name, presence: true
+  validates :prize, presence: true
+  validates :gender, presence: true
 end
