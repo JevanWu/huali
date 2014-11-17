@@ -15,7 +15,7 @@ module MobileAPI
        error!('no weibo story exists for now!', 404) if !stories.present?
        res = Array.new
        stories.each do |story|
-         story_info = { id: story.id, name: story.name, description: story.description, picture: "#{story.picture ? story.picture.url : "/"}", author_avatar: "#{story.author_avatar ? story.author_avatar.url : "/"}" }
+         story_info = { id: story.id, name: story.name, description: story.description, picture: "#{story.picture ? story.picture.url : "/"}", author_avatar: "#{story.author_avatar ? story.author_avatar.url : "/"}", origin_link: story.origin_link, product_link: story.product_link }
          res << story_info
        end
        res
