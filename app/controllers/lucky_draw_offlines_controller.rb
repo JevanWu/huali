@@ -1,0 +1,2 @@
+class LuckyDrawOfflinesController < ApplicationController
+end
