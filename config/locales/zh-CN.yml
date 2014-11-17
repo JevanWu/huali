@@ -772,6 +772,7 @@ zh-CN:
   controllers:
     order:
       order_success: 您已经成功创建订单和地址信息
+      order_failed: 创建订单失败
       order_not_exist: 此订单不存在
       no_items: 还没有花在购物车, 请先选购
       cancel_success: 订单取消成功
