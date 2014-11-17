@@ -7,7 +7,7 @@ module MobileAPI
       params do
         optional :email, type: String, desc: "User email."
         optional :password, type: String, desc: "User password."
-        optional :uid, type: Integer, desc: "UID"
+        optional :uid, type: String, desc: "UID"
         optional :oauth_provider, type: String, desc: "the name of the oauth provider"
       end
       post :sign_in do
