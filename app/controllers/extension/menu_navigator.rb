@@ -44,6 +44,7 @@ module Extension
       # custom_menu.add_child(Menu.new('花里博客', nil, :link, blog_path))
       # @menu_list << custom_menu
       @menu_list << Menu.new("HualiGirls", "", :link, weibo_stories_path)
+      @menu_list << Menu.new("实体店铺", "", :link, offline_shop_path)
       @menu_list << Menu.new("商务定制", "", :link, '/blog')
     end
 
