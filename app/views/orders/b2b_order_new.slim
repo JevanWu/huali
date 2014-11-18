@@ -1,0 +1,16 @@
+- content_for(:css) do
+  = stylesheet_link_tag "jquery.ui.datepicker"
+
+- content_for(:js) do
+  = javascript_include_tag "datepicker-settings"
+  = javascript_include_tag "prov_city_area_update"
+
+.buy
+  .buy-inner
+    == render 'checkout_nav'
+    .step-main.row
+      .step-main-gouhualan.span4
+        == render 'side_item_table', cart: @cart, title: t(:basket)
+      .step-main-detail.span8
+        h1 B2B订单录入
+        = render 'b2b_order_form'

@@ -1,0 +1,18 @@
+<%= simple_form_for @b2b_order_form, url: { action: 'b2b_order_create' }, html: { class: 'form-horizontal', id: 'new-order' } do |f| %>
+  <%= simple_form_error_messages_for(@b2b_order_form.line_items) %>
+  <fieldset>
+    <legend>订单信息</legend>
+    <%= f.input :kind, as: :radio_buttons, required: true, collection: { 'B2B' => :b2b }, checked: 'b2b' %>
+  </fieldset>
+  <fieldset>
+    <legend>递送信息</legend>
+    <%= f.fields_for :address, @b2b_order_form.address do |builder|%>
+      <%= f.input :bypass_region_validation, as: :radio_buttons, required: true, collection: { '' => '1' }, checked: '1' %>
+      <%= f.input :bypass_product_validation, as: :radio_buttons, required: true, collection: { '' => '1' }, checked: '1' %>
+    <% end %>
+  </fieldset>
+  <div class="form-actions">
+    <%= f.button :submit, class: 'button next-step' %>
+    <%= link_to t('cancel'), current_order_path %>
+  </div>
+<% end %>

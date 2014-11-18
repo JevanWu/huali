@@ -60,6 +60,9 @@ javascript:
           }, {
               name: '线下店',
               data: [#{@daily_order_report.order_amounts_by_date('offline').join(',').html_safe}]
+          }, {
+              name: 'B2B',
+              data: [#{@daily_order_report.order_counts_by_date('b2b').join(',').html_safe}]
           }]
       });
 
@@ -123,6 +126,9 @@ javascript:
           }, {
               name: '线下店',
               data: [#{@daily_order_report.order_counts_by_date('offline').join(',').html_safe}]
+          }, {
+              name: 'B2B',
+              data: [#{@daily_order_report.order_counts_by_date('b2b').join(',').html_safe}]
           }]
       });
   });
