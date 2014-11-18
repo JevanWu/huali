@@ -9,10 +9,10 @@ div.lottery
         = image_tag("lottery/test.jpg")
     div.inputframe
       = simple_form_for @lucky_draw_offline, url: lucky_draw_offline_path, html: {class: "form-horizontal"} do |f|
-        = f.input :gender, as: :select, style: "height: 50px", collection: ["男", "女"]
+        = f.input :gender, as: :select, style: "height: 50px", collection: ["male", "female"]
         br
         = f.input :name, label: "全名"
         br
         = f.input :mobile, label: "手机号11位"
         br
-        = f.submit "提交", class: "btn-lucky"
+        = f.submit "抽奖", class: "btn-lucky"
