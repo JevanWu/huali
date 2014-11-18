@@ -1,10 +1,15 @@
-= stylesheet_link_tag "modules/lottery", media: "all"
-
 div.lottery
   div.lotteryframe
+    div.awards_main
+      div.gifts
+        = image_tag("lottery/test.jpg")
+      div.gifts
+        = image_tag("lottery/test.jpg")
+      div.gifts
+        = image_tag("lottery/test.jpg")
     div.inputframe
       = simple_form_for @lucky_draw_offline, url: lucky_draw_offline_path, html: {class: "form-horizontal"} do |f|
-        = f.input :gender, as: :select, collection: ["male", "female"]
+        = f.input :gender, as: :select, style: "height: 50px", collection: ["男", "女"]
         br
         = f.input :name, label: "全名"
         br
