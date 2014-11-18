@@ -175,7 +175,17 @@ STR
       return if appointments.nil?
       phone_nums = appointments.map { |a| a.customer_phone if a.customer_phone.present?  }
       appointments.each { |a| a.update_column(:notify_at, Time.now) }
-      phone_nums.each { |num| new(phone_number: num, body: "您之前关注过的#{product.product_type_text}#{product.name_zh}已经新到货啦！您现在可以在我们的官网上进行选购了.「花里花店」") }
+      phone_nums.each { |num| new(phone_number: num, body: "您之前关注过的#{product.product_type_text}#{product.name_zh}已经新到货啦！您现在可以在我们的官网上进行选购了.「花里花店」").deliver }
+    end
+
+    def huali_point_notify_sms
+      point_transactions = PointTransaction.expired_soon
+      users = point_transactions.map { |transaction| transaction.users }
+      users.uniq!
+      notify_content = <<STR
+您有花点快要过期了，请尽快使用花点
+STR
+      users.each { |user| new(phone_number: user.phone, body: notify_content).deliver }
     end
   end
 end

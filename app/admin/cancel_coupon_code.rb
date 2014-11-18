@@ -1,5 +1,5 @@
 ActiveAdmin.register_page "Cancel Coupon Code" do
-  menu parent: '设置'
+  menu parent: '设置', if: proc { authorized? :manage, Coupon }
 
   page_action :operate, method: :get do
   end
