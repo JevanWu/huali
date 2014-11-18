@@ -14,16 +14,16 @@ class AdminAbility
       cannot :manage, Sidekiq
       cannot :manage_super, Administrator # For use in view
     when "operation_manager"
-      can :manage, [Product, Collection, Order, Transaction, Refund, Shipment, Coupon, DefaultRegionRule, DefaultDateRule, PeriodRegionPolicy, SlidePanel, Setting, SalesChart, DiscountEvent]
+      can :manage, [Product, Collection, Order, Transaction, Refund, Shipment, Coupon, DefaultRegionRule, DefaultDateRule, PeriodRegionPolicy, SlidePanel, Setting, SalesChart, DiscountEvent, SyncOrder]
       cannot :update_seo, [Product, Collection]
       can :record_back_order, Order
       can :read, [PrintGroup, PrintOrder, Appointment]
     when "product_manager"
-      can :manage, [Product, Collection, Asset, SalesChart]
+      can :manage, [Product, Collection, Asset, SalesChart, SyncOrder]
       can :read, [Appointment]
       cannot :update_seo, [Product, Collection]
     when "web_operation_manager"
-      can :manage, [Page, Product, Collection, Coupon, Asset, Setting, Story, Banner, SlidePanel, SalesChart, DiscountEvent]
+      can :manage, [Page, Product, Collection, Coupon, Asset, Setting, Story, Banner, SlidePanel, SalesChart, DiscountEvent, SyncOrder]
       can :read, [Appointment]
       can :update_seo, [Product, Collection]
       manage_blog
@@ -35,7 +35,7 @@ class AdminAbility
       manage_blog
     when "customer_service"
       can :read, [Coupon]
-      can :manage, [Product, Collection, Order, Transaction, Refund, Shipment]
+      can :manage, [Product, Collection, Order, Transaction, Refund, Shipment, SyncOrder]
       can :manage, [DefaultRegionRule, DefaultDateRule, PeriodRegionPolicy]
       can :read, [PrintGroup, PrintOrder, Appointment]
     end

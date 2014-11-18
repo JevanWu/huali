@@ -88,6 +88,10 @@ every :year do
   rake "huali_point:annual_reset_and_accounting"
 end
 
+every :year, at: 'November 30th 9:00am' do
+ rake "huali_point:notify_customers_to_use_points"
+end
+
 every :month do
   rake 'cleanup:reset_sold_total'
 end

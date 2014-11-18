@@ -6,7 +6,7 @@ namespace :huali_point do
         user.lock!
 
         annual_huali_points = 0
-        user.point_transactions.available.each do |transaction|
+        user.point_transactions.unexpired.each do |transaction|
           if %w(income refund).include?(transaction.transaction_type)
             annual_huali_points += transaction.point
           else
@@ -18,5 +18,11 @@ namespace :huali_point do
         user.edit_huali_point(annual_huali_points) unless annual_huali_points == 0
       end
     end
+  end
+
+
+  desc "notify customers their huali points will be expired soon on each 30th November "
+  task notify_customers_to_use_points: :environment do
+    Sms.delay.huali_point_notify_sms
   end
 end
