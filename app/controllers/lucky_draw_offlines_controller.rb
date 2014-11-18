@@ -1,4 +1,5 @@
 class LuckyDrawOfflinesController < ApplicationController
+  before_action :authenticate_administrator!
   def new
     @lucky_draw_offline = LuckyDrawOffline.new
   end
@@ -7,7 +8,7 @@ class LuckyDrawOfflinesController < ApplicationController
     LuckyDrawOfflinePrizeGenerator.init
     @lucky_draw_offline.prize = LuckyDrawOfflinePrizeGenerator.generate
     if @lucky_draw_offline.save
-      render "result"
+      redirect_to lucky_draw_offline_path
     else
       render "new"
     end
