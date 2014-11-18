@@ -52,4 +52,7 @@ class PagesController < ApplicationController
 
   def offline_shop
   end
+
+  def lottery
+  end
 end
