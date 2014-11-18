@@ -125,7 +125,6 @@ Huali::Application.routes.draw do
   get 'join_us', to: 'pages#join_us'
   get 'yujianli', to: 'pages#yujianli'
   get 'offline_shop', to: 'pages#offline_shop'
-  get 'lottery', to: 'pages#lottery'
 
   get 'banners/:date', to: 'banners#index', as: :banners
   get 'stories', to: 'stories#index'
