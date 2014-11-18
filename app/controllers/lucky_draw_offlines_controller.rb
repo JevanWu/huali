@@ -8,7 +8,7 @@ class LuckyDrawOfflinesController < ApplicationController
     LuckyDrawOfflinePrizeGenerator.init
     @lucky_draw_offline.prize = LuckyDrawOfflinePrizeGenerator.generate
     if @lucky_draw_offline.save
-      redirect_to lucky_draw_offline_path
+      redirect_to lucky_draw_offline_result_path
     else
       render "new"
     end
