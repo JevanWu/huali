@@ -6,7 +6,7 @@ namespace :huali_point do
         user.lock!
 
         annual_huali_points = 0
-        user.point_transactions.available.each do |transaction|
+        user.point_transactions.unexpired.each do |transaction|
           if %w(income refund).include?(transaction.transaction_type)
             annual_huali_points += transaction.point
           else
