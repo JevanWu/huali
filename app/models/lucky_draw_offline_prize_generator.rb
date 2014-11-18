@@ -19,7 +19,9 @@ class LuckyDrawOfflinePrizeGenerator < ActiveRecord::Base
         9.times { collections << "c" }
         collections.shuffle.each { |c| self.new(collection: c).save }
       end
+      yield(self) if block_given?
     end
+
     def generate
       record = self.take
       record.destroy
