@@ -1,8 +1,13 @@
-= simple_form_for @lucky_draw_offline, url: lucky_draw_offline_path, html: {class: "form-horizontal"} do |f|
-  = f.input :gender, as: :select, collection: ["male", "female"]
-  br
-  = f.input :name, class: "", label: "全名"
-  br
-  = f.input :mobile, class: "", label: "手机号11位"
-  br
-  = f.submit "提交"
+= stylesheet_link_tag "modules/lottery", media: "all"
+
+div.lottery
+  div.lotteryframe
+    div.inputframe
+      = simple_form_for @lucky_draw_offline, url: lucky_draw_offline_path, html: {class: "form-horizontal"} do |f|
+        = f.input :gender, as: :select, collection: ["male", "female"]
+        br
+        = f.input :name, label: "全名"
+        br
+        = f.input :mobile, label: "手机号11位"
+        br
+        = f.submit "提交", class: "btn-lucky"
