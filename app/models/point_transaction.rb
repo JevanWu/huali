@@ -28,4 +28,6 @@ class PointTransaction < ActiveRecord::Base
   enumerize :transaction_type, in: [:income, :refund, :expense]
 
   scope :unexpired, -> { where("expires_on > :current", current: Date.current) }
+
+  scope :expired_soon, -> { where(expires_on: Date.current.end_of_year) }
 end

@@ -19,4 +19,10 @@ namespace :huali_point do
       end
     end
   end
+
+
+  desc "notify customers their huali points will be expired soon on each 30th November "
+  task notify_customers_to_use_points: :environment do
+    Sms.delay.huali_point_notify_sms
+  end
 end
