@@ -336,7 +336,7 @@ ActiveRecord::Schema.define(version: 20141117110614) do
   create_table "lucky_draw_offlines", force: true do |t|
     t.string   "gender"
     t.string   "name"
-    t.integer  "mobile"
+    t.string   "mobile"
     t.string   "prize"
     t.datetime "created_at"
     t.datetime "updated_at"

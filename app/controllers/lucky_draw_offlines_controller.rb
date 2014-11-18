@@ -7,6 +7,7 @@ class LuckyDrawOfflinesController < ApplicationController
     @lucky_draw_offline = LuckyDrawOffline.new(lucky_draw_offline_params)
     LuckyDrawOfflinePrizeGenerator.init
     @lucky_draw_offline.prize = LuckyDrawOfflinePrizeGenerator.generate
+    @lucky_draw_offline.save
   end
   def show
 
