@@ -3,14 +3,17 @@ class LuckyDrawOfflinesController < ApplicationController
     @lucky_draw_offline = LuckyDrawOffline.new
   end
   def create
-    binding.pry and return
     @lucky_draw_offline = LuckyDrawOffline.new(lucky_draw_offline_params)
     LuckyDrawOfflinePrizeGenerator.init
     @lucky_draw_offline.prize = LuckyDrawOfflinePrizeGenerator.generate
-    @lucky_draw_offline.save
+    if @lucky_draw_offline.save
+      render "result"
+    else
+      render "new"
+    end
   end
-  def show
-
+  def result
+    @lucky_draw_offline = LuckyDrawOffline.find(params[:id])
   end
 
   private
