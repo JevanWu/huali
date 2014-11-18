@@ -12,7 +12,7 @@ Huali::Application.routes.draw do
 
   get "lucky_draw_offline", to: 'lucky_draw_offlines#new'
   post "lucky_draw_offline", to: 'lucky_draw_offlines#create'
-  get "lucky_draw_offline/result", to: 'lucky_draw_offlines#result'
+  get "lucky_draw_offlines/:id",  as: :lucky_draw_offline_result, to: 'lucky_draw_offlines#result'
 
   get "areas/:area_id", to: 'areas#show'
   get "cities/:city_id/areas", to: 'areas#index'

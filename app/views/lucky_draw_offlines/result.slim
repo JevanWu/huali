@@ -1,11 +1,11 @@
 h1 result
 - case @lucky_draw_offline.prize
 - when "a"
-  = render result_a
+  = render "result_a"
 - when "b"
-  = render result_b
+  = render "result_b"
 - when "c"
-  = render result_c
+  = render "result_c"
 
 = @lucky_draw_offline.name
 = @lucky_draw_offline.gender
