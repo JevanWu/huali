@@ -71,6 +71,37 @@ class OrdersController < ApplicationController
     end
   end
 
+  # B2b order
+  # - used for internal usage
+  def b2b_order_new
+    @b2b_order_form = B2bOrderForm.new(kind: 'b2b')
+  end
+  def b2b_order_create
+    @b2b_order_form = B2bOrderForm.new(params[:b2b_order_form])
+    @b2b_order_form.address = ReceiverInfo.new
+    @b2b_order_form.sender ||= SenderInfo.new({ name: 'Huali', email: 'support@hua.li', phone: '400-087-8899' })
+    @b2b_order_form.user = current_or_guest_user
+
+    # create line items
+    @cart.items.each do |item|
+      @b2b_order_form.add_line_item(item.product_id, item.quantity)
+    end
+
+    if @b2b_order_form.save
+      empty_cart
+      opts = { paymethod: 'others',
+               merchant_name: 'B2B' }
+      transaction = @b2b_order_form.record.reload.generate_transaction(opts)
+      transaction.update_column(:state, 'completed')
+
+      #ErpWorker::ImportOrder.perform_async(@b2b_order_form.record.id)
+      flash[:notice] = t('controllers.order.order_success')
+      redirect_to root_path
+    else
+    redirect_to 'b2b_order_new', flash: { success: t("controllers.order.order_failed") }
+    end
+  end
+
   def create
     @order_form = OrderForm.new(params[:order_form])
     @order_form.user = current_or_guest_user
