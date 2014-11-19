@@ -24,6 +24,6 @@ class LuckyDrawOfflinesController < ApplicationController
 
   private
   def lucky_draw_offline_params
-    params.require(:lucky_draw_offline).permit(:gender, :name, :mobile)
+    params.require(:lucky_draw_offline).permit(:gender, :name, :mobile, :age_bracket)
   end
 end
