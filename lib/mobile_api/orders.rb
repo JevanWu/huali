@@ -12,7 +12,7 @@ module MobileAPI
                    quantity: item.quantity,
                    price: item.product.price,
                    image: item.product.rectangle_image.url(:thumb),
-                   product_url: product_url(item.product)
+                   product_id: item.product.id
           }
         end
         res
