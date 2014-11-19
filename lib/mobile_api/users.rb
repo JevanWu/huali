@@ -134,7 +134,8 @@ module MobileAPI
         error!("The user does not exist", 404) if !user.present?
         error!("The phone number mismatchs", 404) if user.phone != params[:phone]
         token = user.generate_reset_password_token
-        Sms.normal_sms(params[:phone], token)
+        content = %(您的验证码为#{token} 「花里」)
+        Sms.normal_sms(params[:phone], content)
         status 200
       end
 
