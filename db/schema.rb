@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141110091601) do
+ActiveRecord::Schema.define(version: 20141119063249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -272,6 +272,20 @@ ActiveRecord::Schema.define(version: 20141110091601) do
 
   add_index "didi_passengers", ["coupon_code_id"], name: "index_didi_passengers_on_coupon_code_id", using: :btree
 
+  create_table "discount_events", force: true do |t|
+    t.integer  "product_id"
+    t.date     "discount_date"
+    t.decimal  "original_price", precision: 8, scale: 2
+    t.decimal  "price",          precision: 8, scale: 2
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "title"
+  end
+
+  add_index "discount_events", ["discount_date"], name: "index_discount_events_on_discount_date", unique: true, using: :btree
+  add_index "discount_events", ["product_id", "discount_date"], name: "index_discount_events_on_product_id_and_discount_date", using: :btree
+  add_index "discount_events", ["product_id"], name: "index_discount_events_on_product_id", using: :btree
+
   create_table "greeting_cards", force: true do |t|
     t.integer  "user_id"
     t.integer  "product_id"
@@ -296,6 +310,8 @@ ActiveRecord::Schema.define(version: 20141110091601) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "instant_deliveries", force: true do |t|
@@ -678,7 +694,10 @@ ActiveRecord::Schema.define(version: 20141110091601) do
     t.string   "origin_link"
     t.integer  "priority",                   default: 0
     t.string   "product_link"
+    t.integer  "product_id"
   end
+
+  add_index "stories", ["product_id"], name: "index_stories_on_product_id", using: :btree
 
   create_table "surveys", force: true do |t|
     t.integer  "user_id"
