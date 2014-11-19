@@ -2,13 +2,14 @@
 #
 # Table name: lucky_draw_offlines
 #
-#  created_at :datetime
-#  gender     :string(255)
-#  id         :integer          not null, primary key
-#  mobile     :string(255)
-#  name       :string(255)
-#  prize      :string(255)
-#  updated_at :datetime
+#  age_bracket :string(255)
+#  created_at  :datetime
+#  gender      :string(255)
+#  id          :integer          not null, primary key
+#  mobile      :string(255)
+#  name        :string(255)
+#  prize       :string(255)
+#  updated_at  :datetime
 #
 
 require 'spec_helper'
