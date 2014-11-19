@@ -183,7 +183,7 @@ STR
       users = point_transactions.map { |transaction| transaction.users }
       users.uniq!
       notify_content = <<STR
-您有花点快要过期了，请尽快使用花点
+【友情提示】尊敬的花里客户，您好。您在花里官网的部分花点将于年底失效，请于有效期前使用花点抵扣。如有疑问请咨询：400—087—8899或support@hua.li。
 STR
       users.each { |user| new(phone_number: user.phone, body: notify_content).deliver }
     end
