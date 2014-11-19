@@ -9,13 +9,17 @@ class LuckyDrawOfflinesController < ApplicationController
       @lucky_draw_offline.prize = prize_generator.generate
     end
     if @lucky_draw_offline.save
-      redirect_to lucky_draw_offline_result_path(@lucky_draw_offline)
+      case @lucky_draw_offline.prize
+      when "a"
+        render "result_a"
+      when "b"
+        render "result_b"
+      when "c"
+        render "result_c"
+      end
     else
       render "new"
     end
-  end
-  def result
-    @lucky_draw_offline = LuckyDrawOffline.find(params[:id])
   end
 
   private
