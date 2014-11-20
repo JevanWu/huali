@@ -1,0 +1,11 @@
+= stylesheet_link_tag "modules/qrpop", media: "all"
+
+#dialog-overlay
+#dialog-box
+  .dialog-header
+    | 扫描二维码
+    .close-dialog
+      | x
+  .dialog-content
+    .dialog-message
+      = image_tag("QRcode.jpg", class: 'qrcodelarge')
