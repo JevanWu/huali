@@ -11,6 +11,10 @@
 #  prize       :string(255)
 #  updated_at  :datetime
 #
+# Indexes
+#
+#  index_lucky_draw_offlines_on_mobile  (mobile) UNIQUE
+#
 
 # Read about factories at https://github.com/thoughtbot/factory_girl
 

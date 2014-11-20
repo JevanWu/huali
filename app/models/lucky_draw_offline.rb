@@ -11,9 +11,13 @@
 #  prize       :string(255)
 #  updated_at  :datetime
 #
+# Indexes
+#
+#  index_lucky_draw_offlines_on_mobile  (mobile) UNIQUE
+#
 
 class LuckyDrawOffline < ActiveRecord::Base
-  validates :mobile, presence: true, phone: { allow_blank: true, types: :mobile }
+  validates :mobile, presence: true, uniqueness: true, phone: { allow_blank: true, types: :mobile }
   validates :prize, presence: true
   validates :gender, presence: true, inclusion: { in: [ "male", "female" ] }
   validates :age_bracket, presence: true, inclusion: { in: [ "70s", "80s", "90s" ] }
