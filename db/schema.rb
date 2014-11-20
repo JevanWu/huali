@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141119084445) do
+ActiveRecord::Schema.define(version: 20141120081951) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -342,6 +342,8 @@ ActiveRecord::Schema.define(version: 20141119084445) do
     t.datetime "updated_at"
     t.string   "age_bracket"
   end
+
+  add_index "lucky_draw_offlines", ["mobile"], name: "index_lucky_draw_offlines_on_mobile", unique: true, using: :btree
 
   create_table "monthly_solds", force: true do |t|
     t.integer  "sold_year"
