@@ -15,7 +15,6 @@
 #  index_sync_orders_on_administrator_id  (administrator_id)
 #  index_sync_orders_on_order_id          (order_id)
 #
-require 'enumerize'
 
 class SyncOrder < ActiveRecord::Base
   extend Enumerize
