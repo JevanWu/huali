@@ -43,7 +43,7 @@ module MobileAPI
             item_total: order.item_total, 
             total: order.total, 
             payment_total: order.payment_total, 
-            state: order.state, 
+            state: order.state_text, 
             address: order.address.address, 
             gift_card_text: order.gift_card_text, 
             expected_date: order.expected_date, 
@@ -93,7 +93,7 @@ module MobileAPI
             item_total: order.item_total, 
             total: order.total, 
             payment_total: order.payment_total, 
-            state: order.state, 
+            state: order.state_text, 
             address: order.address.address, 
             gift_card_text: order.gift_card_text, 
             expected_date: order.expected_date, 
@@ -188,7 +188,7 @@ module MobileAPI
         OrderDiscountPolicy.new(order).apply
 
         { 
-          state: order.state,
+          state: order.state_text,
           total: order.total,
           payment_total: order.payment_total,
           identifier: order.identifier,

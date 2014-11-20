@@ -64,6 +64,8 @@ class Order < ActiveRecord::Base
   enumerize :kind, in: [:normal, :jd, :tencent, :xigua, :marketing, :customer,
     :taobao, :tmall, :b2b, :fieldschina, :offline, :yhd, :amazon], default: :normal
 
+  enumerize :state, in: [:generated, :wait_check, :wait_make, :wait_refund, :wait_ship, :completed, :void, :refunded]
+
   delegate :province_name, :city_name, to: :address, allow_nil: true
   delegate :paymethod, to: :transaction, allow_nil: true
   delegate :province_id, :city_id, :area_id, to: :address, prefix: 'address', allow_nil: true
