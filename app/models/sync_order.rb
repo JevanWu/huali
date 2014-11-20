@@ -18,7 +18,7 @@
 
 class SyncOrder < ActiveRecord::Base
   extend Enumerize
-  enumerize :kind, in: [ :taobao, :jd, :yhd, :amazon ]
+  enumerize :kind, in: [ :taobao, :tmall, :jd, :yhd, :amazon ]
 
   belongs_to :administrator
   belongs_to :order
