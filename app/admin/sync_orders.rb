@@ -6,14 +6,16 @@ ActiveAdmin.register SyncOrder do
   scope :yesterday
   scope :within_this_week
 
-  filter :kind, as: :select
+  filter :kind, as: :select, collection: SyncOrder.kind.options
   filter :merchant_order_no
   filter :created_at
   filter :updated_at
 
   index do
     column :administrator
-    column :kind
+    column :kind do |sync_order|
+      sync_order.kind_text
+    end
     column :merchant_order_no
     column "订单编号" do |sync_order|
       sync_order.order ? link_to(sync_order.order.identifier, admin_order_path(sync_order.order)) : status_tag('正在同步')
