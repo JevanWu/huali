@@ -147,9 +147,9 @@ module MobileAPI
       end
       post :reset_password do
         user = User.find_by email: params[:email]
-        error!("the user does not exist", 404) if !user.present?
-        error!("the reset tokens mismatch", 500) if user.reset_password_token != params[:reset_token]
-        error!("the reset token expires", 500) if (Time.current - user.reset_password_sent_at) > 15.minutes
+        error!("The user does not exist", 404) if !user.present?
+        error!("The reset token mismatchs", 500) if user.reset_password_token != params[:reset_token]
+        error!("The reset token expires", 500) if (Time.current - user.reset_password_sent_at) > 15.minutes
         user.password = params[:password]
         user.save
         status 200

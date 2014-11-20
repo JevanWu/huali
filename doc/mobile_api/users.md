@@ -149,4 +149,8 @@ parameters:
 
 ```
 status: 200 OK
+
+status: 404 The user does not exist
+status: 500 The reset token mismatchs
+status: 500 The reset token expires
 ```
