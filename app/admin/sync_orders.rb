@@ -1,6 +1,14 @@
 ActiveAdmin.register SyncOrder do
   menu parent: '订单', if: proc { authorized? :manage, SyncOrder }
 
+  member_action :update_order_id, method: :get do
+    @sync_order = SyncOrder.find(params[:id])
+    @sync_order.order_id = @sync_order.order_id_already_synced
+    @sync_order.save if @sync_order.order_id
+
+    redirect_to admin_sync_orders_path, {:notice => "订单同步状态已更新"}
+  end
+
   scope :all, default: true
   scope :current
   scope :yesterday
@@ -17,8 +25,15 @@ ActiveAdmin.register SyncOrder do
       sync_order.kind_text
     end
     column :merchant_order_no
+    column "同步状态" do |sync_order|
+      sync_order.order_id ? status_tag("已同步") : status_tag("正在同步")
+    end
     column "订单编号" do |sync_order|
-      sync_order.order ? link_to(sync_order.order.identifier, admin_order_path(sync_order.order)) : status_tag('正在同步')
+      if sync_order.order_id
+        link_to(sync_order.order.identifier, admin_order_path(sync_order.order))
+      else
+        link_to('检查订单同步状态', update_order_id_admin_sync_order_path(sync_order))
+      end
     end
     column :created_at
     column :updated_at
@@ -28,11 +43,11 @@ ActiveAdmin.register SyncOrder do
   controller do
     def create
       @sync_order = SyncOrder.new(sync_order_params)
-      if @sync_order.already_synced_by_poller?
-        redirect_to collection_url, notice: t('active_admin.sync_order.already_synced') and return
+      if @sync_order.order_id_already_synced
+        redirect_to admin_sync_orders_path, notice: t('active_admin.sync_order.already_synced') and return
       end
       if @sync_order.save and ApiAgentService.sync_order(@sync_order.kind.to_s, @sync_order.merchant_order_no)
-        redirect_to collection_url, notice: t('active_admin.notice.created')
+        redirect_to admin_sync_orders_path, notice: t('active_admin.notice.created')
       end
     end
 
