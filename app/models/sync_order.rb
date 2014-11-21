@@ -31,7 +31,7 @@ class SyncOrder < ActiveRecord::Base
   scope :within_this_week, -> { where('created_at >= ? AND created_at <= ? ', Date.current.beginning_of_week, Date.current.end_of_week) }
 
   def already_synced_by_poller?
-    Order.where(merchant_order_no: self.merchant_order_no).exists?
+    Order.exists?(merchant_order_no: self.nerchant_order_no)
   end
 
 end
