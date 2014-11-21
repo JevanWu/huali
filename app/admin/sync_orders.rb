@@ -44,7 +44,7 @@ ActiveAdmin.register SyncOrder do
     def create
       @sync_order = SyncOrder.new(sync_order_params)
       if @sync_order.order_id_already_synced
-        redirect_to admin_sync_orders_path, notice: t('active_admin.sync_order.already_synced') and return
+        redirect_to admin_sync_orders_path, notice: t('active_admin.sync_order.already_synced')
       end
       if @sync_order.save and ApiAgentService.sync_order(@sync_order.kind.to_s, @sync_order.merchant_order_no)
         redirect_to admin_sync_orders_path, notice: t('active_admin.notice.created')
