@@ -5,7 +5,7 @@ ActiveAdmin.register LuckyDrawOffline do
   filter :prize, as: :select, collection: LuckyDrawOffline.prize.options
   filter :age_bracket, as: :select, collection: LuckyDrawOffline.age_bracket.options
 
-  collection_action :get_excel_report, method: :get do
+  collection_action :download_excel_report, method: :get do
     filename = "/tmp/lucky_draw_offline.xlsx"
 
     Axlsx::Package.new do |p|
@@ -30,7 +30,7 @@ ActiveAdmin.register LuckyDrawOffline do
 
   index do
       div style: "text-align: right" do
-        link_to('get excel reposrt', params.merge(action: :get_excel_report), class: 'table_tools_button')
+        link_to('download excel report', params.merge(action: :download_excel_report), class: 'table_tools_button')
       end
 
     column :mobile do |lucky_draw_offline|
