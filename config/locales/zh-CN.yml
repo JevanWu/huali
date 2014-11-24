@@ -206,6 +206,7 @@ zh-CN:
       greeting_card: 发送电子贺卡
       reply_greeting_card: 撒娇回复
       sync_order: 手动同步订单
+      lucky_draw_offline: 线下店抽奖
       instant_delivery: 快速送达
       discount_event: 活动打折
 
@@ -568,6 +569,15 @@ zh-CN:
         created_at: 创建于
         updated_at: 更新于
 
+      lucky_draw_offline:
+        gender: 性别
+        name: 姓名
+        mobile: 手机号
+        prize: 奖品
+        age_bracket: 年龄层
+        updated_at: 更新时间
+        created_at: 创建时间
+
       instant_delivery:
         order: 订单
         order_id: 订单
@@ -654,6 +664,19 @@ zh-CN:
         return_goods: 退货
 
   enumerize:
+    lucky_draw_offline:
+      gender:
+        male: 男
+        female: 女
+      age_bracket:
+        90s: 90后
+        80s: 80后
+        70s: 70后
+      prize:
+        a: 一等奖
+        b: 二等奖
+        c: 三等奖
+
     product:
       product_type:
         others: 其他
