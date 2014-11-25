@@ -1,0 +1,11 @@
+<%= form_tag  download_admin_lucky_draw_offlines_path, method: :get do %>
+  <p>
+    开始日期: <%= select_date Date.current.beginning_of_month, prefix: 'start_date' %>
+  </p>
+  <br />
+  <p>
+    截止日期: <%= select_date Date.current, prefix: 'end_date' %>
+  </p>
+  <br />
+  <%= submit_tag "导出 Excel" %>
+<% end %>
