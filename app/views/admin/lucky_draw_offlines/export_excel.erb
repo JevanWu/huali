@@ -7,9 +7,5 @@
     截止日期: <%= select_date Date.current, prefix: 'end_date' %>
   </p>
   <br />
-  <p>
-    日期类型: <%= select_tag  'date_type', "<option value='create_date'>创建日期</option><option value='delivery_date'>递送日期</option>".html_safe %>
-  </p>
-  <br />
   <%= submit_tag "导出 Excel" %>
 <% end %>
