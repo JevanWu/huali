@@ -5,14 +5,20 @@ ActiveAdmin.register LuckyDrawOffline do
   filter :prize, as: :select, collection: LuckyDrawOffline.prize.options
   filter :age_bracket, as: :select, collection: LuckyDrawOffline.age_bracket.options
 
-  collection_action :download_excel_report, method: :get do
-    filename = "/tmp/lucky_draw_offline.xlsx"
+  collection_action :export_excel, method: :get do
+  end
+
+  collection_action :download, method: :get do
+    start_date = params[:start_date].values.join('-')
+    end_date = params[:end_date].values.join('-')
+    filename = "/tmp/lucky_draw_offline-#{start_date}-#{end_date}-#{Time.current.to_i}.xlsx"
+    record = LuckyDrawOffline.where('created_at >= ? AND created_at < ? ', start_date, end_date)
 
     Axlsx::Package.new do |p|
       p.use_autowidth = false
       p.workbook.add_worksheet(:name => "LuckyDrawOffline") do |sheet|
         sheet.add_row %w[手机号 性别 奖品 年龄层 创建时间]
-        LuckyDrawOffline.all.each do |lucky_draw_offline|
+        record.each do |lucky_draw_offline|
           array = []
           array << lucky_draw_offline.mobile
           array << lucky_draw_offline.gender_text
@@ -30,7 +36,7 @@ ActiveAdmin.register LuckyDrawOffline do
 
   index do
       div style: "text-align: right" do
-        link_to('download excel report', params.merge(action: :download_excel_report), class: 'table_tools_button')
+        link_to('export excel', params.merge(action: :export_excel), class: 'table_tools_button')
       end
 
     column :mobile do |lucky_draw_offline|
