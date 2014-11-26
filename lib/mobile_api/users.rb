@@ -21,7 +21,8 @@ module MobileAPI
               authentication_token: token,
               user_email: user.email,
               user_phone: user.phone,
-              user_name: user.name 
+              user_name: user.name,
+              set_password: user.set_password
             }
           else
             error!("The account and password don't match!", 500)
@@ -34,11 +35,12 @@ module MobileAPI
               authentication_token: token,
               user_email: user.email,
               user_phone: user.phone,
-              user_name: user.name 
+              user_name: user.name,
+              set_password: user.set_password
             }
           else
             if params[:phone].present? && params[:email].present? && params[:name].present?
-              user = User.find_by(email: params[:email]) ||  User.create(name: params[:name], phone: params[:phone], email: params[:email], password: SecureRandom.base64(10), bypass_humanizer: true)
+              user = User.find_by(email: params[:email]) ||  User.create(name: params[:name], phone: params[:phone], email: params[:email], password: SecureRandom.base64(10), bypass_humanizer: true, set_password: false)
               OauthService.create(provider: params[:oauth_provider], uid: params[:uid], oauth_token: params[:access_token], user: user)
               token = user.reset_authentication_token
               status 200
@@ -46,7 +48,8 @@ module MobileAPI
                 authentication_token: token,
                 user_email: user.email,
                 user_phone: user.phone,
-                user_name: user.name 
+                user_name: user.name, 
+                set_password: user.set_password
               }
             else
               status 200
