@@ -74,7 +74,7 @@ module MobileAPI
 
       desc "Change password for current user." 
       params do
-        requires :password, type: String, desc: "Current password."
+        optional :password, type: String, desc: "Current password."
         requires :new_password, type: String, desc: "New password"
         requires :email, type: String, desc: "email of the user"
         requires :token, type: String, desc: "Authentication token of the user"
@@ -82,7 +82,7 @@ module MobileAPI
       put :change_password do
         authenticate_user!
         user = current_user
-        error!("Invalid password", 400) unless user.valid_password?(params[:password])
+        error!("Invalid password", 400) unless (user.set_password == false || user.valid_password?(params[:password]))
         user.password = params[:new_password]
         if user.save
           status 200
