@@ -1,5 +1,6 @@
 module MobileAPI
   class Slides < Grape::API
+    before { verify_signature! }
 
     resource :slides do
      desc "Return all visible slides." 
