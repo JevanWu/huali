@@ -24,7 +24,7 @@ class OauthService < ActiveRecord::Base
 
   validates_presence_of :user
   validates_presence_of :provider, :uid
-  validates :uid, uniquness: true
+  # validates :uid, uniquness: true
 
   class << self
     def find_user(provider, uid)
