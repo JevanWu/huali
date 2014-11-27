@@ -709,6 +709,7 @@ zh-CN:
         tencent: 腾讯
         jd: 京东
         amazon: 亚马逊
+        dangdang: 当当
         customer: 顾客补发订单
         taobao: 淘宝订单
         tmall: 天猫订单
@@ -783,6 +784,7 @@ zh-CN:
         tencent: 腾讯
         jd: 京东
         amazon: 亚马逊
+        dangdang: 当当
         customer: 顾客补发订单
         taobao: 淘宝订单
         tmall: 天猫订单
