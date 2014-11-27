@@ -246,14 +246,14 @@ class OrdersController < ApplicationController
       order = Order.find_by(identifier: order_identifier)
       amount = Hash.from_xml(params[:notify_data])['notify']['total_fee']
       trade_no = Hash.from_xml(params[:notify_data])['notify']['trade_no'] 
-      transaction = order.transaction.create( amount: order.total, use_huali_point: false, subject: order.subject_text,
+      transaction = order.transactions.create( amount: order.total, use_huali_point: false, subject: order.subject_text,
                                 body: order.body_text, client_ip: order.user.current_sign_in_ip, 
                                 merchant_trade_no: trade_no )
       transaction.start
       if amount == transaction.amount
-        transaction.invalidate 
-      else
         transaction.complete
+      else
+        transaction.invalidate 
       end
 
       render text: "success"
