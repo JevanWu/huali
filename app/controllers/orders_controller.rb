@@ -250,7 +250,7 @@ class OrdersController < ApplicationController
                                 body: order.body_text, client_ip: order.user.current_sign_in_ip, 
                                 merchant_trade_no: trade_no, merchant_name: "Alipay", paymethod: "alipay" )
       transaction.start
-      if amount == transaction.amount
+      if amount.to_f == transaction.amount.to_f
         transaction.complete
       else
         transaction.invalidate 
