@@ -54,7 +54,7 @@ class ApiAgentService
     end
 
     def b2c_order?(kind)
-      ["taobao", "tmall", "jd", "yhd", "amazon"].include?(kind)
+      ["taobao", "tmall", "jd", "yhd", "amazon", "dangdang"].include?(kind)
     end
   end
 end
