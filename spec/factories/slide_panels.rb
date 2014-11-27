@@ -3,6 +3,7 @@
 # Table name: slide_panels
 #
 #  created_at         :datetime
+#  description        :text
 #  href               :string(255)
 #  id                 :integer          not null, primary key
 #  image_content_type :string(255)
@@ -11,6 +12,7 @@
 #  image_updated_at   :datetime
 #  name               :string(255)
 #  priority           :integer
+#  title              :string(255)
 #  updated_at         :datetime
 #  visible            :boolean          default(FALSE)
 #

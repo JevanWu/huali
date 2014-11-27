@@ -34,6 +34,8 @@ ActiveAdmin.register SlidePanel do
     attributes_table do
       row :name
       row :href
+      row :title
+      row :description
       row :priority
       row :created_at
       row :updated_at
