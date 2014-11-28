@@ -18,5 +18,8 @@
     strong
       em = link_to product.name_zh, product_path(product), title: product.name, target: "_blank"
       span = product.name_en
-    p ￥#{product.price}
+    - if product.price.to_i == product.price   
+      p ￥#{product.price.to_i}
+    - else
+      p ￥#{product.price}
 
