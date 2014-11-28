@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141120081951) do
+ActiveRecord::Schema.define(version: 20141128033104) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -271,7 +271,6 @@ ActiveRecord::Schema.define(version: 20141120081951) do
     t.string   "title"
   end
 
-  add_index "discount_events", ["discount_date"], name: "index_discount_events_on_discount_date", unique: true, using: :btree
   add_index "discount_events", ["product_id", "discount_date"], name: "index_discount_events_on_product_id_and_discount_date", using: :btree
   add_index "discount_events", ["product_id"], name: "index_discount_events_on_product_id", using: :btree
 
