@@ -8,7 +8,6 @@
 #  coupon_code_id       :integer
 #  created_at           :datetime         not null
 #  delivery_date        :date
-#  delivery_method      :string(255)      default("normal")
 #  expected_date        :date
 #  gift_card_text       :text
 #  id                   :integer          not null, primary key

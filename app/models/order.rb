@@ -8,7 +8,6 @@
 #  coupon_code_id       :integer
 #  created_at           :datetime         not null
 #  delivery_date        :date
-#  delivery_method      :string(255)      default("normal")
 #  expected_date        :date
 #  gift_card_text       :text
 #  id                   :integer          not null, primary key
@@ -64,8 +63,6 @@ class Order < ActiveRecord::Base
   extend Enumerize
   enumerize :kind, in: [:normal, :jd, :tencent, :xigua, :marketing, :customer,
     :taobao, :tmall, :b2b, :fieldschina, :offline, :yhd, :amazon], default: :normal
- 
-  enumerize :delivery_method, in: [:normal, :magician, :violin], default: :normal
 
   delegate :province_name, :city_name, to: :address, allow_nil: true
   delegate :paymethod, to: :transaction, allow_nil: true
