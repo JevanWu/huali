@@ -110,12 +110,8 @@ class OrdersController < ApplicationController
     @secoo_order_form.address = ReceiverInfo.new
   end
   def secoo_order_create
-    opts = { paymethod: 'others',
-             merchant_name: 'secoo',
-             merchant_trade_no: params[:merchant_trade_no]}
-
     secoo_process_admin_order('secoo_order_new') do |record|
-      record.complete_transaction(opts)
+      record.state = 'wait_make'
     end
   end
 
