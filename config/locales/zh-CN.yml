@@ -715,6 +715,7 @@ zh-CN:
         tmall: 天猫订单
         normal: 普通订单
         b2b: B2B订单
+        seeco: 寺库订单
         fieldschina: 甫田
         offline: 线下店
         yhd: 一号店
@@ -868,6 +869,7 @@ zh-CN:
       checkout: 去结算
       back_checkout: 线下店订单
       b2b_checkout: B2B订单
+      secoo_checkout: 寺库订单
       channel_checkout: 渠道订单
       basket: 购物车
       order_list: 订单中心
