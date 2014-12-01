@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141119063249) do
+ActiveRecord::Schema.define(version: 20141128033104) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -282,7 +282,6 @@ ActiveRecord::Schema.define(version: 20141119063249) do
     t.string   "title"
   end
 
-  add_index "discount_events", ["discount_date"], name: "index_discount_events_on_discount_date", unique: true, using: :btree
   add_index "discount_events", ["product_id", "discount_date"], name: "index_discount_events_on_product_id_and_discount_date", using: :btree
   add_index "discount_events", ["product_id"], name: "index_discount_events_on_product_id", using: :btree
 
@@ -349,6 +348,24 @@ ActiveRecord::Schema.define(version: 20141119063249) do
 
   add_index "line_items", ["order_id"], name: "index_line_items_on_order_id", using: :btree
   add_index "line_items", ["product_id"], name: "index_line_items_on_product_id", using: :btree
+
+  create_table "lucky_draw_offline_prize_generators", force: true do |t|
+    t.string   "collection"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "lucky_draw_offlines", force: true do |t|
+    t.string   "gender"
+    t.string   "name"
+    t.string   "mobile"
+    t.string   "prize"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "age_bracket"
+  end
+
+  add_index "lucky_draw_offlines", ["mobile"], name: "index_lucky_draw_offlines_on_mobile", unique: true, using: :btree
 
   create_table "mobile_menus", force: true do |t|
     t.string   "name"
