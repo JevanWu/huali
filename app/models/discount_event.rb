@@ -26,7 +26,17 @@ class DiscountEvent < ActiveRecord::Base
   validates :start_date, uniqueness: { scope: :product_id }
   validates :end_date, uniqueness: { scope: :product_id }
   validates :price, :original_price, numericality: { greater_than_or_equal_to: 0, allow_blank: true }
+  validate :start_date_must_not_greater_than_end_date
 
   scope :today, -> { where("start_date <= ? AND end_date >= ?", Date.current, Date.current) }
   default_scope -> { order('start_date DESC') }
+
+private
+
+  def start_date_must_not_greater_than_end_date
+    return if start_date.blank? || end_date.blank?
+    if start_date.to_date > end_date.to_date
+      errors.add(:start_date, :start_date_must_not_greater_than_end_date)
+    end
+  end
 end
