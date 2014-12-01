@@ -111,7 +111,7 @@ class OrdersController < ApplicationController
   end
   def secoo_order_create
     secoo_process_admin_order('secoo_order_new') do |record|
-      record.state = 'wait_make'
+      record.state = 'wait_check'
     end
   end
 
