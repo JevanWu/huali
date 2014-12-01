@@ -136,9 +136,9 @@ class ProductsController < ApplicationController
 
   def discount_events
     @discount_events = DiscountEvent.all
-    @discount_today = DiscountEvent.where(discount_date: Date.current).first
-    @discount_yesterday = DiscountEvent.where(discount_date: Date.current.yesterday).first
-    @discount_tomorrow = DiscountEvent.where(discount_date: Date.current.tomorrow).first
+    @discount_today = DiscountEvent.where(start_date: Date.current).first
+    @discount_yesterday = DiscountEvent.where(start_date: Date.current.yesterday).first
+    @discount_tomorrow = DiscountEvent.where(start_date: Date.current.tomorrow).first
   end
 
   private
