@@ -142,7 +142,7 @@ class OrderExcelDecorator < Draper::Decorator
   end
 
   def success_transaction
-    @success_transaction ||= transactions.find { |t| t.state = "completed" }
+    @success_transaction ||= transactions.find { |t| t.state == "completed" }
   end
 
   def transaction_merchant_name
