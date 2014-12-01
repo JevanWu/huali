@@ -6,9 +6,11 @@
       - if !product.has_stock?
         .tag.important-tag
           | 已售罄
-      - elsif product.promo_tag.present?
-        .tag
-          = product.promo_tag_text
+      - elsif product.original_price.present?
+        .tag.discounttag
+          |限时
+          = (product.price/product.original_price*10).to_i
+          |折
       - elsif product.product_type != "others"
         .tag
           = product.product_type_text
