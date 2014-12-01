@@ -13,7 +13,6 @@
 #
 # Indexes
 #
-#  index_discount_events_on_discount_date                 (discount_date) UNIQUE
 #  index_discount_events_on_product_id                    (product_id)
 #  index_discount_events_on_product_id_and_discount_date  (product_id,discount_date)
 #

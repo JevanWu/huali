@@ -32,7 +32,7 @@ ActiveAdmin.register SyncOrder do
       if sync_order.order_id
         link_to(sync_order.order.identifier, admin_order_path(sync_order.order))
       else
-        link_to('检查订单同步状态', update_order_id_admin_sync_order_path(sync_order))
+        link_to('点击以重新检查订单同步状态', update_order_id_admin_sync_order_path(sync_order))
       end
     end
     column :created_at
