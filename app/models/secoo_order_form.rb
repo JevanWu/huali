@@ -16,6 +16,9 @@ class SecooOrderForm < OrderForm
   # +/-/*/%1234.0
   validates_format_of :adjustment, with: %r{\A[+-x*%/][\s\d.]+\z}, allow_blank: true
   validates_with OrderDeliveryDateValidator
+  validates :merchant_order_no, presence: true
+  validates :ship_method_id, presence: true
+  validates :delivery_date, presence: true
 
   validate do |order|
     if order.merchant_order_no.present?
@@ -31,22 +34,16 @@ class SecooOrderForm < OrderForm
   validates :last_order, presence: true, if: Proc.new { |order| order.kind.to_s == "customer" }
   validate :able_to_edit_adjustment
 
-
-  def save
-    record = persist!
-    bind_record(record)
-  end
-
   class << self
     def build_from_record(record)
-      order_admin_form = new(record.as_json)
-      order_admin_form.sender = extract_sender(record)
-      order_admin_form.address = extract_address(record)
-      order_admin_form.line_items = extract_line_items(record)
-      order_admin_form.bind_record(record)
-      order_admin_form.enable_instant_delivery = true if record.instant_delivery
+      secoo_order_form = new(record.as_json)
+      secoo_order_form.sender = extract_sender(record)
+      secoo_order_form.address = extract_address(record)
+      secoo_order_form.line_items = extract_line_items(record)
+      secoo_order_form.bind_record(record)
+      secoo_order_form.enable_instant_delivery = true if record.instant_delivery
 
-      return order_admin_form
+      return secoo_order_form
     end
 
     private
@@ -117,7 +114,7 @@ class SecooOrderForm < OrderForm
   end
 
   def validate_product_delivery_region?
-    super && !bypass_region_validation
+    !bypass_region_validation
   end
 
   def validate_product_delivery_date?
@@ -129,6 +126,6 @@ class SecooOrderForm < OrderForm
   end
 
   def not_yet_shipped?
-    ['generated', 'wait_check', 'wait_make'].include?(@record.state)
+    true
   end
 end
