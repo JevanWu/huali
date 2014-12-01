@@ -418,7 +418,7 @@ class OrdersController < ApplicationController
         opts = { paymethod: 'others',
                  merchant_name: 'Secoo' }
         transaction = @secoo_order_form.record.reload.generate_transaction(opts)
-        transaction.update_column(:state, 'wait_check')
+        transaction.update_column(:state, 'completed')
 
         #if @secoo_order_form.record.state == 'completed'
           #ErpWorker::ImportOrder.perform_async(@secoo_order_form.record.id)
