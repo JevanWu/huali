@@ -5,9 +5,9 @@
     <legend>您的个人信息</legend>
     -->
     <%= f.fields_for :sender, @secoo_order_form.sender do |builder|%>
-      <%= builder.input :name, as: :hidden, required:true, placeholder: '您的姓名', input_html: {value: 'huali_secoo'} %>
-      <%= builder.input :email, as: :hidden, required:true, placeholder: '以便及时收到订单更新', input_html: {value: 'support@hua.li'} %>
-      <%= builder.input :phone, as: :hidden, required:true, placeholder: '以便我们和您核对信息'  %>
+      <%= builder.input :name, as: :hidden, input_html: {value: 'huali_secoo'} %>
+      <%= builder.input :email, as: :hidden, input_html: {value: 'support@hua.li'} %>
+      <%= builder.input :phone, as: :hidden, input_html: {value: '400-087-8899'} %> 
     <% end %>
   </fieldset>
 
@@ -16,33 +16,20 @@
     <%= f.input :adjustment,
       placeholder: '价格调整 +20.0, -30.0, x1.1, *0.9 etc.',
       hint: 'support multiple calculation(+,-,*,x,%,/), validate format includes "-20.0", "x1.1", "%2" etc.' %>
-    <%= f.input :coupon_code, placeholder: '如果您有优惠券，请在这里填写' %>
-    <%= f.input :gift_card_text, as: :text, input_html: { rows: 3, maxlength: 100 }, placeholder: '我们可以代您书写给TA的话，请注明落款哦！', hint: '100字以内哦' %>
+    <%#= f.input :coupon_code, placeholder: '如果您有优惠券，请在这里填写' %>
+    <%#= f.input :gift_card_text, as: :text, input_html: { rows: 3, maxlength: 100 }, placeholder: '我们可以代您书写给TA的话，请注明落款哦！', hint: '100字以内哦' %>
     <%= f.input :special_instructions, as: :text, input_html: { rows: 3 }, placeholder: '您可将一些特殊要求罗列与此，我们将尽力满足您的要求。' %>
 
-    <%= f.input :kind, as: :radio_buttons, required: true, collection: { '寺库' => :secoo }, checked: 'secoo' %>
+    <%= f.input :kind, as: :hidden, input_html: {value: 'secoo'} %>
     <%= f.input :merchant_order_no, required: true %>
-    <%= f.hidden_field :source %>
   </fieldset>
-
-  <!--
-  <fieldset>
-    <div class="control-group string optional">
-      <label class="string optional control-label" for="merchant_trade_no">支付宝交易号</label>
-
-      <div class="controls">
-        <input class="string optional" id="merchant_trade_no" name="merchant_trade_no" type="text">
-      </div>
-    </div>
-  </fieldset>
-  -->
 
   <fieldset>
     <legend>递送信息</legend>
     <%= f.input :ship_method_id, as: :radio_buttons, required:true, collection: ShipMethod.all %>
-    <%= f.input :expected_date, as: :string, required:true, input_html: { class: 'datepicker-full' }, placeholder: '寄给TA的时间' %>
-    <%= f.input :bypass_date_validation, as: :radio_buttons, required: true, collection: { '' => '1' }, checked: '1' %>
     <%= f.input :delivery_date, as: :string, required: true, input_html: { class: 'datepicker-full' }%>
+    <%= f.input :expected_date, as: :string, required:true, input_html: { class: 'datepicker-full' }, placeholder: '寄给TA的时间' %>
+    <%= f.input :bypass_date_validation, as: :hidden, input_html: {value: '1'} %>
 
 
     <%= f.fields_for :address, @secoo_order_form.address do |builder|%>
@@ -50,11 +37,11 @@
       <%= builder.input :phone, as: :simple_form_phone, required: true, placeholder: '收件人联系方式'  %>
       <%= builder.input :province_id, collection: [], prompt: "请选择省份", required:true %>
       <%= builder.input :city_id, collection: [], prompt: "请选择城市", required:true %>
-      <%= builder.input :area_id, collection: [] %>
-      <%= builder.input :post_code, placeholder: '邮编', required: true %>
+      <%= builder.input :area_id, collection: [], required:true %>
+      <%= builder.input :post_code, placeholder: '邮编' %>
       <%= builder.input :address, as: 'text', required:true, input_html: { rows: 3 }, placeholder: '详细地址' %>
-      <%= f.input :bypass_region_validation, as: :radio_buttons, required: true, collection: { '' => '1' }, checked: '1' %>
-      <%= f.input :bypass_product_validation, as: :radio_buttons, required: true, collection: { '' => '1' }, checked: '1' %>
+      <%= f.input :bypass_region_validation, as: :hidden, input_html: {value: '1'} %>
+      <%= f.input :bypass_product_validation, as: :hidden, input_html: {value: '1'} %>
     <% end %>
   </fieldset>
   <div class="form-actions">
