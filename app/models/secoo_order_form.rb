@@ -17,8 +17,6 @@ class SecooOrderForm < OrderForm
   validates_format_of :adjustment, with: %r{\A[+-x*%/][\s\d.]+\z}, allow_blank: true
   validates_with OrderDeliveryDateValidator
   validates :merchant_order_no, presence: true
-  validates :ship_method_id, presence: true
-  validates :delivery_date, presence: true
 
   validate do |order|
     if order.merchant_order_no.present?
