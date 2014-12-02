@@ -29,7 +29,7 @@ module MobileAPI
       body = request.body.read
       md5_body = Digest::MD5.hexdigest(body)
       digest = OpenSSL::Digest.new('sha1')
-      data = "content=#{md5_body}&content_type=#{request.headers["ContentType"]}&path=#{request.env["REQUEST_PATH"]}&timestamp=#{request.headers["TimeStamp"]}"
+      data = "content=#{md5_body.to_s}&content_type=#{request.content_type.to_s}&path=#{request.env["REQUEST_PATH"].to_s}&timestamp=#{request.headers["Timestamp"].to_s}"
       hmac = OpenSSL::HMAC.hexdigest(digest, ENV['MOBILE_API_KEY'], data)
       return false if hmac != request.headers["Signature"]
       return true
