@@ -27,7 +27,7 @@ If a request with no, or an invalid signature, an error message will be returned
 ##### The 'Content', 'ContentType', 'Timestamp' and 'Signature' need to be put in the request header
 
 ##### The 'Content' is an md5-encrypted code of request body, e.g. "1a79a4d60de6718e8e5b326e338ae533"
-##### The 'ContentType' represents the type of the request content, e.g. "text/html"
+##### The 'Content-Type' represents the type of the request content, e.g. "text/html"
 ##### The 'TimeStamp' represents what time the request was sent, e.g. "1410509258"
 ##### The 'Signature' is an HMAC-SHA1-encrypted code with our private key, the example of encrypted content is "content=CONTENT&content_type=CONTENT_TYPE&path=REQUEST_PATH&timestamp=TIMESTAMP"
 
