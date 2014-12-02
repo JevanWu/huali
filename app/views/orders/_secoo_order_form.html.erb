@@ -13,22 +13,20 @@
 
   <fieldset>
     <legend>订单信息</legend>
-    <%= f.input :adjustment,
-      placeholder: '价格调整 +20.0, -30.0, x1.1, *0.9 etc.',
-      hint: 'support multiple calculation(+,-,*,x,%,/), validate format includes "-20.0", "x1.1", "%2" etc.' %>
+    <%= f.input :adjustment, placeholder: '+20.0, -30.0, x1.1, *0.9', hint: '运算符号加减乘除分别为(+,-,*或x,%或/), 例如比原价降低20元钱填写"-20.0"，原价打八折填写"*0.8"或"x0.8"。' %>
     <%#= f.input :coupon_code, placeholder: '如果您有优惠券，请在这里填写' %>
     <%#= f.input :gift_card_text, as: :text, input_html: { rows: 3, maxlength: 100 }, placeholder: '我们可以代您书写给TA的话，请注明落款哦！', hint: '100字以内哦' %>
-    <%= f.input :special_instructions, as: :text, input_html: { rows: 3 }, placeholder: '您可将一些特殊要求罗列与此，我们将尽力满足您的要求。' %>
 
     <%= f.input :kind, as: :hidden, input_html: {value: 'secoo'} %>
+    <%= f.input :special_instructions, as: :text, input_html: { rows: 3 }, placeholder: '买家留言' %>
     <%= f.input :merchant_order_no, required: true %>
   </fieldset>
 
   <fieldset>
     <legend>递送信息</legend>
-    <%= f.input :ship_method_id, as: :radio_buttons, required:true, collection: ShipMethod.all %>
-    <%= f.input :delivery_date, as: :string, required: true, input_html: { class: 'datepicker-full' }%>
-    <%= f.input :expected_date, as: :string, required:true, input_html: { class: 'datepicker-full' }, placeholder: '寄给TA的时间' %>
+    <%#= f.input :ship_method_id, as: :radio_buttons, collection: ShipMethod.all %>
+    <%#= f.input :delivery_date, as: :string, input_html: { class: 'datepicker-full' }%>
+    <%= f.input :expected_date, as: :string, required:true, input_html: { class: 'datepicker-full', value: (Time.now + 3.days).strftime("%Y-%m-%d") } %>
     <%= f.input :bypass_date_validation, as: :hidden, input_html: {value: '1'} %>
 
 
@@ -38,8 +36,8 @@
       <%= builder.input :province_id, collection: [], prompt: "请选择省份", required:true %>
       <%= builder.input :city_id, collection: [], prompt: "请选择城市", required:true %>
       <%= builder.input :area_id, collection: [], required:true %>
-      <%= builder.input :post_code, placeholder: '邮编' %>
       <%= builder.input :address, as: 'text', required:true, input_html: { rows: 3 }, placeholder: '详细地址' %>
+      <%= builder.input :post_code, placeholder: '邮编' %>
       <%= f.input :bypass_region_validation, as: :hidden, input_html: {value: '1'} %>
       <%= f.input :bypass_product_validation, as: :hidden, input_html: {value: '1'} %>
     <% end %>
