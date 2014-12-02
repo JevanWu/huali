@@ -14,9 +14,9 @@
 #
 # Indexes
 #
-#  index_discount_events_on_end_date    (end_date) UNIQUE
-#  index_discount_events_on_product_id  (product_id)
-#  index_discount_events_on_start_date  (start_date) UNIQUE
+#  index_discount_events_on_product_id                 (product_id)
+#  index_discount_events_on_product_id_and_end_date    (product_id,end_date) UNIQUE
+#  index_discount_events_on_product_id_and_start_date  (product_id,start_date) UNIQUE
 #
 
 require 'spec_helper'
