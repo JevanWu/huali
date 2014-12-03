@@ -27,6 +27,7 @@ module MobileAPI
     def valid_signature?
       return false if request.headers["Timestamp"].nil? || Time.now.to_i - request.headers["Timestamp"].to_i > 1000
       body = request.body.read
+      request.body.rewind
       md5_body = Digest::MD5.hexdigest(body)
       digest = OpenSSL::Digest.new('sha1')
       data = "content=#{md5_body.to_s}&content_type=#{request.content_type.to_s}&path=#{request.env["REQUEST_PATH"].to_s}&timestamp=#{request.headers["Timestamp"].to_s}"
