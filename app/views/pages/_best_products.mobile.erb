@@ -1,7 +1,7 @@
 <div class="best-products constrained row">
-  <% product_row_1 = [233, 200, 237, 236]  %>
-  <% product_row_2 = [204, 232, 231, 216]  %>
-  <% product_row_3 = [234, 235, 83, 230]  %>
+  <% product_row_1 = [175,179,187,219]  %>
+  <% product_row_2 = [83,190,84,186]  %>
+  <% product_row_3 = [177,162,188,172]  %>
   <% products =  Product.find(product_row_1 + product_row_2 + product_row_3) %>
   <%= render partial: 'products/product', collection: products.select { |p| product_row_1.include?(p.id) }.sort_by { |p| product_row_1.index(p.id) } %>
   <%= render partial: 'products/product', collection: products.select { |p| product_row_2.include?(p.id) }.sort_by { |p| product_row_2.index(p.id) } %>

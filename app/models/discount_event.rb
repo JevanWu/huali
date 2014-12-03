@@ -3,28 +3,40 @@
 # Table name: discount_events
 #
 #  created_at     :datetime
-#  discount_date  :date
+#  end_date       :date
 #  id             :integer          not null, primary key
 #  original_price :decimal(8, 2)
 #  price          :decimal(8, 2)
 #  product_id     :integer
+#  start_date     :date
 #  title          :string(255)
 #  updated_at     :datetime
 #
 # Indexes
 #
-#  index_discount_events_on_discount_date                 (discount_date) UNIQUE
-#  index_discount_events_on_product_id                    (product_id)
-#  index_discount_events_on_product_id_and_discount_date  (product_id,discount_date)
+#  index_discount_events_on_product_id                 (product_id)
+#  index_discount_events_on_product_id_and_end_date    (product_id,end_date) UNIQUE
+#  index_discount_events_on_product_id_and_start_date  (product_id,start_date) UNIQUE
 #
 
 class DiscountEvent < ActiveRecord::Base
   belongs_to :product
 
-  validates :product_id, :price, :original_price, :discount_date, presence: true
-  validates :discount_date, uniqueness: true
+  validates :product_id, :price, :original_price, :start_date, :end_date, presence: true
+  validates :start_date, uniqueness: { scope: :product_id }
+  validates :end_date, uniqueness: { scope: :product_id }
   validates :price, :original_price, numericality: { greater_than_or_equal_to: 0, allow_blank: true }
+  validate :start_date_must_not_greater_than_end_date
 
-  scope :today, -> { where(discount_date: Date.current) }
-  default_scope -> { order('discount_date') }
+  scope :today, -> { where("start_date <= ? AND end_date >= ?", Date.current, Date.current) }
+  default_scope -> { order('start_date DESC') }
+
+private
+
+  def start_date_must_not_greater_than_end_date
+    return if start_date.blank? || end_date.blank?
+    if start_date.to_date > end_date.to_date
+      errors.add(:start_date, :start_date_must_not_greater_than_end_date)
+    end
+  end
 end

@@ -92,6 +92,7 @@ zh-CN:
         must_be_less_than_expected_date: 必须小于到达日期
         not_able_to_edit_adjustment: 订单已审核，不能更新价格调整
         instant_delivery_not_available: 快速送达服务当前不可用
+        start_date_must_not_greater_than_end_date: 开始日期不能大于结束日期
 
     models:
       order_form: 订单
@@ -590,7 +591,8 @@ zh-CN:
       discount_event:
         title: 标题
         product: 打折产品
-        discount_date: 打折日期
+        start_date: 开始日期
+        end_date: 结束日期
         original_price: 原价
         price: 现价
         updated_at: 更新时间
@@ -709,11 +711,13 @@ zh-CN:
         tencent: 腾讯
         jd: 京东
         amazon: 亚马逊
+        dangdang: 当当
         customer: 顾客补发订单
         taobao: 淘宝订单
         tmall: 天猫订单
         normal: 普通订单
         b2b: B2B订单
+        secoo: 寺库订单
         fieldschina: 甫田
         offline: 线下店
         yhd: 一号店
@@ -783,6 +787,7 @@ zh-CN:
         tencent: 腾讯
         jd: 京东
         amazon: 亚马逊
+        dangdang: 当当
         customer: 顾客补发订单
         taobao: 淘宝订单
         tmall: 天猫订单
@@ -866,6 +871,7 @@ zh-CN:
       checkout: 去结算
       back_checkout: 线下店订单
       b2b_checkout: B2B订单
+      secoo_checkout: 寺库订单
       channel_checkout: 渠道订单
       basket: 购物车
       order_list: 订单中心

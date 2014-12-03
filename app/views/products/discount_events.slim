@@ -51,11 +51,11 @@ div.discount_events
 	div.pics2
 	  div.timetable
  		 - @discount_events.each do |discount_event|
- 		   div class="#{discount_event.discount_date == Date.current ? 'today' : 'day'}" onclick="window.open('#{product_path(discount_event.product)}')"
+ 		   div class="#{discount_event.start_date == Date.current ? 'today' : 'day'}" onclick="window.open('#{product_path(discount_event.product)}')"
  	 	    div.prod
- 	 	      = discount_event.discount_date.month
+ 	 	      = discount_event.start_date.month
  	 	      | .
- 	 	      = discount_event.discount_date.day
+ 	 	      = discount_event.start_date.day
  	 	      br
  	 	      = discount_event.title
  	     div.fin

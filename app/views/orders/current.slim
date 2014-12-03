@@ -58,4 +58,5 @@
               .admin-btn-area.row
                 = link_to t('views.order.back_checkout'), new_back_order_path, class: 'btn-checkout'
                 = link_to t('views.order.b2b_checkout'), new_b2b_order_path, class: 'btn-checkout'
+                = link_to t('views.order.secoo_checkout'), new_secoo_order_path, class: 'btn-checkout'
       == render 'shared/guess_you_like', related_products: @related_products.take(5)
