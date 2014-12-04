@@ -3,7 +3,7 @@
     ul.nav-item.is-mouseleave.row
       - menu_nav_type = @menu_nav_type || 'other'
       - menu_list.each_with_index do |root, i|
-        li: a href="#{root.url}" rel="#{'nofollow' if %w(花里首页 花里精选 定制惊喜 花里花外 HualiGirls).include?(root.name)}" onClick="analytics.track('Click Menu', { label: '#{menu_nav_type}_#{root.name}', category: 'Main Navigator' });"
+        li: a href="#{root.link}" rel="#{'nofollow' if %w(花里首页 花里精选 定制惊喜 花里花外 HualiGirls).include?(root.name)}" onClick="analytics.track('Click Menu', { label: '#{menu_nav_type}_#{root.name}', category: 'Main Navigator' });"
           = root.name
           i.l-stack
 
