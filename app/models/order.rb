@@ -61,7 +61,7 @@ class Order < ActiveRecord::Base
 
 
   extend Enumerize
-  enumerize :kind, in: [:normal, :jd, :tencent, :xigua, :marketing, :customer,
+  enumerize :kind, in: [:normal, :jd, :tencent, :xigua, :marketing, :customer, :wechat,
     :taobao, :tmall, :b2b, :fieldschina, :offline, :yhd, :amazon, :dangdang, :secoo], default: :normal
 
   delegate :province_name, :city_name, to: :address, allow_nil: true

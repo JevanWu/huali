@@ -6,7 +6,8 @@ module Erp
     ctrip: '01.02.0031',
     jd: '01.01.0004',
     yhd: '01.01.0006',
-    offline: '01.03'
+    offline: '01.03',
+    amazon: '01.01.0045'
   }
 
   CTRIP_COUPON_CHARGES = {
