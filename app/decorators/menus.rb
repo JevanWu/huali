@@ -1,4 +1,4 @@
-class Menu
+class Menues 
   include Draper::LazyHelpers
 
   attr_accessor :name, :description, :url, :parent,

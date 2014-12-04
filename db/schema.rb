@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141201104525) do
+ActiveRecord::Schema.define(version: 20141204063355) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -345,6 +345,28 @@ ActiveRecord::Schema.define(version: 20141201104525) do
   end
 
   add_index "lucky_draw_offlines", ["mobile"], name: "index_lucky_draw_offlines_on_mobile", unique: true, using: :btree
+
+  create_table "menu_hierarchies", id: false, force: true do |t|
+    t.integer "ancestor_id",   null: false
+    t.integer "descendant_id", null: false
+    t.integer "generations",   null: false
+  end
+
+  add_index "menu_hierarchies", ["ancestor_id", "descendant_id", "generations"], name: "menu_anc_desc_udx", unique: true, using: :btree
+  add_index "menu_hierarchies", ["descendant_id"], name: "menu_desc_idx", using: :btree
+
+  create_table "menus", force: true do |t|
+    t.string   "name"
+    t.string   "link"
+    t.integer  "collection_id"
+    t.boolean  "available",     default: true
+    t.integer  "priority"
+    t.integer  "parent_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "menus", ["collection_id"], name: "index_menus_on_collection_id", using: :btree
 
   create_table "monthly_solds", force: true do |t|
     t.integer  "sold_year"
