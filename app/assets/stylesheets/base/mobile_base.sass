@@ -67,14 +67,18 @@ p,strong,i,a,b
 
 textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input
   border-radius: 0px
+  line-height: 23px
 
 input,textarea,.uneditable-input
   width: 95%
   font-size: 20px
 
 input[type="text"],input[type="password"],input[type="datetime"],input[type="datetime-local"],input[type="date"],input[type="month"],input[type="time"],input[type="week"],input[type="number"],input[type="email"],input[type="url"],input[type="search"],input[type="tel"],input[type="color"],.uneditable-input
-  height: 30px  
+  height: 30px
   font-size: 20px
+
+input[type="tel"]
+  width: 70%
 
 .form-horizontal .controls
   margin-left: 0px
@@ -83,14 +87,21 @@ input[type="text"],input[type="password"],input[type="datetime"],input[type="dat
 trirow
   height：50px
 
-select 
+select
   width: 95%
-  height: 32px
+  height: 40px
   border: 1px solid #cccccc
   background-color: white
   font-size: 20px
+  -webkit-border-radius: 0px
+  -moz-border-radius: 0px
+  border-radius: 0px
 
-.form-horizontal .form-actions 
+select.chosen-small
+  width: 25%
+  height: 40px
+
+.form-horizontal .form-actions
   padding-left: 160px
 
 .button
