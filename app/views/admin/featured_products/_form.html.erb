@@ -1,0 +1,9 @@
+<%= semantic_form_for [:admin, @featured_product] do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :description %>
+    <%= f.input :product, collection: Product.published, input_html: { :"data-placeholder" => '请选择', class: 'chosen' } %>
+    <%= f.input :available %>
+    <%= f.input :cover %>
+  <% end %>
+  <%= f.submit %>
+<% end %>

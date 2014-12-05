@@ -210,6 +210,7 @@ zh-CN:
       lucky_draw_offline: 线下店抽奖
       instant_delivery: 快速送达
       discount_event: 活动打折
+      featured_product: 精选产品
 
     attributes:
       order: &order

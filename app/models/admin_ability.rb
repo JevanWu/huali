@@ -19,16 +19,16 @@ class AdminAbility
       can :record_back_order, Order
       can :read, [PrintGroup, PrintOrder, Appointment]
     when "product_manager"
-      can :manage, [Product, Collection, Asset, SalesChart, SyncOrder]
+      can :manage, [Product, Collection, Asset, SalesChart, SyncOrder, FeaturedProduct]
       can :read, [Appointment]
       cannot :update_seo, [Product, Collection]
     when "web_operation_manager"
-      can :manage, [Page, Product, Collection, Coupon, Asset, Setting, Story, Banner, SlidePanel, SalesChart, DiscountEvent, SyncOrder]
+      can :manage, [Page, Product, Collection, Coupon, Asset, Setting, Story, Banner, SlidePanel, SalesChart, DiscountEvent, SyncOrder, FeaturedProduct]
       can :read, [Appointment]
       can :update_seo, [Product, Collection]
       manage_blog
     when "marketing_manager"
-      can :manage, [Coupon, Story, SlidePanel]
+      can :manage, [Coupon, Story, SlidePanel, FeaturedProduct]
       can :record_back_order, Order
       can :update, [Order], kind: 'marketing'
       can :read, [Product, Appointment]
