@@ -17,7 +17,7 @@ class PagesController < ApplicationController
       coupon = CouponCode.find_by(code: params[:coupon_code])
       if coupon.usable?
         cookies[:coupon_code] = params[:coupon_code]
-        flash[:notice] = "已使用#{coupon.to_human}：#{params[:coupon_code]}"
+        flash[:notice] = "当前使用#{coupon.to_human}：#{params[:coupon_code]}"
       else
         flash[:notice] = "Oops, 优惠劵 #{params[:coupon_code]} 是无效的！"
       end
