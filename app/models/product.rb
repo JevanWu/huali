@@ -65,7 +65,7 @@ class Product < ActiveRecord::Base
   has_many :assets, as: :viewable, dependent: :destroy, order: "created_at asc"
   accepts_nested_attributes_for :assets, reject_if: lambda { |a| a[:image].blank? }, allow_destroy: true
 
-  has_attached_file :rectangle_image, styles: { medium: "220x328>" }
+  has_attached_file :rectangle_image, styles: { medium: "220x328>" }, :default_url => "/system/assets/images/missing.jpg"
 
   # lineItems
   has_many :line_items
@@ -125,25 +125,25 @@ class Product < ActiveRecord::Base
     product.discountable = true if product.discountable.nil?
   end
 
-  searchable do
-    text :name_en, :name_zh, boost: 5.0
-    text :product_type_text, boost: 3.0
-    text :flower_type_text, boost: 3.0
-    text :price, boost: 2.0 do
-      price.to_i
-    end
-    text :collections do
-      collections.map(&:display_name)
-    end
+  # searchable do
+  #   text :name_en, :name_zh, boost: 5.0
+  #   text :product_type_text, boost: 3.0
+  #   text :flower_type_text, boost: 3.0
+  #   text :price, boost: 2.0 do
+  #     price.to_i
+  #   end
+  #   text :collections do
+  #     collections.map(&:display_name)
+  #   end
 
-    text :description
+  #   text :description
 
-    integer :sold_total
-    double :price
-    boolean :published
+  #   integer :sold_total
+  #   double :price
+  #   boolean :published
 
-    string :flower_type
-  end
+  #   string :flower_type
+  # end
 
   class << self
     def sort_by_collection

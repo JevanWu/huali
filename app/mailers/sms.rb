@@ -168,6 +168,10 @@ STR
       new(phone_number: order.sender_phone, body: content).deliver
     end
 
+    def normal_sms(phone, content)
+      new(phone_number: phone, body: content).deliver
+    end
+
     #TODO: Refactor with email notification
     def product_appointment_sms(product_id)
       product = Product.find product_id

@@ -3,6 +3,7 @@
 # Table name: users
 #
 #  anonymous_token          :string(255)
+#  authentication_token     :string(255)
 #  confirmation_sent_at     :datetime
 #  confirmation_token       :string(255)
 #  confirmed_at             :datetime
@@ -30,6 +31,7 @@
 #  reset_password_sent_at   :datetime
 #  reset_password_token     :string(255)
 #  role                     :string(255)      default("customer"), not null
+#  set_password             :boolean          default(TRUE)
 #  sign_in_count            :integer          default(0)
 #  updated_at               :datetime         not null
 #
@@ -45,12 +47,14 @@
 
 class User < ActiveRecord::Base
   include Phonelib::Extension
+
+  after_save :reset_authentication_token, if: Proc.new {|user| !user.authentication_token.present? }
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
-  devise :invitable, :async, :database_authenticatable, :registerable,
+  devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable,
-         :omniauthable, :omniauth_providers => [:douban, :weibo, :qq_connect]
+         :omniauthable, :async, :omniauth_providers => [:douban, :weibo, :qq_connect]
 
   has_many :invitees, class_name: "User", foreign_key: "invited_by_id"
   belongs_to :inviter, class_name: "User", foreign_key: "invited_by_id"
@@ -138,7 +142,36 @@ class User < ActiveRecord::Base
     oauth_provider.user
   end
 
+  def reset_authentication_token
+    token = generate_authentication_token
+    self.update_column(:authentication_token, token)
+    token
+  end
+
+  def generate_reset_password_token
+    reset_token = rand(999999).to_s
+    self.update_columns(reset_password_token: reset_token, reset_password_sent_at: Time.current)
+    return reset_token
+  end
+    
+  def self.find_by_openid(openid)
+    oauth_provider = OauthProvider.find_by identifier: openid
+    if oauth_provider.nil?
+      user = User.new(name: "匿名", role: "customer")
+      user.save(validate: false)
+      oauth_provider = user.oauth_providers.create(identifier: openid, provider: "wechat")
+    end
+    oauth_provider.user
+  end
+
   private
+
+    def generate_authentication_token
+      loop do
+        token = Devise.friendly_token
+        break token unless User.where(authentication_token: token).take
+      end
+    end
 
     # Generate a friendly string randomically to be used as token.
     def self.random_token

@@ -1,6 +1,6 @@
-source "http://ruby.taobao.org"
+#source "http://ruby.taobao.org"
 # source "http://bundler-api.herokuapp.com"
-# source 'http://rubygems.org'
+source 'http://rubygems.org'
 
 gem 'rails', '~> 4.0.5'
 gem 'pg', '>= 0.14.1'
@@ -113,6 +113,8 @@ gem 'i18n', github: 'svenfuchs/i18n', tag: 'v0.6.10'
 gem 'rqrcode'
 gem 'chosen-rails'
 gem "font-awesome-rails"
+
+gem 'alipay', '~> 0.1.0'
 
 #xml parser
 gem 'actionpack-xml_parser'

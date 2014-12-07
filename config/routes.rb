@@ -59,6 +59,8 @@ Huali::Application.routes.draw do
   get 'orders/return', as: :return_order
   post 'orders/paypal_return', as: :return_order_paypal
   match 'orders/notify', as: :notify_order, via: [:get, :post]
+  get 'orders/wap_return', as: :wap_return_order
+  match 'orders/wap_notify', as: :wap_notify_order, via: [:get, :post]
   post 'orders/wechat_notify'
   get 'orders/:id/gift_card/edit', to: 'orders#edit_gift_card', as: :edit_gift_card
   match 'orders/:id/gift_card/update', to: 'orders#update_gift_card', as: :update_gift_card, via: [:put, :patch]
@@ -139,6 +141,7 @@ Huali::Application.routes.draw do
   get 'wechats/pay', to: 'wechats#pay', as: :wechats_pay
   API::API.logger Rails.logger
   mount API::API => '/api'
+  mount MobileAPI::API => '/mobile_api'
 
   ActiveAdmin.routes(self)
 

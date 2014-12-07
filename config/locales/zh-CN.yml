@@ -202,6 +202,8 @@ zh-CN:
       refund: 退款记录
       print_group: 打印组
       print_order: 打印队列
+      daily_phrase: 每日花语
+      mobile_menu: 移动端菜单
       appointment: 预约
       sales_chart: 销量排行榜
       greeting_card: 发送电子贺卡
@@ -210,6 +212,9 @@ zh-CN:
       lucky_draw_offline: 线下店抽奖
       instant_delivery: 快速送达
       discount_event: 活动打折
+      guide_view: 引导页
+      sync_order: 手动同步订单
+      instant_delivery: 快速送达
 
     attributes:
       order: &order
@@ -491,6 +496,7 @@ zh-CN:
         picture: 照片
         author_avatar: 头像
         origin_link: 源链接
+        product_link: 产品链接
         priority: 优先级
         available: 是否有效
 
@@ -518,6 +524,12 @@ zh-CN:
         priority: 优先级
         image: 图片
         visible: 首页是否可见
+
+      guide_view:
+        description: 描述
+        priority: 优先级
+        image: 图片
+        available: 启用
 
       refund:
         order: 订单
@@ -547,6 +559,21 @@ zh-CN:
         order_printed: 出库单已打印
         card_printed: 贺卡已打印
         shipment_printed: 快递单已打印
+        created_at: 创建于
+        updated_at: 更新于
+
+      daily_phrase:
+        title: 标题
+        phrase: 短语
+        image: 图片
+        created_at: 创建于
+        updated_at: 更新于
+
+      mobile_menu: 
+        name: 名字
+        priority: 优先级
+        description: 描述
+        image: 图片
         created_at: 创建于
         updated_at: 更新于
 
@@ -705,6 +732,15 @@ zh-CN:
         marketing_manager: 市场管理员
         customer_service: 客服
     order:
+      state:
+        generated: 等待付款
+        wait_check: 等待审核
+        wait_make: 等待制作
+        wait_refund: 等待退款
+        wait_ship: 等待发货
+        completed: 已完成
+        void: 已取消
+        refunded: 已退款
       kind:
         marketing: 市场订单
         xigua: 喜瓜网
