@@ -89,6 +89,8 @@ class Product < ActiveRecord::Base
 
   has_many :limited_promotions
 
+  has_many :discount_events
+
   # i18n translation
   translate :name
 
@@ -253,6 +255,18 @@ class Product < ActiveRecord::Base
 
   def update_stock(sold_count)
     update_column(:count_on_hand, [count_on_hand - sold_count, 0].max)
+  end
+
+  def discount_event_today
+    discount_events.today.first
+  end
+
+  def original_price
+    discount_event_today ? discount_event_today.original_price : super
+  end
+
+  def price
+    discount_event_today ? discount_event_today.price : super
   end
 
   private

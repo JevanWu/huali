@@ -14,8 +14,14 @@ class PagesController < ApplicationController
     @menu_nav_type = 'home'
     @slides = SlidePanel.visible
     if params[:coupon_code].present? && cookies[:coupon_code] != params[:coupon_code]
-      cookies[:coupon_code] = params[:coupon_code]
-      flash[:notice] = "已使用现金券：#{params[:coupon_code]}, 商品总价减100元"
+      coupon = CouponCode.find_by(code: params[:coupon_code])
+      if coupon.usable?
+        cookies[:coupon_code] = params[:coupon_code]
+        flash[:notice] = "当前使用#{coupon.to_human}：#{params[:coupon_code]}"
+      else
+        flash[:notice] = "Oops, 优惠劵 #{params[:coupon_code]} 是无效的！"
+      end
+
       flash.discard(:notice)
     end
   end
@@ -49,4 +55,8 @@ class PagesController < ApplicationController
 
   def yujianli
   end
+
+  def offline_shop
+  end
+
 end

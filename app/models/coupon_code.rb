@@ -32,6 +32,16 @@ class CouponCode < ActiveRecord::Base
     code
   end
 
+  def to_human
+    if adjustment.start_with?('*')
+      "#{adjustment.sub('*', '').to_f * 10}折优惠劵".sub('.0', '')
+    elsif adjustment.start_with?('-')
+      "#{adjustment.sub('-', '')}元现金券"
+    else
+      ''
+    end
+  end
+
   def usable?(target = nil)
     (target ? usable_by?(target) : true) &&  # keeps the API call without order or order_form
     !expired &&

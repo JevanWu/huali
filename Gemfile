@@ -35,7 +35,7 @@ gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
 # oauth
 gem 'omniauth'
 gem 'omniauth-douban-oauth2'
-gem 'omniauth-weibo-oauth2'
+gem 'omniauth-weibo-oauth2', github: 'JevanWu/omniauth-weibo-oauth2'
 gem 'omniauth-qq-connect'
 
 gem 'enumerize'
@@ -175,7 +175,6 @@ group :development do
   gem 'ruby-graphviz', require: 'graphviz' # Optional: only required for graphing
   gem 'meta_request', '0.2.1'
   gem "letter_opener"
-  gem 'rack-mini-profiler'
 end
 
 group :test do

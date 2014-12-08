@@ -1,0 +1,10 @@
+div.lottery
+  div.lotteryframe
+    div.inputframe
+      = simple_form_for @lucky_draw_offline, url: lucky_draw_offline_path, html: {class: "form-horizontal"} do |f|
+        fieldset
+          | 花里有礼
+        = f.input :gender,label: false, as: :select, collection: {"先生" =>"male", "女士" => "female"}, prompt: '请选择称谓'
+        = f.input :age_bracket,label: false, as: :select, collection: {"70后" =>"70s", "80后" => "80s", "90后" => "90s"}, prompt: '请选择年龄段'
+        = f.input :mobile, placeholder: "请输入您的手机号码", label: false
+        = f.submit "抽奖", class: "btn-lucky"

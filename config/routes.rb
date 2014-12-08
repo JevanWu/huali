@@ -10,6 +10,9 @@ Huali::Application.routes.draw do
     mount Sidekiq::Web, at: "/admin/sidekiq", as: :sidekiq
   end
 
+  get "lucky_draw_offline", to: 'lucky_draw_offlines#new'
+  post "lucky_draw_offline", to: 'lucky_draw_offlines#create'
+
   get "areas/:area_id", to: 'areas#show'
   get "cities/:city_id/areas", to: 'areas#index'
   get "cities/:city_id/areas/available_for_products", to: 'areas#available_for_products'
@@ -29,6 +32,7 @@ Huali::Application.routes.draw do
   resources :products, only: [:show] do
     collection do
       get 'trait/:tags', action: :trait
+      get 'discount_events'
     end
   end
 
@@ -65,6 +69,15 @@ Huali::Application.routes.draw do
   # back order urls
   get 'orders/backorder', to: 'orders#back_order_new', as: :new_back_order
   post 'orders/backorder', to: 'orders#back_order_create', as: :create_back_order
+
+  # b2b order urls
+  get 'orders/b2border', to: 'orders#b2b_order_new', as: :new_b2b_order
+  post 'orders/b2border', to: 'orders#b2b_order_create', as: :create_b2b_order
+
+  # secoo order urls
+  get 'orders/secooorder', to: 'orders#secoo_order_new', as: :new_secoo_order
+  post 'orders/secooorder', to: 'orders#secoo_order_create', as: :create_secoo_order
+
   # channel order urls
   #get 'orders/channelorder', to: 'orders#channel_order_new', as: :new_channel_order
   #post 'orders/channelorder', to: 'orders#channel_order_create', as: :create_channel_order
@@ -119,6 +132,7 @@ Huali::Application.routes.draw do
   get 'qixijie', to: 'pages#qixijie', as: :qixijie
   get 'join_us', to: 'pages#join_us'
   get 'yujianli', to: 'pages#yujianli'
+  get 'offline_shop', to: 'pages#offline_shop'
 
   get 'banners/:date', to: 'banners#index', as: :banners
   get 'stories', to: 'stories#index'
@@ -131,5 +145,5 @@ Huali::Application.routes.draw do
 
   ActiveAdmin.routes(self)
 
-  get ':id', to: 'pages#show', id: /(?!blog)(.+)/, as: :page
+  get ':id', to: 'pages#show', id: /(?!(news|business|blog))(.+)/, as: :page
 end

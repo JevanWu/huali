@@ -1,7 +1,7 @@
 <%= semantic_form_for [:admin, @sync_order] do |f| %>
   <%= f.inputs do %>
     <%= f.input :administrator_id, as: :hidden, input_html: { value: current_administrator.try(:id) } %>
-    <%= f.input :kind, :as => :select, :collection => SyncOrder.kind.values %>
+    <%= f.input :kind, as: :select, prompt: "请选择" %>
     <%= f.input :merchant_order_no %>
   <% end %>
   <%= f.submit %>

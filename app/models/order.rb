@@ -61,8 +61,8 @@ class Order < ActiveRecord::Base
 
 
   extend Enumerize
-  enumerize :kind, in: [:normal, :jd, :tencent, :xigua, :marketing, :customer,
-    :taobao, :tmall, :b2b, :fieldschina, :offline, :yhd, :amazon], default: :normal
+  enumerize :kind, in: [:normal, :jd, :tencent, :xigua, :marketing, :customer, :wechat,
+    :taobao, :tmall, :b2b, :fieldschina, :offline, :yhd, :amazon, :dangdang, :secoo], default: :normal
 
   enumerize :state, in: [:generated, :wait_check, :wait_make, :wait_refund, :wait_ship, :completed, :void, :refunded]
 
@@ -82,8 +82,8 @@ class Order < ActiveRecord::Base
   state_machine :state, initial: :generated do
     # TODO implement an auth_state dynamically for each state
     before_transition to: :completed, do: :complete_order
-    after_transition to: :completed, do: :update_sold_total
-    after_transition to: :completed, do: :reward_and_rebate_huali_point
+    after_transition to: :wait_confirm, do: :update_sold_total
+    after_transition to: :wait_confirm, do: :reward_and_rebate_huali_point
     before_transition to: :wait_check, do: :sync_payment
     after_transition to: :wait_ship, do: :generate_shipment
     after_transition to: :refunded, do: :process_refund_huali_point

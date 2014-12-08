@@ -13,9 +13,9 @@
             input type="text" name="email" placeholder="请输入您的电子邮件"
             = submit_tag "发送", class: 'btn-post'
       .contact-social
-        p 关注我们
         ul
-          li.last: a.weibo href="http://e.weibo.com/hualishop?ref=http%3A%2F%2Fhua.li%2F" target="_blank" rel="nofollow"
+          = image_tag("weiboQR.png", class: 'weibolarge')
+          = image_tag("QRcode.jpg", class: 'qrcodelarge')
   .masthead
     .masthead-inner
       .masthead-main

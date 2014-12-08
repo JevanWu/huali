@@ -9,17 +9,17 @@
   <fieldset>
     <legend>订单信息</legend>
 
+    <%= f.input :coupon_code, as: (@order_form.errors[:coupon_code].present? ? :string : :hidden) %>
     <%= f.fields_for :sender, @order_form.sender do |builder|%>
       <%= builder.input :name, required:true, placeholder: '您的姓名', as: :hidden %>
-      <%= builder.input :email, required:true, placeholder: '以便及时收到订单更新', as: :hidden %>
-      <%= builder.input :phone, required:true, placeholder: '请输入您的手机号，以便我们和您核对信息', label:false%>
+      <%= builder.input :email, required:true, placeholder: 'Email', as: :hidden %>
+      <%= builder.input :phone, as: :simple_form_phone, input_html: { type: 'tel' }, required:true, placeholder: '您的手机号', label:false%>
     <% end %>
-    <%= f.input :coupon_code, as: :hidden %>
 
-    <%= f.input :expected_date, as: :string, required:true, input_html: { class: 'datepicker' }, label:false, placeholder: '请选择您希望寄给TA的时间', hint: Setting.expected_date_notice || ("0元花盒将在2月8日后发货" if @cart.limited_promotion_today) %>
+    <%= f.input :expected_date, as: :string, required:true, input_html: { class: 'datepicker' }, label:false, placeholder: '您希望寄给TA的时间', hint: Setting.expected_date_notice || ("0元花盒将在2月8日后发货" if @cart.limited_promotion_today) %>
     <%= f.fields_for :address, @order_form.address do |builder|%>
-      <%= builder.input :fullname, required: true, placeholder: '请输入收件人姓名', label:false %>
-      <%= builder.input :phone, required: true, placeholder: '请输入收件人手机号码', label:false %>
+      <%= builder.input :fullname, required: true, placeholder: '收件人姓名', label:false %>
+      <%= builder.input :phone, as: :simple_form_phone, input_html: { type: 'tel' }, required: true, placeholder: '收件人手机号码', label:false %>
     <legend>收件人地址</legend>
       <%= builder.input :province_id, collection: [], prompt: "请选择", required:true, label:false, hint: "如遇递送地址无法选择，请联系客服电话：400-087-8899", input_html: { 'data-placeholder' => '请选择', class: 'chosen' } %>
       <%= builder.input :city_id , label:false do %>
@@ -31,7 +31,7 @@
         <%= image_tag('loading.gif', class: 'loading') %>
       <% end %>
       <%= builder.input :address, label:false, as: 'text', required:true, input_html: { rows: 3 }, placeholder: '详细地址' %>
-      <%= builder.input :post_code, label:false, placeholder: '邮编', hint: %(<a id='query-postcode' href="#" target='_blank'>查询邮编</a>).html_safe %>
+      <%= builder.input :post_code, label:false, input_html: { type: 'number' }, placeholder: '邮编', hint: %(<a id='query-postcode' href="#" target='_blank'>查询邮编</a>).html_safe %>
     <% end %>
     <button id="gift-card-info-trigger" class="button">添加贺卡内容</button>
     <div id="gift-card-info">

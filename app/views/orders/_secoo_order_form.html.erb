@@ -1,0 +1,50 @@
+<%= simple_form_for @secoo_order_form, url: { action: 'secoo_order_create' }, html: { class: 'form-horizontal', id: 'new-order' } do |f| %>
+  <%= simple_form_error_messages_for(@secoo_order_form.line_items) %>
+  <fieldset>
+    <!-- 
+    <legend>您的个人信息</legend>
+    -->
+    <%= f.fields_for :sender, @secoo_order_form.sender do |builder|%>
+      <%= builder.input :name, as: :hidden, input_html: {value: 'huali_secoo'} %>
+      <%= builder.input :email, as: :hidden, input_html: {value: 'support@hua.li'} %>
+      <%= builder.input :phone, as: :hidden, input_html: {value: '400-087-8899'} %> 
+    <% end %>
+  </fieldset>
+
+  <fieldset>
+    <legend>订单信息</legend>
+    <%= f.input :adjustment, placeholder: '+20.0, -30.0, x1.1, *0.9', hint: '运算符号加减乘除分别为(+,-,*或x,%或/), 例如比原价降低20元钱填写"-20.0"，原价打八折填写"*0.8"或"x0.8"。' %>
+    <%#= f.input :coupon_code, placeholder: '如果您有优惠券，请在这里填写' %>
+    <%#= f.input :gift_card_text, as: :text, input_html: { rows: 3, maxlength: 100 }, placeholder: '我们可以代您书写给TA的话，请注明落款哦！', hint: '100字以内哦' %>
+
+    <%= f.input :kind, as: :hidden, input_html: {value: 'secoo'} %>
+    <%= f.input :special_instructions, as: :text, input_html: { rows: 3 }, placeholder: '买家留言' %>
+    <%= f.input :merchant_order_no, required: true %>
+  </fieldset>
+
+  <fieldset>
+    <legend>递送信息</legend>
+    <%#= f.input :ship_method_id, as: :radio_buttons, collection: ShipMethod.all %>
+    <%#= f.input :delivery_date, as: :string, input_html: { class: 'datepicker-full' }%>
+    <%= f.input :expected_date, as: :string, required:true, input_html: { class: 'datepicker-full', value: (Time.now + 3.days).strftime("%Y-%m-%d") } %>
+    <%= f.input :bypass_date_validation, as: :hidden, input_html: {value: '1'} %>
+
+
+    <%= f.fields_for :address, @secoo_order_form.address do |builder|%>
+      <%= builder.input :fullname, required: true, placeholder: '收件人姓名' %>
+      <%= builder.input :phone, as: :simple_form_phone, required: true, placeholder: '收件人联系方式'  %>
+      <%= builder.input :province_id, collection: [], prompt: "请选择省份", required:true %>
+      <%= builder.input :city_id, collection: [], prompt: "请选择城市", required:true %>
+      <%= builder.input :area_id, collection: [], required:true %>
+      <%= builder.input :address, as: 'text', required:true, input_html: { rows: 3 }, placeholder: '详细地址' %>
+      <%= builder.input :post_code, placeholder: '邮编' %>
+      <%= f.input :bypass_region_validation, as: :hidden, input_html: {value: '1'} %>
+      <%= f.input :bypass_product_validation, as: :hidden, input_html: {value: '1'} %>
+    <% end %>
+  </fieldset>
+  <div class="form-actions">
+    <%= f.button :submit, class: 'button next-step' %>
+    <%= link_to t('cancel'), current_order_path %>
+  </div>
+<% end %>
+

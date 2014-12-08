@@ -15,11 +15,10 @@
 #  index_sync_orders_on_administrator_id  (administrator_id)
 #  index_sync_orders_on_order_id          (order_id)
 #
-require 'enumerize'
 
 class SyncOrder < ActiveRecord::Base
   extend Enumerize
-  enumerize :kind, in: [:taobao ]
+  enumerize :kind, in: [ :taobao, :tmall, :jd, :yhd, :amazon, :dangdang ]
 
   belongs_to :administrator
   belongs_to :order
@@ -31,8 +30,9 @@ class SyncOrder < ActiveRecord::Base
   scope :current, -> { where('created_at >= ? AND created_at < ? ', Date.current, Date.tomorrow) }
   scope :within_this_week, -> { where('created_at >= ? AND created_at <= ? ', Date.current.beginning_of_week, Date.current.end_of_week) }
 
-  def already_synced_by_poller?
-    Order.where(merchant_order_no: self.merchant_order_no).empty? ? false : true
+  def order_id_already_synced
+    order_id = Order.where(merchant_order_no: self.merchant_order_no).pluck(:id)
+    order_id.empty? ? nil : order_id.first
   end
 
 end
