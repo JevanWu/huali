@@ -1,8 +1,11 @@
 ## query all provinces
 
 ```
-get /addresses/provinces
+post /addresses/provinces
 ```
+Parameters:
+
++ `product_ids` (required)(Array)                  - The ids of the products 
 
 ```
 status: 200 ok
@@ -23,12 +26,13 @@ status: 200 ok
 ## query all cities of the specified province
 
 ```
-get /addresses/cities
+post /addresses/cities
 ```
 
 Parameters:
 
-+ `province_id` (required)                   - The id of the province 
++ `province_id` (required)                       - The id of the province 
++ `product_ids` (required)(Array)                - The ids of the products 
 
 ```
 
@@ -47,12 +51,13 @@ status: 200 ok
 ## query all areas of the specified city
 
 ```
-get /addresses/areas
+post /addresses/areas
 ```
 
 Parameters:
 
-+ `city_id` (required)                   - The id of the city 
++ `city_id` (required)                          - The id of the city 
++ `product_ids` (required)(Array)               - The ids of the products 
 
 ```
 status: 200 ok
