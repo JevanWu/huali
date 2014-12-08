@@ -34,5 +34,9 @@ class SyncOrder < ActiveRecord::Base
     order_id = Order.where(merchant_order_no: self.merchant_order_no).pluck(:id)
     order_id.empty? ? nil : order_id.first
   end
+  def sync_order_check
+    self.order_id = self.order_id_already_synced
+    self.save if self.order_id
+  end
 
 end
