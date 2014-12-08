@@ -11,7 +11,7 @@ module MobileAPI
                    name_en: item.product.name_en,
                    quantity: item.quantity,
                    price: item.product.price,
-                   image: item.product.assets.first.url(:medium),
+                   image: item.product.assets.first.image.url(:medium),
                    product_id: item.product.id
           }
         end
