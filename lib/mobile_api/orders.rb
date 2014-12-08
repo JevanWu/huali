@@ -170,12 +170,15 @@ module MobileAPI
         order.user = current_user
         order.address = address
 
-
         error!(order.errors.messages, 500) unless order.save
 
         products = order_info[:products]
+        
         total = BigDecimal.new(0)
+
         products.each do |product|
+          rule_runner = RegionRuleRunner.new(Product.find(product[:product_id]).region_rule)
+          error!("Sorry! The products cannot be delivered to this address", 500) unless rule_runner.apply_test(province_id, city_id, area_id)
           if order.line_items.create( product_id: product[:product_id],
                                 quantity: product[:quantity],
                                 price: product[:price] )
