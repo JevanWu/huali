@@ -69,6 +69,8 @@ class CouponCode < ActiveRecord::Base
       return false if products_in_target.none? { |product| products.include?(product) }
     end
 
+    return false if products_in_target.any? { |product| product.discount? }
+
     true
   end
 
