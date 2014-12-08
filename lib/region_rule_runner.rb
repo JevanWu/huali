@@ -1,10 +1,10 @@
 class RegionRuleRunner
   attr_accessor :province_ids, :city_ids, :area_ids
 
-  def initialize(province_ids, city_ids, area_ids)
-    @province_ids = province_ids
-    @city_ids = city_ids
-    @area_ids = area_ids
+  def initialize(region_rule)
+    @province_ids = region_rule.province_ids
+    @city_ids = region_rule.city_ids
+    @area_ids = region_rule.area_ids
   end
 
   def apply_test(province_id, city_id, area_id)
