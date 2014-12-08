@@ -8,7 +8,7 @@ class Cart
   end
 
   def adjustment
-    @adjustment ||= (coupon ? coupon.adjustment : nil)
+    @adjustment ||= (valid_coupon? ? coupon.adjustment : nil)
   end
 
   def original_total

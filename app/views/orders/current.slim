@@ -33,8 +33,12 @@
                 button.btn-discount type="submit" onClick="analytics.track('Use Coupon', { category: 'Order', label: $('input[name=coupon_code]').val() });"
                   | 确定
                 - if @cart.coupon_code && !@cart.valid_coupon?
-                  p.error
-                    | 无效优惠码！请确认信息后输入
+                  - if @cart.items.any? { |item| item.product.discount? }
+                    p.error
+                      | 折扣商品，不能使用优惠劵！
+                  - else
+                    p.error
+                      | 无效优惠码！请确认信息后输入
           .checkout
             p
               | 您的订单享受免费配送
