@@ -142,5 +142,5 @@ Huali::Application.routes.draw do
 
   ActiveAdmin.routes(self)
 
-  get ':id', to: 'pages#show', id: /(?!blog)(.+)/, as: :page
+  get ':id', to: 'pages#show', id: /(?!(news|business|blog))(.+)/, as: :page
 end
