@@ -42,7 +42,7 @@ window.analytics.load = function(key){
 
   // Insert our script next to the first script element.
   var first = document.getElementsByTagName('script')[0];
-  first.parentNode.insertBefore(script, first);
+  first.parentNode.insertAfter(script, first);
 };
 
 // Add a version to keep track of what's in the wild.
