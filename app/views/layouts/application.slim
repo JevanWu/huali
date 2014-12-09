@@ -18,7 +18,6 @@ html
     = yield(:css)
 
     = javascript_include_tag 'application'
-    = render 'layouts/segmentio'
     = yield(:js)
 
   body
@@ -34,4 +33,5 @@ html
     == render 'layouts/footer'
     = yield(:body_js)
     script#_mutmzc src="http://public.dmppro.cn/js/i.js?uid=qhv" type="text/javascript" 
+    = render 'layouts/segmentio'
 
