@@ -42,7 +42,7 @@ class Sms
   private
 
   def send_sms
-    national? ? smsbao : twilio
+    national? ? emailcar_sms : twilio
   end
 
   def national?
@@ -51,6 +51,21 @@ class Sms
 
   def sanitized_national_phone
     phone_number.national.to_s.gsub(/\s/, '').sub(/^0/, '')
+  end
+
+  def emailcar_sms
+    response = RestClient.post 'http://119.145.9.12/sendSMS.action',
+      enterpriseID: ENV['ESMS_ID'],
+      loginName: ENV['ESMS_USERNAME'],
+      password: Digest::MD5.hexdigest(ENV['ESMS_PASSWORD']),
+      mobiles: sanitized_national_phone,
+      content: body
+
+    response_result = Hash.from_xml(response).fetch('Response').fetch('Result')
+
+    unless response_result == '0'
+      raise StandardError, "Response result: #{response_result}" + ". " + "phone number is #{sanitized_national_phone}. " + "content is #{body}."
+    end
   end
 
   def smsbao
@@ -112,7 +127,6 @@ class Sms
       content = <<STR.gsub(/(\s|\n)*/m, '')
 #{date.to_s}当天需要制作的订单是共有#{orders.count}:
 #{order_subject_text}
-[花里花店] hua.li
 STR
 
       content.scan(/.{1,128}/).each do |snippet|
@@ -126,7 +140,7 @@ STR
       order = Order.full_info(order_id)
 
       content = <<STR
-感谢您订购我们的花盒（#{order.identifier}）！我们的花艺师正在精心挑选花材，为您的ta定制无与伦比的惊喜「花里花店」
+感谢您订购我们的花盒（#{order.identifier}）！我们的花艺师正在精心挑选花材，为您的ta定制无与伦比的惊喜
 STR
 
       new(phone_number: order.sender_phone, body: content).deliver
@@ -136,7 +150,7 @@ STR
       order = Order.full_info(order_id)
 
       content = <<STR
-您订购的花盒（#{order.identifier}）已制作完成，我们的#{order.shipment.ship_method.name}快递师傅载着您满满的情意出发啦（快递单号：#{order.shipment.tracking_num}）「花里花店」
+您订购的花盒（#{order.identifier}）已制作完成，我们的#{order.shipment.ship_method.name}快递师傅载着您满满的情意出发啦（快递单号：#{order.shipment.tracking_num}）
 STR
 
       new(phone_number: order.sender_phone, body: content).deliver
@@ -146,7 +160,7 @@ STR
       order = Order.full_info(order_id)
 
       content = <<STR
-你有满载祝福的神秘礼物向你飞奔而来，将在这两天到达，记得查收你的美好哦「花里花店」
+你有满载祝福的神秘礼物向你飞奔而来，将在这两天到达，记得查收你的美好哦
 STR
 
       new(phone_number: order.address.phone, body: content).deliver
@@ -156,11 +170,11 @@ STR
       order = Order.full_info(order_id)
 
       regular_content = <<STR
-您订购的花盒已被ta欣然签收，我们将永远记录这一份美好祝福「花里花店」
+您订购的花盒已被ta欣然签收，我们将永远记录这一份美好祝福
 STR
 
       taobao_content = <<STR
-您订购的花盒已被ta欣然签收，我们将永远记录这一份美好祝福。您的全5分好评对我们特别重要，期待您再次光临.「花里花店」
+您订购的花盒已被ta欣然签收，我们将永远记录这一份美好祝福。您的全5分好评对我们特别重要，期待您再次光临.
 STR
 
       content = order.from_taobao? ? taobao_content : regular_content
@@ -175,7 +189,7 @@ STR
       return if appointments.nil?
       phone_nums = appointments.map { |a| a.customer_phone if a.customer_phone.present?  }
       appointments.each { |a| a.update_column(:notify_at, Time.now) }
-      phone_nums.each { |num| new(phone_number: num, body: "您之前关注过的#{product.product_type_text}#{product.name_zh}已经新到货啦！您现在可以在我们的官网上进行选购了.「花里花店」").deliver }
+      phone_nums.each { |num| new(phone_number: num, body: "您之前关注过的#{product.product_type_text}#{product.name_zh}已经新到货啦！您现在可以在我们的官网上进行选购了.").deliver }
     end
 
     def huali_point_notify_sms
