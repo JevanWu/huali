@@ -26,6 +26,7 @@ html
     == render 'layouts/banner'
     
     .main-content
+      = render 'layouts/christmas_lights'
       = content_for?(:blog) ? yield(:blog) : yield
     #qq-customer-service.scroll-object
       a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=2874898695&site=qq&menu=yes"
