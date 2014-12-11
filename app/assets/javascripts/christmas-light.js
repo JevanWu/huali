@@ -17,7 +17,7 @@ var Y = {
 
 function XLSF(oTarget,urlBase) {
   var writeDebug = soundManager._wD;
-  var urlBase = (urlBase?urlBase:'lights/');
+  var urlBase = (urlBase?urlBase:'/lights/');
   writeDebug('XLSF()');
   var IS_MOON_COMPUTER = false;
   var isIE = navigator.userAgent.match(/msie/i);
@@ -466,3 +466,4 @@ soundManager.setup({
     smashInit();
   }
 });
+
