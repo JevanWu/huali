@@ -1,13 +1,11 @@
 module MobileAPI
   class Addresses < Grape::API
     resource :addresses do
+      #product_ids: [ 1, 2, 3]
       desc "Return all provinces." 
-      params do 
-        requires :product_ids, type: Array[Integer]
-      end
-      post :provinces do
+      get :provinces do
 
-        prov_ids = params[:product_ids].split(',').map do |product_id|
+        prov_ids = params[:product_ids].map do |product_id|
           Product.find(product_id).region_rule.available_prov_ids
         end.reduce(:&)
 
@@ -24,10 +22,9 @@ module MobileAPI
       desc "Return all cities of specified province." 
       params do
         requires :province_id, type: Integer, desc: "The id of the province"
-        requires :product_ids, type: Array[Integer]
       end
-      post :cities do
-        city_ids = params[:product_ids].split(',').map do |product_id|
+      get :cities do
+        city_ids = params[:product_ids].map do |product_id|
           Product.find(product_id)
             .region_rule.available_city_ids_in_a_prov(params[:province_id])
         end.reduce(:&)
@@ -45,10 +42,9 @@ module MobileAPI
       desc "Return all areas of specified city." 
       params do
         requires :city_id, type: Integer, desc: "The id of the city"
-        requires :product_ids, type: Array[Integer]
       end
-      post :areas do
-        area_ids = params[:product_ids].split(',').map do |product_id|
+      get :areas do
+        area_ids = params[:product_ids].map do |product_id|
           Product.find(product_id)
             .region_rule.available_area_ids_in_a_city(params[:city_id])
         end.reduce(:&)
