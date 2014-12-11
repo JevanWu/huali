@@ -32,6 +32,7 @@
 #= require nprogress
 #= require nprogress-turbolinks
 #= require 'module/qrpop'
+#= require 'snowstorm-min'
 
 NProgress.configure({ showSpinner: false, ease: 'ease', speed: 500 })
 Turbolinks.enableTransitionCache()
