@@ -3,10 +3,6 @@ ActiveAdmin.register SyncOrder do
 
   member_action :update_order_id, method: :get do
     @sync_order = SyncOrder.find(params[:id])
-    unless @sync_order.order_id_already_synced
-      ApiAgentService.sync_order(@sync_order.kind.to_s, @sync_order.merchant_order_no)
-      sleep 2
-    end
     @sync_order.sync_order_check
     redirect_to admin_sync_orders_path, {:notice => "订单同步状态已更新"}
   end
@@ -48,7 +44,8 @@ ActiveAdmin.register SyncOrder do
       if @sync_order.order_id_already_synced
         redirect_to admin_sync_orders_path, notice: t('active_admin.sync_order.already_synced')
       end
-      if @sync_order.save and ApiAgentService.sync_order(@sync_order.kind.to_s, @sync_order.merchant_order_no)
+      if @sync_order.save
+        ApiAgentService.sync_order(@sync_order.kind.to_s, @sync_order.merchant_order_no)
         sleep 2
         @sync_order.sync_order_check
         redirect_to admin_sync_orders_path, notice: t('active_admin.notice.created')
