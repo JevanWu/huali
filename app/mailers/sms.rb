@@ -42,7 +42,7 @@ class Sms
   private
 
   def send_sms
-    national? ? smsbao : twilio
+    national? ? emailcar_sms : twilio
   end
 
   def national?
@@ -51,6 +51,24 @@ class Sms
 
   def sanitized_national_phone
     phone_number.national.to_s.gsub(/\s/, '').sub(/^0/, '')
+  end
+
+  def emailcar_sms
+    conn = Faraday.new url: 'http://119.145.9.12' do |faraday|
+      faraday.request  :url_encoded             # form-encode POST params
+      faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
+    end
+
+    response = conn.get '/sendSMS.action',
+      enterpriseID: ENV['ESMS_ID'],
+      loginName: ENV['ESMS_USERNAME'],
+      password: Digest::MD5.hexdigest(ENV['ESMS_PASSWORD']),
+      mobiles: sanitized_national_phone,
+      content: body
+
+    unless response.body == '0'
+      raise StandardError, "Response body: #{response.body}" + ". " + "phone number is #{sanitized_national_phone}. " + "content is #{body}."
+    end
   end
 
   def smsbao
@@ -186,8 +204,9 @@ STR
       point_transactions = PointTransaction.expired_soon
       users = point_transactions.map { |transaction| transaction.users }
       users.uniq!
+      notify_content = ''
       notify_content = <<STR
-【友情提示】尊敬的花里客户，您好。您在花里官网的部分花点将于年底失效，请于有效期前使用花点抵扣。如有疑问请咨询：400—087—8899或support@hua.li。
+【友情提示】尊敬的花里客户，您好。您在花里官网的部分花点将于年底失效，请于有效期前使用花点抵扣。
 STR
       users.each { |user| new(phone_number: user.phone, body: notify_content).deliver }
     end
