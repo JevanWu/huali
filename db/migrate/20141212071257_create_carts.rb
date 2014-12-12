@@ -4,6 +4,8 @@ class CreateCarts < ActiveRecord::Migration
 
       t.references :user, index: true
       t.references :product, index: true
+      t.decimal :price, precision: 8, scale: 2, null: false
+      t.integer :quantity, null: false
       t.timestamps
     end
   end
