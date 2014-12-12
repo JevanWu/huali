@@ -178,7 +178,7 @@ module MobileAPI
 
         products.each do |product|
           rule_runner = RegionRuleRunner.new(Product.find(product[:product_id]).region_rule)
-          error!("Sorry! The products cannot be delivered to this address", 500) unless rule_runner.apply_test(province_id, city_id, area_id)
+          error!("Sorry! The products cannot be delivered to this address", 500) unless rule_runner.apply_test(order_info[:receiver_province_id], order_info[:receiver_city_id], order_info[:receiver_area_id])
           if order.line_items.create( product_id: product[:product_id],
                                 quantity: product[:quantity],
                                 price: product[:price] )
