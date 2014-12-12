@@ -5,7 +5,7 @@ get /addresses/provinces
 ```
 Parameters:
 
-+ { product_ids: [1, 2, 3] }                   - The ids of the products 
++ `product_ids` (required)                   - The ids of the products 
 
 ```
 status: 200 ok
@@ -32,7 +32,7 @@ get /addresses/cities
 Parameters:
 
 + `province_id` (required)                       - The id of the province 
-+ { product_ids: [1, 2, 3] }                     - The ids of the products 
++ `product_ids` (required)                       - The ids of the products 
 
 ```
 
@@ -56,8 +56,8 @@ get /addresses/areas
 
 Parameters:
 
-+ `city_id` (required)                          - The id of the city 
-+ { product_ids: [1, 2, 3] }                     - The ids of the products 
++ `city_id` (required)                           - The id of the city 
++ `product_ids` (required)                       - The ids of the products 
 
 ```
 status: 200 ok

@@ -1,11 +1,12 @@
 module MobileAPI
   class Addresses < Grape::API
     resource :addresses do
-      #json param: {product_ids: [ 1, 2, 3]}
       desc "Return all provinces." 
+      params do
+        requires :product_ids, type: String, desc: "The ids of the products"
+      end
       get :provinces do
-
-        product_ids = params[:product_ids]
+        product_ids = params[:product_ids].split(",")
         error!('The product ids are required!', 500) if product_ids.nil?
         prov_ids = product_ids.map do |product_id|
           Product.find(product_id).region_rule.available_prov_ids
@@ -24,9 +25,10 @@ module MobileAPI
       desc "Return all cities of specified province." 
       params do
         requires :province_id, type: Integer, desc: "The id of the province"
+        requires :product_ids, type: String, desc: "The ids of the products"
       end
       get :cities do
-        product_ids = params[:product_ids]
+        product_ids = params[:product_ids].split(",")
         error!('The product ids are required!', 500) if product_ids.nil?
         city_ids = product_ids.map do |product_id|
           Product.find(product_id)
@@ -46,9 +48,10 @@ module MobileAPI
       desc "Return all areas of specified city." 
       params do
         requires :city_id, type: Integer, desc: "The id of the city"
+        requires :product_ids, type: String, desc: "The ids of the products"
       end
       get :areas do
-        product_ids = params[:product_ids]
+        product_ids = params[:product_ids].split(",")
         error!('The product ids are required!', 500) if product_ids.nil?
         area_ids = product_ids.map do |product_id|
           Product.find(product_id)
