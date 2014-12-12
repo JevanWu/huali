@@ -16,11 +16,11 @@ class ApplicationController < ActionController::Base
   include ::Extension::Exception
   include ::Extension::RecordCookie
   include ::Extension::SignInRedirect
-  include ::Extension::CookieCart
+  #include ::Extension::CookieCart
   include ::Extension::BulkExportAuthorization
   include ::Extension::MenuNavigator
 
-  before_action :load_cart
+  #before_action :load_cart
 
   # mobile request detection
   include Mobylette::RespondToMobileRequests
