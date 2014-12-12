@@ -24,6 +24,10 @@ Huali::Application.routes.draw do
   get "provinces/available_for_products", to: 'provinces#available_for_products'
   get "provinces/:prov_id", to: 'provinces#show'
 
+  post "carts", to: 'carts#create'
+  get "carts/show", to: 'carts#show'
+  delete "carts/:id", to: 'carts#destroy'
+
   post "products/appointment", to: 'products#appointment', as: :appointment
   post "products/greeting_card", to: 'products#greeting_card', as: :greeting_card
   post "products/reply_greeting_card", to: 'products#reply_greeting_card', as: :reply_greeting_card
