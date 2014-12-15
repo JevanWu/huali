@@ -131,8 +131,8 @@ group :development, :test do
 end
 
 group :production, :staging do
-  gem 'unicorn'
-  gem 'newrelic_rpm'
+  #puma
+  gem 'puma'
 end
 
 group :development do

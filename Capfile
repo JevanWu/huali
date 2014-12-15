@@ -29,5 +29,7 @@ require 'capistrano/sidekiq'
 
 require 'capistrano-db-tasks'
 
+require 'capistrano/puma'
+
 # Loads custom tasks from `lib/capistrano/tasks' if you have any defined.
 Dir.glob('lib/capistrano/tasks/*.rake').each { |r| import r }
