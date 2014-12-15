@@ -55,6 +55,7 @@ class User < ActiveRecord::Base
   has_many :invitees, class_name: "User", foreign_key: "invited_by_id"
   belongs_to :inviter, class_name: "User", foreign_key: "invited_by_id"
 
+  has_many :carts
   has_many :addresses
   has_many :orders
   has_many :oauth_providers, dependent: :destroy
