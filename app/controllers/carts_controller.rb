@@ -4,7 +4,9 @@ class CartsController < ApplicationController
     redirect_to 'show' if @cart.save
   end
   def show
-    @cart = Cart.find(Cart.where(user_id: current_user.id))
+    @carts = Cart.where(user_id: current_user.id)
+    @product = Product.published.find(@carts.first.product_id)
+    @related_products = @product.related_products
   end
 
 
