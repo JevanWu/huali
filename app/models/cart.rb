@@ -21,17 +21,10 @@ class Cart < ActiveRecord::Base
   belongs_to :user
   belongs_to :product
 
-  class << self
-    def items(user_id)
-      items = self.where( user_id: user_id)
-      lineitems = []
-      items.each do |i|
-        lineitems << LineItem.new(product_id: i.product_id,
-                                  quantity: i.quantity,
-                                  price: i.price)
-      end
-      lineitems
-    end
+  def item
+    LineItem.new(product_id: self.product_id,
+                 quantity: self.quantity,
+                 price: self.price)
   end
 
 end
