@@ -5,8 +5,10 @@ class CartsController < ApplicationController
   end
   def show
     @carts = Cart.where(user_id: current_user.id)
-    @product = Product.published.find(@carts.first.product_id)
-    @related_products = @product.related_products
+    if @carts.present?
+      @product = Product.published.find(@carts.first.product_id)
+      @related_products = @product.related_products
+    end
   end
 
 
