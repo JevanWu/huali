@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141212071257) do
+ActiveRecord::Schema.define(version: 20141216033421) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -145,17 +145,26 @@ ActiveRecord::Schema.define(version: 20141212071257) do
   add_index "blog_posts", ["published"], name: "index_blog_posts_on_published", using: :btree
   add_index "blog_posts", ["slug"], name: "index_blog_posts_on_slug", unique: true, using: :btree
 
+  create_table "cart_line_items", force: true do |t|
+    t.integer  "cart_id"
+    t.integer  "product_id"
+    t.decimal  "price",      precision: 8, scale: 2, null: false
+    t.integer  "quantity",                           null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "cart_line_items", ["cart_id"], name: "index_cart_line_items_on_cart_id", using: :btree
+  add_index "cart_line_items", ["product_id"], name: "index_cart_line_items_on_product_id", using: :btree
+
   create_table "carts", force: true do |t|
     t.integer  "user_id"
-    t.integer  "product_id"
-    t.decimal  "price",       precision: 8, scale: 2, null: false
-    t.integer  "quantity",                            null: false
+    t.decimal  "total_price", precision: 8, scale: 2, null: false
     t.string   "coupon_code"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "carts", ["product_id"], name: "index_carts_on_product_id", using: :btree
   add_index "carts", ["user_id"], name: "index_carts_on_user_id", using: :btree
 
   create_table "cities", force: true do |t|
