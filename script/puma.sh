@@ -7,7 +7,7 @@
 
 PUMA_CONFIG_FILE=config/puma.rb
 PUMA_PID_FILE=tmp/pids/puma.pid
-PUMA_SOCKET=tmp/puma.wechat.sock
+PUMA_SOCKET=tmp/puma.huali.sock
 
 # check if puma process is running
 puma_is_running() {
