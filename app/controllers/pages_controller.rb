@@ -59,4 +59,7 @@ class PagesController < ApplicationController
   def offline_shop
   end
 
+  def perfume
+  end
+
 end
