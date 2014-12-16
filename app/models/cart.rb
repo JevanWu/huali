@@ -20,10 +20,4 @@ class Cart < ActiveRecord::Base
 
   validates :user_id, uniqueness: true
 
-  def item
-    LineItem.new(product_id: self.product_id,
-                 quantity: self.quantity,
-                 price: self.price)
-  end
-
 end

@@ -19,4 +19,10 @@
 class CartLineItem < ActiveRecord::Base
   belongs_to :cart
   belongs_to :product
+
+  def to_line_item
+    LineItem.new(product_id: self.product_id,
+                 quantity: self.quantity,
+                 price: self.price)
+  end
 end
