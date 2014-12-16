@@ -1,13 +1,13 @@
 <div class="best-products row">
-  <% product_row_1 = [175,178,40,219]  %>
-  <% product_row_2 = [187,83,190,173]  %>
-  <% product_row_3 = [84,186,177,104]  %>
-  <% product_row_4 = [162,182,203,103]  %>
-  <% product_row_5 = [98,188,184,172]  %>
-  <% products =  Product.find(product_row_1 + product_row_2 + product_row_3 + product_row_4 + product_row_5) %>
+  <% product_row_1 = [258,257,261,259]  %>
+  <% product_row_2 = [184,262,263,260]  %>
+  <%# <% product_row_3 = [84,186,177,104]  %>
+  <%# <% product_row_4 = [162,182,203,103]  %>
+  <%# <% product_row_5 = [98,188,184,172]  %>
+  <% products =  Product.find(product_row_1 + product_row_2) %>
   <%= render partial: 'products/product', collection: products.select { |p| product_row_1.include?(p.id) }.sort_by { |p| product_row_1.index(p.id) } %>
   <%= render partial: 'products/product', collection: products.select { |p| product_row_2.include?(p.id) }.sort_by { |p| product_row_2.index(p.id) } %>
-  <%= render partial: 'products/product', collection: products.select { |p| product_row_3.include?(p.id) }.sort_by { |p| product_row_3.index(p.id) } %>
-  <%= render partial: 'products/product', collection: products.select { |p| product_row_4.include?(p.id) }.sort_by { |p| product_row_4.index(p.id) } %>
-  <%= render partial: 'products/product', collection: products.select { |p| product_row_5.include?(p.id) }.sort_by { |p| product_row_5.index(p.id) } %>
+  <%# <%= render partial: 'products/product', collection: products.select { |p| product_row_3.include?(p.id) }.sort_by { |p| product_row_3.index(p.id) } %>
+  <%# <%= render partial: 'products/product', collection: products.select { |p| product_row_4.include?(p.id) }.sort_by { |p| product_row_4.index(p.id) } %>
+  <%# <%= render partial: 'products/product', collection: products.select { |p| product_row_5.include?(p.id) }.sort_by { |p| product_row_5.index(p.id) } %>
 </div>

@@ -316,7 +316,8 @@ function XLSF(oTarget,urlBase) {
       if (self.broken) return false;
       self.broken = true;
       if (soundManager && soundManager.ok()) {
-        soundManager.play(self.soundID,{pan:self.pan});
+        // which i commented out to turn off the sound
+        // soundManager.play(self.soundID,{pan:self.pan});
         // soundManager.sounds[self.soundID].play({pan:self.pan});
         // if (self.bonusSound != null) window.setTimeout(self.smashBonus,1000);
       }

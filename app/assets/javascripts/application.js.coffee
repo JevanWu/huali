@@ -32,7 +32,7 @@
 #= require nprogress
 #= require nprogress-turbolinks
 #= require 'module/qrpop'
-#= require 'snowstorm-min'
+#= require 'snowstorm'
 #= require 'yahoo-dom-event'
 #= require 'soundmanager2'
 
