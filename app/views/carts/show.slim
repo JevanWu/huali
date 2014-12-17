@@ -1,50 +1,6 @@
 .cart
   .cart-inner
-    - if @cart.nil?
-      .empty
-        p.tips
-          = fa_icon 'shopping-cart'
-          == "您的购物车还是空的，赶快去 #{link_to '花市', root_path} 开始采购吧!"
+    - if @cart.nil? or @cart.cart_line_items.empty?
+      = render 'empty'
     - else
-      .not-empty.row
-        .cart-list.span9
-          .cart-title
-            = fa_icon "shopping-cart"
-            | 购物车
-          .cart-captain
-            .col-1
-              | 购物车商品-现在购买
-            .col-2
-              | 名称
-            .col-3
-              | 单价
-            .col-4
-              | 数量
-          = render partial: 'items', collection: @cart.get_line_items
-        .cart-checkout.span3
-          = render 'coupon_code'
-          .checkout
-            p
-              | 您的订单享受免费配送
-            p
-              | 请在订单信息页面完善地址信息
-            p.subtotal
-              | 小计
-              span.total-num
-              |（<i>#{@cart.cart_line_items.count}</i>件商品）：
-              strong.total-price
-                = number_to_currency @cart.total_price
-            /- if @cart.discounted?
-              p
-                em
-                  del
-                    | 原价：
-                    span
-                      = number_to_currency @cart.original_total
-            = link_to t('views.order.checkout'), new_order_path, class: 'btn-checkout', onClick: "analytics.track('Placing order', { category: 'Order', label: 'Coupon Code: ' + $('input[name=coupon_code]').val() + '; Items: ' + JSON.stringify($.cookie('cart')) });"
-            - if current_admin_ability.can? :record_back_order, Order
-              .admin-btn-area.row
-                = link_to t('views.order.back_checkout'), new_back_order_path, class: 'btn-checkout'
-                = link_to t('views.order.b2b_checkout'), new_b2b_order_path, class: 'btn-checkout'
-                = link_to t('views.order.secoo_checkout'), new_secoo_order_path, class: 'btn-checkout'
-      == render 'shared/guess_you_like', related_products: @related_products.take(5) if @related_products
+      = render 'items'

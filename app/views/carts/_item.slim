@@ -1,0 +1,28 @@
+.cart-product-item.item-table data-total = "#{item.total}"
+  = link_to image_tag(item.img(:medium), width: '140', height: '134'), product_path(item.product)
+  .product-info-main
+    h3.product-name
+      = link_to item.name, product_path(item.product)
+    h4.product-name-en
+      = item.name_en
+    p
+      - if item.on_stock?
+        | 现在有货
+      - else
+        =t 'views.product.soldout'
+    p
+      | 免费配送
+    .share
+      span = t(:sharing)
+      = render 'shared/product_share_links', product: item.product
+  .price data-price = "#{item.price}"
+
+    = number_to_currency item.price
+  .op.quantity
+    = link_to fa_icon("minus-square-o"), current_order_path, data: { product: item.product_id }, class: 'reduce_quantity'
+    input type='text' value="#{item.quantity}"
+    = link_to fa_icon("plus-square-o"), current_order_path, data: { product: item.product_id }, class: 'add_quantity'
+    = link_to fa_icon("trash-o"), current_order_path, data: { product: item.product_id }, class: 'empty_quantity'
+
+= render 'shared/product_share_popup', product: item.product
+
