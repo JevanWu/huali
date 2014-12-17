@@ -10,8 +10,8 @@
     ul.operate
       li.cart-li-preview
         = fa_icon 'shopping-cart'
-        a.cart href="#{current_order_path}"
-          = "(#{@cart ? 0 : 0})"
+        a.cart href="#{carts_show_path}"
+          = "(#{@cart ? @cart.cart_line_items.count : 0})"
         .cart-preview-container
           .cart-preview
             - if @cart.nil?
