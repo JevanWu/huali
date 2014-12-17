@@ -20,25 +20,9 @@
               | 单价
             .col-4
               | 数量
-          = render partial: 'product_in_cart', collection: @cart.cart_line_items.map(&:to_line_item)
+          = render partial: 'items', collection: @cart.get_line_items
         .cart-checkout.span3
-          /.discount
-            p
-              | 使用优惠码
-            p
-              | PROMO CODE
-            = form_tag orders_apply_coupon_path, method: :post do
-              .input-wrap
-                input type="text" name="coupon_code"
-                button.btn-discount type="submit" onClick="analytics.track('Use Coupon', { category: 'Order', label: $('input[name=coupon_code]').val() });"
-                  | 确定
-                - if @carts.coupon_code && !@carts.valid_coupon?
-                  - if @carts.items.any? { |item| item.product.discount? }
-                    p.error
-                      | 折扣商品，不能使用优惠劵！
-                  - else
-                    p.error
-                      | 无效优惠码！请确认信息后输入
+          = render 'coupon_code'
           .checkout
             p
               | 您的订单享受免费配送
@@ -63,4 +47,4 @@
                 = link_to t('views.order.back_checkout'), new_back_order_path, class: 'btn-checkout'
                 = link_to t('views.order.b2b_checkout'), new_b2b_order_path, class: 'btn-checkout'
                 = link_to t('views.order.secoo_checkout'), new_secoo_order_path, class: 'btn-checkout'
-      == render 'shared/guess_you_like', related_products: @related_products.take(5)
+      == render 'shared/guess_you_like', related_products: @related_products.take(5) if @related_products
