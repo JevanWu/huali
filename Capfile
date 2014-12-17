@@ -18,6 +18,7 @@ require 'capistrano/sitemap_generator'
 require 'capistrano/sidekiq'
 
 require 'capistrano/puma'
+require 'capistrano/puma/jungle'
 # Includes tasks from other gems included in your Gemfile
 #
 # For documentation on these, see for example:

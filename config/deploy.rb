@@ -12,6 +12,14 @@ set :branch, fetch(:rails_env) == 'staging' ? :staging : :master
 # Default deploy_to directory is /var/www/my_app
 set :deploy_to, "/home/deployer/repositories/#{fetch(:application)}-#{fetch(:rails_env)}"
 
+set :puma_init_active_record, true
+set :puma_bind, "unix://#{shared_path}/tmp/sockets/puma.sock"
+set :puma_threads, [0, 5]
+set :puma_workers, 1 
+set :puma_jungle_conf, '/etc/puma.conf'
+set :puma_run_path, '/usr/local/bin/run-puma'
+set :puma_default_hooks, false
+
 # Default value for :scm is :git
 # set :scm, :git
 
