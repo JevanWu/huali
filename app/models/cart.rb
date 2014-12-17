@@ -20,4 +20,15 @@ class Cart < ActiveRecord::Base
 
   validates :user_id, uniqueness: true
 
+  def valid_coupon?
+    !! coupon && coupon.usable?(self)
+  end
+  def coupon
+    CouponCode.find_by_code(coupon_code)
+  end
+  def get_line_items
+    self.cart_line_items.map(&:to_line_item)
+  end
+
+
 end
