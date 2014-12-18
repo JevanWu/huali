@@ -16,4 +16,4 @@
   .cart-checkout.span3
     = render 'coupon_code' if @cart.cart_line_items.any?
     = render 'checkout' if @cart.cart_line_items.any?
-= render 'shared/guess_you_like', related_products: @related_products.take(5)
+= render 'shared/guess_you_like', related_products: @related_products.take(5) unless @related_products.nil?
