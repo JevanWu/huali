@@ -25,4 +25,7 @@ class CartLineItem < ActiveRecord::Base
                  quantity: self.quantity,
                  price: self.price)
   end
+  def original_price
+    self.product.original_price_value
+  end
 end

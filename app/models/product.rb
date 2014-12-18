@@ -267,6 +267,10 @@ class Product < ActiveRecord::Base
     discount_event_today ? discount_event_today.original_price : super
   end
 
+  def original_price_value
+    original_price ? original_price : price
+  end
+
   def price
     discount_event_today ? discount_event_today.price : super
   end

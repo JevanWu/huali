@@ -21,6 +21,7 @@
 class CouponCode < ActiveRecord::Base
   belongs_to :coupon
   has_many :orders
+  has_many :carts
   belongs_to :user
 
   validates_presence_of :code, :available_count
