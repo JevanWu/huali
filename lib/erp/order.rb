@@ -8,7 +8,8 @@ module Erp
     yhd: '01.01.0006',
     offline: '01.03',
     amazon: '01.01.0045',
-    secoo: '01.01.0046'
+    secoo: '01.01.0046',
+    heike: '01.01.0030'
   }
 
   CTRIP_COUPON_CHARGES = {
