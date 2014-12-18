@@ -159,12 +159,13 @@ ActiveRecord::Schema.define(version: 20141216033421) do
 
   create_table "carts", force: true do |t|
     t.integer  "user_id"
-    t.decimal  "total_price", precision: 8, scale: 2, null: false
-    t.string   "coupon_code"
+    t.integer  "coupon_code_id"
+    t.decimal  "total_price",    precision: 8, scale: 2, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "carts", ["coupon_code_id"], name: "index_carts_on_coupon_code_id", using: :btree
   add_index "carts", ["user_id"], name: "index_carts_on_user_id", using: :btree
 
   create_table "cities", force: true do |t|
