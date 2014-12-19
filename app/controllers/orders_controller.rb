@@ -29,7 +29,7 @@ class OrdersController < ApplicationController
   def new
     @cart = Cart.where(user_id: current_user.try(:id)).first
     @coupon_code = @cart.coupon_code
-    @order_form = OrderForm.new(coupon_code: @coupon_code.code)
+    @order_form = OrderForm.new(coupon_code: @coupon_code ? @coupon_code.code : nil)
     @order_form.address = ReceiverInfo.new
     @order_form.sender = SenderInfo.new(current_user.as_json) # nil.as_json => nil
   end
@@ -115,15 +115,13 @@ class OrdersController < ApplicationController
     end
   end
 
-
   def create
     @order_form = OrderForm.new(params[:order_form])
     @order_form.user = current_or_guest_user
-
-    update_coupon_code(@order_form.coupon_code)
+    #update_coupon_code(@order_form.coupon_code)
 
     # create line items
-    @cart.items.each do |item|
+    @cart.get_line_items.each do |item|
       @order_form.add_line_item(item.product_id, item.quantity)
     end
 
@@ -132,8 +130,6 @@ class OrdersController < ApplicationController
     end
 
     if @order_form.save
-      empty_cart
-      delete_address_select_cookies
 
       OrderDiscountPolicy.new(@order_form.record).apply
       InstantDeliveryChargePolicy.new(@order_form.record, @order_form.instant_delivery).apply
@@ -203,9 +199,8 @@ class OrdersController < ApplicationController
       set_wechat_pay_params(@order, request.remote_ip) if @use_wechat_agent
     end
 
-    @cart = Cart.new(@order.line_items,
-                     @order.coupon_code_record.try(:code),
-                     @order.adjustment)
+    @cart = Cart.where(user_id: current_user.try(:id)).first
+    empty_cart
   end
 
   def gateway
@@ -446,7 +441,7 @@ class OrdersController < ApplicationController
     def validate_cart
       # - no line items present
       # - zero quantity
-      @cart = Cart.where(user_id: current_user.try(:id)).first
+      @cart = Cart.where(user_id: current_or_guest_user).first
       unless @cart or @cart.cart_line_items.any?
         flash[:alert] = t('controllers.order.no_items')
         redirect_to :root
@@ -487,5 +482,8 @@ class OrdersController < ApplicationController
       cookies.delete :address_province_id
       cookies.delete :address_city_id
       cookies.delete :address_area_id
+    end
+    def empty_cart
+      Cart.where(user_id: current_or_guest_user).first.destroy
     end
 end
