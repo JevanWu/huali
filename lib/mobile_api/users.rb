@@ -1,6 +1,50 @@
 module MobileAPI
   class Users < Grape::API
 
+    helpers do
+      def ordinary_sign_in(params)
+        error!('The user does not exist!', 404) if !user.present?
+        if user.valid_password?(params[:password])
+          token = user.reset_authentication_token
+          status 200
+          { 
+            authentication_token: token,
+            user_email: user.email,
+            user_phone: user.phone,
+            user_name: user.name,
+            set_password: user.set_password
+          }
+        else
+          error!("The account and password don't match!", 500)
+        end
+      end
+
+      def oauth_sigin_in(user)
+        token = user.reset_authentication_token
+        status 200
+        { 
+          authentication_token: token,
+          user_email: user.email,
+          user_phone: user.phone,
+          user_name: user.name,
+          set_password: user.set_password
+        }
+      end
+
+      def generate_new_oauth(user)
+        OauthService.create(provider: params[:oauth_provider], uid: params[:uid], oauth_token: params[:access_token], user: user)
+        token = user.reset_authentication_token
+        status 200
+        { 
+          authentication_token: token,
+          user_email: user.email,
+          user_phone: user.phone,
+          user_name: user.name, 
+          set_password: user.set_password
+        }
+      end
+    end
+
     resource :users do
 
       desc "Return authentication token for identifying current user." 
@@ -13,44 +57,14 @@ module MobileAPI
       post :sign_in do
         if params[:email].present? && params[:password].present?
           user = User.find_by(email: params[:email])
-          error!('The user does not exist!', 404) if !user.present?
-          if user.valid_password?(params[:password])
-            token = user.reset_authentication_token
-            status 200
-            { 
-              authentication_token: token,
-              user_email: user.email,
-              user_phone: user.phone,
-              user_name: user.name,
-              set_password: user.set_password
-            }
-          else
-            error!("The account and password don't match!", 500)
-          end
+          ordinary_sign_in(user)
         elsif params[:uid] && params[:oauth_provider]
           if user = OauthService.find_user(params[:oauth_provider], params[:uid])
-            token = user.reset_authentication_token
-            status 200
-            { 
-              authentication_token: token,
-              user_email: user.email,
-              user_phone: user.phone,
-              user_name: user.name,
-              set_password: user.set_password
-            }
+            oauth_sigin_in(user)
           else
             if params[:phone].present? && params[:email].present? && params[:name].present?
               user = User.find_by(email: params[:email]) ||  User.create(name: params[:name], phone: params[:phone], email: params[:email], password: SecureRandom.base64(10), bypass_humanizer: true, set_password: false)
-              OauthService.create(provider: params[:oauth_provider], uid: params[:uid], oauth_token: params[:access_token], user: user)
-              token = user.reset_authentication_token
-              status 200
-              { 
-                authentication_token: token,
-                user_email: user.email,
-                user_phone: user.phone,
-                user_name: user.name, 
-                set_password: user.set_password
-              }
+              generate_new_oauth(user)
             else
               status 200
               { new_user: "yes" }
