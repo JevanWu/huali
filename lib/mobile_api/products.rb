@@ -73,14 +73,14 @@ module MobileAPI
         optional :page, type: Integer, desc: "The number of page queried"
       end
       get :search do
-        # products = Product.solr_search do
-        #   fulltext params[:key_word]
-        #   with :published, true
-        #   paginate :page => params[:page], :per_page => params[:per_page] if params[:page] && params[:per_page]
+        products = Product.solr_search do
+          fulltext params[:key_word]
+          with :published, true
+          paginate :page => params[:page], :per_page => params[:per_page] if params[:page] && params[:per_page]
 
-        # end.results
+        end.results
 
-        products = Product.where("name_zh LIKE '%#{params[:keyword]}%'")
+        #products = Product.where("name_zh LIKE '%#{params[:keyword]}%'")
         
         res = Array.new
         products.each do |product|
