@@ -153,16 +153,6 @@ class User < ActiveRecord::Base
     self.update_columns(reset_password_token: reset_token, reset_password_sent_at: Time.current)
     return reset_token
   end
-    
-  def self.find_by_openid(openid)
-    oauth_provider = OauthProvider.find_by identifier: openid
-    if oauth_provider.nil?
-      user = User.new(name: "匿名", role: "customer")
-      user.save(validate: false)
-      oauth_provider = user.oauth_providers.create(identifier: openid, provider: "wechat")
-    end
-    oauth_provider.user
-  end
 
   private
 
