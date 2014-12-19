@@ -1,8 +1,12 @@
 class CartsController < ApplicationController
 
   def create
-    @cart = Cart.where(user_id: cart_params[:user_id]).first
-    @cart = Cart.new(cart_params) if @cart.nil?
+    binding.pry
+    @cart = Cart.where(user_id: current_or_guest_user.id).first
+    if @cart.nil?
+      @cart = Cart.new(cart_params) 
+      @cart.user_id = current_or_guest_user.id
+    end
     @cart.cart_line_items.new(cart_line_items_params)
     @cart.total_price = @cart.calculate_total_price
     redirect_to carts_show_path if @cart.save
@@ -23,7 +27,7 @@ class CartsController < ApplicationController
     end
   end
   def show
-    @cart = Cart.where(user_id: current_user.try(:id)).first
+    @cart = Cart.where(user_id: current_or_guest_user.id).first
     if @cart and @cart.cart_line_items.any?
       @product = Product.published.find(@cart.cart_line_items.first.product_id)
       @related_products = @product.related_products
