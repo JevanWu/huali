@@ -12,6 +12,14 @@ set :branch, fetch(:rails_env) == 'staging' ? :staging : :master
 # Default deploy_to directory is /var/www/my_app
 set :deploy_to, "/home/deployer/repositories/#{fetch(:application)}-#{fetch(:rails_env)}"
 
+set :puma_init_active_record, true
+set :puma_bind, "unix://#{shared_path}/tmp/sockets/puma.sock"
+set :puma_threads, [0, 20]
+set :puma_workers, 4 
+set :puma_jungle_conf, '/etc/puma.conf'
+set :puma_run_path, '/usr/local/bin/run-puma'
+set :puma_default_hooks, false
+
 # Default value for :scm is :git
 # set :scm, :git
 
@@ -25,7 +33,7 @@ set :deploy_to, "/home/deployer/repositories/#{fetch(:application)}-#{fetch(:rai
 # set :pty, true
 
 # Default value for :linked_files is []
-set :linked_files, %w{config/database.yml config/application.yml config/unicorn.rb}
+set :linked_files, %w{config/database.yml config/application.yml}
 
 # Default value for linked_dirs is []
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
@@ -51,8 +59,7 @@ namespace :deploy do
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
-      # Your restart mechanism here, for example:
-      execute :service, "unicorn_huali upgrade"
+      invoke "puma:jungle:restart"
     end
   end
 

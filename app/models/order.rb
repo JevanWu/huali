@@ -313,6 +313,10 @@ class Order < ActiveRecord::Base
     self.state != "generated"
   end
 
+  def state_zh
+    I18n.t("models.order.state.#{self.state}")
+  end
+
 private
 
   def update_product_stock

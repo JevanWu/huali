@@ -28,7 +28,7 @@ class AdminAbility
       can :update_seo, [Product, Collection]
       manage_blog
     when "marketing_manager"
-      can :manage, [Coupon, Story, SlidePanel]
+      can :manage, [Coupon, Story, SlidePanel, DailyPhrase]
       can :record_back_order, Order
       can :update, [Order], kind: 'marketing'
       can :read, [Product, Appointment]
