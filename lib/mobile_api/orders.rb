@@ -170,7 +170,7 @@ module MobileAPI
         order.user = current_user
         order.address = address
 
-        error!(order.errors.messages, 500) unless order.save
+        error!(order.errors.messages, 400) unless order.save
 
         products = order_info[:products]
         
