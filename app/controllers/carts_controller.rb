@@ -12,7 +12,7 @@ class CartsController < ApplicationController
     coupon_codes = CouponCode.where code: cart_params[:coupon_code_id]
     @cart.coupon_code_id = coupon_codes.first.id if coupon_codes.any?
     if @cart.coupon_code and @cart.valid_coupon_code?
-      @cart.use_coupon_code!
+      @cart.total_price = @cart.calculate_total_price
       redirect_to carts_show_path if @cart.save
     else
       if @cart.get_line_items.any? { |item| item.product.discount? }
@@ -24,7 +24,7 @@ class CartsController < ApplicationController
   end
   def show
     @cart = Cart.where(user_id: current_user.try(:id)).first
-    if @cart.present? and @cart.cart_line_items.any?
+    if @cart and @cart.cart_line_items.any?
       @product = Product.published.find(@cart.cart_line_items.first.product_id)
       @related_products = @product.related_products
     end

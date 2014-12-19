@@ -22,11 +22,11 @@ class Cart < ActiveRecord::Base
 
   validates :user_id, uniqueness: true
 
-  def use_coupon_code!
-    coupon_code.use!
-    operator, value = coupon_code.coupon.adjustment.split(//, 2)
-    self.total_price = calculate_total_price.send(operator, value.to_d)
-  end
+  #def use_coupon_code!
+    #coupon_code.use!
+    #operator, value = coupon_code.coupon.adjustment.split(//, 2)
+    #self.total_price = calculate_total_price.send(operator, value.to_d)
+  #end
 
   def valid_coupon_code?
     !! coupon_code && coupon_code.usable?(self)
@@ -37,7 +37,19 @@ class Cart < ActiveRecord::Base
   end
 
   def calculate_total_price
-    cart_line_items.map(&:price).inject(:+)
+    total_price_value = if adjustment.present?# && valid_coupon?
+                          [Discount.new(adjustment).calculate(original_total_price), 0].max
+                        else
+                          cart_line_items.map(&:price).inject(:+)
+                        end
+
+    if limited_promotion_today && limited_promotion_today.usable?
+      total_price_value = [Discount.new(limited_promotion_today.adjustment).calculate(total_price_value), 0].max
+    end
+    total_price_value
+  end
+  def adjustment
+    @adjustment ||= (self.valid_coupon_code? ? self.coupon_code.adjustment : nil)
   end
   def original_total_price
     cart_line_items.map(&:original_price).inject(:+)
@@ -57,6 +69,12 @@ class Cart < ActiveRecord::Base
 
   def to_coupon_rule_opts
     { total_price: original_total_price, products: products }
+  end
+  def limited_promotion_today
+    products.each do |p|
+      return p.limited_promotion_today if p.limited_promotion_today
+    end
+    nil
   end
 
   private
