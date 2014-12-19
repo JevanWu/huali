@@ -27,11 +27,11 @@ class OrdersController < ApplicationController
   end
 
   def new
-    @order_form = OrderForm.new(coupon_code: cookies[:coupon_code])
+    @cart = Cart.where(user_id: current_user.try(:id)).first
+    @coupon_code = @cart.coupon_code
+    @order_form = OrderForm.new(coupon_code: @coupon_code.code)
     @order_form.address = ReceiverInfo.new
     @order_form.sender = SenderInfo.new(current_user.as_json) # nil.as_json => nil
-
-    @coupon_code = @card.present? && @card.coupon.present? ? @card.coupon : ""
   end
 
   # channel order
@@ -446,7 +446,8 @@ class OrdersController < ApplicationController
     def validate_cart
       # - no line items present
       # - zero quantity
-      if @cart.blank? || @cart.items.any? { |item| item.quantity.to_i <= 0 }
+      @cart = Cart.where(user_id: current_user.try(:id)).first
+      unless @cart or @cart.cart_line_items.any?
         flash[:alert] = t('controllers.order.no_items')
         redirect_to :root
       end
