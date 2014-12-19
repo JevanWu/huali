@@ -8,7 +8,8 @@ module Erp
     yhd: '01.01.0006',
     offline: '01.03',
     amazon: '01.01.0045',
-    secoo: '01.01.0046'
+    secoo: '01.01.0046',
+    heike: '01.01.0030'
   }
 
   CTRIP_COUPON_CHARGES = {
@@ -53,8 +54,8 @@ module Erp
       order.line_items.each do |item|
         ret.order_entries.build(FNumber: item.sku_id,
                                 FQty: item.quantity,
-                                FTaxPrice: item.price,
-                                FTaxAmount: item.total,
+                                FTaxPrice: item_total_with_extra_charge(item, order) / item.quantity.to_f,
+                                FTaxAmount: item_total_with_extra_charge(item, order),
                                 FTaxRate: TAX_RATE,
                                 FExpectedDate: order.delivery_date, # Import delivery_date instead of expected_date
                                 FDiscount: discount_by_item(order, transaction, item))
@@ -90,6 +91,14 @@ module Erp
           '02'
         else
           '01'
+        end
+      end
+
+      def item_total_with_extra_charge(item, order)
+        if order.instant_delivery
+          (item.total / order.item_total.to_f) * order.instant_delivery.fee + item.total
+        else
+          item.total
         end
       end
 
