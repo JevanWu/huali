@@ -1,7 +1,6 @@
 class CartsController < ApplicationController
 
   def create
-    binding.pry
     @cart = Cart.where(user_id: current_or_guest_user.id).first
     if @cart.nil?
       @cart = Cart.new(cart_params) 
