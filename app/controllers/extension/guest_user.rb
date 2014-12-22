@@ -21,7 +21,6 @@ module Extension
     def migrate_from_guest
       if session[:guest_user_id]
         hand_off_guest
-        destroy_guest
       end
     end
 
@@ -32,11 +31,23 @@ module Extension
 
     # hand off resources from guest_user to current_user.
     def hand_off_guest
-      guest_orders = guest_user.orders.all
-      guest_orders.each do |order|
-        order.user_id = current_user.id
-        order.save
+      cart_user = Cart.where(user_id: current_user).first
+      cart_guest = Cart.where(user_id: guest_user.id).first
+      if cart_user
+        cart_user.cart_line_items.concat(cart_guest.cart_line_items)
+        cart_user.save
+        destroy_guest
+      else
+        cart_guest.user_id = current_user.id
+        cart_guest.save
+        session[:guest_user_id] = nil
       end
+
+      #guest_orders = guest_user.orders.all
+      #guest_orders.each do |order|
+        #order.user_id = current_user.id
+        #order.save
+      #end
     end
   end
 end
