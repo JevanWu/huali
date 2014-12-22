@@ -1,0 +1,19 @@
+.not-empty
+  .cart-list.span9
+    .cart-title
+      = fa_icon "shopping-cart"
+      | 购物车
+    .cart-captain
+      .col-1
+        | 购物车商品-现在购买
+      .col-2
+        | 名称
+      .col-3
+        | 单价
+      .col-4
+        | 数量
+    = render partial: 'item', collection: @cart.get_line_items
+  .cart-checkout.span3
+    = render 'coupon_code' if @cart.cart_line_items.any?
+    = render 'checkout' if @cart.cart_line_items.any?
+
