@@ -11,6 +11,8 @@
       <%= image_tag @story.author_avatar.url(:small) %>
     <% end %>
     <%= f.input :origin_link %>
+    <%= f.input :product_link %>
+    <%= f.input :product, collection: Product.published, input_html: { :"data-placeholder" => '请选择', class: 'chosen' } %>
     <%= f.input :priority %>
     <%= f.input :available %>
   <% end %>
