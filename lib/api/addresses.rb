@@ -1,7 +1,6 @@
 module API
   # Orders API
   class Addresses < Grape::API
-    before { verify_signature! }
 
     helpers do
       def special_province?
