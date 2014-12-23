@@ -68,9 +68,9 @@ class Order < ActiveRecord::Base
   delegate :paymethod, to: :transaction, allow_nil: true
   delegate :province_id, :city_id, :area_id, to: :address, prefix: 'address', allow_nil: true
 
-  before_validation :generate_identifier, on: :create
+  before_create :generate_identifier
 
-  validates_presence_of :identifier, :state, :total, :item_total
+  validates_presence_of :state, :total, :item_total
   validates :merchant_order_no, uniqueness: { scope: :kind }, allow_blank: true
   validates :merchant_order_no, presence: true, if: Proc.new { |order| ['taobao', 'tmall'].include?(order.kind) }
 
