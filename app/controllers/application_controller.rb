@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   include ::Extension::Locale
   include ::Extension::Cancan
   include ::Extension::Exception
-  #include ::Extension::RecordCookie
+  include ::Extension::RecordCookie
   include ::Extension::SignInRedirect
   #include ::Extension::CookieCart
   include ::Extension::BulkExportAuthorization
