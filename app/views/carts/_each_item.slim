@@ -19,11 +19,16 @@
 
     = number_to_currency each_item.price
   .op.quantity
-    = link_to fa_icon("minus-square-o"), current_order_path, data: { product: each_item.product_id }, class: 'reduce_quantity'
-    input type='text' value="#{each_item.quantity}"
-    = link_to fa_icon("plus-square-o"), current_order_path, data: { product: each_item.product_id }, class: 'add_quantity'
 
-    = button_to carts_destroy_item_path(each_item), method: :delete do
+    = button_to carts_item_decrease_path(each_item), method: :put do
+      <span class='fa fa-minus-square-o'></span>
+
+    input type='text' value="#{each_item.quantity}"
+
+    = button_to carts_item_increase_path(each_item), method: :put do
+      <span class='fa fa-plus-square-o'></span>
+
+    = button_to carts_item_destroy_path(each_item), method: :delete do
       <span class='fa fa-trash-o'></span>
 
 = render 'shared/product_share_popup', product: each_item.product
