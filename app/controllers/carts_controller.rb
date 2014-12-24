@@ -32,9 +32,16 @@ class CartsController < ApplicationController
       @related_products = @product.related_products
     end
   end
-  def destroy_item
+  
+  def item_decrease
+  end
+
+  def item_increase
+  end
+
+  def item_destroy
     @cart = Cart.where(user_id: current_or_guest_user.id).first
-    item = @cart.cart_line_items.find(params[:id])
+    item = @cart.cart_line_items.find(params[:item_id])
     item.destroy
     redirect_to carts_show_path
   end
