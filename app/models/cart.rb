@@ -43,7 +43,6 @@ class Cart < ActiveRecord::Base
   end
 
   def calculate_total_price
-    binding.pry
     total_price_value = if adjustment.present?# && valid_coupon?
                           [Discount.new(adjustment).calculate(original_total_price), 0].max
                         else
