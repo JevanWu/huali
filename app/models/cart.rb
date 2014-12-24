@@ -28,6 +28,12 @@ class Cart < ActiveRecord::Base
     #self.total_price = calculate_total_price.send(operator, value.to_d)
   #end
 
+  def item_size
+    cart_line_items.map(&:quantity).inject(:+)
+  end
+  def get_item_by(product_id)
+    self.cart_line_items.select { |i| i.product_id = product_id }.first
+  end
   def valid_coupon_code?
     !! coupon_code && coupon_code.usable?(self)
   end
@@ -37,10 +43,11 @@ class Cart < ActiveRecord::Base
   end
 
   def calculate_total_price
+    binding.pry
     total_price_value = if adjustment.present?# && valid_coupon?
                           [Discount.new(adjustment).calculate(original_total_price), 0].max
                         else
-                          cart_line_items.map(&:price).inject(:+)
+                          cart_line_items.map(&:total_price).inject(:+)
                         end
 
     if limited_promotion_today && limited_promotion_today.usable?

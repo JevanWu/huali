@@ -1,4 +1,4 @@
-.cart-product-item.item-table data-total = "#{each_item.total}"
+.cart-product-item.item-table data-total = "#{each_item.total_price}"
   = link_to image_tag(each_item.img(:medium), width: '140', height: '134'), product_path(each_item.product)
   .product-info-main
     h3.product-name
@@ -15,9 +15,9 @@
     .share
       span = t(:sharing)
       = render 'shared/product_share_links', product: each_item.product
-  .price data-price = "#{each_item.price}"
+  .price data-price = "#{each_item.total_price}"
 
-    = number_to_currency each_item.price
+    = number_to_currency each_item.total_price
   .op.quantity
 
     = button_to carts_item_decrease_path(each_item), method: :put, class: 'reduce_quantity' do
