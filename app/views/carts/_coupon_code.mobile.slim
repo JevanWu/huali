@@ -3,6 +3,6 @@
       | 使用优惠码
 
     br
-    = simple_form_for @cart, url: carts_coupon_code_path, method: :post do |f|
+    = simple_form_for @cart, url: carts_coupon_path, method: :post do |f|
         = f.association :coupon_code, as: :string
         = f.submit "确定", class: "btn-discount-m"
