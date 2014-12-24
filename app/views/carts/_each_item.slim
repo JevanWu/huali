@@ -22,7 +22,9 @@
     = link_to fa_icon("minus-square-o"), current_order_path, data: { product: each_item.product_id }, class: 'reduce_quantity'
     input type='text' value="#{each_item.quantity}"
     = link_to fa_icon("plus-square-o"), current_order_path, data: { product: each_item.product_id }, class: 'add_quantity'
-    = link_to fa_icon("trash-o"), current_order_path, data: { product: each_item.product_id }, class: 'empty_quantity'
+
+    = button_to carts_destroy_item_path(each_item), method: :delete do
+      <span class='fa fa-trash-o'></span>
 
 = render 'shared/product_share_popup', product: each_item.product
 

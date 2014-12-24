@@ -20,6 +20,9 @@ class CartLineItem < ActiveRecord::Base
   belongs_to :cart
   belongs_to :product
 
+  delegate :discount?, :sold_total, :img, :name, :name_en, :height, :width,
+    :depth, :category_name, :published, :product_type, :product_type_text, :sku_id, to: :product
+
   def to_line_item
     LineItem.new(product_id: self.product_id,
                  quantity: self.quantity,
@@ -27,5 +30,11 @@ class CartLineItem < ActiveRecord::Base
   end
   def original_price
     self.product.original_price_value
+  end
+  def total
+    price * quantity
+  end
+  def on_stock?
+    product.count_on_hand > 0
   end
 end

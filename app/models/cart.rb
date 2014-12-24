@@ -18,7 +18,7 @@
 class Cart < ActiveRecord::Base
   belongs_to :user
   belongs_to :coupon_code
-  has_many :cart_line_items
+  has_many :cart_line_items, dependent: :destroy
 
   validates :user_id, uniqueness: true
 

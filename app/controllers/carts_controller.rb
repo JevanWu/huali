@@ -32,6 +32,12 @@ class CartsController < ApplicationController
       @related_products = @product.related_products
     end
   end
+  def destroy_item
+    @cart = Cart.where(user_id: current_or_guest_user.id).first
+    item = @cart.cart_line_items.find(params[:id])
+    item.destroy
+    redirect_to carts_show_path
+  end
 
   private
   def cart_params
