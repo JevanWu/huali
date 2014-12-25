@@ -4,3 +4,5 @@
       = render 'empty'
     - else
       = render 'items'
+
+    = render 'shared/guess_you_like', related_products: @related_products.take(5) unless @related_products.nil?
