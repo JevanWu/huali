@@ -6,19 +6,19 @@ html
     meta charset="utf-8"
     meta name="Keywords" content="#{yield :keywords}"
     meta name="Description" content="#{yield :description}"
-    meta name="viewport" content="target-densitydpi=320,width=480,user-scalable=no"
+    meta name="viewport" content="target-densitydpi=320,width=320,user-scalable=no"
     meta name="HandheldFriendly" content="True"
     meta name="MobileOptimized" content="480"
     meta name="format-detection" content="telephone=no"
     meta content="on" http-equiv="cleartype"
     meta http-equiv="Cache-Control" content="private"
-
+    = javascript_include_tag 'application-mobile'
 
   body
     .error-logo style="text-align: center"
       =image_tag('logo.png')
 
     .error-page-main.e404
-      .help
+      .help style="text-align: center"
         p
-          =image_tag('cover.png', style: 'width:100%')
+          =image_tag('cover.jpg', style: 'width:80%')
