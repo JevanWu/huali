@@ -15,7 +15,6 @@ class ProductsController < ApplicationController
     @greeting_card = GreetingCard.new(product: @product)
     @reply_greeting_card = ReplyGreetingCard.new
     @cart = Cart.new
-    @cart_nav = Cart.find_by user_id: current_or_guest_user.id
 
     # FIXME products always have assets now
     assets  = @product.assets || []

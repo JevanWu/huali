@@ -34,7 +34,6 @@ class CartsController < ApplicationController
   end
   def show
     @cart = get_cart
-    @cart_nav = @cart
     if @cart and @cart.cart_line_items.any?
       @related_products = Product.published.find(@cart.cart_line_items.first.product_id).related_products
     else

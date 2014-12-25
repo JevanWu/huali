@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_action :get_host
   before_action :dev_tools if Rails.env == 'development'
+  before_action :cart_nav
 
   # enable squash
   include Squash::Ruby::ControllerMethods
@@ -27,6 +28,10 @@ class ApplicationController < ActionController::Base
 
   def dev_tools
     Rack::MiniProfiler.authorize_request if defined?(Rack::MiniProfiler)
+  end
+
+  def cart_nav
+    @cart_nav = Cart.find_by user_id: current_or_guest_user.id
   end
 
   def get_host
