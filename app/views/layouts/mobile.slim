@@ -12,19 +12,17 @@ html
     meta name="format-detection" content="telephone=no"
     meta content="on" http-equiv="cleartype"
     meta http-equiv="Cache-Control" content="private"
-    = stylesheet_link_tag 'mobile'
-    = yield(:css)
 
-    = javascript_include_tag 'application-mobile'
-    = render 'layouts/segmentio'
-    = yield(:js)
 
   body
-    == render 'layouts/header_mobile'
-    == render 'layouts/nav_mobile'
-    == render 'layouts/banner'
-    .main-content
-      == yield
-    == render 'layouts/footer_mobile'
-
-    = yield(:body_js)
+    .error-logo style="text-align: center"
+      =image_tag('logo.png')
+    .error-text
+      p
+        i
+        | 网站维护中！
+        b
+    .error-page-main.e404
+      .help
+        p
+          =image_tag('bg/500_main.png', style: 'width:100%')
