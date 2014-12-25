@@ -16,8 +16,15 @@
       span = t(:sharing)
       = render 'shared/product_share_links', product: each_item.product
   .price data-price = "#{each_item.total_price}"
-
     = number_to_currency each_item.total_price
+
+  - if each_item.discounted?
+    p
+      em
+        del
+          | 原价：
+          span
+            = number_to_currency each_item.original_total_price
   .op.quantity
 
     = button_to carts_item_decrease_path(each_item), method: :put, class: 'reduce_quantity' do

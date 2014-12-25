@@ -28,11 +28,17 @@ class CartLineItem < ActiveRecord::Base
                  quantity: self.quantity,
                  price: self.price)
   end
-  def original_price
-    self.product.original_price_value * quantity
+  def discounted?
+    total_price != original_total_price
   end
   def total_price
     price * quantity
+  end
+  def original_price
+    product.original_price_value
+  end
+  def original_total_price
+    self.product.original_price_value * quantity
   end
   def on_stock?
     product.count_on_hand > 0
