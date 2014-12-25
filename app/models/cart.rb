@@ -28,7 +28,7 @@ class Cart < ActiveRecord::Base
     #self.total_price = calculate_total_price.send(operator, value.to_d)
   #end
 
-  def item_size
+  def items_size
     cart_line_items.map(&:quantity).inject(:+)
   end
   def get_item_by(product_id)
