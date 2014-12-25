@@ -52,7 +52,7 @@ class Cart < ActiveRecord::Base
     if limited_promotion_today && limited_promotion_today.usable?
       total_price_value = [Discount.new(limited_promotion_today.adjustment).calculate(total_price_value), 0].max
     end
-    total_price_value
+    total_price_value ? total_price_value : 0.to_d
   end
   def adjustment
     @adjustment ||= (self.valid_coupon_code? ? self.coupon_code.adjustment : nil)
