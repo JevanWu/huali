@@ -3,8 +3,8 @@ class CreateCartLineItems < ActiveRecord::Migration
     create_table :cart_line_items do |t|
       t.references :cart, index: true
       t.references :product, index: true
-      t.decimal :total_price, precision: 8, scale: 2
-      t.integer :quantity
+      t.decimal :total_price, precision: 8, scale: 2, null: false
+      t.integer :quantity, null: false
       t.timestamps
     end
   end
