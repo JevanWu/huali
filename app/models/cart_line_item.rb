@@ -2,13 +2,13 @@
 #
 # Table name: cart_line_items
 #
-#  cart_id    :integer
-#  created_at :datetime
-#  id         :integer          not null, primary key
-#  price      :decimal(8, 2)    not null
-#  product_id :integer
-#  quantity   :integer          not null
-#  updated_at :datetime
+#  cart_id     :integer
+#  created_at  :datetime
+#  id          :integer          not null, primary key
+#  product_id  :integer
+#  quantity    :integer
+#  total_price :decimal(8, 2)
+#  updated_at  :datetime
 #
 # Indexes
 #

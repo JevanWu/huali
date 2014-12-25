@@ -148,8 +148,8 @@ ActiveRecord::Schema.define(version: 20141216033421) do
   create_table "cart_line_items", force: true do |t|
     t.integer  "cart_id"
     t.integer  "product_id"
-    t.decimal  "price",      precision: 8, scale: 2, null: false
-    t.integer  "quantity",                           null: false
+    t.decimal  "total_price", precision: 8, scale: 2
+    t.integer  "quantity"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
