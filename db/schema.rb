@@ -148,8 +148,8 @@ ActiveRecord::Schema.define(version: 20141216033421) do
   create_table "cart_line_items", force: true do |t|
     t.integer  "cart_id"
     t.integer  "product_id"
-    t.decimal  "total_price", precision: 8, scale: 2
-    t.integer  "quantity"
+    t.decimal  "total_price", precision: 8, scale: 2, default: 0.0, null: false
+    t.integer  "quantity",                            default: 0,   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -160,7 +160,7 @@ ActiveRecord::Schema.define(version: 20141216033421) do
   create_table "carts", force: true do |t|
     t.integer  "user_id"
     t.integer  "coupon_code_id"
-    t.decimal  "total_price",    precision: 8, scale: 2, null: false
+    t.decimal  "total_price",    precision: 8, scale: 2, default: 0.0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -260,6 +260,17 @@ ActiveRecord::Schema.define(version: 20141216033421) do
 
   add_index "coupons_products", ["coupon_id", "product_id"], name: "index_coupons_products_on_coupon_id_and_product_id", unique: true, using: :btree
 
+  create_table "daily_phrases", force: true do |t|
+    t.string   "title"
+    t.text     "phrase"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "date_rules", force: true do |t|
     t.integer  "product_id"
     t.date     "start_date"
@@ -316,6 +327,18 @@ ActiveRecord::Schema.define(version: 20141216033421) do
   add_index "greeting_cards", ["product_id"], name: "index_greeting_cards_on_product_id", using: :btree
   add_index "greeting_cards", ["user_id"], name: "index_greeting_cards_on_user_id", using: :btree
 
+  create_table "guide_views", force: true do |t|
+    t.text     "description"
+    t.boolean  "available",          default: false
+    t.integer  "priority"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "instant_deliveries", force: true do |t|
     t.integer  "order_id"
     t.decimal  "fee",                  precision: 8, scale: 2, default: 0.0, null: false
@@ -369,6 +392,19 @@ ActiveRecord::Schema.define(version: 20141216033421) do
   end
 
   add_index "lucky_draw_offlines", ["mobile"], name: "index_lucky_draw_offlines_on_mobile", unique: true, using: :btree
+
+  create_table "mobile_menus", force: true do |t|
+    t.string   "name"
+    t.string   "href"
+    t.text     "description"
+    t.integer  "priority"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "monthly_solds", force: true do |t|
     t.integer  "sold_year"
@@ -700,7 +736,11 @@ ActiveRecord::Schema.define(version: 20141216033421) do
     t.datetime "author_avatar_updated_at"
     t.string   "origin_link"
     t.integer  "priority",                   default: 0
+    t.string   "product_link"
+    t.integer  "product_id"
   end
+
+  add_index "stories", ["product_id"], name: "index_stories_on_product_id", using: :btree
 
   create_table "surveys", force: true do |t|
     t.integer  "user_id"
@@ -801,6 +841,8 @@ ActiveRecord::Schema.define(version: 20141216033421) do
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
+    t.string   "authentication_token"
+    t.boolean  "set_password",                                     default: true
   end
 
   add_index "users", ["anonymous_token"], name: "index_users_on_anonymous_token", unique: true, using: :btree

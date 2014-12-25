@@ -4,5 +4,4 @@
 = simple_form_for @cart, url: carts_path, html: {class: "form-horizontal"} do |f|
   = f.input :product_id, as: :hidden, input_html: { value: @product.id }
   = f.input :quantity, as: :hidden, input_html: { value: "1" }
-  = f.input :price, as: :hidden, input_html: { value: @product.price }
   = f.submit "放入购物车", class: "button"

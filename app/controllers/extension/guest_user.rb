@@ -17,6 +17,14 @@ module Extension
     end
 
     private
+    def get_cart
+      cart = Cart.find_by user_id: current_or_guest_user.id
+      if cart.nil?
+        cart = Cart.new(cart_params)
+        cart.user_id = current_or_guest_user.id
+      end
+      cart
+    end
 
     def migrate_from_guest
       if session[:guest_user_id]

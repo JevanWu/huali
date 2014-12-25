@@ -5,7 +5,7 @@
 #  coupon_code_id :integer
 #  created_at     :datetime
 #  id             :integer          not null, primary key
-#  total_price    :decimal(8, 2)    not null
+#  total_price    :decimal(8, 2)    default(0.0), not null
 #  updated_at     :datetime
 #  user_id        :integer
 #
@@ -43,7 +43,7 @@ class Cart < ActiveRecord::Base
   end
 
   def calculate_total_price
-    total_price_value = if adjustment.present?# && valid_coupon?
+    total_price_value = if adjustment.present? # && valid_coupon?
                           [Discount.new(adjustment).calculate(original_total_price), 0].max
                         else
                           cart_line_items.map(&:total_price).inject(:+)
@@ -52,17 +52,17 @@ class Cart < ActiveRecord::Base
     if limited_promotion_today && limited_promotion_today.usable?
       total_price_value = [Discount.new(limited_promotion_today.adjustment).calculate(total_price_value), 0].max
     end
-    total_price_value ? total_price_value : 0.to_d
+    total_price_value ? total_price_value : 0.00
   end
   def adjustment
     @adjustment ||= (self.valid_coupon_code? ? self.coupon_code.adjustment : nil)
   end
   def original_total_price
-    cart_line_items.map(&:original_price).inject(:+)
+    cart_line_items.map(&:original_total_price).inject(:+)
   end
 
   def discounted?
-    self.total_price != self.original_total_price
+    total_price != original_total_price
   end
 
   def discount_money

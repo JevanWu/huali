@@ -6,8 +6,8 @@
 #  created_at  :datetime
 #  id          :integer          not null, primary key
 #  product_id  :integer
-#  quantity    :integer
-#  total_price :decimal(8, 2)
+#  quantity    :integer          default(0), not null
+#  total_price :decimal(8, 2)    default(0.0), not null
 #  updated_at  :datetime
 #
 # Indexes

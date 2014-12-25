@@ -5,9 +5,12 @@ class CartsController < ApplicationController
     item = @cart.get_item_by(cart_line_items_params[:product_id])
     if item
       item.quantity += 1
+      item.total_price = item.calculate_total_price
       item.save
     else
-      @cart.cart_line_items.new(cart_line_items_params)
+      item = @cart.cart_line_items.new(cart_line_items_params)
+      item.total_price = item.calculate_total_price
+      item.save
     end
     @cart.total_price = @cart.calculate_total_price
     redirect_to carts_show_path if @cart.save
@@ -43,6 +46,7 @@ class CartsController < ApplicationController
     if item.quantity == 0
       item.destroy
     else
+      item.total_price = item.calculate_total_price
       item.save
     end
     @cart.total_price = @cart.calculate_total_price
@@ -54,6 +58,7 @@ class CartsController < ApplicationController
     @cart = get_cart
     item = @cart.cart_line_items.find(params[:item_id])
     item.quantity += 1
+    item.total_price = item.calculate_total_price
     item.save
     @cart.total_price = @cart.calculate_total_price
     @cart.save
@@ -68,20 +73,11 @@ class CartsController < ApplicationController
   end
 
   private
-
-  def get_cart
-    cart = Cart.find_by user_id: current_or_guest_user.id
-    if cart.nil?
-      cart = Cart.new(cart_params) 
-      cart.user_id = current_or_guest_user.id
-    end
-    cart
-  end
   def cart_params
       params.require(:cart).permit(:user_id, :total_price, :coupon_code_id)
   end
   def cart_line_items_params
-    params.require(:cart).permit(:cart_id, :product_id, :price, :quantity)
+    params.require(:cart).permit(:cart_id, :product_id, :total_price, :quantity)
   end
 
 end

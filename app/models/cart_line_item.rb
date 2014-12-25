@@ -6,8 +6,8 @@
 #  created_at  :datetime
 #  id          :integer          not null, primary key
 #  product_id  :integer
-#  quantity    :integer
-#  total_price :decimal(8, 2)
+#  quantity    :integer          default(0), not null
+#  total_price :decimal(8, 2)    default(0.0), not null
 #  updated_at  :datetime
 #
 # Indexes
@@ -26,20 +26,31 @@ class CartLineItem < ActiveRecord::Base
   def to_line_item
     LineItem.new(product_id: self.product_id,
                  quantity: self.quantity,
-                 price: self.price)
+                 price: self.unit_price)
   end
+
   def discounted?
     total_price != original_total_price
   end
-  def total_price
-    price * quantity
-  end
-  def original_price
-    product.original_price_value
-  end
+
   def original_total_price
     self.product.original_price_value * quantity
   end
+
+  def calculate_total_price
+    unit_price * quantity
+  end
+  def calculate_original_total_price
+    original_unit_price * quantity
+  end
+
+  def unit_price
+    product.price
+  end
+  def original_unit_price
+    product.original_price_value
+  end
+
   def on_stock?
     product.count_on_hand > 0
   end

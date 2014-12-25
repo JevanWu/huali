@@ -3,6 +3,7 @@
 # Table name: users
 #
 #  anonymous_token          :string(255)
+#  authentication_token     :string(255)
 #  confirmation_sent_at     :datetime
 #  confirmation_token       :string(255)
 #  confirmed_at             :datetime
@@ -30,6 +31,7 @@
 #  reset_password_sent_at   :datetime
 #  reset_password_token     :string(255)
 #  role                     :string(255)      default("customer"), not null
+#  set_password             :boolean          default(TRUE)
 #  sign_in_count            :integer          default(0)
 #  updated_at               :datetime         not null
 #
