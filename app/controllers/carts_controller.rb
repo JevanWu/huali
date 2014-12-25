@@ -28,7 +28,8 @@ class CartsController < ApplicationController
         @cart.errors.add(:coupon_code, :discounted_product_coupon_code)
       end
       @cart.errors.add(:coupon_code, :coupon_code_not_avaiable)
-      redirect_to carts_show_path
+
+      render 'show'
     end
   end
   def show
