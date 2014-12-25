@@ -1,6 +1,6 @@
 class CartsController < ApplicationController
 
-  def create
+  def add_item
     @cart = get_cart
     item = @cart.get_item_by(cart_line_items_params[:product_id])
     if item
@@ -33,9 +33,11 @@ class CartsController < ApplicationController
   end
   def show
     @cart = get_cart
+    @cart_nav = @cart
     if @cart and @cart.cart_line_items.any?
-      @product = Product.published.find(@cart.cart_line_items.first.product_id)
-      @related_products = @product.related_products
+      @related_products = Product.published.find(@cart.cart_line_items.first.product_id).related_products
+    else
+      @related_products = Product.published.take.related_products
     end
   end
   
@@ -73,6 +75,15 @@ class CartsController < ApplicationController
   end
 
   private
+  def get_cart
+    cart = Cart.find_by user_id: current_or_guest_user.id
+    if cart.nil?
+      cart = Cart.new(cart_params)
+      cart.user_id = current_or_guest_user.id
+    end
+    cart
+  end
+
   def cart_params
       params.require(:cart).permit(:user_id, :total_price, :coupon_code_id)
   end

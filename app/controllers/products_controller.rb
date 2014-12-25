@@ -14,7 +14,8 @@ class ProductsController < ApplicationController
     @appointment = Appointment.new(product: @product)
     @greeting_card = GreetingCard.new(product: @product)
     @reply_greeting_card = ReplyGreetingCard.new
-    @cart = get_cart
+    @cart = Cart.new
+    @cart_nav = Cart.find_by user_id: current_or_guest_user.id
 
     # FIXME products always have assets now
     assets  = @product.assets || []

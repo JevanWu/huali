@@ -24,7 +24,7 @@ Huali::Application.routes.draw do
   get "provinces/available_for_products", to: 'provinces#available_for_products'
   get "provinces/:prov_id", to: 'provinces#show'
 
-  post "carts", to: 'carts#create'
+  post "carts/add", to: 'carts#add_item'
   get "carts/show", to: 'carts#show'
   put "carts/coupon", to: 'carts#update_coupon_code'
   put "carts/:item_id/decrease", to: 'carts#item_decrease', as: :carts_item_decrease
