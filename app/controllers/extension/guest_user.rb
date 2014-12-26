@@ -30,10 +30,22 @@ module Extension
 
     # hand off resources from guest_user to current_user.
     def hand_off_guest
-      cart_user = Cart.where(user_id: current_user).first
-      cart_guest = Cart.where(user_id: guest_user.id).first
+      cart_user = Cart.find_by user_id: current_user
+      cart_guest = Cart.find_by user_id: guest_user.id
+
+      return if cart_guest.nil?
+      destroy_guest and return if cart_guest.cart_line_items.empty?
+
       if cart_user
-        cart_user.cart_line_items.concat(cart_guest.cart_line_items)
+        cart_guest.cart_line_items.find_each do |i|
+          item = cart_user.cart_line_items.find_by(product_id: i.product_id)
+          if item
+            item.quantity += i.quantity
+            item.save
+          else
+            cart_user.cart_line_items << i
+          end
+        end
         cart_user.save
         destroy_guest
       else
