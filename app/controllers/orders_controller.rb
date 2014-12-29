@@ -27,7 +27,7 @@ class OrdersController < ApplicationController
   end
 
   def new
-    @cart = Cart.where(user_id: current_user.try(:id)).first
+    @cart = Cart.find_by(user_id: current_user.try(:id))
     @coupon_code = @cart.coupon_code
     @order_form = OrderForm.new(coupon_code: @coupon_code ? @coupon_code.code : nil)
     @order_form.address = ReceiverInfo.new
@@ -189,8 +189,9 @@ class OrdersController < ApplicationController
   end
 
   def checkout
-    @order = current_or_guest_user.orders.find_by_id(params[:id]) if params[:id]
-    @order ||= Order.find_by_id(session[:order_id])
+    @order = current_user.orders.find_by_id(params[:id])
+    @cart = Cart.find_by(user_id: current_user.try(:id))
+    #@order ||= Order.find_by_id(session[:order_id])
 
     if @order.blank?
       flash[:alert] = t('controllers.order.order_not_exist')
@@ -199,7 +200,6 @@ class OrdersController < ApplicationController
       set_wechat_pay_params(@order, request.remote_ip) if @use_wechat_agent
     end
 
-    @cart = Cart.where(user_id: current_user.try(:id)).first
     empty_cart
   end
 
@@ -441,8 +441,8 @@ class OrdersController < ApplicationController
     def validate_cart
       # - no line items present
       # - zero quantity
-      @cart = Cart.where(user_id: current_or_guest_user).first
-      unless @cart or @cart.cart_line_items.any?
+      @cart = Cart.find_by user_id: current_or_guest_user
+      if @cart.nil? or @cart && @cart.cart_line_items.empty?
         flash[:alert] = t('controllers.order.no_items')
         redirect_to :root
       end
@@ -484,6 +484,7 @@ class OrdersController < ApplicationController
       cookies.delete :address_area_id
     end
     def empty_cart
-      Cart.where(user_id: current_or_guest_user).first.destroy
+      cart = Cart.find_by(user_id: current_or_guest_user)
+      cart.destroy if cart
     end
 end
