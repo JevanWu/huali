@@ -41,7 +41,7 @@ class Cart < ActiveRecord::Base
   def get_line_items
     cart_line_items.map(&:to_line_item)
   end
-  alias_method :new_order_line_items, :get_line_items
+  alias_method :order_line_items, :get_line_items
 
   def calculate_total_price
     total_price_value = if adjustment.present? # && valid_coupon?

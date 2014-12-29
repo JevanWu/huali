@@ -1,9 +1,5 @@
-- content_for(:css) do
-  = stylesheet_link_tag "jquery.ui.datepicker"
-
-- content_for(:js) do
-  = javascript_include_tag "datepicker-settings"
-  = javascript_include_tag "prov_city_area_update"
+= render 'back_order_assets'
+= render 'product_ids', cart: @cart
 
 .buy
   .buy-inner
