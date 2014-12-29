@@ -11,6 +11,7 @@ class OrdersController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:notify]
   before_action :authorize_to_record_back_order, only: [:back_order_new, :channel_order_new, :back_order_create, :channel_order_create]
   before_action :validate_cart, only: [:new, :channel_order_new, :back_order_new, :create, :back_order_create, :channel_order_create]
+  before_action :get_cart, only: [:new, :channel_order_new, :back_order_new, :back_order_create, :channel_order_create, :b2b_order_new, :b2b_order_create, :secoo_order_new, :create, :checkout]
 
   def index
     @orders = current_or_guest_user.orders
@@ -27,7 +28,6 @@ class OrdersController < ApplicationController
   end
 
   def new
-    get_cart
     @order_form = OrderForm.new(coupon_code: @coupon_code ? @coupon_code.code : nil)
     @order_form.address = ReceiverInfo.new
     @order_form.sender = SenderInfo.new(current_user.as_json) # nil.as_json => nil
@@ -38,7 +38,6 @@ class OrdersController < ApplicationController
   # - transaction is completed beforehand
   # - tracking is skipped
   def channel_order_new
-    get_cart
     @order_admin_form = OrderAdminForm.new(source: '淘宝',
                                            kind: 'taobao',
                                            coupon_code: @coupon_code ? @coupon_code.code : nil)
@@ -51,14 +50,12 @@ class OrdersController < ApplicationController
   # - transaction is issued for tracking paymenthod
   # - tracking is skipped
   def back_order_new
-    get_cart
     @offline_order_form = OfflineOrderForm.new(kind: 'offline',
                                                coupon_code: @coupon_code ? @coupon_code.code : nil)
     @offline_order_form.address = ReceiverInfo.new
   end
 
   def channel_order_create
-    get_cart
     opts = { paymethod: 'alipay',
              merchant_name: 'Alipay',
              merchant_trade_no: params[:merchant_trade_no]}
@@ -77,11 +74,9 @@ class OrdersController < ApplicationController
   # B2b order
   # - used for internal usage
   def b2b_order_new
-    get_cart
     @b2b_order_form = B2bOrderForm.new(kind: 'b2b')
   end
   def b2b_order_create
-    get_cart
     @b2b_order_form = B2bOrderForm.new(params[:b2b_order_form])
     @b2b_order_form.address = ReceiverInfo.new
     @b2b_order_form.sender ||= SenderInfo.new({ name: 'Huali', email: 'support@hua.li', phone: '400-087-8899' })
@@ -109,7 +104,6 @@ class OrdersController < ApplicationController
 
 
   def secoo_order_new
-    get_cart
     @secoo_order_form = SecooOrderForm.new(kind: 'secoo',
                                            coupon_code: @coupon_code ? @coupon_code.code : nil)
     @secoo_order_form.sender = SenderInfo.new
@@ -122,7 +116,6 @@ class OrdersController < ApplicationController
   end
 
   def create
-    get_cart
     @order_form = OrderForm.new(params[:order_form])
     @order_form.user = current_or_guest_user
     #update_coupon_code(@order_form.coupon_code)
@@ -197,7 +190,6 @@ class OrdersController < ApplicationController
 
   def checkout
     @order = current_user.orders.find_by_id(params[:id])
-    get_cart
 
     if @order.blank?
       flash[:alert] = t('controllers.order.order_not_exist')
