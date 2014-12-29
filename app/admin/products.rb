@@ -109,6 +109,8 @@ ActiveAdmin.register Product do
       product.product_type_text
     end
 
+    column :count_on_hand
+
     column :collections do |product|
       product.collections.map do |collection|
         link_to collection.name, admin_collection_path(collection)
