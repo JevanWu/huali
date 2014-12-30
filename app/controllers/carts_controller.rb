@@ -18,20 +18,20 @@ class CartsController < ApplicationController
 
   def update_coupon_code
     @cart = get_cart
-    coupon_codes = CouponCode.where code: cart_params[:coupon_code_id]
-    @cart.coupon_code_id = coupon_codes.first.id if coupon_codes.any?
-    if @cart.coupon_code and @cart.valid_coupon_code?
-      @cart.total_price = @cart.calculate_total_price
-      redirect_to carts_show_path if @cart.save
-    else
-      if @cart.get_line_items.any? { |item| item.product.discount? }
-        @cart.errors.add(:coupon_code, :discounted_product_coupon_code)
-      end
-      @cart.errors.add(:coupon_code, :coupon_code_not_avaiable)
+    validate_discounted_product
 
+    coupon_code = CouponCode.find_by code: cart_params[:coupon_code]
+    @cart.coupon_code_id = coupon_code.id
+    validate_coupon_code
+
+    @cart.total_price = @cart.calculate_total_price
+    if @cart.save
+      redirect_to carts_show_path 
+    else
       render 'show'
     end
   end
+
   def show
     @cart = get_cart
     if @cart and @cart.cart_line_items.any?
@@ -84,8 +84,23 @@ class CartsController < ApplicationController
     cart
   end
 
+  def validate_discounted_product
+    if @cart.has_discounted_items?
+      @cart.errors.add(:coupon_code, :discounted_product_coupon_code)
+      render 'show'
+      return
+    end
+  end
+  def validate_coupon_code
+    unless @cart.valid_coupon_code?
+      @cart.errors.add(:coupon_code, :coupon_code_not_avaiable)
+      render 'show'
+      return
+    end
+  end
+
   def cart_params
-      params.permit(:user_id, :total_price, :coupon_code_id)
+    params.require(:cart).permit(:coupon_code)
   end
   def cart_line_items_params
     params.require(:cart).permit(:cart_id, :product_id, :total_price, :quantity)

@@ -28,12 +28,16 @@ class Cart < ActiveRecord::Base
     #self.total_price = calculate_total_price.send(operator, value.to_d)
   #end
 
+  def has_discounted_items?
+    get_line_items.any? { |item| item.product.discount? }
+  end
   def items_size
     cart_line_items.map(&:quantity).inject(0) { |i1, i2| i1 + i2 }
   end
   def get_item_by(product_id)
     self.cart_line_items.select { |i| i.product_id == product_id }.first
   end
+
   def valid_coupon_code?
     !! coupon_code && coupon_code.usable?(self)
   end

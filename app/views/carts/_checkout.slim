@@ -12,6 +12,10 @@
   - if @cart.discounted?
     p
       em
+        - if @cart.coupon_code
+          p
+            | 使用优惠券[#{@cart.coupon_code}]，折扣: #{@cart.coupon_code.coupon.adjustment}
+
         del
           | 原价：
           span
