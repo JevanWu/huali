@@ -15,7 +15,7 @@ set :deploy_to, "/home/deployer/repositories/#{fetch(:application)}-#{fetch(:rai
 set :puma_init_active_record, true
 set :puma_bind, "unix://#{shared_path}/tmp/sockets/puma.sock"
 set :puma_threads, [0, 20]
-set :puma_workers, 4 
+set :puma_workers, 4
 set :puma_jungle_conf, '/etc/puma.conf'
 set :puma_run_path, '/usr/local/bin/run-puma'
 set :puma_default_hooks, false
@@ -33,7 +33,7 @@ set :puma_default_hooks, false
 # set :pty, true
 
 # Default value for :linked_files is []
-set :linked_files, %w{config/database.yml config/application.yml}
+set :linked_files, %w{config/database.yml config/application.yml config/newrelic.yaml}
 
 # Default value for linked_dirs is []
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
