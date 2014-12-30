@@ -11,7 +11,7 @@ class OrdersController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:notify]
   before_action :authorize_to_record_back_order, only: [:back_order_new, :channel_order_new, :back_order_create, :channel_order_create]
   before_action :validate_cart, only: [:new, :channel_order_new, :back_order_new, :create, :back_order_create, :channel_order_create]
-  before_action :get_cart, only: [:new, :channel_order_new, :back_order_new, :back_order_create, :channel_order_create, :b2b_order_new, :b2b_order_create, :secoo_order_new, :create, :checkout]
+  before_action :get_cart, only: [:new, :channel_order_new, :back_order_new, :back_order_create, :channel_order_create, :b2b_order_new, :b2b_order_create, :secoo_order_new, :create]
 
   def index
     @orders = current_or_guest_user.orders
@@ -131,6 +131,7 @@ class OrdersController < ApplicationController
 
     if @order_form.save
 
+      empty_cart
       OrderDiscountPolicy.new(@order_form.record).apply
       InstantDeliveryChargePolicy.new(@order_form.record, @order_form.instant_delivery).apply
 
@@ -190,15 +191,12 @@ class OrdersController < ApplicationController
 
   def checkout
     @order = current_user.orders.find_by_id(params[:id])
-
     if @order.blank?
       flash[:alert] = t('controllers.order.order_not_exist')
       redirect_to :root and return
     else
       set_wechat_pay_params(@order, request.remote_ip) if @use_wechat_agent
     end
-
-    empty_cart
   end
 
   def gateway
@@ -327,7 +325,7 @@ class OrdersController < ApplicationController
   private
     def get_cart
       @cart = Cart.find_by(user_id: current_user.try(:id))
-      @coupon_code = @cart.coupon_code
+      @coupon_code = @cart.coupon_code if @cart
     end
 
     def authorize_to_record_back_order
