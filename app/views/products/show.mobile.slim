@@ -30,10 +30,13 @@
         h4.product-name-en
           = @product.name_en
         p.price ￥#{@product.price}
-      = product_buy_link(@product, { class: 'add-btn button', data: { product: @product.id }, onClick: "analytics.track('Added Product', { id: '#{@product.id}', name: '#{@product.name}', category: '#{@product.product_type_text}', price: #{@product.price}, currency: 'CNY', label: '#{@product.name}', quantity: 1 });" }, true)
+      /= product_buy_link(@product, { class: 'add-btn button', data: { product: @product.id }, onClick: "analytics.track('Added Product', { id: '#{@product.id}', name: '#{@product.name}', category: '#{@product.product_type_text}', price: #{@product.price}, currency: 'CNY', label: '#{@product.name}', quantity: 1 });" }, true)
+      - if @product.count_on_hand > 0
+        == render 'product_cart'
+      - else
+        == render 'product_appointment'
       .share
         span =t(:sharing)
         = render 'shared/product_share_links', product: @product
     .detail
       == render 'product_intro'
-  = render "product_appointment" if @product.count_on_hand == 0
