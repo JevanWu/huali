@@ -11,7 +11,7 @@
       h4.product-name-en
         = product_in_cart.name_en
       p.total-num
-        | 共计#{@cart.cart_line_items.map(&:quantity).inject(:+)}件商品
+        | 共计#{@cart.items_size}件商品
       - if @cart.discounted?
         p.discount
           | 促销优惠：- 
