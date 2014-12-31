@@ -26,7 +26,10 @@ Huali::Application.routes.draw do
 
   post "carts/add", to: 'carts#add_item'
   get "carts/show", to: 'carts#show'
-  put "carts/coupon", to: 'carts#update_coupon_code'
+
+  put "carts/coupon", to: 'carts#update_coupon_code', as: :carts_coupon_update
+  delete "carts/coupon", to: 'carts#destroy_coupon_code', as: :carts_coupon_destroy
+
   put "carts/:item_id/decrease", to: 'carts#item_decrease', as: :carts_item_decrease
   put "carts/:item_id/increase", to: 'carts#item_increase', as: :carts_item_increase
   delete "carts/:item_id/destroy", to: 'carts#item_destroy', as: :carts_item_destroy

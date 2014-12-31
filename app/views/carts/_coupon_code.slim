@@ -6,7 +6,14 @@
     p
       | 使用优惠码
 
+  - if @cart.coupon_code and @cart.has_discounted_items?
+    p
+      | 注意：购物车存在打折商品，打折商品不能和优惠券同时使用，请移除打折商品或者优惠券然后再结算。
   br
-  = simple_form_for @cart, url: carts_coupon_path, method: :put do |f|
+  = simple_form_for @cart, url: carts_coupon_update_path, method: :put do |f|
       = f.input :coupon_code, label: false
       = f.submit "确定", class: "btn-discount"
+
+  - if  @cart.coupon_code
+    br
+    = button_to "删除", carts_coupon_destroy_path, method: :delete, class: 'btn-discount'

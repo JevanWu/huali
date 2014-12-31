@@ -31,6 +31,11 @@ class CartsController < ApplicationController
       render 'show'
     end
   end
+  def destroy_coupon_code
+    @cart = get_cart
+    @cart.coupon_code_id = nil
+    redirect_to carts_show_path if @cart.save
+  end
 
   def show
     @cart = get_cart
