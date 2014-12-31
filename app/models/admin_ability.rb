@@ -11,10 +11,10 @@ class AdminAbility
       can :manage, :all
       can :read, Appointment
       cannot :manage, Administrator, role: 'super'
-      cannot :manage, Sidekiq, Transaction
+      cannot :manage, Sidekiq
       cannot :manage_super, Administrator # For use in view
     when "operation_manager"
-      can :manage, [Product, Collection, Order, Refund, Shipment, Coupon, DefaultRegionRule, DefaultDateRule, PeriodRegionPolicy, SlidePanel, Setting, SalesChart, DiscountEvent, SyncOrder]
+      can :manage, [Product, Collection, Order, Transaction, Refund, Shipment, Coupon, DefaultRegionRule, DefaultDateRule, PeriodRegionPolicy, SlidePanel, Setting, SalesChart, DiscountEvent, SyncOrder]
       cannot :update_seo, [Product, Collection]
       can :record_back_order, Order
       can :read, [PrintGroup, PrintOrder, Appointment]
@@ -35,7 +35,7 @@ class AdminAbility
       manage_blog
     when "customer_service"
       can :read, [Coupon]
-      can :manage, [Product, Collection, Order, Refund, Shipment, SyncOrder]
+      can :manage, [Product, Collection, Order, Transaction, Refund, Shipment, SyncOrder]
       can :manage, [DefaultRegionRule, DefaultDateRule, PeriodRegionPolicy]
       can :read, [PrintGroup, PrintOrder, Appointment]
     end
