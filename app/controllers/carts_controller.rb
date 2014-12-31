@@ -18,11 +18,11 @@ class CartsController < ApplicationController
 
   def update_coupon_code
     @cart = get_cart
-    validate_discounted_product
+    return unless validates_discounted_product
 
     coupon_code = CouponCode.find_by code: cart_params[:coupon_code]
-    @cart.coupon_code_id = coupon_code.id
-    validate_coupon_code
+    @cart.coupon_code_id = coupon_code ? coupon_code.id : nil
+    return unless validates_coupon_code
 
     @cart.total_price = @cart.calculate_total_price
     if @cart.save
@@ -84,18 +84,22 @@ class CartsController < ApplicationController
     cart
   end
 
-  def validate_discounted_product
+  def validates_discounted_product
     if @cart.has_discounted_items?
       @cart.errors.add(:coupon_code, :discounted_product_coupon_code)
       render 'show'
-      return
+      return false
+    else
+      return true
     end
   end
-  def validate_coupon_code
-    unless @cart.valid_coupon_code?
+  def validates_coupon_code
+    if @cart.valid_coupon_code?
+      return true
+    else
       @cart.errors.add(:coupon_code, :coupon_code_not_avaiable)
       render 'show'
-      return
+      return false
     end
   end
 
