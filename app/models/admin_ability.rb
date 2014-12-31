@@ -9,9 +9,9 @@ class AdminAbility
       can :manage, :all
     when "admin"
       can :manage, :all
-      can :read, Appointment
+      can :read, [Appointment, Transaction]
       cannot :manage, Administrator, role: 'super'
-      cannot :manage, [Sidekiq, Transaction]
+      cannot :manage, Sidekiq
       cannot :manage_super, Administrator # For use in view
     when "operation_manager"
       can :manage, [Product, Collection, Order, Refund, Shipment, Coupon, DefaultRegionRule, DefaultDateRule, PeriodRegionPolicy, SlidePanel, Setting, SalesChart, DiscountEvent, SyncOrder]
