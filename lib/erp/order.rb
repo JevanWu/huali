@@ -9,7 +9,9 @@ module Erp
     offline: '01.03',
     amazon: '01.01.0045',
     secoo: '01.01.0046',
-    heike: '01.01.0030'
+    heike: '01.01.0030',
+    wechat: '01.01.0001',
+    dangdang: '01.01.0048'
   }
 
   CTRIP_COUPON_CHARGES = {
