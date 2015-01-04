@@ -39,6 +39,9 @@ class Cart < ActiveRecord::Base
   def expiry_date
     expires_at.strftime "%Y-%m-%d %H:%M"
   end
+  def expired?
+    Time.now < expires_at ? false : true
+  end
 
   def has_discounted_items?
     get_line_items.any? { |item| item.product.discount? }

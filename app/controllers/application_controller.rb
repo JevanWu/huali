@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_action :get_host
   before_action :dev_tools if Rails.env == 'development'
-  before_action :cart_nav
+  before_action :nav_cart
 
   # enable squash
   include Squash::Ruby::ControllerMethods
@@ -30,8 +30,9 @@ class ApplicationController < ActionController::Base
     Rack::MiniProfiler.authorize_request if defined?(Rack::MiniProfiler)
   end
 
-  def cart_nav
-    @cart_nav = Cart.find_by user_id: current_or_guest_user.id
+  def nav_cart
+    @nav_cart = Cart.find_by user_id: current_or_guest_user.id
+    @nav_cart.destroy if @nav_cart.expired?
   end
 
   def get_host

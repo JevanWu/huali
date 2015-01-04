@@ -11,10 +11,10 @@
       li.cart-li-preview
         = fa_icon 'shopping-cart'
         a.cart href="#{carts_show_path}"
-          = "(#{@cart_nav ? @cart_nav.items_size : 0})"
+          = "(#{@nav_cart ? @nav_cart.items_size : 0})"
         .cart-preview-container
           .cart-preview
-            - if @cart_nav.nil?
+            - if @nav_cart.nil?
               p.cart-preview-empty 您的购物车还是空的
             - else
               h3
@@ -23,7 +23,7 @@
                 span
                   | 合计：
                 strong
-                  = 'number_to_currency @cart_nav.total_price'
+                  = 'number_to_currency @nav_cart.total_price'
               .go-checkout
                 = link_to '结算', current_order_path, class: 'checkout'
 
