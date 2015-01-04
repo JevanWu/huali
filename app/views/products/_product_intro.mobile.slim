@@ -2,16 +2,15 @@
   div.movieplay
     div.videos
       video src="http://hua.li/system/videos/own_your_moment.mp4" width="100%" controls="controls"
--else
-  -if @product.slug == "the-first-sight-of-you"
+-elsif @product.slug == "the-first-sight-of-you"
+  div.movieplay
+    div.videos
+      video src="http://hua.li/system/videos/own_your_moment.mp4" width="100%" controls="controls"
+-elsif @product.slug == "la-vie-en-rose"
     div.movieplay
       div.videos
         video src="http://hua.li/system/videos/own_your_moment.mp4" width="100%" controls="controls"
-  -else
-    -if @product.slug == "la-vie-en-rose"
-      div.movieplay
-        div.videos
-          video src="http://hua.li/system/videos/own_your_moment.mp4" width="100%" controls="controls"
+
 
 .product-intro
   - unless @product.description.empty?
