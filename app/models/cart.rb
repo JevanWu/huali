@@ -47,7 +47,7 @@ class Cart < ActiveRecord::Base
     cart_line_items.map(&:quantity).inject(0) { |i1, i2| i1 + i2 }
   end
   def get_item_by(product_id)
-    self.cart_line_items.select { |i| i.product_id == product_id }.first
+    self.cart_line_items.find_by product_id: product_id
   end
 
   def valid_coupon_code?
