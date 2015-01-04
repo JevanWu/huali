@@ -6,7 +6,7 @@ module Billing
       include Billing::Helper::Paypal
 
       def success?
-        acknowledge? && right_amount? && payment_status == "Completed"
+        acknowledge? && right_amount? 
       end
 
       def payment_status
