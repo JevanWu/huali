@@ -4,6 +4,7 @@ class CreateCarts < ActiveRecord::Migration
       t.references :user, index: true
       t.references :coupon_code, index: true
       t.decimal :total_price, precision: 8, scale: 2, default: 0.00, null: false
+      t.datetime :expires_at, null: false
       t.timestamps
     end
   end
