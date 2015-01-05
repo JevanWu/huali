@@ -11,16 +11,23 @@
   div.movieplay
     div.videos
       a id="video" style="height: 303px"
--else
-  -if @product.slug == "the-first-sight-of-you"
+-elsif @product.slug == "the-first-sight-of-you"
+  div.movieplay
+    div.videos
+      a id="video" style="height: 303px"
+-elsif @product.slug == "la-vie-en-rose"
     div.movieplay
       div.videos
         a id="video" style="height: 303px"
-  -else
-    -if @product.slug == "la-vie-en-rose"
-      div.movieplay
-        div.videos
-          a id="video" style="height: 303px"
+-elsif @product.slug == "we-belong"
+    div.movieplay
+      div.videos
+        a id="video" style="height: 303px"
+-elsif @product.slug == "heart-skipped-a-beat"
+    div.movieplay
+      div.videos
+        a id="video" style="height: 303px"
+        
 
 .product-intro
   - unless @product.description.empty?
