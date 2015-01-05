@@ -75,6 +75,7 @@ zh-CN:
         blank: 您需要填写此项
         discounted_product_coupon_code: 折扣商品，不能使用优惠券
         coupon_code_not_avaiable: 优惠券不可用
+        coupon_code_not_exist: 请输入优惠券编号
         unavailable_date: 快递无法为您在这个日期进行递送
         unavailable_location: 我们无法为您配送到这个地区
         unavailable_location_at_date: 我们无法在%{date}为您配送到这个地区

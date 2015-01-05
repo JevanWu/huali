@@ -18,12 +18,31 @@ class CartsController < ApplicationController
 
   def update_coupon_code
     @cart = get_cart
-    return unless validates_discounted_product
 
+    ### business logical validates only for update_coupon_code action
+    # validates_discounted_product
+    if @cart.has_discounted_items?
+      @cart.errors.add(:coupon_code, :discounted_product_coupon_code)
+      render 'show' and return
+    end
+
+    # validates_coupon_code_exist
+    if cart_params[:coupon_code].empty?
+      @cart.coupon_code_id = nil
+      @cart.errors.add(:coupon_code, :coupon_code_not_exist)
+      render 'show' and return
+    end
+
+    # validates_coupon_code_usable
     coupon_code = CouponCode.find_by code: cart_params[:coupon_code]
-    @cart.coupon_code_id = coupon_code ? coupon_code.id : nil
-    return unless validates_coupon_code
 
+    @cart.coupon_code_id = coupon_code ? coupon_code.id : nil
+    unless @cart.valid_coupon_code?
+      @cart.errors.add(:coupon_code, :coupon_code_not_avaiable)
+      render 'show' and return
+    end
+
+    # finally it could be saved
     @cart.total_price = @cart.calculate_total_price
     if @cart.save
       redirect_to carts_show_path 
@@ -31,6 +50,7 @@ class CartsController < ApplicationController
       render 'show'
     end
   end
+
   def destroy_coupon_code
     @cart = get_cart
     @cart.coupon_code_id = nil
@@ -84,25 +104,6 @@ class CartsController < ApplicationController
     cart = Cart.find_by user_id: current_or_guest_user.id
     cart = Cart.new(user_id: current_or_guest_user.id) if cart.nil?
     cart
-  end
-
-  def validates_discounted_product
-    if @cart.has_discounted_items?
-      @cart.errors.add(:coupon_code, :discounted_product_coupon_code)
-      render 'show'
-      return false
-    else
-      return true
-    end
-  end
-  def validates_coupon_code
-    if @cart.valid_coupon_code?
-      return true
-    else
-      @cart.errors.add(:coupon_code, :coupon_code_not_avaiable)
-      render 'show'
-      return false
-    end
   end
 
   def cart_params
