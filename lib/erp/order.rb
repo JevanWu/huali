@@ -107,7 +107,7 @@ module Erp
       end
 
       def total_discount(order, transaction)
-        [order.item_total - ctrip_order_charge(order) - transaction.try(:amount).to_f , 0].max
+        [order.instant_delivery.try(:fee).to_f + order.item_total - ctrip_order_charge(order) - transaction.try(:amount).to_f , 0].max
       end
 
       def ctrip_order_charge(order)
