@@ -118,6 +118,10 @@ class Order < ActiveRecord::Base
       transition to: :wait_refund, on: :cancel
     end
 
+    state :completed do
+      transition to: :wait_refund, on: :cancel
+    end
+    
     state :wait_refund do
       transition to: :refunded, on: :refund
     end

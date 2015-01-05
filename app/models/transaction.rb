@@ -79,6 +79,13 @@ class Transaction < ActiveRecord::Base
   end
 
   def process(result)
+
+    #Processing Paypal IPN
+    if "Refunded" == result.try(:payment_status)
+      refund_deal(result.trade_no)
+      return true
+    end
+
     unless result && result.success?
       return false
     end
@@ -96,6 +103,10 @@ class Transaction < ActiveRecord::Base
       self.merchant_trade_no = trade_no if trade_no.present?
       save!
     end
+  end
+
+  def refund_deal(trade_no = nil)
+    self.order.cancel
   end
 
   def processed?
