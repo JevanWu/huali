@@ -32,7 +32,9 @@ class ApplicationController < ActionController::Base
 
   def nav_cart
     @nav_cart = Cart.find_by user_id: current_or_guest_user.id
-    @nav_cart.destroy if @nav_cart.expired?
+    if @nav_cart
+      @nav_cart.destroy if @nav_cart.expired?
+    end
   end
 
   def get_host
