@@ -9,6 +9,10 @@ module Billing
         acknowledge? && right_amount? && payment_status == "Completed"
       end
 
+      def payment_status
+        payment_status
+      end
+
       private
 
       def parse(post)
@@ -41,7 +45,6 @@ module Billing
         res.body == "VERIFIED"
         # TODO verified failed
       end
-
     end
   end
 end
