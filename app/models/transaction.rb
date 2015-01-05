@@ -79,19 +79,15 @@ class Transaction < ActiveRecord::Base
   end
 
   def process(result)
-    unless result && result.success?
-      return false
-    end
 
     #Processing Paypal IPN
-    payment_status = result.try(:payment_status)
-    unless payment_status.nil?
-      if "Refunded" == payment_status
-        refund_deal(result.trade_no)
-        return true
-      else if !["Completed", "Refunded"].include? payment_status
-        return true 
-      end
+    if "Refunded" == result.try(:payment_status)
+      refund_deal(result.trade_no)
+      return true
+    end
+
+    unless result && result.success?
+      return false
     end
 
     if processed? or complete_deal(result.trade_no)
