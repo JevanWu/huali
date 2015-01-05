@@ -28,6 +28,7 @@ class OrdersController < ApplicationController
   end
 
   def new
+    redirect_to :back if @cart.coupon_code and @cart.has_discounted_items?
     @order_form = OrderForm.new(coupon_code: @coupon_code ? @coupon_code.code : nil)
     @order_form.address = ReceiverInfo.new
     @order_form.sender = SenderInfo.new(current_user.as_json) # nil.as_json => nil
