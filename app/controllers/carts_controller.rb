@@ -54,6 +54,7 @@ class CartsController < ApplicationController
   def destroy_coupon_code
     @cart = get_cart
     @cart.coupon_code_id = nil
+    @cart.total_price = @cart.calculate_total_price
     redirect_to carts_show_path if @cart.save
   end
 
