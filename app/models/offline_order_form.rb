@@ -9,6 +9,7 @@ class OfflineOrderForm < OrderForm
   attribute :ship_method_id, Integer
   attribute :delivery_date, Date
   attribute :paymethod, String
+  attribute :created_at, Date
 
   # +/-/*/%1234.0
   validates_format_of :adjustment, with: %r{\A[+-x*%/][\s\d.]+\z}, allow_blank: true
