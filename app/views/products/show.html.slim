@@ -55,6 +55,6 @@
         == render 'product_reply_greeting_card' if params[:uuid]
         == render 'product_reply_greeting_card_thx' if params[:uuidthx]
 
-        == render 'product_sales_chart' unless SalesChart.all.all.empty?
+        == render 'product_sales_chart'
         = render "product_appointment" if @product.count_on_hand == 0
 
