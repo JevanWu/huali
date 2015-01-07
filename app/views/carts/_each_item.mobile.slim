@@ -1,0 +1,39 @@
+.cart-product-item.item-table data-total = "#{each_item.total_price}"
+  = link_to image_tag(each_item.img(:medium), width: '140', height: '134'), product_path(each_item.product)
+  .product-info-main
+    h3.product-name
+      = link_to each_item.name, product_path(each_item.product)
+    h4.product-name-en
+      = each_item.name_en
+    p
+      - if each_item.on_stock?
+        | 现在有货
+      - else
+        =t 'views.product.soldout'
+    p
+      | 免费配送
+  .price data-price = "#{each_item.total_price}"
+    = number_to_currency each_item.total_price
+
+  - if each_item.discounted?
+    p
+      em
+        del
+          | 原价：
+          span
+            = number_to_currency each_item.original_total_price
+  .op.quantity
+
+    = button_to carts_item_decrease_path(each_item), method: :put, class: 'reduce_quantity' do
+      <span class='fa fa-minus-square-o'></span>
+
+    input type='text' value="#{each_item.quantity}"
+
+    = button_to carts_item_increase_path(each_item), method: :put, class: 'add_quantity' do
+      <span class='fa fa-plus-square-o'></span>
+
+    = button_to carts_item_destroy_path(each_item), method: :delete, class: 'empty_quantity' do
+      <span class='fa fa-trash-o'></span>
+
+= render 'shared/product_share_popup', product: each_item.product
+
