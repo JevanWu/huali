@@ -21,5 +21,4 @@
     .best-products.row
       = render partial: 'product', collection: @products
     .pager
-      - cache("collection/#{@collection.id}/products/all-#{@products.count}") do
-        == paginate @products
+      = paginate @products
