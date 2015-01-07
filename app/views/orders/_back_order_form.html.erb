@@ -2,6 +2,7 @@
   <%= simple_form_error_messages_for(@offline_order_form.line_items) %>
   <fieldset>
     <legend>订单信息</legend>
+    <%= f.input :created_at, as: :string, required: false, input_html: { class: 'datepicker-full', value: @offline_order_form.created_at || Date.current }%>
     <%= f.input :paymethod, as: :radio_buttons, required: true, placeholder: '付款方式', collection: { '现金支付' => 'cash', 'POS机刷卡支付' => 'pos' } %>
     <%= f.input :adjustment,
       placeholder: '价格调整 +20.0, -30.0, x1.1, *0.9 etc.',
