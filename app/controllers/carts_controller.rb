@@ -5,14 +5,14 @@ class CartsController < ApplicationController
     item = @cart.get_item_by(cart_line_items_params[:product_id])
     if item
       item.quantity += 1
-      item.total_price = item.calculate_total_price
+      item.update_total_price
       item.save
     else
       item = @cart.cart_line_items.new(cart_line_items_params)
-      item.total_price = item.calculate_total_price
-      item.save
+      item.update_total_price
+      @cart.update_expiry_date if item.save
     end
-    @cart.total_price = @cart.calculate_total_price
+    @cart.update_total_price
     redirect_to carts_show_path if @cart.save
   end
 
@@ -43,9 +43,9 @@ class CartsController < ApplicationController
     end
 
     # finally it could be saved
-    @cart.total_price = @cart.calculate_total_price
+    @cart.update_total_price
     if @cart.save
-      redirect_to carts_show_path 
+      redirect_to carts_show_path
     else
       render 'show'
     end
@@ -54,7 +54,7 @@ class CartsController < ApplicationController
   def destroy_coupon_code
     @cart = get_cart
     @cart.coupon_code_id = nil
-    @cart.total_price = @cart.calculate_total_price
+    @cart.update_total_price
     redirect_to carts_show_path if @cart.save
   end
 
@@ -74,7 +74,7 @@ class CartsController < ApplicationController
     if item.quantity == 0
       item.destroy
     else
-      item.total_price = item.calculate_total_price
+      item.update_total_price
       item.save
     end
     @cart.total_price = @cart.calculate_total_price
@@ -86,9 +86,9 @@ class CartsController < ApplicationController
     @cart = get_cart
     item = @cart.cart_line_items.find(params[:item_id])
     item.quantity += 1
-    item.total_price = item.calculate_total_price
+    item.update_total_price
     item.save
-    @cart.total_price = @cart.calculate_total_price
+    @cart.update_total_price
     @cart.save
     redirect_to carts_show_path
   end

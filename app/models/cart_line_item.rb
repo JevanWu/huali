@@ -40,6 +40,12 @@ class CartLineItem < ActiveRecord::Base
   def calculate_total_price
     unit_price * quantity
   end
+  def update_total_price
+    self.total_price = self.calculate_total_price
+  end
+  def update_total_price!
+    self.updated_column(:total_price, self.calculate_total_price)
+  end
   def calculate_original_total_price
     original_unit_price * quantity
   end
