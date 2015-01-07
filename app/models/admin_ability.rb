@@ -38,6 +38,9 @@ class AdminAbility
       can :manage, [Product, Collection, Order, Refund, Shipment, SyncOrder]
       can :manage, [DefaultRegionRule, DefaultDateRule, PeriodRegionPolicy]
       can :read, [PrintGroup, PrintOrder, Appointment, Transaction]
+    when "customer_service_assistant"
+      can :manage, [Order, Shipment]
+      can :read, [PrintGroup, PrintOrder, Appointment, Transaction]
     end
 
     if user.persisted?

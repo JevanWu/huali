@@ -731,6 +731,7 @@ zh-CN:
         web_operation_manager: Web 经营管理员
         marketing_manager: 市场管理员
         customer_service: 客服
+        customer_service_assistant: 客服助理
     order:
       state:
         generated: 等待付款
