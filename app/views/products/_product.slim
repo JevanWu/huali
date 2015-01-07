@@ -1,5 +1,5 @@
-- cache(product) do
-  .a-product.span3 class="#{ 'first' if (product_counter % 4) == 0 } "
+.a-product.span3 class="#{ 'first' if (product_counter % 4) == 0 } "
+  - cache(product) do
     a href="#{product_path(product)}" target="_blank"
       .product-pic
         = image_tag product.rectangle_image(:medium), title: "#{product.name}", alt: "#{product.name} medium images", class: !product.has_stock? ? 'sold-out' : nil
