@@ -6,7 +6,7 @@ module Extension
     included do
       if Rails.env.production?
         rescue_from 'Exception' do |exception|
-          notify_squash exception
+          Thread.new { notify_squash(exception) }
           render_error 500, exception
         end
 
@@ -14,7 +14,7 @@ module Extension
           'ActionController::UnknownController',
           '::AbstractController::ActionNotFound',
           'ActiveRecord::RecordNotFound' do |exception|
-          notify_squash exception
+          Thread.new { notify_squash(exception) }
           render_error 404, exception
         end
       end
