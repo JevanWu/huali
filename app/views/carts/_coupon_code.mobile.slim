@@ -14,6 +14,5 @@
     = f.input :coupon_code, label: false
     = f.submit "确定", class: "btn-discount"
     - if @cart.coupon_code
-      input name="_method" type="hidden" value="delete"
-      input name="authenticity_token" type="hidden" value="ltUfIdD1WDdpU+CjPXtVDRfAV3LacQmpqXVfNw4Cl78="
-      input type="submit" class="btn-discount" value="删除"
+      = simple_form_for @cart, url: carts_coupon_destroy_path, method: :delete do |f|
+        = f.submit "删除", class: "btn-discount"
