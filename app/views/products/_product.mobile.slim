@@ -1,22 +1,23 @@
-.a-product.span3
-  a href="#{product_path(product)}" target="_blank"
-    .product-pic
-      = image_tag product.rectangle_image(:medium), alt: "#{product.name} medium images", class: !product.has_stock? ? 'sold-out' : nil
-    .tags
-      - if !product.has_stock?
-        .tag.important-tag
-          | 已售罄
-      - elsif product.original_price.present?
-        .tag.discounttag
-          |限时
-          = (product.price/product.original_price*10).to_i
-          |折
-      - elsif product.product_type != "others"
-        .tag
-          = product.product_type_text
-  .information
-    strong
-      em = link_to product.name_zh, product_path(product), title: product.name, target: "_blank"
-      span = product.name_en
-    p ￥#{product.price.to_i}
+- cache(product) do
+  .a-product.span3
+    a href="#{product_path(product)}" target="_blank"
+      .product-pic
+        = image_tag product.rectangle_image(:medium), alt: "#{product.name} medium images", class: !product.has_stock? ? 'sold-out' : nil
+      .tags
+        - if !product.has_stock?
+          .tag.important-tag
+            | 已售罄
+        - elsif product.original_price.present?
+          .tag.discounttag
+            |限时
+            = (product.price/product.original_price*10).to_i
+            |折
+        - elsif product.product_type != "others"
+          .tag
+            = product.product_type_text
+    .information
+      strong
+        em = link_to product.name_zh, product_path(product), title: product.name, target: "_blank"
+        span = product.name_en
+      p ￥#{product.price.to_i}
 
