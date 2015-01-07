@@ -1,20 +1,22 @@
-<div id="slide">
-  <a class="btn-left"></a>
-  <a class="btn-right"></a>
-  <ul class="container">
-    <% @slides.each do |slide| %>
-      <li><a href='<%= slide.href %>' onClick="analytics.track('Click Banner', { category: 'Slider', label: '<%= slide.name %>' });" target="_self"><%=image_tag slide.img(:medium) %></a></li>
-    <% end %>
-  </ul>
-  <ul class="slide-dot">
-    <% @slides.each do |slide| %>
-      <% if slide.equal? @slides.first %>
-        <li><a class="cur"></a></li>
-      <% elsif slide.equal? @slides.last %>
-        <li class="last"><a></a></li>
-      <% else %>
-        <li><a></a></li>
+<% cache("#{@slides.count}-#{@slides.maximum(:updated_at)}") do %>
+  <div id="slide">
+    <a class="btn-left"></a>
+    <a class="btn-right"></a>
+    <ul class="container">
+      <% @slides.each do |slide| %>
+        <li><a href='<%= slide.href %>' onClick="analytics.track('Click Banner', { category: 'Slider', label: '<%= slide.name %>' });" target="_self"><%=image_tag slide.img(:medium) %></a></li>
       <% end %>
-    <% end %>
-  </ul>
-</div>
+    </ul>
+    <ul class="slide-dot">
+      <% @slides.each do |slide| %>
+        <% if slide.equal? @slides.first %>
+          <li><a class="cur"></a></li>
+        <% elsif slide.equal? @slides.last %>
+          <li class="last"><a></a></li>
+        <% else %>
+          <li><a></a></li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
