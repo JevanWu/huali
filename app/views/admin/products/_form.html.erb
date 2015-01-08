@@ -58,6 +58,7 @@
     <%= f.input :width %>
     <%= f.input :depth %>
     <%= f.input :height %>
+    <%= f.input :print_id %>
   <% end %>
 
   <% unless current_admin_ability.cannot? :update_seo, @product %>

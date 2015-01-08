@@ -365,6 +365,7 @@ zh-CN:
         height: 高度
         width: 宽度
         depth: 长度
+        print_id: 打印ID
         created_at: 创建于
         updated_at: 更新于
         cost_price: 成本价
