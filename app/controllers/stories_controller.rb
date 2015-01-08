@@ -1,6 +1,6 @@
 class StoriesController < ApplicationController
   def index
-    cache_key = "stories/all-#{Story.available.count}-#{Story.available.maximum(:updated_at).try(:utc).try(:to_s, :number)}/page/#{params[:page]}"
+    cache_key = "stories/all-#{Story.available.count}-#{Story.available.maximum(:updated_at).try(:utc).try(:to_s, :number)}/page/#{params[:page].to_i}"
     raise ArgumentError, "Wrong page number" if params[:page].to_i * 8 > 800 # Only display 100 pages of stories
     stories_json = Rails.cache.fetch(cache_key) do
       @stories = Story.available.order('priority').page(params[:page]).per(8)
