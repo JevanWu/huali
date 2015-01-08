@@ -13,7 +13,7 @@
 
   <fieldset>
     <legend>订单信息</legend>
-    <%= f.input :kind, as: :radio_buttons, collection: { '寺库' => 'secoo', '嘿客' => 'heike' } %>
+    <%= f.input :kind, as: :radio_buttons, collection: { '寺库' => 'secoo', '嘿客' => 'heike', '大众点评' => 'dianping' } %>
 
     <%= f.input :adjustment, placeholder: '+20.0, -30.0, x1.1, *0.9', hint: '运算符号加减乘除分别为(+,-,*或x,%或/), 例如比原价降低20元钱填写"-20.0"，原价打八折填写"*0.8"或"x0.8"。' %>
     <%#= f.input :coupon_code, placeholder: '如果您有优惠券，请在这里填写' %>

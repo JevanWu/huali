@@ -70,6 +70,9 @@ javascript:
               name: '嘿客',
               data: [#{@daily_order_report.order_amounts_by_date('heike').join(',').html_safe}]
           }, {
+              name: '大众点评',
+              data: [#{@daily_order_report.order_amounts_by_date('dianping').join(',').html_safe}]
+          }, {
               name: '线下店',
               data: [#{@daily_order_report.order_amounts_by_date('offline').join(',').html_safe}]
           }, {
@@ -147,6 +150,9 @@ javascript:
           }, {
               name: '嘿客',
               data: [#{@daily_order_report.order_counts_by_date('heike').join(',').html_safe}]
+          }, {
+              name: '大众点评',
+              data: [#{@daily_order_report.order_counts_by_date('dianping').join(',').html_safe}]
           }, {
               name: '线下店',
               data: [#{@daily_order_report.order_counts_by_date('offline').join(',').html_safe}]
