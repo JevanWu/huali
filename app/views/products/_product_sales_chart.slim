@@ -1,4 +1,4 @@
-- cache("sales_charts/all-#{SalesChart.maximum(:updated_at).try(:utc).try(:to_s, :number)}") do
+- cache("sales_charts/all-#{SalesChart.count}-#{SalesChart.maximum(:updated_at).try(:utc).try(:to_s, :number)}") do
   - if SalesChart.exists?
     .saleschart-panel
       .saleschart-panel-header
