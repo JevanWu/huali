@@ -195,7 +195,8 @@ $ ->
       if address.length > 0
         region += " #{address}"
 
-      $(this).attr('href', href + region)
+      #$(this).attr('href', href + region)
+      window.open('javascript:window.name;', '<script>location.replace("'+ href + region+'")<\/script>');
     else
       event.preventDefault()
 
