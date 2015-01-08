@@ -27,7 +27,7 @@
             - @asset_urls.each_with_index do |asset_url, index|
               =image_tag asset_url[:full], class:'big-img', width: 540, height: 515, alt: "#{@product.name} images"
         == render 'product_intro'
-        == render 'shared/guess_you_like', related_products: @related_products.take(3)
+        == render 'shared/guess_you_like', related_products: @related_products
       .add-to-cart.span3
         .product-title
           - product_type = @product.product_type == "others" ? "" : "(#{@product.product_type_text})"

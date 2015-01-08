@@ -32,7 +32,7 @@ class ProductsController < ApplicationController
     end
 
     # suggestion
-    @related_products = @product.related_products
+    @related_products = @product.related_products(3)
 
     respond_to do |format|
       format.html # show.html.erb
