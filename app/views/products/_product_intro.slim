@@ -1,34 +1,18 @@
-- content_for :js do
-  = javascript_include_tag 'flowplayer.min.js' 
-  = flowplayer_for :video, asset_path('flowplayer-3.2.18.swf'), 'jquery' do |player|
-    - player.clip scaling: "fit" 
-    - player.play replayLabel: nil, opacity: 0
-    - player.canvas backgroundColor: "transparent", backgroundGradient: "none"
-    - player.playlist [{url: image_path('video-cover2.jpg'), scaling: 'orig', autoBuffering: true}, {url: "http://hua.li/system/videos/own_your_moment.mp4", autoPlay: false, autoBuffering: false}]
-    - player.plugins controls: { url: asset_path('flowplayer.controls-3.2.16.swf'), backgroundColor: "rgba(239, 239, 239, 0.1)", backgroundGradient: "none", all: false, scrubber: true, play: true, mute: true, fullscreen: true, autoHide: "always", height: "20px"}
+- cache("#{@product.cache_key}/intro") do
+  - if ["natural-adoration", "the-first-sight-of-you", "la-vie-en-rose", "we-belong", "heart-skipped-a-beat"].include?(@product.slug)
+    - content_for :js do
+      = javascript_include_tag 'flowplayer.min.js'
+      = flowplayer_for :video, asset_path('flowplayer-3.2.18.swf'), 'jquery' do |player|
+        - player.clip scaling: "fit"
+        - player.play replayLabel: nil, opacity: 0
+        - player.canvas backgroundColor: "transparent", backgroundGradient: "none"
+        - player.playlist [{url: image_path('video-cover2.jpg'), scaling: 'orig', autoBuffering: true}, {url: "http://hua.li/system/videos/own_your_moment.mp4", autoPlay: false, autoBuffering: false}]
+        - player.plugins controls: { url: asset_path('flowplayer.controls-3.2.16.swf'), backgroundColor: "rgba(239, 239, 239, 0.1)", backgroundGradient: "none", all: false, scrubber: true, play: true, mute: true, fullscreen: true, autoHide: "always", height: "20px"}
 
--if @product.slug == "natural-adoration"
-  div.movieplay
-    div.videos
-      a id="video" style="height: 303px"
--elsif @product.slug == "the-first-sight-of-you"
-  div.movieplay
-    div.videos
-      a id="video" style="height: 303px"
--elsif @product.slug == "la-vie-en-rose"
     div.movieplay
       div.videos
         a id="video" style="height: 303px"
--elsif @product.slug == "we-belong"
-    div.movieplay
-      div.videos
-        a id="video" style="height: 303px"
--elsif @product.slug == "heart-skipped-a-beat"
-    div.movieplay
-      div.videos
-        a id="video" style="height: 303px"
-        
 
-.product-intro
-  - unless @product.description.empty?
-    = markdown @product.description
+  .product-intro
+    - unless @product.description.empty?
+      = markdown @product.description

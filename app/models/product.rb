@@ -258,7 +258,9 @@ class Product < ActiveRecord::Base
   end
 
   def discount_event_today
-    discount_events.today.first
+    Rails.cache.fetch("#{cache_key}/discount_event/#{discount_events.maximum(:updated_at).try(:utc).try(:to_s, :number)}") do
+      discount_events.today.first
+    end
   end
 
   def original_price
