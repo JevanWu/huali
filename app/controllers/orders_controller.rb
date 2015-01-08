@@ -290,15 +290,15 @@ class OrdersController < ApplicationController
       order_identifier = Hash.from_xml(params[:notify_data])['notify']['out_trade_no']
       order = Order.find_by(identifier: order_identifier)
       amount = Hash.from_xml(params[:notify_data])['notify']['total_fee']
-      trade_no = Hash.from_xml(params[:notify_data])['notify']['trade_no'] 
+      trade_no = Hash.from_xml(params[:notify_data])['notify']['trade_no']
       transaction = order.transactions.create( amount: order.total, use_huali_point: false, subject: order.subject_text,
-                                body: order.body_text, client_ip: order.user.current_sign_in_ip, 
+                                body: order.body_text, client_ip: order.user.current_sign_in_ip,
                                 merchant_trade_no: trade_no, merchant_name: "Alipay", paymethod: "alipay" )
       transaction.start
       if amount.to_f == transaction.amount.to_f
         transaction.complete
       else
-        transaction.invalidate 
+        transaction.invalidate
       end
 
       render text: "success"
@@ -410,9 +410,9 @@ class OrdersController < ApplicationController
         transaction = @offline_order_form.record.reload.generate_transaction(opts)
         transaction.update_column(:state, 'completed')
 
-        if @offline_order_form.record.state == 'completed'
-          ErpWorker::ImportOrder.perform_async(@offline_order_form.record.id)
-        end
+        #if @offline_order_form.record.state == 'completed'
+          #ErpWorker::ImportOrder.perform_async(@offline_order_form.record.id)
+        #end
 
         flash[:notice] = t('controllers.order.order_success')
         redirect_to root_path

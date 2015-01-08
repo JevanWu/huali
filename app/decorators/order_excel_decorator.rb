@@ -6,6 +6,7 @@ class OrderExcelDecorator < Draper::Decorator
              "下单时间",
              "下单星期",
              "订单号",
+             "合作方订单编号",
              "订单类型",
              "订单状态",
              "到货日期",
@@ -44,6 +45,7 @@ class OrderExcelDecorator < Draper::Decorator
              :string,# 下单时间
              :string, # 下单星期
              :string, # 订单号
+             :string, # 合作方订单编号
              :string, # 订单类型
              :string, # 订单状态
              nil, # 到货日期
@@ -166,6 +168,7 @@ class OrderExcelDecorator < Draper::Decorator
      created_at.strftime("%H:%M"),
      create_week,
      identifier,
+     merchant_order_no,
      kind_text,
      state_text,
      expected_date,
@@ -205,6 +208,7 @@ class OrderExcelDecorator < Draper::Decorator
   def left_rows
     left_items.map do |item|
       ["",
+       "",
        "",
        "",
        "",

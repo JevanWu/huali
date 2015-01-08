@@ -1,25 +1,26 @@
 .a-product.span3 class="#{ 'first' if (product_counter % 4) == 0 } "
-  a href="#{product_path(product)}" target="_blank"
-    .product-pic
-      = image_tag product.rectangle_image(:medium), title: "#{product.name}", alt: "#{product.name} medium images", class: !product.has_stock? ? 'sold-out' : nil
-    .tags
-      - if !product.has_stock?
-        .tag.important-tag
-          | 已售罄
-      - elsif product.original_price.present?
-        .tag.discounttag
-          |限时
-          = (product.price/product.original_price*10).to_i
-          |折
-      - elsif product.product_type != "others"
-        .tag
-          = product.product_type_text
-  .information
-    strong
-      em = link_to product.name_zh, product_path(product), title: product.name, target: "_blank"
-      span = product.name_en
-    - if product.price.to_i == product.price   
-      p ￥#{product.price.to_i}
-    - else
-      p ￥#{product.price}
+  - cache(product) do
+    a href="#{product_path(product)}" target="_blank"
+      .product-pic
+        = image_tag product.rectangle_image(:medium), title: "#{product.name}", alt: "#{product.name} medium images", class: !product.has_stock? ? 'sold-out' : nil
+      .tags
+        - if !product.has_stock?
+          .tag.important-tag
+            | 已售罄
+        - elsif product.original_price.present?
+          .tag.discounttag
+            |限时
+            = (product.price/product.original_price*10).to_i
+            |折
+        - elsif product.product_type != "others"
+          .tag
+            = product.product_type_text
+    .information
+      strong
+        em = link_to product.name_zh, product_path(product), title: product.name, target: "_blank"
+        span = product.name_en
+      - if product.price.to_i == product.price
+        p ￥#{product.price.to_i}
+      - else
+        p ￥#{product.price}
 
