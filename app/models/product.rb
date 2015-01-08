@@ -152,7 +152,7 @@ class Product < ActiveRecord::Base
   end
 
   def related_products(limit = 5)
-    Rails.cache.fetch("#{cache_key}/related_products/limit-#{limit}", expires_in: 10.minutes) do
+    Rails.cache.fetch("#{cache_key}/related_products/limit-#{limit}", expires_in: 5.minutes) do
       (recommendations.published + suggestions).take(limit)
     end
   end
