@@ -24,7 +24,7 @@ module Erp
     186 => 220
   }
 
-  TAX_RATE = 0.17
+  TAX_RATE = 0.13
 
   class Order < ErpDatabase
     self.table_name = "lysoorder"
