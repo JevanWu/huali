@@ -71,7 +71,8 @@ ActiveAdmin.register Product do
         :collection_ids => [],
         :recommendation_ids => [],
         :local_date_rule_attributes => [:start_date, :period_length, :included_dates, :excluded_dates, { excluded_weekdays: [] }, :_destroy],
-        :local_region_rule_attributes => [:province_ids, :city_ids, :area_ids, :_destroy]
+        :local_region_rule_attributes => [:province_ids, :city_ids, :area_ids, :_destroy],
+        :print_id
       ]
     end
 
@@ -215,6 +216,8 @@ ActiveAdmin.register Product do
       row :depth do
         number_to_human(product.depth, units: :distance) if product.depth
       end
+
+      row :print_id 
 
       row :created_at
       row :updated_at

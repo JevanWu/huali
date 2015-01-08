@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141205143458) do
+ActiveRecord::Schema.define(version: 20150108084440) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -563,10 +563,12 @@ ActiveRecord::Schema.define(version: 20141205143458) do
     t.text     "material"
     t.text     "maintenance"
     t.text     "delivery"
+    t.integer  "print_id"
   end
 
   add_index "products", ["default_date_rule_id"], name: "index_products_on_default_date_rule_id", using: :btree
   add_index "products", ["default_region_rule_id"], name: "index_products_on_default_region_rule_id", using: :btree
+  add_index "products", ["print_id"], name: "index_products_on_print_id", unique: true, using: :btree
   add_index "products", ["slug"], name: "index_products_on_slug", unique: true, using: :btree
 
   create_table "provinces", force: true do |t|
