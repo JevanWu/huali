@@ -224,7 +224,7 @@ ActiveAdmin.register Order do
   member_action :check do
     order = Order.find_by_id(params[:id])
     if order.check
-      redirect_to check_admin_order_path(order), alert: t('views.admin.order.order_state_changed') + t('models.order.state.wait_make')
+      redirect_to admin_order_path(order), alert: t('views.admin.order.order_state_changed') + t('models.order.state.wait_make')
     else
       @order = OrderAdminForm.build_from_record(order)
       @order.valid?
