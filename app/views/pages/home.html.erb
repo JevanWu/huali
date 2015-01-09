@@ -18,6 +18,16 @@
       <% player.plugins controls: { url: asset_path('flowplayer.controls-3.2.16.swf'), backgroundColor: "rgba(239, 239, 239, 0.1)", backgroundGradient: "none", all: false, scrubber: true, play: true, mute: true, fullscreen: true, autoHide: "always", height: "20px"} %>
     <% end %>
   <% end %>
+  <% content_for :js do %>
+    <%= javascript_include_tag 'flowplayer.min.js' %>
+    <%= flowplayer_for :video2, asset_path('flowplayer-3.2.18.swf'), 'jquery' do |player| %>
+      <% player.clip scaling: "fit" %>
+      <% player.play replayLabel: nil, opacity: 0 %>
+      <% player.canvas backgroundColor: "transparent", backgroundGradient: "none" %>
+      <% player.playlist [{url: image_path('video-cover3.jpg'), scaling: 'orig', autoBuffering: true}, {url: "http://hua.li/system/videos/own_your_moment.mp4", autoPlay: false, autoBuffering: false}] %>
+      <% player.plugins controls: { url: asset_path('flowplayer.controls-3.2.16.swf'), backgroundColor: "rgba(239, 239, 239, 0.1)", backgroundGradient: "none", all: false, scrubber: true, play: true, mute: true, fullscreen: true, autoHide: "always", height: "20px"} %>
+    <% end %>
+  <% end %>
 <% end %>
 
 <%= render 'slide' %>
@@ -33,12 +43,18 @@
 
   <div class="best-products tabbable"> <!-- Only required for left/right tabs -->
     <ul class="nav nav-tabs">
-      <li class="active"><a href="#tab1" data-toggle="tab">合作品牌</a></li>
+      <li class="active"><a href="#tab0" data-toggle="tab">花里微电影</a></li>
+      <li><a href="#tab1" data-toggle="tab">合作品牌</a></li>
       <li><a class="aston-martin-video" href="#tab2" data-toggle="tab">媒体报道</a></li>
       <li><a href="#tab3" data-toggle="tab">花里·明星</a></li>
     </ul>
     <div class="tab-content">
-      <div class="tab-pane active" id="tab1">
+      <div class="tab-pane active" id="tab0">
+        <div class="videos">
+          <a id="video2" style="height: 529px"></a>
+        </div>
+      </div>
+      <div class="tab-pane" id="tab1">
         <div class="brands">
           <a target="_blank" class="hermes brands">Hermes</a>
           <a target="_blank" class="acqua brands" href="http://hua.li/collections/acqua-di-parma">Acqua DI Parma</a>
