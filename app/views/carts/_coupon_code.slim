@@ -10,9 +10,9 @@
     p
       | 注意：购物车存在打折商品，打折商品不能和优惠券同时使用，请移除打折商品或者优惠券然后再结算。
   br
-  = simple_form_for @cart, url: carts_coupon_update_path, method: :put do |f|
+  = simple_form_for @cart, url: carts_coupon_update_path, method: :put, html: {class: 'cart-coupon-code'} do |f|
     = f.input :coupon_code, label: false
-    = f.submit "确定", class: "btn-discount"
-    - if @cart.coupon_code
-      = simple_form_for @cart, url: carts_coupon_destroy_path, method: :delete do |f|
-        = f.submit "删除", class: "btn-discount"
+    = f.submit "确定", class: 'btn-discount'
+
+  - if  @cart.coupon_code
+    = button_to "删除", carts_coupon_destroy_path, method: :delete, class: 'btn-discount', id: 'cart-coupon-code-del-btn'
