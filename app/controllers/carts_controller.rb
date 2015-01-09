@@ -85,6 +85,7 @@ class CartsController < ApplicationController
 
   private
   def get_cart
+    return @nav_cart if @nav_cart
     cart = Cart.find_by user_id: current_or_guest_user.id
     cart = Cart.new(user_id: current_or_guest_user.id) if cart.nil?
     cart

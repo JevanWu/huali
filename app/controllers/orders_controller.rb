@@ -325,7 +325,11 @@ class OrdersController < ApplicationController
 
   private
     def get_cart
-      @cart = Cart.find_by(user_id: current_user.try(:id))
+      @cart = if @nav_cart
+                @nav_cart
+              else
+                Cart.find_by(user_id: current_user.try(:id))
+              end
       @coupon_code = @cart.coupon_code if @cart
     end
 
