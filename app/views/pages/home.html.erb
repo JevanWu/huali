@@ -1,22 +1,20 @@
-<% cache("top-of-home-page") do %>
-  <% content_for :title do %>
-    花里花店 Huali Store - 拥有你的瞬间 Own your moment
-  <% end %>
+<% content_for :title do %>
+  花里花店 Huali Store - 拥有你的瞬间 Own your moment
+<% end %>
 
-  <% content_for :description do %>
-  花里花店是目前中国领先的在线精品花艺品牌，通过在线渠道向全国消费者提供高质量的花艺消费品。花里，用心定制惊喜，用优雅的法式美学为您的生活增色。
-  <% end %>
+<% content_for :description do %>
+花里花店是目前中国领先的在线精品花艺品牌，通过在线渠道向全国消费者提供高质量的花艺消费品。花里，用心定制惊喜，用优雅的法式美学为您的生活增色。
+<% end %>
 
 
-  <% content_for :js do %>
-    <%= javascript_include_tag 'flowplayer.min.js' %>
-    <%= flowplayer_for :video, asset_path('flowplayer-3.2.18.swf'), 'jquery' do |player| %>
-      <% player.clip scaling: "fit" %>
-      <% player.play replayLabel: nil, opacity: 0 %>
-      <% player.canvas backgroundColor: "transparent", backgroundGradient: "none" %>
-      <% player.playlist [{url: image_path('video-cover.jpg'), scaling: 'orig', autoBuffering: true}, {url: "http://hua.li/system/videos/huali_meets_astonmartin.mp4", autoPlay: false, autoBuffering: false}] %>
-      <% player.plugins controls: { url: asset_path('flowplayer.controls-3.2.16.swf'), backgroundColor: "rgba(239, 239, 239, 0.1)", backgroundGradient: "none", all: false, scrubber: true, play: true, mute: true, fullscreen: true, autoHide: "always", height: "20px"} %>
-    <% end %>
+<% content_for :js do %>
+  <%= javascript_include_tag 'flowplayer.min.js' %>
+  <%= flowplayer_for :video, asset_path('flowplayer-3.2.18.swf'), 'jquery' do |player| %>
+    <% player.clip scaling: "fit" %>
+    <% player.play replayLabel: nil, opacity: 0 %>
+    <% player.canvas backgroundColor: "transparent", backgroundGradient: "none" %>
+    <% player.playlist [{url: image_path('video-cover.jpg'), scaling: 'orig', autoBuffering: true}, {url: "http://hua.li/system/videos/huali_meets_astonmartin.mp4", autoPlay: false, autoBuffering: false}] %>
+    <% player.plugins controls: { url: asset_path('flowplayer.controls-3.2.16.swf'), backgroundColor: "rgba(239, 239, 239, 0.1)", backgroundGradient: "none", all: false, scrubber: true, play: true, mute: true, fullscreen: true, autoHide: "always", height: "20px"} %>
   <% end %>
   <% content_for :js do %>
     <%= javascript_include_tag 'flowplayer.min.js' %>
@@ -32,7 +30,7 @@
 
 <%= render 'slide' %>
 
-<% cache("rest-of-home-page") do %>
+<% cache("home-page") do %>
   <div class="scroll-anchor"></div>
 
   <div id=bestproducts>
