@@ -62,11 +62,7 @@ class CartsController < ApplicationController
     @cart = get_cart
     item = @cart.cart_line_items.find(params[:item_id])
     item.quantity -= 1
-    if item.quantity == 0
-      item.destroy
-    else
-      item.save
-    end
+    item.quantity == 0 ? item.destroy : item.save
     @cart.save
     redirect_to carts_show_path
   end
