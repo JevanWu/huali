@@ -23,7 +23,7 @@ class Cart < ActiveRecord::Base
 
   validates :user_id, uniqueness: true
 
-  before_save :update_expiry_date
+  before_save :update_total_price, :update_expiry_date
   #def use_coupon_code!
     #coupon_code.use!
     #operator, value = coupon_code.coupon.adjustment.split(//, 2)

@@ -20,6 +20,8 @@ class CartLineItem < ActiveRecord::Base
   belongs_to :cart
   belongs_to :product
 
+  before_save :update_total_price
+
   delegate :discount?, :sold_total, :img, :name, :name_en, :height, :width,
     :depth, :category_name, :published, :product_type, :product_type_text, :sku_id, to: :product
 
