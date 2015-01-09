@@ -57,17 +57,8 @@ class CartsController < ApplicationController
       @related_products = Product.published.take.related_products
     end
   end
-  
-  def item_decrease
-    @cart = get_cart
-    item = @cart.cart_line_items.find(params[:item_id])
-    item.quantity -= 1
-    item.quantity == 0 ? item.destroy : item.save
-    @cart.save
-    redirect_to carts_show_path
-  end
 
-  def item_increase
+  def add_item_quantity
     @cart = get_cart
     item = @cart.cart_line_items.find(params[:item_id])
     item.quantity += 1
@@ -76,7 +67,17 @@ class CartsController < ApplicationController
     redirect_to carts_show_path
   end
 
-  def item_destroy
+  
+  def reduce_item_quantity
+    @cart = get_cart
+    item = @cart.cart_line_items.find(params[:item_id])
+    item.quantity -= 1
+    item.quantity == 0 ? item.destroy : item.save
+    @cart.save
+    redirect_to carts_show_path
+  end
+
+  def destroy_item
     @cart = get_cart
     item = @cart.cart_line_items.find(params[:item_id])
     item.destroy
