@@ -10,7 +10,6 @@ class CartsController < ApplicationController
     else
       item = @cart.cart_line_items.new(cart_line_items_params)
       item.update_total_price
-      @cart.update_expiry_date if item.save
     end
     @cart.update_total_price
     redirect_to carts_show_path if @cart.save
