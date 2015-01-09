@@ -41,6 +41,9 @@ class PagesController < ApplicationController
   def valentine
   end
 
+  def valentine_2015
+  end
+
   def white_day
   end
 
