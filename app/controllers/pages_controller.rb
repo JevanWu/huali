@@ -62,4 +62,7 @@ class PagesController < ApplicationController
   def perfume
   end
 
+  def moive
+  end
+
 end
