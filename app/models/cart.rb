@@ -64,7 +64,7 @@ class Cart < ActiveRecord::Base
 
   def calculate_total_price
     total_price_value = if adjustment.present? # && valid_coupon?
-                          [Discount.new(adjustment).calculate(original_total_price), 0].max
+                          [Discount.new(adjustment).calculate(original_total_price), 0].max if cart_line_items.any?
                         else
                           cart_line_items.map(&:total_price).inject(:+)
                         end
