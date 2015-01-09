@@ -24,11 +24,6 @@ class Cart < ActiveRecord::Base
   validates :user_id, uniqueness: true
 
   before_save :update_total_price, :update_expiry_date
-  #def use_coupon_code!
-    #coupon_code.use!
-    #operator, value = coupon_code.coupon.adjustment.split(//, 2)
-    #self.total_price = calculate_total_price.send(operator, value.to_d)
-  #end
 
   def update_expiry_date
     self.expires_at = Time.now.tomorrow.strftime("%Y-%m-%d %H:%M")
