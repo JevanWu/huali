@@ -41,6 +41,7 @@
 #
 #  index_products_on_default_date_rule_id    (default_date_rule_id)
 #  index_products_on_default_region_rule_id  (default_region_rule_id)
+#  index_products_on_print_id                (print_id) UNIQUE
 #  index_products_on_slug                    (slug) UNIQUE
 #
 
@@ -95,6 +96,7 @@ class Product < ActiveRecord::Base
   translate :name
 
   # validations
+  validates_uniqueness_of :print_id
   validates_presence_of :name_en, :name_zh, :count_on_hand, :assets, :collections, :price, :sku_id
   enumerize :product_type, in: [:fresh_flower, :preserved_flower, :others, :fake_flower, :perfume], default: :others
   enumerize :promo_tag, in: [:limit]

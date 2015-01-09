@@ -66,6 +66,7 @@ ActiveAdmin.register Product do
         :discountable,
         :promo_tag,
         :flower_type,
+        :print_id,
         :color_list,
         :assets_attributes => [ :id, :image, :_destroy ],
         :collection_ids => [],
@@ -215,6 +216,8 @@ ActiveAdmin.register Product do
       row :depth do
         number_to_human(product.depth, units: :distance) if product.depth
       end
+
+      row :print_id 
 
       row :created_at
       row :updated_at

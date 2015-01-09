@@ -14,8 +14,8 @@ module API
       get ':print_group/orders/unprinted' do
         print_group = PrintGroup.find_by_name(params[:print_group])
 
-        if params[:product_id].present?
-          print_group.print_orders.query_by_delivery_date(params[:delivery_date].to_date || Date.tomorrow).query_by_product(params[:product_id]).where(order_printed: false).limit(params[:batch_size] || DEFAULT_BATCH_SIZE).map(&:order_id)
+        if params[:print_id].present?
+          print_group.print_orders.query_by_delivery_date(params[:delivery_date].to_date || Date.tomorrow).query_by_product(params[:print_id]).where(order_printed: false).limit(params[:batch_size] || DEFAULT_BATCH_SIZE).map(&:order_id)
         else
           print_group.print_orders.query_by_delivery_date(params[:delivery_date].to_date || Date.tomorrow).where(order_printed: false).limit(params[:batch_size] || DEFAULT_BATCH_SIZE).map(&:order_id)
         end
@@ -32,8 +32,8 @@ module API
       get ':print_group/order_cards/unprinted' do
         print_group = PrintGroup.find_by_name(params[:print_group])
 
-        if params[:product_id].present?
-          print_group.print_orders.query_by_delivery_date(params[:delivery_date].to_date || Date.tomorrow).query_by_product(params[:product_id]).where(card_printed: false).limit(params[:batch_size] || DEFAULT_BATCH_SIZE).map(&:order_id)
+        if params[:print_id].present?
+          print_group.print_orders.query_by_delivery_date(params[:delivery_date].to_date || Date.tomorrow).query_by_product(params[:print_id]).where(card_printed: false).limit(params[:batch_size] || DEFAULT_BATCH_SIZE).map(&:order_id)
         else
           print_group.print_orders.query_by_delivery_date(params[:delivery_date].to_date || Date.tomorrow).where(card_printed: false).limit(params[:batch_size] || DEFAULT_BATCH_SIZE).map(&:order_id)
         end
@@ -50,8 +50,8 @@ module API
       get ':print_group/order_shipments/unprinted' do
         print_group = PrintGroup.find_by_name(params[:print_group])
 
-        if params[:product_id].present?
-          print_group.print_orders.query_by_delivery_date(params[:delivery_date].to_date || Date.tomorrow).query_by_product(params[:product_id]).where(shipment_printed: false).limit(params[:batch_size] || DEFAULT_BATCH_SIZE).map(&:order_id)
+        if params[:print_id].present?
+          print_group.print_orders.query_by_delivery_date(params[:delivery_date].to_date || Date.tomorrow).query_by_product(params[:print_id]).where(shipment_printed: false).limit(params[:batch_size] || DEFAULT_BATCH_SIZE).map(&:order_id)
         else
           print_group.print_orders.query_by_delivery_date(params[:delivery_date].to_date || Date.tomorrow).where(shipment_printed: false).limit(params[:batch_size] || DEFAULT_BATCH_SIZE).map(&:order_id)
         end
