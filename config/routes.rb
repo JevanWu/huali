@@ -126,6 +126,7 @@ Huali::Application.routes.draw do
   get 'weibo_stories', to: 'pages#weibo_stories', as: :weibo_stories
   get 'christmas', to: 'pages#christmas', as: :christmas
   get 'valentine', to: 'pages#valentine', as: :valentine
+  get 'valentine_2015', to: 'pages#valentine_2015'
   get 'white_day', to: 'pages#white_day', as: :white_day
   get 'pick_up', to: 'pages#pick_up', as: :pick_up
   get 'muqinjie', to: 'pages#mother_day', as: :muqinjie
@@ -134,6 +135,7 @@ Huali::Application.routes.draw do
   get 'yujianli', to: 'pages#yujianli'
   get 'offline_shop', to: 'pages#offline_shop'
   get 'perfume', to: 'pages#perfume'
+  get 'movie', to: 'pages#movie'
 
   get 'banners/:date', to: 'banners#index', as: :banners
   get 'stories', to: 'stories#index'

@@ -23,6 +23,7 @@
 #  name_zh                      :string(255)      default(""), not null
 #  original_price               :decimal(, )
 #  price                        :decimal(8, 2)
+#  print_id                     :integer
 #  priority                     :integer          default(5)
 #  product_type                 :string(255)
 #  promo_tag                    :string(255)
@@ -96,7 +97,7 @@ class Product < ActiveRecord::Base
   translate :name
 
   # validations
-  validates_uniqueness_of :print_id
+  validates :print_id, uniqueness: true, allow_blank: true
   validates_presence_of :name_en, :name_zh, :count_on_hand, :assets, :collections, :price, :sku_id
   enumerize :product_type, in: [:fresh_flower, :preserved_flower, :others, :fake_flower, :perfume], default: :others
   enumerize :promo_tag, in: [:limit]
@@ -120,6 +121,8 @@ class Product < ActiveRecord::Base
   before_save do |product|
     product.name_en.downcase!
   end
+
+  before_validation :reset_print_id
 
   after_save :notify_customers
 
@@ -286,5 +289,9 @@ class Product < ActiveRecord::Base
 
     def restock?
       self.changes["count_on_hand"][0] == 0 && self.changes["count_on_hand"][1] > 0
+    end
+
+    def reset_print_id
+      self.print_id = nil unless self.print_id.present?
     end
 end

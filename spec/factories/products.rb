@@ -23,6 +23,7 @@
 #  name_zh                      :string(255)      default(""), not null
 #  original_price               :decimal(, )
 #  price                        :decimal(8, 2)
+#  print_id                     :integer
 #  priority                     :integer          default(5)
 #  product_type                 :string(255)
 #  promo_tag                    :string(255)

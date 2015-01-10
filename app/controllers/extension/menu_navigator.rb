@@ -50,6 +50,7 @@ module Extension
 
     def prepare_menu_list
       @menu_list << Menu.new("花里首页", nil, :link, '/')
+      @menu_list << Menu.new("2.14情人节", nil, :link, '/valentine_2015')
       build_collection_menus
       build_custom_link_menus
     end
