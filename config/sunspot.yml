@@ -1,7 +1,7 @@
 production:
   solr:
-    hostname: localhost
-    port: 8090
+    hostname: maxcool
+    port: 8080
     log_level: WARNING
     path: /solr
     # read_timeout: 2
