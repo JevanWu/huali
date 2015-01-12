@@ -55,7 +55,7 @@ class Product < ActiveRecord::Base
   has_and_belongs_to_many :collections
   accepts_nested_attributes_for :collections
 
-  has_many :carts, dependent: :destroy
+  has_many :cart_line_items, dependent: :destroy
 
   # appointment
   has_many :appointments, dependent: :destroy
