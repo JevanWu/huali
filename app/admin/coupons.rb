@@ -4,6 +4,25 @@ ActiveAdmin.register Coupon do
 
   batch_action :destroy, false
 
+  # cancel coupon code
+  action_item do
+    link_to "注销优惠码", new_cancel_admin_coupons_path, :method => :get
+  end
+
+  collection_action :new_cancel, method: :get do
+  end
+  collection_action :cancel, method: :post do
+    code = CouponCode.find_by code: params[:coupon_code].downcase
+    if code && code.available_count > 0
+      code.use!
+      redirect_to admin_root_path, flash: { success: "The coupon code #{params[:coupon_code]} has been cancelled" }
+    else
+      redirect_to new_cancel_admin_coupons_path, flash: { failed: "coupon code #{params[:coupon_code]} is not available" }
+    end
+  end
+  # end cancel coupon code
+
+
   controller do
     private
 
