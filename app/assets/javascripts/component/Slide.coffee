@@ -21,6 +21,7 @@ class Slide
     @btnL.on("click",{dir:"left"},@onBtnClick)
     @btnR.on("click",{dir:"right"},@onBtnClick)
     @dots.on("click","a",@onDotClick)
+
   onBtnClick: (e) =>
     if e.data.dir is "left" and @currentPage isnt 1
       @changePage("+1")
