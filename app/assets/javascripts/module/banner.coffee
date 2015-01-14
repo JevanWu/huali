@@ -4,7 +4,6 @@ $ ->
     <p>
       <%- content %>
     </p>
-    <a class="close" href="#" data-banner="<%- id %>"></a>
   </div>
   """
 
