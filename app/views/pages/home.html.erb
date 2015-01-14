@@ -7,7 +7,7 @@
 <% end %>
 
 
-<% content_for :js do %>
+<% content_for :body_js do %>
   <%= javascript_include_tag 'flowplayer.min.js' %>
   <%= flowplayer_for :video, asset_path('flowplayer-3.2.18.swf'), 'jquery' do |player| %>
     <% player.clip scaling: "fit" %>
@@ -16,7 +16,7 @@
     <% player.playlist [{url: image_path('video-cover.jpg'), scaling: 'orig', autoBuffering: true}, {url: "http://hua.li/system/videos/huali_meets_astonmartin.mp4", autoPlay: false, autoBuffering: false}] %>
     <% player.plugins controls: { url: asset_path('flowplayer.controls-3.2.16.swf'), backgroundColor: "rgba(239, 239, 239, 0.1)", backgroundGradient: "none", all: false, scrubber: true, play: true, mute: true, fullscreen: true, autoHide: "always", height: "20px"} %>
   <% end %>
-  <% content_for :js do %>
+  <% content_for :body_js do %>
     <%= javascript_include_tag 'flowplayer.min.js' %>
     <%= flowplayer_for :video2, asset_path('flowplayer-3.2.18.swf'), 'jquery' do |player| %>
       <% player.clip scaling: "fit" %>

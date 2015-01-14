@@ -25,7 +25,11 @@
   <% end %>
 
   <%- suffix = @order.gift_card_text.present? ? "" : "X" %>
-  <p class='product_text'><%= "#{@order.validation_code}#{suffix} #{@order.subject_text}" %></p>
+  <p class='product_text'>
+    <%= "#{@order.validation_code}#{suffix}" %>
+    <br>
+    <%= "#{@order.subject_text}" %>
+  </p>
   <p class="delivery_date"><%= l @order.delivery_date, format: :short %></p>
 </div>
 

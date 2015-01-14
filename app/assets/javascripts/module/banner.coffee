@@ -4,7 +4,6 @@ $ ->
     <p>
       <%- content %>
     </p>
-    <a class="close" href="#" data-banner="<%- id %>"></a>
   </div>
   """
 
@@ -29,7 +28,3 @@ $ ->
     success: (banners) ->
       if newBanner = fetchNewBanner(banners)
         renderBanner(newBanner)
-  $(document).on "click", "#banner .close", (event) ->
-    updateBannersReaded($(this).data('banner'))
-    $('#banner').remove()
-    event.preventDefault()
