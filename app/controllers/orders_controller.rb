@@ -34,6 +34,34 @@ class OrdersController < ApplicationController
     @coupon_code = @card.present? && @card.coupon.present? ? @card.coupon : ""
   end
 
+
+  # quick purchase
+  def quick_purchase_new
+    @quick_purchase_form = QuickPurchaseForm.new
+    @quick_purchase_form.sender = SenderInfo.new
+    @quick_purchase_form.address = ReceiverInfo.new
+  end
+  def quick_purchase_create
+
+    @quick_purchase_form = QuickPurchaseForm.new(params[:quick_purchase_form])
+    @quick_purchase_form.user = current_or_guest_user
+    @quick_purchase_form.kind = :quick_purchase
+
+    redirect_to '', flash: { success: "订单创建成功，请选花" } if @quick_purchase_form.save
+  end
+  def quick_purchase_add_item
+      ## create line items
+      #@cart.items.each do |item|
+        #@secoo_order_form.add_line_item(item.product_id, item.quantity)
+      #end
+
+      #success = @secoo_order_form.save do |record|
+        #yield(record) if block_given?
+      #end
+  end
+  # end quick purchase
+
+
   # channel order
   # - used for channel order input
   # - transaction is completed beforehand

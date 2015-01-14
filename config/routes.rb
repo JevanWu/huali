@@ -13,6 +13,7 @@ Huali::Application.routes.draw do
   get "lucky_draw_offline", to: 'lucky_draw_offlines#new'
   post "lucky_draw_offline", to: 'lucky_draw_offlines#create'
 
+
   get "areas/:area_id", to: 'areas#show'
   get "cities/:city_id/areas", to: 'areas#index'
   get "cities/:city_id/areas/available_for_products", to: 'areas#available_for_products'
@@ -65,6 +66,10 @@ Huali::Application.routes.draw do
   get 'orders/:id/gift_card/edit', to: 'orders#edit_gift_card', as: :edit_gift_card
   match 'orders/:id/gift_card/update', to: 'orders#update_gift_card', as: :update_gift_card, via: [:put, :patch]
   get 'orders/instant_delivery_status'
+
+  # quick purchase
+  get "orders/quick_purchase/new", to: 'orders#quick_purchase_new', as: :new_quick_purchase
+  post "orders/quick_purchase", to: 'orders#quick_purchase_create', as: :create_quick_purchase
 
   # back order urls
   get 'orders/backorder', to: 'orders#back_order_new', as: :new_back_order
