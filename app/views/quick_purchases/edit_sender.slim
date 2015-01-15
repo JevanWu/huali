@@ -1,0 +1,13 @@
+legend
+  - if @receiver
+    | 收件人信息： #{@receiver.to_a.flatten.join(", ")} 
+
+legend
+  | 发件人信息：
+
+= simple_form_for :sender_info, url: save_sender_quick_purchase_path, html: {class: 'form-horizontal', id: 'new-order'} do |f|
+  = f.input :name, required: true, label: '您的姓名', input_html: { value: "#{@sender['name'] if @sender}" }
+  = f.input :phone, required: true, label: '您的手机号', input_html: { value: "#{@sender['phone'] if @sender}" }
+  = f.input :email, label: '您的邮箱', input_html: { value: "#{@sender['email'] if @sender}" }
+  = f.button :submit, '下一步，收件人信息', class: 'button btn80 next-step'
+
