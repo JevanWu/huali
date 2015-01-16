@@ -1,6 +1,6 @@
 $ ->
   [proSelector, citySelector, areaSelector] = $('select').filter (index) ->
-    $(@).attr('id').match /.*receiver_info_(province|city|area)_id/
+    $(@).attr('id').match /_address_(province|city|area)_id$/
 
   updateCitySelector = (prov_id, default_value) ->
     return unless prov_id?.length > 0

@@ -1,0 +1,13 @@
+/legend
+  - if @receiver
+    | 收件人信息： #{@receiver.to_a.flatten.join(", ")} 
+
+legend
+  | 发件人信息：
+
+= simple_form_for @sender_info, url: create_sender_quick_purchase_path, html: {class: 'form-horizontal', id: 'new-order'} do |f|
+  = f.input :name, required: true
+  = f.input :phone, as: :simple_form_phone, required: true
+  = f.input :email
+  = f.button :submit, '下一步', class: 'button btn80 next-step'
+

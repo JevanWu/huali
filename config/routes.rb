@@ -68,11 +68,11 @@ Huali::Application.routes.draw do
   get 'orders/instant_delivery_status'
 
   # quick purchase
-  get 'quick_purchases/sender/edit', to: 'quick_purchases#edit_sender', as: :edit_sender_quick_purchase
-  post 'quick_purchases/sender/save', to: 'quick_purchases#save_sender', as: :save_sender_quick_purchase
+  get 'quick_purchases/address/new', to: 'quick_purchases#new_address', as: :new_address_quick_purchase
+  post 'quick_purchases/address/create', to: 'quick_purchases#create_address', as: :create_address_quick_purchase
 
-  get 'quick_purchases/receiver/edit', to: 'quick_purchases#edit_receiver', as: :edit_receiver_quick_purchase
-  post 'quick_purchases/receiver/save', to: 'quick_purchases#save_receiver', as: :save_receiver_quick_purchase
+  get 'quick_purchases/products/new', to: 'quick_purchases#new_products', as: :new_products_quick_purchase
+  get 'quick_purchases/products/create', to: 'quick_purchases#save_products', as: :create_products_quick_purchase
 
   # back order urls
   get 'orders/backorder', to: 'orders#back_order_new', as: :new_back_order

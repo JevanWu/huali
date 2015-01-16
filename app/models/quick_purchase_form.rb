@@ -3,6 +3,23 @@ require 'active_model'
 require 'phonelib_extension'
 require 'validators/all'
 
+class SenderInfo
+  include Virtus.value_object
+  include ActiveModel::Validations
+  include Phonelib::Extension
+  def initialize(*)
+    super
+    @errors = ActiveModel::Errors.new(self)
+  end
+  values do
+    attribute :name, String
+    attribute :email, String
+    attribute :phone, String
+  end
+  phoneize :phone
+  validates_presence_of :phone, :name
+end
+
 class ReceiverInfo
   include Virtus.value_object
   extend ActiveModel::Naming
@@ -66,27 +83,6 @@ class ItemInfo
 end
 
 
-class SenderInfo
-  include Virtus.value_object
-  include ActiveModel::Validations
-  include Phonelib::Extension
-
-  def initialize(*)
-    super
-    @errors = ActiveModel::Errors.new(self)
-  end
-
-  values do
-    attribute :name, String
-    attribute :email, String
-    attribute :phone, String
-  end
-
-  phoneize :phone
-
-  validates_presence_of :phone, :name
-end
-
 
 # The Role of QuickPurchaseForm
 # - validation and render error information in the frontend form
@@ -102,6 +98,7 @@ class QuickPurchaseForm
   include ActiveModel::Validations
 
   attr_accessor :user
+  attr_accessor :kind
 
   attribute :coupon_code, String
   attribute :gift_card_text, String
