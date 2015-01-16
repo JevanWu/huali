@@ -18,6 +18,14 @@ class QuickPurchasesController < ApplicationController
   end
 
   def new_products
+    # validate address
+    if session[:quick_purchase_form].nil? and session[:quick_purchase_form] && session[:quick_purchase_form].empty?
+      redirect_to new_address_quick_purchase_path, notice: "请填写地址" 
+      return 
+    end
+
+    @quick_purchase_form = session[:quick_purchase_form]
+
   end
 
   private

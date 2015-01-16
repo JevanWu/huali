@@ -20,4 +20,10 @@
 
 class DefaultRegionRule < RegionRule
   validates :name, presence: true, uniqueness: true
+
+  def self.get_ids_by(city_id)
+    arr = []
+    self.find_each { |e| arr << e.id if e.area_ids.include?(city_id) }
+    arr
+  end
 end
