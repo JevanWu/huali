@@ -32,11 +32,3 @@ html
     = yield(:body_js)
     /script#_mutmzc src="http://public.dmppro.cn/js/i.js?uid=qhv" type="text/javascript"
     = render 'layouts/segmentio'
-    javascript:
-      $(document).snowfall('clear');
-        $(document).snowfall({
-            image: '#{image_path("huaban.png")}',
-            flakeCount:20,
-            minSize: 20,
-            maxSize: 30
-        });  
