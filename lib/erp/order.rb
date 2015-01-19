@@ -11,7 +11,8 @@ module Erp
     secoo: '01.01.0046',
     heike: '01.01.0030',
     wechat: '01.01.0001',
-    dangdang: '01.01.0048'
+    dangdang: '01.01.0048',
+    dianping: '01.01.0047'
   }
 
   CTRIP_COUPON_CHARGES = {

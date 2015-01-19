@@ -3,6 +3,17 @@ module API
   class PrintOrders < Grape::API
     DEFAULT_BATCH_SIZE = 5
     resource :printing do
+
+      helpers do 
+        def return_response(print_orders)
+          return_response = Hash.new
+          print_orders.each do |print_order|
+            return_response[print_order.order_id] = print_order.validation_code
+          end
+          return return_response
+        end
+      end
+
       # Get order print queue by print group.
       #
       # Parameters:
@@ -15,9 +26,11 @@ module API
         print_group = PrintGroup.find_by_name(params[:print_group])
 
         if params[:print_id].present?
-          print_group.print_orders.query_by_delivery_date(params[:delivery_date].to_date || Date.tomorrow).query_by_product(params[:print_id]).where(order_printed: false).limit(params[:batch_size] || DEFAULT_BATCH_SIZE).map(&:order_id)
+          print_orders = print_group.print_orders.query_by_delivery_date(params[:delivery_date].to_date || Date.tomorrow).query_by_product(params[:print_id]).where(order_printed: false).limit(params[:batch_size] || DEFAULT_BATCH_SIZE)
+          return_response(print_orders)
         else
-          print_group.print_orders.query_by_delivery_date(params[:delivery_date].to_date || Date.tomorrow).where(order_printed: false).limit(params[:batch_size] || DEFAULT_BATCH_SIZE).map(&:order_id)
+          print_orders = print_group.print_orders.query_by_delivery_date(params[:delivery_date].to_date || Date.tomorrow).where(order_printed: false).limit(params[:batch_size] || DEFAULT_BATCH_SIZE)
+          return_response(print_orders)
         end
       end
 
@@ -33,9 +46,11 @@ module API
         print_group = PrintGroup.find_by_name(params[:print_group])
 
         if params[:print_id].present?
-          print_group.print_orders.query_by_delivery_date(params[:delivery_date].to_date || Date.tomorrow).query_by_product(params[:print_id]).where(card_printed: false).limit(params[:batch_size] || DEFAULT_BATCH_SIZE).map(&:order_id)
+          print_orders = print_group.print_orders.query_by_delivery_date(params[:delivery_date].to_date || Date.tomorrow).query_by_product(params[:print_id]).where(card_printed: false).limit(params[:batch_size] || DEFAULT_BATCH_SIZE)
+          return_response(print_orders)
         else
-          print_group.print_orders.query_by_delivery_date(params[:delivery_date].to_date || Date.tomorrow).where(card_printed: false).limit(params[:batch_size] || DEFAULT_BATCH_SIZE).map(&:order_id)
+          print_orders = print_group.print_orders.query_by_delivery_date(params[:delivery_date].to_date || Date.tomorrow).where(card_printed: false).limit(params[:batch_size] || DEFAULT_BATCH_SIZE)
+          return_response(print_orders)
         end
       end
 
@@ -51,9 +66,11 @@ module API
         print_group = PrintGroup.find_by_name(params[:print_group])
 
         if params[:print_id].present?
-          print_group.print_orders.query_by_delivery_date(params[:delivery_date].to_date || Date.tomorrow).query_by_product(params[:print_id]).where(shipment_printed: false).limit(params[:batch_size] || DEFAULT_BATCH_SIZE).map(&:order_id)
+          print_orders = print_group.print_orders.query_by_delivery_date(params[:delivery_date].to_date || Date.tomorrow).query_by_product(params[:print_id]).where(shipment_printed: false).limit(params[:batch_size] || DEFAULT_BATCH_SIZE)
+          return_response(print_orders)
         else
-          print_group.print_orders.query_by_delivery_date(params[:delivery_date].to_date || Date.tomorrow).where(shipment_printed: false).limit(params[:batch_size] || DEFAULT_BATCH_SIZE).map(&:order_id)
+          print_orders = print_group.print_orders.query_by_delivery_date(params[:delivery_date].to_date || Date.tomorrow).where(shipment_printed: false).limit(params[:batch_size] || DEFAULT_BATCH_SIZE)
+          return_response(print_orders)
         end
       end
 

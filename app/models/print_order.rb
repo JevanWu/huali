@@ -21,6 +21,8 @@ class PrintOrder < ActiveRecord::Base
   belongs_to :order
   belongs_to :print_group
 
+  delegate :validation_code, to: :order
+
   validates :order, uniqueness: true
 
   default_scope { order("created_at") }

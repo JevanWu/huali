@@ -5,6 +5,9 @@ module Erp
     end
 
     def import
+      return if Erp::Seorder.where(FBillNo: @order.identifier).exists?
+
+      Erp::Order.where(FBillNo: @order.identifier).destroy_all
       @erp_order = Erp::Order.from_order(@order)
 
       if @erp_order.persisted?
@@ -18,15 +21,9 @@ module Erp
   private
 
     def validate_in_erp
-      begin
-        result = Erp::Order.execute_procedure :validate_order, FBillNo: @order.identifier
-      rescue
-        destroy_erp_order
-        raise
-      end
+      result = Erp::Order.execute_procedure :validate_order, FBillNo: @order.identifier
 
       unless result.first['FError'] == 0
-        destroy_erp_order
         raise ArgumentError, "ERP OrderValidation failed: #{@order.identifier}"
       end
     end
@@ -35,13 +32,8 @@ module Erp
       begin
         Erp::Order.execute_procedure :import_order, FBillNo: @order.identifier
       rescue
-        destroy_erp_order
         raise ArgumentError, "ERP OrderImport failed: #{@order.identifier}"
       end
-    end
-
-    def destroy_erp_order
-      Erp::Order.delay.destroy(@erp_order.id)
     end
   end
 end
