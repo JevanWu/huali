@@ -21,4 +21,20 @@
 
 class DefaultDateRule < DateRule
   validates :name, presence: true, uniqueness: true
+
+  def self.get_rules_by(date)
+    all.select { |e| e.valid_date?(date) }
+  end
+
+  def valid_date?(date)
+    DateRuleRunner.new(build_rule_runner_options).apply_test(date)
+  end
+  def build_rule_runner_options
+    {
+      range: [start_date, end_date],
+      include: included_dates,
+      exclude: excluded_dates,
+      delete_if: Proc.new { |date| date.wday.to_s.in? excluded_weekdays }
+    }
+  end
 end
