@@ -23,7 +23,6 @@ html
     == render 'layouts/header'
     == render 'layouts/nav'
     == render 'layouts/banner'
-    
     .main-content
       = content_for?(:blog) ? yield(:blog) : yield
     #qq-customer-service.scroll-object
@@ -33,4 +32,11 @@ html
     = yield(:body_js)
     /script#_mutmzc src="http://public.dmppro.cn/js/i.js?uid=qhv" type="text/javascript"
     = render 'layouts/segmentio'
-
+    javascript:
+      $(document).snowfall('clear');
+        $(document).snowfall({
+            image: "huaban3.png",
+            flakeCount:30,
+            minSize: 15,
+            maxSize: 25
+        });  
