@@ -20,8 +20,15 @@
 
 class DefaultRegionRule < RegionRule
   validates :name, presence: true, uniqueness: true
+  has_many :products
 
-  def self.get_rules_by(city_id)
-    all.select { |e| e.area_ids.include?(city_id) }
+  def self.get_product_ids_by(area_id)
+    get_rules_by(area_id).map(&:product_ids).flatten
   end
+  def self.get_rules_by(area_id) # area_id must be 'String'
+    arr = []
+    find_each { |r|  arr << r if r.area_ids.include?(area_id) }
+    arr
+  end
+
 end

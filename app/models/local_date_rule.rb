@@ -21,4 +21,8 @@
 
 class LocalDateRule < DateRule
   belongs_to :product
+
+  def self.get_product_ids_by(date)
+    get_rules_by(date).map(&:product_id)
+  end
 end
