@@ -12,7 +12,7 @@ class QuickPurchasesController < ApplicationController
       session[:quick_purchase_form] = @quick_purchase_form
       redirect_to products_quick_purchase_path, notice: "地址已添加"
     else
-      redirect_to new_address_quick_purchase_path
+      render 'new_address'
     end
     #@quick_purchase_form.user = current_or_guest_user
     #@quick_purchase_form.kind = :quick_purchase

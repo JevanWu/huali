@@ -40,7 +40,7 @@ class ReceiverInfo
     attribute :post_code, Integer
   end
 
-  validates_presence_of :fullname, :address, :phone, :province_id, :city_id
+  validates_presence_of :fullname, :address, :phone, :province_id, :city_id, :area_id
 
   phoneize :phone
 
