@@ -1,0 +1,10 @@
+<%= semantic_form_for [:admin, @menu] do |f| %> 
+  <%= f.semantic_errors :priority %>
+  <%= f.inputs do %>
+    <%= f.input :name %>
+    <%= f.input :link %>
+    <%= f.input :collection, collection: Collection.available, input_html: { :"data-placeholder" => '请选择', class: 'chosen' } %>
+    <%= f.input :available %>
+    <%= f.actions %>
+  <% end %>
+<% end %>
