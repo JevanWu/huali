@@ -68,7 +68,7 @@ Huali::Application.routes.draw do
   get 'orders/instant_delivery_status'
 
   # quick purchase
-  get 'quick_purchases/address/new', to: 'quick_purchases#new_address', as: :new_address_quick_purchase
+  get 'quick_purchases/new', to: 'quick_purchases#new_address', as: :new_address_quick_purchase
   post 'quick_purchases/address/create', to: 'quick_purchases#create_address', as: :create_address_quick_purchase
 
   get 'quick_purchases/products', to: 'quick_purchases#products', as: :products_quick_purchase
