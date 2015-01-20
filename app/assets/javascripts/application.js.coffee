@@ -34,7 +34,7 @@
 #= require 'module/qrpop'
 #= require 'yahoo-dom-event'
 #= require 'soundmanager2'
-#= require 'module/snowfall.jquery'
+#= require 'snowstorm'
 
 NProgress.configure({ showSpinner: false, ease: 'ease', speed: 500 })
 Turbolinks.enableTransitionCache()
