@@ -957,6 +957,7 @@ zh-CN:
     product:
       soldout: 已经售罄
       flower_basket: 放入购物车
+      quick_purchase_basket: 添加产品
       delivery_charge: 免运费
       product_info: 产品信息
       join_queue: 如需加入订购队列，请联系客服
