@@ -50,7 +50,7 @@ SitemapGenerator::Sitemap.create do
                         'the-first-sight-of-you',
                         'we-belong',
                         'ove-forever',
-                        'cut',
+                        'cute',
                         'hug'].map { |slug| Product.friendly.find(slug) }
   promotion_products.each do |product|
     product_images = product.assets.map do |asset|
