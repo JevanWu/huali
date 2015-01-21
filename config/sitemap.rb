@@ -34,7 +34,7 @@ SitemapGenerator::Sitemap.create do
   add '/medias', changefreq: 'monthly',  priority: 0.33
   add '/blog', changefreq: 'daily', priority: 0.5
   add '/muqinjie', changefreq: 'weekly', priority: 0.6
-  add '/products/discount_events ', changefreq: 'weekly', priority: 0.9
+  add '/valentine_2015', changefreq: 'monthly', priority: 0.9
   add '/weibo_stories', changefreq: 'monthly', priority: 0.5
 
   I18n.locale = :'zh-CN'
@@ -44,17 +44,20 @@ SitemapGenerator::Sitemap.create do
     add collection_products_path(collection), lastmod: collection.updated_at, priority: 0.8
   end
 
-  promotion_products = ['polka-dot--ab8e8fa1-0538-40a0-8955-8f9644ab4cf5',
-                        'the-girl-appreciation',
-                        'mother',
-                        'charming-dna',
-                        'the-key-of-the-forest'].map { |slug| Product.friendly.find(slug) }
+  promotion_products = ['natural-adoration',
+                        'la-vie-en-rose',
+                        'heart-skipped-a-beat',
+                        'the-first-sight-of-you',
+                        'we-belong',
+                        'ove-forever',
+                        'cut',
+                        'hug'].map { |slug| Product.friendly.find(slug) }
   promotion_products.each do |product|
     product_images = product.assets.map do |asset|
       { loc: asset.image.url(:medium), title: product.name }
     end
 
-    add(product_path(product), lastmod: product.updated_at, images: product_images, priority: 0.65)
+    add(product_path(product), lastmod: product.updated_at, images: product_images, priority: 0.7)
   end
 
   Product.find_each do |product|
@@ -64,7 +67,7 @@ SitemapGenerator::Sitemap.create do
       { loc: asset.image.url(:medium), title: product.name }
     end
 
-    add(product_path(product), lastmod: product.updated_at, images: product_images, priority: 0.5)
+    add(product_path(product), lastmod: product.updated_at, images: product_images, priority: 0.65)
   end
 
   Collection.find_each do |collection|
