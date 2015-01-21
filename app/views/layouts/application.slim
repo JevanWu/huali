@@ -18,6 +18,14 @@ html
 
     = javascript_include_tag 'application'
     = yield(:js)
+    javascript:
+      var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?f7c1cbf3d6b520dc128ae15221097a9c";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();
 
   body
     == render 'layouts/header'
@@ -32,3 +40,4 @@ html
     = yield(:body_js)
     /script#_mutmzc src="http://public.dmppro.cn/js/i.js?uid=qhv" type="text/javascript"
     = render 'layouts/segmentio'
+
