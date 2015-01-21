@@ -210,6 +210,7 @@ class QuickPurchaseForm
     order = Order.new(order)
     order.address = address
     order.user = user
+    order.kind = kind
     order.line_items = line_items
     order.save!
     return order

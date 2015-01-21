@@ -8,14 +8,13 @@ class QuickPurchasesController < ApplicationController
 
   def create_address
     @quick_purchase_form = QuickPurchaseForm.new(params[:quick_purchase_form])
+    @quick_purchase_form.kind = :quick_purchase
     if @quick_purchase_form.sender.valid? and @quick_purchase_form.address.valid?
       session[:quick_purchase_form] = @quick_purchase_form
       redirect_to products_quick_purchase_path, notice: "地址已添加"
     else
       render 'new_address'
     end
-    #@quick_purchase_form.user = current_or_guest_user
-    #@quick_purchase_form.kind = :quick_purchase
   end
 
   def products
