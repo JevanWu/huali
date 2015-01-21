@@ -49,7 +49,7 @@ SitemapGenerator::Sitemap.create do
                         'heart-skipped-a-beat',
                         'the-first-sight-of-you',
                         'we-belong',
-                        'ove-forever',
+                        'love-forever',
                         'cute',
                         'hug'].map { |slug| Product.friendly.find(slug) }
   promotion_products.each do |product|
