@@ -926,6 +926,9 @@ zh-CN:
       discount: 优惠
       quantity: 数量
 
+      # failed
+      reject_both_coupon_and_point: 不好意思, 您不能同时使用优惠劵和花点
+
       # show
       pay_now: 立即支付
       cancel_now: 取消支付

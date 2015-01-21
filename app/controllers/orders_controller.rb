@@ -213,6 +213,10 @@ class OrdersController < ApplicationController
     # params[:pay_info] is mixed with two kinds of info - pay method and merchant_name
     # these two are closed bound together
     payment_opts = process_paymethod(params[:paymethod])
+    if !@order.coupon_code.nil? && !!params[:use_huali_point]
+      redirect_to checkout_order_path(@order), flash: { failed: t('views.order.reject_both_coupon_and_point')}
+      return
+    end
     transaction = @order.generate_transaction payment_opts.merge(client_ip: request.remote_ip), params[:use_huali_point]
     transaction.start
     if transaction.amount == 0
