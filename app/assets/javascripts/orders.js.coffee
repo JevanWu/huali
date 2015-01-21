@@ -10,6 +10,18 @@ $ ->
     pro = Cart.get link.data('product')
     Cart.update(id: pro.id, quantity: pro.quantity + 1)
 
+  $('a.quick-purchase-add-btn, quick-purchase-button.add-btn').click (e) ->
+    link = $(@)
+    proid = link.data('product')
+    pro = Cart.get proid
+    Cart.update(id: pro.id, quantity: pro.quantity + 1)
+    $("a#quick-purchase-#{proid}").replaceWith( "<p>此产品已添加</p>" )
+
+    proCount = Number($('a.cart').text().split('')[1]) + Number('1')
+    cartHtml = "<a class='cart' href='/orders/current'>" + "(" + proCount + ")" + "</a>"
+    $("a.cart").replaceWith(cartHtml)
+
+
     #调试代码别忘了注释
     ###analytics.track 'Added Item To Cart',
       # FIXME added track for price / category

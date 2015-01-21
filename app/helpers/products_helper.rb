@@ -28,24 +28,8 @@ module ProductsHelper
     render 'products/product_buy_link', link: link, sold_out_text: sold_out_text
   end
 
-  def quick_purchase_link(product, options, is_mobile = false)
-    link, sold_out_text = nil, nil
-
-    if product.limited_promotion_today
-      if product.limited_promotion_today.ended?
-        sold_out_text = t('views.product.end_promo')
-      elsif product.limited_promotion_today.started?
-        link = buy_button_or_link(t('views.product.start_promo'), current_order_path, options, is_mobile)
-      else
-        link = promo_pending_tag(product.limited_promotion_today, options)
-      end
-    else
-      if product.count_on_hand > 0
-        link = buy_button_or_link(t('views.product.quick_purchase_basket'), products_quick_purchase_path, options, is_mobile)
-      end
-    end
-
-    render 'products/product_buy_link', link: link, sold_out_text: sold_out_text
+  def quick_purchase_link(product, options)
+    link_to(t('views.product.quick_purchase_basket'), products_quick_purchase_path, options)
   end
 
 private

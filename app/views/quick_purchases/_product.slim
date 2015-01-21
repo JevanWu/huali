@@ -22,5 +22,9 @@
         p ￥#{product.price.to_i}
       - else
         p ￥#{product.price}
-      = quick_purchase_link(product, class: 'add-btn button', data: { product: product.id }, onClick: "analytics.track('Added Product', { id: '#{product.id}', name: '#{product.name}', category: '#{product.product_type_text}', price: #{product.price}, currency: 'CNY', label: '#{product.name}', quantity: 1 });")
 
+
+      - if @cart_cookies.include?(product.id.to_s)
+        p 此产品已添加
+      - else
+        = link_to(t('views.product.quick_purchase_basket'), 'javascript:void(0)', class: "quick-purchase-add-btn button", id: "quick-purchase-#{product.id.to_s}", data: { product: product.id }, onClick: "analytics.track('Added Product', { id: '#{product.id}', name: '#{product.name}', category: '#{product.product_type_text}', price: #{product.price}, currency: 'CNY', label: '#{product.name}', quantity: 1 });")

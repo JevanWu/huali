@@ -1,13 +1,3 @@
-- if @cart_cookies
-  fieldset
-    legend
-      | 已添加的产品：
-      - @cart_cookies.each do |product_id, quantity|
-        p
-          = Product.find(product_id).name_zh + "x" + quantity.to_s
-
-    = button_to "结算", create_order_quick_purchase_path, method: :post, class: 'btn-discount', id: 'cart-coupon-code-del-btn'
-
 fieldset
   legend
     | 可选产品：
@@ -16,3 +6,6 @@ fieldset
       = render partial: 'product', collection: @products
     .pager
       = paginate @products
+
+
+= button_to "结算", create_order_quick_purchase_path, method: :post, class: 'btn-discount'
