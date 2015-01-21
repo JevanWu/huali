@@ -1,4 +1,5 @@
 class QuickPurchasesController < ApplicationController
+  before_action :validate_quick_qurchase_session, only: [ :products, :create_order ]
 
   def new_address
     @quick_purchase_form = QuickPurchaseForm.new
@@ -18,12 +19,6 @@ class QuickPurchasesController < ApplicationController
   end
 
   def products
-    # validate quick_qurchase_form
-    unless session[:quick_purchase_form]
-      redirect_to new_address_quick_purchase_path, notice: "请先填写地址" 
-      return 
-    end
-
     @cart_cookies = cookies[:cart] ? JSON.parse(cookies[:cart]) : nil
 
     expected_date = session[:quick_purchase_form].expected_date.to_s
@@ -44,6 +39,7 @@ class QuickPurchasesController < ApplicationController
       quick_purchase_form.add_line_item(product_id, quantity)
     end
 
+    binding.pry
     if quick_purchase_form.save
       empty_quick_purchase
       empty_cart
@@ -58,6 +54,12 @@ class QuickPurchasesController < ApplicationController
   def empty_cart
     cookies.delete :cart
     cookies.delete :coupon_code
+  end
+  def validate_quick_qurchase_session
+    unless session[:quick_purchase_form]
+      redirect_to new_address_quick_purchase_path, notice: "请先填写地址"
+      return
+    end
   end
 
 end
