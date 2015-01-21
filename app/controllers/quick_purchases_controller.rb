@@ -1,5 +1,6 @@
 class QuickPurchasesController < ApplicationController
   before_action :validate_quick_qurchase_session, only: [ :products, :create_order ]
+  after_action :empty_cart, only: [ :create_address ]
 
   def new_address
     @quick_purchase_form = QuickPurchaseForm.new
@@ -31,6 +32,13 @@ class QuickPurchasesController < ApplicationController
   end
 
   def create_order
+
+    # validate cookies[:cart]
+    unless cookies[:cart]
+      redirect_to products_quick_purchase_path, notice: "请添加产品"
+      return
+    end
+
     quick_purchase_form = session[:quick_purchase_form]
     quick_purchase_form.user = current_or_guest_user
 
