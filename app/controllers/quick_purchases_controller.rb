@@ -1,5 +1,5 @@
 class QuickPurchasesController < ApplicationController
-  before_action :validate_quick_qurchase_session, only: [ :products, :create_order ]
+  before_action :validate_quick_purchase_session, only: [ :products, :create_order ]
   after_action :empty_cart, only: [ :create_address ]
 
   def new_address
@@ -63,7 +63,7 @@ class QuickPurchasesController < ApplicationController
     cookies.delete :cart
     cookies.delete :coupon_code
   end
-  def validate_quick_qurchase_session
+  def validate_quick_purchase_session
     unless session[:quick_purchase_form]
       redirect_to new_address_quick_purchase_path, notice: "请先填写地址"
       return
