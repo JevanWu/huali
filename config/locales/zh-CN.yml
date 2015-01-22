@@ -92,6 +92,7 @@ zh-CN:
         must_be_less_than_expected_date: 必须小于到达日期
         not_able_to_edit_adjustment: 订单已审核，不能更新价格调整
         instant_delivery_not_available: 快速送达服务当前不可用
+        district_not_valid: 此地区不可用
         start_date_must_not_greater_than_end_date: 开始日期不能大于结束日期
 
     models:
