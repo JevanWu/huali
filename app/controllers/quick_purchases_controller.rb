@@ -28,7 +28,7 @@ class QuickPurchasesController < ApplicationController
     product_ids_date = ( DefaultDateRule.get_product_ids_by(expected_date) | LocalDateRule.get_product_ids_by(expected_date) )
     product_ids = product_ids_regin & product_ids_date
 
-    @products = Product.published.where("id IN (?) and count_on_hand > 0", product_ids).page(params[:page]).per(4).order_by_priority
+    @products = Product.published.where("id IN (?) and count_on_hand > 0", product_ids).page(params[:page]).per(8).order_by_priority
   end
 
   def create_order
