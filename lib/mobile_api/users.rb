@@ -2,9 +2,9 @@ module MobileAPI
   class Users < Grape::API
 
     helpers do
-      def ordinary_sign_in(params)
+      def ordinary_sign_in(user, password)
         error!('The user does not exist!', 404) if !user.present?
-        if user.valid_password?(params[:password])
+        if user.valid_password?(password)
           token = user.reset_authentication_token
           status 200
           { 
@@ -57,7 +57,7 @@ module MobileAPI
       post :sign_in do
         if params[:email].present? && params[:password].present?
           user = User.find_by(email: params[:email])
-          ordinary_sign_in(user)
+          ordinary_sign_in(user, params[:password])
         elsif params[:uid] && params[:oauth_provider]
           if user = OauthService.find_user(params[:oauth_provider], params[:uid])
             oauth_sigin_in(user)
