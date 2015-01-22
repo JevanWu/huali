@@ -180,7 +180,7 @@ class OrderForm
   end
 
   def invalid_expected_date?
-    expected_date.between?('2015-02-07'.to_date, '2015-02-11'.to_date)
+    expected_date.between?('2015-02-07'.to_date, '2015-02-10'.to_date)
   end
 
   def validate_discountable?
