@@ -47,11 +47,14 @@ class QuickPurchasesController < ApplicationController
       quick_purchase_form.add_line_item(product_id, quantity)
     end
 
-    binding.pry
-    if quick_purchase_form.save
+    if quick_purchase_form.valid?
+      quick_purchase_form.save
       empty_quick_purchase
       empty_cart
-      redirect_to checkout_order_path(quick_purchase_form.record)  
+      redirect_to checkout_order_path(quick_purchase_form.record)
+    else
+      empty_quick_purchase # for error:  ActionDispatch::Cookies::CookieOverflow
+      redirect_to new_order_path, notice: "购物车存在不能送达产品，通过正常渠道结算"
     end
   end
 
