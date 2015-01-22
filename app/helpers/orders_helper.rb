@@ -110,6 +110,14 @@ module OrdersHelper
     end
   end
 
+  def simple_form_base_error_message(errors)
+    base_errors = errors.map do |error|
+                    content_tag('span', error, class: 'help-block')
+                  end.flatten.join.html_safe
+    
+    content_tag('div', base_errors, class: "control-group error section-error") if base_errors.present?
+  end
+
   def formtastic_error_messages_for(collection)
     item_errors = collection.map do |item|
       item.errors[:base].map do |err|
