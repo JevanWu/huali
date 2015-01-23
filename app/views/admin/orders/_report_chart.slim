@@ -46,6 +46,12 @@ javascript:
               name: '官网',
               data: [#{@daily_order_report.order_amounts_by_date('normal').join(',').html_safe}]
           }, {
+              name: '绿色通道',
+              data: [#{@daily_order_report.order_amounts_by_date('quick_purchase').join(',').html_safe}]
+          }, {
+              name: '微信',
+              data: [#{@daily_order_report.order_amounts_by_date('wechat').join(',').html_safe}]
+          }, {
               name: '淘宝',
               data: [#{@daily_order_report.order_amounts_by_date('taobao').join(',').html_safe}]
           }, {
@@ -126,6 +132,12 @@ javascript:
           series: [{
               name: '官网',
               data: [#{@daily_order_report.order_counts_by_date('normal').join(',').html_safe}]
+          }, {
+              name: '绿色通道',
+              data: [#{@daily_order_report.order_counts_by_date('quick_purchase').join(',').html_safe}]
+          }, {
+              name: '微信',
+              data: [#{@daily_order_report.order_counts_by_date('wechat').join(',').html_safe}]
           }, {
               name: '淘宝',
               data: [#{@daily_order_report.order_counts_by_date('taobao').join(',').html_safe}]
