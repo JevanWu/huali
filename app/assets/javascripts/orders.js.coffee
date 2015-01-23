@@ -15,8 +15,7 @@ $ ->
     proid = link.data('product')
     pro = Cart.get proid
     Cart.update(id: pro.id, quantity: pro.quantity + 1)
-    $("a#quick-purchase-#{proid}").replaceWith( "<p>此产品已添加</p>" )
-
+    $("a#quick-purchase-#{proid}").replaceWith( "<p style='margin-top: 15px'>此产品已添加</p>" )
     proCount = Number($('a.cart').text().split('')[1]) + Number('1')
     cartHtml = "<a class='cart' href='/orders/current'>" + "(" + proCount + ")" + "</a>"
     $("a.cart").replaceWith(cartHtml)

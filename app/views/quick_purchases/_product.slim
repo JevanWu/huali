@@ -1,8 +1,8 @@
-.a-product.span3[class="#{ 'first' if (product_counter % 4) == 0 }" style="height: 420px;"] 
+.a-product.span3[class="#{ 'first' if (product_counter % 4) == 0 }" style="height: 430px;"] 
   a href="#{product_path(product)}" target="_blank"
     .product-pic
       = image_tag product.rectangle_image(:medium), title: "#{product.name}", alt: "#{product.name} medium images", class: !product.has_stock? ? 'sold-out' : nil
-    .tags
+    .tags style="bottom: 110px"
       - if !product.has_stock?
         .tag.important-tag
           | 已售罄
@@ -24,6 +24,6 @@
       p ￥#{product.price}
 
     - if @cart_cookies and @cart_cookies.include?(product.id.to_s)
-      p 此产品已添加
+      p style="margin-top: 15px"此产品已添加
     - else
-      = link_to(t('views.product.quick_purchase_basket'), 'javascript:void(0)', class: "quick-purchase-add-btn button", id: "quick-purchase-#{product.id.to_s}", data: { product: product.id }, onClick: "analytics.track('Added Product', { id: '#{product.id}', name: '#{product.name}', category: '#{product.product_type_text}', price: #{product.price}, currency: 'CNY', label: '#{product.name}', quantity: 1 });")
+      = link_to(t('views.product.quick_purchase_basket'), 'javascript:void(0)', class: "quick-purchase-add-btn button", id: "quick-purchase-#{product.id.to_s}", data: { product: product.id }, style: "color: white;text-decoration: none;margin-top: 10px", onClick: "analytics.track('Added Product', { id: '#{product.id}', name: '#{product.name}', category: '#{product.product_type_text}', price: #{product.price}, currency: 'CNY', label: '#{product.name}', quantity: 1 });" )
