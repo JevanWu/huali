@@ -1,6 +1,8 @@
 module Erp
   CLIENT_CODES = {
     normal: '01.01.0001',
+    quick_purchase: '01.01.0001',
+    wechat: '01.01.0001',
     tmall: '01.01.0002',
     taobao: '01.01.0003',
     ctrip: '01.02.0031',
@@ -10,7 +12,6 @@ module Erp
     amazon: '01.01.0045',
     secoo: '01.01.0046',
     heike: '01.01.0030',
-    wechat: '01.01.0001',
     dangdang: '01.01.0048'
   }
 
