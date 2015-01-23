@@ -10,6 +10,7 @@ class QuickPurchasesController < ApplicationController
 
   def create_address
     @quick_purchase_form = QuickPurchaseForm.new(params[:quick_purchase_form])
+    @quick_purchase_form.expected_date = Time.now.strftime("%a, %e %b %Y")
     @quick_purchase_form.kind = :quick_purchase
     if @quick_purchase_form.sender.valid? and @quick_purchase_form.address.valid?
       session[:quick_purchase_form] = @quick_purchase_form
@@ -19,11 +20,18 @@ class QuickPurchasesController < ApplicationController
     end
   end
 
+
+  def update_products
+    session[:quick_purchase_form] = @quick_purchase_form
+    redirect_to products_quick_purchase_path, notice: "产品列表已经更新"
+  end
+
   def products
+    @quick_purchase_form = session[:quick_purchase_form]
     @cart_cookies = cookies[:cart] ? JSON.parse(cookies[:cart]) : nil
 
-    expected_date = session[:quick_purchase_form].expected_date.to_s
-    area_id = session[:quick_purchase_form].address.area_id.to_s
+    expected_date = @quick_purchase_form.expected_date.to_s
+    area_id = @quick_purchase_form.address.area_id.to_s
     product_ids_regin = ( DefaultRegionRule.get_product_ids_by(area_id) | LocalRegionRule.get_product_ids_by(area_id) )
     product_ids_date = ( DefaultDateRule.get_product_ids_by(expected_date) | LocalDateRule.get_product_ids_by(expected_date) )
     product_ids = product_ids_regin & product_ids_date

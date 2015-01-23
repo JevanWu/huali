@@ -37,7 +37,6 @@ br
         = builder.input :address, as: 'text', required:true, input_html: { rows: 3 }, placeholder: '详细地址'
         /= f.input :instant_delivery, as: :boolean, hint: '90分钟送达需要收取而外费用'
         = builder.input :post_code, placeholder: '邮编', hint: %(<a id='query-postcode' href="#" target='_blank'>查询邮编</a>).html_safe
-      = f.input :expected_date, as: :string, required:true, input_html: { class: 'datepicker' }, placeholder: '寄给TA的时间', label: "送达时间"
       /button#gift-card-info-trigger.button
         | 添加贺卡内容
       /#gift-card-info
