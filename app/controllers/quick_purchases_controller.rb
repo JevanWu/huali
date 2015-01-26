@@ -1,5 +1,5 @@
 class QuickPurchasesController < ApplicationController
-  before_action :validate_quick_purchase_session, only: [ :products, :create_order ]
+  before_action :quick_purchase_session_exist?, only: [ :products, :create_order ]
   after_action :empty_cart, only: [ :create_address ]
 
   def new_address
@@ -10,7 +10,7 @@ class QuickPurchasesController < ApplicationController
 
   def create_address
     @quick_purchase_form = QuickPurchaseForm.new(params[:quick_purchase_form])
-    @quick_purchase_form.expected_date = Time.now.strftime("%a, %e %b %Y")
+    @quick_purchase_form.expected_date = 3.days.from_now.strftime("%a, %e %b %Y")
     @quick_purchase_form.kind = :quick_purchase
     if @quick_purchase_form.sender.valid? and @quick_purchase_form.address.valid?
       session[:quick_purchase_form] = @quick_purchase_form
@@ -18,12 +18,6 @@ class QuickPurchasesController < ApplicationController
     else
       render 'new_address'
     end
-  end
-
-
-  def update_products
-    session[:quick_purchase_form] = @quick_purchase_form
-    redirect_to products_quick_purchase_path, notice: "产品列表已经更新"
   end
 
   def products
@@ -39,8 +33,12 @@ class QuickPurchasesController < ApplicationController
     @products = Product.published.where("id IN (?) and count_on_hand > 0", product_ids).page(params[:page]).per(8).order_by_priority
   end
 
-  def create_order
+  def update_products
+    session[:quick_purchase_form].expected_date = Date.parse(params[:quick_purchase_form][:expected_date])
+    redirect_to products_quick_purchase_path, notice: "产品列表已经更新"
+  end
 
+  def create_order
     # validate cookies[:cart]
     unless cookies[:cart]
       redirect_to products_quick_purchase_path, notice: "请添加产品"
@@ -74,7 +72,7 @@ class QuickPurchasesController < ApplicationController
     cookies.delete :cart
     cookies.delete :coupon_code
   end
-  def validate_quick_purchase_session
+  def quick_purchase_session_exist?
     unless session[:quick_purchase_form]
       redirect_to new_address_quick_purchase_path, notice: "请先填写地址"
       return
