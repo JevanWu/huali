@@ -68,4 +68,7 @@ class PagesController < ApplicationController
   def moive
   end
 
+  def cake_coupon
+  end
+
 end
