@@ -6,21 +6,21 @@ module Extension
     included do
       if Rails.env.production?
         rescue_from 'Exception' do |exception|
-          notify_squash(exception)
+          notify_squash_async(exception)
           render_error 500, exception
         end
 
         rescue_from 'ActionController::RoutingError',
           'ActionController::UnknownController',
           '::AbstractController::ActionNotFound' do |exception|
-          notify_squash(exception)
+          notify_squash_async(exception)
           render_error 404, exception
         end
 
         rescue_from 'ActiveRecord::RecordNotFound',
           'ActionController::UnknownFormat' do |exception|
           unless params[:controller] == 'pages' && params[:action] == "show"
-            notify_squash(exception)
+            notify_squash_async(exception)
           end
 
           render_error 404, exception
@@ -35,6 +35,12 @@ module Extension
         format.html { render template: "errors/error_#{status}", layout: 'layouts/error', status: status }
         format.mobile { render template: "errors/error_#{status}", layout: 'layouts/error', status: status }
         format.json { render nothing: true, status: status }
+      end
+    end
+
+    def notify_squash_async(exception)
+      Thread.new do
+        notify_squash(exception)
       end
     end
   end
