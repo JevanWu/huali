@@ -1,28 +1,16 @@
 = stylesheet_link_tag "jquery.ui.datepicker"
 - content_for(:body_js) do
   = javascript_include_tag "datepicker-settings"
+  = javascript_include_tag "update_products_quick_purchase"
 
-br
-br
-
-.best-products
-  = simple_form_for @quick_purchase_form, url: update_products_quick_purchase_path, method: :put, html: { class: 'form-horizontal', id: 'new-order'} do |f|
-    = f.input :expected_date, as: :string, required:true, input_html: { class: 'datepicker' }, placeholder: '寄给TA的时间', label: "送达时间"
+.best-products[style="margin-top: 50px;"]
+  = simple_form_for @quick_purchase_form, remote: true, url: update_products_quick_purchase_path, method: :put, html: { class: 'form-horizontal', id: 'quick_purchase_form'} do |f|
+    = f.input :expected_date, as: :string, input_html: { class: 'datepicker' }, placeholder: '寄给TA的时间', label: "送达时间"
     = f.button :submit, "更新产品", class: 'button btn80 next-step'
 
-br
-br
-
 .cate-list
-dl
-  dt.cate-list-title
-    h1 可选产品：
+  dl
+    dt.cate-list-title[style="margin-bottom: 10px"]
+      h1 可选产品：
 
-  dd.main
-    .best-products.row
-      = render partial: 'product', collection: @products
-    br
-    .quick-purchase-btn[style="text-align: center;"]
-      = button_to "结算", create_order_quick_purchase_path, method: :post, class: 'btn-discount'
-    .pager
-      == paginate @products
+= render 'products_list'

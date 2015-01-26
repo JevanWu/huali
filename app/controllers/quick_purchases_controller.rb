@@ -1,6 +1,8 @@
 class QuickPurchasesController < ApplicationController
-  before_action :quick_purchase_session_exist?, only: [ :products, :create_order ]
+  before_action :quick_purchase_session_exist?, only: [ :products, :create_order, :update_products ]
   after_action :empty_cart, only: [ :create_address ]
+
+  respond_to :html, :xml, :json
 
   def new_address
     @quick_purchase_form = QuickPurchaseForm.new
@@ -35,7 +37,26 @@ class QuickPurchasesController < ApplicationController
 
   def update_products
     session[:quick_purchase_form].expected_date = Date.parse(params[:quick_purchase_form][:expected_date])
-    redirect_to products_quick_purchase_path, notice: "产品列表已经更新"
+
+    # ---
+    @quick_purchase_form = session[:quick_purchase_form]
+    @cart_cookies = cookies[:cart] ? JSON.parse(cookies[:cart]) : nil
+
+    expected_date = @quick_purchase_form.expected_date.to_s
+    area_id = @quick_purchase_form.address.area_id.to_s
+    product_ids_regin = ( DefaultRegionRule.get_product_ids_by(area_id) | LocalRegionRule.get_product_ids_by(area_id) )
+    product_ids_date = ( DefaultDateRule.get_product_ids_by(expected_date) | LocalDateRule.get_product_ids_by(expected_date) )
+    product_ids = product_ids_regin & product_ids_date
+
+    @products = Product.published.where("id IN (?) and count_on_hand > 0", product_ids).page(params[:page]).per(8).order_by_priority
+    # ---
+     
+    respond_with do |format|
+      format.html do
+          render :partial => "products_list", :layout => false if request.xhr?
+      end
+    end
+
   end
 
   def create_order

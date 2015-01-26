@@ -1,0 +1,8 @@
+dd.main
+  .best-products.row
+    = render partial: 'product', collection: @products
+  br
+  .quick-purchase-btn[style="text-align: center;"]
+    = button_to "结算", create_order_quick_purchase_path, method: :post, class: 'btn-discount'
+  .pager
+    == paginate @products
