@@ -43,6 +43,7 @@ zh-CN:
 
     notice:
       created: 创建完成
+      create_failed: 创建失败，请联系开发人员
       updated: 更新完成
 
     sync_order:

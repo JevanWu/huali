@@ -3,6 +3,7 @@
 # Table name: users
 #
 #  anonymous_token          :string(255)
+#  authentication_token     :string(255)
 #  confirmation_sent_at     :datetime
 #  confirmation_token       :string(255)
 #  confirmed_at             :datetime
@@ -30,6 +31,7 @@
 #  reset_password_sent_at   :datetime
 #  reset_password_token     :string(255)
 #  role                     :string(255)      default("customer"), not null
+#  set_password             :boolean          default(TRUE)
 #  sign_in_count            :integer          default(0)
 #  updated_at               :datetime         not null
 #
@@ -43,6 +45,7 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 
+
 class User < ActiveRecord::Base
   include Phonelib::Extension
   # Include default devise modules. Others available are:
@@ -55,6 +58,7 @@ class User < ActiveRecord::Base
   has_many :invitees, class_name: "User", foreign_key: "invited_by_id"
   belongs_to :inviter, class_name: "User", foreign_key: "invited_by_id"
 
+  has_one :carts, dependent: :destroy
   has_many :addresses
   has_many :orders
   has_many :oauth_providers, dependent: :destroy

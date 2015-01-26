@@ -17,6 +17,7 @@
 #  index_menus_on_collection_id  (collection_id)
 #
 
+
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do

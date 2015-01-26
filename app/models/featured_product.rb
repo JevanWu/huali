@@ -19,6 +19,7 @@
 #  index_featured_products_on_product_id  (product_id)
 #
 
+
 class FeaturedProduct < ActiveRecord::Base
   belongs_to :product
 

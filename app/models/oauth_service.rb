@@ -16,6 +16,7 @@
 #  index_oauth_services_on_provider_and_uid  (provider,uid)
 #
 
+
 class OauthService < ActiveRecord::Base
 
   # attr_accessible :provider, :uid

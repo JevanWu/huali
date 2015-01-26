@@ -17,6 +17,7 @@
 #  index_menus_on_collection_id  (collection_id)
 #
 
+
 class Menu < ActiveRecord::Base
   belongs_to :collection
   validates :name, presence: true

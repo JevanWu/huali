@@ -19,6 +19,7 @@
 #  index_date_rules_on_product_id  (product_id)
 #
 
+
 class DateRule < ActiveRecord::Base
   serialize :included_dates, Array
   serialize :excluded_dates, Array

@@ -19,6 +19,7 @@
 #  index_date_rules_on_product_id  (product_id)
 #
 
+
 class DefaultDateRule < DateRule
   validates :name, presence: true, uniqueness: true
 end

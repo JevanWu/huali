@@ -18,6 +18,7 @@
 #  index_region_rules_on_region_rulable_id  (region_rulable_id)
 #
 
+
 class LocalRegionRule < RegionRule
   belongs_to :region_rulable, polymorphic: true
 end

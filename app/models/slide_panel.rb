@@ -17,6 +17,7 @@
 #  visible            :boolean          default(FALSE)
 #
 
+
 class SlidePanel < ActiveRecord::Base
   validates :priority, presence: true, numericality: true
 

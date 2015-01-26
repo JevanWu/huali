@@ -10,30 +10,20 @@
     ul.operate
       li.cart-li-preview
         = fa_icon 'shopping-cart'
-        a.cart href="#{current_order_path}"
-          = "(#{@cart ? @cart.item_count : 0})"
+        a.cart href="#{carts_show_path}"
+          = "(#{@nav_cart ? @nav_cart.items_size : 0})"
         .cart-preview-container
           .cart-preview
-            - if @cart.nil?
+            - if @nav_cart.nil?
               p.cart-preview-empty 您的购物车还是空的
             - else
               h3
                 span 我的购物车
-              - @cart.items.each_with_index do |item, index|
-                .cart-preview-item class="#{".last" if index + 1 == @cart.items.size}"
-                  = image_tag(item.img(:thumb), width: 35, height: 35)
-                  .cart-preview-item-main
-                    h4 #{item.name}
-                    .cart-preview-item-info
-                      .num
-                        = "数量：#{item.quantity}"
-                      .price
-                        = number_to_currency item.price
               .summary
                 span
                   | 合计：
                 strong
-                  = number_to_currency @cart.total
+                  = 'number_to_currency @nav_cart.total_price'
               .go-checkout
                 = link_to '结算', current_order_path, class: 'checkout'
 

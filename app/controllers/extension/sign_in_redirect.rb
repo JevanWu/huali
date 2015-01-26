@@ -9,7 +9,7 @@ module Extension
 
       if User === resource
         migrate_from_guest
-        track_user(resource)
+        #track_user(resource)
       end
 
       session["user_return_to"] || root_path

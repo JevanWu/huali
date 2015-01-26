@@ -18,9 +18,11 @@
 #  index_coupon_codes_on_user_id    (user_id)
 #
 
+
 class CouponCode < ActiveRecord::Base
   belongs_to :coupon
   has_many :orders
+  has_many :carts
   belongs_to :user
 
   validates_presence_of :code, :available_count
@@ -30,6 +32,16 @@ class CouponCode < ActiveRecord::Base
 
   def to_s
     code
+  end
+
+  def to_human
+    if adjustment.start_with?('*')
+      "#{adjustment.sub('*', '').to_f * 10}折优惠劵".sub('.0', '')
+    elsif adjustment.start_with?('-')
+      "#{adjustment.sub('-', '')}元现金券"
+    else
+      ''
+    end
   end
 
   def usable?(target = nil)
@@ -58,6 +70,8 @@ class CouponCode < ActiveRecord::Base
     unless products.blank?
       return false if products_in_target.none? { |product| products.include?(product) }
     end
+
+    return false if products_in_target.any? { |product| product.discount? }
 
     true
   end

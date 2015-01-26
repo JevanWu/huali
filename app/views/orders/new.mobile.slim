@@ -1,12 +1,9 @@
-= stylesheet_link_tag "jquery.ui.datepicker"
-
-- content_for(:body_js) do
-  = javascript_include_tag "datepicker-settings"
-  = javascript_include_tag "prov_city_area_update"
+= render 'back_order_assets'
+= render 'product_ids', cart: @cart
 
 .buy-mobile
   .product-info
-    - product_in_cart = @cart.items.first
+    - product_in_cart = @cart.get_line_items.first
     = image_tag product_in_cart.img(:thumb)
     .product-info-main
       h3.product-name
@@ -14,7 +11,7 @@
       h4.product-name-en
         = product_in_cart.name_en
       p.total-num
-        | 共计#{@cart.item_count}件商品
+        | 共计#{@cart.items_size}件商品
       - if @cart.discounted?
         p.discount
           | 促销优惠：- 
@@ -22,6 +19,6 @@
       p.total-price
         | 总计：
         span
-          = number_to_currency @cart.total
+          = number_to_currency @cart.total_price + (@order && @order.instant_delivery ? @order.instant_delivery.fee : 0)
 
   = render 'form.mobile'

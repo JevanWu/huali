@@ -17,6 +17,7 @@
 #  index_menus_on_collection_id  (collection_id)
 #
 
+
 require 'spec_helper'
 
 describe Menu do

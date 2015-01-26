@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141205074938) do
+ActiveRecord::Schema.define(version: 20150119101710) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(version: 20141205074938) do
     t.boolean  "available"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "kind"
   end
 
   add_index "blog_categories", ["slug"], name: "index_blog_categories_on_slug", unique: true, using: :btree
@@ -143,6 +144,30 @@ ActiveRecord::Schema.define(version: 20141205074938) do
 
   add_index "blog_posts", ["published"], name: "index_blog_posts_on_published", using: :btree
   add_index "blog_posts", ["slug"], name: "index_blog_posts_on_slug", unique: true, using: :btree
+
+  create_table "cart_line_items", force: true do |t|
+    t.integer  "cart_id"
+    t.integer  "product_id"
+    t.decimal  "total_price", precision: 8, scale: 2, default: 0.0, null: false
+    t.integer  "quantity",                            default: 0,   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "cart_line_items", ["cart_id"], name: "index_cart_line_items_on_cart_id", using: :btree
+  add_index "cart_line_items", ["product_id"], name: "index_cart_line_items_on_product_id", using: :btree
+
+  create_table "carts", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "coupon_code_id"
+    t.decimal  "total_price",    precision: 8, scale: 2, default: 0.0, null: false
+    t.datetime "expires_at",                                           null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "carts", ["coupon_code_id"], name: "index_carts_on_coupon_code_id", using: :btree
+  add_index "carts", ["user_id"], name: "index_carts_on_user_id", using: :btree
 
   create_table "cities", force: true do |t|
     t.string  "name"
@@ -236,6 +261,17 @@ ActiveRecord::Schema.define(version: 20141205074938) do
 
   add_index "coupons_products", ["coupon_id", "product_id"], name: "index_coupons_products_on_coupon_id_and_product_id", unique: true, using: :btree
 
+  create_table "daily_phrases", force: true do |t|
+    t.string   "title"
+    t.text     "phrase"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "date_rules", force: true do |t|
     t.integer  "product_id"
     t.date     "start_date"
@@ -306,6 +342,18 @@ ActiveRecord::Schema.define(version: 20141205074938) do
 
   add_index "greeting_cards", ["product_id"], name: "index_greeting_cards_on_product_id", using: :btree
   add_index "greeting_cards", ["user_id"], name: "index_greeting_cards_on_user_id", using: :btree
+
+  create_table "guide_views", force: true do |t|
+    t.text     "description"
+    t.boolean  "available",          default: false
+    t.integer  "priority"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "instant_deliveries", force: true do |t|
     t.integer  "order_id"
@@ -382,6 +430,19 @@ ActiveRecord::Schema.define(version: 20141205074938) do
   end
 
   add_index "menus", ["collection_id"], name: "index_menus_on_collection_id", using: :btree
+
+  create_table "mobile_menus", force: true do |t|
+    t.string   "name"
+    t.string   "href"
+    t.text     "description"
+    t.integer  "priority"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "monthly_solds", force: true do |t|
     t.integer  "sold_year"
@@ -563,10 +624,12 @@ ActiveRecord::Schema.define(version: 20141205074938) do
     t.text     "material"
     t.text     "maintenance"
     t.text     "delivery"
+    t.integer  "print_id"
   end
 
   add_index "products", ["default_date_rule_id"], name: "index_products_on_default_date_rule_id", using: :btree
   add_index "products", ["default_region_rule_id"], name: "index_products_on_default_region_rule_id", using: :btree
+  add_index "products", ["print_id"], name: "index_products_on_print_id", unique: true, using: :btree
   add_index "products", ["slug"], name: "index_products_on_slug", unique: true, using: :btree
 
   create_table "provinces", force: true do |t|
@@ -715,7 +778,19 @@ ActiveRecord::Schema.define(version: 20141205074938) do
     t.datetime "author_avatar_updated_at"
     t.string   "origin_link"
     t.integer  "priority",                   default: 0
+    t.string   "product_link"
+    t.integer  "product_id"
   end
+
+  add_index "stories", ["product_id"], name: "index_stories_on_product_id", using: :btree
+
+  create_table "subscriber_emails", force: true do |t|
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "subscriber_emails", ["email"], name: "index_subscriber_emails_on_email", unique: true, using: :btree
 
   create_table "surveys", force: true do |t|
     t.integer  "user_id"
@@ -816,6 +891,8 @@ ActiveRecord::Schema.define(version: 20141205074938) do
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
+    t.string   "authentication_token"
+    t.boolean  "set_password",                                     default: true
   end
 
   add_index "users", ["anonymous_token"], name: "index_users_on_anonymous_token", unique: true, using: :btree

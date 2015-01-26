@@ -3,7 +3,7 @@ require 'json'
 require 'digest'
 class OrdersController < ApplicationController
   before_action :justify_wechat_agent, only: [:index, :current, :checkout, :gateway, :new, :create]
-  before_action :fetch_related_products, only: [:back_order_create, :channel_order_create, :current, :apply_coupon]
+  #before_action :fetch_related_products, only: [:back_order_create, :channel_order_create, :current, :apply_coupon]
   before_action :signin_with_openid, only: [:new, :index]
   before_action :authenticate_user!, only: [:new, :index, :show, :create, :checkout, :cancel, :edit_gift_card, :update_gift_card, :instant_delivery_status]
   before_action :authenticate_administrator!, only: [:back_order_new, :back_order_create, :channel_order_new, :channel_order_create]
@@ -11,6 +11,7 @@ class OrdersController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:notify]
   before_action :authorize_to_record_back_order, only: [:back_order_new, :channel_order_new, :back_order_create, :channel_order_create]
   before_action :validate_cart, only: [:new, :channel_order_new, :back_order_new, :create, :back_order_create, :channel_order_create]
+  before_action :get_cart, only: [:new, :channel_order_new, :back_order_new, :back_order_create, :channel_order_create, :b2b_order_new, :b2b_order_create, :secoo_order_new, :create]
 
   def index
     @orders = current_or_guest_user.orders
@@ -27,11 +28,10 @@ class OrdersController < ApplicationController
   end
 
   def new
-    @order_form = OrderForm.new(coupon_code: cookies[:coupon_code])
+    redirect_to :back if @cart.coupon_code and @cart.has_discounted_items?
+    @order_form = OrderForm.new(coupon_code: @coupon_code ? @coupon_code.code : nil)
     @order_form.address = ReceiverInfo.new
     @order_form.sender = SenderInfo.new(current_user.as_json) # nil.as_json => nil
-
-    @coupon_code = @card.present? && @card.coupon.present? ? @card.coupon : ""
   end
 
   # channel order
@@ -41,7 +41,7 @@ class OrdersController < ApplicationController
   def channel_order_new
     @order_admin_form = OrderAdminForm.new(source: '淘宝',
                                            kind: 'taobao',
-                                           coupon_code: cookies[:coupon_code])
+                                           coupon_code: @coupon_code ? @coupon_code.code : nil)
     @order_admin_form.sender = SenderInfo.new
     @order_admin_form.address = ReceiverInfo.new
   end
@@ -51,7 +51,8 @@ class OrdersController < ApplicationController
   # - transaction is issued for tracking paymenthod
   # - tracking is skipped
   def back_order_new
-    @offline_order_form = OfflineOrderForm.new(kind: 'offline', coupon_code: cookies[:coupon_code])
+    @offline_order_form = OfflineOrderForm.new(kind: 'offline',
+                                               coupon_code: @coupon_code ? @coupon_code.code : nil)
     @offline_order_form.address = ReceiverInfo.new
   end
 
@@ -83,7 +84,7 @@ class OrdersController < ApplicationController
     @b2b_order_form.user = current_or_guest_user
 
     # create line items
-    @cart.items.each do |item|
+    @cart.get_line_items.each do |item|
       @b2b_order_form.add_line_item(item.product_id, item.quantity)
     end
 
@@ -105,7 +106,7 @@ class OrdersController < ApplicationController
 
   def secoo_order_new
     @secoo_order_form = SecooOrderForm.new(kind: 'secoo',
-                                           coupon_code: cookies[:coupon_code])
+                                           coupon_code: @coupon_code ? @coupon_code.code : nil)
     @secoo_order_form.sender = SenderInfo.new
     @secoo_order_form.address = ReceiverInfo.new
   end
@@ -115,15 +116,13 @@ class OrdersController < ApplicationController
     end
   end
 
-
   def create
     @order_form = OrderForm.new(params[:order_form])
     @order_form.user = current_or_guest_user
-
-    update_coupon_code(@order_form.coupon_code)
+    #update_coupon_code(@order_form.coupon_code)
 
     # create line items
-    @cart.items.each do |item|
+    @cart.get_line_items.each do |item|
       @order_form.add_line_item(item.product_id, item.quantity)
     end
 
@@ -132,9 +131,8 @@ class OrdersController < ApplicationController
     end
 
     if @order_form.save
-      empty_cart
-      delete_address_select_cookies
 
+      empty_cart
       OrderDiscountPolicy.new(@order_form.record).apply
       InstantDeliveryChargePolicy.new(@order_form.record, @order_form.instant_delivery).apply
 
@@ -193,19 +191,13 @@ class OrdersController < ApplicationController
   end
 
   def checkout
-    @order = current_or_guest_user.orders.find_by_id(params[:id]) if params[:id]
-    @order ||= Order.find_by_id(session[:order_id])
-
+    @order = current_user.orders.find_by_id(params[:id])
     if @order.blank?
       flash[:alert] = t('controllers.order.order_not_exist')
       redirect_to :root and return
     else
       set_wechat_pay_params(@order, request.remote_ip) if @use_wechat_agent
     end
-
-    @cart = Cart.new(@order.line_items,
-                     @order.coupon_code_record.try(:code),
-                     @order.adjustment)
   end
 
   def gateway
@@ -296,9 +288,6 @@ class OrdersController < ApplicationController
 
   def apply_coupon
     coupon_code = CouponCode.find_by_code(params[:coupon_code].try(:downcase))
-
-    update_coupon_code(params[:coupon_code].try(:downcase)) if @cart
-
     render :current
   end
 
@@ -335,6 +324,14 @@ class OrdersController < ApplicationController
   end
 
   private
+    def get_cart
+      @cart = if @nav_cart
+                @nav_cart
+              else
+                Cart.find_by(user_id: current_user.try(:id))
+              end
+      @coupon_code = @cart.coupon_code if @cart
+    end
 
     def authorize_to_record_back_order
       current_admin_ability.authorize! :record_back_order, Order
@@ -352,14 +349,12 @@ class OrdersController < ApplicationController
       end
 
       @offline_order_form = OfflineOrderForm.new(params[:offline_order_form])
-
-      update_coupon_code(@offline_order_form.coupon_code)
-
       @offline_order_form.sender ||= SenderInfo.new({ name: 'Huali', email: 'support@hua.li', phone: '400-087-8899' })
       @offline_order_form.user = current_or_guest_user
+      get_cart
 
       # create line items
-      @cart.items.each do |item|
+      @cart.get_line_items.each do |item|
         @offline_order_form.add_line_item(item.product_id, item.quantity)
       end
 
@@ -391,13 +386,12 @@ class OrdersController < ApplicationController
 
 
     def secoo_process_admin_order(template)
+      get_cart
       @secoo_order_form = SecooOrderForm.new(params[:secoo_order_form])
-
-      update_coupon_code(@secoo_order_form.coupon_code)
       @secoo_order_form.user = current_or_guest_user
 
       # create line items
-      @cart.items.each do |item|
+      @cart.get_line_items.each do |item|
         @secoo_order_form.add_line_item(item.product_id, item.quantity)
       end
 
@@ -446,7 +440,8 @@ class OrdersController < ApplicationController
     def validate_cart
       # - no line items present
       # - zero quantity
-      if @cart.blank? || @cart.items.any? { |item| item.quantity.to_i <= 0 }
+      get_cart
+      if @cart.nil? or @cart && @cart.cart_line_items.empty?
         flash[:alert] = t('controllers.order.no_items')
         redirect_to :root
       end
@@ -486,5 +481,9 @@ class OrdersController < ApplicationController
       cookies.delete :address_province_id
       cookies.delete :address_city_id
       cookies.delete :address_area_id
+    end
+    def empty_cart
+      cart = Cart.find_by(user_id: current_user.try(:id))
+      cart.destroy if cart
     end
 end

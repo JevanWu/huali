@@ -19,6 +19,7 @@
 #  index_featured_products_on_product_id  (product_id)
 #
 
+
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do

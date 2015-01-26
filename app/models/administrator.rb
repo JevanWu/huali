@@ -23,6 +23,7 @@
 #  index_administrators_on_reset_password_token  (reset_password_token) UNIQUE
 #
 
+
 class Administrator < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,

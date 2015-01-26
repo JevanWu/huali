@@ -8,6 +8,7 @@ module ProductsHelper
     link_to(name, '#', class: "add_fields", data: {id: id, fields: fields.gsub('\n', '')})
   end
 
+=begin
   def product_buy_link(product, options, is_mobile = false)
     link, sold_out_text = nil, nil
 
@@ -27,6 +28,7 @@ module ProductsHelper
 
     render 'products/product_buy_link', link: link, sold_out_text: sold_out_text
   end
+=end
 
 private
 

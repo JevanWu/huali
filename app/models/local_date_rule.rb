@@ -19,6 +19,7 @@
 #  index_date_rules_on_product_id  (product_id)
 #
 
+
 class LocalDateRule < DateRule
   belongs_to :product
 end

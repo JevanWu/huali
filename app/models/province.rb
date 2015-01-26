@@ -12,6 +12,7 @@
 #  index_provinces_on_post_code  (post_code) UNIQUE
 #
 
+
 class Province < ActiveRecord::Base
   scope :available, -> { where available: true }
   scope :unavailable, -> { where available: false }

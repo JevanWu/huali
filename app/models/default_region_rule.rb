@@ -18,6 +18,7 @@
 #  index_region_rules_on_region_rulable_id  (region_rulable_id)
 #
 
+
 class DefaultRegionRule < RegionRule
   validates :name, presence: true, uniqueness: true
 end

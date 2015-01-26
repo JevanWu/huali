@@ -19,6 +19,7 @@
 #  index_featured_products_on_product_id  (product_id)
 #
 
+
 require 'spec_helper'
 
 describe FeaturedProduct do

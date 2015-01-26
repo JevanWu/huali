@@ -17,8 +17,15 @@
 #  picture_file_size          :integer
 #  picture_updated_at         :datetime
 #  priority                   :integer          default(0)
+#  product_id                 :integer
+#  product_link               :string(255)
 #  updated_at                 :datetime
 #
+# Indexes
+#
+#  index_stories_on_product_id  (product_id)
+#
+
 
 class Story < ActiveRecord::Base
   scope :available, lambda { where(available: true) }

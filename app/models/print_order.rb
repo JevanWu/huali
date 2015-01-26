@@ -17,6 +17,7 @@
 #  index_print_orders_on_print_group_id  (print_group_id)
 #
 
+
 class PrintOrder < ActiveRecord::Base
   belongs_to :order
   belongs_to :print_group

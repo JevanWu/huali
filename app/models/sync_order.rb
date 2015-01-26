@@ -16,6 +16,7 @@
 #  index_sync_orders_on_order_id          (order_id)
 #
 
+
 class SyncOrder < ActiveRecord::Base
   extend Enumerize
   enumerize :kind, in: [ :taobao, :tmall, :jd, :yhd, :amazon, :dangdang ]
@@ -33,6 +34,10 @@ class SyncOrder < ActiveRecord::Base
   def order_id_already_synced
     order_id = Order.where(merchant_order_no: self.merchant_order_no).pluck(:id)
     order_id.empty? ? nil : order_id.first
+  end
+  def sync_order_check
+    self.order_id = self.order_id_already_synced
+    self.save if self.order_id
   end
 
 end

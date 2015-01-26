@@ -24,6 +24,7 @@
 #  index_transactions_on_order_id    (order_id)
 #
 
+
 class Transaction < ActiveRecord::Base
   belongs_to :order
   has_one :user, through: :order

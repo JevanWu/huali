@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_action :get_host
   before_action :dev_tools if Rails.env == 'development'
+  before_action :nav_cart
 
   # enable squash
   include Squash::Ruby::ControllerMethods
@@ -16,17 +17,22 @@ class ApplicationController < ActionController::Base
   include ::Extension::Exception
   include ::Extension::RecordCookie
   include ::Extension::SignInRedirect
-  include ::Extension::CookieCart
+  #include ::Extension::CookieCart
   include ::Extension::BulkExportAuthorization
   include ::Extension::MenuNavigator
 
-  before_action :load_cart
+  #before_action :load_cart
 
   # mobile request detection
   include Mobylette::RespondToMobileRequests
 
   def dev_tools
     Rack::MiniProfiler.authorize_request if defined?(Rack::MiniProfiler)
+  end
+
+  def nav_cart
+    @nav_cart = Cart.find_by user_id: current_or_guest_user.id
+    @nav_cart.destroy if @nav_cart && @nav_cart.expired?
   end
 
   def get_host

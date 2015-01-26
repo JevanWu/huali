@@ -23,6 +23,7 @@
 #  name_zh                      :string(255)      default(""), not null
 #  original_price               :decimal(, )
 #  price                        :decimal(8, 2)
+#  print_id                     :integer
 #  priority                     :integer          default(5)
 #  product_type                 :string(255)
 #  promo_tag                    :string(255)
@@ -41,8 +42,10 @@
 #
 #  index_products_on_default_date_rule_id    (default_date_rule_id)
 #  index_products_on_default_region_rule_id  (default_region_rule_id)
+#  index_products_on_print_id                (print_id) UNIQUE
 #  index_products_on_slug                    (slug) UNIQUE
 #
+
 
 FactoryGirl.define do
   factory :product, aliases: [:viewable] do

@@ -1,3 +1,11 @@
+.cart-coupon-code
+  width: 200px
+  height: 50px
+
+#cart-coupon-code-del-btn
+  float: right
+  margin-right: 80px
+
 .cart
   position: relative
   .cart-inner
@@ -94,7 +102,25 @@
             padding-top: 40px
             a,input
               float: left
-            .add_quantity,.reduce_quantity
+            .add_quantity
+              float: left
+              border: none
+              background: transparent
+              padding: 0
+              color: $link-lighter-color
+              font-size: 16px
+            .reduce_quantity
+              float: left
+              border: none
+              padding: 0
+              background: transparent
+              color: $link-lighter-color
+              font-size: 16px
+            .empty_quantity
+              float: left
+              border: none
+              padding: 0
+              background: transparent
               color: $link-lighter-color
               font-size: 16px
             input
@@ -118,10 +144,13 @@
           i
             font-style: normal
         .discount
-          height: 123px
-          padding-top: 40px
+          margin-top: 16px
+          padding-bottom: 40px
+          padding-top: 30px
           padding-left: 9px
           border: 1px solid #eeeeee
+          p
+            font-weight: bold
           +global-box-shadow
           .input-wrap
             input
@@ -140,7 +169,7 @@
               padding: 0 10px
         .checkout
           margin-top: 10px
-          height: 228px
+          padding-bottom: 20px
           padding-top: 50px
           border: 1px solid #eeeeee
           text-align: center

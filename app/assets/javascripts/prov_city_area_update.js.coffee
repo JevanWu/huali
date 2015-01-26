@@ -6,7 +6,7 @@ $ ->
     $.ajax
       url: "/provinces/available_for_products"
       dataType: 'json'
-      data: { product_ids: Cart.product_ids().join(',') }
+      data: { product_ids: document.getElementById("product_ids").innerHTML }
       success: (data) ->
         $(proSelector).empty().append(reduceToOptions(data))
         $(proSelector).trigger("chosen:updated")
@@ -17,7 +17,7 @@ $ ->
     $.ajax
       url: "/provinces/#{prov_id}/cities/available_for_products"
       dataType: 'json'
-      data: { product_ids: Cart.product_ids().join(',') }
+      data: { product_ids: document.getElementById("product_ids").innerHTML }
       success: (data) ->
         $(citySelector).empty().append(reduceToOptions(data))
         toggleSelector(citySelector, false)
@@ -30,7 +30,7 @@ $ ->
     $.ajax
       url: "/cities/#{city_id}/areas/available_for_products"
       dataType: 'json'
-      data: { product_ids: Cart.product_ids().join(',') }
+      data: { product_ids: document.getElementById("product_ids").innerHTML }
       success: (data) ->
         $(areaSelector).empty().append(reduceToOptions(data))
         toggleSelector(areaSelector, false)
