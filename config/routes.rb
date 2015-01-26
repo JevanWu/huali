@@ -136,6 +136,7 @@ Huali::Application.routes.draw do
   get 'offline_shop', to: 'pages#offline_shop'
   get 'perfume', to: 'pages#perfume'
   get 'movie', to: 'pages#movie'
+  get 'cake_coupon', to: 'pages#cake_coupon'
 
   get 'banners/:date', to: 'banners#index', as: :banners
   get 'stories', to: 'stories#index'
