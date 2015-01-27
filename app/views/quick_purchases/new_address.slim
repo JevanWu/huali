@@ -11,16 +11,9 @@ br
       legend
         | 发件人信息：
       = f.fields_for :sender, @quick_purchase_form.sender do |builder|
-        = builder.input :name, required: true, placeholder: '您的姓名', input_html: { value: current_user.try(:name) }
-
-        / fix this: can not use `input_html {value: ...}` with `as: :simple_form_phone`
-        - if current_user.try(:phone)
-          = builder.input :phone, required: true, placeholder: '您的手机号', input_html: { value: current_user.try(:phone) }
-        - else
-          = builder.input :phone, as: :simple_form_phone, required: true, placeholder: '您的手机号'
-        / fix this: end
-
-        = builder.input :email, placeholder: '您的邮箱', input_html: { value: current_user.try(:email) }
+        = builder.input :name, required: true, placeholder: '您的姓名'
+        = builder.input :phone, as: :simple_form_phone, required: true, placeholder: '您的手机号'
+        = builder.input :email, placeholder: '您的邮箱'
 
       legend
         | 收件人信息：
