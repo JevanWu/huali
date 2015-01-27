@@ -32,9 +32,9 @@
 #= require nprogress
 #= require nprogress-turbolinks
 #= require 'module/qrpop'
-#= require 'snowstorm'
 #= require 'yahoo-dom-event'
 #= require 'soundmanager2'
+#= require 'snowstorm'
 
 NProgress.configure({ showSpinner: false, ease: 'ease', speed: 500 })
 Turbolinks.enableTransitionCache()

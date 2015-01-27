@@ -6,7 +6,7 @@ module Extension
     included do
       if Rails.env.production?
         rescue_from 'Exception' do |exception|
-          Thread.new { notify_squash(exception) }
+          notify_squash(exception)
           render_error 500, exception
         end
 
@@ -17,7 +17,8 @@ module Extension
           render_error 404, exception
         end
 
-        rescue_from 'ActiveRecord::RecordNotFound' do |exception|
+        rescue_from 'ActiveRecord::RecordNotFound',
+          'ActionController::UnknownFormat' do |exception|
           unless params[:controller] == 'pages' && params[:action] == "show"
             notify_squash(exception)
           end

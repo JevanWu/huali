@@ -121,6 +121,7 @@ class OrderForm
   validates_with OrderCouponValidator, if: :validate_coupon?
   validates_with OrderDiscountableValidator, if: :validate_discountable?
   validates_with InstantDeliveryValidator
+  validates_with DistrictValidator, if: :invalid_expected_date?
 
   validates :expected_date, presence: true
 
@@ -176,6 +177,10 @@ class OrderForm
 
   def validate_coupon?
     not_yet_shipped?
+  end
+
+  def invalid_expected_date?
+    expected_date.between?('2015-02-07'.to_date, '2015-02-10'.to_date)
   end
 
   def validate_discountable?

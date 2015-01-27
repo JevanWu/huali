@@ -1,4 +1,5 @@
 <%= simple_form_for @order_form, url: '/orders', html: { class: 'form-horizontal', id: 'new-order'} do |f| %>
+  <%= simple_form_base_error_message(@order_form.errors[:base]) %>
   <%= simple_form_error_messages_for(@order_form.line_items) %>
 
   <% if @cart.limited_promotion_today %>

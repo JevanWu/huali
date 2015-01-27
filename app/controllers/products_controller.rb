@@ -135,7 +135,7 @@ class ProductsController < ApplicationController
   end
 
   def discount_events
-    @discount_events = DiscountEvent.all
+    @discount_events = DiscountEvent.joins(:product).where(products: { published: true}).order("discount_events.updated_at DESC").limit(18)
     @discount_today = DiscountEvent.where(start_date: Date.current).first
     @discount_yesterday = DiscountEvent.where(start_date: Date.current.yesterday).first
     @discount_tomorrow = DiscountEvent.where(start_date: Date.current.tomorrow).first
