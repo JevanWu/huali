@@ -1,11 +1,8 @@
-.signup
-  h2
-    | 用户注册
+.reg
   = simple_form_for resource,
     as: resource_name,
     url: registration_path(resource_name),
     html: { class: 'form-horizontal' } do |f|
-
     = f.input :email, required: true
     = f.input :password, required: true
     = f.input :password_confirmation, required: true
@@ -20,4 +17,6 @@
         | 已有帐号请
         = link_to t(".sign_in"), new_session_path(resource_name)
 
-  = render 'devise/shared/login_use_oauth'
+  = render 'account/loggin_oauth'
+
+  /*= render 'devise/shared/login_use_oauth'*/
