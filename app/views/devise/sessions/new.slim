@@ -1,14 +1,12 @@
-.login
-  h2
-    | 登录
+.loggin
   = simple_form_for resource,
     as: resource_name,
     url: session_path(resource_name),
     html: { class: 'form-horizontal' } do |f|
     = devise_error_messages!
 
-    = f.input :email, required: true
-    = f.input :password, required: true
+    = f.input :email, label: "用户名"
+    = f.input :password, label: "密码"
 
     - if devise_mapping.rememberable?
       = f.input :remember_me, as: :hidden, input_html: { class: 'auto-login', value: '1' }
@@ -22,4 +20,10 @@
       .control-group
         .controls
           = link_to t(".forgot_your_password"), new_password_path(resource_name), class:'forget-psw'
-  = render 'devise/shared/login_use_oauth'
+
+  = render 'account/loggin_oauth'
+  .noacc
+    span 无账号？
+    a href="/account/reg.html" 注册
+
+  # = render 'devise/shared/login_use_oauth'
