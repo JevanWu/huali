@@ -1,2 +1,5 @@
 .best-products
   = image_tag "cake_coupon.jpg"
+  - product_ids = [264, 34, 268, 273]
+  - products =  Product.find(product_ids) 
+  = render partial: 'products/product', collection: products.sort_by {|product| product_ids.index(product.id) }
