@@ -1,18 +1,9 @@
 .slider
   .bd
     ul
-      li 
-        a target="_blank" 
-          =image_tag("slider/1.jpg")
-      li 
-        a target="_blank" 
-          =image_tag("slider/2.jpg")
-      li 
-        a target="_blank" 
-          =image_tag("slider/3.jpg")
-      li 
-        a target="_blank"
-          =image_tag("slider/4.jpg")
+      - @product.assets.each do |asset|
+        li 
+          = image_tag(asset.image.url)
   .hd
     ul
   .div class="pnBtn prev"
