@@ -9,8 +9,7 @@ class QuickPurchasesController < ApplicationController
     @quick_purchase_form.address = ReceiverInfo.new
     @quick_purchase_form.sender = SenderInfo.new(name: current_user.try(:name) || "",
                                                  phone: current_user.try(:phone) || "",
-                                                 email: current_user.try(:email) || "",
-                                                )
+                                                 email: current_user.try(:email) || "")
   end
 
   def create_address
