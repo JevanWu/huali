@@ -1,0 +1,20 @@
+.reg
+  form
+    p 登录邮箱
+    input.email type="text" name="email" id="email"
+    p 姓名
+    input.name type="text" name="name" id="name"
+    p 联系方式
+    select.country name="country"
+      option value="+86" +86
+      option value="+44" +44
+    input.tel type="text" name="tel" id="tel"
+    p 密码
+    input.password type="password" name="password" id="password"
+    p 确认密码
+    input.confirm type="password" name="confirm" id="confirm"
+    p 星期一过完是星期几?
+    input.answer type="text" name="answer" id="answer"
+    button type="button" id="reg" 注册
+    a.a1 href="/account/loggin.html" 返回登陆
+  = render_partial('account/loggin_oauth')

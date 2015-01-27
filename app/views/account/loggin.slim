@@ -1,0 +1,13 @@
+.loggin
+  form
+    p 用户名
+    input.post type="text" name="username" id="username"
+    p 密码
+    input.post type="password" name="password" id="password"
+    button type="button" id="loggin" 登陆
+    a.a1 href="/account/forgot.html" 忘记密码?
+  = render('account/loggin_oauth')
+  .noacc
+    span 无账号？
+    a href="/account/reg.html" 注册
+

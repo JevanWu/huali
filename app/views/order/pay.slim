@@ -1,0 +1,55 @@
+.header
+  .logo
+    = image_tag("logo.png")
+  .create
+    h3 支付
+    p pay
+.orderspace
+  .recim
+    .left
+      h3 收货信息: 
+    .right
+      p 上海市静安区愚园路546号3号楼4楼
+      p 150xxxxxxxx
+      p 某某某
+  .eachtittle
+    span.span1 产品
+    span.span2 名称
+    span.span3 单价
+    span.span4 数量
+    span.span5 优惠
+    span.span6 总价
+  = render_partial '/order/each'
+  = render_partial '/order/each'
+  .shi
+    p 实付款 &nbsp&nbsp&nbsp ¥2000
+  .howtopay
+    h2 请选择支付方式
+    .hd    
+      input.huadian type="checkbox" name="huadian" id="huadian"
+        | 是否使用花点
+    .ap
+      input.payment type="radio" name="payment" id="alipay"
+        = image_tag('alipay.jpg')
+    .tp
+      input.payment type="radio" name="payment" id="tencentpay"
+        = image_tag('tencentpay.jpeg')
+    .pp
+      input.payment type="radio" name="payment" id="paypal"
+        = image_tag('paypal.jpg')
+        p 需要扣取额外的手续费
+    .ed
+      button type="button"
+        | 确认
+      a href="#" 返回商店
+.footer
+  .line2
+    p 周一至周六 9:00-21:00
+  .line3
+    a href="#" 关于我们
+    a href="#" 配送信息
+    a href="#" 帮助中心
+    a href="#" 联系客服
+    a href="#" 版权声明
+  .line4
+    p Rights Reserved. 2012 - 2014 © 花里花店

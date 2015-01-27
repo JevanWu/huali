@@ -1,0 +1,61 @@
+.orderstatus
+  .status
+    .line
+      | ......
+    .waiting id="waiting"
+      span 等待付款
+    .line
+      | ............
+    .verifing id="verifing"
+      | 订单审核
+    .line
+      | ............
+    .present id="making"
+      | 订单制作
+    .line
+      | ............
+    .delivering id="delivering"
+      | 确认收货
+    .line
+      | ......
+  .detail
+    h2 订单信息
+    p 订单编号：OR1406270005
+    p 收件人： kwo 
+    p 地址： 上海市浦东新区耀华路上南花城
+    .left
+      span 贺卡留言：
+    .message
+      p 拉拉拉拉拉拉拉拉拉拉拉拉拉拉拉拉拉拉拉拉拉拉啊啦啦啦啦啦啦啦啦啦啦啦啦啦拉拉拉拉拉拉拉拉拉拉拉拉拉拉拉拉拉拉拉拉啊啦啦啦啦啦啦啦啦拉拉拉拉拉拉拉拉拉拉拉拉拉拉拉拉啊啦啦啦啦啦啦啦啦啦
+      a href="#" 编辑
+  .orderlist
+    .title
+      span.span1 产品
+      span.span2 名称
+      span.span3 单价
+      span.span4 数量
+      span.span5 优惠
+      span.span6 总价
+    .fill
+      .left
+        = render_partial '/pages/eachorder'
+        = render_partial '/pages/eachorder'
+        = render_partial '/pages/eachorder'
+      .right
+        p ¥ 2000
+        button.confirm type="button" 确认收货
+  .wuliu
+    h2 物流信息
+    p 期望送达时间： 2014-12-27
+    p 物流公司： 顺丰
+    p 运单号码： 886158258528 
+    .left
+      span 物流跟踪：
+    .message
+      p 2014-12-10 16:27:00 顺丰速运 已收取快件 
+      p 2014-12-10 20:47:00 快件在 臺灣松山服務點, 正转运至 桃園大園集散中心 
+      p 2014-12-10 23:50:00 快件在 桃園大園集散中心, 正转运至 广州白云集散中心 
+      p 2014-12-11 20:54:00 快件在 广州总集散中心, 正转运至 杭州萧山集散中心 
+      p 2014-12-12 02:36:00 快件在 杭州萧山集散中心, 正转运至 上海浦东集散中心 
+      p 2014-12-12 07:49:00 快件在 上海浦东集散中心, 正转运至 上海巨鹿服务点 
+      p.now 2014-12-12 09:55:00 正在派送途中,请您准备签收(派件人:程磊,电话:15618319252) 

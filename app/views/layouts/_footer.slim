@@ -1,64 +1,24 @@
-- if display_flower_picker?
-  #pick-flower
-    = link_to "帮我选花", new_survey_path
-#l-footer
-  .footer-inner
-    .contact
-      .contact-feed
-        p
-          = fa_icon 'envelope'
-          | HUALINEWS
-        .placeholder
-          = form_tag users_subscribe_email_path, method: :post do
-            input type="text" name="email" placeholder="请输入您的电子邮件"
-            = submit_tag "发送", class: 'btn-post'
-      .contact-social
-        ul
-          = image_tag("weiboQR.png", class: 'weibolarge')
-          = image_tag("QRcode.jpg", class: 'qrcodelarge')
-  .masthead
-    .masthead-inner
-      .masthead-main
-        p
-          All Rights Reserved. 2012 - #{Date.current.year} © 花里花店
-        ul
-          li
-            == link_to '花里博客', blog_path, title: '花里博客'
-          - Page.in_footer.each do |page|
-            li
-              == link_to page.title, page_path(page), title: page.title, rel: "nofollow"
-      .masthead-addition
-        p
-          - if Setting.work_time
-            = Setting.work_time
-          span.icp
-            = "沪ICP备14026160号-1"
-            a href="/sitemap.xml" style="color: #4c4948"
-              | sitemap
-
-#follow-pop-up
-  b
-    | x
-  .pop-up-content
-    h3 在微信上关注我们
-    .main
-      =image_tag("QRcode.jpg")
-    p
-      | 打开微信，点击底部的“发现”，使用 “扫一扫” 即可关注我们。
-
-- if flash[:limited_promo_result] == 1
-  #limited-promo-success.limited-promo
-    b
-      | x
-    .pop-up-content
-      h3 0元抢购
-      .main
-        = t('controllers.order.success_to_get_promo_product')
-- elsif flash[:limited_promo_result] == 0
-  #limited-promo-fail.limited-promo
-    b
-      | x
-    .pop-up-content
-      h3 0元抢购
-      .main
-        = t('controllers.order.fail_to_get_promo_product')
+.toppage id= 'btntop'
+  a href="#" class="nav_pro2"
+    =image_tag('icon/up.png')
+.footer
+  .line1
+    .tel
+    .num
+      p 400-087-8899
+    .mail
+    .mailadd
+      p mail@hua.li
+  .line2
+    p ----------------------------- 周一至周六 9:00-21:00 -----------------------------
+  .line3
+    a href="#" 关于我们
+    a href="#" 配送信息
+    a href="#" 帮助中心
+    a href="#" 联系客服
+    a href="#" 版权声明
+  .line4
+    a.weibo href="#"
+    a.weixin href="#"
+  .line5
+    p Rights Reserved. 2012 - 2014 © 花里花店

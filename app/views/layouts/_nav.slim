@@ -1,48 +1,52 @@
-#l-nav
-  .nav-inner
-    ul.nav-item.is-mouseleave.row
-      - menu_nav_type = @menu_nav_type || 'other'
-      - menu_list.each_with_index do |root, i|
-        li: a href="#{root.link}" rel="#{'nofollow' if %w(花里首页 花里精选 定制惊喜 花里花外 HualiGirls).include?(root.name)}" onClick="analytics.track('Click Menu', { label: '#{menu_nav_type}_#{root.name}', category: 'Main Navigator' });"
-          = root.name
-          i.l-stack
-
-    ul.operate
-      li.cart-li-preview
-        = fa_icon 'shopping-cart'
-        a.cart href="#{carts_show_path}"
-          = "(#{@nav_cart ? @nav_cart.items_size : 0})"
-        .cart-preview-container
-          .cart-preview
-            - if @nav_cart.nil?
-              p.cart-preview-empty 您的购物车还是空的
-            - else
-              h3
-                span 我的购物车
-              .summary
-                span
-                  | 合计：
-                strong
-                  = 'number_to_currency @nav_cart.total_price'
-              .go-checkout
-                = link_to '结算', current_order_path, class: 'checkout'
-
-      - if user_signed_in?
-        li.personal-account.last
-          = link_to '我的账户', { controller: 'users', action: 'edit_profile' }, rel: "nofollow"
-          span
-          = link_to '登出', destroy_user_session_path, rel: "nofollow"
-      - else
-        li.not-login.last
-          = link_to '登录', new_user_session_path, rel: "nofollow"
-          span
-            | /
-          = link_to '注册', new_user_registration_path, rel: "nofollow"
-  .nav-callout-container
-    .nav-callout.is-mouseleave
-      - menu_list.each_with_index do |root, index|
-        - if root.children.blank?
-          .nav-callout-item class="nav-callout-#{index + 1}"
-        - else
-          .nav-callout-item class="nav-callout-#{index + 1}"
-            == render 'layouts/callout_items', root: root
+.layer
+.nav id="navi"
+  .nav1
+    .logo
+      a href = "/"
+        = image_tag("logo.png")
+    .guide
+      a href="/product/displaypage.html" 产品
+      a href="/pages/news.html" 新闻
+      a href="/pages/brands.html" 品牌
+      a href="/pages/b2b.html" 商务合作
+      a href="/pages/offline_shop.html" 实体店铺
+    .talk
+      .insearch
+        input.sarchtext type="text" id="sarchtext"
+      a.s id="searcha" href = "#"
+        .search
+      a.logged id="logina" href = "#"
+        .login
+      a.c id="carta" href = "/cart/cart.html"
+        .cart
+  .nav2
+    ul
+      .nav3
+        li
+          a href="#" 精选
+        li
+          a href="#" 永生花
+        li
+          a href="#" 鲜花
+        li
+          a.or href="#" 场景
+          a.down href="#"
+          a.up href="#"
+          .nav4 id="cjoverlay"
+          ul.sub id="cj"
+            li
+              a href="/" 求婚
+            li
+              a href="/" 生日
+            li
+              a href="/" 节日 
+            li
+              a href="/" 纪念日
+            li
+              a href="/" 商务送礼   
+        li
+          a href="#" 香水
+        li
+          a href="#" 花里Girls
+        li
+          a href="#" 帮我选花

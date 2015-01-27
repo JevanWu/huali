@@ -1,0 +1,22 @@
+.view
+  .title
+    h2 购物车
+  .cartlist
+    = render_partial 'cart/incart' 
+    = render_partial 'cart/incart' 
+  .total
+    .count
+      p 总计
+      p ¥ 2198
+    .promocode
+      input.checkpromo type="checkbox" name="checkpromo" id="checkpromo"
+      span 使用优惠码 PROMO CODE
+      .inputcode
+        input.promo type="text" name="promo" id="promo"
+        button.usepromo
+          | 确认
+    .proceed
+      button.ctselect
+        | 继续挑选&nbsp&nbsp&nbsp&nbsp&nbsp>
+      button.pay
+        | 结算&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp>

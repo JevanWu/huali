@@ -1,19 +1,17 @@
 div.offlineshop
   div.shopframe
-    div.imgtop
-      = image_tag("shops/disel.jpg")
-    div.addresstitle
-      h3 嘉里中心店
-    div.address
-	  |营业时间：10:00 AM～10:00 PM
-	  br
-	  |地　　址：上海市南京西路1515号
-	  |静安嘉里中心南区二楼S2-05号DIESEL Living
-	  br
-	  |轨道交通：地铁2、7号线静安寺站
-	div.imgother
-	  = image_tag("shops/shanghaitan.jpg")
-	div.addresstitle
-	  h3 上海滩店
-	div.address
-	  |云峰剧院（静安区北京西路1700号）
+  	div.shop
+      = image_tag("offlineshop/disel.jpg")
+      div.address
+        h3 嘉里中心店
+	    p 10:00 AM～10:00 PM
+	    p 上海市南京西路1515号 静安嘉里中心南区二楼S2-05号DIESEL Living
+      .map
+        a href = "#" map >
+	div.shop
+	  = image_tag("offlineshop/shanghaitan.jpg")
+	  div.address
+	    h3 上海滩店
+	    p 云峰剧院（静安区北京西路1700号）
+	  .map
+        a href = "#" map >

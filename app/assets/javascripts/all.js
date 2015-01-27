@@ -1,0 +1,7 @@
+//= require 'jquery'
+//= require 'jquery-1.7.2.min'
+//= require 'jquery.scrollTo'
+//= require 'jquery.SuperSlide.2.1.1'
+//= require 'lrtk'
+//= require 'focusjs'
+//= require 'brand'
