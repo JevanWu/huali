@@ -5,6 +5,7 @@
 
 .best-products[style="margin-top: 50px;"]
   = simple_form_for @quick_purchase_form, remote: true, url: update_products_quick_purchase_path, method: :put, html: { class: 'form-horizontal', id: 'quick_purchase_form'} do |f|
+    = hidden_field_tag 'authenticity_token', form_authenticity_token if protect_against_forgery?
     = f.input :expected_date, as: :string, input_html: { class: 'datepicker' }, placeholder: '寄给TA的时间', label: "送达时间"
     = f.button :submit, "更新产品", class: 'button btn80 next-step'
 

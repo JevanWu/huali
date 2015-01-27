@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   layout :layout_by_resource
 
-  #protect_from_forgery
+  protect_from_forgery
 
   before_action :get_host
   before_action :dev_tools if Rails.env == 'development'
