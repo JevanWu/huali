@@ -50,7 +50,8 @@ class ProductsController < ApplicationController
   end
 
   def index
-    @products = Product.published.in_collections(@collection_ids)
+    @products = Product.published.in_collections(@collection_ids) if @collection_ids.present?
+    @products = Product.published if @products.nil?
     @products = @products.where(flower_type: params[:flower_type]) if params[:flower_type].present?
     @products = @products.tagged_with(params[:color], on: :colors) if params[:color].present?
     @products = @products.where(price: Range.new(*params[:price_span].split(',').map(&:to_i))) if params[:price_span].present?
@@ -171,6 +172,7 @@ class ProductsController < ApplicationController
     end
 
     def fetch_collection
+      return if params[:collection_id].nil?
       @collection = Collection.available.find(params[:collection_id])
       @collection_ids = @collection.self_and_descendants.map(&:id)
     end

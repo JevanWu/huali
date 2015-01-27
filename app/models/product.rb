@@ -278,6 +278,10 @@ class Product < ActiveRecord::Base
     discount_event_today ? discount_event_today.price : super
   end
 
+  def sold_out?
+    count_on_hand <= 0
+  end
+
   private
 
     def notify_customers

@@ -39,7 +39,7 @@ Huali::Application.routes.draw do
   post "products/reply_greeting_card", to: 'products#reply_greeting_card', as: :reply_greeting_card
 
   get 'search', to: 'products#search'
-  resources :products, only: [:show] do
+  resources :products, only: [:index, :show] do
     collection do
       get 'trait/:tags', action: :trait
       get 'discount_events'
