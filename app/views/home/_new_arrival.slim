@@ -1,0 +1,8 @@
+div.cp id= 'newproduct'
+  .int
+    h1 新品 
+    p NEW ARRIVAL
+  .int2
+  .pro
+    - @featured_products.take(3).each do |product|
+      = render 'product/product', product: product

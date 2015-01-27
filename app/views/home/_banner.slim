@@ -1,0 +1,15 @@
+.banner-box
+  .bd
+    ul     	    
+      - @slides.each do |slide|
+        li
+          .m-width
+            =image_tag slide.image.url
+          .label
+            h1 
+              = slide.name
+            h2 A LITTLE STORY
+            = link_to "点击查看", slide.href
+  .banner-btn
+    .hd
+      ul
