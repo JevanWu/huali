@@ -1,0 +1,28 @@
+.checkout
+  p
+    | 您的订单享受免费配送
+  p
+    | 请在订单信息页面完善地址信息
+  p.subtotal
+    | 小计
+    span.total-num
+    |（<i>#{@cart.items_size}</i>件商品）：
+    strong.total-price
+      = number_to_currency @cart.total_price
+  - if @cart.discounted?
+    p
+      em
+        - if @cart.coupon_code
+          p
+            | 使用优惠券[#{@cart.coupon_code}]，折扣: #{@cart.coupon_code.coupon.adjustment}
+
+        del
+          | 原价：
+          span
+            = number_to_currency @cart.original_total_price
+  = link_to t('views.order.checkout'), new_order_path, class: 'btn-checkout'
+  - if current_admin_ability.can? :record_back_order, Order
+    .admin-btn-area.row
+      = link_to t('views.order.back_checkout'), new_back_order_path, class: 'btn-checkout'
+      = link_to t('views.order.b2b_checkout'), new_b2b_order_path, class: 'btn-checkout'
+      = link_to t('views.order.secoo_checkout'), new_secoo_order_path, class: 'btn-checkout'

@@ -1,0 +1,21 @@
+.incart
+  .pic
+    = image_tag item.product.assets.first.image.url
+  .name
+    h3 
+      = item.product.name_zh
+    h4 
+      = item.product.name_en
+  .price
+    p 
+      = "¥#{item.product.price}"
+    
+  .quantity
+    form
+      input.number type="text" name="number" id="number" value="#{item.quantity}"
+  .totalprice
+    p 
+      = "¥#{item.product.price * item.quantity}"
+  .delete
+    a href = "#"
+      =image_tag('delete.png')
