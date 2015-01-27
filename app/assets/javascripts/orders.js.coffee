@@ -10,7 +10,7 @@ $ ->
     pro = Cart.get link.data('product')
     Cart.update(id: pro.id, quantity: pro.quantity + 1)
 
-  $('a.quick-purchase-add-btn, quick-purchase-button.add-btn').click (e) ->
+  $('#product-list').on 'click', 'a.quick-purchase-add-btn', (e) ->
     link = $(@)
     proid = link.data('product')
     pro = Cart.get proid

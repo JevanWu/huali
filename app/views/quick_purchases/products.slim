@@ -9,11 +9,19 @@
     = f.button :submit, "更新产品", class: 'button btn80 next-step'
 
 
-
 .cate-list
   dl
     dt.cate-list-title[style="margin-bottom: 10px"]
       h1 可选产品：
 
-.products-list
-  = render 'products_list'
+    dd.main
+      .best-products.row#product-list
+        p #{@quick_purchase_form.expected_date.to_s}
+        = render partial: 'product', collection: @products
+
+      br
+      .quick-purchase-btn[style="text-align: center;"]
+        = button_to "结算", create_order_quick_purchase_path, method: :post, class: 'btn-discount'
+
+      .pager
+        == paginate @products, remote: true

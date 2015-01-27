@@ -1,1 +1,2 @@
-$('.products-list').replaceWith('<p> 产品已更新 </p> <%= escape_javascript(render "products_list") %>');
+$('#product-list').html('<%= escape_javascript(render partial: 'product', collection: @products) %>');
+$('.pager').html('<%= escape_javascript(paginate @products, remote: true) %>');
