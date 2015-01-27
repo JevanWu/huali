@@ -1,2 +1,2 @@
-$('#product-list').html('<%= escape_javascript(render partial: 'product', collection: @products) %>');
+$('#product-list').hide().html('<%= escape_javascript(render partial: 'product', collection: @products) %>').fadeIn(300);
 $('.pager').html('<%= escape_javascript(paginate @products, remote: true) %>');
