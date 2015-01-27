@@ -1,5 +1,5 @@
 class QuickPurchasesController < ApplicationController
-  before_action :quick_purchase_session_exist?, only: [ :products, :create_order, :update_products ]
+  before_action :session_quick_purchase_exist?, only: [ :products, :create_order, :update_products ]
   after_action :empty_cart, only: [ :create_address ]
 
   respond_to :html, :js
@@ -27,6 +27,7 @@ class QuickPurchasesController < ApplicationController
 
   def products
     if params[:quick_purchase_form]
+      empty_cart
       session[:quick_purchase_form].expected_date = Date.parse(params[:quick_purchase_form][:expected_date])
     end
 
@@ -45,30 +46,6 @@ class QuickPurchasesController < ApplicationController
       format.js { render layout: false }
     end
   end
-
-  #def update_products
-    #session[:quick_purchase_form].expected_date = Date.parse(params[:quick_purchase_form][:expected_date])
-
-    ## ---
-    #@quick_purchase_form = session[:quick_purchase_form]
-    #@cart_cookies = cookies[:cart] ? JSON.parse(cookies[:cart]) : nil
-
-    #expected_date = @quick_purchase_form.expected_date.to_s
-    #area_id = @quick_purchase_form.address.area_id.to_s
-    #product_ids_regin = ( DefaultRegionRule.get_product_ids_by(area_id) | LocalRegionRule.get_product_ids_by(area_id) )
-    #product_ids_date = ( DefaultDateRule.get_product_ids_by(expected_date) | LocalDateRule.get_product_ids_by(expected_date) )
-    #product_ids = product_ids_regin & product_ids_date
-
-    #@products = Product.published.where("id IN (?) and count_on_hand > 0", product_ids).page(params[:page]).per(8).order_by_priority
-    ## ---
-     
-    #respond_with do |format|
-      #format.html do
-          #render :partial => "products_list", :layout => false if request.xhr?
-      #end
-    #end
-
-  #end
 
   def create_order
     # validate cookies[:cart]
@@ -104,7 +81,7 @@ class QuickPurchasesController < ApplicationController
     cookies.delete :cart
     cookies.delete :coupon_code
   end
-  def quick_purchase_session_exist?
+  def session_quick_purchase_exist?
     unless session[:quick_purchase_form]
       redirect_to new_address_quick_purchase_path, notice: "请先填写地址"
       return
