@@ -196,7 +196,7 @@ class OrdersController < ApplicationController
     @order = current_or_guest_user.orders.find_by_id(params[:id]) if params[:id]
     @order ||= Order.find_by_id(session[:order_id])
 
-    authenticate_user! and return if @order.kind != "quick_purchase"
+    authenticate_user! unless @order.kind == "quick_purchase"
 
     if @order.blank?
       flash[:alert] = t('controllers.order.order_not_exist')
