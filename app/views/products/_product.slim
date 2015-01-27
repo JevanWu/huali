@@ -1,13 +1,23 @@
-.product
-  .discount
-  	p 7折
-  .productoverlay
-    a href= "/product/productshow.html"
-  = image_tag product.product.assets.first.image.url
-  p 
-    = product.product.name_zh
-  p
-    = product.product.name_en
-  br
-  p
-    = "| #{product.product.product_type_text} |"
+.productdisplay
+  .limited
+  	p 限量
+  - if product.sold_out?
+    .soldoutoverlay
+      a href = "#"
+      .inform
+        h3 售罄
+        h4 SOLDOUT
+  - else
+    .productoverlay
+      a href = "#{product_path(product)}"
+      .inform
+        h4 
+          = product.price
+        h5 
+          = product.name_zh
+        h6 
+          = product.name_en.upcase
+        br
+        p 
+          = "| #{product.product_type_text} |" 
+  = image_tag(product.assets.first.image.url)

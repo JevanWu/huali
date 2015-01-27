@@ -1,0 +1,13 @@
+.product
+  .discount
+  	p 7折
+  .productoverlay
+    a href= "/product/productshow.html"
+  = image_tag product.product.assets.first.image.url
+  p 
+    = product.product.name_zh
+  p
+    = product.product.name_en
+  br
+  p
+    = "| #{product.product.product_type_text} |"
