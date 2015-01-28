@@ -8,3 +8,4 @@
 //= require 'chosen-select'
 //= require 'prov_city_area_update'
 //= require 'underscore'
+//= require 'datepicker-settings'

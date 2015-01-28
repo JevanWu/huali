@@ -45,3 +45,43 @@
       .form-actions
         = f.button :submit, class: 'button btn80 next-step'
         = link_to t('cancel'), current_order_path
+
+/*<% content_for :body_js do %>*/
+/*  <script>*/
+/*    var checkInstantDelivery = function () {*/
+/*      var city_id = $("#order_form_address_city_id").val();*/
+/*      var address = $("#order_form_address_address").val();*/
+/*      if (city_id.length == 0 || address.length == 0) {*/
+/*        $(".order_form_instant_delivery").hide('slow');*/
+/*        return;*/
+/*      }*/
+/**/
+/*      $.get('/orders/instant_delivery_status', { city_id: city_id, address: address }, function (data) {*/
+/*        if (data.instant_delivery_available)*/
+/*          $(".order_form_instant_delivery").show('slow');*/
+/*        else*/
+/*          $(".order_form_instant_delivery").hide('slow');*/
+/*      });*/
+/*    };*/
+/**/
+/*    $(function () {*/
+/*      if ($("#order_form_instant_delivery").is(":checked"))*/
+/*        $(".order_form_instant_delivery").show();*/
+/**/
+/*      $("#order_form_instant_delivery").change(function() {*/
+/*        if(this.checked) {*/
+/*          var myDate = new Date();*/
+/*          var prettyDate = myDate.getFullYear() + '-' + (myDate.getMonth()+1) + '-' + myDate.getDate();*/
+/*          $("#order_form_expected_date").val(prettyDate);*/
+/*        } else {*/
+/*          $("#order_form_expected_date").val("");*/
+/*        }*/
+/*      });*/
+/**/
+/*      $("#order_form_address_address").blur(checkInstantDelivery);*/
+/*      $("#order_form_address_province_id").change(checkInstantDelivery);*/
+/*      $("#order_form_address_city_id").change(checkInstantDelivery);*/
+/**/
+/*    });*/
+/*  </script>*/
+/*<% end %>*/
