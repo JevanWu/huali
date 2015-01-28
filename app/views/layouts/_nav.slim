@@ -6,10 +6,10 @@
         = image_tag("logo.png")
     .guide
       = link_to "产品", products_path
-      a href="/pages/news.html" 新闻
-      a href="/pages/brands.html" 品牌
-      a href="/pages/b2b.html" 商务合作
-      a href="/pages/offline_shop.html" 实体店铺
+      = link_to "新闻", "#"
+      = link_to "品牌", brands_path
+      = link_to "商务合作", "#"
+      = link_to "实体店铺", offline_shop_path
     .talk
       .insearch
         input.sarchtext type="text" id="sarchtext"
