@@ -1,15 +1,15 @@
 .header
   .logo
-    = image_tag("images/logo.png")
+    = image_tag("logo.png")
   .create
     h3 创建订单
     p CREATE YOUR ORDER
 .orderspace
   .inform
-    = render_partial 'order/list'
-    = render_partial 'order/warning'
-    = render_partial 'order/mail'
-    = render_partial 'order/inputarea'
+    = render 'list'
+    = render 'warning'
+    = render 'mail'
+    = render 'inputarea'
 .footer
   .line2
     p 周一至周六 9:00-21:00

@@ -52,10 +52,12 @@ class ApplicationController < ActionController::Base
   end
 
   def layout_by_resource
-    if devise_controller?
+    if devise_controller? 
       devise_layout
     elsif params[:controller] == "postcards"
       is_mobile_request? ? 'postcard_mobile' : 'application'
+    elsif params[:controller] == "orders"
+      is_mobile_request? ? 'mobile' : 'order'
     else
       is_mobile_request? ? 'mobile' : 'application'
     end
