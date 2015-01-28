@@ -3,3 +3,6 @@
 //= require 'jquery.scrollTo'
 //= require 'jquery.SuperSlide.2.1.1'
 //= require 'inform'
+//= require 'chosen-jquery'
+//= require 'chosen-select'
+//= require 'prov_city_area_update'

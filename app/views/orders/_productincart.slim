@@ -1,8 +1,13 @@
-.productincart
-  .pics
-    =image_tag('cp1.jpg')
-  .inform
-    h3 紫色巴黎
-    h4 puple paris
-    h5 1×
-    h6 ¥1099
+- @cart.cart_line_items.each do |item|
+  .productincart
+    .pics
+      = image_tag(item.product.assets.first.image.url)
+    .inform
+      h3 
+        = item.product.name_zh
+      h4 
+        = item.product.name_en
+      h5 
+        = "#{item.quantity} ×"
+      h6
+        = item.product.price 
