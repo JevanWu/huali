@@ -79,7 +79,7 @@ namespace :deploy do
 
   # Custom task to unzip generated sitemap.xml.gz file
   after 'sitemap:refresh', 'sitemap:unzip' do
-    on roles(:app), in: :sequence do
+    on roles(:web), in: :sequence do
       within release_path do
         with rails_env: fetch(:rails_env) do
           execute :gunzip, "-fc public/sitemap.xml.gz > public/sitemap.xml"
@@ -91,7 +91,7 @@ namespace :deploy do
   #refresh paperclip missing_styles
   desc "build missing paperclip styles"
   task :build_missing_paperclip_styles do
-    on roles(:app) do
+    on roles(:web) do
       within release_path do
         with rails_env: fetch(:rails_env) do
           execute :rake, 'paperclip:refresh:missing_styles'
