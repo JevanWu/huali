@@ -1,0 +1,19 @@
+.eachorder
+  .product
+    = image_tag(item.product.assets.first.image.url)
+  .name
+    p
+      = item.product.name_zh
+    p.en
+      = item.product.name_en
+  .sprice
+    p
+      = "¥ #{item.product.price}"
+  .qu
+    p 
+      = item.quantity
+  .dis
+    p 7折 －¥99
+  .total
+    p 
+      = "¥ #{item.quantity * item.product.price}"
