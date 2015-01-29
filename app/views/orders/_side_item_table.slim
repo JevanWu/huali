@@ -7,7 +7,7 @@ p.gouhualan-title
     .summary-item
       span
         = t('views.order.in_total')
-      em
+      em[style='text-align: right;']
         = number_to_currency cart.original_total
     - if cart.discounted?
       .summary-item
