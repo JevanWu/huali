@@ -2,11 +2,8 @@
   .title
     h2 购物车
   .cartlist
-    - if @cart.nil? or @cart.cart_line_items.empty?
-      = render 'empty'
-    - else
-      - @cart.cart_line_items.each do |item|
-        = render 'incart', item: item
+    - @cart.cart_line_items.each do |item|
+      = render 'incart', item: item
   .total
     .count
       p 总计
