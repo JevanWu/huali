@@ -1,8 +1,6 @@
-.product
+a.product href = "#{product_path(product)}"
   .discount
   	p 7折
-  .productoverlay
-    a href= "/product/productshow.html"
   = image_tag product.assets.first.image.url
   p 
     = product.name_zh
