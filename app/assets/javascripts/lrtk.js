@@ -6,11 +6,6 @@ $(document).ready(function(){
 		},function(){
 			$('.og_prev,.og_next').fadeTo('fast',0);
 	})
-    $('.nav').hover(function(){
-            $('.nav2').slideDown('fast');
-        },function(){
-            $('.nav2').slideUp('fast');
-    })
     $('.popup-trigger').hover(function(){
             $('.account-menu').slideDown('fast');
         },function(){
@@ -28,6 +23,11 @@ $(document).ready(function(){
             $(this).children('.or').css('color','black');
             $(this).children('.up').css('display','none')
             $(this).children('.down').css('display','inline-block')
+    })
+    $('.nav1-li').hover(function(){
+            $(this).children('.nav2').slideDown('fast');
+        },function(){
+            $(this).children('.nav2').slideUp('fast');
 
     })
     $('#searcha').click(function(){
