@@ -11,6 +11,11 @@ $(document).ready(function(){
         },function(){
             $('.nav2').slideUp('fast');
     })
+    $('.popup-trigger').hover(function(){
+            $('.account-menu').slideDown('fast');
+        },function(){
+            $('.account-menu').slideUp('fast');
+    })
     $('.nav li').hover(function(){
             var Y = $(this).children('a').offset().left;
             $(this).children('.sub').css('left',Y)

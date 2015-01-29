@@ -15,10 +15,20 @@
         input.sarchtext type="text" id="sarchtext"
       a.s id="searcha" href = "#"
         .search
-      a.logged id="logina" href = "#{new_user_session_path}"
-        .login
+      - if user_signed_in?  
+        a.logged
+          .login
+      - else
+        a.l id="logina" href = "#{new_user_session_path}"
+          .login
       a.c id="carta" href = "#{carts_show_path}"
         .cart
+      - if user_signed_in?  
+        .popup-trigger
+          a.clickarea href = "#{new_user_session_path}"
+          .account-menu
+            p glf_icew@126.com 
+            = link_to "登出", destroy_user_session_path, method: :delete, class: "logout"
   .nav2
     ul
       .nav3
