@@ -2,11 +2,8 @@
   .title
     h2 购物车
   .cartlist
-    - if @cart.nil? or @cart.cart_line_items.empty?
-      = render 'empty'
-    - else
-      - @cart.cart_line_items.each do |item|
-        = render 'incart', item: item
+    - @cart.cart_line_items.each do |item|
+      = render 'incart', item: item
   .total
     .count
       p 总计
@@ -20,8 +17,5 @@
         button.usepromo
           | 确认
     .proceed
-      button.ctselect
-        | 继续挑选&nbsp&nbsp&nbsp&nbsp&nbsp>
-      /*button.pay*/
-      /*  | 结算&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp>*/
-      = link_to "结算", new_order_path
+      = link_to "继续挑选", new_order_path, class:"checkout-link"
+      = link_to "结算", new_order_path, class:"checkout-link"
