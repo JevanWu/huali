@@ -9,17 +9,19 @@ br
   = simple_form_for @quick_purchase_form, url: create_address_quick_purchase_path, html: { class: 'form-horizontal', id: 'new-order'} do |f|
     fieldset
       legend
-        | 发件人信息：
+        | 送花人信息：
       = f.fields_for :sender, @quick_purchase_form.sender do |builder|
-        = builder.input :name, required: true, placeholder: '您的姓名'
-        = builder.input :phone, as: :simple_form_phone, required: true, placeholder: '您的手机号'
-        = builder.input :email, placeholder: '您的邮箱'
+        = builder.input :name, required: true, placeholder: '您的姓名', label: '送花人姓名'
+        = builder.input :phone, as: :simple_form_phone, required: true, placeholder: '您的手机号', label: '送花人电话'
+        p[style="padding-left: 180px; padding-bottom: 15px; color: red;"] 请填写正确手机号，以便花里客服及时与您联系
+        = builder.input :email, placeholder: '您的邮箱', label: '送花人邮箱'
+
 
       legend
-        | 收件人信息：
+        | 收花人信息：
       = f.fields_for :address, @quick_purchase_form.address do |builder|
-        = builder.input :fullname, required: true, placeholder: '收件人姓名'
-        = builder.input :phone, as: :simple_form_phone, required: true, placeholder: '收件人联系方式'
+        = builder.input :fullname, required: true, placeholder: '收件花姓名', label: "收花人姓名"
+        = builder.input :phone, as: :simple_form_phone, required: true, placeholder: '收花人联系方式', label: '收花人电话', hint: '为了鲜花能及时送到，请填写收花人正确手机号码'
         = builder.input :province_id, collection: Province.quick_purchase_hash, prompt: "请选择", required:true, hint: "", input_html: { 'data-placeholder' => '请选择', class: 'chosen' }
         = builder.input :city_id do
           = builder.input_field :city_id , collection: [], 'data-placeholder' => '请选择', class: 'chosen'
@@ -27,15 +29,9 @@ br
         = builder.input :area_id do
           = builder.input_field :area_id , collection: [], 'data-placeholder' => '请选择', class: 'chosen'
           = image_tag('loading.gif', class: 'loading')
+        p[style="padding-left: 180px; padding-bottom: 15px; color: red;"] 请填写正确收货地址，以便鲜花及时派送，如若因地址填写错误，而派送失败，花里将不予理赔
         = builder.input :address, as: 'text', required:true, input_html: { rows: 3 }, placeholder: '详细地址'
-        /= f.input :instant_delivery, as: :boolean, hint: '90分钟送达需要收取而外费用'
         = builder.input :post_code, placeholder: '邮编', hint: %(<a id='query-postcode' href="#" target='_blank'>查询邮编</a>).html_safe
-      /= f.input :expected_date, as: :string, required:true, input_html: { class: 'datepicker' }, placeholder: '寄给TA的时间', label: "送达时间"
-      /button#gift-card-info-trigger.button
-        | 添加贺卡内容
-      /#gift-card-info
-        = f.input :gift_card_text, as: :text, input_html: { rows: 3, maxlength: 80 }, placeholder: '我们可以代您书写给TA的话，请注明落款!', hint: '80字以内哦'
-        = f.input :special_instructions, as: :text, input_html: { rows: 3 }, placeholder: '您可将一些特殊要求罗列与此，我们将尽力满足您的要求。'
     .form-actions
       = f.button :submit, "下一步，选花", class: 'button btn80 next-step'
 

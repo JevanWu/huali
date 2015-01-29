@@ -18,12 +18,12 @@
       = image_tag('pay/wechat.jpeg', width: '200px')
 
   .credit-card
-    .credit-card-title
+    /.credit-card-title
       | 信用卡(会扣取额外手续费)
     .paypal
       label
         = radio_button_tag(:paymethod, "paypal")
-        = image_tag("pay/credit.jpg")
+        = image_tag("pay/paypal.jpg")
 
   .next-step
     = submit_tag "确认支付", class: 'huali-btn'

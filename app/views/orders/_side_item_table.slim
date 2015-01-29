@@ -25,6 +25,6 @@ p.gouhualan-title
           = number_to_currency @order.instant_delivery.fee
     .summary-item
       span
-        | 总计
+        | 订单总计
       em.special
         = number_to_currency cart.total + (@order && @order.instant_delivery ? @order.instant_delivery.fee : 0)
