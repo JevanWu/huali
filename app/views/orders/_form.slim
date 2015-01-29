@@ -32,7 +32,7 @@
         = f.input :instant_delivery, as: :boolean, hint: '90分钟送达（此项服务需要收取额外费用）', label: false, class: 'ninty-min'
         = builder.input :post_code, placeholder: '邮编', hint: %(<a id='query-postcode' href="#" target='_blank'>查询邮编</a>).html_safe, input_html: { class: "input post-code" }
 
-      = f.input :expected_date, as: :string, required:true, input_html: { class: 'datepicker' }, placeholder: '寄给TA的时间', input_html: { class: "input expected-date" }, hint: Setting.expected_date_notice || ("0元花盒将在2月8日后发货" if @cart.limited_promotion_today)
+      = f.input :expected_date, as: :string, required:true, input_html: { class: 'datepicker input expected-date' }, placeholder: '寄给TA的时间', hint: Setting.expected_date_notice || ("0元花盒将在2月8日后发货" if @cart.limited_promotion_today)
 
       button#gift-card-info-trigger.btn-submit
         = "添加贺卡内容"
