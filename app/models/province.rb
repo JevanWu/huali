@@ -24,6 +24,13 @@ class Province < ActiveRecord::Base
 
   validates_presence_of :name, :post_code
 
+
+  def self.quick_purchase_hash
+    hash = {}
+    where(available: true).each { |record| hash.merge! record.name => record.id }
+    hash
+  end
+
   def to_s
     post_code
   end

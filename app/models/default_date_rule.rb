@@ -21,4 +21,9 @@
 
 class DefaultDateRule < DateRule
   validates :name, presence: true, uniqueness: true
+  has_many :products
+
+  def self.get_product_ids_by(date)
+    get_rules_by(date).map(&:product_ids).flatten
+  end
 end

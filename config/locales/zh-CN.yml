@@ -757,6 +757,7 @@ zh-CN:
         normal: 普通订单
         b2b: B2B订单
         secoo: 寺库订单
+        quick_purchase: 绿色通道
         heike: 嘿客订单
         dianping: 大众点评
         wechat: 微信
@@ -961,6 +962,7 @@ zh-CN:
     product:
       soldout: 已经售罄
       flower_basket: 放入购物车
+      quick_purchase_basket: 添加产品
       delivery_charge: 免运费
       product_info: 产品信息
       join_queue: 如需加入订购队列，请联系客服

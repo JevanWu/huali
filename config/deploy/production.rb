@@ -16,6 +16,7 @@
 # used to set extended properties on the server.
 
 server '42.121.119.155', user: 'deployer', roles: %w{web app db}
+server '121.40.53.245', user: 'deployer', roles: %w{app}
 
 
 # Custom SSH Options

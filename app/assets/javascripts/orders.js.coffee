@@ -10,6 +10,24 @@ $ ->
     pro = Cart.get link.data('product')
     Cart.update(id: pro.id, quantity: pro.quantity + 1)
 
+  $('#quick_purchase_form').on 'ajax:beforeSend', ->
+    $('.loading').show()
+  $('#quick_purchase_form').on 'ajax:complete', ->
+    $('.loading').hide()
+
+  $('#quick_purchase_form #quick_purchase_form_expected_date').change ->
+    $('#quick_purchase_form').submit()
+
+  $('#product-list').on 'click', 'a.quick-purchase-add-btn', (e) ->
+    link = $(@)
+    proid = link.data('product')
+    pro = Cart.get proid
+    Cart.update(id: pro.id, quantity: pro.quantity + 1)
+    $("a#quick-purchase-#{proid}").replaceWith( "<p style='margin-top: 15px'>已添加</p>" )
+    proCount = Number($('a.cart').text().split('')[1]) + Number('1')
+    $("a.cart").html("(" + proCount + ")")
+
+
     #调试代码别忘了注释
     ###analytics.track 'Added Item To Cart',
       # FIXME added track for price / category
@@ -207,5 +225,5 @@ $ ->
       $(this).text("隐藏贺卡内容")
     else
       $(this).text("添加贺卡内容")
-      
+
     $('#gift-card-info').toggle('slow')
