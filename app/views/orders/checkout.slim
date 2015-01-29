@@ -9,9 +9,12 @@
     .left
       h3 收货信息: 
     .right
-      p 上海市静安区愚园路546号3号楼4楼
-      p 150xxxxxxxx
-      p 某某某
+      p 
+        = @order.address.address
+      p 
+        = @order.address.phone
+      p 
+        = @order.address.fullname
   .eachtittle
     span.span1 产品
     span.span2 名称
@@ -19,8 +22,8 @@
     span.span4 数量
     span.span5 优惠
     span.span6 总价
-  = render_partial '/order/each'
-  = render_partial '/order/each'
+  - @order.line_items.each do |item|
+    = render 'product', item: item
   .shi
     p 实付款 &nbsp&nbsp&nbsp ¥2000
   .howtopay
