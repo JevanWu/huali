@@ -28,19 +28,35 @@
     p 实付款 &nbsp&nbsp&nbsp ¥2000
   .howtopay
     h2 请选择支付方式
-    .hd    
-      input.huadian type="checkbox" name="huadian" id="huadian"
-        | 是否使用花点
-    .ap
-      input.payment type="radio" name="payment" id="alipay"
-        = image_tag('alipay.jpg')
-    .tp
-      input.payment type="radio" name="payment" id="tencentpay"
-        = image_tag('tencentpay.jpeg')
-    .pp
-      input.payment type="radio" name="payment" id="paypal"
-        = image_tag('paypal.jpg')
-        p 需要扣取额外的手续费
+    = form_tag(gateway_order_path(@order), method: "post") do
+      .pay-options-title
+        i
+        |  请选择支付方式
+      .huali-point
+        label
+          = check_box_tag "use_huali_point"
+          = "是否使用您的 #{current_user.huali_point} 点花点"
+      .alipay
+        label
+          = radio_button_tag(:paymethod, "alipay", checked: "checked")
+          = image_tag('alipay.jpg')
+
+      .wechat
+        label
+          = radio_button_tag(:paymethod, "wechat")
+          = image_tag('tencentpay.jpeg')
+
+      .credit-card.pp
+        .paypal
+          label
+            = radio_button_tag(:paymethod, "paypal")
+            = image_tag("paypal.jpg")
+        p.credit-card-title
+          | 信用卡(会扣取额外手续费)
+
+      .next-step
+        = submit_tag "确认支付", class: 'huali-btn'
+
     .ed
       button type="button"
         | 确认
