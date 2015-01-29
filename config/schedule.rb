@@ -36,8 +36,11 @@ end
 
 every :day, at: '5:45 pm' do
   rake 'cleanup:guests'
-  rake 'cleanup:orders'
   rake 'cleanup:transactions'
+end
+
+every 2.hours do
+  rake 'cleanup:orders'
 end
 
 every :day, at: '3:00 am' do
