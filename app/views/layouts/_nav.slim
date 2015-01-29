@@ -10,34 +10,12 @@
         .nav2
           ul
             .nav3
-              li
-                a href="#" 精选
-              li
-                a href="#" 永生花
-              li
-                a href="#" 鲜花
-              li
-                a.or href="#" 场景
-                a.down href="#"
-                a.up href="#"
-                .nav4 id="cjoverlay"
-                ul.sub id="cj"
-                  li
-                    a href="/" 求婚
-                  li
-                    a href="/" 生日
-                  li
-                    a href="/" 节日 
-                  li
-                    a href="/" 纪念日
-                  li
-                    a href="/" 商务送礼   
-              li
-                a href="#" 香水
-              li
-                a href="#" 花里Girls
-              li
-                a href="#" 帮我选花
+              - menu_list.each do |menu|
+                li
+                  - if menu.collection.nil?
+                    = link_to menu.name, menu.link 
+                  - else 
+                    = link_to menu.name, collection_products_path(menu.collection)
       li.nav1-li
         = link_to "新闻", "#", class:"nav1-link"
       li.nav1-li
@@ -66,3 +44,4 @@
             p glf_icew@126.com 
             = link_to "登出", destroy_user_session_path, method: :delete, class: "logout"
   
+
