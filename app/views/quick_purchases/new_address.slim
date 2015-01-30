@@ -14,7 +14,7 @@ br
         = builder.input :name, required: true, placeholder: '您的姓名', label: '送花人姓名'
         = builder.input :phone, as: :simple_form_phone, required: true, placeholder: '您的手机号', label: '送花人电话'
         p[style="padding-left: 180px; padding-bottom: 15px; color: red;"] 请填写正确手机号，以便花里客服及时与您联系
-        = builder.input :email, placeholder: '您的邮箱', label: '送花人邮箱'
+        = builder.input :email, required: true, placeholder: '您的邮箱', label: '送花人邮箱'
 
 
       legend

@@ -17,7 +17,7 @@ class SenderInfo
     attribute :phone, String
   end
   phoneize :phone
-  validates_presence_of :phone, :name
+  validates_presence_of :phone, :name, :email
 end
 
 class ReceiverInfo
