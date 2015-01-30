@@ -288,7 +288,7 @@ class OrdersController < ApplicationController
 
   def apply_coupon
     coupon_code = CouponCode.find_by_code(params[:coupon_code].try(:downcase))
-    render :current
+    redirect_to carts_show_path
   end
 
   def cancel

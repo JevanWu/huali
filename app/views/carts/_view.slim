@@ -13,9 +13,17 @@
       input.checkpromo type="checkbox" name="checkpromo" id="checkpromo"
       span 使用优惠码 PROMO CODE
       .inputcode
-        input.promo type="text" name="promo" id="promo"
-        button.usepromo
-          | 确认
+        = form_tag orders_apply_coupon_path, method: :post do
+          input.promo type="text" name="coupon_code"
+          button.usepromo type="submit" onClick="analytics.track('Use Coupon', { category: 'Order', label: $('input[name=coupon_code]').val() });"
+            | 确定
+          - if @cart.coupon_code && !@cart.valid_coupon?
+            - if @cart.items.any? { |item| item.product.discount? }
+              p.error
+                | 折扣商品，不能使用优惠劵！
+            - else
+              p.error
+                | 无效优惠码！请确认信息后输入
     .proceed
       = link_to "继续挑选", products_path, class:"checkout-link"
       = link_to "结算", new_order_path, class:"checkout-link"
