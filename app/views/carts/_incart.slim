@@ -8,14 +8,40 @@
       = item.product.name_en
   .price
     p 
-      = "¥#{item.product.price}"
+      = "¥#{item.total_price}"
+
+    p
+      - if item.on_stock?
+        | 现在有货
+      - else
+        =t 'views.product.soldout'
+    p
+      | 免费配送
+    /.share
+      span = t(:sharing)
+      = render 'shared/product_share_links', product: item.product
+
+
+  - if item.discounted?
+    p
+      em
+        del
+          | 原价：
+          span
+            = number_to_currency item.original_total_price
     
   .quantity
     form
+
+      = button_to "-", reduce_cart_item_quantity_path(item), method: :put, class: 'reduce_quantity'
+
       input.number type="text" name="number" id="number" value="#{item.quantity}"
+
+      = button_to "+", add_cart_item_quantity_path(item), method: :put, class: 'add_quantity'
+
   .totalprice
     p 
-      = "¥#{item.product.price * item.quantity}"
+      = "¥#{item.total_price}"
   .delete
     a href = "#"
-      =image_tag('delete.png')
+      = button_to "x", destroy_cart_item_path(item), method: :delete, class: 'empty_quantity'
