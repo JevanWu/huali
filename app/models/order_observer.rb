@@ -1,7 +1,7 @@
 class OrderObserver < ActiveRecord::Observer
 
   def after_create(order)
-    return unless order.kind == 'normal'
+    return unless order.kind == 'normal' or order.kind == 'quick_purchase'
     Notify.delay.new_order_user_email(order.id)
 
     Analytics.track(user_id: order.user.id,
