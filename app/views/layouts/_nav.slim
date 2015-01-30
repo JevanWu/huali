@@ -26,7 +26,8 @@
         = link_to "实体店铺", offline_shop_path, class:"nav1-link"
     .talk
       .insearch
-        input.sarchtext type="text" id="sarchtext"
+        = form_tag '/search', method: :get do
+          = text_field_tag :q, params[:q], class: 'query sarchtext', id: "sarchtext"
       a.s id="searcha" href = "#"
         .search
       - if user_signed_in?  
@@ -41,7 +42,8 @@
         .popup-trigger
           a.clickarea href = "#{new_user_session_path}"
           .account-menu
-            p glf_icew@126.com 
+            p 
+              = current_user.email
             = link_to "登出", destroy_user_session_path, method: :delete, class: "logout"
   
 
