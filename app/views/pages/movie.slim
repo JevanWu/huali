@@ -1,19 +1,19 @@
 div.moviepage
   div.movieframe
     = image_tag "movie/cut.jpg"
-    a.qimiao href="http://hua.li/products/the-first-sight-of-you" 
-    a.meigui href="http://hua.li/products/la-vie-en-rose" 
+    a.qimiao href="http://hua.li/products/the-first-sight-of-you"
+    a.meigui href="http://hua.li/products/la-vie-en-rose"
     a.xinsheng href="http://hua.li/products/natural-adoration"
-    a.guishu href="http://hua.li/products/we-belong" 
+    a.guishu href="http://hua.li/products/we-belong"
     a.yilou href="http://hua.li/products/heart-skipped-a-beat"
     - content_for :js do
       = javascript_include_tag 'flowplayer.min.js'
       = flowplayer_for :video, asset_path('flowplayer-3.2.18.swf'), 'jquery' do |player|
-        - player.clip 
+        - player.clip
         - player.play replayLabel: nil, opacity: 0
         - player.canvas backgroundColor: "transparent", backgroundGradient: "none"
-        - player.playlist [{url: image_path('video-cover2.jpg'), scaling: 'orig', autoBuffering: true}, {url: "http://hua.li/system/videos/own_your_moment.mp4", autoPlay: false, autoBuffering: false}]
+        - player.playlist [{url: image_path('video-cover2.jpg'), scaling: 'orig', autoBuffering: true}, {url: "http://7u2r7r.com1.z0.glb.clouddn.com/Huali A-line for apple device 1219_1200Kbps_480p.mp4", autoPlay: false, autoBuffering: false}]
         - player.plugins controls: { url: asset_path('flowplayer.controls-3.2.16.swf'), backgroundColor: "rgba(239, 239, 239, 0.1)", backgroundGradient: "none", all: false, scrubber: true, play: true, mute: true, fullscreen: true, autoHide: "always", height: "20px"}
     .player
       a id="video" style="height: 226px; width: 392px"
-        
+

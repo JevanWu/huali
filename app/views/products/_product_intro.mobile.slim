@@ -1,25 +1,7 @@
--if @product.slug == "natural-adoration"
+-if ["natural-adoration", "the-first-sight-of-you", "la-vie-en-rose", "we-belong", "heart-skipped-a-beat"].include?(@product.slug)
   div.movieplay
     div.videos
       video src="http://hua.li/system/videos/own_your_moment.mp4" width="100%" controls="controls"
--elsif @product.slug == "the-first-sight-of-you"
-  div.movieplay
-    div.videos
-      video src="http://hua.li/system/videos/own_your_moment.mp4" width="100%" controls="controls"
--elsif @product.slug == "la-vie-en-rose"
-    div.movieplay
-      div.videos
-        video src="http://hua.li/system/videos/own_your_moment.mp4" width="100%" controls="controls"
--elsif @product.slug == "we-belong"
-    div.movieplay
-      div.videos
-        video src="http://hua.li/system/videos/own_your_moment.mp4" width="100%" controls="controls"
--elsif @product.slug == "heart-skipped-a-beat"
-    div.movieplay
-      div.videos
-        video src="http://hua.li/system/videos/own_your_moment.mp4" width="100%" controls="controls"
-
-
 
 .product-intro
   - unless @product.description.empty?

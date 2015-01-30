@@ -45,7 +45,6 @@ module Extension
       # @menu_list << custom_menu
       @menu_list << Menu.new("HualiGirls", "", :link, weibo_stories_path)
       @menu_list << Menu.new("实体店铺", "", :link, offline_shop_path)
-      @menu_list << Menu.new("商务定制", "", :link, '/blog')
     end
 
     def prepare_menu_list
