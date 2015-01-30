@@ -39,7 +39,7 @@ every :day, at: '5:45 pm' do
   rake 'cleanup:transactions'
 end
 
-every 2.hours do
+every 5.minutes do
   rake 'cleanup:orders'
 end
 
