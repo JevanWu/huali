@@ -26,8 +26,10 @@ class QuickPurchasesController < ApplicationController
 
   def products
     if params[:quick_purchase_form]
-      empty_cart
-      session[:quick_purchase_form].expected_date = Date.parse(params[:quick_purchase_form][:expected_date])
+      unless session[:quick_purchase_form].expected_date == Date.parse(params[:quick_purchase_form][:expected_date])
+        empty_cart 
+        session[:quick_purchase_form].expected_date = Date.parse(params[:quick_purchase_form][:expected_date])
+      end
     end
 
     @quick_purchase_form = session[:quick_purchase_form]
