@@ -1,20 +1,16 @@
 .inputarea
   padding-left: 60px
   .control-label
-    margin-top: 8px
-    margin-bottom: 8px
-    color: #999999
     display: block
   .leftinput
     display: inline-block
     vertical-align: top
   .input
-    width: 211px
+    width: 260px
     height: 21px
-    border: 1px solid #BFBEBE
-    margin-bottom: 6px
+    border: 1px solid #E5E5E5
   .chosen-container
-    border: 1px solid #BFBEBE
+    border: 1px solid #E5E5E5
     -webkit-appearance: none
     border-radius: 0
     height: 19px
@@ -23,40 +19,47 @@
     vertical-align: top !important
     margin-right: 10px
     display: inline-block !important
+  .order_form_address_province_id,.order_form_address_city_id,order_form_address_area_id
+    .help-inline
+      display: none
   .chosen-single
     border: none !important
     height: 19px !important
     box-shadow: none !important
     background: none !important
     line-height: 24px !important
-  .country
-    width: 71px
-    margin-right: 10px
-    height: 21px
+  .help-block
+    margin-top: 6px
+    color: #FDA949
+  .control-label
+    margin-bottom: 5px
+    margin-top: 21px
+    color: black
   .order_form_instant_delivery
     .help-block
       display: inline-block
       font-weight: bold
+      color: black !important
   .order_form_address_province_id,.order_form_address_city_id,.order_form_address_area_id
     display: inline-block
-    width: 61px
+    width: 78px
     margin-right: 12px
   .chosen
-    width: 61px !important
-    border: 1px solid #BFBEBE
+    width: 78px !important
+    border: 1px solid #E5E5E5
     -webkit-appearance: none
     border-radius: 0
     height: 21px
     text-align: center
   .tel
-    width: 128px
+    width: 177px
   textarea
-    width: 208px
+    width: 260px
     height: 80px
     resize: none
-    border: 1px solid #BFBEBE
-    margin-bottom: 6px
-    margin-top: 8px
+    border: 1px solid #E5E5E5
+  .order_form_address_address
+    margin-top: 15px
   .fast
     font-weight: bold
     margin-top: 28px
@@ -76,6 +79,11 @@
     border-top-style: dotted
     margin-left: -60px
     padding-left: 60px
+  .form-actions
+    margin-top: 25px
+    margin-bottom: 25px
+    .btn-submit
+      margin-right: 15px
   .errormessage
     display: inline-block
     vertical-align: top
@@ -98,3 +106,8 @@
       margin-top: 72px
     .date-error
       margin-top: 63px
+#gift-card-info-trigger
+  margin-top: 30px
+.error
+  .chosen-container,.inputarea,.input,textarea
+    border: 2px #a02828 solid
