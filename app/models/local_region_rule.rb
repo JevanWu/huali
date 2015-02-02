@@ -24,7 +24,8 @@ class LocalRegionRule < RegionRule
   def self.get_product_ids_by(area_id)
     get_rules_by(area_id).map(&:region_rulable_id)
   end
-  def self.get_rules_by(area_id) # area_id must be 'String'
+  def self.get_rules_by(area_id)
+    area_id = area_id.to_s
     where(region_rulable_type: "Product").select { |e| e.area_ids.include?(area_id) }
   end
 end

@@ -26,6 +26,7 @@ class DateRule < ActiveRecord::Base
   arrayify_attrs :excluded_dates, :included_dates
 
   def self.get_rules_by(date)
+    area_id = area_id.to_s
     arr = []
     find_each { |r| arr << r if r.valid_date?(date) }
     arr
