@@ -39,7 +39,7 @@ class QuickPurchasesController < ApplicationController
     area_id = @quick_purchase_form.address.area_id
     product_ids_regin = ( DefaultRegionRule.get_product_ids_by(area_id) | LocalRegionRule.get_product_ids_by(area_id) )
     product_ids_date = ( DefaultDateRule.get_product_ids_by(expected_date) | LocalDateRule.get_product_ids_by(expected_date) )
-    product_ids = product_ids_regin & product_ids_date
+    product_ids = ( product_ids_regin & product_ids_date )
 
     @products = Product.published.where("id IN (?) and count_on_hand > 0", product_ids).page(params[:page]).per(8).order_by_priority
     respond_to do |format|
