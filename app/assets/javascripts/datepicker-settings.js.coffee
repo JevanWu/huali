@@ -2,7 +2,11 @@
 #= require jquery.ui.datepicker-zh-CN
 
 $ ->
-  normalDateShift = if (new Date().getHours() >= 15) then '+3D' else '+2D'
+  province_id = $("#province-id").text()
+  if province_id == "9" || province_id == "10" || province_id == "11"
+    normalDateShift = if (new Date().getHours() >= 17) then '+2D' else '+1D'
+  else
+    normalDateShift = if (new Date().getHours() >= 17) then '+3D' else '+2D'
 
   $('.datepicker').datepicker(
       gotoCurrent: true
