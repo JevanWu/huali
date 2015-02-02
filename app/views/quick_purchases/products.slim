@@ -19,7 +19,7 @@
 
       br
       .quick-purchase-btn[style="text-align: center;"]
-        = button_to "结算", create_order_quick_purchase_path, method: :post, class: 'btn-discount'
+        = button_to "去结算", create_order_quick_purchase_path, method: :post, class: 'btn-discount'
 
       .pager
         == paginate @products, remote: true
