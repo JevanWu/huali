@@ -1,7 +1,8 @@
 == render 'layouts/messages'
 #l-fixed-area-container
-  =link_to new_address_quick_purchase_path, class:"quick-purchase"
-	#l-header.row
+  .quick-purchase-locate
+    = link_to "", new_address_quick_purchase_path, class:"quick-purchase"
+  #l-header.row
       #bookmark
         a id="bookmarkme" href="#" rel="sidebar" title="收藏花里" onClick="analytics.track('Add to bookmark', { category: 'Header' });"
           | 收藏花里
