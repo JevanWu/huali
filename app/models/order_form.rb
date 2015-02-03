@@ -121,7 +121,7 @@ class OrderForm
   validates_with OrderCouponValidator, if: :validate_coupon?
   validates_with OrderDiscountableValidator, if: :validate_discountable?
   validates_with InstantDeliveryValidator
-  validates_with DistrictValidator, if: :validation_date?
+  validates_with DistrictValidator, if: :validation_date?, on: :create
 
   validates :expected_date, presence: true
 
