@@ -24,7 +24,7 @@
       br
 
       .quick-purchase-btn[style="text-align: center;"]
-        p.count-in-cart style="display: inline-block" 
+        p.count-in-cart style="display: inline-block;font-weight: bold;margin-bottom: 10px;margin-left: 3px" 
         = button_to "去结算", create_order_quick_purchase_path, method: :post, class: 'btn-discount', style: 'display: inline-block'
 
       .pager
