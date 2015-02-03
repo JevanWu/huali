@@ -1,0 +1,32 @@
+.order
+  .tittle
+    ul
+      li.date
+        = order.created_at
+      li.order-identifier
+        = "订单编号：#{order.identifier}"
+      li.recipients
+        = "收件人：#{order.user.name}"
+      li.edit
+        = link_to "编辑贺卡", "#"
+  .product-list
+    .list
+      - order.line_items.each do |item|
+        = render 'eachproduct', item: item
+    .payment
+      p.price 
+        = order.total
+      .pay
+        - if order.state == 'generated'
+          = link_to '付款', checkout_order_path(order), class: 'btn-pay'
+        - elsif %w(wait_check wait_make).include? order.state 
+          = link_to "制作电子贺卡", new_postcard_path(order_id: order.id), class: 'huali-btn btn'
+        - elsif order.state == 'wait_confirm'
+          = button_to t('models.order.state.confirm_received'), confirm_shipment_path(order.shipment), data: { confirm: t('views.order.confirm_accept') }, class: 'btn-completePay'
+        - else
+          = t('models.order.state.' + order.state)
+      td.col6
+        p = link_to '订单详情', order_path(order)
+        - if %w(generated wait_check).include? order.state
+          p = link_to '编辑贺卡信息', edit_gift_card_path(order)
+        = link_to '付款', checkout_order_path(order), class: 'btn-pay'

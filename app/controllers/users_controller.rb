@@ -5,6 +5,12 @@ class UsersController < ApplicationController
     except: [:check_user_exist, :subscribe_email, :omnicontacts_callback, :omnicontacts_failure, :profile]
   respond_to :json, :html
 
+
+  def account
+    @user = current_user
+    @point_transactions = current_user.point_transactions.order(:created_at).page(params[:page]).per(3)
+  end
+
   def edit_profile
     @user = current_user
   end

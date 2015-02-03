@@ -22,7 +22,7 @@ class InvitationsController < Devise::InvitationsController
           skip_invitation(Hash["email" => email])
           send_invitation_email
         end
-        redirect_to refer_friend_path
+        redirect_to account_path
       end
     end
   end
@@ -59,7 +59,7 @@ class InvitationsController < Devise::InvitationsController
       Notify.delay.invite_message(@from, self.resource, @subject)
       yield if block_given?
     else
-      render "/users/refer_friend" and return
+      redirect_to :back and return
     end
   end
 

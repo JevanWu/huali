@@ -1,4 +1,46 @@
+$(document).ready(function(){
+$('.account-setting-link').click(function(){
+        $('#account-setting').addClass('now')
+        $('#order').removeClass('now')
+        $('#hua-point').removeClass('now')
+        $('#invite').removeClass('now')
+        $('.account-setting').show(0)
+        $('.order').hide(0)
+        $('.hua-point').hide(0)
+        $('.invite').hide(0)
 
+})
+$('.order-link').click(function(){
+        $('#account-setting').removeClass('now')
+        $('#order').addClass('now')
+        $('#hua-point').removeClass('now')
+        $('#invite').removeClass('now')
+        $('.account-setting').hide(0)
+        $('.order').show(0)
+        $('.hua-point').hide(0)
+        $('.invite').hide(0)
+})
+$('.hua-point-link').click(function(){
+        $('#account-setting').removeClass('now')
+        $('#order').removeClass('now')
+        $('#hua-point').addClass('now')
+        $('#invite').removeClass('now')
+        $('.account-setting').hide(0)
+        $('.order').hide(0)
+        $('.hua-point').show(0)
+        $('.invite').hide(0)
+})
+$('.invite-link').click(function(){
+        $('#account-setting').removeClass('now')
+        $('#order').removeClass('now')
+        $('#hua-point').removeClass('now')
+        $('#invite').addClass('now')
+        $('.account-setting').hide(0)
+        $('.order').hide(0)
+        $('.hua-point').hide(0)
+        $('.invite').show(0)
+})
+}); 
 
 $(document).ready(function(){
 	$('.picbox').hover(function(){
@@ -6,10 +48,10 @@ $(document).ready(function(){
 		},function(){
 			$('.og_prev,.og_next').fadeTo('fast',0);
 	})
-    $('.popup-trigger').hover(function(){
-            $('.account-menu').slideDown('fast');
+    $('.nav').hover(function(){
+            $('.nav2').slideDown('fast');
         },function(){
-            $('.account-menu').slideUp('fast');
+            $('.nav2').slideUp('fast');
     })
     $('.nav li').hover(function(){
             var Y = $(this).children('a').offset().left;
@@ -23,11 +65,6 @@ $(document).ready(function(){
             $(this).children('.or').css('color','black');
             $(this).children('.up').css('display','none')
             $(this).children('.down').css('display','inline-block')
-    })
-    $('.nav1-li').hover(function(){
-            $(this).children('.nav2').slideDown('fast');
-        },function(){
-            $(this).children('.nav2').slideUp('fast');
 
     })
     $('#searcha').click(function(){
