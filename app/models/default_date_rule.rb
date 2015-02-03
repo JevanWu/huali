@@ -24,6 +24,8 @@ class DefaultDateRule < DateRule
   has_many :products
 
   def self.get_product_ids_by(date)
-    get_rules_by(date).map(&:product_ids).flatten
+    get_rules_by(date).map(&:product_ids).flatten.select do |p_id|
+      Product.find(p_id).local_region_rule.nil?  # because local_date_rule can rewrite default_date_rule
+    end
   end
 end

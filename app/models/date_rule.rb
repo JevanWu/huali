@@ -26,6 +26,7 @@ class DateRule < ActiveRecord::Base
   arrayify_attrs :excluded_dates, :included_dates
 
   def self.get_rules_by(date)
+    area_id = area_id.to_s
     arr = []
     find_each { |r| arr << r if r.valid_date?(date) }
     arr
@@ -47,7 +48,7 @@ class DateRule < ActiveRecord::Base
     if Setting.date_rule_start_date.present? && Setting.date_rule_start_date.to_date >= Date.current
       Setting.date_rule_start_date
     else
-      super || (Time.current.hour >= 15 ? Date.current.next_day(3) : Date.current.next_day(2))
+      super || (Time.current.hour >= 17 ? Date.current.next_day(2) : Date.current.next_day(1))
     end
   end
 

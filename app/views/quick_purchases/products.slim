@@ -2,6 +2,10 @@
 - content_for(:body_js) do
   = javascript_include_tag "datepicker-settings"
 
+
+#province-id style="visibility: hidden"
+  = @quick_purchase_form.address.province_id
+
 .cate-list
   = simple_form_for @quick_purchase_form, remote: true, url: update_products_quick_purchase_path, method: :put, html: { class: 'form-horizontal', id: 'quick_purchase_form', data_type: 'js', style: 'margin-top: 20px' } do |f|
     = hidden_field_tag 'authenticity_token', form_authenticity_token if protect_against_forgery?
@@ -19,7 +23,7 @@
 
       br
       .quick-purchase-btn[style="text-align: center;"]
-        = button_to "结算", create_order_quick_purchase_path, method: :post, class: 'btn-discount'
+        = button_to "去结算", create_order_quick_purchase_path, method: :post, class: 'btn-discount'
 
       .pager
         == paginate @products, remote: true

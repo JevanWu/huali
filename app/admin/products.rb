@@ -93,7 +93,35 @@ ActiveAdmin.register Product do
   filter :meta_title
   filter :meta_description
 
+
+  collection_action :download, method: :get do
+    filename = "/tmp/products-#{Time.current.to_i}.xlsx"
+    record = Product.all
+
+    Axlsx::Package.new do |p|
+      p.workbook.add_worksheet(:name => "Product") do |sheet|
+        sheet.add_row %w[ID 中文名 英文名 递送区域规则 递送时间规则]
+        record.each do |product|
+          array = []
+          array << product.id
+          array << product.name_zh
+          array << product.name_en
+          array << product.region_rule.name ? product.region_rule.name : "name empty"
+          array << product.date_rule.name ? product.date_rule.name : "name empty"
+          sheet.add_row array
+        end
+      end
+      p.serialize(filename)
+    end
+
+    send_file filename, x_sendfile: true, type: Mime::Type.lookup_by_extension(:xlsx).to_s
+  end
+
   index do
+    div style: "text-align: right" do
+      link_to('download', action: :download)
+    end
+
     selectable_column
     column "ID" do |product|
       link_to product.id, product_path(product)
