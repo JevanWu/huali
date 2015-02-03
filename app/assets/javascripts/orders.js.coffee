@@ -1,5 +1,8 @@
 #= require_self
-
+$(document).ready (e) ->
+  proCount = Number($('a.cart').text().split('')[1])
+  if proCount > 0
+    $("p.count-in-cart").html("已添加" + proCount + "件产品")
 $ ->
   # turn on JSON parsing in $.cookie
   $.cookie.json = true
@@ -23,9 +26,31 @@ $ ->
     proid = link.data('product')
     pro = Cart.get proid
     Cart.update(id: pro.id, quantity: pro.quantity + 1)
-    $("a#quick-purchase-#{proid}").replaceWith( "<p style='margin-top: 15px'>已添加</p>" )
+    $("a#quick-purchase-#{proid}").css('display','none')
+    $("p##{proid}").css('display','block')
     proCount = Number($('a.cart').text().split('')[1]) + Number('1')
     $("a.cart").html("(" + proCount + ")")
+    if proCount > 0
+      $("p.count-in-cart").html("已添加" + proCount + "件产品")
+    else
+      $("p.count-in-cart").html("")
+
+  $('#product-list').on 'click', '.information p',(e) ->
+    link = $(@)
+    proid = $(this).attr('id')
+    pro = Cart.get proid
+    Cart.update(id: pro.id, quantity: pro.quantity - 1)
+    proCount = Number($('a.cart').text().split('')[1]) - Number('1')
+    $("a#quick-purchase-#{proid}").css('display','block')
+    $("p##{proid}").css('display','none')
+    $("a.cart").html("(" + proCount + ")")
+    if proCount > 0
+      $("p.count-in-cart").html("已添加" + proCount + "件产品")
+    else
+      $("p.count-in-cart").html("")
+
+
+
 
 
     #调试代码别忘了注释

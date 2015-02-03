@@ -24,6 +24,8 @@
       p ￥#{product.price}
 
     - if @cart_cookies and @cart_cookies.include?(product.id.to_s)
-      p style="margin-top: 15px" 已添加
+      p id="#{product.id.to_s}" style="margin-top: 15px" 已添加
+      = link_to(t('加入购物车'), 'javascript:void(0)', class: "quick-purchase-add-btn button", id: "quick-purchase-#{product.id.to_s}", data: { product: product.id }, style: "color: white;text-decoration: none;margin-top: 10px;display: none", onClick: "analytics.track('Added Product', { id: '#{product.id}', name: '#{product.name}', category: '#{product.product_type_text}', price: #{product.price}, currency: 'CNY', label: '#{product.name}', quantity: 1 });" )
     - else
       = link_to(t('加入购物车'), 'javascript:void(0)', class: "quick-purchase-add-btn button", id: "quick-purchase-#{product.id.to_s}", data: { product: product.id }, style: "color: white;text-decoration: none;margin-top: 10px", onClick: "analytics.track('Added Product', { id: '#{product.id}', name: '#{product.name}', category: '#{product.product_type_text}', price: #{product.price}, currency: 'CNY', label: '#{product.name}', quantity: 1 });" )
+      p id="#{product.id.to_s}" style="margin-top: 15px; display: none" 已添加

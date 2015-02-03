@@ -22,8 +22,10 @@
         = render partial: 'product', collection: @products
 
       br
+
       .quick-purchase-btn[style="text-align: center;"]
-        = button_to "去结算", create_order_quick_purchase_path, method: :post, class: 'btn-discount'
+        p.count-in-cart style="display: inline-block" 
+        = button_to "去结算", create_order_quick_purchase_path, method: :post, class: 'btn-discount', style: 'display: inline-block'
 
       .pager
         == paginate @products, remote: true
