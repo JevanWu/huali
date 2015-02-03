@@ -1,0 +1,5 @@
+.displaypage
+  = render 'products/title'
+  .list
+    - @products.take(9).each do |product|
+      = render 'product', product: product

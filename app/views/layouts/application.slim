@@ -4,7 +4,9 @@ html
     meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" 
     title Huali
     = stylesheet_link_tag "all" 
-    = javascript_include_tag  "all", "home"
+    = yield(:css)
+    = javascript_include_tag  "all"
+    = yield(:js)
   body
     = render 'layouts/nav'
     = yield
