@@ -314,6 +314,14 @@ class Order < ActiveRecord::Base
     self.state != "generated"
   end
 
+  def discounted?
+    item_total != total
+  end
+
+  def discounted_money
+    item_total - total
+  end
+
 private
 
   def update_product_stock

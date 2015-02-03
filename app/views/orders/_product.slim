@@ -13,7 +13,9 @@
     p 
       = item.quantity
   .dis
-    p 7折 －¥99
+    p 
+      - if item.order.discounted?
+        = item.order.discounted_money
   .total
     p 
       = "¥ #{item.quantity * item.product.price}"
