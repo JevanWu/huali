@@ -1,0 +1,15 @@
+div.filter
+  span 颜色：
+  = link_to "所有", products_quick_purchase_path(flower_type: params[:flower_type], price_span: params[:price_span])
+  - %w{紫 红 粉 黄 蓝 白 绿 金 其他}.each do |tag|
+    = link_to tag, products_quick_purchase_path(flower_type: params[:flower_type], color: tag, price_span: params[:price_span]), class: params[:color] == tag ? 'active' : ''
+
+div.filter
+  span 价格：
+  = link_to "所有", products_quick_purchase_path(flower_type: params[:flower_type], color: params[:color])
+  = link_to "0~299", products_quick_purchase_path(flower_type: params[:flower_type], color: params[:color], price_span: '0,299'), class: params[:price_span] == '0,299' ? 'active' : ''
+  = link_to "300~399", products_quick_purchase_path(flower_type: params[:flower_type], color: params[:color], price_span: '300,399'), class: params[:price_span] == '300,399' ? 'active' : ''
+  = link_to "400~499", products_quick_purchase_path(flower_type: params[:flower_type], color: params[:color], price_span: '400,499'), class: params[:price_span] == '400,499' ? 'active' : ''
+  = link_to "500~899", products_quick_purchase_path(flower_type: params[:flower_type], color: params[:color], price_span: '500,899'), class: params[:price_span] == '500,899' ? 'active' : ''
+  = link_to "900~1999", products_quick_purchase_path(flower_type: params[:flower_type], color: params[:color], price_span: '900,1999'), class: params[:price_span] == '900,1999' ? 'active' : ''
+  = link_to "我是土豪", products_quick_purchase_path(flower_type: params[:flower_type], color: params[:color], price_span: '2000,99999999'), class: params[:price_span] == '2000,99999999' ? 'active' : ''

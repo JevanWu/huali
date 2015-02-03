@@ -17,6 +17,10 @@
        |  可选产品
        = image_tag('loading.gif', class: 'loading')
 
+      .products-filter
+        = render 'filter'
+
+
     dd.main
       .best-products.row#product-list
         = render partial: 'product', collection: @products
