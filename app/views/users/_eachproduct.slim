@@ -1,0 +1,13 @@
+.each-product
+  .img
+    = image_tag item.product.assets.first.image.url
+  .info
+    p.ch
+      = item.product.name_zh
+    p.en 
+      = item.product.name_en
+    p.price
+      = "¥#{item.product.price}"
+  .quantity
+    p
+      = item.quantity 

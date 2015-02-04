@@ -109,7 +109,7 @@ Huali::Application.routes.draw do
 
   get 'users/check_user_exist', to: 'users#check_user_exist'
   post 'users/subscribe_email', to: 'users#subscribe_email'
-  get 'users/profile', to: 'users#profile', as: :profile
+  get 'users/account', to: 'users#account', as: :account
   get 'users/new_binding_account', to: 'users#new_binding_account'
   post 'users/binding_account', to: 'users#binding_account'
 

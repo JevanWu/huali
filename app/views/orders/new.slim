@@ -10,7 +10,8 @@
 .orderspace
   .inform
     = render 'list'
-    = render 'warning'
+    - if @order_form.errors.messages.present?
+      = render 'warning'
     = render 'mail'
     = render 'form'
 .footer
