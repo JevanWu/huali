@@ -95,6 +95,7 @@ class CartsController < ApplicationController
   def cart_params
     params.require(:cart).permit(:coupon_code)
   end
+
   def cart_line_items_params
     params.require(:cart).permit(:cart_id, :product_id, :total_price, :quantity)
   end
