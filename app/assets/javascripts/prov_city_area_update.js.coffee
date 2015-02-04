@@ -61,6 +61,17 @@ $ ->
     emptyAreaSelector()
     updateCitySelector $(@).val(), $.cookie('address_city_id')
 
+    # set different date for date picker
+    province_id = $(@).val()
+    if province_id == null
+      normalDateShift = if (new Date().getHours() >= 17) then '+3D' else '+2D'
+    else if province_id == "9" || province_id == "10" || province_id == "11"
+      normalDateShift = if (new Date().getHours() >= 17) then '+2D' else '+1D'
+    else
+      normalDateShift = if (new Date().getHours() >= 17) then '+3D' else '+2D'
+
+    $('.datepicker').datepicker('option', {minDate: normalDateShift})
+
   $(citySelector).on 'change', ->
     updateAreaSelector $(@).val(), $.cookie('address_area_id')
 
