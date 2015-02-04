@@ -72,7 +72,7 @@ zh-CN:
     format: ! '%{attribute} %{message}'
     errors:
       messages: &default_error_message
-        blank: 您需要填写此项
+        blank: 请填写此项
         discounted_product_coupon_code: 折扣商品，不能使用优惠券
         coupon_code_not_avaiable: 优惠券不可用
         coupon_code_not_exist: 请输入优惠券编号
