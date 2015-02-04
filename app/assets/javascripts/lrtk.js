@@ -48,10 +48,10 @@ $(document).ready(function(){
 		},function(){
 			$('.og_prev,.og_next').fadeTo('fast',0);
 	})
-    $('.nav').hover(function(){
-            $('.nav2').slideDown('fast');
+    $('.nav li').hover(function(){
+            $(this).children('.nav2').slideDown('fast');
         },function(){
-            $('.nav2').slideUp('fast');
+            $(this).children('.nav2').slideUp('fast');
     })
     $('.nav li').hover(function(){
             var Y = $(this).children('a').offset().left;
