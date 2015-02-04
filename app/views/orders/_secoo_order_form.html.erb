@@ -5,8 +5,8 @@
     <legend>您的个人信息</legend>
     -->
     <%= f.fields_for :sender, @secoo_order_form.sender do |builder|%>
-      <%= builder.input :name, as: :hidden, input_html: {value: 'huali_manually_import'} %>
-      <%= builder.input :email, as: :hidden, input_html: {value: 'support@hua.li'} %>
+      <%= builder.input :name, as: :hidden, input_html: {value: 'oscar'} %>
+      <%= builder.input :email, as: :hidden, input_html: {value: 'oscar@hua.li'} %>
       <%= builder.input :phone, as: :hidden, input_html: {value: '400-087-8899'} %> 
     <% end %>
   </fieldset>
