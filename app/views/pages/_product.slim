@@ -1,6 +1,8 @@
 a.product href = "#{product_path(product)}"
-  .discount
-  	p 7折
+  - if product.discount?
+    .discount
+      p
+        = product.discount_event_today.price
   = image_tag product.assets.first.image.url
   p 
     = product.name_zh
