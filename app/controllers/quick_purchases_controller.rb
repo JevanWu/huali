@@ -41,7 +41,23 @@ class QuickPurchasesController < ApplicationController
     product_ids_date = ( DefaultDateRule.get_product_ids_by(expected_date) | LocalDateRule.get_product_ids_by(expected_date) )
     product_ids = ( product_ids_regin & product_ids_date )
 
-    @products = Product.published.where("id IN (?) and count_on_hand > 0", product_ids).page(params[:page]).per(8).order_by_priority
+    # filter: color
+    # fix me: tagged_with can not work with 'where' like Product.where(...).tagged_with(...)
+    if params[:color].present?
+      product_ids_color = Product.tagged_with(params[:color]).pluck(:id)
+      product_ids = (product_ids & product_ids_color)
+    end
+
+    @products = Product.published.where("id IN (?) and count_on_hand > 0", product_ids)
+    
+    # filter: price
+    @products = @products.where(price: Range.new(*params[:price_span].split(',').map(&:to_i))) if params[:price_span].present?
+
+    # pagenator
+    @products = @products.page(params[:page]).per(8).order_by_priority
+
+
+
     respond_to do |format|
       format.html {}
       format.js { render layout: false }
