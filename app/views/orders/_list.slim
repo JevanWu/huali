@@ -2,5 +2,8 @@
   .left
     = render 'productincart'
   .right
-    h1 7折 －¥109
-    h2 ¥1099
+    h1
+      - if @cart.discounted?
+        = "－¥#{@cart.discount_money}"
+    h2 
+      = "¥#{@cart.calculate_total_price}"
