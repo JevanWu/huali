@@ -119,7 +119,7 @@ class QuickPurchaseForm
   validates_with OrderCouponValidator, if: :validate_coupon?
   validates_with OrderDiscountableValidator, if: :validate_discountable?
   validates_with InstantDeliveryValidator
-  validates_with DistrictValidator, if: :invalid_expected_date?
+  validates_with DistrictValidator, if: :validation_date?, on: :create
 
 
   validates :expected_date, presence: true
@@ -177,8 +177,8 @@ class QuickPurchaseForm
     not_yet_shipped?
   end
 
-  def invalid_expected_date?
-    expected_date.present? && expected_date.between?('2015-02-07'.to_date, '2015-02-10'.to_date)
+  def validation_date?
+    Date.current.between?('2015-02-07'.to_date, '2015-02-10'.to_date)
   end
 
   def validate_discountable?
