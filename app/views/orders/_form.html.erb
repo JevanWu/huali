@@ -20,7 +20,8 @@
     <%= f.fields_for :address, @order_form.address do |builder|%>
       <%= builder.input :fullname, required: true, placeholder: '收件人姓名' %>
       <%= builder.input :phone, as: :simple_form_phone, required: true, placeholder: '收件人联系方式'  %>
-      <%= builder.input :province_id, collection: [], prompt: "请选择", required:true, hint: "如遇递送地址无法选择，请联系客服电话：400-087-8899", input_html: { 'data-placeholder' => '请选择', class: 'chosen' } %>
+      <% delivery_notice = Date.current > "2015-02-14".to_date ? "如遇递送地址无法选择，请联系客服电话：400-087-8899" : "非江浙沪地区已结单，如有疑问，请联系客服：400-087-889" %>
+      <%= builder.input :province_id, collection: [], prompt: "请选择", required:true, hint: delivery_notice, input_html: { 'data-placeholder' => '请选择', class: 'chosen' } %>
       <%= builder.input :city_id do %>
         <%= builder.input_field :city_id , collection: [], 'data-placeholder' => '请选择', class: 'chosen' %>
         <%= image_tag('loading.gif', class: 'loading') %>
