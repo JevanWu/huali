@@ -23,7 +23,12 @@ br
         = builder.input :fullname, required: true, placeholder: '收件花姓名', label: "收花人姓名"
         = builder.input :phone, as: :simple_form_phone, required: true, placeholder: '收花人手机号', label: '收花人手机' 
         p[style="padding-left: 180px; padding-bottom: 15px;"] 请填写收花人正确的手机号码，以备配送时紧急联系之用
-        = builder.input :province_id, collection: Province.quick_purchase_hash, prompt: "请选择", required:true, hint: "非江浙沪地区已截单，如有疑问，请联系客服：400-087-889", input_html: { 'data-placeholder' => '请选择', class: 'chosen' }
+
+
+        /= builder.input :province_id, collection: Province.quick_purchase_hash, prompt: "请选择", required:true, hint: "", input_html: { 'data-placeholder' => '请选择', class: 'chosen' }
+        / only jiang zhe hu
+        = builder.input :province_id, collection: { "上海市"=>9, "浙江省"=>11, "江苏省"=>10 }, prompt: "请选择", required:true, hint: "非江浙沪地区已截单，如有疑问，请联系客服：400-087-889", input_html: { 'data-placeholder' => '请选择', class: 'chosen' }
+
         = builder.input :city_id do
           = builder.input_field :city_id , collection: [], 'data-placeholder' => '请选择', class: 'chosen'
           = image_tag('loading.gif', class: 'loading')
