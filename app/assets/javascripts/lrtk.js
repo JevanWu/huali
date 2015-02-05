@@ -79,12 +79,10 @@ $(document).ready(function(){
     })
 
     $(function(){
-	 if ($.browser.msie) {
 	  $('input:checkbox').click(function () { 
 	   this.blur();   
-	   this.focus(); 
-	  });   
-	 };
+	   this.focus();  
+	 });
 	 $("#checkpromo").change(function() {
 	   $(".cart .view .total .promocode .inputcode").toggle('fast');
 	 });
