@@ -16,6 +16,15 @@
                     = link_to menu.name, menu.link 
                   - else 
                     = link_to menu.name, collection_products_path(menu.collection)
+                    - menu.children.each do |sub_menu|
+                      ul.sub
+                        - if sub_menu.collection.nil?
+                          li
+                            = link_to sub_menu.name, sub_menu.link 
+                        - else 
+                          li
+                            = link_to sub_menu.name, collection_products_path(sub_menu.collection)
+                      
       li.nav1-li
         = link_to "新闻", "/blog", class:"nav1-link"
       li.nav1-li
