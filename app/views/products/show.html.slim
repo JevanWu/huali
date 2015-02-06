@@ -29,26 +29,25 @@
         == render 'product_intro'
         == render 'shared/guess_you_like', related_products: @related_products
       .add-to-cart.span3
-        - cache("#{@product.cache_key}/add-to-cart") do
-          .product-title
-            - product_type = @product.product_type == "others" ? "" : "(#{@product.product_type_text})"
-            h3.product-name = "#{@product.name}#{product_type}"
-            h4.product-name-en = @product.name_en
-            - if @product.count_on_hand <= 0
-              .sold-out = "已售罄"
-            - unless @product.original_price.nil?
-              del
-                i
-                  = number_to_currency @product.original_price
-            p.price
-              = number_to_currency @product.price
-            p 免运费
-            - if @product.width? && @product.depth? && @product.height?
-              p.size 花盒尺寸(长度*宽度*高度)：#{@product.depth}cm*#{@product.width}cm*#{@product.height}cm
-          .share
-          /*  span = t(:sharing)*/
-          /*  = render 'shared/product_share_links', product: @product*/
-          = product_buy_link(@product, class: 'add-btn button', data: { product: @product.id }, onClick: "analytics.track('Added Product', { id: '#{@product.id}', name: '#{@product.name}', category: '#{@product.product_type_text}', price: #{@product.price}, currency: 'CNY', label: '#{@product.name}', quantity: 1 });")
+        .product-title
+          - product_type = @product.product_type == "others" ? "" : "(#{@product.product_type_text})"
+          h3.product-name = "#{@product.name}#{product_type}"
+          h4.product-name-en = @product.name_en
+          - if @product.count_on_hand <= 0
+            .sold-out = "已售罄"
+          - unless @product.original_price.nil?
+            del
+              i
+                = number_to_currency @product.original_price
+          p.price
+            = number_to_currency @product.price
+          p 免运费
+          - if @product.width? && @product.depth? && @product.height?
+            p.size 花盒尺寸(长度*宽度*高度)：#{@product.depth}cm*#{@product.width}cm*#{@product.height}cm
+        .share
+        /*  span = t(:sharing)*/
+        /*  = render 'shared/product_share_links', product: @product*/
+        = product_buy_link(@product, class: 'add-btn button', data: { product: @product.id }, onClick: "analytics.track('Added Product', { id: '#{@product.id}', name: '#{@product.name}', category: '#{@product.product_type_text}', price: #{@product.price}, currency: 'CNY', label: '#{@product.name}', quantity: 1 });")
         button.button#greeting-card-dialog
           | 发送电子贺卡
         == render 'product_greeting_card'
