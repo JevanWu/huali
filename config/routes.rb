@@ -147,6 +147,7 @@ Huali::Application.routes.draw do
   get 'perfume', to: 'pages#perfume'
   get 'movie', to: 'pages#movie'
   get 'cake_coupon', to: 'pages#cake_coupon'
+  get 'self_pickup', to: 'pages#self_pickup'
 
   get 'banners/:date', to: 'banners#index', as: :banners
   get 'stories', to: 'stories#index'

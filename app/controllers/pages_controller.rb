@@ -71,4 +71,7 @@ class PagesController < ApplicationController
   def cake_coupon
   end
 
+  def self_pickup
+  end
+
 end
