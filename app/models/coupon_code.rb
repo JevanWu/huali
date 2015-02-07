@@ -50,18 +50,18 @@ class CouponCode < ActiveRecord::Base
   end
 
   def use!
-    if available_count > 0 
-      available_count -= 1
-      used_count += 1
+    if self.available_count > 0
+      self.available_count -= 1
+      self.used_count += 1
     end
 
     save
   end
 
   def revert_use!
-    if used_count > 0 
-      available_count += 1
-      used_count -= 1
+    if self.used_count > 0
+      self.available_count += 1
+      self.used_count -= 1
     end
 
     save
