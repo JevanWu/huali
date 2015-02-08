@@ -12,6 +12,8 @@ $ ->
     link = $(@)
     pro = Cart.get link.data('product')
     Cart.update(id: pro.id, quantity: pro.quantity + 1)
+  $('button.add-btn').click (e) ->
+    window.location = $(this).attr('href')
 
   $('#quick_purchase_form').on 'ajax:beforeSend', ->
     $('.loading').show()
