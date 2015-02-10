@@ -23,9 +23,14 @@ class CartLineItem < ActiveRecord::Base
   belongs_to :product
 
   before_save :update_total_price
+  after_commit :update_cart!
 
   delegate :discount?, :sold_total, :img, :name, :name_en, :height, :width,
     :depth, :category_name, :published, :product_type, :product_type_text, :sku_id, to: :product
+
+  def update_cart!
+    self.cart.save
+  end
 
   def to_line_item
     LineItem.new(product_id: self.product_id,
