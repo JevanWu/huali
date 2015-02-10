@@ -70,9 +70,11 @@ class Cart < ActiveRecord::Base
     end
     total_price_value ? total_price_value : 0.00
   end
+
   def update_total_price
     self.total_price = self.calculate_total_price
   end
+
   def update_total_price!
     self.updated_column(:total_price, self.calculate_total_price)
   end
@@ -80,6 +82,7 @@ class Cart < ActiveRecord::Base
   def adjustment
     @adjustment ||= (self.valid_coupon_code? ? self.coupon_code.adjustment : nil)
   end
+
   def original_total_price
     cart_line_items.map(&:original_total_price).inject(:+)
   end
@@ -99,6 +102,7 @@ class Cart < ActiveRecord::Base
   def to_coupon_rule_opts
     { total_price: original_total_price, products: products }
   end
+
   def limited_promotion_today
     products.each do |p|
       return p.limited_promotion_today if p.limited_promotion_today
