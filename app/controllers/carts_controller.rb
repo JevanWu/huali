@@ -84,6 +84,7 @@ class CartsController < ApplicationController
     @cart = get_cart
     item = @cart.cart_line_items.find(params[:item_id])
     item.destroy
+    @cart.save
     redirect_to carts_show_path
   end
 
