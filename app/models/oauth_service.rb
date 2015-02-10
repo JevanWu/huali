@@ -17,6 +17,7 @@
 #
 
 
+
 class OauthService < ActiveRecord::Base
 
   # attr_accessible :provider, :uid

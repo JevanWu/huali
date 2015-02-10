@@ -20,6 +20,7 @@
 #
 
 
+
 class DefaultDateRule < DateRule
   validates :name, presence: true, uniqueness: true
 end

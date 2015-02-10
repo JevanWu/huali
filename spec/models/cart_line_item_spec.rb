@@ -17,6 +17,7 @@
 #
 
 
+
 require 'spec_helper'
 
 describe CartLineItem do

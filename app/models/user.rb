@@ -46,6 +46,7 @@
 #
 
 
+
 class User < ActiveRecord::Base
   include Phonelib::Extension
   # Include default devise modules. Others available are:

@@ -13,6 +13,7 @@
 #
 
 
+
 class Province < ActiveRecord::Base
   scope :available, -> { where available: true }
   scope :unavailable, -> { where available: false }

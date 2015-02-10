@@ -20,6 +20,7 @@
 #
 
 
+
 class LocalDateRule < DateRule
   belongs_to :product
 end

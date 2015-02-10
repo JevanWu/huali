@@ -27,6 +27,7 @@
 #
 
 
+
 class Story < ActiveRecord::Base
   scope :available, lambda { where(available: true) }
   scope :unavailable, lambda { where(available: false) }

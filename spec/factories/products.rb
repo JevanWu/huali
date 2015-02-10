@@ -47,6 +47,7 @@
 #
 
 
+
 FactoryGirl.define do
   factory :product, aliases: [:viewable] do
     name_zh { Forgery(:lorem_ipsum).word }

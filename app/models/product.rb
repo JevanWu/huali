@@ -47,6 +47,7 @@
 #
 
 
+
 class Product < ActiveRecord::Base
   extend Enumerize
 
