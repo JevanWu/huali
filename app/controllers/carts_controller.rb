@@ -60,21 +60,24 @@ class CartsController < ApplicationController
 
   def add_item_quantity
     @cart = get_cart
-    item = @cart.cart_line_items.find(params[:item_id])
-    item.quantity += 1
-    item.save
+    @item = @cart.cart_line_items.find(params[:item_id])
+    @item.quantity += 1
+    @item.save
     @cart.save
-    redirect_to carts_show_path
+    respond_to do  |format|
+      format.js { render 'update_cart', layout: false }
+    end
   end
-
   
   def reduce_item_quantity
     @cart = get_cart
-    item = @cart.cart_line_items.find(params[:item_id])
-    item.quantity -= 1
-    item.quantity == 0 ? item.destroy : item.save
+    @item = @cart.cart_line_items.find(params[:item_id])
+    @item.quantity -= 1
+    @item.quantity == 0 ? @item.destroy : @item.save
     @cart.save
-    redirect_to carts_show_path
+    respond_to do  |format|
+      format.js { render 'update_cart', layout: false}
+    end
   end
 
   def destroy_item
@@ -85,6 +88,7 @@ class CartsController < ApplicationController
   end
 
   private
+
   def get_cart
     return @nav_cart if @nav_cart
     cart = Cart.find_by user_id: current_or_guest_user.id
