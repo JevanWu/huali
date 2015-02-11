@@ -51,7 +51,7 @@
 class Product < ActiveRecord::Base
   extend Enumerize
 
-  paginates_per 12
+  paginates_per 9
 
   attr_accessor :quantity
 
