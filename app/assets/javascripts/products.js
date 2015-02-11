@@ -1,0 +1,24 @@
+$(document).ready(function(){
+  $(".btn-filter").click(function(e){ 
+    $(".filter").slideDown(500);
+    $(document).click(function(){ 
+      $(".filter").slideUp(500);
+    e.stopPropagation();
+    });
+  });
+  $(".btn-filter,.filter").on("click", function(e){
+    e.stopPropagation();
+  });
+  $(".type-link,.color-link,.price-link").click(function(){
+  	 $(".product-type,.product-color,.product-price").hide(0);
+  }); 
+  $(".type-link").click(function(){
+  	 $(".product-type").show(0);
+  }); 
+  $(".color-link").click(function(){
+  	 $(".product-color").show(0);
+  }); 
+  $(".price-link").click(function(){
+  	 $(".product-price").show(0);
+  }); 
+});

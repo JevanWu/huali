@@ -1,0 +1,83 @@
+#greeting-card-dialog-overlay
+  width: 100%
+  height: 100%
+  filter: alpha(opacity=50)
+  -moz-opacity: 0.5
+  -khtml-opacity: 0.5
+  opacity: 0.5
+  background: #000
+  position: absolute
+  top: 0
+  left: 0
+  z-index: 3000
+  display: none
+
+#greeting-card-dialog-box
+  background: #eee
+  height: 417px
+  width: 721px
+  position: absolute
+  z-index: 5000
+  display: none
+  .dialog-header
+    padding-top: 5px
+    background-color: #000
+    color: #fff
+    height: 30px
+    width: 100%
+    font-size: 18px
+    text-align: center
+    .close-dialog
+      float: right
+      padding-right: 10px
+      cursor: pointer
+  .dialog-container
+    position: relative
+    width: 100%
+    .header
+      margin: 30px 10px 10px 10px
+      h4
+        font-size: 15px
+        text-align: center
+    .product
+      margin: 0 0 0 10px!important
+      padding: 0!important
+      float: left
+      width: 200px
+    .form
+      border-left: 1px dotted
+      border-color: #d0d0d0
+      margin: 10px 30px 40px 10px
+      padding: 10px 60px 30px 10px
+      float: right
+      width: 300px
+      .message
+        margin-left: 5px
+      .form-horizontal
+        padding-top: 10px
+        .control-text-field-email
+          margin: 5px 5px 5px 5px
+          padding: 5px 5px 5px 5px
+          width: 215px
+        .control-text-field-nickname
+          margin: 5px 5px 5px 5px
+          padding: 5px 5px 5px 5px
+          width: 40px
+        .control-text-area
+          margin: 15px 15px 15px 5px
+          padding: 5px 5px 5px 5px
+          height: 60px
+          width: 264px
+    #greeting-card-btn
+      float: right
+      margin-right: 5px
+      margin-top: 5px
+      border: 1px black solid
+      background: transparent
+      border-radius: 4px
+      margin-right: 5px
+      cursor: pointer
+    #greeting-card-btn-cancle
+      float: right
+      margin-right: 15px
+      margin-top: 5px

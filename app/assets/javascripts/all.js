@@ -5,3 +5,5 @@
 //= require 'lrtk'
 //= require 'focusjs'
 //= require 'brand'
+//= require 'products'
+//= require 'module/greeting-card-dialog'

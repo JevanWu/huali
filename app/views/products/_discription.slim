@@ -15,7 +15,7 @@
         = f.input :product_id, as: :hidden, input_html: { value: @product.id }
         = f.input :quantity, as: :hidden, input_html: { value: "1" }
         = f.submit "放入购物车", class: "button"
-      button type="button" 发送电子贺卡 >
+      =render 'products/product_greeting_card'
       .shareto
         =render 'module/share_to'
     .keep

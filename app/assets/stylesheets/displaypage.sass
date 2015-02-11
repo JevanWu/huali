@@ -1,15 +1,49 @@
 .producttitle
   .left
     float: left
+    margin-left: 20px
   .right
     float: right
+    .btn-filter
+      display: block
+      background-image: image-url('filter.png')
+      background-repeat: no-repeat
+      width: 34px
+      height: 37px
+      color: white
+      padding-top: 10px
+      padding-left: 4px
     .filter
+      border-top: 1px rgba(0,0,0,0.1) solid
+      border-top-style: dotted
+      z-index: 999
       position: absolute
       width: 100%
-      background: rgba(255,255,255,0.7)
+      background: rgba(255,255,255,0.9)
       left: 0
       top: 115px
       text-align: center
+      display: none
+      .filter-level-one
+        height: 33px
+        padding-top: 19px
+        border-bottom: 1px rgba(0,0,0,0.1) solid
+        border-bottom-style: dotted
+      .product-type
+        display: block
+        height: 36px
+        padding-top: 19px
+      .product-color
+        display: none
+        height: 36px
+        padding-top: 19px
+      .product-price
+        display: none
+        height: 36px
+        padding-top: 19px
+    a
+      margin-left: 10px
+      margin-right: 10px
       
 .displaypage
   .list
