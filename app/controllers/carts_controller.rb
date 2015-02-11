@@ -5,7 +5,6 @@ class CartsController < ApplicationController
     item = @cart.get_item_by(cart_line_items_params[:product_id])
     item ? item.quantity += 1 : item = @cart.cart_line_items.new(cart_line_items_params)
     item.save
-    @cart.save
     redirect_to carts_show_path
   end
 
@@ -63,7 +62,6 @@ class CartsController < ApplicationController
     @item = @cart.cart_line_items.find(params[:item_id])
     @item.quantity += 1
     @item.save
-    @cart.save
     respond_to do  |format|
       format.js { render 'update_cart', layout: false }
     end
@@ -74,7 +72,6 @@ class CartsController < ApplicationController
     @item = @cart.cart_line_items.find(params[:item_id])
     @item.quantity -= 1
     @item.quantity == 0 ? @item.destroy : @item.save
-    @cart.save
     respond_to do  |format|
       format.js { render 'update_cart', layout: false}
     end
