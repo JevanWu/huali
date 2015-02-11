@@ -8,6 +8,14 @@ module ProductsHelper
     link_to(name, '#', class: "add_fields", data: {id: id, fields: fields.gsub('\n', '')})
   end
 
+  def filter_path(collection, flower_type_param, color_param, price_param)
+    if collection.present?
+      collection_products_path(collection, flower_type: flower_type_param, color: color_param, price_span: price_param)
+    else
+      products_path(flower_type: flower_type_param, color: color_param, price_span: price_param)
+    end
+  end
+
 =begin
   def product_buy_link(product, options, is_mobile = false)
     link, sold_out_text = nil, nil
