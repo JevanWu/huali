@@ -3,3 +3,5 @@
   .list
     - @products.take(9).each do |product|
       = render 'product', product: product
+  .pager
+    == paginate @products
