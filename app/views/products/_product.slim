@@ -1,6 +1,7 @@
 .productdisplay
-  .limited
-  	p 限量
+  - if product.promo_tag == "limit"
+    .limited
+      p 限量
   - if product.sold_out?
     .soldoutoverlay
       a href = "#"
