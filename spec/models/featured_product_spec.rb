@@ -20,6 +20,7 @@
 #
 
 
+
 require 'spec_helper'
 
 describe FeaturedProduct do

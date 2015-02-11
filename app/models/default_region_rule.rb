@@ -19,6 +19,7 @@
 #
 
 
+
 class DefaultRegionRule < RegionRule
   validates :name, presence: true, uniqueness: true
 end

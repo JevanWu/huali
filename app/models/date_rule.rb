@@ -20,6 +20,7 @@
 #
 
 
+
 class DateRule < ActiveRecord::Base
   serialize :included_dates, Array
   serialize :excluded_dates, Array

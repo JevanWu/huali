@@ -18,6 +18,7 @@
 #
 
 
+
 class Menu < ActiveRecord::Base
   belongs_to :collection
   validates :name, presence: true

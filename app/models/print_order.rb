@@ -18,6 +18,7 @@
 #
 
 
+
 class PrintOrder < ActiveRecord::Base
   belongs_to :order
   belongs_to :print_group
