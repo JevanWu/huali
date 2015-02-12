@@ -1,52 +1,71 @@
 .producttitle
+  height: 39px
+  margin: auto
+  width: 1080px
   .left
     float: left
-    margin-left: 20px
+    margin-left: 9px
   .right
     float: right
+    margin-right: 10px
     .btn-filter
       display: block
+      z-index: 999
       background-image: image-url('filter.png')
       background-repeat: no-repeat
       width: 34px
-      height: 37px
+      height: 27px
       color: white
       padding-top: 10px
       padding-left: 4px
-    .filter
-      border-top: 1px rgba(0,0,0,0.1) solid
-      border-top-style: dotted
-      z-index: 999
-      position: absolute
-      width: 100%
-      background: rgba(255,255,255,0.9)
-      left: 0
-      top: 115px
-      text-align: center
-      display: none
-      .filter-level-one
-        height: 33px
-        padding-top: 19px
-        border-bottom: 1px rgba(0,0,0,0.1) solid
-        border-bottom-style: dotted
-      .product-type
-        display: block
-        height: 36px
-        padding-top: 19px
-      .product-color
-        display: none
-        height: 36px
-        padding-top: 19px
-      .product-price
-        display: none
-        height: 36px
-        padding-top: 19px
-    a
-      margin-left: 10px
-      margin-right: 10px
-      
+.filter
+  border-top: 1px rgba(0,0,0,0.1) solid
+  border-top-style: dotted
+  z-index: 998
+  width: 100%
+  background: rgba(16, 14, 11, 0.9)
+  left: 0
+  top: 117px
+  display: none
+  padding-bottom: 18px
+  .filter-level-one
+    display: none
+    height: 33px
+    padding-top: 29px
+    border-bottom: 1px rgba(0,0,0,0.1) solid
+    border-bottom-style: dotted
+  .product-type
+    display: block
+    height: 25px
+    padding-top: 29px
+    width: 1080px
+    margin: auto
+  .product-color
+    height: 25px
+    width: 1080px
+    margin: auto
+  .product-price
+    height: 25px
+    width: 1080px
+    margin: auto
+  a
+    margin-left: 10px
+    margin-right: 10px
+    color: white
+  .active
+    color: orange
 .displaypage
   .list
     margin: auto
     width: 1120px
-    height: 1400px
+    min-height: 300px
+  .pager
+    width: 400px
+    margin: 0 auto
+    padding-left: 700px
+    text-align: right
+    li
+      display: inline
+      margin-left: 10px
+
+

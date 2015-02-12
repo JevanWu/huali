@@ -3,26 +3,26 @@
     p 商店 ｜ 类别
   .right
     a.btn-filter href="#" 筛选
-    .filter
-      .filter-level-one
-        = link_to "所有", products_path
-        = link_to "类型", "#", class: "type-link"
-        = link_to "颜色", "#", class: "color-link"
-        = link_to "价格", "#", class: "price-link"
-      .product-type
-        = link_to "所有", filter_path(@collection, nil, params[:color], params[:price_span])
-        - Product.flower_type.options.each do |text, value|
-          = link_to text, filter_path(@collection, value, params[:color], params[:price_span]), class: params[:flower_type] == value ? 'active' : ''
-      .product-color
-        = link_to "所有", filter_path(@collection, params[:flower_type], nil, params[:price_span])
-        - Product.published.reorder('').tag_counts_on(:colors).each do |tag|
-          = link_to tag.name, filter_path(@collection, params[:flower_type], tag.name, params[:price_span]), class: params[:color] == tag.name ? 'active' : ''
-      .product-price
-        = link_to "所有", filter_path(@collection, params[:flower_type], params[:color], nil)
-        = link_to "0~299", filter_path(@collection, params[:flower_type], params[:color], '0,299'), class: params[:price_span] == '0,299' ? 'active' : ''
-        = link_to "300~399", filter_path(@collection, params[:flower_type], params[:color], '300,399'), class: params[:price_span] == '300,399' ? 'active' : ''
-        = link_to "400~499", filter_path(@collection, params[:flower_type], params[:color], '400,499'), class: params[:price_span] == '400,499' ? 'active' : ''
-        = link_to "500~899", filter_path(@collection, params[:flower_type], params[:color], '500,899'), class: params[:price_span] == '500,899' ? 'active' : ''
-        = link_to "900~1999", filter_path(@collection, params[:flower_type], params[:color], '900,1999'), class: params[:price_span] == '900,1999' ? 'active' : ''
-        = link_to "我是土豪", filter_path(@collection, params[:flower_type], params[:color], '2000,99999999'), class: params[:price_span] == '2000,99999999' ? 'active' : ''
+.filter
+  .filter-level-one
+    = link_to "所有", products_path
+    = link_to "类型", "#", class: "type-link"
+    = link_to "颜色", "#", class: "color-link"
+    = link_to "价格", "#", class: "price-link"
+  .product-type
+    = link_to "所有", filter_path(@collection, nil, params[:color], params[:price_span])
+    - Product.flower_type.options.each do |text, value|
+      = link_to text, filter_path(@collection, value, params[:color], params[:price_span]), class: params[:flower_type] == value ? 'active' : ''
+  .product-color
+    = link_to "所有", filter_path(@collection, params[:flower_type], nil, params[:price_span])
+    - Product.published.reorder('').tag_counts_on(:colors).each do |tag|
+      = link_to tag.name, filter_path(@collection, params[:flower_type], tag.name, params[:price_span]), class: params[:color] == tag.name ? 'active' : ''
+  .product-price
+    = link_to "所有", filter_path(@collection, params[:flower_type], params[:color], nil)
+    = link_to "0~299", filter_path(@collection, params[:flower_type], params[:color], '0,299'), class: params[:price_span] == '0,299' ? 'active' : ''
+    = link_to "300~399", filter_path(@collection, params[:flower_type], params[:color], '300,399'), class: params[:price_span] == '300,399' ? 'active' : ''
+    = link_to "400~499", filter_path(@collection, params[:flower_type], params[:color], '400,499'), class: params[:price_span] == '400,499' ? 'active' : ''
+    = link_to "500~899", filter_path(@collection, params[:flower_type], params[:color], '500,899'), class: params[:price_span] == '500,899' ? 'active' : ''
+    = link_to "900~1999", filter_path(@collection, params[:flower_type], params[:color], '900,1999'), class: params[:price_span] == '900,1999' ? 'active' : ''
+    = link_to "我是土豪", filter_path(@collection, params[:flower_type], params[:color], '2000,99999999'), class: params[:price_span] == '2000,99999999' ? 'active' : ''
 

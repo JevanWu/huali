@@ -1,10 +1,18 @@
 $(document).ready(function(){
   $(".btn-filter").click(function(e){ 
-    $(".filter").slideDown(500);
-    $(document).click(function(){ 
-      $(".filter").slideUp(500);
-    e.stopPropagation();
-    });
+    if ($(".filter").css("display") == 'none')
+    {
+      $(".filter").slideDown(200);
+      
+      $(document).click(function(){ 
+        $(".filter").slideUp(200);
+      e.stopPropagation();
+      });
+    }
+    else
+    {
+      $(".filter").slideUp(200);
+    }
   });
   $(".btn-filter,.filter").on("click", function(e){
     e.stopPropagation();

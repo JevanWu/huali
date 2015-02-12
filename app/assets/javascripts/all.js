@@ -7,3 +7,4 @@
 //= require 'brand'
 //= require 'products'
 //= require 'module/greeting-card-dialog'
+//= require 'nav'
