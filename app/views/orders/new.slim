@@ -1,12 +1,7 @@
 = render 'back_order_assets'
 = render 'product_ids', cart: @cart
 
-.header
-  .logo
-    = link_to image_tag("logo.png"), root_path
-  .create
-    h3 创建订单
-    p CREATE YOUR ORDER
+= render "header", content_zh: "创建订单", content_en: "CREATE YOUR ORDER"
 .orderspace
   .inform
     = render 'list'
@@ -14,14 +9,5 @@
       = render 'warning'
     = render 'mail'
     = render 'form'
-.footer
-  .line2
-    p 周一至周六 9:00-21:00
-  .line3
-    a href="#" 关于我们
-    a href="#" 配送信息
-    a href="#" 帮助中心
-    a href="#" 联系客服
-    a href="#" 版权声明
-  .line4
-    p Rights Reserved. 2012 - 2014 © 花里花店
+
+= render "footer"
