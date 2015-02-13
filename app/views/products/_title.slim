@@ -4,15 +4,10 @@
   .right
     a.btn-filter href="#" 筛选
 .filter
-  .filter-level-one
-    = link_to "所有", products_path
-    = link_to "类型", "#", class: "type-link"
-    = link_to "颜色", "#", class: "color-link"
-    = link_to "价格", "#", class: "price-link"
   .product-type
-    = link_to "所有", filter_path(@collection, nil, params[:color], params[:price_span])
+    = link_to "所有", filter_path(@collection, nil, params[:color], params[:price_span]), remote: true
     - Product.flower_type.options.each do |text, value|
-      = link_to text, filter_path(@collection, value, params[:color], params[:price_span]), class: params[:flower_type] == value ? 'active' : ''
+      = link_to text, filter_path(@collection, value, params[:color], params[:price_span]), remote: true, class: params[:flower_type] == value ? 'active' : ''
   .product-color
     = link_to "所有", filter_path(@collection, params[:flower_type], nil, params[:price_span])
     - Product.published.reorder('').tag_counts_on(:colors).each do |tag|

@@ -1,11 +1,14 @@
 .cart
-  button
+  .button
     font-weight: bold
     border: 1px black solid
     background: transparent
     border-radius: 4px
     cursor: pointer
     padding-left: 10px
+    padding-top: 5px
+    padding-right: 10px
+    padding-bottom: 3px
   .empty
     font-weight: bold
     margin: 118px 0 118px 0
@@ -96,7 +99,7 @@
           display: none
           position: absolute
           top: 47px
-          left: 161px
+          left: 170px
           .promo
             margin-left: 10px
             margin-right: 10px
@@ -105,8 +108,17 @@
             border: 1px #BFBEBE solid
           .usepromo
             padding-right: 10px
-            background-color: black
+            background-color: rgba(16, 14, 11, 1)
             color: white
+          .btn-discount
+            background-color: rgba(16, 14, 11, 1)
+            color: white
+            border: none
+            border-radius: 4px
+            margin-left: 5px
+          .cart_coupon_code
+            display: inline-block
+
       .proceed
         display: inline-block
         position: absolute
