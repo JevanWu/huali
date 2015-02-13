@@ -61,7 +61,7 @@ class CartsController < ApplicationController
     @cart = get_cart
     @item = @cart.cart_line_items.find(params[:item_id])
     @item.quantity += 1
-    @item.save and @cart = @item.cart #@item.cart is change after committing @item
+    @item.save and @cart = @item.cart #@item.cart is changed after committing @item
     respond_to do  |format|
       format.js { render 'update_cart', layout: false }
     end
@@ -71,7 +71,7 @@ class CartsController < ApplicationController
     @cart = get_cart
     @item = @cart.cart_line_items.find(params[:item_id])
     @item.quantity -= 1
-    @item.quantity == 0 ? @item.destroy : @item.save and @cart = @item.cart #@item.cart is change after committing @item
+    @item.quantity == 0 ? @item.destroy : @item.save and @cart = @item.cart #@item.cart is changed after committing @item
     respond_to do  |format|
       format.js { render 'update_cart', layout: false}
     end

@@ -3,7 +3,7 @@
     h2 购物车
   .cartlist
     - @cart.cart_line_items.each do |item|
-      = render 'incart', item: item
+      = render 'item_row', item: item
   .total
     .count
       p 总计
