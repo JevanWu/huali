@@ -6,7 +6,7 @@
   p.subtotal
     | 小计
     span.total-num
-    |（<i>#{@cart.items_size}</i>件商品）：
+    |（<i>#{@cart.total_quantity}</i>件商品）：
     strong.total-price
       = number_to_currency @cart.total_price
   - if @cart.discounted?

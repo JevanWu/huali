@@ -55,7 +55,7 @@ $(document).ready(function(){
 	   this.focus();  
 	 });
 	 $("#checkpromo").change(function() {
-	   $(".cart .view .total .promocode .inputcode").toggle('fast');
+	   $(".cart .view .total .promocode .inputcode").toggle(0);
 	 });
 	}); 
 })

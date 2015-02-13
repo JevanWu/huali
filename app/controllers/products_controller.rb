@@ -63,6 +63,7 @@ class ProductsController < ApplicationController
     respond_to do |format|
       format.html { render 'index' }
       format.json { render json: @products }
+      format.js { render 'filter', layout: false}
     end
   end
 

@@ -1,4 +1,4 @@
-.incart
+.incart id="item-row-#{item.id}"
   .pic
     = image_tag item.product.assets.first.image.url
   .name
@@ -8,7 +8,7 @@
       = item.product.name_en
   .price
     p 
-      = "¥#{item.total_price}"
+      = "¥#{item.unit_price}"
 
     p
       - if item.on_stock?
@@ -39,4 +39,4 @@
       = "¥#{item.total_price}"
   .delete
     a href = "#"
-      = button_to "x", destroy_cart_item_path(item), method: :delete, class: 'empty_quantity'
+      = button_to "x", destroy_cart_item_path(item), method: :delete, class: 'empty_quantity', remote: true
