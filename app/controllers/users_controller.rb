@@ -6,11 +6,6 @@ class UsersController < ApplicationController
   respond_to :json, :html
 
 
-  def account
-    @user = current_user
-    @point_transactions = current_user.point_transactions.order(:created_at).page(params[:page]).per(3)
-  end
-
   def edit_profile
     @user = current_user
   end
@@ -26,7 +21,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def edit_account
+  def account
     @user = current_user
   end
 

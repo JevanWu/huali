@@ -1,0 +1,56 @@
+.account-info
+  .tab-list
+    ul
+      li#account-setting
+        = link_to "个人设置", "#", class: "account-setting-link"
+      li#order
+        = link_to "我的订单", "#", class: "order-link"
+      li.now#hua-point
+        = link_to "花点", "#", class: "hua-point-link"
+      li#invite
+        = link_to "邀请", "#", class: "invite-link"
+
+  .hua-point
+    h3
+      = "我的花点: #{current_user.huali_point}点" 
+    p ＊提示: 所获得花点会在第二年的年底清零，请注意使用！每一个花点分别从各自所获得日期开始计算
+    .hua-point-get
+      .title
+        h3 花点记录
+      .description
+        span.time 时间
+        span.code 订单编号
+        span.depict 交易描述
+        span.point 花点数
+        span.due 过期时间
+      - @point_transactions.each do |transaction|
+        .point-data
+          span.time 
+            = transaction.created_at.to_date.to_formatted_s(:db)
+          span.code
+            - if transaction.transaction
+              = link_to "#{transaction.transaction.order.identifier}", order_path(transaction.transaction.order)
+          span.depict
+            = transaction.description
+          span.point
+            - if transaction.transaction_type == "income"
+              td.income
+                = "+#{transaction.point}"
+            - else
+              td
+                = "-#{transaction.point}"
+          span.due
+            = transaction.expires_on
+    .pagination
+      .previous-page
+        = link_to_previous_page @point_transactions, '上一页'
+      = paginate @point_transactions
+      .next-page
+        = link_to_next_page @point_transactions, '下一页'
+    h3 什么是花点？
+    p 花点是流通于花里官网，可用于抵扣或兑换花里产品的积分，1点花点在花里等价于1元人民币
+    h3 如何获得花点？
+    p 方式一：每购得一件商品，确认收货后您将获得该商品价格1%的花点（例子：购买单价为300的花盒，您将会获得3个花点）
+    p 方式二：通过Email邀请好友，每5位好友通过您的邀请链接成功注册成为花里官网会员，在您5位好友完成首次购买后，您将得到400个   花点的奖励！
+    a.btn-submit href = "#" 选购
+    a.btn-submit href = "#" 邀请

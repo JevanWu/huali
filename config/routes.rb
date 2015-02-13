@@ -111,14 +111,13 @@ Huali::Application.routes.draw do
   post 'users/subscribe_email', to: 'users#subscribe_email'
   get 'users/account', to: 'users#account', as: :account
   get 'users/new_binding_account', to: 'users#new_binding_account'
+  get 'users/huali_point', to: 'users#huali_point', as: :huali_point
+  get 'users/refer_friend', to: 'users#refer_friend', as: :refer_friend
   post 'users/binding_account', to: 'users#binding_account'
 
   get 'settings/profile', to: 'users#edit_profile'
   patch 'settings/profile', to: 'users#update_profile'
-  get 'settings/admin', to: 'users#edit_account'
   patch 'account/password', to: 'users#update_password'
-  get 'settings/huali_point', to: 'users#huali_point', as: :huali_point
-  get 'settings/refer_friend', to: 'users#refer_friend', as: :refer_friend
 
   match "/contacts/:importer/callback" => "users#omnicontacts_callback", via: [:get, :post]
   match '/contacts/failure', to: 'users#omnicontacts_failure', via: [:get, :post]

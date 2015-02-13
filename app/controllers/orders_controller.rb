@@ -14,6 +14,7 @@ class OrdersController < ApplicationController
   before_action :get_cart, only: [:new, :channel_order_new, :back_order_new, :back_order_create, :channel_order_create, :b2b_order_new, :b2b_order_create, :secoo_order_new, :create]
 
   def index
+    @user = current_user
     @orders = current_or_guest_user.orders
   end
 
