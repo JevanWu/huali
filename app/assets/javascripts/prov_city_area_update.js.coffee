@@ -65,8 +65,10 @@ $ ->
     province_id = $(@).val()
     if province_id == null
       normalDateShift = if (new Date().getHours() >= 17) then '+3D' else '+2D'
-    else if province_id == "9" || province_id == "10" || province_id == "11"
+    else if province_id == "10" || province_id == "11"
       normalDateShift = if (new Date().getHours() >= 17) then '+2D' else '+1D'
+    else if province_id == '9'
+      normalDateShift = '+0D'
     else
       normalDateShift = if (new Date().getHours() >= 17) then '+3D' else '+2D'
 
