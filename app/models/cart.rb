@@ -42,7 +42,7 @@ class Cart < ActiveRecord::Base
   def has_discounted_items?
     get_line_items.any? { |item| item.product.discount? }
   end
-  def items_size
+  def total_quantity
     cart_line_items.map(&:quantity).inject(0) { |i1, i2| i1 + i2 }
   end
   def get_item_by(product_id)

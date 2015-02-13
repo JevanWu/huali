@@ -11,7 +11,7 @@
       li.cart-li-preview
         = fa_icon 'shopping-cart'
         a.cart href="#{carts_show_path}"
-          = "(#{@nav_cart ? @nav_cart.items_size : 0})"
+          = "(#{@nav_cart ? @nav_cart.total_quantity : 0})"
         .cart-preview-container
           .cart-preview
             - if @nav_cart.nil?
