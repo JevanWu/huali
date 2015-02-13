@@ -17,6 +17,6 @@
         = f.submit "放入购物车", class: "button"
       =render 'products/product_greeting_card'
       .shareto
-        =render 'module/share_to'
+        = render 'module/share_to', product: @product
     .keep
       = markdown @product.delivery
