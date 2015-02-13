@@ -1,0 +1,6 @@
+<% if @cart.total_quantity == 0 %>
+  $("#cart-table").replaceWith('<%= render "empty" %>')
+<% else %>
+  $("#item-row-<%= @item.id %>").remove()
+  <%= render 'update_cart_total_price' %>
+<% end %>
