@@ -1,2 +1,3 @@
 $("input#number_<%= @item.id %>").val("<%= @item.quantity %>")
 $(".total_<%= @item.id %> > p").text("<%= @item.total_price %>")
+$("#cart-total-price").text("¥<%= @cart.total_price %>")

@@ -7,8 +7,8 @@
   .total
     .count
       p 总计
-      p 
-        = "¥ #{@cart.calculate_total_price}"
+      p#cart-total-price
+        = "¥#{@cart.total_price}"
     .promocode
       input.checkpromo type="checkbox" name="checkpromo" id="checkpromo"
       span 使用优惠码 PROMO CODE
