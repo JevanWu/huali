@@ -86,7 +86,7 @@ zh-CN:
         product_of_invalid_quantity: '%{product_name}数量不能小于等于0'
         product_out_of_stock: '%{product_name}库存不足，可用库存%{count_on_hand}'
         product_in_unavailable_date: '%{product_name}无法在该递送日期配送'
-        valentines_day_2015: '2015年2月13/14日情人节期间，只支持配送到上海市静安区，且只支持自提货物'
+        valentines_day_2015: '2015年2月13、14日情人节期间订单已截单，自提请至愚园路546号或K11'
         product_in_unavailable_region: '%{product_name}无法配送到该区域'
         product_not_discountable: "对不起! 产品 %{product_name} 是不参与打折的"
         contains_products_not_discountable: "购物车有不参与打折的产品"
