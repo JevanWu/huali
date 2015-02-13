@@ -9,7 +9,5 @@ $(document).ready(function(){
       $(".filter").slideUp(200);
     }
   });
-  $(document).not(.filter).click(function(){
-      $(".filter").slideUp(200);
-  });
+
 });
