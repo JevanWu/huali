@@ -11,10 +11,10 @@ class OrderProductDateValidator < OrderProductBaseValidator
         order_error ||= :unavailable_date
       end
 
-      if unavailable_provinces_of_valentines_day?(order)
-        line_item.errors.add(:base, :valentines_day_2015, product_name: product.name)
-        order_error ||= :unavailable_date
-      end
+      #if unavailable_provinces_of_valentines_day?(order)
+        #line_item.errors.add(:base, :valentines_day_2015, product_name: product.name)
+        #order_error ||= :unavailable_date
+      #end
 
       [:expected_date, order_error]
     end
