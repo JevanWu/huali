@@ -5,7 +5,6 @@ class UsersController < ApplicationController
     except: [:check_user_exist, :subscribe_email, :omnicontacts_callback, :omnicontacts_failure, :profile]
   respond_to :json, :html
 
-
   def edit_profile
     @user = current_user
   end
@@ -23,6 +22,11 @@ class UsersController < ApplicationController
 
   def account
     @user = current_user
+  end
+
+  def orders
+    @user = current_user
+    @orders = current_or_guest_user.orders
   end
 
   def update_password

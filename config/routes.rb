@@ -110,6 +110,7 @@ Huali::Application.routes.draw do
   get 'users/check_user_exist', to: 'users#check_user_exist'
   post 'users/subscribe_email', to: 'users#subscribe_email'
   get 'users/account', to: 'users#account', as: :account
+  get 'users/orders', to: 'users#orders', as: :user_orders
   get 'users/new_binding_account', to: 'users#new_binding_account'
   get 'users/huali_point', to: 'users#huali_point', as: :huali_point
   get 'users/refer_friend', to: 'users#refer_friend', as: :refer_friend
