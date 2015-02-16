@@ -1,3 +1,5 @@
+require 'uri'
+
 class ProductsController < ApplicationController
   before_action :fetch_collection, only: [:index, :tagged_with]
   before_action :justify_wechat_agent, only: [:show]
@@ -57,6 +59,12 @@ class ProductsController < ApplicationController
     @products = @products.where(price: Range.new(*params[:price_span].split(',').map(&:to_i))) if params[:price_span].present?
     @products = @products.uniq.page(params[:page]).order_by_priority
 
+    @partial = "list"
+    @params = "products"
+    @params += "?flower_type=#{params[:flower_type]}" if params[:flower_type].present?
+    @params += "&color=#{params[:color]}" if params[:color].present? 
+    @params += "&price_span=#{params[:price_span]}" if params[:price_span].present? 
+    @params = URI.escape(@params)
     prepare_tag_filter
     fetch_order_by
 

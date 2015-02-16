@@ -80,7 +80,7 @@
 				doc = elem.contentDocument || (elem.contentWindow || elem).document,
 				isWin = elem.setInterval;
 
-			return elem.nodeName == 'IFRAME' || isWin && $.browser.safari ? doc.body
+			return elem.nodeName == 'IFRAME' || isWin ? doc.body
 				: isWin ? doc.documentElement
 				: this;
 		});

@@ -1,1 +1,2 @@
-alert('a')
+$(".list").html("<%= j(render partial: @partial) %>"); 
+history.pushState({title: "<%= @partial %>"}, "", "<%= @params %>")
