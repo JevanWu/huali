@@ -30,6 +30,8 @@
         <%= builder.input_field :area_id , collection: [], 'data-placeholder' => '请选择', class: 'chosen' %>
         <%= image_tag('loading.gif', class: 'loading') %>
       <% end %>
+
+      <p style="padding-left: 180px; padding-left: 90px; padding-bottom: 15px; color: red;">2015年2月15日至2月25日春节期间无法正常派送，敬请谅解。</p>
       <%= builder.input :address, as: 'text', required:true, input_html: { rows: 3 }, placeholder: '详细地址' %>
       <%= f.input :instant_delivery, as: :boolean, hint: '90分钟送达需要收取而外费用' %>
       <%= builder.input :post_code, placeholder: '邮编', hint: %(<a id='query-postcode' href="#" target='_blank'>查询邮编</a>).html_safe %>

@@ -44,14 +44,12 @@ module Extension
       # custom_menu.add_child(Menu.new('花里博客', nil, :link, blog_path))
       # @menu_list << custom_menu
       @menu_list << Menu.new("HualiGirls", "", :link, weibo_stories_path)
-      @menu_list << Menu.new("实体店", "", :link, offline_shop_path)
-      @menu_list << Menu.new("2.14订购须知", nil, :link, '/ordering-instructions')
-      @menu_list << Menu.new("情人节自提", nil, :link, '/self_pickup')
+      @menu_list << Menu.new("实体店铺", "", :link, offline_shop_path)
+      @menu_list << Menu.new("商务定制", "", :link, blog_path)
     end
 
     def prepare_menu_list
-      @menu_list << Menu.new("首页", nil, :link, '/')
-      @menu_list << Menu.new("情人节", nil, :link, '/collections/valentine-s-day')
+      @menu_list << Menu.new("花里首页", nil, :link, '/')
       build_collection_menus
       build_custom_link_menus
     end

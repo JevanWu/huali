@@ -10,6 +10,20 @@ $ ->
   else
     normalDateShift = if (new Date().getHours() >= 17) then '+3D' else '+2D'
 
+
+  # 2015 New Year festival
+  currentDay = new Date().getDate() 
+  currentMonth = new Date().getMonth() + 1
+  currentYear = new Date().getFullYear()
+  dateShift = 25 - currentDay
+
+  if currentYear == 2015 and currentMonth == 2 and currentDay < 25 
+    if province_id == "9" or province_id == "10" or province_id == "11"
+      normalDateShift = if (new Date().getHours() <= 17) then "+#{dateShift + 1}D" else "#{dateShift +2}D"
+    else
+      normalDateShift = if (new Date().getHours() <= 17) then "+#{dateShift + 2}D" else "#{dateShift +3}D"
+
+
   $('.datepicker').datepicker(
       gotoCurrent: true
       # shift order acceptance date after 15:00 every day

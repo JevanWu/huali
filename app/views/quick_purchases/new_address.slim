@@ -19,6 +19,8 @@ br
 
       legend
         | 收花人信息：
+      p[style="padding-left: 180px; padding-left: 90px; padding-bottom: 15px; color: red;"] 2015年2月15日至2月25日春节期间无法正常派送，敬请谅解。
+
       = f.fields_for :address, @quick_purchase_form.address do |builder|
         = builder.input :fullname, required: true, placeholder: '收件花姓名', label: "收花人姓名"
         = builder.input :phone, as: :simple_form_phone, required: true, placeholder: '收花人手机号', label: '收花人手机'
@@ -36,8 +38,8 @@ br
           = builder.input_field :area_id , collection: [], 'data-placeholder' => '请选择', class: 'chosen'
           = image_tag('loading.gif', class: 'loading')
         = builder.input :address, as: 'text', required:true, input_html: { rows: 3 }, placeholder: '详细地址'
-        p[style="padding-left: 180px; padding-bottom: 15px; color: red;"] 请正确选择您所需要配送地址对应的省份、城市、地区并填写详细的街道地址，
-        p[style="padding-left: 180px; padding-bottom: 15px; color: red;"] 错误的选择和填写可能会导致无法送达。
+        p[style="padding-left: 180px; padding-bottom: 15px"] 请正确选择您所需要配送地址对应的省份、城市、地区并填写详细的街道地址，
+        p[style="padding-left: 180px; padding-bottom: 15px"] 错误的选择和填写可能会导致无法送达。
         = builder.input :post_code, placeholder: '邮编', hint: %(<a id='query-postcode' href="#" target='_blank'>查询邮编</a>).html_safe
     .form-actions
       = f.button :submit, "下一步，选花", class: 'button btn80 next-step'

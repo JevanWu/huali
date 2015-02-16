@@ -11,10 +11,10 @@ class OrderProductDateValidator < OrderProductBaseValidator
         order_error ||= :unavailable_date
       end
 
-      if unavailable_provinces_of_valentines_day?(order)
-        line_item.errors.add(:base, :product_in_unavailable_date, product_name: product.name)
-        order_error ||= :unavailable_date
-      end
+      #if unavailable_provinces_of_valentines_day?(order)
+        #line_item.errors.add(:base, :valentines_day_2015, product_name: product.name)
+        #order_error ||= :unavailable_date
+      #end
 
       [:expected_date, order_error]
     end
@@ -39,10 +39,14 @@ class OrderProductDateValidator < OrderProductBaseValidator
 
   def unavailable_provinces_of_valentines_day?(order)
     puts order.address.province_id
-    [9,10,11].exclude?(order.address.province_id.to_i) && valentines_day?(order)
+    #[9,10,11].exclude?(order.address.province_id.to_i) && valentines_day?(order)
+    order.address.area_id != 787 and valentines_day?(order)
+  end
+
+  def unavailable_area_of_valentines_day?(order)
   end
 
   def valentines_day?(order)
-    ('2015-02-08'.to_date .. '2015-02-14'.to_date).include?(order.expected_date)
+    ('2015-02-13'.to_date .. '2015-02-14'.to_date).include?(order.expected_date)
   end
 end
