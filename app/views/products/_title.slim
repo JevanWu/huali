@@ -1,6 +1,7 @@
 .producttitle
-  .left
-    p 商店 ｜ 类别
+  - if @collection.present?
+    .left
+      p 商店 ｜#{@collection.name} 
   .right
     a.btn-filter href="#" 筛选
 .filter
