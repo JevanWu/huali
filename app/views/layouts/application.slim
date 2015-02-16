@@ -3,42 +3,21 @@ html
   head
     = favicon_link_tag 'favicon.ico'
     title = content_for?(:title) ? yield(:title) + ' ' : '花里花店 Huali Store'
-    meta charset="utf-8"
-    meta property="qc:admins" content="2121321547641"
-    meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"
-    meta name="Keywords" content="#{yield :keywords}"
-    meta name="Description" content="#{yield :description}"
-    meta content="on" http-equiv="cleartype"
     = stylesheet_link_tag 'pc', "data-turbolinks-track" => ''
     /[if IE 8]
       = stylesheet_link_tag 'ie8'
     /[if IE 7]
       = stylesheet_link_tag 'ie7'
-    = yield(:css)
 
-    = javascript_include_tag 'application'
-    = yield(:js)
-    javascript:
-      var _hmt = _hmt || [];
-        (function() {
-          var hm = document.createElement("script");
-          hm.src = "//hm.baidu.com/hm.js?f7c1cbf3d6b520dc128ae15221097a9c";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-        })();
-
+    = javascript_include_tag 'jquery', 'countdown'
   body
-    == render 'layouts/header'
-    == render 'layouts/nav'
-    == render 'layouts/banner'
-    .main-content
-      = content_for?(:blog) ? yield(:blog) : yield
-    #qq-customer-service.scroll-object
-      a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=2874898695&site=qq&menu=yes"
-        = image_tag("online-service.png", border: 0, alt: "点击这里即可在线询问", title: "点击这里即可在线询问")
-    == render 'layouts/footer'
-    = yield(:body_js)
-    /script#_mutmzc src="http://public.dmppro.cn/js/i.js?uid=qhv" type="text/javascript"
-    = render 'layouts/segmentio'
-    script type="text/javascript" src="http://a.ad7.com/js/i.js?uid=qzv" id="_mutmzc"
+    .countdown
+      =image_tag('countdown.jpg')
+      .hours
+        p.h id="hours" 0
+      .min
+        p.m id="mins" 0
+      .sec
+        p.s id="secs" 0
+
 

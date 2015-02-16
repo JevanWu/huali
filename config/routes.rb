@@ -148,6 +148,7 @@ Huali::Application.routes.draw do
   get 'movie', to: 'pages#movie'
   get 'cake_coupon', to: 'pages#cake_coupon'
   get 'self_pickup', to: 'pages#self_pickup'
+  get 'countdown', to: 'pages#countdown'
 
   get 'banners/:date', to: 'banners#index', as: :banners
   get 'stories', to: 'stories#index'

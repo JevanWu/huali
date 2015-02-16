@@ -74,4 +74,7 @@ class PagesController < ApplicationController
   def self_pickup
   end
 
+  def countdown
+  end
+
 end
