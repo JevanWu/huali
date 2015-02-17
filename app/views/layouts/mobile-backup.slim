@@ -20,11 +20,11 @@ html
     = yield(:js)
 
   body
-    .countdown
-      =image_tag('countdown-mobile.jpg')
-      .hours
-        p.h id="hours" 0
-      .min
-        p.m id="mins" 0
-      .sec
-        p.s id="secs" 0
+    == render 'layouts/header_mobile'
+    == render 'layouts/nav_mobile'
+    == render 'layouts/banner'
+    .main-content
+      == yield
+    == render 'layouts/footer_mobile'
+
+    = yield(:body_js)
