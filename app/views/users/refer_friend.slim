@@ -11,13 +11,13 @@
         = link_to "邀请", "#", class: "invite-link"
 
   .invite
-    span 好友邮箱
+    span.refer 好友邮箱
     = simple_form_for @user, :url => invitation_path(@user), :html => {:method => :post} do |f|
       p
         = f.input :email, label: false
 
       p
-        = f.submit t("devise.invitations.new.submit")
+        = f.submit t("devise.invitations.new.submit"), class: "submit"
     .from-third-party
       h3 导入联系人
       a href="#"

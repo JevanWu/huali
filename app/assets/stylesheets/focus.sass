@@ -1,19 +1,25 @@
-.banner-box
+.fullSlide
+  width: 100%
   position: relative
-  overflow: hidden
-  height: 600px
+  height: 594px
+  background: #000
   .bd
-    width: 100% !important
+    margin: 0 auto
+    position: relative
+    z-index: 0
+    overflow: hidden
     ul
-      margin: 0 
-    li .m-width 
-      width: 100%
-      margin: 0 auto
-      overflow: hidden
-      img
-        width: 100%
+      width: 100% !important
+      margin: 0
+      padding-left: 0 
     li
       width: 100% !important
+      height: 594px
+      overflow: hidden
+      text-align: center
+      a
+        display: block
+        height: 594px
     .label
       position: absolute
       z-index: 999
@@ -21,6 +27,7 @@
       top: 358px
       width: 100%
       text-align: center
+      padding-left: 0
       h1
         font-size: 36px
       h2
@@ -36,38 +43,31 @@
         color: white
         width: 68px
         height: 21px
-  .banner-btn
-    width: 1500px
+  .hd
+    width: 100%
     position: absolute
-    top: 270px
-    left: 50%
-    margin-left: -750px
-    a
-      display: block
-      width: 49px
-      height: 104px
-      position: absolute
-      top: 0
-      filter: alpha(opacity=40)
-      -moz-opacity: 0.4
-      -khtml-opacity: 0.4
-      opacity: 0.4
-    .hd 
-      position: absolute
-      top: 260px
-      left: 670px
-      ul
-        width: 150px
-        li
-          width: 12px
-          height: 12px
-          border-radius: 50%
-          text-indent: -9999px
-          margin-right: 20px
-          background: #ccc
-          float: left
-          cursor: pointer
-          opacity: 0.4
+    z-index: 1
+    bottom: 50px
+    left: 0
+    height: 30px
+    line-height: 30px
+    text-align: center
+    _background: #000
+    _filter: alpha(opacity=60)
+    ul
+      text-align: center
+      padding-top: 5px
+      padding-left: 0
+      li
+        cursor: pointer
+        display: inline-block
+        *display: inline
+        zoom: 1
+        width: 8px
+        height: 8px
+        margin: 5px
+        background: url(tg_flash_p.png) -18px 0
+        overflow: hidden
+      line-height: 9999px
       .on
-        background: #FFF
-        opacity: 0.8
+        background-position: 0 0

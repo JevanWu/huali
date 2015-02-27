@@ -3,7 +3,7 @@
 //= require 'jquery.scrollTo'
 //= require 'jquery.SuperSlide.2.1.1'
 //= require 'lrtk'
-//= require 'focusjs'
+//= require 'home_slide'
 //= require 'brand'
 //= require 'products'
 //= require 'module/greeting-card-dialog'
