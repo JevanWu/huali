@@ -1,21 +1,16 @@
-doctype html
 html
   head
-    = favicon_link_tag 'favicon.ico'
-    title = content_for?(:title) ? yield(:title) + ' ' : '花里花店 Huali Store'
-    = stylesheet_link_tag 'modules/countdown', "data-turbolinks-track" => ''
-    /[if IE 8]
-      = stylesheet_link_tag 'ie8'
-    /[if IE 7]
-      = stylesheet_link_tag 'ie7'
-
-    = javascript_include_tag 'jquery', 'countdown'
+    meta charset="utf-8"
+    meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" 
+    title Huali
+    = stylesheet_link_tag "all" 
+    = yield(:css)
+    = javascript_include_tag  "all"
+    = yield(:js)
   body
-    .countdown
-      =image_tag('countdown.jpg')
-      .hours
-        p.h id="hours" 0
-      .min
-        p.m id="mins" 0
-      .sec
-        p.s id="secs" 0
+    = render 'layouts/alert_message'
+    = render 'layouts/nav'
+    = yield
+    = render 'layouts/footer'
+    = render 'home/homefooter'
+    = render 'layouts/end'
