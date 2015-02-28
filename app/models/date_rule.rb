@@ -27,11 +27,30 @@ class DateRule < ActiveRecord::Base
   serialize :excluded_weekdays, Array
   arrayify_attrs :excluded_dates, :included_dates
 
+  def self.get_rules_by(date)
+    area_id = area_id.to_s
+    arr = []
+    find_each { |r| arr << r if r.valid_date?(date) }
+    arr
+  end
+
+  def valid_date?(date)
+    DateRuleRunner.new(build_rule_runner_options).apply_test(date)
+  end
+  def build_rule_runner_options
+    {
+      range: [start_date, end_date],
+      include: included_dates,
+      exclude: excluded_dates,
+      delete_if: Proc.new { |date| date.wday.to_s.in? excluded_weekdays }
+    }
+  end
+
   def start_date
     if Setting.date_rule_start_date.present? && Setting.date_rule_start_date.to_date >= Date.current
       Setting.date_rule_start_date
     else
-      super || (Time.current.hour >= 15 ? Date.current.next_day(3) : Date.current.next_day(2))
+      super || (Time.current.hour >= 17 ? Date.current.next_day(2) : Date.current.next_day(1))
     end
   end
 

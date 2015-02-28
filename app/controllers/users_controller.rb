@@ -112,8 +112,8 @@ class UsersController < ApplicationController
   end
 
   def subscribe_email
-    if params[:email] =~ /\A[^@]+@[^@]+\z/
-      Utils.delay.subscribe_to_mailchimp(params[:email])
+    if params[:email] =~(/\A[^@]+@[^@]+\z/) && SubscriberEmail.create(email: params[:email])
+      #Utils.delay.subscribe_to_mailchimp(params[:email])
       redirect_to root_path, notice: "订阅成功"
     else
       redirect_to root_path, notice: "无效的 Email, 订阅失败"

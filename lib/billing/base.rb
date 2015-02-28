@@ -32,11 +32,11 @@ module Billing
         # Billing::Gateway::Alipay
         case @opts[:paymethod]
         when "alipay"
-          Billing.const_get(@type.capitalize).const_get(:Alipay).new(@opts, @query)
+          Billing.const_get(@type.capitalize).const_get(:Alipay, false).new(@opts, @query)
         when "paypal"
-          Billing.const_get(@type.capitalize).const_get(:Paypal).new(@opts, @query)
+          Billing.const_get(@type.capitalize).const_get(:Paypal, false).new(@opts, @query)
         when "wechat"
-          Billing.const_get(@type.capitalize).const_get(:Wechat).new(@opts, @query)
+          Billing.const_get(@type.capitalize).const_get(:Wechat, false).new(@opts, @query)
         end
       end
     end

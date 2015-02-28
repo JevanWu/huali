@@ -182,6 +182,10 @@ STR
       new(phone_number: order.sender_phone, body: content).deliver
     end
 
+    def normal_sms(phone, content)
+      new(phone_number: phone, body: content).deliver
+    end
+
     #TODO: Refactor with email notification
     def product_appointment_sms(product_id)
       product = Product.find product_id
@@ -196,8 +200,9 @@ STR
       point_transactions = PointTransaction.expired_soon
       users = point_transactions.map { |transaction| transaction.users }
       users.uniq!
+      notify_content = ''
       notify_content = <<STR
-【友情提示】尊敬的花里客户，您好。您在花里官网的部分花点将于年底失效，请于有效期前使用花点抵扣。如有疑问请咨询：400—087—8899或support@hua.li。
+【友情提示】尊敬的花里客户，您好。您在花里官网的部分花点将于年底失效，请于有效期前使用花点抵扣。
 STR
       users.each { |user| new(phone_number: user.phone, body: notify_content).deliver }
     end

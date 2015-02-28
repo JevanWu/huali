@@ -71,7 +71,7 @@ class Product < ActiveRecord::Base
   has_many :assets, as: :viewable, dependent: :destroy, order: "created_at asc"
   accepts_nested_attributes_for :assets, reject_if: lambda { |a| a[:image].blank? }, allow_destroy: true
 
-  has_attached_file :rectangle_image, styles: { medium: "220x328>" }
+  has_attached_file :rectangle_image, styles: { medium: "220x328>" }, :default_url => "/system/assets/images/missing.jpg"
 
   # lineItems
   has_many :line_items
@@ -101,6 +101,7 @@ class Product < ActiveRecord::Base
   translate :name
 
   # validations
+  validates :print_id, uniqueness: true, allow_blank: true
   validates_presence_of :name_en, :name_zh, :count_on_hand, :assets, :collections, :price, :sku_id
   enumerize :product_type, in: [:fresh_flower, :preserved_flower, :others, :fake_flower, :perfume], default: :others
   enumerize :promo_tag, in: [:limit]
@@ -124,6 +125,8 @@ class Product < ActiveRecord::Base
   before_save do |product|
     product.name_en.downcase!
   end
+
+  before_validation :reset_print_id
 
   after_save :notify_customers
 
@@ -158,7 +161,9 @@ class Product < ActiveRecord::Base
   end
 
   def related_products(limit = 5)
-    (recommendations.published + suggestions).take(limit)
+    Rails.cache.fetch("#{cache_key}/related_products/limit-#{limit}", expires_in: 5.minutes) do
+      (recommendations.published + suggestions).take(limit)
+    end
   end
 
   def suggestions(amount = 5, pool = :all, order = :random)
@@ -264,7 +269,9 @@ class Product < ActiveRecord::Base
   end
 
   def discount_event_today
-    discount_events.today.first
+    Rails.cache.fetch("#{cache_key}/discount_event/#{discount_events.maximum(:updated_at).try(:utc).try(:to_s, :number)}") do
+      discount_events.today.first
+    end
   end
 
   def original_price
@@ -294,5 +301,9 @@ class Product < ActiveRecord::Base
 
     def restock?
       self.changes["count_on_hand"][0] == 0 && self.changes["count_on_hand"][1] > 0
+    end
+
+    def reset_print_id
+      self.print_id = nil unless self.print_id.present?
     end
 end

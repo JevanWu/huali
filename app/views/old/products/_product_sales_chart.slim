@@ -1,20 +1,19 @@
-- content_for :css do
-  = stylesheet_link_tag "modules/sales-chart", media: "all"
-
-.saleschart-panel
-  .saleschart-panel-header
-    h1
-      = t(:sales_chart)
-  .saleschart-panel-list
-    ul
-      - SalesChart.all.order(:position).each do |sales_chart|
-        li
-          .media
-            - if sales_chart.product
-              a.pull-left[href="#{product_path(sales_chart.product)}" title="#{sales_chart.product.name_zh}"]
-                =image_tag sales_chart.product.assets[0].image.url(:thumb), class: 'media-object', src: '#'
-              .media-body
-                h5 =sales_chart.product.name_zh
-                br
-                p =number_to_currency sales_chart.product.price
+- cache("sales_charts/all-#{SalesChart.count}-#{SalesChart.maximum(:updated_at).try(:utc).try(:to_s, :number)}") do
+  - if SalesChart.exists?
+    .saleschart-panel
+      .saleschart-panel-header
+        h1
+          = t(:sales_chart)
+      .saleschart-panel-list
+        ul
+          - SalesChart.order(:position).each do |sales_chart|
+            li
+              .media
+                - if sales_chart.product
+                  a.pull-left[href="#{product_path(sales_chart.product)}" title="#{sales_chart.product.name_zh}"]
+                    =image_tag sales_chart.product.assets[0].image.url(:thumb), class: 'media-object', src: '#'
+                  .media-body
+                    h5 =sales_chart.product.name_zh
+                    br
+                    p =number_to_currency sales_chart.product.price
 

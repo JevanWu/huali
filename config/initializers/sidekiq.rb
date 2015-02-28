@@ -1,5 +1,5 @@
 # Custom Redis configuration
-resque_url = "localhost:6379"
+resque_url = "#{ENV['REDIS_HOST']}:6379"
 
 Sidekiq.configure_server do |config|
   config.failures_default_mode = :exhausted

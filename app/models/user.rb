@@ -49,12 +49,14 @@
 
 class User < ActiveRecord::Base
   include Phonelib::Extension
+
+  after_save :reset_authentication_token, if: Proc.new {|user| !user.authentication_token.present? }
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
-  devise :invitable, :async, :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :confirmable,
-         :omniauthable, :omniauth_providers => [:douban, :weibo, :qq_connect]
+  devise :invitable, :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable,
+         :omniauthable, :async, :omniauth_providers => [:douban, :weibo, :qq_connect]
 
   has_many :invitees, class_name: "User", foreign_key: "invited_by_id"
   belongs_to :inviter, class_name: "User", foreign_key: "invited_by_id"
@@ -143,7 +145,26 @@ class User < ActiveRecord::Base
     oauth_provider.user
   end
 
+  def reset_authentication_token
+    token = generate_authentication_token
+    self.update_column(:authentication_token, token)
+    token
+  end
+
+  def generate_reset_password_token
+    reset_token = rand(999999).to_s
+    self.update_columns(reset_password_token: reset_token, reset_password_sent_at: Time.current)
+    return reset_token
+  end
+
   private
+
+    def generate_authentication_token
+      loop do
+        token = Devise.friendly_token
+        break token unless User.where(authentication_token: token).take
+      end
+    end
 
     # Generate a friendly string randomically to be used as token.
     def self.random_token

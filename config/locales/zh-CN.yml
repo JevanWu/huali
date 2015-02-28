@@ -89,12 +89,14 @@ zh-CN:
         product_of_invalid_quantity: '%{product_name}数量不能小于等于0'
         product_out_of_stock: '%{product_name}库存不足，可用库存%{count_on_hand}'
         product_in_unavailable_date: '%{product_name}无法在该递送日期配送'
+        valentines_day_2015: '2015年2月13、14日情人节期间订单已截单，自提请至愚园路546号或K11'
         product_in_unavailable_region: '%{product_name}无法配送到该区域'
         product_not_discountable: "对不起! 产品 %{product_name} 是不参与打折的"
         contains_products_not_discountable: "购物车有不参与打折的产品"
         must_be_less_than_expected_date: 必须小于到达日期
         not_able_to_edit_adjustment: 订单已审核，不能更新价格调整
         instant_delivery_not_available: 快速送达服务当前不可用
+        district_not_valid: 此地区不可用
         start_date_must_not_greater_than_end_date: 开始日期不能大于结束日期
 
     models:
@@ -205,6 +207,8 @@ zh-CN:
       refund: 退款记录
       print_group: 打印组
       print_order: 打印队列
+      daily_phrase: 每日花语
+      mobile_menu: 移动端菜单
       appointment: 预约
       sales_chart: 销量排行榜
       greeting_card: 发送电子贺卡
@@ -214,6 +218,9 @@ zh-CN:
       instant_delivery: 快速送达
       discount_event: 活动打折
       featured_product: 精选产品
+      guide_view: 引导页
+      sync_order: 手动同步订单
+      instant_delivery: 快速送达
 
     attributes:
       order: &order
@@ -364,6 +371,7 @@ zh-CN:
         height: 高度
         width: 宽度
         depth: 长度
+        print_id: 打印ID
         created_at: 创建于
         updated_at: 更新于
         cost_price: 成本价
@@ -495,6 +503,7 @@ zh-CN:
         picture: 照片
         author_avatar: 头像
         origin_link: 源链接
+        product_link: 产品链接
         priority: 优先级
         available: 是否有效
 
@@ -522,6 +531,12 @@ zh-CN:
         priority: 优先级
         image: 图片
         visible: 首页是否可见
+
+      guide_view:
+        description: 描述
+        priority: 优先级
+        image: 图片
+        available: 启用
 
       refund:
         order: 订单
@@ -551,6 +566,21 @@ zh-CN:
         order_printed: 出库单已打印
         card_printed: 贺卡已打印
         shipment_printed: 快递单已打印
+        created_at: 创建于
+        updated_at: 更新于
+
+      daily_phrase:
+        title: 标题
+        phrase: 短语
+        image: 图片
+        created_at: 创建于
+        updated_at: 更新于
+
+      mobile_menu: 
+        name: 名字
+        priority: 优先级
+        description: 描述
+        image: 图片
         created_at: 创建于
         updated_at: 更新于
 
@@ -708,7 +738,17 @@ zh-CN:
         web_operation_manager: Web 经营管理员
         marketing_manager: 市场管理员
         customer_service: 客服
+        customer_service_assistant: 客服助理
     order:
+      state:
+        generated: 等待付款
+        wait_check: 等待审核
+        wait_make: 等待制作
+        wait_refund: 等待退款
+        wait_ship: 等待发货
+        completed: 已完成
+        void: 已取消
+        refunded: 已退款
       kind:
         marketing: 市场订单
         xigua: 喜瓜网
@@ -722,6 +762,10 @@ zh-CN:
         normal: 普通订单
         b2b: B2B订单
         secoo: 寺库订单
+        quick_purchase: 绿色通道
+        heike: 嘿客订单
+        dianping: 大众点评
+        wechat: 微信
         fieldschina: 甫田
         offline: 线下店
         yhd: 一号店
@@ -875,11 +919,11 @@ zh-CN:
       checkout: 去结算
       back_checkout: 线下店订单
       b2b_checkout: B2B订单
-      secoo_checkout: 寺库订单
+      secoo_checkout: 订单录入
       channel_checkout: 渠道订单
       basket: 购物车
       order_list: 订单中心
-      in_total: 总计
+      in_total: 产品总计
       confirm_accept: 您确认您已收到我们的货物了吗？
 
       # success
@@ -888,6 +932,9 @@ zh-CN:
       paid: 支付完成
       discount: 优惠
       quantity: 数量
+
+      # failed
+      reject_both_coupon_and_point: 不好意思, 您不能同时使用优惠劵和花点
 
       # show
       pay_now: 立即支付
@@ -920,6 +967,7 @@ zh-CN:
     product:
       soldout: 已经售罄
       flower_basket: 放入购物车
+      quick_purchase_basket: 添加产品
       delivery_charge: 免运费
       product_info: 产品信息
       join_queue: 如需加入订购队列，请联系客服

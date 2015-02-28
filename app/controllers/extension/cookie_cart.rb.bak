@@ -50,11 +50,7 @@ module Extension
 
     def fetch_related_products
       @products_in_cart ||= []
-
-      recommendations = @products_in_cart.inject([]) { |s, p| s + p.recommendations }
-      suggestions = @products_in_cart.inject([]) { |s, p| s + p.suggestions }
-
-      @related_products = (recommendations + suggestions).take(7)
+      @related_products = @products_in_cart.reduce([]) { |s, product| s + product.related_products(5) }.take(5)
     end
   end
 end

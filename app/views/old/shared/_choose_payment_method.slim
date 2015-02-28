@@ -1,11 +1,15 @@
+
+p[style="padding-bottom: 15px; font-size: 18px; color: red;"] 温馨提示：请尽快支付，未支付订单将在60分钟后自动取消。
+
 = form_tag(gateway_order_path(order), method: "post") do
   .pay-options-title
     i
     |  请选择支付方式
-  .huali-point
-    label
-      = check_box_tag "use_huali_point"
-      = "是否使用您的 #{current_user.huali_point} 点花点"
+  - if current_user
+    .huali-point
+      label
+        = check_box_tag "use_huali_point"
+        = "是否使用您的 #{current_user.huali_point} 点花点"
   .alipay
     label
       = radio_button_tag(:paymethod, "alipay", checked: "checked")
@@ -17,12 +21,13 @@
       = image_tag('pay/wechat.jpeg', width: '200px')
 
   .credit-card
-    .credit-card-title
+    /.credit-card-title
       | 信用卡(会扣取额外手续费)
     .paypal
       label
         = radio_button_tag(:paymethod, "paypal")
-        = image_tag("pay/credit.jpg")
+        = image_tag("pay/paypal.jpg")
+        p[style='padding-left: 20px; vertical-align: bottom; display: inline-block; font-size: 10px'] （会额外收取手续费）
 
   .next-step
     = submit_tag "确认支付", class: 'huali-btn'

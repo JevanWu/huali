@@ -64,15 +64,15 @@ class Order < ActiveRecord::Base
 
   extend Enumerize
   enumerize :kind, in: [:normal, :jd, :tencent, :xigua, :marketing, :customer, :wechat,
-    :taobao, :tmall, :b2b, :fieldschina, :offline, :yhd, :amazon, :dangdang, :secoo], default: :normal
+    :taobao, :tmall, :b2b, :fieldschina, :offline, :yhd, :amazon, :dangdang, :secoo, :heike, :dianping, :quick_purchase], default: :normal
 
   delegate :province_name, :city_name, to: :address, allow_nil: true
   delegate :paymethod, to: :transaction, allow_nil: true
   delegate :province_id, :city_id, :area_id, to: :address, prefix: 'address', allow_nil: true
 
-  before_validation :generate_identifier, on: :create
+  before_create :generate_identifier
 
-  validates_presence_of :identifier, :state, :total, :item_total
+  validates_presence_of :state, :total, :item_total
   validates :merchant_order_no, uniqueness: { scope: :kind }, allow_blank: true
   validates :merchant_order_no, presence: true, if: Proc.new { |order| ['taobao', 'tmall'].include?(order.kind) }
 
@@ -120,6 +120,10 @@ class Order < ActiveRecord::Base
       transition to: :wait_refund, on: :cancel
     end
 
+    state :completed do
+      transition to: :wait_refund, on: :cancel
+    end
+    
     state :wait_refund do
       transition to: :refunded, on: :refund
     end
@@ -321,6 +325,9 @@ class Order < ActiveRecord::Base
 
   def discounted_money
     item_total - total
+
+  def state_zh
+    I18n.t("models.order.state.#{self.state}")
   end
 
 private

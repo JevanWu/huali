@@ -5,7 +5,7 @@ class OrdersController < ApplicationController
   before_action :justify_wechat_agent, only: [:index, :current, :checkout, :gateway, :new, :create]
   #before_action :fetch_related_products, only: [:back_order_create, :channel_order_create, :current, :apply_coupon]
   before_action :signin_with_openid, only: [:new, :index]
-  before_action :authenticate_user!, only: [:index, :show, :create, :checkout, :cancel, :edit_gift_card, :update_gift_card, :instant_delivery_status]
+  before_action :authenticate_user!, only: [:new, :index, :show, :create, :cancel, :edit_gift_card, :update_gift_card, :instant_delivery_status]
   before_action :authenticate_administrator!, only: [:back_order_new, :back_order_create, :channel_order_new, :channel_order_create]
   #before_action :fetch_transaction, only: [:return, :notify]
   skip_before_action :verify_authenticity_token, only: [:notify]
@@ -192,7 +192,11 @@ class OrdersController < ApplicationController
   end
 
   def checkout
-    @order = current_user.orders.find_by_id(params[:id])
+    @order = current_or_guest_user.orders.find_by_id(params[:id]) if params[:id]
+    @order ||= Order.find_by_id(session[:order_id])
+
+    authenticate_user! unless @order.kind == "quick_purchase"
+
     if @order.blank?
       flash[:alert] = t('controllers.order.order_not_exist')
       redirect_to :root and return
@@ -206,6 +210,10 @@ class OrdersController < ApplicationController
     # params[:pay_info] is mixed with two kinds of info - pay method and merchant_name
     # these two are closed bound together
     payment_opts = process_paymethod(params[:paymethod])
+    if !@order.coupon_code.nil? && !!params[:use_huali_point]
+      redirect_to checkout_order_path(@order), flash: { failed: t('views.order.reject_both_coupon_and_point')}
+      return
+    end
     transaction = @order.generate_transaction payment_opts.merge(client_ip: request.remote_ip), params[:use_huali_point]
     transaction.start
     if transaction.amount == 0
@@ -265,6 +273,38 @@ class OrdersController < ApplicationController
       render text: "success"
     else
       render text: "failed"
+    end
+  end
+
+  def wap_return
+    if params[:result] = "success"
+      render 'success'
+    else
+      render 'failed', status: 400
+    end
+  end
+
+  def wap_notify
+    notify_params = params.except(*request.path_parameters.keys)
+
+    if Alipay::Notify::Wap.verify?(notify_params)
+      order_identifier = Hash.from_xml(params[:notify_data])['notify']['out_trade_no']
+      order = Order.find_by(identifier: order_identifier)
+      amount = Hash.from_xml(params[:notify_data])['notify']['total_fee']
+      trade_no = Hash.from_xml(params[:notify_data])['notify']['trade_no']
+      transaction = order.transactions.create( amount: order.total, use_huali_point: false, subject: order.subject_text,
+                                body: order.body_text, client_ip: order.user.current_sign_in_ip,
+                                merchant_trade_no: trade_no, merchant_name: "Alipay", paymethod: "alipay" )
+      transaction.start
+      if amount.to_f == transaction.amount.to_f
+        transaction.complete
+      else
+        transaction.invalidate
+      end
+
+      render text: "success"
+    else
+      render text: "error"
     end
   end
 
@@ -374,9 +414,9 @@ class OrdersController < ApplicationController
         transaction = @offline_order_form.record.reload.generate_transaction(opts)
         transaction.update_column(:state, 'completed')
 
-        if @offline_order_form.record.state == 'completed'
-          ErpWorker::ImportOrder.perform_async(@offline_order_form.record.id)
-        end
+        #if @offline_order_form.record.state == 'completed'
+          #ErpWorker::ImportOrder.perform_async(@offline_order_form.record.id)
+        #end
 
         flash[:notice] = t('controllers.order.order_success')
         redirect_to root_path

@@ -1,5 +1,8 @@
 #= require_self
-
+$(document).ready (e) ->
+  proCount = Number($('a.cart').text().split('')[1])
+  if proCount > 0
+    $("p.count-in-cart").html("已添加" + proCount + "件产品")
 $ ->
   # turn on JSON parsing in $.cookie
   $.cookie.json = true
@@ -9,6 +12,48 @@ $ ->
     link = $(@)
     pro = Cart.get link.data('product')
     Cart.update(id: pro.id, quantity: pro.quantity + 1)
+  $('button.add-btn').click (e) ->
+    window.location = $(this).attr('href')
+
+  $('#quick_purchase_form').on 'ajax:beforeSend', ->
+    $('.loading').show()
+  $('#quick_purchase_form').on 'ajax:complete', ->
+    $('.loading').hide()
+
+  $('#quick_purchase_form #quick_purchase_form_expected_date').change ->
+    $('#quick_purchase_form').submit()
+
+  $('#product-list').on 'click', 'a.quick-purchase-add-btn', (e) ->
+    link = $(@)
+    proid = link.data('product')
+    pro = Cart.get proid
+    Cart.update(id: pro.id, quantity: pro.quantity + 1)
+    $("a#quick-purchase-#{proid}").css('display','none')
+    $("p##{proid}").css('display','block')
+    proCount = Number($('a.cart').text().split('')[1]) + Number('1')
+    $("a.cart").html("(" + proCount + ")")
+    if proCount > 0
+      $("p.count-in-cart").html("已添加" + proCount + "件产品")
+    else
+      $("p.count-in-cart").html("")
+
+  $('#product-list').on 'click', '.information p',(e) ->
+    link = $(@)
+    proid = $(this).attr('id')
+    pro = Cart.get proid
+    Cart.update(id: pro.id, quantity: pro.quantity - 1)
+    proCount = Number($('a.cart').text().split('')[1]) - Number('1')
+    $("a#quick-purchase-#{proid}").css('display','block')
+    $("p##{proid}").css('display','none')
+    $("a.cart").html("(" + proCount + ")")
+    if proCount > 0
+      $("p.count-in-cart").html("已添加" + proCount + "件产品")
+    else
+      $("p.count-in-cart").html("")
+
+
+
+
 
     #调试代码别忘了注释
     ###analytics.track 'Added Item To Cart',
@@ -195,7 +240,8 @@ $ ->
       if address.length > 0
         region += " #{address}"
 
-      $(this).attr('href', href + region)
+      #$(this).attr('href', href + region)
+      window.open('javascript:window.name;', '<script>location.replace("'+ href + region+'")<\/script>');
     else
       event.preventDefault()
 
@@ -206,5 +252,5 @@ $ ->
       $(this).text("隐藏贺卡内容")
     else
       $(this).text("添加贺卡内容")
-      
+
     $('#gift-card-info').toggle('slow')

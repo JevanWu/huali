@@ -1,6 +1,8 @@
 module Erp
   CLIENT_CODES = {
     normal: '01.01.0001',
+    quick_purchase: '01.01.0001',
+    wechat: '01.01.0001',
     tmall: '01.01.0002',
     taobao: '01.01.0003',
     ctrip: '01.02.0031',
@@ -8,7 +10,11 @@ module Erp
     yhd: '01.01.0006',
     offline: '01.03',
     amazon: '01.01.0045',
-    secoo: '01.01.0046'
+    secoo: '01.01.0046',
+    heike: '01.01.0030',
+    wechat: '01.01.0001',
+    dangdang: '01.01.0048',
+    dianping: '01.01.0047'
   }
 
   CTRIP_COUPON_CHARGES = {
@@ -21,7 +27,7 @@ module Erp
     186 => 220
   }
 
-  TAX_RATE = 0.17
+  TAX_RATE = 0.13
 
   class Order < ErpDatabase
     self.table_name = "lysoorder"
@@ -106,7 +112,7 @@ module Erp
       end
 
       def total_discount(order, transaction)
-        [order.item_total - ctrip_order_charge(order) - transaction.try(:amount).to_f , 0].max
+        [order.instant_delivery.try(:fee).to_f + order.item_total - ctrip_order_charge(order) - transaction.try(:amount).to_f , 0].max
       end
 
       def ctrip_order_charge(order)

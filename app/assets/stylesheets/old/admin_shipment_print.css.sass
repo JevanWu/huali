@@ -33,6 +33,10 @@ $fontSize: 11pt
   width: 19 * 28pt
   height: 10.5 * 28pt
 
+.debang-bg img
+  width: 23 * 28pt
+  height: 14 * 28pt
+
 p
   font-family: sans-serif
   font-size: $fontSize
@@ -116,6 +120,20 @@ p
   .sender-phone
     top: 110pt
     left: 40pt
+    width: 90pt
+
+.sender-debang
+  .sender-com
+    top: 90pt
+    left: 106pt
+
+  .sender-addr
+    top: 127pt
+    left: 106pt
+
+  .sender-phone
+    top: 110pt
+    left: 220pt
     width: 90pt
 
 .sender-shentong
@@ -269,9 +287,26 @@ p
     top: 239pt
     left: 164pt
 
+.text-debang
+  .receipt
+    top: 200pt
+    left: 100pt
+
+  .cell
+    top: 202pt
+    left: 217pt
+
+  .addr
+    top: 222pt
+    left: 96pt
+
+  .post
+    top: 245pt
+    left: 258pt
+
 .product_text
-  font-size: 8pt
-  width: 300pt
+  font-size: 15pt
+  width: 179pt
 
 .text-lebang .product_text
   top: 6pt
@@ -284,14 +319,21 @@ p
   left: 368pt
   width: 200px
 .text-shunfeng .product_text
-  top: 304pt
-  left: 251pt
+  top: 308pt
+  left: 316pt
+  width: 320pt
 .text-ems .product_text
   top: 38pt
   left: 60pt
 .text-shentong .product_text
   top: 17pt
   left: 427pt
+.text-debang .product_text
+  top: 303pt
+  left: 52pt
+
+.delivery_date
+  font-size: 15pt
 
 .text-lebang .delivery_date
   top: 172pt
@@ -305,6 +347,10 @@ p
 .text-shunfeng .delivery_date
   top: 70pt
   left: 352pt
+.text-debang .delivery_date
+  top: 70pt
+  left: 352pt
+  display: none
 
 @media print
 

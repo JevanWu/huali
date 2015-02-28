@@ -1,3 +1,9 @@
+= stylesheet_link_tag "jquery.ui.datepicker"
+
+- content_for(:body_js) do
+  = javascript_include_tag "datepicker-settings"
+  = javascript_include_tag "prov_city_area_update"
+
 = render 'back_order_assets'
 = render 'product_ids', cart: @cart
 
@@ -8,5 +14,5 @@
       .step-main-gouhualan.span4
         == render 'side_item_table', cart: @cart, title: t(:basket)
       .step-main-detail.span8
-        h1 寺库订单录入
+        h1 订单录入
         = render 'secoo_order_form'

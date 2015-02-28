@@ -38,6 +38,10 @@ module ProductsHelper
   end
 =end
 
+  def quick_purchase_link(product, options)
+    link_to(t('views.product.quick_purchase_basket'), products_quick_purchase_path, options)
+  end
+
 private
 
   def buy_button_or_link(text, path, options, is_mobile)

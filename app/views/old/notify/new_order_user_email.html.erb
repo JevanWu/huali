@@ -6,7 +6,7 @@
         <tr>
           <td valign="top" class="bodyContent">
             <div mc:edit="std_content00">
-              <h3 class="h3">恭喜您, 您在花里购买的订单已经生成</h3>
+              <h3 class="h3">恭喜您, 您在花里购买的订单已经生成，请在一小时內完成支付，否则订单将自动取消。</h3>
               <p>亲爱的 <%= @order.sender_name %>:</p>
               <p>我们已经收到您为<%= @order.address.fullname %>订购的<%= @order.subject_text %>. </p>
               <p>在您完成支付后，它将在 <%= @order.expected_date %> 寄往 <%= @order.address.full_addr %>.</p>

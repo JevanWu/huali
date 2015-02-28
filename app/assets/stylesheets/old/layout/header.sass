@@ -1,6 +1,18 @@
 #l-fixed-area-container
   width: 100%
-  background-color: #fdfdfd
+  /* background: image-url("bg/header.jpg") no-repeat */
+  background-position-x: center
+  .quick-purchase-locate
+    z-index: 9999
+    margin: 0 auto
+    width: 1048px
+    position: relative
+    a.quick-purchase
+      position: absolute
+      display: block
+      float: left
+      height: 100px
+      width: 400px
 #l-header
   position: relative
   margin: 0 auto
@@ -8,13 +20,13 @@
   width: $global-width
   padding: 0 5px
   text-align: center
-  background: image-url("bg/body.png") repeat
   a
     display: inline-block
     margin-top: 10px
     img
       height: 80px
   strong
+    z-index: 2
     position: absolute
     display: block
     height: 18px
@@ -29,6 +41,7 @@
       font-size: 22px
 
   #bookmark
+    z-index: 2
     position: absolute
     right: 6px
     top: 30px

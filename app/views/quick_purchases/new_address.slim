@@ -1,0 +1,50 @@
+= stylesheet_link_tag "jquery.ui.datepicker"
+- content_for(:body_js) do
+  = javascript_include_tag "datepicker-settings"
+  = javascript_include_tag "prov_city_area_update_quick_purchase"
+
+br
+br
+.best-products
+  = simple_form_for @quick_purchase_form, url: create_address_quick_purchase_path, html: { class: 'form-horizontal', id: 'new-order'} do |f|
+    fieldset
+      legend
+        | 送花人信息：
+      = f.fields_for :sender, @quick_purchase_form.sender do |builder|
+        = builder.input :name, required: true, placeholder: '您的姓名', label: '送花人姓名'
+        = builder.input :phone, as: :simple_form_phone, required: true, placeholder: '您的手机号', label: '送花人手机'
+        p[style="padding-left: 180px; padding-bottom: 15px;"] 请填写正确的手机号，以备配送时紧急联系之用
+        = builder.input :email, required: true, placeholder: '您的邮箱', label: '送花人邮箱'
+
+
+      legend
+        | 收花人信息：
+      p[style="padding-left: 180px; padding-left: 90px; padding-bottom: 15px; color: red;"] 2015年2月15日至2月25日春节期间无法正常派送，敬请谅解。
+
+      = f.fields_for :address, @quick_purchase_form.address do |builder|
+        = builder.input :fullname, required: true, placeholder: '收件花姓名', label: "收花人姓名"
+        = builder.input :phone, as: :simple_form_phone, required: true, placeholder: '收花人手机号', label: '收花人手机'
+        p[style="padding-left: 180px; padding-bottom: 15px;"] 请填写收花人正确的手机号码，以备配送时紧急联系之用
+
+
+        /= builder.input :province_id, collection: Province.quick_purchase_hash, prompt: "请选择", required:true, hint: "", input_html: { 'data-placeholder' => '请选择', class: 'chosen' }
+        / only jiang zhe hu
+        = builder.input :province_id, collection: { "上海市"=>9, "浙江省"=>11, "江苏省"=>10 }, prompt: "请选择", required:true, input_html: { 'data-placeholder' => '请选择', class: 'chosen' }
+        p[style="padding-left: 180px; padding-bottom: 15px;"] 非江浙沪地区情人节已截单，如有疑问，请联系客服：400-087-889
+        = builder.input :city_id do
+          = builder.input_field :city_id , collection: [], 'data-placeholder' => '请选择', class: 'chosen'
+          = image_tag('loading.gif', class: 'loading')
+        = builder.input :area_id do
+          = builder.input_field :area_id , collection: [], 'data-placeholder' => '请选择', class: 'chosen'
+          = image_tag('loading.gif', class: 'loading')
+        = builder.input :address, as: 'text', required:true, input_html: { rows: 3 }, placeholder: '详细地址'
+        p[style="padding-left: 180px; padding-bottom: 15px"] 请正确选择您所需要配送地址对应的省份、城市、地区并填写详细的街道地址，
+        p[style="padding-left: 180px; padding-bottom: 15px"] 错误的选择和填写可能会导致无法送达。
+        = builder.input :post_code, placeholder: '邮编', hint: %(<a id='query-postcode' href="#" target='_blank'>查询邮编</a>).html_safe
+    .form-actions
+      = f.button :submit, "下一步，选花", class: 'button btn80 next-step'
+
+
+- content_for :body_js do
+  script
+    |  var checkInstantDelivery = function () { var city_id = $("#order_form_address_city_id").val(); var address = $("#order_form_address_address").val(); if (city_id.length == 0 || address.length == 0) { $(".order_form_instant_delivery").hide('slow'); return; } $.get('/orders/instant_delivery_status', { city_id: city_id, address: address }, function (data) { if (data.instant_delivery_available) $(".order_form_instant_delivery").show('slow'); else $(".order_form_instant_delivery").hide('slow'); }); }; $(function () { if ($("#order_form_instant_delivery").is(":checked")) $(".order_form_instant_delivery").show(); $("#order_form_instant_delivery").change(function() { if(this.checked) { var myDate = new Date(); var prettyDate = myDate.getFullYear() + '-' + (myDate.getMonth()+1) + '-' + myDate.getDate(); $("#order_form_expected_date").val(prettyDate); } else { $("#order_form_expected_date").val(""); } }); $("#order_form_address_address").blur(checkInstantDelivery); $("#order_form_address_province_id").change(checkInstantDelivery); $("#order_form_address_city_id").change(checkInstantDelivery); });

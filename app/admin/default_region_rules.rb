@@ -13,6 +13,24 @@ ActiveAdmin.register DefaultRegionRule do
     default_actions
   end
 
+  show do
+    attributes_table do
+      row :id
+      row :name
+      row :province_ids do
+        default_region_rule[:province_ids].map { |p_id| Province.find(p_id).name }
+      end
+      row :city_ids do
+        default_region_rule[:city_ids].map { |c_id| City.find(c_id).name }
+      end
+      row :area_ids do
+        default_region_rule[:area_ids].map { |a_id| Area.find(a_id).name }
+      end
+      row :created_at
+      row :updated_at
+    end
+  end
+
   form partial: "form"
 
   controller do

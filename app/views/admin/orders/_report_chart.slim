@@ -46,6 +46,12 @@ javascript:
               name: '官网',
               data: [#{@daily_order_report.order_amounts_by_date('normal').join(',').html_safe}]
           }, {
+              name: '绿色通道',
+              data: [#{@daily_order_report.order_amounts_by_date('quick_purchase').join(',').html_safe}]
+          }, {
+              name: '微信',
+              data: [#{@daily_order_report.order_amounts_by_date('wechat').join(',').html_safe}]
+          }, {
               name: '淘宝',
               data: [#{@daily_order_report.order_amounts_by_date('taobao').join(',').html_safe}]
           }, {
@@ -66,6 +72,12 @@ javascript:
           }, {
               name: '寺库',
               data: [#{@daily_order_report.order_amounts_by_date('secoo').join(',').html_safe}]
+          }, {
+              name: '嘿客',
+              data: [#{@daily_order_report.order_amounts_by_date('heike').join(',').html_safe}]
+          }, {
+              name: '大众点评',
+              data: [#{@daily_order_report.order_amounts_by_date('dianping').join(',').html_safe}]
           }, {
               name: '线下店',
               data: [#{@daily_order_report.order_amounts_by_date('offline').join(',').html_safe}]
@@ -121,6 +133,12 @@ javascript:
               name: '官网',
               data: [#{@daily_order_report.order_counts_by_date('normal').join(',').html_safe}]
           }, {
+              name: '绿色通道',
+              data: [#{@daily_order_report.order_counts_by_date('quick_purchase').join(',').html_safe}]
+          }, {
+              name: '微信',
+              data: [#{@daily_order_report.order_counts_by_date('wechat').join(',').html_safe}]
+          }, {
               name: '淘宝',
               data: [#{@daily_order_report.order_counts_by_date('taobao').join(',').html_safe}]
           }, {
@@ -141,6 +159,12 @@ javascript:
           }, {
               name: '寺库',
               data: [#{@daily_order_report.order_counts_by_date('secoo').join(',').html_safe}]
+          }, {
+              name: '嘿客',
+              data: [#{@daily_order_report.order_counts_by_date('heike').join(',').html_safe}]
+          }, {
+              name: '大众点评',
+              data: [#{@daily_order_report.order_counts_by_date('dianping').join(',').html_safe}]
           }, {
               name: '线下店',
               data: [#{@daily_order_report.order_counts_by_date('offline').join(',').html_safe}]

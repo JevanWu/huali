@@ -1,0 +1,8 @@
+-if ["natural-adoration", "the-first-sight-of-you", "la-vie-en-rose", "we-belong", "heart-skipped-a-beat"].include?(@product.slug)
+  div.movieplay
+    div.videos
+      video src="http://hua.li/system/videos/own_your_moment.mp4" width="100%" controls="controls"
+
+.product-intro
+  - unless @product.description.empty?
+    = markdown @product.description

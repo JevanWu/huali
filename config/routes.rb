@@ -13,6 +13,7 @@ Huali::Application.routes.draw do
   get "lucky_draw_offline", to: 'lucky_draw_offlines#new'
   post "lucky_draw_offline", to: 'lucky_draw_offlines#create'
 
+
   get "areas/:area_id", to: 'areas#show'
   get "cities/:city_id/areas", to: 'areas#index'
   get "cities/:city_id/areas/available_for_products", to: 'areas#available_for_products'
@@ -69,10 +70,21 @@ Huali::Application.routes.draw do
   get 'orders/return', as: :return_order
   post 'orders/paypal_return', as: :return_order_paypal
   match 'orders/notify', as: :notify_order, via: [:get, :post]
+  get 'orders/wap_return', as: :wap_return_order
+  match 'orders/wap_notify', as: :wap_notify_order, via: [:get, :post]
   post 'orders/wechat_notify'
   get 'orders/:id/gift_card/edit', to: 'orders#edit_gift_card', as: :edit_gift_card
   match 'orders/:id/gift_card/update', to: 'orders#update_gift_card', as: :update_gift_card, via: [:put, :patch]
   get 'orders/instant_delivery_status'
+
+  # quick purchase
+  #get 'quick_purchases/new', to: 'quick_purchases#new_address', as: :new_address_quick_purchase
+  #post 'quick_purchases/address/create', to: 'quick_purchases#create_address', as: :create_address_quick_purchase
+
+  #get 'quick_purchases/products', to: 'quick_purchases#products', as: :products_quick_purchase
+  #put 'quick_purchases/products', to: 'quick_purchases#products', as: :update_products_quick_purchase
+
+  #post 'quick_purchases/order/create', to: 'quick_purchases#create_order', as: :create_order_quick_purchase
 
   # back order urls
   get 'orders/backorder', to: 'orders#back_order_new', as: :new_back_order
@@ -100,7 +112,7 @@ Huali::Application.routes.draw do
   devise_for :administrators
 
   # FIXME need to know exact behaviors of controllers params
-  devise_for :users, controllers: { confirmations: 'confirmable', invitations: 'invitations', omniauth_callbacks: 'oauth_services' }
+  devise_for :users, controllers: { invitations: 'invitations', omniauth_callbacks: 'oauth_services' }
 
   devise_scope :user do
     get '/users/bind_with_oauth', to: 'oauth_registrations#new_from_oauth', as: :new_oauth_user_registration
@@ -134,6 +146,7 @@ Huali::Application.routes.draw do
   get 'weibo_stories', to: 'pages#weibo_stories', as: :weibo_stories
   get 'christmas', to: 'pages#christmas', as: :christmas
   get 'valentine', to: 'pages#valentine', as: :valentine
+  get 'valentine_2015', to: 'pages#valentine_2015'
   get 'white_day', to: 'pages#white_day', as: :white_day
   get 'pick_up', to: 'pages#pick_up', as: :pick_up
   get 'muqinjie', to: 'pages#mother_day', as: :muqinjie
@@ -141,6 +154,11 @@ Huali::Application.routes.draw do
   get 'join_us', to: 'pages#join_us'
   get 'yujianli', to: 'pages#yujianli'
   get 'offline_shop', to: 'pages#offline_shop'
+  get 'perfume', to: 'pages#perfume'
+  get 'movie', to: 'pages#movie'
+  get 'cake_coupon', to: 'pages#cake_coupon'
+  get 'self_pickup', to: 'pages#self_pickup'
+  get 'countdown', to: 'pages#countdown'
 
   get 'banners/:date', to: 'banners#index', as: :banners
   get 'stories', to: 'stories#index'
@@ -149,6 +167,7 @@ Huali::Application.routes.draw do
   get 'wechats/pay', to: 'wechats#pay', as: :wechats_pay
   API::API.logger Rails.logger
   mount API::API => '/api'
+  mount MobileAPI::API => '/mobile_api'
 
   ActiveAdmin.routes(self)
 

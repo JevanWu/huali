@@ -26,9 +26,7 @@ class OrderProductRegionValidator < OrderProductBaseValidator
 
     raise "No global region_rule settings found" if region_rule.blank?
 
-    rule_runner = RegionRuleRunner.new(region_rule.province_ids,
-                                       region_rule.city_ids,
-                                       region_rule.area_ids)
+    rule_runner = RegionRuleRunner.new(region_rule)
     rule_runner.apply_test(province_id, city_id, area_id)
   end
 end

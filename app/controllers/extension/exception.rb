@@ -6,15 +6,23 @@ module Extension
     included do
       if Rails.env.production?
         rescue_from 'Exception' do |exception|
-          notify_squash exception
+          notify_squash(exception)
           render_error 500, exception
         end
 
         rescue_from 'ActionController::RoutingError',
           'ActionController::UnknownController',
-          '::AbstractController::ActionNotFound',
-          'ActiveRecord::RecordNotFound' do |exception|
-          notify_squash exception
+          '::AbstractController::ActionNotFound' do |exception|
+          notify_squash(exception)
+          render_error 404, exception
+        end
+
+        rescue_from 'ActiveRecord::RecordNotFound',
+          'ActionController::UnknownFormat' do |exception|
+          unless params[:controller] == 'pages' && params[:action] == "show"
+            notify_squash(exception)
+          end
+
           render_error 404, exception
         end
       end

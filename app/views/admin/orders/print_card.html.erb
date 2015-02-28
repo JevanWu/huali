@@ -17,8 +17,8 @@
       </div>
       <p></p>
       <p id="sender"></p>
+      <p id="validation_code"><%= "正品验证序号: #{@order.validation_code}" %></p>
       <% if ['normal', 'taobao', 'tmall'].include?(@order.kind) %>
-        <p id="validation_code"><%= "正品验证序号: #{@order.validation_code}" %></p>
       <% end %>
     </div>
     <% if @order.postcard %>

@@ -42,6 +42,9 @@ class PagesController < ApplicationController
   def valentine
   end
 
+  def valentine_2015
+  end
+
   def white_day
   end
 
@@ -58,6 +61,21 @@ class PagesController < ApplicationController
   end
 
   def offline_shop
+  end
+
+  def perfume
+  end
+
+  def moive
+  end
+
+  def cake_coupon
+  end
+
+  def self_pickup
+  end
+
+  def countdown
   end
 
 end

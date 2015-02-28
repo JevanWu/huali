@@ -32,7 +32,7 @@ class Administrator < ActiveRecord::Base
   devise :database_authenticatable, :rememberable, :trackable, :validatable
 
   extend Enumerize
-  enumerize :role, in: %i(super admin operation_manager product_manager web_operation_manager marketing_manager customer_service)
+  enumerize :role, in: %i(super admin operation_manager product_manager web_operation_manager marketing_manager customer_service customer_service_assistant)
 
   # sync_orders
   has_many :sync_orders
