@@ -325,6 +325,7 @@ class Order < ActiveRecord::Base
 
   def discounted_money
     item_total - total
+  end
 
   def state_zh
     I18n.t("models.order.state.#{self.state}")
