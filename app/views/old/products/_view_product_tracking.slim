@@ -1,5 +1,0 @@
-- content_for :js do
-  javascript:
-    $(function () {
-      analytics.track('Viewed Product', { id: '#{@product.id}', name: '#{@product.name}', category: '#{@product.product_type_text}', price: #{@product.price}, label: '#{@product.name}' });
-    });

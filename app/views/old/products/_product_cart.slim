@@ -1,7 +1,0 @@
-- content_for :css do
-  = stylesheet_link_tag "modules/product_cart", media: "all"
-
-= simple_form_for @cart, url: carts_add_path, method: :post, html: {class: "form-horizontal"} do |f|
-  = f.input :product_id, as: :hidden, input_html: { value: @product.id }
-  = f.input :quantity, as: :hidden, input_html: { value: "1" }
-  = f.submit "放入购物车", class: "button"

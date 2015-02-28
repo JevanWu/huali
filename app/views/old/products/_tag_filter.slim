@@ -1,6 +1,0 @@
-p#tag_filter
-  - tag_cloud(@tag_clouds, %w(label)) do |tag, css_class|
-      - css_classes = css_class
-      - tags_in_path = request.path.split('/').last
-      - css_classes += " label-inverse" if tags_in_path.include?(url_encode(tag.name))
-      = link_to "#{tag.name}(#{tag.count})", { :action => :tagged_with, :tags => tag.name }, :class => css_classes, data: { tag: tag.name }

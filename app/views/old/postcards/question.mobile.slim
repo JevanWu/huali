@@ -1,7 +1,0 @@
-.account-info-container
-  .postcard-container
-    .question
-      = @postcard.question
-    = form_tag postcard_answer_path(@postcard) 
-      = text_field_tag :answer
-      = submit_tag "submit", class: "huali-btn"

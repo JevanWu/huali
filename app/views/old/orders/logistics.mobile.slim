@@ -1,6 +1,0 @@
-.order-trackings
-  - if @order.shipment && @order.shipment.kuaidi100_result
-    = render 'tracking', result: JSON.parse(@order.shipment.kuaidi100_result)
-  - else
-    .no-tracking
-      | 对不起, 暂无物流流转信息

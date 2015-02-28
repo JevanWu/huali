@@ -1,7 +1,0 @@
-ul.row.process
-  li class='span4 #{current_if_action('new', 'back_order_new', 'taobao_order_new', 'create')}'
-    = t('views.order.address_and_info')
-  li class='span4 #{current_if_action('checkout')}'
-    = t('views.order.choose_pay_method')
-  li class='span4 #{current_if_action('return')}'
-    = t('views.order.paid')

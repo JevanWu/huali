@@ -1,9 +1,0 @@
-- result.each do |item|
-  .tracking
-    p.log
-      = item["context"]
-    p.log-time
-      span.date
-        = l item["time"].to_date
-      span.time
-        = Time.parse(item["time"]).strftime("%I:%M %p")
