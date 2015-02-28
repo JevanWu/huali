@@ -1,6 +1,8 @@
 $(document).ready(function(){
   $(".tab-list li").removeClass(); 
   var userpage=$.cookie("userpage");
-  $('#'+userpage).addClass("now")
-  $.cookie("userpage", "<%=@partial%>");
+  if (userpage !== "<%=@partial%>")
+  {
+    $('#'+userpage).addClass("now")
+   }
 });
