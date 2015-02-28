@@ -22,10 +22,11 @@
           - elsif %w(wait_check wait_make).include? order.state 
             = link_to "制作电子贺卡", new_postcard_path(order_id: order.id), class: 'btn-pay'
           - elsif order.state == 'wait_confirm'
-            = button_to t('models.order.state.confirm_received'), confirm_shipment_path(order.shipment), data: { confirm: t('views.order.confirm_accept') }, class: 'btn-pay'
+            = button_to t('models.order.state.confirm_received'), confirm_shipment_path(order.shipment), data: { confirm: t('views.order.confirm_accept') }, class: 'a.btn-confirm'
           - else
-            = t('models.order.state.' + order.state)
-        td.col6
+            span
+              = t('models.order.state.' + order.state)
+        .detail
           p = link_to '订单详情', order_path(order)
           /*- if %w(generated wait_check).include? order.state
             p = link_to '编辑贺卡信息', edit_gift_card_path(order)*/
