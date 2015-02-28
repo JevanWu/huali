@@ -20,13 +20,25 @@ class UsersController < ApplicationController
     end
   end
 
-  def account
+  def setting
     @user = current_user
+    @partial = "setting"
+
+    respond_to do |format|
+      format.html
+      format.js { render "update_partial", layout: false }
+    end
   end
 
   def orders
     @user = current_user
     @orders = current_or_guest_user.orders
+    @partial = "orders"
+
+    respond_to do |format|
+      format.html
+      format.js { render "update_partial", layout: false }
+    end
   end
 
   def update_password
@@ -44,10 +56,22 @@ class UsersController < ApplicationController
 
   def huali_point
     @point_transactions = current_user.point_transactions.order(:created_at).page(params[:page]).per(3)
+    @partial = "huali_point"
+
+    respond_to do |format|
+      format.html
+      format.js { render "update_partial", layout: false }
+    end
   end
 
   def refer_friend
     @user = User.new
+    @partial = "refer_friend"
+
+    respond_to do |format|
+      format.html
+      format.js { render "update_partial", layout: false }
+    end
   end
 
   def email_mimic_signin
