@@ -17,8 +17,8 @@ $(document).ready(function(){
       $.cookie("filter", "1"); 
       $(document).click(function(){ 
         $(".filter").slideUp(200);
-        e.stopPropagation();
         $.cookie("filter", "0");
+        e.stopPropagation();
       });
 
     }
@@ -31,10 +31,10 @@ $(document).ready(function(){
    $(".btn-filter,.filter").on("click", function(e){
      e.stopPropagation();
    });
-  $(document).click(function(){ 
+  $(document).click(function(e){ 
     $(".filter").slideUp(200);
-    e.stopPropagation();
     $.cookie("filter", "0");
+    e.stopPropagation();
   });
   $(".btn-filter,.filter").on("click", function(e){
      e.stopPropagation();
