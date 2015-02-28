@@ -1,0 +1,10 @@
+.tab-list
+  ul
+    li.now#account-setting
+      = link_to "个人设置", setting_path, class: "account-setting-link", remote: true
+    li#order
+      = link_to "我的订单", user_orders_path, class: "order-link", remote: true
+    li#hua-point
+      = link_to "花点", huali_point_path, class: "hua-point-link", remote: true
+    li#invite
+      = link_to "邀请", refer_friend_path, class: "invite-link", remote: true

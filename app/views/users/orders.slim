@@ -1,14 +1,5 @@
 .account-info
-  .tab-list
-    ul
-      li#account-setting
-        = link_to "个人设置", "#", class: "account-setting-link"
-      li.now#order
-        = link_to "我的订单", "#", class: "order-link"
-      li#hua-point
-        = link_to "花点", "#", class: "hua-point-link"
-      li#invite
-        = link_to "邀请", "#", class: "invite-link"
+  = render 'menu'
 
-  - @user.orders.each do |order|
-    = render 'order', order: order
+.account-main
+  = render 'orders' 

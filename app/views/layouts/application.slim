@@ -8,6 +8,7 @@ html
     = javascript_include_tag  "all"
     = yield(:js)
   body
+    = render 'layouts/alert_message'
     = render 'layouts/nav'
     = yield
     = render 'layouts/footer'

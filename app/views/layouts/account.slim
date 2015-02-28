@@ -6,6 +6,7 @@ html
     = stylesheet_link_tag "account" 
     = javascript_include_tag  "order"
   body
+    = render 'layouts/alert_message'
     .header2
       .logo
         = image_tag("images/logo.png")

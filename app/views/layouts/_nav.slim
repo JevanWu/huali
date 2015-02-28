@@ -40,7 +40,7 @@
       a.s id="searcha" href = "#"
         .search
       - if user_signed_in?  
-        a.logged(href = "#{account_path}")
+        a.logged(href = "#{setting_path}")
           .login
       - else
         a.l id="logina" href = "#{new_user_session_path}"
@@ -49,7 +49,7 @@
         .cart
       - if user_signed_in?  
         .popup-trigger
-          a.clickarea href = "#{account_path}"
+          a.clickarea href = "#{setting_path}"
           .account-menu
             p 
               = current_user.email
