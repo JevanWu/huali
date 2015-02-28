@@ -6,6 +6,6 @@
 //= require 'lrtk'
 //= require 'home_slide'
 //= require 'brand'
-//= require 'products'
 //= require 'module/greeting-card-dialog'
 //= require 'nav'
+//= require 'user_info'

@@ -1,2 +1,5 @@
 $(".account-main").html("<%= j(render partial: @partial) %>")
+$(".tab-list li").removeClass(); 
+$("#<%=@partial%>").addClass("now")
+$.cookie("userpage", "<%=@partial%>");
 history.pushState({title: "<%= @partial %>"}, "", "<%= @partial %>")
