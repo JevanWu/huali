@@ -8,8 +8,8 @@ class ApplicationController < ActionController::Base
   before_action :nav_cart
 
   # enable squash
-  include Squash::Ruby::ControllerMethods
-  enable_squash_client
+  #include Squash::Ruby::ControllerMethods
+  #enable_squash_client
 
   include ::Extension::GuestUser
   include ::Extension::Locale
