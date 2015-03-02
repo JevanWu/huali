@@ -1,0 +1,32 @@
+<table border="0" cellpadding="0" cellspacing="0" width="600" id="templateBody">
+  <tr>
+    <td valign="top">
+      <!-- // Begin Module: Standard Content \\ -->
+      <table border="0" cellpadding="20" cellspacing="0" width="100%">
+        <tr>
+          <td valign="top" class="bodyContent">
+            <div mc:edit="std_content00">
+              <h3 class='h3'><%= @topic %>已经发货备忘</h3>
+              <p>截至到<%= l Time.now, format: :short %>, <%= @topic %>的已经发货订单如下:</p>
+              <p style="color:red;">时间按发货日期来计算(未发货订单不计入)</p>
+              <p style="color:red;">总数包含<%= @start_date.strftime("%m%d") %> - <%= @end_date.strftime("%m%d") %>共计<%= @days %>天<b>已经发货</b>的货源</p>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td valign="top" style="padding-top:0; padding-bottom:0;">
+            <table border="0" cellpadding="10" cellspacing="0" width="100%" class="templateDataTable verticalDataTable">
+              <tr>
+                <td> <p><h4 class='h4'>已经发货</h4></p> </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        
+        <%= render 'product_day_email_body' %>
+      </table>
+      <!-- // End Module: Standard Content \\ -->
+    </td>
+  </tr>
+</table>

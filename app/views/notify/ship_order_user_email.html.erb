@@ -1,0 +1,128 @@
+<table border="0" cellpadding="0" cellspacing="0" width="600" id="templateBody">
+  <tr>
+    <td valign="top">
+      <!-- // Begin Module: Standard Content \\ -->
+      <table border="0" cellpadding="20" cellspacing="0" width="100%">
+        <tr>
+          <td valign="top" class="bodyContent">
+            <div mc:edit="std_content00">
+              <h3 class="h3"> 恭喜您, 您在花里的订单已经发货 </h3>
+              <p>亲爱的 <%= @order.sender_name %>:</p>
+              <p>
+                我们很高兴地通知您，您在花里的订单已经制作完成并且用
+                <strong><%= @order.shipment.ship_method.name %></strong>
+                的方式给<strong><%= @order.address.fullname %></strong>发货了。
+              </p>
+              <p> 
+                订单号码为 <%= link_to @order.identifier, order_url(@order) %>, 
+                快递编号为 <%= link_to @order.shipment.tracking_num, @order.shipment.kuai_100_url %> 
+              </p>
+              <p> 预计它将于 <%= @order.expected_date %> 送达 <%= @order.address %> 的手中.  </p>
+              <p> 您也可以在 <%= link_to '这里', order_url(@order) %> 查看该订单的详细信息.  </p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top" style="padding-top:0; padding-bottom:0;">
+            <table border="0" cellpadding="10" cellspacing="0" width="100%" class="templateDataTable verticalDataTable">
+              <tr>
+                <td> <p> <h4 class='h4'>订单信息</h4> </p> </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top" style="padding-top:0; padding-bottom:0;">
+            <table border="0" cellpadding="10" cellspacing="0" width="100%" class="templateDataTable verticalDataTable">
+              <tr>
+                <td class='dataTableHeading'><%= t('activerecord.attributes.order.identifier') %></td>
+                <td> <%= link_to @order.identifier, order_url(@order) %> </td>
+              </tr>
+              <tr>
+                <td class='dataTableHeading'><%= t('activerecord.attributes.order.receiver_fullname') %></td>
+                <td> <%= @order.address.fullname %> </td>
+              </tr>
+              <tr>
+                <td class='dataTableHeading'><%= t('activerecord.attributes.order.receiver_address') %></td>
+                <td> <%= @order.address.full_addr %> </td>
+              </tr>
+              <tr>
+                <td class='dataTableHeading'><%= t('activerecord.attributes.order.receiver_phonenum') %></td>
+                <td> <%= @order.address.phone %> </td>
+              </tr>
+              <tr>
+                <td class='dataTableHeading'><%= t('activerecord.attributes.order.expected_date') %></td>
+                <td> <%= l @order.expected_date, format: :short %> </td>
+              </tr>
+              <tr>
+                <td class='dataTableHeading'><%= t('activerecord.attributes.order.gift_card_text') %></td>
+                <td> <%= @order.gift_card_text %> </td>
+              </tr>
+              <tr>
+                <td class='dataTableHeading'><%= t('activerecord.attributes.order.special_instructions') %></td>
+                <td> <%= @order.special_instructions %> </td>
+              </tr>
+              <tr>
+                <td class='dataTableHeading'><%= t('activerecord.attributes.order.sender_name') %></td>
+                <td> <%= @order.sender_name %> </td>
+              </tr>
+              <tr>
+                <td class='dataTableHeading'><%= t('activerecord.attributes.order.sender_email') %></td>
+                <td> <%= mail_to @order.sender_email %> </td>
+              </tr>
+              <tr>
+                <td class='dataTableHeading'><%= t('activerecord.attributes.order.sender_phone') %></td>
+                <td> <%= @order.sender_phone %> </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top" style="padding-top:0; padding-bottom:0;">
+            <table border="0" cellpadding="10" cellspacing="0" width="100%" class="templateDataTable verticalDataTable">
+              <tr>
+                <td> <p><h4 class='h4'>花篮信息</h4></p> </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top" style="padding-top:0; padding-bottom:0;">
+            <table border="0" cellpadding="10" cellspacing="0" width="100%" class="templateDataTable">
+              <tr>
+                <th scope="col" valign="top" width="40%" class="dataTableHeading" mc:edit="data_table_heading00">
+                  产品名称
+                </th>
+                <th scope="col" valign="top" width="20%" class="dataTableHeading" mc:edit="data_table_heading00">
+                </th>
+                <th scope="col" valign="top" width="20%" class="dataTableHeading" mc:edit="data_table_heading01">
+                  数量
+                </th>
+                <th scope="col" valign="top" width="20%" class="dataTableHeading" mc:edit="data_table_heading02">
+                  价格
+                </th>
+              </tr>
+                <% @order.line_items.each do |item| %>
+                <tr mc:repeatable>
+                  <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
+                    <%= image_tag item.img(:thumb) %>
+                  </td>
+                  <td valign="top" class="dataTableContent" mc:edit="data_table_content00">
+                    <%= link_to item.name, product_url(item.product) %>
+                  </td>
+                  <td valign="top" class="dataTableContent" mc:edit="data_table_content01">
+                    <%= item.quantity %>
+                  </td>
+                  <td valign="top" class="dataTableContent" mc:edit="data_table_content02">
+                    <%= item.price %>
+                  </td>
+                </tr>
+                <% end %>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <!-- // End Module: Standard Content \\ -->
+    </td>
+  </tr>
+</table>

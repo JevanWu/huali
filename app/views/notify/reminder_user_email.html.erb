@@ -1,0 +1,62 @@
+<table border="0" cellpadding="0" cellspacing="0" width="600" id="templateBody">
+  <tr>
+    <td valign="top">
+      <!-- // Begin Module: Standard Content \\ -->
+      <table border="0" cellpadding="20" cellspacing="0" width="100%">
+        <tr>
+          <td valign="top" class="bodyContent">
+            <div mc:edit="std_content00">
+              <h3 class="h3">花里花店提醒</h3>
+              <p>亲爱的顾客:</p>
+              <p>
+                这是您在<%= l @reminder.created_at, format: :short %>设置的提醒, 
+                您可能需要在<%= l @reminder.send_date, format: :short %>购花.
+              </p>
+              <p><%= @reminder.note %></p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top" style="padding-top:0; padding-bottom:0;">
+            <h4 class='h4'>购物车信息</h4>
+          </td>
+        </tr>
+      </table>
+      <!-- // End Module: Standard Content \\ -->
+
+      <% @products.each_with_index do |product, index| %>
+        <table mc:repeatable="siwc_600" border="0" cellpadding="20" cellspacing="0" width="100%">
+          <tbody>
+          <tr>
+            <% if index % 2 == 0  %>
+              <td align="center" valign="top">
+                <%= link_to image_tag(product.img(:medium)), product_url(product) %>
+              </td>
+            <% end %>
+            <td valign="top">
+              <div mc:edit="liwc600_content00">
+                <h4 class="h4"><%= product.name %></h4>
+                <em><%= product.inspiration %></em>
+              </div>
+              <p style='margin-top:10px;'>
+                <table border="0" cellpadding="7" cellspacing="0" class="templateButton">
+                  <tr>
+                    <td valign="center" class="templateButtonContent">
+                      <%= link_to '购买', product_url(product) %>
+                    </td>
+                  </tr>
+                </table>
+              </p>
+            </td>
+            <% if index % 2 == 1  %>
+              <td align="center" valign="top">
+                <%= link_to image_tag(product.img(:medium)), product_url(product) %>
+              </td>
+            <% end %>
+          </tr>
+          </tbody>
+        </table>
+      <% end %>
+    </td>
+  </tr>
+</table>
