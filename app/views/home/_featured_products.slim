@@ -7,7 +7,8 @@
     ul
       - @products.each do |product|
         li
-          = link_to image_tag(product.assets.first.image.url), product_path(product)
+          = link_to image_tag(product.rectangle_image(:medium)), product_path(product)
+          /* = link_to image_tag(product.assets.first.image.url), product_path(product) */
     a.prev href="javascript:void(0)"
     a.next href="javascript:void(0)"
 
