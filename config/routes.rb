@@ -53,7 +53,7 @@ Huali::Application.routes.draw do
     end
   end
 
-  resources :surveys, only: [:new, :create]
+  #resources :surveys, only: [:new, :create]
   resources :postcards, only: [:new, :create, :show]
 
   get 'postcards/:id/question', to: 'postcards#question', as: :postcards_question
