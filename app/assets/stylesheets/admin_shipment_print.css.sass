@@ -1,0 +1,318 @@
+$top: 143pt
+$lineHeight: 18pt
+$lineMargin: 2pt
+$lineWidth: 215pt
+$fontSize: 11pt
+
+
+.sheet-bg
+  // adjustment to the actual print layout
+  // in Chrome
+  position: relative
+  top: 0pt
+  left: 0pt
+
+.sheet-bg img
+  // w: 23cm, h, 12.7cm
+  // http://en.wikipedia.org/wiki/Dots_per_inch
+  // dpi: 28dot/cm
+  width: 23 * 28pt
+  height: 12.7 * 28pt
+
+.shenge-bg img
+  // w: 23cm, h, 12.7cm
+  // http://en.wikipedia.org/wiki/Dots_per_inch
+  // dpi: 28dot/cm
+  width: 19.3 * 28pt
+  height: 13 * 28pt
+
+.lebang-bg img
+  // w: 23cm, h, 12.7cm
+  // http://en.wikipedia.org/wiki/Dots_per_inch
+  // dpi: 28dot/cm
+  width: 19 * 28pt
+  height: 10.5 * 28pt
+
+p
+  font-family: sans-serif
+  font-size: $fontSize
+  font-weight: bold
+  position: absolute
+  border: 1px red solid
+  height: $lineHeight - 2 * $lineMargin
+  line-height: $lineHeight
+  margin: 0
+  padding: 0
+
+.receipt
+  top: $top
+  left: 95pt
+  width: $lineWidth
+
+.phone
+  top: $top + $lineHeight
+  left: 74pt
+  width: $lineWidth / 2
+
+.cell
+  top: $top + $lineHeight
+  left: 208pt
+  width: $lineWidth / 2
+
+.addr
+  top: $top + 3 * $lineHeight
+  left: 65pt
+  width: $lineWidth
+  font-size: $fontSize * 0.9
+
+.post
+  top: $top + 4 * $lineHeight
+  left: 209pt
+  width: $lineWidth * 0.4
+
+.sender
+  .sender-com
+    width: 53pt
+  .sender-phone
+    width: 77pt
+
+.sender-lebang
+  .sender-com
+    top: 74pt
+    left: 70pt
+
+  .sender-addr
+    top: 121pt
+    left: 42pt
+
+  .sender-phone
+    top: 73pt
+    left: 170pt
+    width: 90pt
+
+.sender-shenge
+  .sender-com
+    top: 87pt
+    left: 85pt
+
+  .sender-addr
+    top: 143pt
+    left: 83pt
+
+  .sender-phone
+    top: 159pt
+    left: 40pt
+    width: 90pt
+
+.sender-shunfeng
+  .sender-com
+    top: 90pt
+    left: 40pt
+
+  .sender-addr
+    top: 127pt
+    left: 35pt
+
+  .sender-phone
+    top: 110pt
+    left: 40pt
+    width: 90pt
+
+.sender-shentong
+  .sender-com
+    top: 76pt
+    left: 85pt
+
+  .sender-addr
+    top: 147pt
+    left: 31pt
+
+  .sender-phone
+    top: 171pt
+    left: 107pt
+    width: 100pt
+
+.sender-ems
+  .sender-com
+    top: 58pt
+    left: 47pt
+
+  .sender-addr
+    top: 92pt
+    left: 34pt
+
+  .sender-phone
+    top: 58pt
+    left: 157pt
+    width: 100pt
+
+.text
+  .addr
+    width: 203pt
+  .receipt
+    width: 75pt
+  .cell
+    width: 120pt
+
+.text-lebang
+  .addr
+    top: 122pt
+    left: 289pt
+
+  .cell
+    top: 74pt
+    left: 417pt
+
+  .receipt
+    top: 75pt
+    left: 317pt
+
+  .post
+    top: 153pt
+    left: 435pt
+
+  .month_clean
+    top: 240pt
+    left: 284pt
+
+.text-shenge
+  .addr
+    top: 153pt
+    left: 276pt
+
+  .cell
+    top: 199pt
+    left: 294pt
+
+  .receipt
+    top: 83pt
+    left: 327pt
+
+  .post
+    top: 197pt
+    left: 435pt
+
+  .month_clean
+    top: 240pt
+    left: 284pt
+
+.text-shunfeng
+  .addr
+    top: 225pt
+    left: 28pt
+
+  .cell
+    top: 208pt
+    left: 145pt
+
+  .receipt
+    top: 190pt
+    left: 187pt
+
+  .post
+    top: 244pt
+    left: 184pt
+
+  .month_clean
+    top: 240pt
+    left: 284pt
+
+.text-ems
+  .receipt
+    top: 140pt
+    left: 68pt
+    width: 75pt
+
+  .cell
+    top: 137pt
+    left: 184pt
+
+  .addr
+    top: 174pt
+
+  .post
+    top: 213pt
+    left: 227pt
+
+.text-shentong
+  .receipt
+    top: 71pt
+    left: 354pt
+
+  .cell
+    top: 173pt
+    left: 378pt
+
+  .addr
+    top: 145pt
+    left: 300pt
+    width: 225pt
+
+  .post
+    top: 156pt
+    left: 484pt
+
+.text-lianbang
+  .receipt
+    top: 166pt
+    left: 55pt
+
+  .cell
+    top: 182pt
+    left: 152pt
+
+  .addr
+    top: 222pt
+    left: 17pt
+
+  .post
+    top: 239pt
+    left: 164pt
+
+.product_text
+  font-size: 8pt
+  width: 300pt
+
+.text-lebang .product_text
+  top: 6pt
+  left: 9pt
+.text-shenge .product_text
+  top: 61pt
+  left: 23pt
+.text-lianbang .product_text
+  top: 60pt
+  left: 368pt
+  width: 200px
+.text-shunfeng .product_text
+  top: 304pt
+  left: 251pt
+.text-ems .product_text
+  top: 38pt
+  left: 60pt
+.text-shentong .product_text
+  top: 17pt
+  left: 427pt
+
+.text-lebang .delivery_date
+  top: 172pt
+  left: 206pt
+.text-shenge .delivery_date
+  top: 83pt
+  left: 206pt
+.text-lianbang .delivery_date
+  top: 51pt
+  left: 368pt
+.text-shunfeng .delivery_date
+  top: 70pt
+  left: 352pt
+
+@media print
+
+  .sheet-bg img, a
+    display: none
+
+  p
+    border: none
+
+@page
+  size: 23cm 12.7cm Portrait
