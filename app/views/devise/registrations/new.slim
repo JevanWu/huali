@@ -14,7 +14,7 @@
     .form-actions
       = f.button :submit, t('.sign_up'), class: 'btn-passport button'
       strong
-        | 已有帐号请
+        | 已有帐号?请
         = link_to t(".sign_in"), new_session_path(resource_name)
 
   = render 'account/loggin_oauth'
