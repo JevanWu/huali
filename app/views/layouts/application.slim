@@ -2,7 +2,13 @@ html
   head
     meta charset="utf-8"
     meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" 
-    title Huali
+    = favicon_link_tag 'favicon.ico'
+    title = content_for?(:title) ? yield(:title) + ' ' : '花里花店 Huali Store'
+    meta property="qc:admins" content="2121321547641"
+    meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"
+    meta name="Keywords" content="#{yield :keywords}"
+    meta name="Description" content="#{yield :description}"
+
     = stylesheet_link_tag "all" 
     = yield(:css)
     = javascript_include_tag  "all"
