@@ -141,24 +141,24 @@ Huali::Application.routes.draw do
   get 'home', to: 'pages#home', as: :home
   get 'partner', to: 'pages#partner', as: :partner
   get 'brands', to: 'pages#brands', as: :brands
-  get 'celebrities', to: 'pages#celebrities', as: :celebrities
-  get 'medias', to: 'pages#medias', as: :medias
-  get 'weibo_stories', to: 'pages#weibo_stories', as: :weibo_stories
-  get 'christmas', to: 'pages#christmas', as: :christmas
-  get 'valentine', to: 'pages#valentine', as: :valentine
-  get 'valentine_2015', to: 'pages#valentine_2015'
-  get 'white_day', to: 'pages#white_day', as: :white_day
-  get 'pick_up', to: 'pages#pick_up', as: :pick_up
-  get 'muqinjie', to: 'pages#mother_day', as: :muqinjie
-  get 'qixijie', to: 'pages#qixijie', as: :qixijie
-  get 'join_us', to: 'pages#join_us'
-  get 'yujianli', to: 'pages#yujianli'
-  get 'offline_shop', to: 'pages#offline_shop'
-  get 'perfume', to: 'pages#perfume'
-  get 'movie', to: 'pages#movie'
-  get 'cake_coupon', to: 'pages#cake_coupon'
-  get 'self_pickup', to: 'pages#self_pickup'
-  get 'countdown', to: 'pages#countdown'
+  # get 'celebrities', to: 'pages#celebrities', as: :celebrities
+  # get 'medias', to: 'pages#medias', as: :medias
+  # get 'weibo_stories', to: 'pages#weibo_stories', as: :weibo_stories
+  # get 'christmas', to: 'pages#christmas', as: :christmas
+  # get 'valentine', to: 'pages#valentine', as: :valentine
+  # get 'valentine_2015', to: 'pages#valentine_2015'
+  # get 'white_day', to: 'pages#white_day', as: :white_day
+  # get 'pick_up', to: 'pages#pick_up', as: :pick_up
+  # get 'muqinjie', to: 'pages#mother_day', as: :muqinjie
+  # get 'qixijie', to: 'pages#qixijie', as: :qixijie
+  # get 'join_us', to: 'pages#join_us'
+  # get 'yujianli', to: 'pages#yujianli'
+  # get 'offline_shop', to: 'pages#offline_shop'
+  # get 'perfume', to: 'pages#perfume'
+  # get 'movie', to: 'pages#movie'
+  # get 'cake_coupon', to: 'pages#cake_coupon'
+  # get 'self_pickup', to: 'pages#self_pickup'
+  # get 'countdown', to: 'pages#countdown'
 
   get 'banners/:date', to: 'banners#index', as: :banners
   get 'stories', to: 'stories#index'

@@ -30,52 +30,52 @@ class PagesController < ApplicationController
   def brands
   end
 
-  def celebrities
-  end
-
-  def weibo_stories
-  end
-
-  def christmas
-  end
-
-  def valentine
-  end
-
-  def valentine_2015
-  end
-
-  def white_day
-  end
-
-  def pick_up
-  end
-
-  def join_us
-  end
-
-  def qixijie
-  end
-
-  def yujianli
-  end
-
-  def offline_shop
-  end
-
-  def perfume
-  end
-
-  def moive
-  end
-
-  def cake_coupon
-  end
-
-  def self_pickup
-  end
-
-  def countdown
-  end
+  # def celebrities
+  # end
+  #
+  # def weibo_stories
+  # end
+  #
+  # def christmas
+  # end
+  #
+  # def valentine
+  # end
+  #
+  # def valentine_2015
+  # end
+  #
+  # def white_day
+  # end
+  #
+  # def pick_up
+  # end
+  #
+  # def join_us
+  # end
+  #
+  # def qixijie
+  # end
+  #
+  # def yujianli
+  # end
+  #
+  # def offline_shop
+  # end
+  #
+  # def perfume
+  # end
+  #
+  # def moive
+  # end
+  #
+  # def cake_coupon
+  # end
+  #
+  # def self_pickup
+  # end
+  #
+  # def countdown
+  # end
 
 end
