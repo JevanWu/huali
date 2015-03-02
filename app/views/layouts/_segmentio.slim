@@ -1,0 +1,5 @@
+- if current_user
+  javascript:
+    $(function () {
+      analytics.identify('#{current_user.id}');
+    });

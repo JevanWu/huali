@@ -4,5 +4,5 @@ div.cp id= 'newproduct'
     p NEW ARRIVAL
   .int2
   .pro
-    - @products.take(3).each do |product|
+    - @products.each do |product|
       = render 'product', product: product
