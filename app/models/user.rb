@@ -56,7 +56,7 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :omniauthable, :async, :omniauth_providers => [:douban, :weibo, :qq_connect]
+         :omniauthable, :omniauth_providers => [:douban, :weibo, :qq_connect]
 
   has_many :invitees, class_name: "User", foreign_key: "invited_by_id"
   belongs_to :inviter, class_name: "User", foreign_key: "invited_by_id"
