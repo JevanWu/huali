@@ -44,8 +44,8 @@ gem 'virtus'
 gem "rails-settings-cached", "~> 0.4.0"
 
 # squash
-gem 'squash_ruby', :require => 'squash/ruby'
-gem 'squash_rails', :require => 'squash/rails'
+#gem 'squash_ruby', :require => 'squash/ruby'
+#gem 'squash_rails', :require => 'squash/rails'
 
 # background jobs
 gem 'sidekiq'
