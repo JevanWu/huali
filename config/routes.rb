@@ -141,7 +141,8 @@ Huali::Application.routes.draw do
   get 'home', to: 'pages#home', as: :home
   get 'partner', to: 'pages#partner', as: :partner
   get 'brands', to: 'pages#brands', as: :brands
-  # get 'celebrities', to: 'pages#celebrities', as: :celebrities
+  get 'offline_shop', to: 'pages#offline_shop'
+  get 'celebrities', to: 'pages#celebrities', as: :celebrities
   # get 'medias', to: 'pages#medias', as: :medias
   # get 'weibo_stories', to: 'pages#weibo_stories', as: :weibo_stories
   # get 'christmas', to: 'pages#christmas', as: :christmas
@@ -153,7 +154,6 @@ Huali::Application.routes.draw do
   # get 'qixijie', to: 'pages#qixijie', as: :qixijie
   # get 'join_us', to: 'pages#join_us'
   # get 'yujianli', to: 'pages#yujianli'
-  # get 'offline_shop', to: 'pages#offline_shop'
   # get 'perfume', to: 'pages#perfume'
   # get 'movie', to: 'pages#movie'
   # get 'cake_coupon', to: 'pages#cake_coupon'

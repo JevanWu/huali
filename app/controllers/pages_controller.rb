@@ -30,9 +30,12 @@ class PagesController < ApplicationController
   def brands
   end
 
-  # def celebrities
-  # end
-  #
+  def celebrities
+  end
+
+  def offline_shop
+  end
+
   # def weibo_stories
   # end
   #
@@ -60,8 +63,6 @@ class PagesController < ApplicationController
   # def yujianli
   # end
   #
-  # def offline_shop
-  # end
   #
   # def perfume
   # end
