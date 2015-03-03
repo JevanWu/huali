@@ -95,8 +95,8 @@ Huali::Application.routes.draw do
   post 'orders/b2border', to: 'orders#b2b_order_create', as: :create_b2b_order
 
   # secoo order urls
-  get 'orders/secooorder', to: 'orders#secoo_order_new', as: :new_secoo_order
-  post 'orders/secooorder', to: 'orders#secoo_order_create', as: :create_secoo_order
+  get 'orders/secoo_order', to: 'orders#secoo_order_new', as: :new_secoo_order
+  post 'orders/secoo_order', to: 'orders#secoo_order_create', as: :create_secoo_order
 
   # channel order urls
   #get 'orders/channelorder', to: 'orders#channel_order_new', as: :new_channel_order

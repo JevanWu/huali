@@ -19,3 +19,8 @@
     .proceed
       = link_to "继续挑选", products_path, class:"checkout-link"
       = link_to "结算", new_order_path, class:"checkout-link"
+
+      - if current_admin_ability.can?(:record_back_order, Order)
+        /= link_to t('views.order.back_checkout'), new_back_order_path, class: 'checkout-link'
+        /= link_to t('views.order.b2b_checkout'), new_b2b_order_path, class: 'checkout-link'
+        = link_to t('views.order.secoo_checkout'), new_secoo_order_path, class: 'checkout-link'
