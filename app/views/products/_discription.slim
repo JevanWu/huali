@@ -4,6 +4,7 @@
   .mid
     = markdown @product.material
     = markdown @maintenance
+    = markdown @product.delivery
   .right
     .price
       h3 价格 PRICE
@@ -18,5 +19,4 @@
       =render 'products/product_greeting_card'
       .shareto
         = render 'module/share_to', product: @product
-    .keep
-      = markdown @product.delivery
+    

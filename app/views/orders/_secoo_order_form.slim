@@ -1,0 +1,33 @@
+.inputarea
+  h2 订单信息
+  .leftinput
+    = simple_form_for @secoo_order_form, url: { action: 'secoo_order_create' }, html: { class: 'form-horizontal', id: 'new-order' } do |f|
+      = simple_form_error_messages_for(@secoo_order_form.line_items)
+      #product_ids(style="visibility: hidden")
+        = @cart.cart_line_items.map(&:product_id).join(",")
+
+      = f.input :kind, as: :radio_buttons, collection: { '寺库' => 'secoo', '嘿客' => 'heike', '大众点评' => 'dianping' }
+      = f.input :adjustment, placeholder: '+20.0, -30.0, x1.1, *0.9', hint: '运算符号加减乘除分别为(+,-,*或x,%或/), 例如比原价降低20元钱填写"-20.0"，原价打八折填写"*0.8"或"x0.8"。'
+      = f.input :special_instructions, as: :text, input_html: { rows: 3 }, placeholder: '买家留言'
+      = f.input :merchant_order_no, required: true
+
+      = f.fields_for :address, @secoo_order_form.address do |builder|
+        = builder.input :fullname, required: true, input_html: { class: "input recname" }
+        = builder.input :phone, as: :simple_form_phone, required: true, input_html: { class: "input tel" }
+        = builder.input :province_id, collection: [], prompt: "请选择", required:true, input_html: { 'data-placeholder' => '请选择', class: 'chosen' }
+        = builder.input :city_id do
+          = builder.input_field :city_id , collection: [], 'data-placeholder' => '请选择', class: 'chosen'
+        = builder.input :area_id do
+          = builder.input_field :area_id , collection: [], 'data-placeholder' => '请选择', class: 'chosen'
+        = builder.input :address, as: 'text', required:true, input_html: { rows: 3 }, placeholder: '详细地址', hint: "若地址无法选择，请联系客服：400-087-8899"
+        = builder.input :post_code, hint: %(<a id='query-postcode' href="#" target='_blank'>查询邮编</a>).html_safe, input_html: { class: "input post-code" }
+
+        = f.input :bypass_region_validation, as: :hidden, input_html: {value: '1'}
+        = f.input :bypass_product_validation, as: :hidden, input_html: {value: '1'}
+
+      = f.input :expected_date, as: :string, required:true, input_html: { class: 'datepicker input expected-date' }, placeholder: '寄给TA的时间', hint: Setting.expected_date_notice || ("0元花盒将在2月8日后发货" if @cart.limited_promotion_today)
+      = f.input :bypass_date_validation, as: :hidden, input_html: {value: '1'}
+
+      .form-actions
+        = f.button :submit, class: 'btn-submit'
+        = link_to t('cancel'), root_path
