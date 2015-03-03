@@ -1,0 +1,23 @@
+doctype html
+html
+  head
+    = favicon_link_tag 'favicon.ico'
+    title = content_for?(:title) ? yield(:title) + ' ' : 'Huali-Store'
+    meta charset="utf-8"
+    meta name="Keywords" content="#{yield :keywords}"
+    meta name="Description" content="#{yield :description}"
+    meta name="viewport" content="target-densitydpi=320,width=480,user-scalable=no"
+    meta name="HandheldFriendly" content="True"
+    meta name="MobileOptimized" content="480"
+    meta name="format-detection" content="telephone=no"
+    meta content="on" http-equiv="cleartype"
+    meta http-equiv="Cache-Control" content="private"
+    = stylesheet_link_tag 'mobile'
+    = yield(:css)
+
+    = javascript_include_tag 'application-mobile'
+    = render 'layouts/segmentio'
+    = yield(:js)
+
+  body
+    = image_tag('mobile.jpg')
