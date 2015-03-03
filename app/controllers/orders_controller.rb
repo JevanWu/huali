@@ -437,7 +437,6 @@ class OrdersController < ApplicationController
         @secoo_order_form.add_line_item(item.product_id, item.quantity)
       end
 
-      binding.pry
       success = @secoo_order_form.save do |record|
         yield(record) if block_given?
       end
