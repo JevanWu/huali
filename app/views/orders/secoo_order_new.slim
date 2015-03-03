@@ -1,0 +1,13 @@
+= render 'back_order_assets'
+= render 'product_ids', cart: @cart
+
+= render "header", content_zh: "订单录入", content_en: "CREATE YOUR ORDER"
+.orderspace
+  .inform
+    = render 'list'
+    - if @secoo_order_form.errors.messages.present?
+      = render 'warning'
+    = render 'mail'
+    = render 'secoo_order_form'
+
+= render "footer"

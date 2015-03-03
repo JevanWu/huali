@@ -106,11 +106,11 @@ class OrdersController < ApplicationController
 
 
   def secoo_order_new
-    @secoo_order_form = SecooOrderForm.new(kind: 'secoo',
-                                           coupon_code: @coupon_code ? @coupon_code.code : nil)
+    @secoo_order_form = SecooOrderForm.new(kind: 'secoo')
     @secoo_order_form.sender = SenderInfo.new
     @secoo_order_form.address = ReceiverInfo.new
   end
+
   def secoo_order_create
     secoo_process_admin_order('secoo_order_new') do |record|
       record.state = 'wait_check'
@@ -430,12 +430,14 @@ class OrdersController < ApplicationController
       get_cart
       @secoo_order_form = SecooOrderForm.new(params[:secoo_order_form])
       @secoo_order_form.user = current_or_guest_user
+    @secoo_order_form.sender = SenderInfo.new(name: 'oscar', email: 'oscar@hua.li', phone: '400-087-8899')
 
       # create line items
       @cart.get_line_items.each do |item|
         @secoo_order_form.add_line_item(item.product_id, item.quantity)
       end
 
+      binding.pry
       success = @secoo_order_form.save do |record|
         yield(record) if block_given?
       end
