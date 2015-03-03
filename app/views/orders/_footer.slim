@@ -1,6 +1,7 @@
 .footer
   .line2
-    p 周一至周六 9:00-21:00
+    p
+      = Setting.work_time
   .line3
     - Page.in_footer.each do |page|
       = link_to page.title, page_path(page), title: page.title, rel: "nofollow"
