@@ -7,10 +7,19 @@
     = markdown @product.delivery
   .right
     .price
-      h3 价格 PRICE
-      p 
-        = @product.price
+      h3.product-name = "#{@product.name} #{@product.name_en}"
+      - if @product.count_on_hand <= 0
+        .sold-out = "已售罄"
+      - unless @product.original_price.nil?
+        del
+          i
+            = number_to_currency @product.original_price
+      p.price
+        = number_to_currency @product.price
       p 免运费
+      - if @product.width? && @product.depth? && @product.height?
+        p.size 花盒尺寸(长度*宽度*高度)：#{@product.depth}cm*#{@product.width}cm*#{@product.height}cm
+
     .addto
       = simple_form_for @cart, url: carts_add_path, method: :post, html: {class: "form-horizontal"} do |f|
         = f.input :product_id, as: :hidden, input_html: { value: @product.id }
