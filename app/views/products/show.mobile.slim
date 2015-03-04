@@ -34,7 +34,7 @@
       - if @product.count_on_hand > 0
         == render 'product_cart'
       - else
-        == render 'product_appointment'
+        == "已售罄"
       .share
         span =t(:sharing)
         = render 'shared/product_share_links', product: @product
