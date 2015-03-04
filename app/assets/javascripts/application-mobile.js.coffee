@@ -19,6 +19,7 @@
 #= require 'component/swipe'
 #= require 'segmentio'
 #= require turbolinks
+#= require datepicker-settings
 #= require nprogress
 #= require nprogress-turbolinks
 #= require prov_city_area_update
