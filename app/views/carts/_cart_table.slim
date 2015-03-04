@@ -7,8 +7,14 @@
   .total
     .count
       p 总计
-      p#cart-total-price
-        = "¥#{@cart.total_price}"
+      - if @cart.coupon_code.nil?
+        p#cart-total-price
+          = "¥#{@cart.total_price}"
+      - else
+        #cart-original-price
+          = "¥#{@cart.original_total_price}"
+        #cart-total-price
+          = "¥#{@cart.total_price}"
     .promocode
       input.checkpromo type="checkbox" name="checkpromo" id="checkpromo"
       span 使用优惠码 PROMO CODE
