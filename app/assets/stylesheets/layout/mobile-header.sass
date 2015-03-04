@@ -1,0 +1,36 @@
+header
+  position: relative
+  height: 70px
+  line-height: 70px
+  color: $masthead-color
+  font-size: $title-font-large
+  background: image-url("bg/header.png") repeat
+  text-align: center
+  .cart-icon
+    display: inline-block
+    font-size: 22px
+    position: absolute
+    right: 70px
+  .nav-icon
+    display: inline-block
+    font-size: 22px
+    position: absolute
+    left: 40px
+  a
+    display: inline-block
+    &.logo
+      width: 77px
+      height: 28px
+      margin-top: 18px
+      background: image-url("mobile/logo.png") no-repeat
+    &.cart,&.nav
+      position: absolute
+      width: 100px
+      height: 70px
+      line-height: 70px
+      top: 0
+    &.cart
+      color: #fff
+      right: 0
+    &.nav
+      left: 45px

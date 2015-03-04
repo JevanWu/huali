@@ -15,9 +15,15 @@ html
     = stylesheet_link_tag 'mobile'
     = yield(:css)
 
-    = javascript_include_tag 'application-mobile'
+    <!-- = javascript_include_tag 'application&#45;mobile' -->
     = render 'layouts/segmentio'
     = yield(:js)
 
   body
-    = image_tag('mobile.jpg')
+    = render 'layouts/header_mobile'
+    = render 'layouts/nav_mobile'
+    = render 'layouts/banner'
+    .main-content
+      = yield
+    = render 'layouts/footer_mobile'
+
