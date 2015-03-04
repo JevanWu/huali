@@ -33,11 +33,20 @@
     ul
       overflow: hidden
       zoom: 1
+      li.sold-out
+        img
+          opacity: 0.3
       li
+        position: relative
         width: 220px
         float: left
         overflow: hidden
         padding: 0 10px
+        .sold-out-hint
+          position: absolute
+          font-size: 15px
+          left: 111px
+          top: 97px
         img
           width: 220px
           height: 220px
