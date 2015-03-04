@@ -1,0 +1,42 @@
+- content_for :title do
+  = @product.meta_title.blank? ? @product.name : @product.meta_title
+
+- content_for :keywords do
+  = @product.meta_keywords
+
+- content_for :description do
+  = @product.meta_description
+
+= render 'view_product_tracking'
+
+#l-show-m
+  .container
+    #show-slide.img-wrap.swipe
+      ul.main.container.swipe-wrap
+        - @asset_urls.take(3).each_with_index do |asset_url, index|
+          li
+            = image_tag asset_url[:mobile], alt: "#{@product.name} thumbnail images", width: 460, height: 445
+      ul.slide-dot
+        li
+          a.cur
+        li
+          a
+        li.last
+          a
+    .add-to-cart
+      .product-title
+        h3.product-name
+          = @product.name
+        h4.product-name-en
+          = @product.name_en
+        p.price ￥#{@product.price}
+      /= product_buy_link(@product, { class: 'add-btn button', data: { product: @product.id }, onClick: "analytics.track('Added Product', { id: '#{@product.id}', name: '#{@product.name}', category: '#{@product.product_type_text}', price: #{@product.price}, currency: 'CNY', label: '#{@product.name}', quantity: 1 });" }, true)
+      - if @product.count_on_hand > 0
+        == render 'product_cart'
+      - else
+        == render 'product_appointment'
+      .share
+        span =t(:sharing)
+        = render 'shared/product_share_links', product: @product
+    .detail
+      == render 'product_intro'
