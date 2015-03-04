@@ -21,7 +21,9 @@
 #= require turbolinks
 #= require nprogress
 #= require nprogress-turbolinks
+#= require prov_city_area_update
 #= require chosen-jquery
+#= require chosen-select
 
 NProgress.configure({ showSpinner: false, ease: 'ease', speed: 500 })
 Turbolinks.enableTransitionCache()
