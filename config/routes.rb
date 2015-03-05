@@ -156,7 +156,7 @@ Huali::Application.routes.draw do
   # get 'join_us', to: 'pages#join_us'
   # get 'yujianli', to: 'pages#yujianli'
   # get 'perfume', to: 'pages#perfume'
-  # get 'movie', to: 'pages#movie'
+  get 'movie', to: 'pages#movie'
   # get 'cake_coupon', to: 'pages#cake_coupon'
   # get 'self_pickup', to: 'pages#self_pickup'
   # get 'countdown', to: 'pages#countdown'
