@@ -1,4 +1,5 @@
 nav
+  = link_to "首页", root_path
   - menu_list.each do |menu|
     - if menu.collection.nil?
       = link_to "#{menu.name}", menu.link
