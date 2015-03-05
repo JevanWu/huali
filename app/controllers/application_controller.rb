@@ -7,14 +7,14 @@ class ApplicationController < ActionController::Base
   before_action :dev_tools if Rails.env == 'development'
   before_action :nav_cart
 
-  # enable squash
+  #enable squash
   #include Squash::Ruby::ControllerMethods
   #enable_squash_client
 
   include ::Extension::GuestUser
   include ::Extension::Locale
   include ::Extension::Cancan
-  #include ::Extension::Exception
+  include ::Extension::Exception
   include ::Extension::RecordCookie
   include ::Extension::SignInRedirect
   #include ::Extension::CookieCart
