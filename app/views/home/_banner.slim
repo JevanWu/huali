@@ -3,10 +3,6 @@
     ul     	    
       - @slides.each do |slide|
         li style="background:url('#{slide.image.url}') #FFFFFF center 0 no-repeat;"
-          .label
-            h1 
-              = slide.name
-            h2   
-            = link_to "点击查看", slide.href
+          = link_to "点击查看", slide.href
   .hd
     ul
