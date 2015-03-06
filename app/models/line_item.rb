@@ -45,6 +45,13 @@ class LineItem < ActiveRecord::Base
     price * quantity
   end
 
+  def unit_price
+    product.price
+  end
+  def total_price
+    unit_price * quantity
+  end
+
   def adjust_quantity
     self.quantity = 0 if quantity.nil? || quantity < 0
   end
