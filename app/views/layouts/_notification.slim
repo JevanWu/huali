@@ -1,0 +1,6 @@
+- if Banner.fetch_by_date(Date.current).first.content.present?
+  div.notification
+    p class='error-tips'
+      = Banner.fetch_by_date(Date.current).first.content
+    a.close herf="#"
+      =image_tag('bg/close.png')

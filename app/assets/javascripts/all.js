@@ -10,3 +10,5 @@
 //= require 'nav'
 //= require 'user_info'
 //= require 'segmentio'
+//= require 'notification'
+
