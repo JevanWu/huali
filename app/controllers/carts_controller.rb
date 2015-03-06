@@ -5,7 +5,31 @@ class CartsController < ApplicationController
     item = @cart.get_item_by(cart_line_items_params[:product_id])
     item ? item.quantity += 1 : item = @cart.cart_line_items.new(cart_line_items_params)
     @cart.save
-    redirect_to carts_show_path
+    redirect_to(carts_show_path)
+  end
+
+  def add_item_mobile
+    @cart = get_cart
+    @item = @cart.cart_line_items.find(params[:item_id])
+    @item.quantity += 1
+    @item.save and @cart = @item.cart 
+    redirect_to(carts_show_path)
+  end
+
+  def reduce_item_mobile
+    @cart = get_cart
+    @item = @cart.cart_line_items.find(params[:item_id])
+    @item.quantity -= 1
+    @item.quantity == 0 ? @item.destroy : @item.save and @cart = @item.cart #@item.cart is changed after committing @item
+    redirect_to(carts_show_path)
+  end
+
+  def destroy_item_mobile
+    @cart = get_cart
+    @item = @cart.cart_line_items.find(params[:item_id])
+    @item.destroy
+    @cart.save
+    redirect_to(carts_show_path)
   end
 
   def update_coupon_code
@@ -63,8 +87,10 @@ class CartsController < ApplicationController
     @item.quantity += 1
     @item.save and @cart = @item.cart #@item.cart is changed after committing @item
     respond_to do  |format|
+      format.html { redirect_to(carts_show_path) }
       format.js { render 'update_cart', layout: false }
     end
+    # redirect_to(carts_show_url)
   end
   
   def reduce_item_quantity
@@ -73,11 +99,13 @@ class CartsController < ApplicationController
     @item.quantity -= 1
     @item.quantity == 0 ? @item.destroy : @item.save and @cart = @item.cart #@item.cart is changed after committing @item
 
-    respond_to do |f|
+    respond_to do |format|
       if @item.quantity == 0
-        f.js { render 'destroy_item', layout: false }
+        format.html { redirect_to(carts_show_path) }
+        format.js { render 'destroy_item', layout: false }
       else
-        f.js { render 'update_cart', layout: false }
+        format.html { redirect_to(carts_show_path) }
+        format.js { render 'update_cart', layout: false }
       end
     end
   end
@@ -87,10 +115,9 @@ class CartsController < ApplicationController
     @item = @cart.cart_line_items.find(params[:item_id])
     @item.destroy
     @cart.save
-    respond_to do |f|
-      f.js { render layout: false }
+    respond_to do |format|
+      format.js { render layout: false }
     end
-    #redirect_to carts_show_path
   end
 
   private
