@@ -1,0 +1,18 @@
+nav
+  = link_to "首页", root_path
+  - menu_list.each do |menu|
+    - if menu.collection.nil?
+      = link_to "#{menu.name}", menu.link
+    - else 
+      = link_to menu.name, collection_products_path(menu.collection)
+  - if user_signed_in?
+    .login
+      /* = link_to '资料', { controller: 'users', action: 'edit_profile' }, class: params[:action] == 'edit_profile' ? 'selected-link' : '' */
+      = link_to '我的订单', orders_path, class: params[:controller] == 'orders' ? 'selected-link' : ''
+      /* = link_to '花点', { controller: 'users', action: 'huali_point' }, class: params[:action] == 'huali_point' ? 'selected-link' : '' */
+      /* = link_to '邀请', { controller: 'users', action: 'refer_friend' }, class: params[:action] == 'refer_friend' ? 'selected-link' : '' */
+      = link_to '登出', destroy_user_session_path, method: :delete
+  - else
+    .not-login
+      = link_to '登录', new_user_session_path
+      = link_to '注册', new_user_registration_path
