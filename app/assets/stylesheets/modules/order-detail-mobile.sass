@@ -1,0 +1,56 @@
+.order-detail
+  padding: 10px
+  .order-state
+    padding-top: 15px
+    padding-left: 65px
+    height: 30px
+    line-height: 30px
+    font-size: $content-font
+    span
+      color: $price-color
+  .order-detail-main
+    .product-item
+      +clearfix
+      padding: 12px 14px
+      border-top: 1px solid #f2f2f2
+      .product-item-left
+        float: left
+        text-align: right
+        margin-right: 20px
+      .product-item-right
+        float: left
+        color: $content-normal-color
+        .summary,strong
+          font-size: $content-font
+        strong,span
+          color: $normal-text-color
+        em
+          color: $price-color
+        .price-gallery,.discount
+          color: $normal-text-color
+    .total-price
+      text-align: right
+      font-size: $content-font
+      em
+        color: $price-color
+    button
+      margin-top: 15px
+  .view-logis
+    height: 30px
+    line-height: 30px
+    padding-left: 65px
+    a
+      color: #a9643c
+.order-trackings
+  padding: 10px
+  .tracking
+    +clearfix
+    padding: 10px 14px
+    border-bottom: 1px solid #f2f2f2
+    color: $normal-text-color
+    .log-time
+      color: $content-normal-color
+      span
+        margin-right: 10px
+  .no-tracking
+    color: $content-normal-color

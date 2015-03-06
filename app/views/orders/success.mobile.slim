@@ -1,0 +1,18 @@
+.buy-mobile
+  .buy-result
+    .buy-success
+      .buy-success-main
+        i
+        h1
+          | 多谢惠顾，您的订单已支付成功！
+          p
+            = "订单编号：#{@order.identifier}"
+          p
+            | 您可以
+            = link_to "查看您的所有订单", orders_path
+          p
+            | 如果您希望定制贺卡, 您可以
+            = link_to "编辑贺卡", edit_gift_card_path(@order)
+          p
+            | 或者
+            = link_to '回到首页', root_path

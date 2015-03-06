@@ -1,0 +1,9 @@
+footer
+  .footer-inner
+    ul
+      - Page.in_footer.each do |page|
+        li
+          == link_to page.title, page_path(page), title: page.title
+    - if Setting.work_time
+      p = Setting.work_time
+    p 沪ICP备14026160号-1

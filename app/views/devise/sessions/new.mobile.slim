@@ -14,9 +14,6 @@
         = f.input :email, required: true ,label:false ,placeholder:'请输入您的登录邮箱'
         = f.input :password, required: true ,label:false ,placeholder:'请输入您的密码'
 
-        - if devise_mapping.rememberable?
-          = f.input :remember_me, as: :boolean, input_html: { class: 'auto-login' }
-
         .form-actions
           = f.button :submit,  t('.sign_in'), class: 'btn-m-passport'
         - if resource_name == :user

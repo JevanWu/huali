@@ -20,6 +20,7 @@
   - @order.line_items.each do |item|
     = render 'product', item: item
   .shi
+    / where the hell is instance_delivery ?????
     p 实付款 &nbsp&nbsp&nbsp ¥#{@order.total}
   .howtopay
     h2 请选择支付方式

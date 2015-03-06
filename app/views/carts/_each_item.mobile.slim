@@ -24,16 +24,15 @@
             = number_to_currency each_item.original_total_price
   .op.quantity
 
-    = button_to reduce_cart_item_quantity_path(each_item), method: :put, class: 'reduce_quantity' do
+    = button_to reduce_item_mobile_path(each_item), method: :put, class: 'reduce_quantity' do
       <span class='fa fa-minus-square-o'></span>
 
     input type='text' value="#{each_item.quantity}"
 
-    = button_to add_cart_item_quantity_path(each_item), method: :put, class: 'add_quantity' do
+    = button_to add_item_mobile_path(each_item), method: :put, class: 'add_quantity' do
       <span class='fa fa-plus-square-o'></span>
 
-    = button_to destroy_cart_item_path(each_item), method: :delete, class: 'empty_quantity' do
+    = button_to destroy_item_mobile_path(each_item), method: :delete, class: 'empty_quantity' do
       <span class='fa fa-trash-o'></span>
 
-= render 'shared/product_share_popup', product: each_item.product
 

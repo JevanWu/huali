@@ -30,7 +30,7 @@ class Cart < ActiveRecord::Base
     self.expires_at = Time.now.tomorrow.strftime("%Y-%m-%d %H:%M")
   end
   def update_expiry_date!
-    self.updated_column(:expires_at, Time.now.tomorrow.strftime("%Y-%m-%d %H:%M"))
+    self.update_column(:expires_at, Time.now.tomorrow.strftime("%Y-%m-%d %H:%M"))
   end
   def expiry_date
     expires_at.strftime "%Y-%m-%d %H:%M"
@@ -58,17 +58,29 @@ class Cart < ActiveRecord::Base
   end
   alias_method :order_line_items, :get_line_items
 
+  # return cart_line_items could use cart_coupon_code
+  # return all if cart.coupon_code is nil
+  def cart_line_items_could_use_coupon_code
+    return cart_line_items unless self.coupon_code_id
+    self.cart_line_items.select { |pro_id| self.coupon_code.products.pluck(:id).include?(pro_id) }
+  end
+
   def calculate_total_price
-    total_price_value = if adjustment.present? # && valid_coupon?
-                          [Discount.new(adjustment).calculate(original_total_price), 0].max if cart_line_items.any?
-                        else
-                          cart_line_items.map(&:total_price).inject(:+)
-                        end
+    return 0.00 if cart_line_items.empty?
+
+    total_price = cart_line_items.map do |item|
+      if adjustment.present? and coupon_code.products.pluck(:id).include?(item.product_id)
+        Discount.new(adjustment).calculate(item.unit_price) * item.quantity
+      else
+        item.total_price  
+      end
+    end.inject(:+)
 
     if limited_promotion_today && limited_promotion_today.usable?
-      total_price_value = [Discount.new(limited_promotion_today.adjustment).calculate(total_price_value), 0].max
+      total_price = [Discount.new(limited_promotion_today.adjustment).calculate(total_price), 0].max
     end
-    total_price_value ? total_price_value : 0.00
+
+    total_price ? total_price : 0.00
   end
 
   def update_total_price
@@ -76,7 +88,7 @@ class Cart < ActiveRecord::Base
   end
 
   def update_total_price!
-    self.updated_column(:total_price, self.calculate_total_price)
+    self.update_column(:total_price, self.calculate_total_price)
   end
 
   def adjustment
