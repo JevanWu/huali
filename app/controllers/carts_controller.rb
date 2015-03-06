@@ -18,14 +18,14 @@ class CartsController < ApplicationController
       render 'show' and return
     end
 
-    # validates_coupon_code_exist
+    # validates url params:coupon_code exist
     if cart_params[:coupon_code].empty?
       @cart.coupon_code_id = nil
       @cart.errors.add(:coupon_code, :coupon_code_not_exist)
       render 'show' and return
     end
 
-    # validates_coupon_code_usable
+    # validates coupon_code_usable
     coupon_code = CouponCode.find_by code: cart_params[:coupon_code]
 
     @cart.coupon_code_id = coupon_code ? coupon_code.id : nil
@@ -36,6 +36,7 @@ class CartsController < ApplicationController
 
     # finally it could be saved
     if @cart.save
+      @cart.update_total_price!  # update_total_price after saved cart.coupon_code, because existing of product couldn't use coupon_code
       redirect_to carts_show_path
     else
       render 'show'
