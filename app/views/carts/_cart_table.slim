@@ -15,13 +15,26 @@
           = "¥#{@cart.original_total_price}"
         #cart-total-price
           = "¥#{@cart.total_price}"
+
+    - if @cart.coupon_code and @cart.has_discounted_items?
+      p
+        | 注意：购物车存在打折商品，打折商品不能和优惠券同时使用，请移除打折商品或者优惠券然后再结算。
+
     .promocode
       input.checkpromo type="checkbox" name="checkpromo" id="checkpromo"
-      span 使用优惠码 PROMO CODE
+      - if @cart.coupon_code
+        span 更改优惠码 PROMO CODE
+      - else
+        span 使用优惠码 PROMO CODE
+
       .inputcode
         = simple_form_for @cart, url: update_cart_coupon_code_path, method: :put, html: {class: 'cart-coupon-code'} do |f|
           = f.input :coupon_code, label: false
           = f.submit "确定", class: 'btn-discount', onClick: "analytics.track('Use Coupon', { category: 'Order', label: $('input[name=coupon_code]').val() });"
+
+        - if  @cart.coupon_code
+          = button_to "删除", destroy_cart_coupon_code_path, method: :delete, class: 'btn-discount', id: 'cart-coupon-code-del-btn'
+
     .proceed
       = link_to "继续挑选", products_path, class:"checkout-link"
       = link_to "结算", new_order_path, class:"checkout-link"
