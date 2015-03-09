@@ -1,0 +1,30 @@
+.my-order
+  - if @orders.blank?
+    .row
+      p: 您还没有任何订单, 请去 #{link_to '花市', root_path} 开始采购.
+  ul.my-orderlist
+    - @orders.each do |order|
+      li
+        - product = order.products.first
+        = image_tag(product.img(:thumb))
+        .my-order-item
+          h3.product-name
+            = link_to product.name, product_path(product)
+          h4.product-name-en
+            = product.name_en
+          p.summary
+            | 共2件 合计：
+            span
+              = "￥#{order.total}"
+          p.order-number
+            = "订单编号: #{order.identifier}"
+          p.order-state.wait-pay
+            = t('models.order.state.' + order.state)
+          .op
+            - if order.state == 'generated'
+              - if @use_wechat_agent
+                = link_to t('models.order.state.pay'), checkout_order_path(order, showwxpaytitle: 1), class: 'btn-m-pay', target: "_blank"
+              - else
+                = link_to t('models.order.state.pay'), checkout_order_path(order), class: 'btn-m-pay'
+
+          = link_to '', order_path(order), class: 'arrow'

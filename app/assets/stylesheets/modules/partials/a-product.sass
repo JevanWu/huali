@@ -1,0 +1,64 @@
+.a-product
+  position: relative
+  float: left
+  width: 220px
+  height: 400px
+  margin-left: 20px
+  margin-bottom: 20px
+  background-color: $block-bg-color
+  +global-box-shadow
+  .product-pic
+    img
+      width: 220px
+      height: 328px
+  &.first
+    margin-left: 0
+  .information
+    +clearfix
+    height: 62px
+    padding-top: 16px
+    padding-bottom: 5px
+    strong
+      line-height: 18px
+    em, span, p
+      display: block
+    em
+      line-height: 0.8
+    a
+      color: $normal-text-color
+      font-size: 12px
+      display: inline-block
+      white-space: nowrap
+      width: 100%
+      text-overflow: ellipsis
+      text-align: center
+    span
+      font-size: 12px
+      width: 100%
+      text-align: center
+    .name
+      float: left
+    p
+      margin-top: 4px
+      width: 100%
+      text-align: center
+      font-size: 12px
+  .tags
+    position: absolute
+    width: 100%
+    bottom: 76px
+    .tag
+      font-size: 11px
+      float: right
+      padding: 1px 2px 0px 2px
+      margin-left: 5px
+      margin-right: 5px
+      color: black
+      border: solid 1px black
+      text-decoration: none
+    .important-tag
+      color: $price-color !important
+      border: solid 1px $price-color !important
+    .discounttag
+      color: red !important
+      border: solid 1px red !important

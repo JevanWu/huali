@@ -48,7 +48,7 @@ class OrderDiscountPolicy
 
   def apply_adjustment
     total = order.line_items.map do |item|
-      if @coupon_code and CouponCode.find_by(code: @coupon_code).products.pluck(:id).include?(item.product_id)
+      if @coupon_code.present? and CouponCode.find_by(code: @coupon_code).products.pluck(:id).include?(item.product_id)
         discount.calculate(item.unit_price) * item.quantity
       else
         item.total_price

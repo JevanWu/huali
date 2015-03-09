@@ -28,6 +28,10 @@ Huali::Application.routes.draw do
   post "carts/add", to: 'carts#add_item'
   get "carts/show", to: 'carts#show'
 
+  put "carts/:item_id/add_mobile", to: 'carts#add_item_mobile', as: :add_item_mobile
+  put "carts/:item_id/reduce_mobile", to: 'carts#reduce_item_mobile', as: :reduce_item_mobile
+  delete "carts/:item_id/destroy_mobile", to: 'carts#destroy_item_mobile', as: :destroy_item_mobile
+
   put "carts/coupon", to: 'carts#update_coupon_code', as: :update_cart_coupon_code
   delete "carts/coupon", to: 'carts#destroy_coupon_code', as: :destroy_cart_coupon_code
 
