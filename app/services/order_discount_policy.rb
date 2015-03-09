@@ -55,6 +55,8 @@ class OrderDiscountPolicy
       end
     end.inject(:+)
 
+    total = discount.calculate(total)   # for adjustment of manually imported order
+
     order.update_attribute(:total, total)
   end
 
