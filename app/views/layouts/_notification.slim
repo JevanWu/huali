@@ -1,4 +1,4 @@
-- if Banner.fetch_by_date(Date.current).first.content.present?
+- if Banner.fetch_by_date(Date.current).first.present?
   div.notification
     p class='error-tips'
       = Banner.fetch_by_date(Date.current).first.content
