@@ -47,7 +47,8 @@ module Extension
           end
         end
         cart_user.save
-        destroy_guest
+        guest_user.delete  # guest_user.cart not exist for destroying it with  "has_one :carts, dependent: :destroy“ defined in user.rb
+        session[:guest_user_id] = nil
       else
         cart_guest.user_id = current_user.id
         cart_guest.save
