@@ -112,7 +112,7 @@ class OrderExcelDecorator < Draper::Decorator
   end
 
   def left_items
-    items[1..-1]
+    items.any? ? items[1..-1] : []
   end
 
   def receiver_name
@@ -177,9 +177,9 @@ class OrderExcelDecorator < Draper::Decorator
      delivery_date_week,
      ship_method,
      shipment_tracking_num,
-     first_item.name,
-     first_item.price,
-     first_item.product_type_text,
+     first_item ? first_item.name : "empty",
+     first_item ? first_item.price : "empty",
+     first_item ? first_item.product_type_text : "empty" ,
      sender_name,
      sender_email,
      sender_phone,
