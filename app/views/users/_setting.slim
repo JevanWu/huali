@@ -1,12 +1,15 @@
 .account-setting
-  = simple_form_for @user, url: { action: 'update_profile' },
-    html: { class: 'form-horizontal', method: :patch } do |f|
-
+  = simple_form_for @user, url: { action: 'update_profile' }, html: { class: 'form-horizontal', method: :patch } do |f|
     = f.input :email ,clas: 'input-box'
     = f.input :name, placeholder: '您的称呼, 以便我们和您联系' ,clas: 'input-box'
     = f.input :phone, as: :simple_form_phone, placeholder: '以便我们和您核对信息' ,clas: 'input-box'
-    .change-password
-      span 登录密码:
-      a.change-pw href="#" 更改
     .form-actions
       = f.button :submit, t("devise.registrations.edit.update"), class: 'button refresh'
+
+    .change-password
+      = simple_form_for @user, url: { action: 'update_password' }, html: { class: 'form-horizontal', method: :patch } do |f|
+        = f.input :current_password, required: true, class: 'input-box'
+        = f.input :password, required: true, class: 'input-box'
+        = f.input :password_confirmation, required: true, class: 'input-box'
+        .form-actions
+          = f.button :submit, t("devise.registrations.edit.update"), class: 'button refresh'

@@ -132,9 +132,9 @@ Huali::Application.routes.draw do
   get 'users/refer_friend', to: 'users#refer_friend', as: :refer_friend
   post 'users/binding_account', to: 'users#binding_account'
 
-  get 'settings/profile', to: 'users#edit_profile'
-  patch 'settings/profile', to: 'users#update_profile'
-  patch 'account/password', to: 'users#update_password'
+  #get 'settings/profile', to: 'users#edit_profile'
+  patch 'users/setting', to: 'users#update_profile'
+  patch 'users/setting', to: 'users#update_password'
 
   match "/contacts/:importer/callback" => "users#omnicontacts_callback", via: [:get, :post]
   match '/contacts/failure', to: 'users#omnicontacts_failure', via: [:get, :post]

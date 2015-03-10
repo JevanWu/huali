@@ -14,9 +14,9 @@ class UsersController < ApplicationController
 
     if @user.update_attributes(profile_params)
       flash[:notice] = t("controllers.user.profile_updated")
-      redirect_to action: :edit_profile
+      redirect_to action: :setting
     else
-      render :edit_profile
+      render :setting
     end
   end
 
@@ -48,9 +48,9 @@ class UsersController < ApplicationController
       sign_in @user, :bypass => true
 
       flash[:notice] = t("controllers..user.password_updated")
-      redirect_to action: 'edit_account'
+      redirect_to action: 'setting'
     else
-      render "edit_account"
+      render "setting"
     end
   end
 
