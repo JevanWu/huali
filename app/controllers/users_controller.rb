@@ -14,9 +14,9 @@ class UsersController < ApplicationController
 
     if @user.update_attributes(profile_params)
       flash[:notice] = t("controllers.user.profile_updated")
-      redirect_to action: :edit_profile
+      redirect_to action: :setting
     else
-      render :edit_profile
+      render :setting
     end
   end
 
@@ -43,14 +43,16 @@ class UsersController < ApplicationController
 
   def update_password
     @user = User.find(current_user.id)
-    if @user.update_with_password(password_params)
+    if params[:user][:password] == params[:user][:password_confirmation] && @user.valid_password?(params[:user][:current_password])
+      @user.password = params[:user][:password]
+      @user.save(validate: false)
       # Sign in the user by passing validation in case his password changed
       sign_in @user, :bypass => true
 
-      flash[:notice] = t("controllers..user.password_updated")
-      redirect_to action: 'edit_account'
+      flash[:notice] = t("controllers.user.password_updated")
+      redirect_to action: 'setting'
     else
-      render "edit_account"
+      render "setting"
     end
   end
 
