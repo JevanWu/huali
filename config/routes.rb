@@ -134,7 +134,7 @@ Huali::Application.routes.draw do
 
   #get 'settings/profile', to: 'users#edit_profile'
   patch 'users/setting', to: 'users#update_profile'
-  patch 'users/setting', to: 'users#update_password'
+  patch 'users/update_password', to: 'users#update_password', as: :update_password
 
   match "/contacts/:importer/callback" => "users#omnicontacts_callback", via: [:get, :post]
   match '/contacts/failure', to: 'users#omnicontacts_failure', via: [:get, :post]
