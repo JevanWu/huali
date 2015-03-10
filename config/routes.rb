@@ -148,6 +148,7 @@ Huali::Application.routes.draw do
   get 'offline_shop', to: 'pages#offline_shop'
   get 'celebrities', to: 'pages#celebrities', as: :celebrities
   get 'woman_day', to: 'pages#woman_day', as: :woman_day
+  get 'red_white', to: 'pages#redwhite', as: :red_white
   # get 'medias', to: 'pages#medias', as: :medias
   # get 'weibo_stories', to: 'pages#weibo_stories', as: :weibo_stories
   # get 'christmas', to: 'pages#christmas', as: :christmas
