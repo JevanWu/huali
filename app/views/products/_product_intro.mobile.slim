@@ -4,5 +4,13 @@
       video src="http://hua.li/system/videos/own_your_moment.mp4" width="100%" controls="controls"
 
 .product-intro
-  - unless @product.description.empty?
-    = markdown @product.description
+  - if @product.material.present?
+    h3
+      | 花材
+    - mtr = @product.material.gsub("花材：", "").match(/\r\n([\p{Han}, \、]+)/)[1].try(:split, "、")
+    - mtr.each do |mtr|
+      p
+        = link_to mtr, "/search?utf8=✓&q=#{mtr}"
+  - ["inspiration", "maintenance", "delivery"].each do |attr|
+    - if @product.send(attr.to_sym).present?
+      = markdown @product.send(attr.to_sym)
