@@ -78,6 +78,7 @@ class OrdersController < ApplicationController
   def b2b_order_new
     @b2b_order_form = B2bOrderForm.new(kind: 'b2b')
   end
+
   def b2b_order_create
     @b2b_order_form = B2bOrderForm.new(params[:b2b_order_form])
     @b2b_order_form.address = ReceiverInfo.new
@@ -100,7 +101,7 @@ class OrdersController < ApplicationController
       flash[:notice] = t('controllers.order.order_success')
       redirect_to root_path
     else
-    redirect_to 'b2b_order_new', flash: { success: t("controllers.order.order_failed") }
+      redirect_to 'b2b_order_new', flash: { success: t("controllers.order.order_failed") }
     end
   end
 
