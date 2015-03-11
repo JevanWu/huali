@@ -24,6 +24,9 @@ ActiveAdmin.register Page do
     def woman_day
     end
 
+    def red_white
+    end
+
     # FIXME cannot update permalink fields
     def update
       @page = Page.find_by_permalink!(params[:id])
