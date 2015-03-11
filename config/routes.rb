@@ -26,6 +26,7 @@ Huali::Application.routes.draw do
   get "provinces/:prov_id", to: 'provinces#show'
 
   post "carts/add", to: 'carts#add_item'
+  post "carts/buy_single_item", to: 'carts#buy_single_item'
   get "carts/show", to: 'carts#show'
 
   put "carts/:item_id/add_mobile", to: 'carts#add_item_mobile', as: :add_item_mobile
