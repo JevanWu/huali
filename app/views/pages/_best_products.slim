@@ -1,0 +1,40 @@
+div#picScroll class="picScroll"
+  .hd
+    span.next
+    ul
+    span.prev
+    h3
+      最新产品
+  .bd
+    ul
+      li
+        a href="#" 
+          img _src="images/book1.jpg" src="images/blank.png"
+      li
+        a href="#" 
+          img _src="images/book2.jpg" src="images/blank.png" z
+    ul
+      li
+        a href="#" 
+          img _src="images/book4.jpg" src="images/blank.png" 
+      li
+        a href="#" 
+          img _src="images/book5.jpg" src="images/blank.png" 
+    ul
+      li
+        a href="#" 
+          img _src="images/book7.jpg" src="images/blank.png" 
+      li
+        a href="#" 
+          img _src="images/book8.jpg" src="images/blank.png" 
+javascript:
+  $(document).ready(function() {
+      TouchSlide({ 
+        slideCell:"#picScroll",
+        titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+        autoPage:true, //自动分页
+        pnLoop:"false", // 前后按钮不循环
+        switchLoad:"_src" //切换加载，真实图片路径为"_src" 
+    });
+  });
+

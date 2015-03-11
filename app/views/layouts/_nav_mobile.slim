@@ -1,5 +1,9 @@
 .header
-  a href="#my-menu" 菜单
+  a.menu href="#my-menu" 菜单
+  = form_tag '/search', method: :get do
+    = text_field_tag :q, params[:q], class: 'query sarchtext', id: "sarchtext"
+  a.home href="/"
+    =image_tag('mobile/home.png')
 nav id="my-menu"
   ul
     - menu_list.each do |menu|

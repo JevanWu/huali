@@ -24,6 +24,7 @@
 #= require chosen-jquery
 #= require chosen-select
 #= require jquery.mmenu.min
+#= require TouchSlide.1.1
 
 NProgress.configure({ showSpinner: false, ease: 'ease', speed: 500 })
 Turbolinks.enableTransitionCache()
