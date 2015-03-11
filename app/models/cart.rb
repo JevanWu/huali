@@ -29,12 +29,15 @@ class Cart < ActiveRecord::Base
   def update_expiry_date
     self.expires_at = Time.now.tomorrow.strftime("%Y-%m-%d %H:%M")
   end
+
   def update_expiry_date!
     self.update_column(:expires_at, Time.now.tomorrow.strftime("%Y-%m-%d %H:%M"))
   end
+
   def expiry_date
     expires_at.strftime "%Y-%m-%d %H:%M"
   end
+
   def expired?
     Time.now < expires_at ? false : true
   end
@@ -42,9 +45,11 @@ class Cart < ActiveRecord::Base
   def has_discounted_items?
     get_line_items.any? { |item| item.product.discount? }
   end
+
   def total_quantity
     cart_line_items.map(&:quantity).inject(0) { |i1, i2| i1 + i2 }
   end
+
   def get_item_by(product_id)
     self.cart_line_items.find_by product_id: product_id
   end
@@ -123,7 +128,9 @@ class Cart < ActiveRecord::Base
   end
 
   private
+
   def products
     get_line_items.map(&:product)
   end
+
 end
