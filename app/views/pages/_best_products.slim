@@ -7,26 +7,9 @@ div#picScroll class="picScroll"
       最新产品
   .bd
     ul
-      li
-        a href="#" 
-          img _src="images/book1.jpg" src="images/blank.png"
-      li
-        a href="#" 
-          img _src="images/book2.jpg" src="images/blank.png" z
-    ul
-      li
-        a href="#" 
-          img _src="images/book4.jpg" src="images/blank.png" 
-      li
-        a href="#" 
-          img _src="images/book5.jpg" src="images/blank.png" 
-    ul
-      li
-        a href="#" 
-          img _src="images/book7.jpg" src="images/blank.png" 
-      li
-        a href="#" 
-          img _src="images/book8.jpg" src="images/blank.png" 
+      - @featured_products.each do |product|
+        li
+          =link_to image_tag(product.cover.url), product_path(product)
 javascript:
   $(document).ready(function() {
       TouchSlide({ 
