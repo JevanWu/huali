@@ -5,12 +5,14 @@
 
 .product-intro
   - if @product.material.present?
-    h3
-      | 花材
-    - mtr = @product.material.gsub("花材：", "").match(/\r\n([\p{Han}, \、]+)/)[1].try(:split, "、")
-    - mtr.each do |mtr|
-      p
-        = link_to mtr, "/search?utf8=✓&q=#{mtr}"
+    - huacai = @product.material.strip.split("花材：")[1]  ## note: chinese character --> 花材：
+    - if huacai
+      h3
+        | 花材
+        - huacai.split("、").each do |mtr|   ## note: chinese character -->  、
+          p
+            = link_to mtr, "/search?utf8=✓&q=#{mtr}"
+
   - ["inspiration", "maintenance", "delivery"].each do |attr|
     - if @product.send(attr.to_sym).present?
       = markdown @product.send(attr.to_sym)
