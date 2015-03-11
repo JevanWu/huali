@@ -23,6 +23,7 @@
 #= require nprogress-turbolinks
 #= require chosen-jquery
 #= require chosen-select
+#= require jquery.mmenu.min
 
 NProgress.configure({ showSpinner: false, ease: 'ease', speed: 500 })
 Turbolinks.enableTransitionCache()

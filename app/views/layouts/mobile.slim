@@ -20,11 +20,13 @@ html
     = yield(:js)
 
   body
-    = render 'layouts/header_mobile'
     = render 'layouts/nav_mobile'
-    = render 'layouts/banner'
     .main-content
+      .top
       = yield
     = render 'layouts/footer_mobile'
     = yield(:body_js)
-
+    javascript:
+      $(document).ready(function() {
+        $("#my-menu").mmenu();
+      });

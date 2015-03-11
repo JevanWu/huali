@@ -5,13 +5,6 @@
       = link_to each_item.name, product_path(each_item.product)
     h4.product-name-en
       = each_item.name_en
-    p
-      - if each_item.on_stock?
-        | 现在有货
-      - else
-        =t 'views.product.soldout'
-    p
-      | 免费配送
   .price data-price = "#{each_item.total_price}"
     = number_to_currency each_item.total_price
 

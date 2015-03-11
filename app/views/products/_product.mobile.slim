@@ -1,7 +1,7 @@
 .a-product.span3
-  a href="#{product_path(product)}" target="_blank"
+  a href="#{product_path(product)}"
     .product-pic
-      = image_tag product.rectangle_image(:medium), alt: "#{product.name} medium images", class: !product.has_stock? ? 'sold-out' : nil
+      = image_tag product.assets.first.image.url, alt: "#{product.name} medium images", class: !product.has_stock? ? 'sold-out' : nil
     .tags
       - if !product.has_stock?
         .tag.important-tag
@@ -16,7 +16,5 @@
           = product.product_type_text
   .information
     strong
-      em = link_to product.name_zh, product_path(product), title: product.name, target: "_blank"
-      span = product.name_en
     p ￥#{product.price.to_i}
 
