@@ -47,6 +47,7 @@ class AdminAbility
       can :read, ActiveAdmin::Page, :name => "Dashboard"
       can :read, Order
       cannot :destroy, :all unless user.role == "super"
+      can :destroy, SyncOrder if user.role == 'admin'
 
       if can? :access, :ckeditor
         can :destroy, [Ckeditor::Picture, Ckeditor::AttachmentFile]
