@@ -7,11 +7,10 @@
   - if @product.material.present?
     - huacai = @product.material.strip.split("花材：")[1]  ## note: chinese character --> 花材：
     - if huacai
-      h3
+      h3 
         | 花材
         - huacai.split("、").each do |mtr|   ## note: chinese character -->  、
-          p
-            = link_to mtr, "/search?utf8=✓&q=#{mtr}"
+          = link_to mtr, "/search?utf8=✓&q=#{mtr}"
 
   - ["inspiration", "maintenance", "delivery"].each do |attr|
     - if @product.send(attr.to_sym).present?
