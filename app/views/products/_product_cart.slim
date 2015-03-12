@@ -2,3 +2,8 @@
   = f.input :product_id, as: :hidden, input_html: { value: @product.id }
   = f.input :quantity, as: :hidden, input_html: { value: "1" }
   = f.submit "放入购物车", class: "button"
+
+= simple_form_for @cart, url: carts_buy_single_item_path, method: :post, html: {class: "form-horizontal"} do |f|
+  = f.input :product_id, as: :hidden, input_html: { value: @product.id }
+  = f.input :quantity, as: :hidden, input_html: { value: "1" }
+  = f.submit "立即购买", class: "button"

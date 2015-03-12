@@ -4,5 +4,16 @@
       video src="http://hua.li/system/videos/own_your_moment.mp4" width="100%" controls="controls"
 
 .product-intro
-  - unless @product.description.empty?
-    = markdown @product.description
+  - if @product.material.present?
+    - huacai = @product.material.strip.split("花材：")[1]  ## note: chinese character --> 花材：
+    - if huacai
+      h3 
+        | 花材 
+        span Material
+      .link
+        - huacai.split("、").each do |mtr|   ## note: chinese character -->  、
+          = link_to mtr, "/search?utf8=✓&q=#{mtr}"
+
+  - ["inspiration", "maintenance", "delivery"].each do |attr|
+    - if @product.send(attr.to_sym).present?
+      = markdown @product.send(attr.to_sym)
