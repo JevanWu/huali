@@ -74,7 +74,7 @@ module MobileAPI
       end
       get :search do
         products = Product.solr_search do
-          fulltext params[:key_word]
+          fulltext params[:keyword]
           with :published, true
           paginate :page => params[:page], :per_page => params[:per_page] if params[:page] && params[:per_page]
 
