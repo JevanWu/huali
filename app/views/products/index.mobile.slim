@@ -11,11 +11,7 @@
   dl
     dt.cate-list-title
       strong
-        i
         = @collection.display_name
-        b
-      p
-        = @collection.description
   dd
     .best-products.row
       = render partial: 'product', collection: @products

@@ -2,6 +2,8 @@
 #= require jquery.turbolinks
 #= require jquery_ujs
 #= require jquery.cookie
+#= require jquery.mmenu.min
+#= require mobile-base
 #= require underscore
 #= require json3
 #= require lodash.compat
@@ -18,11 +20,12 @@
 #= require 'orders'
 #= require 'component/swipe'
 #= require 'segmentio'
-#= require turbolinks
+
 #= require nprogress
 #= require nprogress-turbolinks
 #= require chosen-jquery
 #= require chosen-select
+#= require TouchSlide.1.1
 
 NProgress.configure({ showSpinner: false, ease: 'ease', speed: 500 })
 Turbolinks.enableTransitionCache()

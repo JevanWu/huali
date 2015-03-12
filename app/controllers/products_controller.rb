@@ -92,6 +92,7 @@ class ProductsController < ApplicationController
   end
 
   def search
+    @search_key = params[:q]
     @products = Product.solr_search do
       fulltext params[:q]
       with :published, true

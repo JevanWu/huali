@@ -1,0 +1,13 @@
+.cate-list-style1
+  dl
+    dt.cate-list-title
+      strong
+        span 搜索“
+        = @search_key
+        span ”的结果
+  dd
+    .best-products.row
+      - @products.take(9).each do |product|
+        = render 'product', product: product
+.pager
+  == paginate @products

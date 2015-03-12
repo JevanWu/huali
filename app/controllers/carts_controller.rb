@@ -1,5 +1,13 @@
 class CartsController < ApplicationController
 
+  def buy_single_item
+    @cart = get_cart
+    @cart.cart_line_items.destroy_all
+    @cart.cart_line_items.new(cart_line_items_params)
+    @cart.save
+    redirect_to(new_order_path)
+  end
+
   def add_item
     @cart = get_cart
     item = @cart.get_item_by(cart_line_items_params[:product_id])
