@@ -24,9 +24,5 @@ html
     .main-content
       .top
       = yield
-    = render 'layouts/footer_mobile'
+      = render 'layouts/footer_mobile'
     = yield(:body_js)
-    javascript:
-      $(document).ready(function() {
-        $("#my-menu").mmenu();
-      });

@@ -11,9 +11,6 @@
           |限时
           = (product.price/product.original_price*10).to_i
           |折
-      - elsif product.product_type != "others"
-        .tag
-          = product.product_type_text
   .information
     strong
     p ￥#{product.price.to_i}

@@ -1,7 +1,7 @@
 .header
   a.menu href="#my-menu" 菜单
   = form_tag '/search', method: :get do
-    = text_field_tag :q, params[:q], class: 'query sarchtext', id: "sarchtext"
+    = text_field_tag :q, params[:q], class: 'query sarchtext', id: "sarchtext", placeholder: "搜索更多产品"
   a.home href="/"
     =image_tag('mobile/home.png')
 nav id="my-menu"

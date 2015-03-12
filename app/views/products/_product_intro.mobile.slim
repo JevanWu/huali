@@ -8,7 +8,9 @@
     - huacai = @product.material.strip.split("花材：")[1]  ## note: chinese character --> 花材：
     - if huacai
       h3 
-        | 花材
+        | 花材 
+        span Material
+      .link
         - huacai.split("、").each do |mtr|   ## note: chinese character -->  、
           = link_to mtr, "/search?utf8=✓&q=#{mtr}"
 

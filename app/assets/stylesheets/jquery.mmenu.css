@@ -89,6 +89,7 @@
     .mm-list > li > a,
     .mm-list > li > span {
       text-overflow: ellipsis;
+      font-size: 18px;
       white-space: nowrap;
       overflow: hidden;
       color: inherit;
