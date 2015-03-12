@@ -4,7 +4,7 @@
       p 限量
   - if product.sold_out?
     .soldoutoverlay
-      a href = "#"
+      a href =  "#{product_path(product)}"
       .inform
         h3 售罄
         h4 SOLDOUT
