@@ -57,9 +57,8 @@ class ProductsController < ApplicationController
     @products = @products.where(flower_type: params[:flower_type]) if params[:flower_type].present?
     @products = @products.tagged_with(params[:color], on: :colors) if params[:color].present?
     @products = @products.where(price: Range.new(*params[:price_span].split(',').map(&:to_i))) if params[:price_span].present?
-    @products = @products.uniq.page(params[:page]).order_by_priority
 
-    Product.class_eval { paginates_per 8 } if is_mobile_request?
+    @products = @products.uniq.page(params[:page]).per(is_mobile_request? ? 8 : 9).order_by_priority
 
     @partial = "list"
     @params = "products"

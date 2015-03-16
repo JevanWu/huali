@@ -1,8 +1,13 @@
 $(document).ready(function(){
     $('.nav li').hover(function(){
+        if(!$(".content").is(":animated")){ 
             $(this).children('.nav2').slideDown(50);
+          } 
+            
         },function(){
+          if(!$(".content").is(":animated")){ 
             $(this).children('.nav2').slideUp(50);
+          } 
     })
     $('.nav li').hover(function(){
             var Y = $(this).children('a').offset().left;
