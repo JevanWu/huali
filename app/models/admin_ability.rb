@@ -9,7 +9,7 @@ class AdminAbility
       can :manage, :all
     when "admin"
       can :manage, :all
-      can :read, [Appointment, Transaction]
+      can :read, [Appointment, Transaction, ChangeOrderState]
       cannot :manage, Administrator, role: 'super'
       cannot :manage, Sidekiq
       cannot :manage_super, Administrator # For use in view
@@ -18,29 +18,35 @@ class AdminAbility
       cannot :update_seo, [Product, Collection]
       can :record_back_order, Order
       can :read, [PrintGroup, PrintOrder, Appointment, Transaction]
+      cannot :manage, ChangeOrderState
     when "product_manager"
       can :manage, [Product, Collection, Asset, SalesChart, SyncOrder, FeaturedProduct]
       can :read, [Appointment]
       cannot :update_seo, [Product, Collection]
+      cannot :manage, ChangeOrderState
     when "web_operation_manager"
       can :manage, [Page, Product, Collection, Coupon, Asset, Setting, Story, Banner, SlidePanel, SalesChart, DiscountEvent, SyncOrder, FeaturedProduct]
       can :read, [Appointment]
       can :update_seo, [Product, Collection, Transaction]
       manage_blog
+      cannot :manage, ChangeOrderState
     when "marketing_manager"
       can :manage, [Coupon, Story, SlidePanel, FeaturedProduct, DailyPhrase]
       can :record_back_order, Order
       can :update, [Order], kind: 'marketing'
       can :read, [Product, Appointment]
       manage_blog
+      cannot :manage, ChangeOrderState
     when "customer_service"
       can :read, [Coupon]
       can :manage, [Product, Collection, Order, Refund, Shipment, SyncOrder]
       can :manage, [DefaultRegionRule, DefaultDateRule, PeriodRegionPolicy]
       can :read, [PrintGroup, PrintOrder, Appointment, Transaction]
+      cannot :manage, ChangeOrderState
     when "customer_service_assistant"
       can :manage, [Order, Shipment]
       can :read, [PrintGroup, PrintOrder, Appointment, Transaction]
+      cannot :manage, ChangeOrderState
     end
 
     if user.persisted?

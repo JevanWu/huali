@@ -214,6 +214,7 @@ zh-CN:
       greeting_card: 发送电子贺卡
       reply_greeting_card: 撒娇回复
       sync_order: 手动同步订单
+      change_order_state: 订单状态调整
       lucky_draw_offline: 线下店抽奖
       instant_delivery: 快速送达
       discount_event: 活动打折

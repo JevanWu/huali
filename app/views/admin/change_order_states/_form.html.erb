@@ -1,0 +1,8 @@
+<%= semantic_form_for [:admin, @change_order_state] do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :administrator_id, as: :hidden, input_html: { value: current_administrator.try(:id) } %>
+    <%= f.input :order_identifier %>
+    <%= f.input :after_state, as: :select, collection: Order.state_machine.states.map(&:name) %>
+  <% end %>
+  <%= f.submit %>
+<% end %>
