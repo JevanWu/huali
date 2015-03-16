@@ -59,7 +59,10 @@ module MobileAPI
             priority: product.priority, 
             product_type: product.product_type_text, 
             images: product_images(product), 
-            rectangle_images: rectangle_images(product)
+            rectangle_images: rectangle_images(product),
+            height: product.height,
+            width: product.width,
+            depth: product.depth
           }
           res << product_info
         end
@@ -101,7 +104,10 @@ module MobileAPI
             priority: product.priority, 
             product_type: product.product_type_text, 
             images: product_images(product), 
-            rectangle_images: rectangle_images(product)
+            rectangle_images: rectangle_images(product),
+            height: product.height,
+            width: product.width,
+            depth: product.depth
           }
           res << product_info
         end
@@ -133,7 +139,10 @@ module MobileAPI
             priority: product.priority, 
             product_type: product.product_type_text, 
             images: product_images(product),
-            rectangle_images: rectangle_images(product)
+            rectangle_images: rectangle_images(product),
+            height: product.height,
+            width: product.width,
+            depth: product.depth
         }
       end
 
