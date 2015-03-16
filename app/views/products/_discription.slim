@@ -9,7 +9,8 @@
     .price
       h3.product-name = "#{@product.name} #{@product.name_en}"
       - if @product.count_on_hand <= 0
-        .sold-out = "已售罄"
+        .sold-out 
+          = "已售罄"
       - unless @product.original_price.nil?
         del
           i
@@ -24,8 +25,8 @@
       = simple_form_for @cart, url: carts_add_path, method: :post, html: {class: "form-horizontal"} do |f|
         = f.input :product_id, as: :hidden, input_html: { value: @product.id }
         = f.input :quantity, as: :hidden, input_html: { value: "1" }
-        = f.submit "放入购物车 >", class: "button"
-      =render 'products/product_greeting_card'
+        = f.submit "放入购物车 >", class: "button" unless @product.count_on_hand <= 0
+      = render 'products/product_greeting_card'
       .shareto
         = render 'module/share_to', product: @product
     
