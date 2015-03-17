@@ -3,7 +3,7 @@ a.product href = "#{product_path(product)}"
     .discount
       p
         = product.discount_event_today.price
-  = image_tag product.assets.first.image.url
+  = image_tag product.rectangle_image.url
   p 
     = product.name_zh
   p
