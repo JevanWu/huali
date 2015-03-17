@@ -57,10 +57,22 @@ class CartsController < ApplicationController
       render 'show' and return
     end
 
-    # validates coupon_code_usable
     coupon_code = CouponCode.find_by code: cart_params[:coupon_code]
-
     @cart.coupon_code_id = coupon_code ? coupon_code.id : nil
+
+    # validates coupon_code_expired
+    if coupon_code.expired or Time.current > coupon_code.expires_at
+      @cart.errors.add(:coupon_code, :coupon_code_expired)
+      render 'show' and return
+    end
+
+    # validates coupon_code_available_count
+    if coupon_code.available_count < 0
+      @cart.errors.add(:coupon_code, :coupon_code_available_count_not_zero)
+      render 'show' and return
+    end
+
+    # validates coupon_code_usable
     unless @cart.valid_coupon_code?
       @cart.errors.add(:coupon_code, :coupon_code_not_avaiable)
       render 'show' and return
