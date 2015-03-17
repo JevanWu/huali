@@ -59,9 +59,9 @@ module MobileAPI
         collection = Collection.find(params[:id])
         error!('Cannot find the collection', 404) if !collection.present?
         if params[:per_page]&&params[:page]
-          products = collection.products.published.limit(params[:per_page]).offset(params[:per_page]*(params[:page] - 1))
+          products = collection.products.published.order(created_at: :desc).offset(params[:per_page]*(params[:page] - 1)).limit(params[:per_page])
         else
-          products = collection.products.published
+          products = collection.products.published.order(created_at: :desc)
         end
         error!('The collection has no products!', 404) if !products.present?
         res = []
