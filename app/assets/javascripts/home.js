@@ -11,8 +11,8 @@ $(document).ready(function(){
     $.scrollTo('#newproduct',700); 
   });
 }); 
-function nextpage(){
-   document.getElementById('btndown').style.opacity=(1-($(document).scrollTop()/600))
-};
+// function nextpage(){
+//    document.getElementById('btndown').style.opacity=(1-($(document).scrollTop()/600))
+// };
 
-setInterval(nextpage,100)
+// setInterval(nextpage,100)
