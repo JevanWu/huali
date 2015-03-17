@@ -68,7 +68,7 @@ class CartsController < ApplicationController
 
     # validates coupon_code_available_count
     if coupon_code.available_count <= 0
-      @cart.errors.add(:coupon_code, :coupon_code_available_count_not_zero)
+      @cart.errors.add(:coupon_code, :coupon_code_available_count_unavailable)
       render 'show' and return
     end
 
