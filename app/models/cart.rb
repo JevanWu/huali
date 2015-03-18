@@ -74,11 +74,13 @@ class Cart < ActiveRecord::Base
     return 0.00 if cart_line_items.empty?
 
     total_price = cart_line_items.map do |item|
-      if adjustment.present? and coupon_code.products.pluck(:id).include?(item.product_id)
+      # fix me: I'm ugly ....
+      if adjustment.present? and ( coupon_code.products.pluck(:id).include?(item.product_id) or coupon_code.products.empty? )
         Discount.new(adjustment).calculate(item.unit_price) * item.quantity
       else
         item.total_price  
       end
+      # fix me: I'm ugly ....
     end.inject(:+)
 
     if limited_promotion_today && limited_promotion_today.usable?
