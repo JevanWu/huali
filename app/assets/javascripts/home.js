@@ -1,5 +1,5 @@
 $(function(){ 
-    jQuery(".picScroll").slide({ mainCell:"ul", effect:"leftLoop", vis:4, scroll:1, autoPage:true, interTime:5000, autoPlay:true,switchLoad:"_src" });
+    jQuery(".picScroll").slide({ mainCell:"ul", effect:"leftLoop", vis:3, scroll:1, autoPage:true, interTime:5000, autoPlay:true,switchLoad:"_src" });
 }); 
 
 $(function(){ 
