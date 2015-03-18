@@ -13,7 +13,8 @@ class PagesController < ApplicationController
   def home
     @menu_nav_type = 'home'
     @slides = SlidePanel.visible
-    @products = Product.published.take(3)
+    # @products = Product.published.order(created_at: :desc).take(3)
+    @products = Product.find [287, 288, 289]
     @featured_products = FeaturedProduct.all
     if params[:coupon_code].present? && cookies[:coupon_code] != params[:coupon_code]
       coupon = CouponCode.find_by(code: params[:coupon_code])
