@@ -17,8 +17,8 @@ class OauthRegistrationsController < Devise::RegistrationsController
     u.bypass_humanizer = true
     if u.save
       u.apply_oauth session[:oauth]
-
-      redirect_to root_path
+      flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: (I18n.t "devise.oauth_services.providers.#{session[:oauth].provider}") if session[:oauth].present?
+      sign_in_and_redirect @user, :event => :authentication
     else
       flash[:alert] = I18n.t 'devise.oauth_services.user.failure'
       redirect_to new_oauth_user_registration_path
