@@ -16,6 +16,7 @@ class PagesController < ApplicationController
     # @products = Product.published.order(created_at: :desc).take(3)
     @products = Product.find [287, 288, 289]
     @featured_products = FeaturedProduct.all
+    @daily_phrase = DailyPhrase.last
     if params[:coupon_code].present? && cookies[:coupon_code] != params[:coupon_code]
       coupon = CouponCode.find_by(code: params[:coupon_code])
       if coupon.usable?
