@@ -1,7 +1,6 @@
-.login-use-oauth
-  p.span4.meta 
+.oauth
+  .t
     = t('devise.oauth_services.views.sign_in_use_oauth')
-  .span2
-    = link_to image_tag('oauth/douban_oauth.png'), user_omniauth_authorize_path(:douban), class: 'douban-oauth'
-    = link_to image_tag('oauth/weibo_oauth.png'), user_omniauth_authorize_path(:weibo), class: 'weibo-oauth' 
-    = link_to image_tag('oauth/qq_oauth.png'), user_omniauth_authorize_path(:qq_connect), class: 'qq-oauth'
+  = link_to image_tag('oauth/douban_oauth.png'), user_omniauth_authorize_path(:douban), class: 'douban-oauth'
+  = link_to image_tag('oauth/weibo_oauth.png'), user_omniauth_authorize_path(:weibo), class: 'weibo-oauth' 
+  = link_to image_tag('oauth/qq_oauth.png'), user_omniauth_authorize_path(:qq_connect), class: 'qq-oauth'

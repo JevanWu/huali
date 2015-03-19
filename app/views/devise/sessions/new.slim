@@ -18,7 +18,7 @@
           .controls
             = link_to t(".forgot_your_password"), new_password_path(resource_name), class:'forget-psw'
 
-  = render 'account/loggin_oauth'
+  = render 'devise/shared/login_use_oauth'
   - if resource_name == :user
     .noacc
       span 无账号？
