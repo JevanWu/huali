@@ -6,7 +6,7 @@
       #product_ids(style="visibility: hidden")
         = @cart.cart_line_items.map(&:product_id).join(",")
 
-      = f.input :kind, prompt: "请选择", collection: { '寺库' => 'secoo', '嘿客' => 'heike', '大众点评' => 'dianping', '亚马逊' => 'amazon', '当当' => 'dangdang', '一号店' => 'yhd', '淘宝' => 'taobao', '天猫' => 'tmall' }
+      = f.input :kind, prompt: "请选择", collection: { '微店' => 'weidian', '寺库' => 'secoo', '嘿客' => 'heike', '大众点评' => 'dianping', '亚马逊' => 'amazon', '当当' => 'dangdang', '一号店' => 'yhd', '淘宝' => 'taobao', '天猫' => 'tmall' }
       = f.input :adjustment, placeholder: '+20.0, -30.0, x1.1, *0.9', hint: '运算符号加减乘除分别为(+,-,*或x,%或/), 例如比原价降低20元钱填写"-20.0"，原价打八折填写"*0.8"或"x0.8"。'
       = f.input :special_instructions, as: :text, input_html: { rows: 3 }, placeholder: '买家留言'
       = f.input :merchant_order_no, required: true
