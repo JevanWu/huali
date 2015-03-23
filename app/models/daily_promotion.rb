@@ -3,7 +3,7 @@
 # Table name: daily_promotions
 #
 #  created_at :datetime
-#  day        :datetime
+#  day        :date
 #  id         :integer          not null, primary key
 #  product_id :integer
 #  updated_at :datetime

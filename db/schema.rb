@@ -286,7 +286,7 @@ ActiveRecord::Schema.define(version: 20150323084215) do
   end
 
   create_table "daily_promotions", force: true do |t|
-    t.datetime "day"
+    t.date     "day"
     t.integer  "product_id"
     t.datetime "created_at"
     t.datetime "updated_at"
