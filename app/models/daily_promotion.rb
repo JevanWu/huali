@@ -15,4 +15,7 @@
 
 class DailyPromotion < ActiveRecord::Base
   belongs_to :product
+
+  validates :product, presence: true
+  validates :day, presence: true, uniqueness: true
 end
