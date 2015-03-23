@@ -1,0 +1,10 @@
+-# daily_promotion =  DailyPromotion.find_by_day Time.now.strftime("%Y-%m-%d")
+- daily_promotion =  DailyPromotion.find_by_day "2015-03-24"
+- if daily_promotion
+  div.cp id= 'newproduct'
+    .int
+      h1 每日优惠
+      p Daily Promotion
+    .int2
+    .pro
+      = render 'pages/product', product: daily_promotion.product
