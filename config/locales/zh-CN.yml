@@ -217,6 +217,7 @@ zh-CN:
       greeting_card: 发送电子贺卡
       reply_greeting_card: 撒娇回复
       sync_order: 手动同步订单
+      daily_promotion: 每日优惠
       change_order_state: 订单状态调整
       lucky_draw_offline: 线下店抽奖
       instant_delivery: 快速送达
@@ -600,6 +601,10 @@ zh-CN:
       sales_chart:
         product: 中文名
         position: 名次
+
+      daily_promotion:
+        day: 哪一天促销
+        product: 产品名
 
       sync_order:
         administrator: 提交人邮箱
