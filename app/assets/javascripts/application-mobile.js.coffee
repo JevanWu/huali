@@ -1,5 +1,4 @@
 #= require jquery
-#= require jquery.turbolinks
 #= require jquery_ujs
 #= require jquery.cookie
 #= require jquery.mmenu.min
@@ -19,7 +18,6 @@
 #= require 'module/banner'
 #= require 'orders'
 #= require 'component/swipe'
-#= require 'segmentio'
 
 #= require nprogress
 #= require nprogress-turbolinks

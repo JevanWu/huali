@@ -30,6 +30,9 @@ ActiveAdmin.register Page do
     def fiftysping
     end
 
+    def march
+    end
+
     # FIXME cannot update permalink fields
     def update
       @page = Page.find_by_permalink!(params[:id])

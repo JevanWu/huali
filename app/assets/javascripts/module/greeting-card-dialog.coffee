@@ -20,6 +20,10 @@ $ ->
     popup()
     return false
 
+  $('#qrweibo').click ->
+    popup()
+    return false
+
   $("#greeting-card-btn").click ->
 
     email_pattern = /^[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}$/

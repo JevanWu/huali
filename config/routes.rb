@@ -43,7 +43,7 @@ Huali::Application.routes.draw do
   post "products/appointment", to: 'products#appointment', as: :appointment
   post "products/greeting_card", to: 'products#greeting_card', as: :greeting_card
   post "products/reply_greeting_card", to: 'products#reply_greeting_card', as: :reply_greeting_card
-
+  
   get 'search', to: 'products#search'
   resources :products, only: [:index, :show] do
     collection do
@@ -151,6 +151,7 @@ Huali::Application.routes.draw do
   get 'woman_day', to: 'pages#woman_day', as: :woman_day
   get 'red_white', to: 'pages#redwhite', as: :red_white
   get 'fiftysping', to: 'pages#fiftysping', as: :fiftysping
+  get 'march', to: 'pages#march', as: :march
   # get 'medias', to: 'pages#medias', as: :medias
   # get 'weibo_stories', to: 'pages#weibo_stories', as: :weibo_stories
   # get 'christmas', to: 'pages#christmas', as: :christmas
