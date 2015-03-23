@@ -19,7 +19,6 @@
 #= require 'module/banner'
 #= require 'orders'
 #= require 'component/swipe'
-#= require 'segmentio'
 
 #= require nprogress
 #= require nprogress-turbolinks
