@@ -1,7 +1,7 @@
 <%= semantic_form_for [:admin, @daily_promotion] do |f| %>
   <%= f.inputs do %>
     <%= f.input :product, collection: Product.published, input_html: { :"data-placeholder" => '请选择', class: 'chosen' } %>
-    <%= f.input :day, as: :date %>
+    <%= f.input :day, as: :string, input_html: { class: 'datepicker input expected-date' } %>
   <% end %>
   <%= f.submit %>
 <% end %>
