@@ -20,7 +20,6 @@
 #= require 'component/swipe'
 
 #= require nprogress
-#= require nprogress-turbolinks
 #= require chosen-jquery
 #= require chosen-select
 #= require TouchSlide.1.1
