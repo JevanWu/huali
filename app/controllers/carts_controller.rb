@@ -60,6 +60,14 @@ class CartsController < ApplicationController
     coupon_code = CouponCode.find_by code: cart_params[:coupon_code]
     @cart.coupon_code_id = coupon_code ? coupon_code.id : nil
 
+
+    # not find coupon_code
+    if coupon_code.nil?
+      @cart.errors.add(:coupon_code, :coupon_code_not_find)
+      render 'show' and return
+    end
+
+
     # validates coupon_code_expired
     if coupon_code.expired or Time.current > coupon_code.expires_at
       @cart.errors.add(:coupon_code, :coupon_code_expired)
@@ -69,6 +77,13 @@ class CartsController < ApplicationController
     # validates coupon_code_available_count
     if coupon_code.available_count <= 0
       @cart.errors.add(:coupon_code, :coupon_code_available_count_unavailable)
+      render 'show' and return
+    end
+
+    # don't have discountable item
+    not_discountable_items = @cart.not_discountable_items
+    if not_discountable_items.any?
+      @cart.errors.add( :coupon_code, :product_not_discountable, product_name: not_discountable_items.map {|i| i.product.name}.join(" ") )
       render 'show' and return
     end
 
