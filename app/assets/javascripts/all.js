@@ -11,4 +11,5 @@
 //= require 'user_info'
 //= require 'segmentio'
 //= require 'notification'
+//= require 'barrage'
 

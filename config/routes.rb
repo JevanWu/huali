@@ -152,6 +152,7 @@ Huali::Application.routes.draw do
   get 'red_white', to: 'pages#redwhite', as: :red_white
   get 'fiftysping', to: 'pages#fiftysping', as: :fiftysping
   get 'march', to: 'pages#march', as: :march
+  get 'hualigirl', to: 'pages#hualigirl', as: :hualigirl
   # get 'medias', to: 'pages#medias', as: :medias
   # get 'weibo_stories', to: 'pages#weibo_stories', as: :weibo_stories
   # get 'christmas', to: 'pages#christmas', as: :christmas
