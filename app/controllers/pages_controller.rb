@@ -40,7 +40,7 @@ class PagesController < ApplicationController
   end
 
   def hualigirl
-    @stories = Story.available
+    @stories = Story.available.page(params[:page]).per(12)
   end
   #
   # def christmas
