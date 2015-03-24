@@ -39,8 +39,9 @@ class PagesController < ApplicationController
   def offline_shop
   end
 
-  # def weibo_stories
-  # end
+  def hualigirl
+    @stories = Story.available
+  end
   #
   # def christmas
   # end

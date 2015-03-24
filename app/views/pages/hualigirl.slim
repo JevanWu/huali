@@ -1,9 +1,5 @@
 .huagirl
-  =render('pages/each')
-  =render('pages/each')
-  =render('pages/each')
-  =render('pages/each')
-  =render('pages/each')
-  =render('pages/each')
-  =render('pages/each')
-  =render('pages/each')
+  -@stories.each do |story|
+    =render 'pages/each', story: story
+  .pager
+    == paginate @stories

@@ -27,6 +27,7 @@
 #
 
 class Story < ActiveRecord::Base
+  paginates_per 9
   scope :available, lambda { where(available: true) }
   scope :unavailable, lambda { where(available: false) }
 
