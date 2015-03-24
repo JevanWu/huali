@@ -651,8 +651,10 @@ ActiveRecord::Schema.define(version: 20150324064913) do
     t.text     "maintenance"
     t.text     "delivery"
     t.integer  "print_id"
+    t.integer  "administrator_id"
   end
 
+  add_index "products", ["administrator_id"], name: "index_products_on_administrator_id", using: :btree
   add_index "products", ["default_date_rule_id"], name: "index_products_on_default_date_rule_id", using: :btree
   add_index "products", ["default_region_rule_id"], name: "index_products_on_default_region_rule_id", using: :btree
   add_index "products", ["print_id"], name: "index_products_on_print_id", unique: true, using: :btree
