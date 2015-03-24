@@ -7,4 +7,17 @@
       p Daily Promotion
     .int2
     .pro
-      = render 'pages/product', product: daily_promotion.product
+      - product = daily_promotion.product
+      a.product href = "#{product_path(product)}"
+        - if product.discount?
+          .discount
+            p
+              = ((product.price / product.original_price) * 10).to_i.to_s + "折"
+        = image_tag product.rectangle_image.url
+        p 
+          = product.name_zh
+        p
+          = product.name_en
+        br
+        p
+          = "| #{product.product_type_text} |"
