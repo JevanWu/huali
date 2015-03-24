@@ -77,6 +77,7 @@ zh-CN:
         coupon_code_not_avaiable: 优惠券不可用
         coupon_code_expired: 优惠券已过期
         coupon_code_available_count_unavailable: 优惠券使用次数已达上限
+        coupon_code_not_find: 优惠券不可用，请检查优惠码
         coupon_code_not_exist: 请输入优惠券编号
         unavailable_date: 快递无法为您在这个日期进行递送
         unavailable_location: 我们无法为您配送到这个地区
@@ -216,6 +217,7 @@ zh-CN:
       greeting_card: 发送电子贺卡
       reply_greeting_card: 撒娇回复
       sync_order: 手动同步订单
+      daily_promotion: 每日优惠
       change_order_state: 订单状态调整
       lucky_draw_offline: 线下店抽奖
       instant_delivery: 快速送达
@@ -599,6 +601,10 @@ zh-CN:
       sales_chart:
         product: 中文名
         position: 名次
+
+      daily_promotion:
+        day: 哪一天促销
+        product: 产品名
 
       sync_order:
         administrator: 提交人邮箱
