@@ -1,0 +1,23 @@
+-# daily_promotion =  DailyPromotion.find_by_day Time.now.strftime("%Y-%m-%d")
+- daily_promotion =  DailyPromotion.find_by_day Time.now.strftime("%Y-%m-%d")
+- if daily_promotion
+  div.cp id= 'newproduct'
+    .int
+      h1 每日优惠
+      p Daily Promotion
+    .int2
+    .pro
+      - product = daily_promotion.product
+      a.product href = "#{product_path(product)}"
+        - if product.discount?
+          .discount
+            p
+              = ((product.price / product.original_price) * 10).to_i.to_s + "折"
+        = image_tag product.rectangle_image.url
+        p 
+          = product.name_zh
+        p
+          = product.name_en
+        br
+        p
+          = "| #{product.product_type_text} |"

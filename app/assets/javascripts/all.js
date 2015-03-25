@@ -10,4 +10,5 @@
 //= require 'nav'
 //= require 'user_info'
 //= require 'notification'
+//= require 'barrage'
 

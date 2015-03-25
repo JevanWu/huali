@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150324064913) do
+ActiveRecord::Schema.define(version: 20150323084215) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -297,6 +297,15 @@ ActiveRecord::Schema.define(version: 20150324064913) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "daily_promotions", force: true do |t|
+    t.date     "day"
+    t.integer  "product_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "daily_promotions", ["product_id"], name: "index_daily_promotions_on_product_id", using: :btree
 
   create_table "date_rules", force: true do |t|
     t.integer  "product_id"
