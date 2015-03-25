@@ -13,7 +13,7 @@ module API
     end
 
     rescue_from :all do |exception|
-      Squash::Ruby.notify exception
+      #Squash::Ruby.notify exception
 
       rack_response({'message' => '500 Internal Server Error'}.to_json, 500)
     end
