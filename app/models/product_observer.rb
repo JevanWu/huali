@@ -7,7 +7,6 @@ class ProductObserver < ActiveRecord::Observer
     product.changed_attributes.delete("updated_at")
     product.changed_attributes.delete("administrator_id")
     admin = product.administrator
-    binding.pry
     product.changed_attributes.each do |attribute|
       AdminOperation.create(administrator: admin, action: "modify", product: product, info: attribute[0], result: attribute[1])
     end
