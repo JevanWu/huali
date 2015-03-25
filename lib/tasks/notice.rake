@@ -8,6 +8,7 @@ namespace :notice do
   desc "Notify about Today's Summary"
   task today_order_summary_email: :environment do
     Notify.delay.date_summary_email(Date.current, *mail_list)
+    Notify.delay.date_summary_email(Date.current, mail_list)
   end
 
   desc "Notify about heavy day preparation"
