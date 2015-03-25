@@ -72,9 +72,7 @@ class Notify < ActionMailer::Base
       }
     end
 
-    emails.each do |email|
-      mail(to: email, subject: subject("#{@date}的订单小结"))
-    end
+    mail(to: emails, subject: subject("#{@date}的订单小结"))
   end
 
   def product_day_email_wait_delivery(topic, start_date, end_date, *emails)
@@ -140,9 +138,7 @@ class Notify < ActionMailer::Base
 [花里花店] hua.li
 STR
 
-    emails.each do |email|
-      mail(to: email, subject: subject("#{date} 等待制作订单"))
-    end
+    mail(to: emails, subject: subject("#{date} 等待制作订单"))
   end
 
   def api_shipping_failed_orders(*emails)
