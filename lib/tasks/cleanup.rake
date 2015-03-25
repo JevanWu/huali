@@ -33,4 +33,10 @@ namespace :cleanup do
       end
     end
   end
+
+  desc "clean the admin operations of products every week"
+  task admin_operation: :environment do
+    admin_operations = AdminOperation.where("created_at < ?", Date.current - 14)
+    admin_operations.each { |operation| operation.delete }
+  end
 end

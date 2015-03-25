@@ -102,3 +102,7 @@ end
 every :day, at: '10:58 pm' do
   rake "notice:sales_report"
 end
+
+every :sunday, at: '12pm' do
+  rake "cleanup:admin_operation"
+end

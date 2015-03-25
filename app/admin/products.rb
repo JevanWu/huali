@@ -24,6 +24,13 @@ ActiveAdmin.register Product do
       Product.includes(:assets, :collections)
     end
 
+    def update
+      product = Product.find params[:id]
+      product.administrator = current_administrator
+      product.save
+      super
+    end
+
     private
 
     def authorize_seo_permission

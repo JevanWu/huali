@@ -40,13 +40,12 @@
 #
 # Indexes
 #
+#  index_products_on_administrator_id        (administrator_id)
 #  index_products_on_default_date_rule_id    (default_date_rule_id)
 #  index_products_on_default_region_rule_id  (default_region_rule_id)
 #  index_products_on_print_id                (print_id) UNIQUE
 #  index_products_on_slug                    (slug) UNIQUE
 #
-
-
 
 class Product < ActiveRecord::Base
   extend Enumerize
@@ -66,6 +65,8 @@ class Product < ActiveRecord::Base
 
   # greeting_card
   has_many :greeting_cards, dependent: :destroy
+
+  belongs_to :administrator 
 
   # asset
   has_many :assets, as: :viewable, dependent: :destroy, order: "created_at asc"
