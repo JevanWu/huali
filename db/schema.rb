@@ -31,6 +31,19 @@ ActiveRecord::Schema.define(version: 20150323084215) do
 
   add_index "addresses", ["user_id"], name: "index_addresses_on_user_id", using: :btree
 
+  create_table "admin_operations", force: true do |t|
+    t.string   "action"
+    t.integer  "product_id"
+    t.string   "info"
+    t.string   "result"
+    t.integer  "administrator_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "admin_operations", ["administrator_id"], name: "index_admin_operations_on_administrator_id", using: :btree
+  add_index "admin_operations", ["product_id"], name: "index_admin_operations_on_product_id", using: :btree
+
   create_table "administrators", force: true do |t|
     t.string   "email",                  default: "",      null: false
     t.string   "encrypted_password",     default: "",      null: false
@@ -647,8 +660,10 @@ ActiveRecord::Schema.define(version: 20150323084215) do
     t.text     "maintenance"
     t.text     "delivery"
     t.integer  "print_id"
+    t.integer  "administrator_id"
   end
 
+  add_index "products", ["administrator_id"], name: "index_products_on_administrator_id", using: :btree
   add_index "products", ["default_date_rule_id"], name: "index_products_on_default_date_rule_id", using: :btree
   add_index "products", ["default_region_rule_id"], name: "index_products_on_default_region_rule_id", using: :btree
   add_index "products", ["print_id"], name: "index_products_on_print_id", unique: true, using: :btree

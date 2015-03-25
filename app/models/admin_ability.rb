@@ -9,7 +9,7 @@ class AdminAbility
       can :manage, :all
     when "admin"
       can :manage, :all
-      can :read, [Appointment, Transaction, ChangeOrderState]
+      can :read, [Appointment, Transaction, ChangeOrderState, AdminOperation]
       cannot :manage, Administrator, role: 'super'
       cannot :manage, Sidekiq
       cannot :manage_super, Administrator # For use in view
@@ -17,10 +17,10 @@ class AdminAbility
       can :manage, [Product, Collection, Order, Refund, Shipment, Coupon, DefaultRegionRule, DefaultDateRule, PeriodRegionPolicy, SlidePanel, Setting, SalesChart, DiscountEvent, SyncOrder]
       cannot :update_seo, [Product, Collection]
       can :record_back_order, Order
-      can :read, [PrintGroup, PrintOrder, Appointment, Transaction]
+      can :read, [PrintGroup, PrintOrder, Appointment, Transaction, AdminOperation]
       cannot :manage, ChangeOrderState
     when "product_manager"
-      can :manage, [Product, Collection, Asset, SalesChart, SyncOrder, FeaturedProduct]
+      can :manage, [Product, Collection, Asset, SalesChart, SyncOrder, FeaturedProduct, AdminOperation]
       can :read, [Appointment]
       cannot :update_seo, [Product, Collection]
       cannot :manage, ChangeOrderState

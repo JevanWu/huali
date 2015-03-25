@@ -226,6 +226,7 @@ zh-CN:
       guide_view: 引导页
       sync_order: 手动同步订单
       instant_delivery: 快速送达
+      admin_operation: 管理员操作
 
     attributes:
       order: &order
