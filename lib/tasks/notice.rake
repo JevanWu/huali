@@ -2,12 +2,16 @@ namespace :notice do
   desc "Notify Danqing Today's Order"
   task today_order_sms_and_email: :environment do
     Sms.delay.date_wait_make_order(Date.current, '15026667992', '18305662999')
-    Notify.delay.date_wait_make_order_email(Date.current.tomorrow, "584546358@qq.com", "307795911@qq.com", 'ryancheung.go@gmail.com')
+    ["584546358@qq.com", "307795911@qq.com"].each do |email|
+      Notify.delay.date_wait_make_order_email(Date.current.tomorrow, email)
+    end
   end
 
   desc "Notify about Today's Summary"
   task today_order_summary_email: :environment do
-    Notify.delay.date_summary_email(Date.current, *mail_list)
+    mail_list.each do |email|
+      Notify.delay.date_summary_email(Date.current, email)
+    end
   end
 
   desc "Notify about heavy day preparation"
