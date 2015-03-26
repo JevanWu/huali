@@ -4,7 +4,7 @@ class ProductObserver < ActiveRecord::Observer
   end
 
   def after_update(product)
-    %w(updated_at, administrator_id, tag_list, trait_list, color_list).each do |attribute|
+    %w(updated_at administrator_id tag_list trait_list color_list).each do |attribute|
       product.changed_attributes.delete(attribute)
     end
     admin = product.administrator
