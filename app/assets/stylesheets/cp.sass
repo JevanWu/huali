@@ -69,9 +69,23 @@
         width: 100%
       p
         line-height: 7px
-    .product:hover
-      filter: alpha(opacity=40)
-      -moz-opacity: 0.4
-      opacity: 0.4
-.daily-promotion .pro .product 
-  margin-left: 0
+      img:hover
+        filter: alpha(opacity=40)
+        -moz-opacity: 0.4
+        opacity: 0.4
+.daily-promotion 
+  .pro
+    position: relative
+  .pro .product 
+    margin-left: 0
+    background-color: white
+    width: 350px
+    img
+      width: 300px
+  .line
+    position: absolute
+    width: 650px
+    border-top: 1px #9D9D9D solid
+    left: 165px
+    top: 129px
+    z-index: -99
